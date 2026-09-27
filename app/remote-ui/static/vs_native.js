@@ -72,11 +72,14 @@ async function paintStatus(card, byKey) {
     !esphome ? 'The ESPHome server is off.'
       : !added ? 'This kiosk is not added to Home Assistant yet.'
         : muted ? 'The microphone is muted.'
-          : 'Listening for the wake word.');
+          : !status.busy && !status.listening ? 'The wake word is not listening.'
+            : 'Listening for the wake word.');
   statusWord(statusRow,
     !added ? voiceText('Not added') : muted ? voiceText('Muted')
-      : status.listening && !status.busy ? voiceText('Listening') : voiceText('Busy'),
-    !added ? 'var(--warn)' : muted ? 'var(--muted)' : 'var(--primary)');
+      : status.busy ? voiceText('Busy')
+        : status.listening ? voiceText('Listening') : voiceText('Not listening'),
+    !added || (!muted && !status.busy && !status.listening) ? 'var(--warn)'
+      : muted ? 'var(--muted)' : 'var(--primary)');
   const haRow = voiceRow('Home Assistant', entity ? '' : esphome
     ? 'Add this kiosk under Settings, Devices & services in Home Assistant, where it shows up as discovered.'
     : 'Turn on the ESPHome server so Home Assistant can add this kiosk as a satellite.');

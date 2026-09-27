@@ -13,6 +13,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 - **Slideshow videos pause while the screen is off.** The Local, Gallery and Immich slideshows already held their photos with the screen off, but a video on screen kept decoding. It now pauses and plays on when the screen comes back.
 
 ### Fixed
+- **The wake word no longer goes deaf after settings change in a burst.** Two settings written back to back could start the wake word engine twice at once. One engine came up and worked, but the other start never heard back and, 20 seconds later, marked the whole engine failed, so the kiosk stopped listening until it restarted. Engine starts now run one at a time, and a start still loading when the settings change again picks up the newest ones.
 - **Go to dashboard now holds the page with view rotation on.** The ESPHome Go to dashboard button loaded the start page, but nothing paused rotation, so the next rotation step navigated straight back off it (#719). It now pauses rotation for the Pause rotation on interaction window, like the Dashboard view select and a touch do.
 
 ## v2026.9.86 - 2026-09-26

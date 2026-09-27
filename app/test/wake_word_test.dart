@@ -62,6 +62,28 @@ class _FakeEngine extends WakeWordEngine {
   }
 }
 
+/// An engine whose start takes a while, as a real one loading models does,
+/// counting how many starts overlap.
+class _SlowEngine extends _FakeEngine {
+  int starting = 0;
+  int overlapped = 0;
+  final started = <String>[];
+
+  @override
+  Future<void> start({
+    required WakeWordConfig config,
+    required DetectionCallback onDetection,
+    StopDetectionCallback? onStopDetection,
+    EngineFailureCallback? onFailure,
+  }) async {
+    if (++starting > 1) overlapped++;
+    await Future<void>.delayed(const Duration(milliseconds: 50));
+    starting--;
+    started.add(config.models.first.id);
+    _running = true;
+  }
+}
+
 /// The wake-word contract (docs/js-api.md): config is pushed by the Voice
 /// Satellite card (setWakeWordConfig), detection releases the mic before the
 /// event is published, and the page resumes listening via
@@ -237,6 +259,43 @@ void main() {
       expect((state.data as Map)['active'], isTrue);
     },
   );
+
+  test('configs pushed back to back never start the engine twice at once, '
+      'and the last one wins', () async {
+    await wakeWord.dispose();
+    await bus.dispose();
+    bus = EventBus();
+    commands = CommandRegistry(log);
+    settings = SettingsManager(bus, commands, log);
+    await settings.init();
+    final engine = _SlowEngine();
+    wakeWord = WakeWordManager(
+      bus,
+      commands,
+      log,
+      settings,
+      engines: {WakeWordEngineType.microWakeWord: engine},
+    );
+    await wakeWord.init();
+    Map<String, Object?> config(String id) => {
+      ...vsConfig,
+      'models': [
+        {
+          'id': id,
+          'wakeWord': id,
+          'manifestUrl': 'http://ha.local:8123/$id.json',
+        },
+      ],
+    };
+    // What a migration does: several settings in a row, each a new push.
+    await Future.wait([
+      commands.execute('setWakeWordConfig', config('okay_nabu')),
+      commands.execute('setWakeWordConfig', config('hey_jarvis')),
+    ]);
+    expect(engine.overlapped, 0);
+    expect(engine.started.last, 'hey_jarvis');
+    expect(engine.running, isTrue);
+  });
 
   group('the self-heal after a handoff', () {
     // The page must call setWakeWordActive(true) when its turn ends. When it

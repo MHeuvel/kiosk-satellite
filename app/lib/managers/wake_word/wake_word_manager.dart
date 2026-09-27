@@ -1467,7 +1467,25 @@ class WakeWordManager extends Manager
   /// wake word detection is enabled. Suspending during a voice turn only
   /// pauses detection: tearing the engine down per wake would re-download and
   /// recompile every model, and would drop the mic the page is streaming from.
-  Future<void> _sync() async {
+  /// One sync at a time. The engine only counts as running once its isolate
+  /// is ready, so two syncs in a row (the native satellite reconfigures on
+  /// every setting a migration writes) both saw it stopped and both started
+  /// it: the second start took over the first one's fields, and the first,
+  /// never hearing ready, timed out 20 seconds later and marked the engine
+  /// failed under a turn that had just worked.
+  Future<void> _syncChain = Future.value();
+
+  Future<void> _sync() {
+    _syncChain = _syncChain.then((_) => _syncNow()).catchError((Object e) {
+      log.warn(name, 'engine sync failed: $e');
+    });
+    return _syncChain;
+  }
+
+  /// The config the running engine was started with.
+  WakeWordConfig? _startedConfig;
+
+  Future<void> _syncNow() async {
     // Lockdown Mode mutes the microphone too: a locked tablet should not
     // answer voice any more than touch. The engine stops (mic closed) and
     // comes back through this same sync when the mode lifts, exactly as if
@@ -1485,7 +1503,14 @@ class WakeWordManager extends Manager
       previous.recordAudio = false;
       _runningEngine = null;
     }
+    // A config that changed while a start was still loading: the engine came
+    // up with the one before.
+    if (shouldRun && _engine.running && _startedConfig != _config) {
+      log.info(name, 'config changed; restarting engine');
+      await _engine.stop();
+    }
     if (shouldRun && !_engine.running) {
+      _startedConfig = _config;
       await _engine.start(
         config: _config!,
         onDetection: _onDetection,

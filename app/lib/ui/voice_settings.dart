@@ -108,18 +108,24 @@ class VoiceStatusCard extends StatefulWidget {
 class _VoiceStatusCardState extends State<VoiceStatusCard> {
   AppContainer get c => widget.container;
   StreamSubscription<Object?>? _wakeSub;
+  StreamSubscription<Object?>? _statusSub;
 
   @override
   void initState() {
     super.initState();
     c.voice.homeAssistant.addListener(_changed);
     _wakeSub = c.bus.on<WakeWordStateChanged>().listen((_) => _changed());
+    // A turn starting or ending: the kiosk announces it for the status rows.
+    _statusSub = c.bus.on<RemoteStatusChanged>().listen((e) {
+      if (e.topic == 'voice-status') _changed();
+    });
   }
 
   @override
   void dispose() {
     c.voice.homeAssistant.removeListener(_changed);
     _wakeSub?.cancel();
+    _statusSub?.cancel();
     super.dispose();
   }
 
@@ -136,6 +142,9 @@ class _VoiceStatusCardState extends State<VoiceStatusCard> {
     final esphome = settings.get(defs.esphomeEnabled);
     final muted = settings.get(defs.voiceMute);
     final listening = c.wakeWord.listening;
+    final busy = c.voice.busy;
+    // Neither in a turn nor listening: the wake word engine is down.
+    final down = !busy && !listening;
     Widget statusWord(String text, Color color) => Text(
       text,
       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -158,6 +167,8 @@ class _VoiceStatusCardState extends State<VoiceStatusCard> {
                   )
                 : muted
                 ? voiceText(context, 'The microphone is muted.')
+                : down
+                ? voiceText(context, 'The wake word is not listening.')
                 : voiceText(context, 'Listening for the wake word.'),
           ),
           trailing: statusWord(
@@ -165,10 +176,12 @@ class _VoiceStatusCardState extends State<VoiceStatusCard> {
                 ? voiceText(context, 'Not added')
                 : muted
                 ? voiceText(context, 'Muted')
+                : busy
+                ? voiceText(context, 'Busy')
                 : listening
                 ? voiceText(context, 'Listening')
-                : voiceText(context, 'Busy'),
-            !esphome || !ha.subscribed
+                : voiceText(context, 'Not listening'),
+            !esphome || !ha.subscribed || (!muted && down)
                 ? scheme.tertiary
                 : muted
                 ? scheme.onSurfaceVariant

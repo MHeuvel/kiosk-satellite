@@ -232,6 +232,7 @@ class VoiceManager extends Manager {
   @override
   Future<void> init() async {
     homeAssistant.addListener(_announceStatus);
+    _sessionMade = true;
     _session = VoiceSession(
       link: _EspLink(
         _esphome,
@@ -1141,6 +1142,11 @@ class VoiceManager extends Manager {
       return false;
     }
   }
+
+  /// A turn or an announcement is running. False before [init] made the
+  /// session: a settings page can draw first.
+  bool get busy => _sessionMade && _session.busy;
+  bool _sessionMade = false;
 
   Map<String, Object?> describe() => {
     'runtime': _settings.get(defs.voiceRuntime),

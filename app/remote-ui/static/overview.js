@@ -439,7 +439,8 @@ function paintNativeVoice(wake, voice) {
   else if (settingOn('voice.mute')) paintTile('voice', '', voiceText('Muted'));
   else if (wake?.released && !['muted', 'native-off'].includes(wake.releaseReason)) {
     paintTile('voice', 'warn', overviewStatus(wake.statusLabel || 'Not listening'));
-  } else if (voice?.busy || !voice?.listening) paintTile('voice', 'on', voiceText('Busy'));
+  } else if (voice?.busy) paintTile('voice', 'on', voiceText('Busy'));
+  else if (!voice?.listening) paintTile('voice', 'warn', overviewStatus(wake?.statusLabel || 'Not listening'));
   else paintTile('voice', 'on', words ? t('overviewListeningFor', {words}) : overviewText('Listening'));
 }
 
