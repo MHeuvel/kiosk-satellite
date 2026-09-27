@@ -75,6 +75,9 @@ class _DocumentState extends State<_Document> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _foreground = Lifecycle.onScreen;
+    // Paused under the native voice overlay too, which shows a still of the
+    // screensaver.
+    widget.container.screensaver.renderPaused.addListener(_renderPaused);
     _screen = widget.container.bus.on<ScreenStateChanged>().listen((e) {
       _screenOn = e.on;
       unawaited(_activity());
@@ -110,9 +113,13 @@ class _DocumentState extends State<_Document> with WidgetsBindingObserver {
     unawaited(_activity());
   }
 
+  void _renderPaused() => unawaited(_activity());
+
   Future<void> _activity() async {
     try {
-      if (_foreground && _screenOn) {
+      if (_foreground &&
+          _screenOn &&
+          !widget.container.screensaver.renderPaused.value) {
         await _controller?.resume();
       } else {
         await _controller?.pause();
@@ -125,6 +132,7 @@ class _DocumentState extends State<_Document> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    widget.container.screensaver.renderPaused.removeListener(_renderPaused);
     _screen?.cancel();
     _settings?.cancel();
     _shift?.cancel();

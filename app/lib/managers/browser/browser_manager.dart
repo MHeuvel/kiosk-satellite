@@ -257,6 +257,15 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
       }
       _scheduleFreezeSync();
     });
+    // The native voice overlay draws over the dashboard, which shows
+    // through its backdrop: the page is paused (its own onPause, which
+    // stops its scripts, animations and video) and keeps its last frame on
+    // screen, instead of repainting under every overlay frame.
+    bus.on<AssistOverlayVisibility>().listen((e) {
+      if (e.visible == _underAssist) return;
+      _underAssist = e.visible;
+      unawaited(_syncAssistPause());
+    });
     bus.on<ScreensaverViewChanged>().listen((e) {
       _screensaverHasOverlay = e.view != null;
       _dashboardCovered = e.view != null && !_screensaverIsOwnOrigin(e.view);
@@ -775,6 +784,29 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
     // onPageLoaded retries once the page — and its URL — exist.
     _frozen = false;
     unawaited(_syncFreeze());
+    if (_underAssist) unawaited(_syncAssistPause());
+  }
+
+  /// Whether the native voice overlay is up over the dashboard.
+  bool _underAssist = false;
+
+  Future<void> _syncAssistPause() async {
+    final controller = _controller;
+    if (controller == null) return;
+    try {
+      if (_underAssist) {
+        await controller.pause();
+      } else {
+        await controller.resume();
+      }
+      log.debug(
+        name,
+        'dashboard ${_underAssist ? 'paused under' : 'resumed after'} the '
+        'voice overlay',
+      );
+    } catch (e) {
+      log.debug(name, 'dashboard pause for the voice overlay failed: $e');
+    }
   }
 
   bool isAttached(InAppWebViewController controller) =>
