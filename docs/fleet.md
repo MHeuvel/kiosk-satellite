@@ -81,6 +81,7 @@ Settings that scale the UI, control screen brightness, or manage volume often de
 | `screen.orientation` Screen orientation | Screen & Audio |
 | `intercom.volume` Intercom volume | Screen & Audio |
 | `intercom.answer_mode` Answer mode, which carries Do not disturb | Intercom |
+| `voice.mute` Mute, `voice.tts_output` Play sounds on | Voice Satellite |
 
 ## How the Sync Runs
 
@@ -115,11 +116,14 @@ Certain settings remain unique to each kiosk regardless of the profile configura
 | Weather preview | `screensaver.weather_preview`, `screensaver.weather_preview_condition`, `screensaver.weather_preview_period` |
 | Voice Satellite chimes | `voice_chimes.wake`, `voice_chimes.done`, `voice_chimes.error`, `voice_chimes.alert`, `voice_chimes.announce` |
 | Diagnostics | `wake_word.diagnostics` |
+| Home Assistant's wake word picks | `voice.wake_words` |
 | Local state | `voice.runtime`, `voice.timer_position`, `screensaver.saved_brightness`, `screensaver.immich_validated`, `sendspin.player_active`, `sendspin.player_pos`, `sendspin.sonos_hosts` |
 
 Plugin Manager stays entirely local. Runtime chart data, history and plugin entity declarations and readings are never synchronized. Plugin entity exclusions stay local even when ordinary ESPHome exclusions are synced. Fleet sync does not copy installed plugins, packages, plugin settings, per-plugin enabled states, drawer or Home Assistant action placements or the **Enable Plugins** master switch. A fleet token cannot call plugin management commands.
 
 Gestures assigned to plugin actions also stay local, even when the profile includes Gestures. The leader omits them from its payload and the follower ignores any received plugin actions while preserving its own. A local plugin gesture takes precedence if an incoming ordinary gesture has the same ID. Adding, editing or removing a local plugin gesture does not mark the follower out of sync. Other gesture mappings still follow the profile.
+
+The Voice Satellite selects Home Assistant keeps for each kiosk travel with the Voice Satellite category: Assistant 1 and 2, Wake word 1 and 2 and Finished speaking detection. A follower sets its own selects in Home Assistant to the leader's picks, so Home Assistant configures it the same way it would for a pick made by hand. A follower keeps its own pick when Home Assistant does not offer the leader's, for example a model the follower lacks. The `voice.wake_words` setting in the table above is the kiosk's copy of what Home Assistant set, so it never travels on its own.
 
 Custom wake word models are the exception: a leader passes its models to every follower whose profile syncs Voice Satellite, and those followers mirror the leader's set. See [Custom Wake Word Models](custom-wake-words.md).
 

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
@@ -175,6 +176,22 @@ class VoiceManager extends Manager {
   String _offeredSent = '';
   Timer? _selectsTimer;
 
+  /// The subscription following Home Assistant's selects into their
+  /// settings, the entities it follows and the connection it rides.
+  Future<void> Function()? _unwatchSelects;
+  String _watchedSelects = '';
+  int _watchedOn = -1;
+  Future<void>? _watching;
+  Timer? _watchTimer;
+
+  /// The option a fleet push asked for, by select key, until Home
+  /// Assistant shows it.
+  final _applying = <String, String>{};
+
+  /// The value each select's setting took from Home Assistant, so the
+  /// write is not mistaken for a pick to send back there.
+  final _mirrored = <String, String>{};
+
   /// Whether this manager configured the wake word engine (so it may release
   /// it); never on the dashboard runtime.
   bool _ownsWakeWord = false;
@@ -256,6 +273,13 @@ class VoiceManager extends Manager {
     );
     _esphome.onVoice = _onVoice;
     _esphome.onVoiceConfiguration = _configuration;
+    homeAssistant.addListener(_watchSelects);
+    // A subscription dies with its socket and nothing says so: look again
+    // now and then.
+    _watchTimer = Timer.periodic(
+      const Duration(seconds: 30),
+      (_) => _watchSelects(),
+    );
 
     _subs
       ..add(
@@ -304,6 +328,19 @@ class VoiceManager extends Manager {
           }
           // Another engine offers other wake words.
           if (e.key == defs.voiceWakeWordEngine.key) _refreshSelects();
+          if (e.key == defs.voiceRuntime.key ||
+              e.key == defs.voiceEnabled.key) {
+            _watchSelects();
+          }
+          // A pick from the fleet leader (or a backup): Home Assistant owns
+          // the select, so it is set there and comes back to this kiosk the
+          // way a pick made by hand does.
+          for (final entry in defs.voiceHaSelectSettings.entries) {
+            if (e.key != entry.value.key) continue;
+            final value = '${e.value ?? ''}';
+            if (_mirrored.remove(entry.key) == value) continue;
+            if (_settings.importing) unawaited(_applySelect(entry.key, value));
+          }
           if (e.key == defs.voiceMuteTimers.key && _ringing.isNotEmpty) {
             _pushAlert();
           }
@@ -640,6 +677,137 @@ class VoiceManager extends Manager {
       if (_offeredSignature() == _offeredSent) return;
       unawaited(_reloadEsphomeEntry(satellite));
     });
+  }
+
+  // ── Home Assistant's selects, mirrored ─────────────────────────────────
+
+  /// Follows Home Assistant's selects on this kiosk into their settings
+  /// while the native satellite runs, so a fleet leader carries its picks
+  /// and a follower's own pick reads as drift.
+  void _watchSelects() {
+    _watching ??= _rewatchSelects().whenComplete(() => _watching = null);
+  }
+
+  Future<void> _rewatchSelects() async {
+    final entities = homeAssistant.value.entities;
+    final want = enabled && nativeRuntime && entities.isNotEmpty;
+    final signature = want
+        ? jsonEncode(SplayTreeMap<String, String>.from(entities))
+        : '';
+    final live =
+        _unwatchSelects != null &&
+        _ha.connected &&
+        _ha.connections == _watchedOn;
+    if (signature == _watchedSelects && (signature.isEmpty || live)) return;
+    final unwatch = _unwatchSelects;
+    _unwatchSelects = null;
+    _watchedSelects = '';
+    if (unwatch != null) await unwatch();
+    if (!want) return;
+    final keyOf = {for (final e in entities.entries) e.value: e.key};
+    try {
+      _unwatchSelects = await _ha.subscribe(
+        {'type': 'subscribe_entities', 'entity_ids': keyOf.keys.toList()},
+        (event) {
+          // subscribe_entities: "a" carries whole states, "c" the changes.
+          final added = event['a'];
+          if (added is Map) {
+            added.forEach((entity, raw) {
+              if (raw is Map) _mirrorSelect(keyOf['$entity'], raw['s']);
+            });
+          }
+          final changed = event['c'];
+          if (changed is Map) {
+            changed.forEach((entity, raw) {
+              final plus = raw is Map ? raw['+'] : null;
+              if (plus is Map) _mirrorSelect(keyOf['$entity'], plus['s']);
+            });
+          }
+        },
+      );
+      _watchedSelects = signature;
+      _watchedOn = _ha.connections;
+    } catch (e) {
+      log.debug(name, 'selects not followed: $e');
+    }
+  }
+
+  void _mirrorSelect(String? key, Object? state) {
+    final def = defs.voiceHaSelectSettings[key];
+    if (def == null || state is! String) return;
+    if (state.isEmpty || state == 'unavailable' || state == 'unknown') return;
+    final wanted = _applying[key];
+    if (wanted != null) {
+      // A fleet pick on its way: the select passing through another option
+      // (the wake words while an engine switch reloads them) is not drift.
+      if (state != wanted) return;
+      _applying.remove(key);
+    }
+    if (_settings.get(def) == state) return;
+    _mirrored[key!] = state;
+    unawaited(_settings.set(def, state, source: 'Home Assistant'));
+  }
+
+  /// A wake word that went away (its engine switched, its model deleted)
+  /// leaves the kiosk listening for the ones left, or for the engine's
+  /// first with none left. Home Assistant would show No wake word for it
+  /// and never learn what the kiosk listens for instead, so the kiosk sets
+  /// its selects to that, as a pick by hand would.
+  void _reportFallback(
+    List<OfferedWakeWord> offered,
+    List<OfferedWakeWord> listened,
+  ) {
+    final stored = _activeIds();
+    final ids = {for (final w in offered) w.id};
+    if (listened.isEmpty || stored.every(ids.contains)) return;
+    final now = [for (final w in listened) w.id];
+    log.info(name, 'wake words $stored are gone, listening for $now');
+    unawaited(
+      _settings.set(defs.voiceWakeWords, jsonEncode(now), source: 'fallback'),
+    );
+    final slots = {
+      'wake_word': listened.first.phrase,
+      'wake_word_2': listened.length > 1 ? listened[1].phrase : 'no_wake_word',
+    };
+    for (final slot in slots.entries) {
+      // A pick on its way from the fleet leader settles the slot itself.
+      if (_applying.containsKey(slot.key)) continue;
+      unawaited(_applySelect(slot.key, slot.value, reason: 'the fallback'));
+    }
+  }
+
+  /// Sets Home Assistant's [key] select to [option]. The option may not be
+  /// offered yet, as when the same push switched the wake word engine and
+  /// Home Assistant is still reloading the list, so this tries for a
+  /// minute.
+  Future<void> _applySelect(
+    String key,
+    String option, {
+    String reason = 'the fleet',
+  }) async {
+    if (option.isEmpty) return;
+    _applying[key] = option;
+    for (var attempt = 0; attempt < 20; attempt++) {
+      if (attempt > 0) await Future<void>.delayed(const Duration(seconds: 3));
+      if (_applying[key] != option) return;
+      if (!enabled || !nativeRuntime) break;
+      final entity = homeAssistant.value.entities[key];
+      if (entity == null) continue;
+      final state = await _migration.stateOf(entity);
+      if (state?['state'] == option) {
+        _applying.remove(key);
+        return;
+      }
+      final attributes = state?['attributes'];
+      final options = attributes is Map ? attributes['options'] : null;
+      if (options is! List || !options.contains(option)) continue;
+      if (await selectOption(key, option)) {
+        log.info(name, 'set $key to $option for $reason');
+        return;
+      }
+    }
+    if (_applying[key] == option) _applying.remove(key);
+    log.warn(name, 'Home Assistant did not offer $option for $key');
   }
 
   /// A follower whose leader syncs Voice Satellite: its custom models are
@@ -1428,12 +1596,9 @@ class VoiceManager extends Manager {
       custom: _custom.models,
     );
     _offeredSent = _offeredSignature();
-    final ids = {for (final w in offered) w.id};
-    final active = [
-      for (final id in _activeIds())
-        if (ids.contains(id)) id,
-    ];
-    if (active.isEmpty && offered.isNotEmpty) active.add(offered.first.id);
+    final listened = listenedWakeWords(_activeIds(), offered);
+    final active = [for (final w in listened) w.id];
+    _reportFallback(offered, listened);
     // Custom wake words may have arrived with this request.
     unawaited(_sync());
     return {
@@ -2026,6 +2191,9 @@ class VoiceManager extends Manager {
   @override
   Future<void> dispose() async {
     homeAssistant.removeListener(_announceStatus);
+    homeAssistant.removeListener(_watchSelects);
+    _watchTimer?.cancel();
+    await _unwatchSelects?.call();
     _speaker.dispose();
     _custom.dispose();
     _selectsTimer?.cancel();

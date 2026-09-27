@@ -91,6 +91,20 @@ void main() {
     expect(config.models.single.cutoff, isNull);
   });
 
+  test('a wake word that went away leaves the ones still offered', () {
+    // What the kiosk reports to Home Assistant's selects after an engine
+    // switch or a deleted model: the rest move up, a lone one takes slot 1.
+    final offered = offeredWakeWords(WakeWordEngineType.microWakeWord);
+    List<String> listened(List<String> active) => [
+      for (final w in listenedWakeWords(active, offered)) w.id,
+    ];
+    expect(listened(['gone', 'hey_jarvis']), ['hey_jarvis']);
+    expect(listened(['alexa', 'gone']), ['alexa']);
+    expect(listened(['gone']), ['ok_nabu']);
+    expect(listened([]), ['ok_nabu']);
+    expect(listenedWakeWords(['alexa'], const []), isEmpty);
+  });
+
   test("Home Assistant's custom microWakeWord models join the offer", () {
     final external = [
       ExternalWakeWord.fromMap({

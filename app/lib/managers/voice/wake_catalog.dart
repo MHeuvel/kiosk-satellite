@@ -231,6 +231,20 @@ EnergyGateConfig energyGateFor(String sensitivity, {required bool enabled}) =>
       sleepAfterChunks: 30,
     );
 
+/// The wake words the kiosk listens for, slot 1 first: the active ids
+/// that are offered, two at most, or the first offered one with none left.
+List<OfferedWakeWord> listenedWakeWords(
+  List<String> activeIds,
+  List<OfferedWakeWord> offered,
+) {
+  final byId = {for (final w in offered) w.id: w};
+  final picked = <OfferedWakeWord>[for (final id in activeIds) ?byId[id]];
+  final unique = <String, OfferedWakeWord>{for (final w in picked) w.id: w};
+  final listened = unique.values.take(2).toList();
+  if (listened.isEmpty && offered.isNotEmpty) listened.add(offered.first);
+  return listened;
+}
+
 /// The engine config for the settings: the active wake words (slot 1
 /// first), the stop classifier when stop word interruption is on, the gates
 /// the sensitivity resolves to. Ids the engine does not offer are dropped;
@@ -245,11 +259,7 @@ WakeWordConfig buildWakeConfig({
   List<CustomWakeWord> custom = const [],
 }) {
   final offered = offeredWakeWords(engine, external: external, custom: custom);
-  final byId = {for (final w in offered) w.id: w};
-  final picked = <OfferedWakeWord>[for (final id in activeIds) ?byId[id]];
-  final unique = <String, OfferedWakeWord>{for (final w in picked) w.id: w};
-  final models = unique.values.take(2).toList();
-  if (models.isEmpty && offered.isNotEmpty) models.add(offered.first);
+  final models = listenedWakeWords(activeIds, offered);
   final oww = engine == WakeWordEngineType.openWakeWord;
   WakeWordModelRef ref(OfferedWakeWord w, {bool stop = false}) =>
       WakeWordModelRef(

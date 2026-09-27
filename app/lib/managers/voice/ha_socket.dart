@@ -23,6 +23,11 @@ class HaSocket {
 
   bool get connected => _channel != null && _connecting == null;
 
+  /// Counts the connections made. A subscription lives only as long as its
+  /// connection, so a holder compares this to tell it has to subscribe
+  /// again.
+  int connections = 0;
+
   Future<void> _ensure() {
     if (_channel != null && _connecting == null) return Future.value();
     return _connecting ??= _connect().whenComplete(() => _connecting = null);
@@ -86,6 +91,7 @@ class HaSocket {
       cancelOnError: true,
     );
     await authed.future.timeout(const Duration(seconds: 10));
+    connections++;
   }
 
   void _drop(Object error) {

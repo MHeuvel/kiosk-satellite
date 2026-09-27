@@ -5181,7 +5181,75 @@ const voiceWakeWords = SettingDef<String>(
   description: 'The wake words Home Assistant set on this kiosk.',
   category: 'Voice Satellite',
   hidden: true,
+  // Home Assistant's pick for this satellite, not a setting of the fleet's.
+  perDevice: true,
 );
+
+// Home Assistant's selects on the kiosk's device, mirrored here from their
+// state: the Assistant and Wake word selects and Finished speaking
+// detection live in Home Assistant, not on the kiosk. The copies carry a
+// leader's picks to its followers, which set their own selects to match,
+// and a follower's own pick reads as drift. Hidden: the Voice Satellite
+// pages draw the selects themselves.
+
+const voiceHaPipeline = SettingDef<String>(
+  key: 'voice.ha_pipeline',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Assistant 1',
+  description: 'Answers wake word 1.',
+  category: 'Voice Satellite',
+  hidden: true,
+);
+
+const voiceHaPipeline2 = SettingDef<String>(
+  key: 'voice.ha_pipeline_2',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Assistant 2',
+  description: 'Answers wake word 2.',
+  category: 'Voice Satellite',
+  hidden: true,
+);
+
+const voiceHaVadSensitivity = SettingDef<String>(
+  key: 'voice.ha_vad_sensitivity',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Finished speaking detection',
+  description: 'How long a pause ends a voice command.',
+  category: 'Voice Satellite',
+  hidden: true,
+);
+
+const voiceHaWakeWord = SettingDef<String>(
+  key: 'voice.ha_wake_word',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Wake word 1',
+  description: 'The word that starts a voice command.',
+  category: 'Voice Satellite',
+  hidden: true,
+);
+
+const voiceHaWakeWord2 = SettingDef<String>(
+  key: 'voice.ha_wake_word_2',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Wake word 2',
+  description: 'A second wake word, answered by Assistant 2.',
+  category: 'Voice Satellite',
+  hidden: true,
+);
+
+/// The mirrored selects by the key the kiosk's device gives each one.
+const voiceHaSelectSettings = <String, SettingDef<String>>{
+  'pipeline': voiceHaPipeline,
+  'pipeline_2': voiceHaPipeline2,
+  'vad_sensitivity': voiceHaVadSensitivity,
+  'wake_word': voiceHaWakeWord,
+  'wake_word_2': voiceHaWakeWord2,
+};
 
 const voiceWakeWordSensitivity = SettingDef<String>(
   key: 'voice.wake_word_sensitivity',
@@ -8246,6 +8314,10 @@ const fleetDefaultExcluded = {
   'intercom.volume',
   // The answer mode carries Do not disturb, which each room sets for itself.
   'intercom.answer_mode',
+  // Voice Satellite's mute is the room's, and every room plays its sounds
+  // on its own speaker.
+  'voice.mute',
+  'voice.tts_output',
 };
 
 /// What [fleetDefaultExcluded] used to be, oldest first: a profile still on
@@ -8381,6 +8453,41 @@ const fleetFormerDefaultExcluded = <Set<String>>[
     'browser.cutout_mode',
     'screen.orientation',
     'intercom.volume',
+  },
+  // Before Voice Satellite's mute and speaker joined (2026.9.87).
+  {
+    'browser.zoom',
+    'screensaver.website_zoom',
+    'screensaver.clock_scale',
+    'screensaver.widget_scale',
+    'screensaver.immich_metadata_scale',
+    'screensaver.glance_scale',
+    'face.preview_scale',
+    'sendspin.player_size',
+    'screen.default_brightness',
+    'screen.adaptive_min_brightness',
+    'screen.adaptive_max_brightness',
+    'screen.adaptive_dark_lux',
+    'screen.adaptive_bright_lux',
+    'screensaver.brightness_level',
+    'screensaver.dim_level',
+    'audio.media_volume',
+    'audio.assistant_volume',
+    'notifications.volume',
+    'ha.tap_sound_volume',
+    'screensaver.gallery_items',
+    'screensaver.local_folder',
+    'screensaver.clock_background',
+    'notifications.chime_file',
+    'launcher.apps',
+    'motion.sensitivity',
+    'motion.fps',
+    'face.sensitivity',
+    'camera.snapshot_resolution',
+    'browser.cutout_mode',
+    'screen.orientation',
+    'intercom.volume',
+    'intercom.answer_mode',
   },
 ];
 
@@ -8997,6 +9104,11 @@ const List<SettingDef<Object>> allSettings = [
   voiceTtsOutputMode,
   voiceWakeWordEngine,
   voiceWakeWords,
+  voiceHaPipeline,
+  voiceHaPipeline2,
+  voiceHaVadSensitivity,
+  voiceHaWakeWord,
+  voiceHaWakeWord2,
   voiceWakeWordSensitivity,
   voiceNoiseGate,
   voiceStopWord,
