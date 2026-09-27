@@ -313,9 +313,14 @@ function customModelsGroup() {
   const add = voiceRow('Add models',
     'Pick the files of one or more models. They show up in Wake word 1 and 2 above.');
   add.lastElementChild.remove();
+  // A plus, as the plugins page adds a plugin.
+  const PLUS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>';
   const addBtn = document.createElement('button');
-  addBtn.className = 'btn-ghost';
-  addBtn.textContent = voiceText('Add');
+  addBtn.type = 'button';
+  addBtn.className = 'icon-btn';
+  addBtn.title = voiceText('Add');
+  addBtn.setAttribute('aria-label', voiceText('Add'));
+  addBtn.innerHTML = PLUS;
   addBtn.addEventListener('click', () => input.click());
   add.append(addBtn, input);
   const managed = readOnlyRow('', voiceText('The fleet leader manages the custom models on this kiosk.'), '', false);
@@ -334,8 +339,14 @@ function customModelsGroup() {
   icon.setAttribute('aria-hidden', 'true');
   icon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M21 3 10 14M10 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5"/></svg>';
   docs.appendChild(icon);
-  managed.style.display = 'none';
-  card.append(list, add, managed, docs);
+  card.appendChild(list);
+  // Adding, and the documentation, each in a card of its own under the list.
+  const addCard = document.createElement('div');
+  addCard.className = 'card';
+  addCard.appendChild(add);
+  const docsCard = document.createElement('div');
+  docsCard.className = 'card';
+  docsCard.appendChild(docs);
 
   let busy = false;
   const refresh = async () => {
@@ -346,9 +357,8 @@ function customModelsGroup() {
     } catch (_) {}
     if (!card.isConnected) return;
     const models = Array.isArray(data.models) ? data.models : [];
-    // Rows set their own display, which the hidden attribute loses to.
-    add.style.display = data.managed === true ? 'none' : '';
-    managed.style.display = data.managed === true ? '' : 'none';
+    // One row or the other: a hidden row would still take the separator.
+    addCard.replaceChildren(data.managed === true ? managed : add);
     list.replaceChildren();
     if (!models.length) {
       list.appendChild(readOnlyRow('', voiceText('No custom models yet.'), '', false));
@@ -361,9 +371,13 @@ function customModelsGroup() {
       const row = readOnlyRow(`${m.wakeWord}`, desc, '', false);
       row.lastElementChild.remove();
       if (data.managed !== true) {
+        // A trash can, as the plugins list removes a plugin.
         const del = document.createElement('button');
-        del.className = 'btn-ghost';
-        del.textContent = voiceText('Delete');
+        del.type = 'button';
+        del.className = 'icon-btn';
+        del.title = voiceText('Delete');
+        del.setAttribute('aria-label', voiceText('Delete'));
+        del.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M9 6V4h6v2M5 6l1 14h12l1-14M10 10v6M14 10v6"/></svg>';
         del.addEventListener('click', async () => {
           const pick = await messageBox({
             title: voiceText('Delete this model?'),
@@ -388,7 +402,6 @@ function customModelsGroup() {
     if (!files.length || busy) return;
     busy = true;
     addBtn.disabled = true;
-    const label = addBtn.textContent;
     try {
       for (const [i, file] of files.entries()) {
         addBtn.textContent = `${i + 1}/${files.length}`;
@@ -409,23 +422,24 @@ function customModelsGroup() {
           title: added.length ? voiceText('Some files were not added.') : voiceText('The models were not added.'),
           message: [...new Set(rejected.map((f) => `${f.file}: ${f.reason}`))].join('\n'),
           kind: 'error',
-          sticky: true,
+          // Long enough to read each file's reason, then it goes.
+          duration: 8000,
         });
       } else {
         showToast({ title: voiceText('Models added.'), kind: 'success' });
       }
     } catch (e) {
-      showToast({ title: voiceText('The models were not added.'), message: `${e.message || e}`, kind: 'error', sticky: true });
+      showToast({ title: voiceText('The models were not added.'), message: `${e.message || e}`, kind: 'error', duration: 8000 });
     } finally {
       busy = false;
       addBtn.disabled = false;
-      addBtn.textContent = label;
+      addBtn.innerHTML = PLUS;
       refresh();
     }
   });
   watchUpdates(['wake-models'], refresh, { owner: card });
   refresh();
-  return [h, card];
+  return [h, card, addCard, docsCard];
 }
 
 /* The notice at the top of the page while the dashboard still runs the

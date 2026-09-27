@@ -9,6 +9,7 @@ import '../core/events.dart';
 import '../l10n/messages.dart';
 import 'kit.dart';
 import 'settings_search.dart';
+import 'theme.dart';
 import 'toast.dart';
 
 /// Where the custom wake word models are explained.
@@ -109,6 +110,8 @@ class _CustomWakeModelsGroupState extends State<CustomWakeModelsGroup> {
             if (f is Map) '${f['file']}: ${f['reason']}',
         }.join('\n'),
         kind: ToastKind.error,
+        // Long enough to read each file's reason.
+        duration: const Duration(seconds: 8),
       );
     } else {
       showToast(
@@ -192,6 +195,13 @@ class _CustomWakeModelsGroupState extends State<CustomWakeModelsGroup> {
               HintRow(voiceText(context, 'No custom models yet.'))
             else
               for (final m in _models) _row(context, m),
+          ],
+        ),
+        // Adding, and the documentation, each in a card of its own under
+        // the list.
+        const SizedBox(height: Ks.cardGap),
+        SettingsCard(
+          children: [
             if (_managed)
               HintRow(
                 voiceText(
@@ -215,10 +225,15 @@ class _CustomWakeModelsGroupState extends State<CustomWakeModelsGroup> {
                         height: 22,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : const Icon(Icons.upload_file),
+                    : const Icon(Icons.add),
                 enabled: !_busy,
                 onTap: _add,
               ),
+          ],
+        ),
+        const SizedBox(height: Ks.cardGap),
+        SettingsCard(
+          children: [
             SettingsRow(
               title: Text(voiceText(context, 'How to add custom models')),
               subtitle: Text(
