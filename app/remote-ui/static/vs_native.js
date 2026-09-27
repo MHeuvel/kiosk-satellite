@@ -4,6 +4,7 @@ import { api, cmd } from './core.js';
 import { readOnlyRow } from './device.js';
 import { messageBox, modalShell, showToast } from './widgets.js';
 import { vsSelectRow } from './vs.js';
+import { watchUpdates } from './live.js';
 
 /* ---- Native Voice Satellite (runs in the kiosk, not the dashboard) ---- */
 // Mirrors the device's native page: the switch with the status and Home
@@ -48,15 +49,21 @@ function statusWord(row, text, color) {
 /* The status and Home Assistant rows under the switch, read from the
    kiosk's voiceStatus and repainted on every settings render. */
 async function paintStatus(card, byKey) {
-  card.querySelectorAll('.vs-native-status').forEach((r) => r.remove());
+  // A later paint supersedes this one, whichever read comes back first.
+  const gen = (card._vsStatusGen || 0) + 1;
+  card._vsStatusGen = gen;
   const enabledRow = card.querySelector('[data-key="voice.enabled"]');
-  if (!enabledRow || byKey['voice.enabled']?.value !== true) return;
+  if (!enabledRow || byKey['voice.enabled']?.value !== true) {
+    card.querySelectorAll('.vs-native-status').forEach((r) => r.remove());
+    return;
+  }
   let status = {};
   try {
     const r = await cmd('voiceStatus', {});
     if (r.ok) status = r.data || {};
   } catch (_) {}
-  if (!enabledRow.isConnected) return;
+  if (!enabledRow.isConnected || card._vsStatusGen !== gen) return;
+  card.querySelectorAll('.vs-native-status').forEach((r) => r.remove());
   const esphome = byKey['esphome.enabled']?.value === true;
   const muted = byKey['voice.mute']?.value === true;
   const entity = `${status.satelliteEntity || ''}`;
@@ -91,6 +98,34 @@ async function paintStatus(card, byKey) {
   }
   for (const row of [statusRow, haRow]) row.classList.add('vs-native-status');
   enabledRow.after(statusRow, haRow);
+}
+
+/* Play sounds on: this kiosk or a Home Assistant media player from the
+   live list, in the place of the text field the definition draws, as the
+   device's picker. Keeps the row's own (localized) title and its key. */
+async function ttsOutputRow(row, current) {
+  const title = row.querySelector('.name')?.textContent || 'Play sounds on';
+  const desc = row.querySelector('.desc')?.textContent || '';
+  let players = [];
+  try {
+    const r = await cmd('mediaPlayers', { source: 'ha' });
+    const list = r.ok ? r.data?.players : null;
+    players = (Array.isArray(list) ? list : []).filter((p) => p.group === 'ha');
+  } catch (_) {}
+  if (!row.isConnected) return;
+  const options = [{ value: '', label: voiceText('This kiosk') },
+    // The list's ids carry their source; the setting keeps the entity.
+    ...players.map((p) => ({ value: `${p.id}`.replace(/^ha:/, ''), label: `${p.name}` }))];
+  // A player Home Assistant no longer lists still shows as picked.
+  if (current && !options.some((o) => o.value === current)) {
+    options.push({ value: current, label: current });
+  }
+  const picker = vsSelectRow(title, desc, options, current, (value) => {
+    api('/api/settings', { method: 'PATCH', body: JSON.stringify({ 'voice.tts_output': value }) })
+      .catch(() => null);
+  });
+  picker.dataset.key = 'voice.tts_output';
+  row.replaceWith(picker);
 }
 
 /* Home Assistant's selects on the kiosk's device, as dropdowns that write
@@ -151,7 +186,15 @@ export async function renderNativeVs(root, byKey) {
     }
     card.prepend(enabledRow);
     card.id = 'vsNativeCard';
-    paintStatus(card, byKey);
+    // The status follows the kiosk: Home Assistant taking the satellite a
+    // few seconds after the switch turns on changes no setting, so it
+    // arrives as a voice-status update rather than a settings render.
+    card._vsByKey = byKey;
+    if (card._vsStatusWatch) paintStatus(card, byKey);
+    else {
+      card._vsStatusWatch = watchUpdates(['voice-status'],
+        () => paintStatus(card, card._vsByKey), { owner: card });
+    }
   }
   const entryCard = (sub) => root.querySelector(`[data-subpage-entry="${sub}"]`)?.closest('.card');
   if (!enabled) {
@@ -161,6 +204,13 @@ export async function renderNativeVs(root, byKey) {
     for (const sub of [...PAGES, 'Wake word diagnostics']) {
       const entry = entryCard(sub);
       if (entry) root.appendChild(entry);
+    }
+    // Debug after the pages, as on the device.
+    const debugCard = root.querySelector(':scope > .card [data-key="voice.debug_logging"]')?.closest('.card');
+    if (debugCard) {
+      const heading = debugCard.previousElementSibling;
+      if (heading?.classList.contains('card-title')) root.appendChild(heading);
+      root.appendChild(debugCard);
     }
     const tab = root.closest('.tab') || root;
     const panel = (sub) => tab.querySelector(`.subpage[data-subpage="${sub}"]`);
@@ -174,6 +224,8 @@ export async function renderNativeVs(root, byKey) {
       selects.appendChild(selectsBlock(PIPELINE_ROWS));
       assistant.prepend(h, selects);
     }
+    const ttsRow = assistant?.querySelector('[data-key="voice.tts_output"]');
+    if (ttsRow) ttsOutputRow(ttsRow, byKey['voice.tts_output']?.value || '');
     const wake = panel('Wake Word');
     if (wake) {
       // Engine, Home Assistant's wake words, then sensitivity, the noise
@@ -412,7 +464,7 @@ export function openVsMigrationWizard() {
           label.append(box, info);
           body.appendChild(label);
         }
-        const note = para(voiceText('Not carried over: custom CSS, the browser microphone processing, answers on another speaker and the conversation memory length. Custom microWakeWord models work from config/custom_wake_words in Home Assistant.'),
+        const note = para(voiceText('Not carried over: custom CSS, the browser microphone processing and the conversation memory length. Custom microWakeWord models work from config/custom_wake_words in Home Assistant.'),
           'margin-top:8px; padding:14px; border-radius:16px; background:var(--surface-2); font-size:13px');
         body.appendChild(note);
       }

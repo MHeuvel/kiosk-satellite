@@ -59,11 +59,18 @@ class _Player implements VoicePlayerPort {
   final played = <String>[];
   final chimes = <String>[];
   final stopped = <String>[];
+  final announcements = <String>[];
+  int settled = 0;
   int _next = 0;
 
   @override
-  Future<String?> play(String url) async {
+  Future<String?> play(
+    String url, {
+    String text = '',
+    bool announcement = false,
+  }) async {
     played.add(url);
+    if (announcement) announcements.add(url);
     return 'snd${++_next}';
   }
 
@@ -75,6 +82,9 @@ class _Player implements VoicePlayerPort {
 
   @override
   Future<void> stop(String id) async => stopped.add(id);
+
+  @override
+  Future<void> settle() async => settled++;
 
   String get lastId => 'snd$_next';
 }
@@ -92,6 +102,7 @@ class _Harness {
       onStopArmed: stopArmed.add,
       onError: (code, message) => errors.add(code),
       onIdle: () => idles++,
+      onTrace: (step, {text}) => traces.add((step, text)),
       now: time == null ? null : () => DateTime(2026).add(time.elapsed),
     );
   }
@@ -105,6 +116,7 @@ class _Harness {
   final busy_ = <(bool, String)>[];
   final stopArmed = <bool>[];
   final errors = <String>[];
+  final traces = <(String, String?)>[];
   int idles = 0;
 
   AssistView get view => views.last;
@@ -184,6 +196,8 @@ void main() {
       expect(h.player.chimes, isEmpty);
       expect(h.errors, isEmpty);
       expect(h.session.busy, isFalse);
+      // No chime ends it: a speaker gets its music back regardless.
+      expect(h.player.settled, 1);
 
       h.session.wake('Okay Nabu');
       async.flushMicrotasks();
@@ -301,6 +315,80 @@ void main() {
     });
   });
 
+  test('a turn\'s steps are traced, what was said kept apart', () {
+    fakeAsync((async) {
+      final h = _Harness();
+      h.session.wake('Okay Nabu');
+      async.elapse(const Duration(seconds: 1));
+      h.session.onEvent(VaEvent.sttEnd, {'text': 'lights on'});
+      h.session.onEvent(VaEvent.intentEnd, {'continue_conversation': '0'});
+      h.session.onEvent(VaEvent.ttsStart, {'text': 'Done.'});
+      h.session.onEvent(VaEvent.ttsEnd, {'url': 'http://ha/done.mp3'});
+      async.flushMicrotasks();
+      h.session.onSoundEnded(h.player.lastId);
+      h.session.onEvent(VaEvent.runEnd, {});
+      async.flushMicrotasks();
+      expect(h.traces.map((t) => t.$1).toList(), [
+        'wake word "Okay Nabu"',
+        'asked Home Assistant for the assistant',
+        'command heard',
+        'intent done',
+        'answer',
+        'answer played',
+        startsWith('turn over'),
+      ]);
+      expect(h.traces[2].$2, 'lights on');
+      expect(h.traces[4].$2, 'Done.');
+      expect(h.traces.where((t) => t.$2 != null), hasLength(2));
+    });
+  });
+
+  test('an answer that cannot play is reported', () {
+    fakeAsync((async) {
+      final h = _Harness();
+      h.session.wake('Okay Nabu');
+      async.elapse(const Duration(seconds: 1));
+      h.session.onEvent(VaEvent.sttEnd, {'text': 'hello'});
+      h.session.onEvent(VaEvent.ttsStart, {'text': 'Hi.'});
+      h.session.onEvent(VaEvent.ttsEnd, {'url': 'http://ha/hi.mp3'});
+      async.flushMicrotasks();
+      h.session.onSoundEnded(h.player.lastId, error: 'decoder died');
+      h.session.onEvent(VaEvent.runEnd, {});
+      async.flushMicrotasks();
+      expect(h.errors, ['playback']);
+    });
+  });
+
+  test('a stuck pipeline is reported when the watchdog ends the turn', () {
+    fakeAsync((async) {
+      final h = _Harness();
+      h.session.wake('Okay Nabu');
+      async.elapse(const Duration(seconds: 1));
+      h.session.onEvent(VaEvent.sttStart, {});
+      async.elapse(VoiceSession.vadWatchdog + const Duration(seconds: 1));
+      expect(h.errors, ['watchdog']);
+      expect(h.session.busy, isFalse);
+    });
+  });
+
+  test('losing Home Assistant mid-turn ends the turn at once', () {
+    fakeAsync((async) {
+      final h = _Harness();
+      h.session.wake('Okay Nabu');
+      async.elapse(const Duration(seconds: 1));
+      h.session.onEvent(VaEvent.sttEnd, {'text': 'hello'});
+      h.session.connectionLost();
+      async.flushMicrotasks();
+      expect(h.errors, ['connection-lost']);
+      expect(h.session.busy, isFalse);
+      expect(h.player.chimes.last, 'error');
+      // Nothing is waiting on a pipeline once it is over: no report.
+      h.session.connectionLost();
+      async.flushMicrotasks();
+      expect(h.errors, ['connection-lost']);
+    });
+  });
+
   test('cancel during the chime leaves nothing of the turn running', () {
     fakeAsync((async) {
       final h = _Harness();
@@ -352,6 +440,7 @@ void main() {
       h.session.onSoundEnded(h.player.lastId);
       async.flushMicrotasks();
       expect(h.player.played, ['http://ha/a.mp3']);
+      expect(h.player.announcements, ['http://ha/a.mp3']);
       h.session.onSoundEnded(h.player.lastId);
       async.flushMicrotasks();
       expect(h.link.finishedCount, 1);

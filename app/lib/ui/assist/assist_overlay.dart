@@ -12,6 +12,7 @@ import '../../core/events.dart';
 import '../../managers/device/screen_capture.dart';
 import '../../managers/settings/definitions.dart' as defs;
 import '../../managers/voice/assist_view.dart';
+import '../../managers/voice/voice_notice.dart';
 import '../toast.dart';
 import 'art_ink_blobs.dart';
 import 'art_lens_flares.dart';
@@ -40,7 +41,8 @@ class _AssistOverlayState extends State<AssistOverlay>
   AppContainer get c => widget.container;
 
   StreamSubscription<SettingChanged>? _settingsSub;
-  StreamSubscription<(String, String)>? _errorSub;
+  StreamSubscription<VoiceNotice>? _errorSub;
+  StreamSubscription<String>? _clearedSub;
 
   /// One clock for the bar and the dots, so their phases stay locked the
   /// way the skins' animations share a start time.
@@ -113,7 +115,8 @@ class _AssistOverlayState extends State<AssistOverlay>
     _settingsSub = c.bus.on<SettingChanged>().listen((e) {
       if (e.key.startsWith('voice.') && mounted) setState(() {});
     });
-    _errorSub = c.voice.errors.stream.listen(_onError);
+    _errorSub = c.voice.notices.stream.listen(_onNotice);
+    _clearedSub = c.voice.clearedNotices.stream.listen(_onCleared);
   }
 
   @override
@@ -124,6 +127,7 @@ class _AssistOverlayState extends State<AssistOverlay>
     _frozen?.dispose();
     _settingsSub?.cancel();
     _errorSub?.cancel();
+    _clearedSub?.cancel();
     _clock.dispose();
     super.dispose();
   }
@@ -188,15 +192,41 @@ class _AssistOverlayState extends State<AssistOverlay>
     });
   }
 
-  void _onError((String, String) error) {
+  void _onNotice(VoiceNotice notice) {
     if (!mounted) return;
+    final error = notice.severity == VoiceSeverity.error;
+    final tag = 'voice-${notice.id}';
+    // An error still up is not shown again, as Voice Satellite refreshes
+    // one rather than re-animating it.
+    if (error && currentToastTag == tag) return;
+    // Voice Satellite's toasts: the title from the severity, the source
+    // before the message, errors up until closed.
     showToast(
       context,
-      title: 'Voice Satellite',
-      message: error.$2,
-      kind: ToastKind.error,
+      title: switch (notice.severity) {
+        VoiceSeverity.error => 'Voice Satellite error',
+        VoiceSeverity.warning => 'Voice Satellite warning',
+        VoiceSeverity.notice => 'Voice Satellite notice',
+      },
+      message: '${notice.category}: ${notice.message}',
+      kind: switch (notice.severity) {
+        VoiceSeverity.error => ToastKind.error,
+        VoiceSeverity.warning => ToastKind.warning,
+        VoiceSeverity.notice => ToastKind.info,
+      },
+      sticky: error,
+      duration: notice.severity == VoiceSeverity.warning
+          ? const Duration(seconds: 8)
+          : const Duration(seconds: 4),
+      actionLabel: error ? 'Close' : null,
+      onAction: error ? () {} : null,
+      tag: tag,
     );
   }
+
+  /// The problem behind a notice cleared: its toast comes down, if it is
+  /// still the one on screen.
+  void _onCleared(String id) => dismissToast(tag: 'voice-$id');
 
   @override
   Widget build(BuildContext context) {
@@ -908,16 +938,6 @@ const _startSpeed = 30.0;
 const _ease = 0.12;
 const _maxFrame = Duration(milliseconds: 100);
 
-/// The script's estimate of how long [text] takes to say: 2.8 words a
-/// second, 0.7 s more per number, three seconds at least.
-double _estimateSpeech(String text) {
-  final trimmed = text.trim();
-  if (trimmed.isEmpty) return 0;
-  final words = trimmed.split(RegExp(r'\s+')).length;
-  final numbers = RegExp(r'\d[\d,.]*%?').allMatches(text).length;
-  return math.max(3.0, words / 2.8 + numbers * 0.7);
-}
-
 class _PacedScrollState extends State<_PacedScroll>
     with SingleTickerProviderStateMixin {
   final _controller = ScrollController();
@@ -953,7 +973,7 @@ class _PacedScrollState extends State<_PacedScroll>
   }
 
   void _finalize() {
-    _estimate = _estimateSpeech(widget.text);
+    _estimate = estimateSpeechSeconds(widget.text);
     _estimateClock
       ..stop()
       ..reset();

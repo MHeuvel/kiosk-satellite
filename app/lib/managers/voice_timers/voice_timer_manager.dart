@@ -81,6 +81,7 @@ class VoiceTimerManager extends Manager {
   /// A spoken phrase for the ringing alert (native Voice Satellite's "Speak
   /// when a timer ends"): the ring goes chime, chime, phrase, and again.
   String? _speech;
+  String _speechText = '';
   int _rings = 0;
   final error = ValueNotifier<int>(0);
   String _entity = '';
@@ -148,6 +149,7 @@ class VoiceTimerManager extends Manager {
             _muted = p['muted'] == true;
             final speech = p['speech'];
             _speech = speech is String && speech.isNotEmpty ? speech : null;
+            _speechText = '${p['speechText'] ?? ''}';
             if (_muted && !wasMuted) _stopSound();
             if (_ring == null) {
               _rings = 0;
@@ -199,7 +201,12 @@ class VoiceTimerManager extends Manager {
       _rings = 0;
       unawaited(
         _chime(
-          () => commands.execute('playSound', {'url': speech, 'stream': true}),
+          // On the kiosk, or on the speaker the answers are spoken on.
+          () => commands.execute('voiceSpeak', {
+            'url': speech,
+            'text': _speechText,
+            'kind': 'timer',
+          }),
         ),
       );
       return;
@@ -222,13 +229,14 @@ class VoiceTimerManager extends Manager {
     });
     try {
       final result =
-          await (start?.call() ?? commands.execute('playTimerChime', const {}));
+          await (start?.call() ??
+              commands.execute('voiceChime', const {'kind': 'alert'}));
       final data = result.data;
       if (data is Map && data['id'] is String) {
         final id = data['id'] as String;
         playingId = id;
         if (generation != _soundGeneration || _muted || alerts.value.isEmpty) {
-          await commands.execute('stopSound', {'id': id});
+          await commands.execute('voiceStopSpeech', {'id': id});
         } else {
           _soundId = id;
           if (ended.contains(id) && !done.isCompleted) done.complete();
@@ -253,15 +261,20 @@ class VoiceTimerManager extends Manager {
     _playing = false;
     final id = _soundId;
     _soundId = null;
-    if (id != null) unawaited(commands.execute('stopSound', {'id': id}));
+    if (id != null) unawaited(commands.execute('voiceStopSpeech', {'id': id}));
   }
 
   void _clearAlert() {
+    final ringing = _ring != null;
     _ring?.cancel();
     _ring = null;
     _speech = null;
     _stopSound();
     alerts.value = const [];
+    // A normal playback speaker gets back what it played before the alert.
+    if (ringing) {
+      unawaited(commands.execute('voiceSpeakerDone', const {}));
+    }
   }
 
   @override

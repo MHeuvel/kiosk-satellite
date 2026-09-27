@@ -2736,6 +2736,16 @@ class _CategoryContentState extends State<_CategoryContent> {
           },
         ),
       ),
+    // Voice Satellite's TTS output: this kiosk or a Home Assistant media
+    // player, from the live list, in the place of the text field.
+    if (widget.category == 'Voice Satellite')
+      voiceTtsOutput.key: SearchLandingTarget(
+        id: voiceTtsOutput.key,
+        child: _TtsOutputRow(
+          container: container,
+          onChanged: () => setState(() {}),
+        ),
+      ),
     // The player pick (issue #265): a grouped picker fed by the live
     // player lists, in the place of the plain text field its definition
     // would draw.
@@ -4006,6 +4016,8 @@ extension on _CategoryContentState {
             ],
           ),
         ),
+        SectionHeading(voiceText(context, 'Debug')),
+        SettingsCard(children: [tile(voiceDebugLogging)]),
         SectionHeading(voiceText(context, 'Required system permissions')),
         SearchLandingTarget(
           id: 'x:vs_permissions',
@@ -6662,6 +6674,98 @@ class _PlayerRowState extends State<_PlayerRow> {
   }
 }
 
+/// Where Voice Satellite speaks its answers: this kiosk, or a Home
+/// Assistant media player picked from the live list.
+class _TtsOutputRow extends StatefulWidget {
+  const _TtsOutputRow({required this.container, required this.onChanged});
+
+  final AppContainer container;
+  final VoidCallback onChanged;
+
+  @override
+  State<_TtsOutputRow> createState() => _TtsOutputRowState();
+}
+
+class _TtsOutputRowState extends State<_TtsOutputRow> {
+  /// The picked player's name, looked up once: the setting keeps the id.
+  String? _name;
+
+  @override
+  void initState() {
+    super.initState();
+    unawaited(_lookUp());
+  }
+
+  Future<void> _lookUp() async {
+    final id = widget.container.settings.get(voiceTtsOutput);
+    if (id.isEmpty) return;
+    final result = await widget.container.commands.execute('mediaPlayers', {
+      'source': 'ha',
+    });
+    final data = result.data;
+    final list = data is Map ? data['players'] : null;
+    for (final p in (list as List? ?? const [])) {
+      if (p is Map && '${p['id']}' == 'ha:$id' && mounted) {
+        setState(() => _name = '${p['name']}');
+      }
+    }
+  }
+
+  Future<void> _pick() async {
+    final container = widget.container;
+    final result = await showDialog<List<String>>(
+      context: context,
+      builder: (ctx) => _PlayerPickerDialog(
+        container: container,
+        source: 'ha',
+        current: _listed(container.settings.get(voiceTtsOutput)),
+        title: voiceTtsOutput.localizedTitle(context),
+        noneLabel: voiceText(context, 'This kiosk'),
+      ),
+    );
+    if (result == null) return;
+    // The list's ids carry their source; the setting keeps the entity.
+    await container.settings.set(
+      voiceTtsOutput,
+      result[0].replaceFirst('ha:', ''),
+    );
+    if (mounted) setState(() => _name = result[1]);
+    widget.onChanged();
+  }
+
+  /// An entity as the player list names it.
+  static String _listed(String entity) => entity.isEmpty ? '' : 'ha:$entity';
+
+  @override
+  Widget build(BuildContext context) {
+    final id = widget.container.settings.get(voiceTtsOutput);
+    final label = id.isEmpty
+        ? voiceText(context, 'This kiosk')
+        : (_name?.isNotEmpty ?? false)
+        ? _name!
+        : id;
+    return SettingsRow(
+      title: Text(voiceTtsOutput.localizedTitle(context)),
+      subtitle: Text(voiceTtsOutput.localizedDescription(context)),
+      trailing: ControlBox(
+        onTap: _pick,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 200),
+              child: Text(label, overflow: TextOverflow.ellipsis),
+            ),
+            const SizedBox(width: 6),
+            const Icon(Icons.arrow_drop_down, size: 22),
+          ],
+        ),
+      ),
+      onTap: _pick,
+    );
+  }
+}
+
 /// The picked source's players, fetched live. A source that cannot be
 /// listed says why instead of an empty list. Past a handful of rows a
 /// search field filters by name and id.
@@ -6670,11 +6774,19 @@ class _PlayerPickerDialog extends StatefulWidget {
     required this.container,
     required this.source,
     required this.current,
+    this.title,
+    this.noneLabel,
   });
 
   final AppContainer container;
   final String source;
   final String current;
+
+  /// The dialog's title, in place of the source's.
+  final String? title;
+
+  /// A first choice that picks no player (id ''), labelled this.
+  final String? noneLabel;
 
   @override
   State<_PlayerPickerDialog> createState() => _PlayerPickerDialogState();
@@ -6758,6 +6870,11 @@ class _PlayerPickerDialogState extends State<_PlayerPickerDialog> {
                       onChanged: (v) => setState(() => _query = v.trim()),
                     ),
                   ),
+                if (widget.noneLabel != null)
+                  RadioListTile<String>(
+                    value: '',
+                    title: Text(widget.noneLabel!),
+                  ),
                 if (_note != null)
                   Padding(
                     padding: const EdgeInsets.fromLTRB(24, 8, 24, 12),
@@ -6783,7 +6900,9 @@ class _PlayerPickerDialogState extends State<_PlayerPickerDialog> {
             ),
           );
     return AlertDialog(
-      title: Text(mediaText(context, _titles[widget.source] ?? 'Player')),
+      title: Text(
+        widget.title ?? mediaText(context, _titles[widget.source] ?? 'Player'),
+      ),
       contentPadding: const EdgeInsets.fromLTRB(0, 12, 0, 8),
       content: SizedBox(width: 440, child: body),
     );

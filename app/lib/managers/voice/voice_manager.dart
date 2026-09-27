@@ -16,6 +16,8 @@ import 'assist_view.dart';
 import 'chat_log.dart';
 import 'ha_socket.dart';
 import 'migration.dart';
+import 'remote_speaker.dart';
+import 'voice_notice.dart';
 import 'voice_session.dart';
 import 'wake_catalog.dart';
 
@@ -77,8 +79,18 @@ class VoiceManager extends Manager {
 
   final homeAssistant = ValueNotifier<VoiceHaState>(const VoiceHaState());
 
-  /// Errors to show as toasts: a code and the message.
-  final errors = StreamController<(String, String)>.broadcast();
+  /// Problems to show as toasts.
+  final notices = StreamController<VoiceNotice>.broadcast();
+
+  /// Ids of notices whose problem has cleared, to take down.
+  final clearedNotices = StreamController<String>.broadcast();
+
+  /// The wake phrase of the last turn Home Assistant was asked for, which
+  /// picks its pipeline.
+  String _lastPhrase = '';
+
+  /// The wake word engine's failure last reported, so each is shown once.
+  EngineFailure? _wakeFailure;
 
   late final VoiceSession _session;
   late final HaSocket _ha = HaSocket(
@@ -87,6 +99,59 @@ class VoiceManager extends Manager {
   );
 
   final _subs = <StreamSubscription<Object?>>[];
+
+  /// The media player Voice Satellite's sounds play on, when one is set.
+  late final RemoteSpeaker _speaker = RemoteSpeaker(
+    ha: _ha,
+    onEnded: (id, {error}) => bus.publish(SoundEnded(id: id, error: error)),
+    onProgress: (id, position, length) => bus.publish(
+      SoundProgress(id: id, position: position, duration: length),
+    ),
+    measure: _measure,
+    log: (line) => log.info(name, 'speaker: $line'),
+  );
+
+  /// The media player set to play Voice Satellite's sounds, or '' for the
+  /// kiosk itself.
+  String get _speakerTarget => enabled
+      ? _settings.get(defs.voiceTtsOutput).trim().replaceFirst('ha:', '')
+      : '';
+
+  /// Normal playback mode: no announce flag, the music put back after.
+  bool get _normalPlayback =>
+      _settings.get(defs.voiceTtsOutputMode) == 'normal_playback';
+
+  /// Where a speaker gets the [kind] chime, and its length in seconds.
+  Future<(String, double)?> _chimeMedia(String kind) async {
+    final served = await commands.execute('voiceChimeUrl', {'kind': kind});
+    final data = served.data;
+    if (served.ok && data is Map) {
+      return (data['url'] as String, (data['duration'] as num).toDouble());
+    }
+    log.warn(name, 'chime $kind not served: ${served.error}');
+    return null;
+  }
+
+  /// How long the audio at [url] plays, fetched and measured on the kiosk.
+  Future<double?> _measure(String url, Duration timeout) async {
+    var target = url;
+    if (target.startsWith('/')) {
+      target =
+          '${_settings.get(defs.haUrl).replaceFirst(RegExp(r'/+$'), '')}'
+          '$target';
+    }
+    if (!target.startsWith('http://') && !target.startsWith('https://')) {
+      return null;
+    }
+    final result = await commands.execute('soundDuration', {
+      'url': target,
+      'timeoutMs': timeout.inMilliseconds,
+    });
+    final data = result.data;
+    return result.ok && data is Map
+        ? (data['seconds'] as num?)?.toDouble()
+        : null;
+  }
 
   late final VoiceMigration _migration = VoiceMigration(_settings, _ha);
 
@@ -149,16 +214,20 @@ class VoiceManager extends Manager {
         .get(defs.voiceAnnouncementLinger)
         .toInt(),
     stopWord: _settings.get(defs.voiceStopWord) && _wakeWord.stopWordAvailable,
+    remoteSpeech: _settings.get(defs.voiceTtsOutput).trim().isNotEmpty,
   );
 
   @override
   Future<void> init() async {
+    homeAssistant.addListener(_announceStatus);
     _session = VoiceSession(
       link: _EspLink(
         _esphome,
         onAudio: (ok) => ok ? _audioSent++ : _audioRefused++,
-        onRequest: (start, phrase, ok) =>
-            _note('request start=$start phrase=$phrase -> $ok'),
+        onRequest: (start, phrase, ok) {
+          if (start) _lastPhrase = phrase;
+          _note('request start=$start phrase=$phrase -> $ok');
+        },
       ),
       mic: _WakeMic(_wakeWord),
       player: _Player(commands),
@@ -167,11 +236,9 @@ class VoiceManager extends Manager {
       onLevel: (value) => level.value = value,
       onBusy: _onBusy,
       onStopArmed: (armed) => unawaited(_wakeWord.setStopWordArmed(armed)),
-      onError: (code, message) {
-        log.warn(name, 'voice error $code: $message');
-        errors.add((code, message));
-      },
+      onError: (code, message) => unawaited(_report(code, message)),
       onIntentEnd: (conversation) => unawaited(_readChatLog(conversation)),
+      onTrace: _trace,
       onIdle: _resumeWake,
     );
     _esphome.onVoice = _onVoice;
@@ -194,6 +261,15 @@ class VoiceManager extends Manager {
         bus.on<SoundLevel>().listen(
           (e) => _session.onSoundLevel(e.id, e.level),
         ),
+      )
+      // The remote admin's status rows follow Home Assistant taking or
+      // dropping the satellite and the wake word starting or stopping,
+      // neither of which is a settings change.
+      ..add(
+        bus.on<WakeWordStateChanged>().listen((_) {
+          _announceStatus();
+          _checkWakeFailure();
+        }),
       )
       ..add(
         bus.on<SoundProgress>().listen(
@@ -296,6 +372,116 @@ class VoiceManager extends Manager {
                 _onView(AssistView.hidden);
               }
             });
+            return const CommandResult.ok();
+          },
+        ),
+      )
+      ..register(
+        Command(
+          name: 'voiceSpeak',
+          description:
+              "Play Voice Satellite's speech: on the kiosk, or on the media "
+              'player set to play its sounds. Returns the id sound-ended '
+              'fires with when it is over.',
+          params: const {
+            'url': 'the audio',
+            'text': 'what it says, optional',
+            'kind': 'speech (default), announcement or timer',
+          },
+          handler: (p) async {
+            final url = '${p['url'] ?? ''}'.trim();
+            if (url.isEmpty) return const CommandResult.fail('no url');
+            final target = _speakerTarget;
+            if (target.isEmpty) {
+              return commands.execute('playSound', {
+                'url': url,
+                'stream': true,
+              });
+            }
+            final id = await _speaker.play(
+              target,
+              url,
+              normal: _normalPlayback,
+              text: '${p['text'] ?? ''}',
+              kind: switch (p['kind']) {
+                'announcement' => RemoteSound.notification,
+                'timer' => RemoteSound.timed,
+                _ => RemoteSound.speech,
+              },
+            );
+            return id == null
+                ? const CommandResult.fail('the speaker could not play it')
+                : CommandResult.ok({'id': id});
+          },
+        ),
+      )
+      ..register(
+        Command(
+          name: 'voiceChime',
+          description:
+              'Play a Voice Satellite chime: on the kiosk, or on the media '
+              'player set to play its sounds. Resolves {id, duration} in '
+              'seconds; sound-ended fires when it is over.',
+          params: const {'kind': 'wake | done | error | alert | announce'},
+          handler: (p) async {
+            final kind = '${p['kind'] ?? ''}';
+            final target = _speakerTarget;
+            if (target.isNotEmpty) {
+              final chime = await _chimeMedia(kind);
+              if (chime != null) {
+                final (media, seconds) = chime;
+                // The preannounce sound is part of the announcement, and
+                // followed like it.
+                final id = kind == 'announce'
+                    ? await _speaker.play(
+                        target,
+                        media,
+                        normal: _normalPlayback,
+                        kind: RemoteSound.notification,
+                      )
+                    : await _speaker.chime(
+                        target,
+                        media,
+                        seconds,
+                        normal: _normalPlayback,
+                        end: kind == 'done' || kind == 'error',
+                      );
+                if (id != null) {
+                  return CommandResult.ok({'id': id, 'duration': seconds});
+                }
+              }
+            }
+            if (kind == 'alert') {
+              return commands.execute('playTimerChime', const {});
+            }
+            return commands.execute('playVoiceChime', {'kind': kind});
+          },
+        ),
+      )
+      ..register(
+        Command(
+          name: 'voiceStopSpeech',
+          description:
+              'Stop a sound voiceSpeak, voiceChime or playSound started.',
+          params: const {'id': 'the sound'},
+          handler: (p) async {
+            final id = '${p['id'] ?? ''}';
+            if (_speaker.owns(id)) {
+              await _speaker.stop(id);
+              return const CommandResult.ok();
+            }
+            return commands.execute('stopSound', {'id': id});
+          },
+        ),
+      )
+      ..register(
+        Command(
+          name: 'voiceSpeakerDone',
+          description:
+              'Voice Satellite is done with the media player for now: in '
+              'normal playback mode, what it played before comes back.',
+          handler: (_) async {
+            _speaker.settle();
             return const CommandResult.ok();
           },
         ),
@@ -911,6 +1097,13 @@ class VoiceManager extends Manager {
     switch (kind) {
       case 'subscribed':
         final on = fields['subscribed'] == true;
+        if (on) {
+          clearedNotices
+            ..add('connection')
+            ..add('not-connected');
+        } else {
+          unawaited(_session.connectionLost());
+        }
         homeAssistant.value = VoiceHaState(
           subscribed: on,
           satelliteEntity: homeAssistant.value.satelliteEntity,
@@ -935,7 +1128,9 @@ class VoiceManager extends Manager {
         }
         final type = (fields['type'] as num?)?.toInt() ?? -1;
         _note('event $type $data');
-        log.debug(name, 'pipeline event $type $data');
+        if (_settings.get(defs.voiceDebugLogging)) {
+          log.debug(name, 'pipeline event $type $data');
+        }
         unawaited(_session.onEvent(type, data));
       case 'timer':
         _onTimerEvent(fields);
@@ -1157,6 +1352,7 @@ class VoiceManager extends Manager {
 
   /// The spoken phrase of the ringing alert, once Home Assistant made it.
   String? _alertSpeech;
+  String _alertSpeechText = '';
   int _speechGen = 0;
 
   /// The phrase for the ringing timers: the named one when any has a name.
@@ -1219,6 +1415,7 @@ class VoiceManager extends Manager {
           .whenComplete(unsubscribe);
       if (gen != _speechGen || _ringing.isEmpty || url.isEmpty) return;
       _alertSpeech = _absolute(url);
+      _alertSpeechText = text;
       _pushAlert();
     } catch (e) {
       log.warn(name, 'timer phrase not made: $e');
@@ -1290,7 +1487,7 @@ class VoiceManager extends Manager {
     if (conversationId.isNotEmpty) await _readChatLog(conversationId);
     if (error != null) {
       log.warn(name, 'vs_show failed: $error');
-      if (answer.isEmpty) errors.add(('show', error!));
+      if (answer.isEmpty) unawaited(_report('show', error!));
     }
     if (speak && url.isNotEmpty) await _session.showSpeak(gen, _absolute(url));
     await _session.endShow(
@@ -1372,6 +1569,7 @@ class VoiceManager extends Manager {
         'entityId': timerEntity,
         'muted': _settings.get(defs.voiceMuteTimers),
         'speech': ?(_ringing.isEmpty ? null : _alertSpeech),
+        'speechText': _alertSpeechText,
         'timers': [
           for (final id in _ringing)
             {
@@ -1443,8 +1641,136 @@ class VoiceManager extends Manager {
     }
   }
 
+  /// A step of a turn in the App Logs, with what was said or answered only
+  /// under Debug logging.
+  void _trace(String step, {String? text}) {
+    final said =
+        text != null &&
+        text.isNotEmpty &&
+        _settings.get(defs.voiceDebugLogging);
+    log.info(name, said ? '$step: "$text"' : step);
+  }
+
+  /// A problem from the session, logged and put on screen as Voice
+  /// Satellite's toasts put the same ones.
+  Future<void> _report(String code, String message) async {
+    log.warn(name, 'voice error $code: $message');
+    final notice = switch (code) {
+      'microphone' => VoiceNotice(
+        id: code,
+        severity: VoiceSeverity.error,
+        category: 'Microphone',
+        message: message,
+      ),
+      'not-connected' => VoiceNotice(
+        id: code,
+        severity: VoiceSeverity.error,
+        category: 'Connection',
+        message: message,
+      ),
+      'connection-lost' => VoiceNotice(
+        id: 'connection',
+        severity: VoiceSeverity.error,
+        category: 'Connection',
+        message: '$message Reconnecting automatically.',
+      ),
+      'playback' => VoiceNotice(
+        id: code,
+        severity: VoiceSeverity.warning,
+        category: 'Text-to-speech',
+        message: message,
+      ),
+      'watchdog' => VoiceNotice(
+        id: code,
+        severity: VoiceSeverity.warning,
+        category: await _pipelineCategory(),
+        message: message,
+      ),
+      'refused' => VoiceNotice(
+        id: 'start',
+        severity: VoiceSeverity.error,
+        category: await _pipelineCategory(),
+        message: message,
+      ),
+      _ => VoiceNotice(
+        id: 'pipeline',
+        severity: VoiceSeverity.error,
+        category: await _pipelineCategory(),
+        message: message.isNotEmpty
+            ? message
+            : 'An unexpected pipeline error occurred.',
+      ),
+    };
+    notices.add(notice);
+  }
+
+  /// The pipeline of the last turn, as the notices name it: by its name,
+  /// or plainly when it is the preferred one.
+  Future<String> _pipelineCategory() async {
+    final second = _phraseForSlot(2);
+    final slot =
+        _lastPhrase.isNotEmpty &&
+            _lastPhrase == second &&
+            second != _phraseForSlot(1)
+        ? 2
+        : 1;
+    final entity =
+        homeAssistant.value.entities[slot == 2 ? 'pipeline_2' : 'pipeline'];
+    var chosen = '';
+    if (entity != null) {
+      try {
+        final state = await _migration.stateOf(entity);
+        chosen = '${state?['state'] ?? ''}';
+      } catch (_) {}
+    }
+    if (chosen.isEmpty || chosen == 'preferred' || chosen == 'unavailable') {
+      return 'Assist pipeline';
+    }
+    return 'Pipeline "$chosen"';
+  }
+
+  /// The wake word engine failing to start is shown once per failure, and
+  /// taken down when it runs again.
+  void _checkWakeFailure() {
+    final failure = enabled && _ownsWakeWord ? _wakeWord.failure : null;
+    if (failure == _wakeFailure) return;
+    _wakeFailure = failure;
+    if (failure == null) {
+      clearedNotices.add('wake-word');
+      return;
+    }
+    log.warn(name, 'wake word engine failed: ${failure.name}');
+    notices.add(
+      VoiceNotice(
+        id: 'wake-word',
+        severity: VoiceSeverity.error,
+        category: 'Wake word',
+        message: switch (failure) {
+          EngineFailure.micBlocked =>
+            'Microphone access is blocked. Allow it for Kiosk Satellite '
+                'in the Android settings.',
+          EngineFailure.micDeclined =>
+            'Microphone access was declined, so the wake word cannot be '
+                'heard.',
+          EngineFailure.micLost => 'The microphone stopped working.',
+          EngineFailure.modelsUnavailable =>
+            'The wake word models could not be loaded.',
+          EngineFailure.crashed =>
+            'The wake word detector kept crashing on this device, so it '
+                'was stopped.',
+        },
+      ),
+    );
+  }
+
+  /// Tells the remote admin's status rows to read the status again.
+  void _announceStatus() =>
+      bus.publish(const RemoteStatusChanged('voice-status'));
+
   @override
   Future<void> dispose() async {
+    homeAssistant.removeListener(_announceStatus);
+    _speaker.dispose();
     for (final sub in _subs) {
       await sub.cancel();
     }
@@ -1453,7 +1779,8 @@ class VoiceManager extends Manager {
     _esphome.onVoiceConfiguration = null;
     await _session.dispose();
     await _ha.close();
-    await errors.close();
+    await notices.close();
+    await clearedNotices.close();
   }
 }
 
@@ -1526,10 +1853,15 @@ class _Player implements VoicePlayerPort {
   final CommandRegistry _commands;
 
   @override
-  Future<String?> play(String url) async {
-    final result = await _commands.execute('playSound', {
+  Future<String?> play(
+    String url, {
+    String text = '',
+    bool announcement = false,
+  }) async {
+    final result = await _commands.execute('voiceSpeak', {
       'url': url,
-      'stream': true,
+      'text': text,
+      if (announcement) 'kind': 'announcement',
     });
     final data = result.data;
     return result.ok && data is Map ? data['id'] as String? : null;
@@ -1537,7 +1869,7 @@ class _Player implements VoicePlayerPort {
 
   @override
   Future<(String, double)?> chime(String kind) async {
-    final result = await _commands.execute('playVoiceChime', {'kind': kind});
+    final result = await _commands.execute('voiceChime', {'kind': kind});
     final data = result.data;
     if (!result.ok || data is! Map) return null;
     final id = data['id'];
@@ -1548,6 +1880,11 @@ class _Player implements VoicePlayerPort {
 
   @override
   Future<void> stop(String id) async {
-    await _commands.execute('stopSound', {'id': id});
+    await _commands.execute('voiceStopSpeech', {'id': id});
+  }
+
+  @override
+  Future<void> settle() async {
+    await _commands.execute('voiceSpeakerDone', const {});
   }
 }

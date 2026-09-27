@@ -15,6 +15,13 @@ OverlayEntry? _entry;
 Timer? _timer;
 GlobalKey<_ToastCardState>? _cardKey;
 
+/// The [tag] the toast on screen was shown with, if any.
+String? _tag;
+
+/// The tag of the toast on screen: its caller can tell its own toast is
+/// still up (another toast replaces it).
+String? get currentToastTag => _entry == null ? null : _tag;
+
 /// Shows a toast in the root overlay above [context]. [sticky] keeps it up
 /// until [dismissToast] or the next toast replaces it.
 void showToast(
@@ -26,6 +33,7 @@ void showToast(
   bool sticky = false,
   String? actionLabel,
   VoidCallback? onAction,
+  String? tag,
 }) => showToastIn(
   Overlay.of(context, rootOverlay: true),
   title: title,
@@ -35,6 +43,7 @@ void showToast(
   sticky: sticky,
   actionLabel: actionLabel,
   onAction: onAction,
+  tag: tag,
 );
 
 /// [showToast] against a pre-captured [OverlayState], for callers that tear
@@ -48,10 +57,12 @@ void showToastIn(
   bool sticky = false,
   String? actionLabel,
   VoidCallback? onAction,
+  String? tag,
 }) {
   _timer?.cancel();
   _timer = null;
   _removeNow();
+  _tag = tag;
   final key = _cardKey = GlobalKey<_ToastCardState>();
   final entry = _entry = OverlayEntry(
     builder: (context) => _ToastCard(
@@ -67,8 +78,10 @@ void showToastIn(
   if (!sticky) _timer = Timer(duration, dismissToast);
 }
 
-/// Animates the current toast out, if one is up.
-void dismissToast() {
+/// Animates the current toast out, if one is up (and, with [tag], only if
+/// it was shown with that tag).
+void dismissToast({String? tag}) {
+  if (tag != null && currentToastTag != tag) return;
   _timer?.cancel();
   _timer = null;
   final state = _cardKey?.currentState;

@@ -1019,9 +1019,9 @@ class _MigrationWizardState extends State<_MigrationWizard> {
               voiceText(
                 context,
                 'Not carried over: custom CSS, the browser microphone '
-                'processing, answers on another speaker and the conversation '
-                'memory length. Custom microWakeWord models work from '
-                'config/custom_wake_words in Home Assistant.',
+                'processing and the conversation memory length. Custom '
+                'microWakeWord models work from config/custom_wake_words in '
+                'Home Assistant.',
               ),
               style: Theme.of(context).textTheme.bodySmall,
             ),

@@ -231,6 +231,19 @@ class VoiceMigration {
     }
     final chime = pick<bool>('stt_followup_chime');
     if (chime != null) assistant[defs.voiceFollowupChime.key] = chime;
+    // TTS output: the select shows the player's name and keeps its entity
+    // in an attribute. "Browser" (no attribute) is this kiosk.
+    final output = entities['tts_output'];
+    if (output != null) {
+      final attributes = output['attributes'];
+      final target = attributes is Map ? attributes['entity_id'] : null;
+      assistant[defs.voiceTtsOutput.key] =
+          target is String && target.startsWith('media_player.') ? target : '';
+    }
+    final mode = '${entities['tts_output_mode_remote']?['state'] ?? ''}';
+    if (mode == 'announcement' || mode == 'normal_playback') {
+      assistant[defs.voiceTtsOutputMode.key] = mode;
+    }
 
     final timers = <String, Object>{};
     final hidePills = pick<bool>('hide_timer_pills');
@@ -336,6 +349,8 @@ class VoiceMigration {
         'talk right after the wake word ${onOff(assistant[defs.voiceSeamlessWake.key])}',
       if (assistant[defs.voiceFollowupDelayMs.key] != null)
         'follow-up delay ${assistant[defs.voiceFollowupDelayMs.key]} ms',
+      if ('${assistant[defs.voiceTtsOutput.key] ?? ''}'.isNotEmpty)
+        'sounds on ${assistant[defs.voiceTtsOutput.key]}',
     ].join(', ');
     final timers = mapped['timers'] ?? const {};
     out['timers'] = [

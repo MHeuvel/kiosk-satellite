@@ -29,7 +29,7 @@ void main() {
     await c.voiceTimers.init();
     c.commands.register(
       Command(
-        name: 'playTimerChime',
+        name: 'voiceChime',
         description: '',
         handler: (_) async {
           if (pendingSound != null) return pendingSound!.future;
@@ -40,7 +40,7 @@ void main() {
     );
     c.commands.register(
       Command(
-        name: 'playSound',
+        name: 'voiceSpeak',
         description: '',
         handler: (p) async {
           sounds.add('speak:${p['url']}');
@@ -50,7 +50,7 @@ void main() {
     );
     c.commands.register(
       Command(
-        name: 'stopSound',
+        name: 'voiceStopSpeech',
         description: '',
         handler: (p) async {
           sounds.add('stop:${p['id']}');

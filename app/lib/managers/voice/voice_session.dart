@@ -41,17 +41,29 @@ abstract class VoiceMicPort {
   Future<void> close();
 }
 
-/// Playback through the kiosk's own player at the Assistant volume.
+/// Playback through the kiosk's own player at the Assistant volume, or on
+/// the media player set to play Voice Satellite's sounds.
 abstract class VoicePlayerPort {
   /// Plays [url] (streamed while Home Assistant still synthesizes it); the
-  /// sound's id, or null when it could not start.
-  Future<String?> play(String url);
+  /// sound's id, or null when it could not start. [text] is what it says,
+  /// when known: a speaker that reports nothing is waited for about that
+  /// long. An [announcement] is followed on a speaker as Voice Satellite
+  /// follows notifications.
+  Future<String?> play(
+    String url, {
+    String text = '',
+    bool announcement = false,
+  });
 
   /// Plays a voice chime ('wake', 'done', 'error', 'announce'); its id and
   /// duration in seconds, or null.
   Future<(String, double)?> chime(String kind);
 
   Future<void> stop(String id);
+
+  /// The interaction ended with no chime after it: a speaker in normal
+  /// playback mode gets back what it played before.
+  Future<void> settle();
 }
 
 /// The settings a turn reads, fresh each time.
@@ -65,6 +77,7 @@ class VoiceSessionOptions {
     this.resultsLingerSeconds = 30,
     this.announcementLingerSeconds = 5,
     this.stopWord = false,
+    this.remoteSpeech = false,
   });
 
   final bool seamless;
@@ -75,6 +88,10 @@ class VoiceSessionOptions {
   final int resultsLingerSeconds;
   final int announcementLingerSeconds;
   final bool stopWord;
+
+  /// The answers play on another speaker: nothing here to take the bar's
+  /// level from, so it does not follow one.
+  final bool remoteSpeech;
 }
 
 /// An announcement from Home Assistant (assist_satellite.announce,
@@ -126,6 +143,7 @@ class VoiceSession {
     required this.onError,
     this.onIntentEnd,
     this.onIdle,
+    this.onTrace,
     DateTime Function()? now,
   }) : _now = now ?? DateTime.now;
 
@@ -147,6 +165,10 @@ class VoiceSession {
   /// The intent ended: the conversation id, for the chat log.
   final void Function(String conversationId)? onIntentEnd;
 
+  /// A step of a turn, for the log. [text] is what was said or answered,
+  /// kept apart so the log can leave it out.
+  final void Function(String step, {String? text})? onTrace;
+
   /// The session went idle: the wake word may listen again.
   final void Function()? onIdle;
   final DateTime Function() _now;
@@ -158,6 +180,7 @@ class VoiceSession {
   static const playbackSafety = Duration(seconds: 120);
   static const stopWordArmDelay = Duration(milliseconds: 250);
   static const noMediaAnnouncement = Duration(seconds: 3);
+  static const remoteChimeSafety = Duration(seconds: 35);
 
   /// Errors that are part of normal use: nothing said, another satellite
   /// answered, a timeout. They end the turn quietly.
@@ -226,6 +249,7 @@ class VoiceSession {
     _phrase = phrase;
     _wokeAt = _now();
     _phase = _Phase.starting;
+    onTrace?.call('wake word "$phrase"');
     onBusy(true, 'voice');
     _show(const AssistView(phase: AssistPhase.listening, reactive: false));
     final seamless = options().seamless;
@@ -253,6 +277,7 @@ class VoiceSession {
     _runActive = true;
     final asked = await link.request(start: true, wakeWordPhrase: _phrase);
     if (gen != _gen) return;
+    if (asked) onTrace?.call('asked Home Assistant for the assistant');
     if (!asked) {
       _runActive = false;
       onError(
@@ -364,6 +389,7 @@ class VoiceSession {
         await _closeMic();
       case VaEvent.sttEnd:
         _cancelWatchdog();
+        onTrace?.call('command heard', text: data['text'] ?? '');
         await _closeMic();
         if (gen != _gen) return;
         _phase = _Phase.thinking;
@@ -385,16 +411,20 @@ class VoiceSession {
         }
       case VaEvent.intentEnd:
         _continue = data['continue_conversation'] == '1';
+        onTrace?.call(
+          'intent done${_continue ? ', the assistant asks back' : ''}',
+        );
         final conversation = data['conversation_id'] ?? '';
         if (conversation.isNotEmpty) onIntentEnd?.call(conversation);
       case VaEvent.ttsStart:
         _phase = _Phase.speaking;
+        onTrace?.call('answer', text: data['text'] ?? '');
         _show(
           _view.copyWith(
             phase: AssistPhase.speaking,
             answer: data['text'] ?? '',
             streaming: false,
-            reactive: true,
+            reactive: !options().remoteSpeech,
           ),
         );
       case VaEvent.ttsEnd:
@@ -431,7 +461,13 @@ class VoiceSession {
   void _armWatchdog(int gen) {
     _cancelWatchdog();
     _watchdog = Timer(vadWatchdog, () {
-      if (gen == _gen) unawaited(cancel());
+      if (gen != _gen) return;
+      onError(
+        'watchdog',
+        'No response from Home Assistant after you finished speaking. The '
+            'pipeline may be stuck.',
+      );
+      unawaited(cancel());
     });
   }
 
@@ -446,8 +482,10 @@ class VoiceSession {
     if (_answerStarted) return;
     _answerStarted = true;
     _phase = _Phase.speaking;
-    final ok = await _play(gen, url, armStopWord: true);
+    final ok = await _play(gen, url, armStopWord: true, text: _view.answer);
     if (gen != _gen) return;
+    if (ok) onTrace?.call('answer played');
+    if (!ok) onError('playback', 'Audio could not be played on the device.');
     _answerPlayed = ok;
     await link.finished();
     if (gen != _gen) return;
@@ -457,8 +495,14 @@ class VoiceSession {
   }
 
   /// Plays [url] to its end. False when it could not play or failed.
-  Future<bool> _play(int gen, String url, {bool armStopWord = false}) async {
-    final id = await player.play(url);
+  Future<bool> _play(
+    int gen,
+    String url, {
+    bool armStopWord = false,
+    String text = '',
+    bool announcement = false,
+  }) async {
+    final id = await player.play(url, text: text, announcement: announcement);
     if (gen != _gen) {
       if (id != null) await player.stop(id);
       return false;
@@ -565,6 +609,7 @@ class VoiceSession {
       _phrase = '';
     }
     _resetRun(keepConversation: true);
+    onTrace?.call('listening for a follow-up');
     // The turn that just ended stays on screen above the next one, whose
     // lines start empty. A result panel stays until a turn brings another.
     final turn = _view.turn;
@@ -595,9 +640,14 @@ class VoiceSession {
     final gen = ++_gen;
     _resetRun();
     _phase = _Phase.announcing;
+    onTrace?.call('announcement', text: announcement.text);
     onBusy(true, 'announcement');
     _show(
-      AssistView(phase: AssistPhase.announcement, answer: announcement.text),
+      AssistView(
+        phase: AssistPhase.announcement,
+        answer: announcement.text,
+        reactive: !options().remoteSpeech,
+      ),
     );
     final pre = announcement.preannounceMediaId;
     if (pre.isNotEmpty) {
@@ -607,19 +657,29 @@ class VoiceSession {
         final chime = await player.chime('announce');
         if (gen != _gen) return;
         if (chime != null) {
+          // A speaker reports its end late, or not at all: it gets the
+          // speaker's own safety.
           await _awaitSound(
             gen,
             chime.$1,
-            safety: Duration(milliseconds: (chime.$2 * 1000).round() + 3000),
+            safety: options().remoteSpeech
+                ? remoteChimeSafety
+                : Duration(milliseconds: (chime.$2 * 1000).round() + 3000),
           );
         }
       } else {
-        await _play(gen, pre);
+        await _play(gen, pre, announcement: true);
       }
       if (gen != _gen) return;
     }
     if (announcement.mediaId.isNotEmpty) {
-      await _play(gen, announcement.mediaId, armStopWord: true);
+      await _play(
+        gen,
+        announcement.mediaId,
+        armStopWord: true,
+        text: announcement.text,
+        announcement: true,
+      );
     } else {
       await Future<void>.delayed(noMediaAnnouncement);
     }
@@ -658,6 +718,7 @@ class VoiceSession {
     final gen = ++_gen;
     _resetRun();
     _phase = _Phase.showing;
+    onTrace?.call('vs_show', text: prompt);
     onBusy(true, 'show');
     _show(
       AssistView(phase: AssistPhase.thinking, command: prompt, reactive: false),
@@ -670,6 +731,7 @@ class VoiceSession {
   /// until the assistant is done with it.
   void showAnswer(int gen, String text, {bool streaming = true}) {
     if (gen != _gen || text.isEmpty) return;
+    if (!streaming) onTrace?.call('answer', text: text);
     _show(
       _view.copyWith(
         phase: AssistPhase.speaking,
@@ -683,7 +745,13 @@ class VoiceSession {
   /// Speaks the show's answer, to its end.
   Future<void> showSpeak(int gen, String url) async {
     if (gen != _gen) return;
-    await _play(gen, url, armStopWord: true);
+    final ok = await _play(gen, url, armStopWord: true, text: _view.answer);
+    if (gen != _gen) return;
+    if (ok) {
+      onTrace?.call('answer played');
+    } else {
+      onError('playback', 'Audio could not be played on the device.');
+    }
   }
 
   /// The show's run is over: the answer stays for [seconds], or until it
@@ -733,8 +801,20 @@ class VoiceSession {
 
   /// Double tap, the stop word, or the watchdog: end whatever is going on,
   /// with the done chime.
+  /// Home Assistant dropped the satellite: a turn waiting on the pipeline
+  /// would wait for nothing, so it ends now.
+  Future<void> connectionLost() async {
+    if (!busy || !_runActive) return;
+    onError('connection-lost', 'Lost connection to Home Assistant.');
+    _kept = false;
+    final gen = ++_gen;
+    await _abandon();
+    await _finish(gen, sound: 'error');
+  }
+
   Future<void> cancel() async {
     if (!busy) return;
+    onTrace?.call('turn cancelled');
     _kept = false;
     final gen = ++_gen;
     await _abandon();
@@ -779,6 +859,9 @@ class VoiceSession {
     if (sound != null && (sound == 'error' || opts.wakeSound)) {
       await player.chime(sound);
       if (gen != _gen) return;
+    } else {
+      await player.settle();
+      if (gen != _gen) return;
     }
     // How long the overlay stays: 0 hides it now, null keeps it until it
     // is dismissed (results with Keep results on screen at 0).
@@ -796,6 +879,13 @@ class VoiceSession {
     // dedupe window, a chime) must not carry on.
     final ended = ++_gen;
     _phase = _Phase.idle;
+    onTrace?.call(
+      'turn over${keep == 0
+          ? ''
+          : keep == null
+          ? ', kept on screen'
+          : ', on screen for ${keep}s'}',
+    );
     onBusy(false, '');
     onIdle?.call();
     _linger?.cancel();

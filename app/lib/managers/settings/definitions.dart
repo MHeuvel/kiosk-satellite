@@ -100,7 +100,8 @@ class SettingDef<T> {
   /// boolean-switch case; set to a string to gate on a mode select, or to a
   /// list of them for a row that belongs to more than one mode (the Immich
   /// From date, which both Since and Timeframe want).
-  /// A map with `gt` gates on a number greater than the supplied value.
+  /// A map with `gt` gates on a number greater than the supplied value, one
+  /// with `ne` on any value but the supplied one (a picker set to anything).
   final Object dependsOnValue;
 
   /// Whether [value] satisfies [dependsOnValue], which is a list when the
@@ -113,6 +114,7 @@ class SettingDef<T> {
     if (wanted is Map && wanted['gt'] is num) {
       return value is num && value > (wanted['gt'] as num);
     }
+    if (wanted is Map && wanted.containsKey('ne')) return value != wanted['ne'];
     return value == wanted;
   }
 
@@ -5108,6 +5110,43 @@ const voiceFollowupChime = SettingDef<bool>(
   dependsOn: 'voice.enabled',
 );
 
+/// The media player all of Voice Satellite's sounds play on, or empty for
+/// the kiosk itself: its TTS output.
+const voiceTtsOutput = SettingDef<String>(
+  key: 'voice.tts_output',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Play sounds on',
+  description:
+      'Chimes, answers, announcements and timer alerts play on this speaker.',
+  category: 'Voice Satellite',
+  subpage: 'Assistant',
+  section: 'Speaker',
+  dependsOn: 'voice.enabled',
+);
+
+/// How the speaker plays them, Voice Satellite's TTS output mode.
+const voiceTtsOutputMode = SettingDef<String>(
+  key: 'voice.tts_output_mode',
+  type: SettingType.select,
+  defaultValue: 'announcement',
+  options: ['announcement', 'normal_playback'],
+  optionLabels: {
+    'announcement': 'Announcement',
+    'normal_playback': 'Normal playback',
+  },
+  title: 'Play as',
+  description:
+      'An announcement lets the speaker pause its music and resume it. '
+      'Normal playback starts the music again afterward, for speakers that '
+      'ignore announcements.',
+  category: 'Voice Satellite',
+  subpage: 'Assistant',
+  section: 'Speaker',
+  dependsOn: 'voice.tts_output',
+  dependsOnValue: {'ne': ''},
+);
+
 const voiceWakeWordEngine = SettingDef<String>(
   key: 'voice.wake_word_engine',
   type: SettingType.select,
@@ -5449,6 +5488,23 @@ const voiceTimerNamedPhrase = SettingDef<String>(
   subpage: 'Timers',
   section: 'When a timer ends',
   dependsOn: 'voice.timer_speak',
+);
+
+/// Command and answer text and each raw pipeline event in the App Logs,
+/// as Voice Satellite's Debug logging put them in the console. A turn's
+/// steps are logged either way. This adds what was said.
+const voiceDebugLogging = SettingDef<bool>(
+  key: 'voice.debug_logging',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Debug logging',
+  description:
+      'Adds what was said, the answers and each pipeline event to the App '
+      'Logs.',
+  category: 'Voice Satellite',
+  section: 'Debug',
+  dependsOn: 'voice.enabled',
+  perDevice: true,
 );
 
 const voiceWakeSound = SettingDef<bool>(
@@ -8925,6 +8981,8 @@ const List<SettingDef<Object>> allSettings = [
   voiceSeamlessWake,
   voiceFollowupDelayMs,
   voiceFollowupChime,
+  voiceTtsOutput,
+  voiceTtsOutputMode,
   voiceWakeWordEngine,
   voiceWakeWords,
   voiceWakeWordSensitivity,
@@ -9057,6 +9115,7 @@ const List<SettingDef<Object>> allSettings = [
   notificationsTransparency,
   notificationsBlur,
   voiceWakeSound,
+  voiceDebugLogging,
   voiceChimeWake,
   voiceChimeDone,
   voiceChimeError,

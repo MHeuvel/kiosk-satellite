@@ -109,3 +109,14 @@ class AssistView {
     reactive: reactive ?? this.reactive,
   );
 }
+
+/// Voice Satellite's estimate of how long [text] takes to say, in seconds:
+/// 2.8 words a second, 0.7 more per number, three at least.
+double estimateSpeechSeconds(String text) {
+  final trimmed = text.trim();
+  if (trimmed.isEmpty) return 0;
+  final words = trimmed.split(RegExp(r'\s+')).length;
+  final numbers = RegExp(r'\d[\d,.]*%?').allMatches(text).length;
+  final seconds = words / 2.8 + numbers * 0.7;
+  return seconds < 3 ? 3 : seconds;
+}

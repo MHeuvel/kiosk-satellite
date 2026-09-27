@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math' show Random;
 
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -372,6 +373,73 @@ class SoundManager extends Manager {
       )
       ..register(
         Command(
+          name: 'voiceChimeUrl',
+          description:
+              'An address on the local network where a speaker can fetch a '
+              'voice chime (the pick on the Chimes page, else the bundled '
+              'sound), with its duration in seconds.',
+          params: const {'kind': 'wake | done | error | alert | announce'},
+          quiet: true,
+          handler: (p) async {
+            final kind = p['kind'];
+            if (kind is! String || !voiceChimeSettings.containsKey(kind)) {
+              return const CommandResult.fail('unknown chime');
+            }
+            final (source, duration) = await _voiceChime(kind);
+            try {
+              return CommandResult.ok({
+                'url': await _chimeUrl(kind, source),
+                'duration': duration,
+              });
+            } catch (e) {
+              return CommandResult.fail('chime not served: $e');
+            }
+          },
+        ),
+      )
+      ..register(
+        Command(
+          name: 'soundDuration',
+          description:
+              'How long the sound at a URL plays, in seconds: fetched here '
+              'and measured.',
+          params: const {
+            'url': 'absolute URL of the audio',
+            'timeoutMs': 'the longest to wait for it (default 60000)',
+          },
+          quiet: true,
+          handler: (p) async {
+            final url = p['url'] as String?;
+            if (url == null || url.isEmpty) {
+              return const CommandResult.fail('url required');
+            }
+            final timeout = Duration(
+              milliseconds: (p['timeoutMs'] as num?)?.toInt() ?? 60000,
+            );
+            String? file;
+            try {
+              file = await _fetch(url, cache: false, timeout: timeout);
+              final seconds = await _channel.invokeMethod<num>('duration', {
+                'source': file,
+              });
+              if (seconds == null || !seconds.isFinite || seconds <= 0) {
+                return const CommandResult.fail('no duration');
+              }
+              return CommandResult.ok({'seconds': seconds.toDouble()});
+            } catch (e) {
+              return CommandResult.fail('$e');
+            } finally {
+              if (file != null) {
+                try {
+                  await File(file).delete();
+                } catch (_) {}
+              }
+            }
+          },
+        ),
+      )
+      ..register(
+        Command(
           name: 'playTimerChime',
           description: 'Play the selected Voice Satellite timer alert locally.',
           handler: (_) async {
@@ -566,12 +634,14 @@ class SoundManager extends Manager {
     return file.path;
   }
 
-  Future<String> _fetch(String url, {required bool cache}) async {
+  Future<String> _fetch(
+    String url, {
+    required bool cache,
+    Duration timeout = const Duration(seconds: 15),
+  }) async {
     final hit = cache ? _cached[url] : null;
     if (hit != null && File(hit).existsSync()) return hit;
-    final response = await http
-        .get(Uri.parse(url))
-        .timeout(const Duration(seconds: 15));
+    final response = await http.get(Uri.parse(url)).timeout(timeout);
     if (response.statusCode != 200) {
       throw HttpException('HTTP ${response.statusCode}', uri: Uri.parse(url));
     }
@@ -583,6 +653,110 @@ class SoundManager extends Manager {
     await file.writeAsBytes(response.bodyBytes, flush: true);
     if (cache) _cached[url] = file.path;
     return file.path;
+  }
+
+  /// The port speakers fetch the voice chimes from, fixed so a firewall
+  /// between the speakers and the kiosk can let it through. Past the DLNA
+  /// renderer's 2325 to 2328.
+  static const voiceChimePort = 2329;
+
+  /// The voice chimes for speakers on the network, when Voice Satellite's
+  /// sounds play on a media player: kind -> file, under a token only the
+  /// speakers are handed. Home Assistant served these to the dashboard
+  /// integration's speakers. Natively the kiosk has them.
+  HttpServer? _chimeServer;
+  final _chimeFiles = <String, String>{};
+  late final _chimeToken = List.generate(
+    16,
+    (_) => Random.secure().nextInt(16).toRadixString(16),
+  ).join();
+
+  Future<String> _chimeUrl(String kind, String source) async {
+    _chimeFiles[kind] = source;
+    final server = _chimeServer ??= await _startChimeServer();
+    final ip = await _lanAddress();
+    final file = File(source);
+    final dot = source.lastIndexOf('.');
+    final ext = dot > source.lastIndexOf('/') ? source.substring(dot) : '.mp3';
+    // Changes with the file, so a speaker never replays an old pick from
+    // its cache.
+    final version = (await file.stat()).modified.millisecondsSinceEpoch;
+    return 'http://$ip:${server.port}/$_chimeToken/$kind$ext?v=$version';
+  }
+
+  Future<HttpServer> _startChimeServer() async {
+    HttpServer server;
+    try {
+      server = await HttpServer.bind(InternetAddress.anyIPv4, voiceChimePort);
+    } on SocketException catch (e) {
+      // Speakers that reach the kiosk on any port still get the chimes. A
+      // firewall rule for the documented port does not match this one.
+      server = await HttpServer.bind(InternetAddress.anyIPv4, 0);
+      log.warn(
+        name,
+        'port $voiceChimePort is in use, voice chimes served on '
+        '${server.port} instead ($e)',
+      );
+    }
+    server.listen(
+      _serveChime,
+      onError: (Object e) => log.warn(name, 'chime server error: $e'),
+    );
+    log.info(name, 'voice chimes served on port ${server.port}');
+    return server;
+  }
+
+  Future<void> _serveChime(HttpRequest req) async {
+    final segments = req.uri.pathSegments;
+    final kind = segments.length == 2 && segments[0] == _chimeToken
+        ? segments[1].split('.').first
+        : null;
+    final source = kind == null ? null : _chimeFiles[kind];
+    final response = req.response;
+    try {
+      if (source == null || !File(source).existsSync()) {
+        response.statusCode = HttpStatus.notFound;
+        return;
+      }
+      final file = File(source);
+      response.headers
+        ..contentType = ContentType.parse(_audioType(source))
+        ..contentLength = await file.length();
+      log.debug(
+        name,
+        'chime $kind fetched by ${req.connectionInfo?.remoteAddress.address}',
+      );
+      if (req.method != 'HEAD') await response.addStream(file.openRead());
+    } catch (e) {
+      log.debug(name, 'chime $kind not sent: $e');
+    } finally {
+      try {
+        await response.close();
+      } catch (_) {}
+    }
+  }
+
+  static String _audioType(String path) {
+    final lower = path.toLowerCase();
+    if (lower.endsWith('.ogg') || lower.endsWith('.oga')) return 'audio/ogg';
+    if (lower.endsWith('.wav')) return 'audio/wav';
+    if (lower.endsWith('.flac')) return 'audio/flac';
+    if (lower.endsWith('.m4a') || lower.endsWith('.aac')) return 'audio/mp4';
+    return 'audio/mpeg';
+  }
+
+  /// The kiosk's address on the local network, for speakers to reach it.
+  Future<String> _lanAddress() async {
+    final interfaces = await NetworkInterface.list(
+      type: InternetAddressType.IPv4,
+      includeLinkLocal: false,
+    );
+    for (final i in interfaces) {
+      for (final a in i.addresses) {
+        if (!a.isLoopback) return a.address;
+      }
+    }
+    throw StateError('no network address');
   }
 
   /// Register [url] under a one-shot token and return the loopback address
@@ -705,6 +879,8 @@ class SoundManager extends Manager {
     _capture = null;
     await _relay?.close(force: true);
     _relay = null;
+    await _chimeServer?.close(force: true);
+    _chimeServer = null;
   }
 }
 
