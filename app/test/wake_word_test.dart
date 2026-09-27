@@ -264,6 +264,8 @@ void main() {
         engines: {WakeWordEngineType.microWakeWord: engine},
       );
       await wakeWord.init();
+      // The page's handoff: the dashboard runtime.
+      await settings.set(defs.voiceRuntime, 'dashboard');
       await settings.set(defs.wakeWordResumeTimeoutSeconds, 1);
       await commands.execute('setWakeWordConfig', vsConfig);
       expect(wakeWord.listening, isTrue);
@@ -469,6 +471,26 @@ void main() {
         active().then((v) => isActive = v);
         async.flushMicrotasks();
         expect(isActive, isTrue, reason: 'nothing was streaming: heal');
+      });
+    });
+
+    test('the native satellite keeps only the ten minute backstop', () {
+      fakeAsync((async) {
+        settings.set(defs.voiceRuntime, 'native');
+        async.flushMicrotasks();
+        commands.execute('simulateWakeWord', const {});
+        async.flushMicrotasks();
+        // A long spoken answer, far past the page's timeout: the satellite
+        // hands the wake word back itself when it goes idle.
+        async.elapse(const Duration(seconds: 120));
+        var isActive = true;
+        active().then((v) => isActive = v);
+        async.flushMicrotasks();
+        expect(isActive, isFalse);
+        async.elapse(const Duration(seconds: 480));
+        active().then((v) => isActive = v);
+        async.flushMicrotasks();
+        expect(isActive, isTrue, reason: 'the backstop');
       });
     });
 

@@ -1026,6 +1026,9 @@ class VoiceManager extends Manager {
   }
 
   void _onBusy(bool busy, String reason) {
+    // The remote admin's status rows say Busy for the whole turn: the wake
+    // word's microphone stays open through it, so nothing else moves them.
+    _announceStatus();
     if (busy) {
       if (_busyReasons.add(reason)) {
         bus.publish(

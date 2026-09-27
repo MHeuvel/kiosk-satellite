@@ -75,7 +75,7 @@ async function paintStatus(card, byKey) {
           : 'Listening for the wake word.');
   statusWord(statusRow,
     !added ? voiceText('Not added') : muted ? voiceText('Muted')
-      : status.listening ? voiceText('Listening') : voiceText('Busy'),
+      : status.listening && !status.busy ? voiceText('Listening') : voiceText('Busy'),
     !added ? 'var(--warn)' : muted ? 'var(--muted)' : 'var(--primary)');
   const haRow = voiceRow('Home Assistant', entity ? '' : esphome
     ? 'Add this kiosk under Settings, Devices & services in Home Assistant, where it shows up as discovered.'

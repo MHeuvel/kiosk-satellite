@@ -4986,6 +4986,8 @@ const wakeWordReturnToBackground = SettingDef<bool>(
   dependsOn: 'wake_word.background',
 );
 
+/// The dashboard runtime's self-heal for a page that never hands the wake
+/// word back. The native runtime ends its own turns, so it has no row.
 const wakeWordResumeTimeoutSeconds = SettingDef<num>(
   key: 'wake_word.resume_timeout_seconds',
   type: SettingType.number,
@@ -4997,7 +4999,8 @@ const wakeWordResumeTimeoutSeconds = SettingDef<num>(
       'still streaming audio, so a long turn is never cut short.',
   category: 'Voice Satellite',
   subpage: 'Wake Word',
-  dependsOn: 'wake_word.enabled',
+  dependsOn: 'voice.runtime',
+  dependsOnValue: 'dashboard',
 );
 
 /// Keeps the last 10 wake word activations with a short clip of each, for

@@ -1320,7 +1320,10 @@ class WakeWordManager extends Manager
   /// same config again does not, since that would reload every model. A push
   /// after a failure retries even when identical: whatever broke (a mic
   /// permission, a missing model) may be fixed by now.
-  Future<void> configure(WakeWordConfig config, {String source = 'page'}) async {
+  Future<void> configure(
+    WakeWordConfig config, {
+    String source = 'page',
+  }) async {
     final changed = _config != config || _released || _failed;
     _released = false; // a fresh config takes the mic back
     _releaseReason = null;
@@ -1357,7 +1360,11 @@ class WakeWordManager extends Manager
     await _engine.stop();
     log.info(name, 'released by $source (mic closed)');
     bus.publish(
-      WakeWordStateChanged(active: _active, listening: listening, muted: _muted),
+      WakeWordStateChanged(
+        active: _active,
+        listening: listening,
+        muted: _muted,
+      ),
     );
   }
 
@@ -1643,9 +1650,16 @@ class WakeWordManager extends Manager
   /// has no floor) made that happen on every wake. The check lands within one
   /// period of the stream closing, so a page lost after its turn is still
   /// caught, and [_turnCeilingSeconds] bounds the wait for one lost mid-turn.
+  ///
+  /// The native satellite ends its own turns and hands the wake word back
+  /// when it goes idle, past its own watchdogs, and a spoken answer can run
+  /// long after the microphone closed. It keeps only the ceiling as a
+  /// backstop, never the page's timeout.
   void _armResumeTimer({int deferred = 0}) {
     _resumeTimer?.cancel();
-    final timeout = _settings.get(defs.wakeWordResumeTimeoutSeconds).toInt();
+    final timeout = _settings.get(defs.voiceRuntime) == 'native'
+        ? _turnCeilingSeconds
+        : _settings.get(defs.wakeWordResumeTimeoutSeconds).toInt();
     if (timeout <= 0) return;
     _resumeTimer = Timer(Duration(seconds: timeout), () async {
       if (_active) return;
