@@ -5435,6 +5435,23 @@ const voiceTimerNameInPill = SettingDef<bool>(
   dependsOn: 'voice.enabled',
 );
 
+/// The pills draw for both runtimes (the dashboard's integration pushes
+/// its timers to the same overlay), so this row shows for both.
+const voiceTimerPillScale = SettingDef<num>(
+  key: 'voice.timer_pill_scale',
+  type: SettingType.number,
+  defaultValue: 100,
+  title: 'Timer pill scale',
+  description: 'The size of the timer pills.',
+  category: 'Voice Satellite',
+  subpage: 'Timers',
+  section: 'Pills',
+  min: 50,
+  max: 300,
+  step: 5,
+  unit: '%',
+);
+
 const voiceMuteTimers = SettingDef<bool>(
   key: 'voice.mute_timers',
   type: SettingType.boolean,
@@ -8990,6 +9007,7 @@ const List<SettingDef<Object>> allSettings = [
   voiceAnnouncementLinger,
   voiceTimerPills,
   voiceTimerNameInPill,
+  voiceTimerPillScale,
   voiceMuteTimers,
   voiceTimerNameOnAlert,
   voiceTimerSpeak,

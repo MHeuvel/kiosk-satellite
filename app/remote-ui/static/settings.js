@@ -1680,10 +1680,12 @@ kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
       // renderVsControls then puts into both panels.
       render(root, ['Voice Satellite'].filter((c) => (byCat[c] || []).length),
         { extra: ['Appearance'] });
-      // Match the kiosk's page order: Wake Word, Appearance, Chimes.
+      // Match the kiosk's page order: Wake Word, Appearance, Timers, Chimes.
       const appearanceEntry = root.querySelector('[data-subpage-entry="Appearance"]')?.closest('.card');
+      const timersEntry = root.querySelector('[data-subpage-entry="Timers"]')?.closest('.card');
       const chimesEntry = root.querySelector('[data-subpage-entry="Chimes"]')?.closest('.card');
       if (appearanceEntry && chimesEntry) appearanceEntry.after(chimesEntry);
+      if (appearanceEntry && timersEntry) appearanceEntry.after(timersEntry);
       // Wake word diagnostics stays where render() puts it, right under Wake
       // Word: its setting follows the Wake Word ones in the schema. (The
       // kiosk opens it from the tester's group, which is kiosk-only.)

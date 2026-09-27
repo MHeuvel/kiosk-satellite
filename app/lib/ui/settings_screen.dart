@@ -3629,6 +3629,15 @@ class _CategoryContentState extends State<_CategoryContent> {
       return [...sectioned(voiceChimeSettings.values.toList())];
     }
 
+    // The dashboard runtime's Timers page holds only what the kiosk draws
+    // itself: the pills.
+    if (widget.category == 'Voice Satellite' && subpage == 'Timers') {
+      return sectioned([
+        for (final def in _defsFor(widget.category))
+          if (def.subpage == subpage) def,
+      ]);
+    }
+
     // Voice Satellite's two pages are almost entirely live rows from the
     // integration, so they render through the same section that draws them
     // on the page above rather than from the definitions.
@@ -11801,7 +11810,7 @@ class _VsControlsSectionState extends State<VsControlsSection> {
 
   /// Entries for the Voice Satellite settings groups.
   List<Widget> _vsPageEntries() => [
-    for (final page in const ['Wake Word', 'Appearance', 'Chimes'])
+    for (final page in const ['Wake Word', 'Appearance', 'Timers', 'Chimes'])
       _subpageEntryCard(widget.container, 'Voice Satellite', page),
   ];
 }
