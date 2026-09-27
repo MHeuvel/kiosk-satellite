@@ -1,5 +1,5 @@
 import { overviewLabel, overviewMessageBox as messageBox, overviewModalShell as modalShell } from './overview_labels.js';
-import { overviewText, overviewStatus, cameraError, deviceText, deviceOperationError, intercomText, mediaText, mediaError, navigationText, t } from './localization.js';
+import { overviewText, overviewStatus, cameraError, deviceText, deviceOperationError, intercomText, mediaText, mediaError, navigationText, t, voiceText } from './localization.js';
 import { watchUpdates } from './live.js';
 import { $, api, cmd, state } from './core.js';
 import { attachUpdateInstall, refreshUpdateBadge } from './device.js';
@@ -10,6 +10,7 @@ import { permissionSpecs } from './permissions.js';
 import { loadPlugins } from './plugins.js';
 import { showTab } from './tabs.js';
 import { attachSlider, showToast } from './widgets.js';
+import { openVsMigrationWizard } from './vs_native.js';
 
 /* ---- Overview ----
    The first page, and for most visits the only one: what the kiosk needs
@@ -545,6 +546,19 @@ function paintHealth({ filter = true } = {}) {
           await cmd('retryWakeWord').catch(() => null);
           setTimeout(refreshWake, 1500);
         };
+      },
+    });
+  }
+  // Still on the Voice Satellite integration's engine: the Voice Satellite
+  // page's notice, with the same way out.
+  if (settingVal('voice.runtime') === 'dashboard' && ha?.connected) {
+    items.push({
+      key: 'vs-migrate',
+      name: 'Voice Satellite',
+      desc: voiceText('Voice Satellite is currently installed as an integration in Home Assistant. Migrate to a native experience inside Kiosk Satellite.'),
+      action: (btn) => {
+        btn.textContent = voiceText('Migrate');
+        btn.onclick = () => openVsMigrationWizard();
       },
     });
   }

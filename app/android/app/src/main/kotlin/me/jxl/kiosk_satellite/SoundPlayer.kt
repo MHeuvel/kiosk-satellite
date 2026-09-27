@@ -80,6 +80,9 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
          *  main thread) waiting for the internal playback thread. */
         private const val RELEASE_TIMEOUT_MS = 50L
 
+        /** How often a playing stream reports its position to the page. */
+        private const val PROGRESS_INTERVAL_MS = 250L
+
         /** Playback errors that mean the decoder, not the sound: worth one
          *  retry on software decoders, which need no vendor codec service. */
         private val DECODER_ERROR_CODES = setOf(
@@ -336,6 +339,11 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
                 // real audio start, not off the play call.
                 channel.invokeMethod("started", mapOf("id" to id))
                 startLevelCapture(id, player)
+                reportProgress(id) {
+                    val live = players[id]
+                    if (live !== player) null
+                    else live.currentPosition.toLong() to live.duration.toLong()
+                }
             }
             mp.setOnCompletionListener { if (players[id] === it) finish(id, null) }
             mp.setOnErrorListener { player, what, extra ->
@@ -580,6 +588,10 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
                     diagnostic(id, "player isPlaying=true")
                     channel.invokeMethod("started", mapOf("id" to id))
                     scheduleRoutingKicks(id, player)
+                    reportProgress(id) {
+                        if (exoPlayers[id] !== player) null
+                        else player.currentPosition to player.duration
+                    }
                 }
 
                 override fun onPlaybackStateChanged(state: Int) {
@@ -639,6 +651,29 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
             finish(id, e.message ?: "play failed")
             false
         }
+    }
+
+    /**
+     * Reports a playing stream's position and duration (ms) to the page
+     * every [PROGRESS_INTERVAL_MS] until [read] returns null (the sound is
+     * over or replaced), so it can pace what it shows to what is heard. A
+     * streamed TTS answer has no duration until all of it has arrived: -1.
+     */
+    private fun reportProgress(id: String, read: () -> Pair<Long, Long>?) {
+        mainHandler.post(object : Runnable {
+            override fun run() {
+                val (position, duration) = read() ?: return
+                channel.invokeMethod(
+                    "progress",
+                    mapOf(
+                        "id" to id,
+                        "position" to position,
+                        "duration" to if (duration == C.TIME_UNSET || duration <= 0) -1L else duration,
+                    ),
+                )
+                mainHandler.postDelayed(this, PROGRESS_INTERVAL_MS)
+            }
+        })
     }
 
     /**

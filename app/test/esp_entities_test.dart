@@ -1887,6 +1887,9 @@ void main() {
 
   group('the Voice Satellite switches (issue #288)', () {
     setUp(() async {
+      // The integration's engine in the dashboard: the kiosk runs no
+      // satellite of its own.
+      await settings.set(defs.voiceRuntime, 'dashboard');
       await settings.set(
         defs.haSatelliteEntity,
         'assist_satellite.office_tablet',

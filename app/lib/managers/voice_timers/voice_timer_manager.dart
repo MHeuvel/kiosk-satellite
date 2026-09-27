@@ -77,6 +77,11 @@ class VoiceTimerManager extends Manager {
   int _soundGeneration = 0;
   bool _playing = false;
   Completer<void>? _soundDone;
+
+  /// A spoken phrase for the ringing alert (native Voice Satellite's "Speak
+  /// when a timer ends"): the ring goes chime, chime, phrase, and again.
+  String? _speech;
+  int _rings = 0;
   final error = ValueNotifier<int>(0);
   String _entity = '';
   StreamSubscription<VoiceTimersCleared>? _clearSub;
@@ -141,15 +146,18 @@ class VoiceTimerManager extends Manager {
             ];
             final wasMuted = _muted;
             _muted = p['muted'] == true;
+            final speech = p['speech'];
+            _speech = speech is String && speech.isNotEmpty ? speech : null;
             if (_muted && !wasMuted) _stopSound();
             if (_ring == null) {
-              unawaited(_chime());
+              _rings = 0;
+              _tick();
               _ring = Timer.periodic(
                 const Duration(seconds: 3),
-                (_) => unawaited(_chime()),
+                (_) => _tick(),
               );
             } else if (wasMuted && !_muted) {
-              unawaited(_chime());
+              _tick();
             }
           }
           return const CommandResult.ok();
@@ -183,7 +191,24 @@ class VoiceTimerManager extends Manager {
     bus.publish(VoiceTimerAction(entityId: _entity, id: id, action: action));
   }
 
-  Future<void> _chime() async {
+  /// One beat of the ring: a chime, or the phrase after every second chime.
+  void _tick() {
+    if (_playing) return;
+    final speech = _speech;
+    if (speech != null && _rings >= 2) {
+      _rings = 0;
+      unawaited(
+        _chime(
+          () => commands.execute('playSound', {'url': speech, 'stream': true}),
+        ),
+      );
+      return;
+    }
+    _rings++;
+    unawaited(_chime());
+  }
+
+  Future<void> _chime([Future<CommandResult> Function()? start]) async {
     if (_muted || alerts.value.isEmpty || _playing) return;
     final generation = _soundGeneration;
     _playing = true;
@@ -196,7 +221,8 @@ class VoiceTimerManager extends Manager {
       if (event.id == playingId && !done.isCompleted) done.complete();
     });
     try {
-      final result = await commands.execute('playTimerChime', const {});
+      final result =
+          await (start?.call() ?? commands.execute('playTimerChime', const {}));
       final data = result.data;
       if (data is Map && data['id'] is String) {
         final id = data['id'] as String;
@@ -233,6 +259,7 @@ class VoiceTimerManager extends Manager {
   void _clearAlert() {
     _ring?.cancel();
     _ring = null;
+    _speech = null;
     _stopSound();
     alerts.value = const [];
   }

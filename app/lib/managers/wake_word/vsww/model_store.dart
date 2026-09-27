@@ -6,6 +6,7 @@ import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
+import '../model_source.dart';
 import 'manifest.dart';
 
 /// A downloaded vsWakeWord model: its parsed manifest, the raw manifest JSON
@@ -38,14 +39,12 @@ class VswwModelStore {
   /// (same manifest, ~35% faster inference); any failure falls back to the
   /// fp32 file, so a server without the int8 build keeps working untouched.
   Future<VswwModel> fetch(String manifestUrl, {bool preferInt8 = false}) async {
-    final manifestResp = await http
-        .get(Uri.parse(manifestUrl))
-        .timeout(const Duration(seconds: 20));
-    if (manifestResp.statusCode != 200) {
-      throw StateError('manifest HTTP ${manifestResp.statusCode}: $manifestUrl');
-    }
+    final manifestJson = await readModelText(
+      manifestUrl,
+      timeout: const Duration(seconds: 20),
+    );
     final manifest = VswwManifest.fromJson(
-        jsonDecode(manifestResp.body) as Map<String, dynamic>);
+        jsonDecode(manifestJson) as Map<String, dynamic>);
     if (!manifest.isCtc) {
       throw StateError('unsupported vsWakeWord format: ${manifest.format}');
     }
@@ -54,14 +53,14 @@ class VswwModelStore {
     if (preferInt8) {
       try {
         final bytes = await _fetchOnnxCached(_int8UrlFor(onnxUrl));
-        return VswwModel(manifest, manifestResp.body, bytes, 'int8');
+        return VswwModel(manifest, manifestJson, bytes, 'int8');
       } catch (_) {
         // No int8 sibling on this server (or it failed to load): fp32 is
         // always the safe answer, and the browser runner requires it anyway.
       }
     }
     final onnxBytes = await _fetchOnnxCached(onnxUrl);
-    return VswwModel(manifest, manifestResp.body, onnxBytes, 'fp32');
+    return VswwModel(manifest, manifestJson, onnxBytes, 'fp32');
   }
 
   /// Derive the `.onnx` URL from the manifest URL, preserving any query
@@ -90,6 +89,7 @@ class VswwModelStore {
   }
 
   Future<Uint8List> _fetchOnnxCached(String onnxUrl) async {
+    if (isBundledModel(onnxUrl)) return readModelBytes(onnxUrl);
     final dir = await _cacheDir();
     final key = sha256.convert(utf8.encode(onnxUrl)).toString().substring(0, 24);
     final file = File('${dir.path}/$key.onnx');

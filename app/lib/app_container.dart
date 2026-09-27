@@ -40,6 +40,7 @@ import 'managers/sound/sound_manager.dart';
 import 'managers/settings/provisioning.dart';
 import 'managers/settings/settings_manager.dart';
 import 'managers/update/update_manager.dart';
+import 'managers/voice/voice_manager.dart';
 import 'managers/voice_timers/voice_timer_manager.dart';
 import 'managers/wake_word/wake_word_manager.dart';
 
@@ -107,6 +108,7 @@ class AppContainer {
     files = FilesManager(bus, commands, log);
     sound = SoundManager(bus, commands, log, settings: settings);
     voiceTimers = VoiceTimerManager(bus, commands, log);
+    voice = VoiceManager(bus, commands, log, settings, btProxy, wakeWord);
     notifications = NotificationManager(bus, commands, log, settings);
     update = UpdateManager(
       bus,
@@ -164,6 +166,7 @@ class AppContainer {
   late final GlanceManager glance;
   late final SoundManager sound;
   late final VoiceTimerManager voiceTimers;
+  late final VoiceManager voice;
   late final NotificationManager notifications;
   late final UpdateManager update;
   late final ShizukuManager shizuku;
@@ -218,6 +221,10 @@ class AppContainer {
     glance,
     sound,
     voiceTimers,
+    // After the ESPHome server (its voice link), the wake word engine it
+    // configures, and the sound and timer managers it plays and shows
+    // through.
+    voice,
     notifications,
     update,
     shizuku,

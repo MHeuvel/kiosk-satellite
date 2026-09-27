@@ -1,4 +1,4 @@
-"""Translated setup keeps dashboard routes, satellite IDs and recommendation keys."""
+"""Translated setup keeps dashboard routes, the voice choice and recommendation keys."""
 import json
 import os
 from functools import partial
@@ -16,8 +16,6 @@ if os.environ.get('KS_TEST_SPANISH'):
 ids = json.loads((APP / 'l10n/setup_text.json').read_text())
 commands = []
 patches = []
-vs = True
-satellites = [dict(entity_id='assist_satellite.first', name='Apply all recommended settings'), dict(entity_id='assist_satellite.second', name='<b>Original satellite</b>')]
 views = [dict(title='Choose a view', route='original'), dict(title='<b>Original view</b>', route='second')]
 
 def api(route):
@@ -28,7 +26,7 @@ def api(route):
         return route.fulfill(json=dict(ok=True))
     name = path.removeprefix('commands/')
     commands.append((name, params))
-    result = {'haListDashboardViews': views, 'haDetectVoiceSatellite': vs, 'haListVoiceSatellites': satellites, 'getSystemPermissions': {}}.get(name, {})
+    result = {'haListDashboardViews': views, 'getSystemPermissions': {}}.get(name, {})
     route.fulfill(json=dict(ok=True, data=result))
 
 class Handler(SimpleHTTPRequestHandler):
@@ -57,8 +55,9 @@ try:
           const w=await import('/static/wizard.js');wizard.steps=w.wizardSteps();w.wizardRender();
         }""", views)
         root = page.locator('#wizardBody')
-        def label(en): return translated[ids[en]]
-        def state(): return page.evaluate("async()=>{const {wizard:w}=await import('/static/app.js');return {dashboard:w.dashboard,view:w.dashboardView,satellite:w.satellite,rec:w.rec};}")
+        # Copy not in the catalogs yet reads in English.
+        def label(en): return translated[ids[en]] if en in ids else en
+        def state(): return page.evaluate("async()=>{const {wizard:w}=await import('/static/app.js');return {dashboard:w.dashboard,view:w.dashboardView,voice:w.voice,rec:w.rec};}")
         def language(value):
             page.evaluate("async language=>{(await import('/static/localization.js')).setLanguagePreference(language);const {wizard}=await import('/static/app.js');const w=await import('/static/wizard.js');wizard.steps=w.wizardSteps();w.wizardRender();}", value)
         expect(page.locator('#wizardTitle')).to_have_text(label('Choose a dashboard'))
@@ -80,10 +79,11 @@ try:
         assert ('haListDashboardViews', dict(url_path='other-dashboard')) in commands
         assert root.locator('b').count() == 0
         page.locator('#wizardNext').click()
-        expect(page.locator('#wizardTitle')).to_have_text(label('Voice Satellite detected'))
-        expect(root.get_by_text('Apply all recommended settings', exact=True)).to_be_visible()
-        assert root.locator('input:disabled').count() == 2
-        root.get_by_text('<b>Original satellite</b>', exact=True).click()
+        # The kiosk is its own satellite: no detection, the step always shows.
+        expect(page.locator('#wizardTitle')).to_have_text('Voice Satellite')
+        assert not any(name == 'haDetectVoiceSatellite' for name, _ in commands)
+        assert state()['voice'] is True
+        expect(root).to_contain_text(label('After setup, add this kiosk in Home Assistant under Settings, Devices & services, where it shows up as discovered.'))
         master = root.locator('.row').filter(has=page.get_by_text(label('Apply all recommended settings'), exact=True))
         master.locator('label.switch').click()
         assert not any(state()['rec'].values())
@@ -100,29 +100,30 @@ try:
         page.locator('#wizardBack').click()
         expect(page.locator('#wizardTitle')).to_have_text(label('Choose a dashboard'))
         page.locator('#wizardNext').click()
-        expect(page.locator('#wizardTitle')).to_have_text(label('Voice Satellite detected'))
-        assert state()['satellite'] == 'assist_satellite.second'
-        assert state()['rec'] == selected['rec']
-        # Empty data and a skipped integration keep translated guidance.
+        expect(page.locator('#wizardTitle')).to_have_text('Voice Satellite')
+        assert state() == selected
+        # Off, background listening goes with it.
+        voice = root.locator('.row').filter(has=page.get_by_text(label('Enable Voice Satellite'), exact=True))
+        voice.locator('label.switch').click()
+        assert state()['voice'] is False
+        expect(root.get_by_text(label('Keep listening in the background'), exact=True)).to_have_count(0)
+        voice.locator('label.switch').click()
+        assert state()['voice'] is True
+        # Empty data keeps translated guidance.
         page.evaluate("async()=>{const {wizard:w}=await import('/static/app.js');w.i=2;w.dashboards=[];w.dashboard=null;(await import('/static/wizard.js')).wizardRender();}")
         expect(root).to_contain_text(label('No dashboards found'))
         before = len(commands)
         page.locator('#wizardNext').click()
         expect(page.locator('#wizardError')).to_contain_text(label('Select a dashboard'))
         assert len(commands) == before
-        page.evaluate("async()=>{const {wizard:w}=await import('/static/app.js');w.i=3;w.satellites=[];(await import('/static/wizard.js')).wizardRender();}")
-        expect(root).to_contain_text(label('No satellites found'))
-        expect(root).to_contain_text(label('Add an assist satellite in the Voice Satellite integration, or continue without one and pick it on the dashboard later.'))
-        page.evaluate("async()=>{const {wizard:w}=await import('/static/app.js');w.i=4;w.vsDetected=false;(await import('/static/wizard.js')).wizardRender();}")
-        expect(page.locator('#wizardStepsRail')).to_contain_text(label('Not installed, skipped'))
-        page.evaluate("async()=>{const {wizard:w}=await import('/static/app.js');w.vsDetected=true;w.dashboard='other-dashboard';}")
+        page.evaluate("async()=>{const {wizard:w}=await import('/static/app.js');w.i=4;w.dashboard='other-dashboard';(await import('/static/wizard.js')).wizardRender();}")
         # Check the existing final-step write without resetting a real device.
         page.route(base + '/', lambda r: r.fulfill(body='<p>Setup complete</p>', content_type='text/html'))
         with page.expect_navigation():
             page.evaluate("async()=>{const {wizard}=await import('/static/app.js');await wizard.steps.at(-1).next();}")
         chosen, start = patches[-2:]
-        assert chosen['ha.satellite_entity'] == 'assist_satellite.second'
-        assert chosen['web.microphone'] is True and chosen['wake_word.enabled'] is True
+        assert chosen['voice.enabled'] is True and chosen['esphome.enabled'] is True
+        assert 'ha.satellite_entity' not in chosen
         assert {k:chosen[k] for k in selected['rec']} == selected['rec']
         assert start == {'browser.start_url':'http://ha.example/other-dashboard/original'}
         assert not errors, errors

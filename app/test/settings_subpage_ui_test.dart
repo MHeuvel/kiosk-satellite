@@ -25,12 +25,17 @@ void main() {
 
   late AppContainer container;
 
-  Future<void> boot({String url = 'http://ha.local:8123'}) async {
+  Future<void> boot({
+    String url = 'http://ha.local:8123',
+    String runtime = 'dashboard',
+  }) async {
     SharedPreferences.setMockInitialValues({
       // A validated connection: the settings under test only render once the
       // Home Assistant page is unlocked.
       'ks.ha.url': url,
       'ks.ha.token': 'token',
+      // The integration's page unless a test asks for the native one.
+      'ks.voice.runtime': runtime,
     });
     container = AppContainer();
     await container.settings.init();
@@ -1169,6 +1174,72 @@ void main() {
       expect(find.byTooltip('Back'), findsNothing);
 
       await drain(tester);
+    });
+  });
+
+  group('native Voice Satellite', () {
+    testWidgets('the switch alone, then the pages once it is on', (
+      tester,
+    ) async {
+      await boot(runtime: 'native');
+      tester.view.physicalSize = const Size(500, 2400);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+      await tester.pumpWidget(
+        MaterialApp(home: SettingsScreen(container: container)),
+      );
+      await settle(tester);
+      await tester.tap(find.text('Voice Satellite').first);
+      await settle(tester);
+
+      expect(find.text(voiceEnabled.title), findsOneWidget);
+      expect(find.widgetWithText(ListTile, 'Assistant'), findsNothing);
+      // The integration's live rows never show on the native page.
+      expect(find.text('Assigned satellite'), findsNothing);
+
+      await container.settings.set(voiceEnabled, true);
+      await settle(tester);
+      for (final page in [
+        'Assistant',
+        'Wake Word',
+        'Appearance',
+        'Conversation',
+        'Timers',
+        'Chimes',
+      ]) {
+        expect(
+          find.widgetWithText(ListTile, page),
+          findsOneWidget,
+          reason: page,
+        );
+      }
+      expect(find.text(voiceMute.title), findsOneWidget);
+      expect(find.text('Status'), findsOneWidget);
+
+      await drain(tester);
+    });
+
+    test('search finds the rows of the runtime the kiosk is on', () {
+      final index = buildSettingsSearchIndex([
+        ('Voice Satellite', 'Voice Satellite', ''),
+      ]);
+      bool has(String title, {required bool native}) => index.any(
+        (e) => e.title == title && matchesVoiceRuntime(e, native: native),
+      );
+      expect(has('Assigned satellite', native: false), isTrue);
+      expect(has('Assigned satellite', native: true), isFalse);
+      expect(has('Assistant 1', native: true), isTrue);
+      expect(has('Assistant 1', native: false), isFalse);
+      expect(has(voiceSkin.title, native: true), isTrue);
+      // The integration's Skin row is the dashboard's only one.
+      expect(
+        index
+            .where(
+              (e) => e.title == 'Skin' && matchesVoiceRuntime(e, native: false),
+            )
+            .length,
+        1,
+      );
     });
   });
 }

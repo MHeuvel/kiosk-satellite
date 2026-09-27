@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
+import 'dart:ui' as ui;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -52,6 +55,7 @@ import 'back_nav.dart';
 import 'key_nav.dart';
 import 'kiosk_drawer.dart';
 import 'sendspin_player_overlay.dart';
+import 'assist/assist_overlay.dart';
 import 'toast.dart';
 import 'settings_screen.dart';
 import 'voice_timer_overlay.dart';
@@ -593,6 +597,13 @@ class _KioskScreenState extends State<KioskScreen>
     // The satellite seed script is fixed at WebView creation, so a plain
     // reload re-runs the stale one — clearing the binding would be undone
     // at the next document start. Rebuild for fresh user scripts.
+    // Where Voice Satellite runs decides whether the dashboard may boot the
+    // integration's engine at all (the suppress script below), and user
+    // scripts are frozen at WebView creation.
+    if (e.key == defs.voiceRuntime.key) {
+      setState(() => _webViewEpoch++);
+      return;
+    }
     if (e.key == defs.haSatelliteEntity.key) {
       setState(() => _webViewEpoch++);
       return;
@@ -960,7 +971,16 @@ class _KioskScreenState extends State<KioskScreen>
     // assist_satellite, hydrates its server-side profile and starts. Only
     // seeded while the key is absent — a satellite changed in the page
     // afterwards must win over a stale wizard choice.
-    if (c.settings.get(defs.haSatelliteEntity).isNotEmpty)
+    // Native Voice Satellite owns the satellite: the integration's engine
+    // must never boot here, dashboard included, even while the integration
+    // is still installed (see vs_suppress_script).
+    if (c.voice.suppressPageEngine)
+      UserScript(
+        source: vsSuppressScript,
+        injectionTime: UserScriptInjectionTime.AT_DOCUMENT_START,
+      ),
+    if (!c.voice.suppressPageEngine &&
+        c.settings.get(defs.haSatelliteEntity).isNotEmpty)
       UserScript(
         source:
             '''
@@ -1550,7 +1570,12 @@ class _KioskScreenState extends State<KioskScreen>
                   IntercomRosterOverlay(container: c),
                   // The screensaver covers both planes — it owns the whole
                   // display, drawer open or not.
-                  ScreensaverOverlay(container: c),
+                  // Paused under the native voice overlay, which
+                  // draws over it instead of dismissing it.
+                  PausedUnder(
+                    paused: c.screensaver.renderPaused,
+                    child: ScreensaverOverlay(container: c),
+                  ),
                   CameraViewOverlay(container: c),
                   VoiceTimerOverlay(container: c),
                   // The camera preview a face wake leaves behind
@@ -1572,6 +1597,9 @@ class _KioskScreenState extends State<KioskScreen>
                   // An announcement from Home Assistant: its own card, with
                   // the spoken text, in the same slot.
                   AnnouncementOverlay(container: c),
+                  // Native Voice Satellite: the assist overlay, in the same
+                  // slot, over the screensaver and the camera views.
+                  AssistOverlay(container: c),
                   ScreensaverBlankOverlay(container: c),
                   // Lockdown Mode's touch shield: topmost, above every
                   // overlay, so nothing on screen is tappable while it
@@ -2536,6 +2564,88 @@ class _WebViewMissingNotice extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// Shows [child] live, or while [paused] as a still picture of its last
+/// frame, with the live tree offstage and its tickers stopped. Impeller
+/// keeps no raster cache, so a merely idle screensaver under the voice
+/// overlay would still be drawn again, filters and all, every frame the
+/// overlay moves; the picture costs one texture.
+class PausedUnder extends StatefulWidget {
+  const PausedUnder({super.key, required this.paused, required this.child});
+
+  final ValueListenable<bool> paused;
+  final Widget child;
+
+  @override
+  State<PausedUnder> createState() => _PausedUnderState();
+}
+
+class _PausedUnderState extends State<PausedUnder> {
+  final _boundary = GlobalKey();
+  ui.Image? _still;
+  bool _paused = false;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.paused.addListener(_changed);
+  }
+
+  @override
+  void dispose() {
+    widget.paused.removeListener(_changed);
+    _still?.dispose();
+    super.dispose();
+  }
+
+  void _changed() {
+    final paused = widget.paused.value;
+    if (paused == _paused || !mounted) return;
+    ui.Image? still;
+    if (paused) {
+      // The frame on screen right now, taken before anything changes.
+      final boundary =
+          _boundary.currentContext?.findRenderObject()
+              as RenderRepaintBoundary?;
+      try {
+        still = boundary?.toImageSync(
+          pixelRatio: MediaQuery.devicePixelRatioOf(context),
+        );
+      } catch (_) {
+        still = null;
+      }
+    }
+    setState(() {
+      _paused = paused;
+      _still?.dispose();
+      _still = still;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final still = _paused ? _still : null;
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        if (still != null)
+          IgnorePointer(child: RawImage(image: still, fit: BoxFit.fill)),
+        Offstage(
+          offstage: still != null,
+          child: TickerMode(
+            enabled: !_paused,
+            // The screensaver's root is Positioned: it needs a Stack
+            // above it.
+            child: RepaintBoundary(
+              key: _boundary,
+              child: Stack(fit: StackFit.expand, children: [widget.child]),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

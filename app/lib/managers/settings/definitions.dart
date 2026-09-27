@@ -216,6 +216,10 @@ const Map<String, String> subpageHints = {
   'Chimes': 'Wake, done, error, timer and announcement sounds',
   'Wake Word': 'Engine, wake words, sensitivity, cached models',
   'Appearance': 'Overlay skin, theme, activity bar, text size',
+  // Native Voice Satellite's own pages.
+  'Assistant': 'Pipelines, follow-ups',
+  'Conversation': 'What the overlay shows and for how long',
+  'Timers': 'Pills, alerts, spoken reminders',
   // Its entry row sits under the tester, not with the three pages above.
   'Wake word diagnostics':
       'Recent activations and near misses with audio clips',
@@ -5012,6 +5016,452 @@ const wakeWordDiagnostics = SettingDef<bool>(
   perDevice: true,
 );
 
+// ── Native Voice Satellite ─────────────────────────────────────────────
+//
+// The kiosk as an Assist satellite of its own: its ESPHome device carries
+// the satellite in Home Assistant and the app runs every turn. Kiosks that
+// ran Voice Satellite in the dashboard keep doing so ('dashboard') until
+// they migrate; everyone else is native. The visible rows gate on it, so a
+// dashboard runtime never shows them.
+
+/// Where Voice Satellite runs on this kiosk: 'native' (the app, through its
+/// ESPHome device) or 'dashboard' (the integration's engine in the page).
+/// Hidden: the migration wizard and Run from the dashboard again own it.
+const voiceRuntime = SettingDef<String>(
+  key: 'voice.runtime',
+  type: SettingType.select,
+  defaultValue: 'native',
+  title: 'Voice Satellite runtime',
+  description: 'Where Voice Satellite runs on this kiosk.',
+  category: 'Voice Satellite',
+  options: ['native', 'dashboard'],
+  hidden: true,
+  perDevice: true,
+);
+
+/// The native satellite's master switch. On, the kiosk's ESPHome device
+/// becomes an Assist satellite in Home Assistant and the microphone listens
+/// for the wake word; off, neither. Off for a new install: a kiosk that
+/// never wanted voice must not start listening on an update. The migration
+/// turns it on.
+const voiceEnabled = SettingDef<bool>(
+  key: 'voice.enabled',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Enable Voice Satellite',
+  description:
+      'Turns this kiosk into a voice assistant for Home Assistant, on its '
+      'own ESPHome device.',
+  category: 'Voice Satellite',
+  dependsOn: 'voice.runtime',
+  dependsOnValue: 'native',
+);
+
+const voiceMute = SettingDef<bool>(
+  key: 'voice.mute',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Mute microphone',
+  description: 'Stop listening for the wake word.',
+  category: 'Voice Satellite',
+  dependsOn: 'voice.enabled',
+);
+
+const voiceSeamlessWake = SettingDef<bool>(
+  key: 'voice.seamless_wake',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Talk right after the wake word',
+  description:
+      'Skip the wake sound and keep what you say right after the wake word.',
+  category: 'Voice Satellite',
+  subpage: 'Assistant',
+  section: 'Wake word and command',
+  dependsOn: 'voice.enabled',
+);
+
+const voiceFollowupDelayMs = SettingDef<num>(
+  key: 'voice.followup_delay_ms',
+  type: SettingType.number,
+  defaultValue: 0,
+  title: 'Follow-up delay',
+  description: 'A pause before listening for the answer to a question.',
+  category: 'Voice Satellite',
+  subpage: 'Assistant',
+  section: 'Follow-up',
+  min: 0,
+  max: 1000,
+  step: 50,
+  unit: 'ms',
+  dependsOn: 'voice.enabled',
+);
+
+const voiceFollowupChime = SettingDef<bool>(
+  key: 'voice.followup_chime',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Chime before a follow-up',
+  description: 'Play the wake sound when it starts listening again.',
+  category: 'Voice Satellite',
+  subpage: 'Assistant',
+  section: 'Follow-up',
+  dependsOn: 'voice.enabled',
+);
+
+const voiceWakeWordEngine = SettingDef<String>(
+  key: 'voice.wake_word_engine',
+  type: SettingType.select,
+  defaultValue: 'vswakeword',
+  title: 'Wake word engine',
+  description: 'Which engine listens. All models ship with the app.',
+  category: 'Voice Satellite',
+  subpage: 'Wake Word',
+  options: ['vswakeword', 'microwakeword', 'openwakeword'],
+  optionLabels: {
+    'vswakeword': 'vsWakeWord',
+    'microwakeword': 'microWakeWord',
+    'openwakeword': 'openWakeWord',
+  },
+  dependsOn: 'voice.enabled',
+);
+
+/// The active wake words as a JSON list of model ids, slot 1 first. Home
+/// Assistant owns the choice through its Wake word selects on the kiosk's
+/// device; the kiosk keeps the last set it was told for when Home
+/// Assistant is away.
+const voiceWakeWords = SettingDef<String>(
+  key: 'voice.wake_words',
+  type: SettingType.string,
+  defaultValue: '["ok_nabu"]',
+  title: 'Active wake words',
+  description: 'The wake words Home Assistant set on this kiosk.',
+  category: 'Voice Satellite',
+  hidden: true,
+);
+
+const voiceWakeWordSensitivity = SettingDef<String>(
+  key: 'voice.wake_word_sensitivity',
+  type: SettingType.select,
+  defaultValue: 'moderately',
+  title: 'Wake word sensitivity',
+  description: 'How easily the wake word triggers.',
+  category: 'Voice Satellite',
+  subpage: 'Wake Word',
+  options: ['slightly', 'moderately', 'very'],
+  optionLabels: {
+    'slightly': 'Slightly sensitive',
+    'moderately': 'Moderately sensitive',
+    'very': 'Very sensitive',
+  },
+  dependsOn: 'voice.enabled',
+);
+
+const voiceNoiseGate = SettingDef<bool>(
+  key: 'voice.noise_gate',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Wake word noise gate',
+  description: 'Skip wake word inference while the room is quiet, saving CPU.',
+  category: 'Voice Satellite',
+  subpage: 'Wake Word',
+  dependsOn: 'voice.enabled',
+);
+
+const voiceStopWord = SettingDef<bool>(
+  key: 'voice.stop_word',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Stop word interruption',
+  description:
+      'Say "stop" to cut off an answer, a timer alert or an announcement.',
+  category: 'Voice Satellite',
+  subpage: 'Wake Word',
+  dependsOn: 'voice.enabled',
+);
+
+const voiceSkin = SettingDef<String>(
+  key: 'voice.skin',
+  type: SettingType.select,
+  defaultValue: 'kiosk-satellite',
+  title: 'Skin',
+  description: 'The look of the voice assistant overlay.',
+  category: 'Voice Satellite',
+  subpage: 'Appearance',
+  options: [
+    'kiosk-satellite',
+    'default',
+    'google-home',
+    'home-assistant',
+    'alexa',
+    'siri',
+    'retro-terminal',
+    'waveform',
+    'lens-flares',
+    'ink-blobs',
+  ],
+  optionLabels: {
+    'kiosk-satellite': 'Kiosk Satellite',
+    'default': 'Default',
+    'google-home': 'Google Home',
+    'home-assistant': 'Home Assistant',
+    'alexa': 'Alexa',
+    'siri': 'Siri',
+    'retro-terminal': 'Retro Terminal',
+    'waveform': 'Waveform',
+    'lens-flares': 'Lens Flares',
+    'ink-blobs': 'Ink Blobs',
+  },
+  dependsOn: 'voice.enabled',
+);
+
+const voiceTheme = SettingDef<String>(
+  key: 'voice.theme',
+  type: SettingType.select,
+  defaultValue: 'auto',
+  title: 'Theme',
+  description: 'Auto follows the Home Assistant theme.',
+  category: 'Voice Satellite',
+  subpage: 'Appearance',
+  options: ['auto', 'light', 'dark'],
+  optionLabels: {'auto': 'Auto', 'light': 'Light', 'dark': 'Dark'},
+  dependsOn: 'voice.enabled',
+);
+
+/// The overlay's backdrop opacity in percent; -1 keeps the skin's own.
+const voiceBackgroundOpacity = SettingDef<num>(
+  key: 'voice.background_opacity',
+  type: SettingType.number,
+  defaultValue: -1,
+  title: 'Background',
+  description: 'How much of the dashboard shows through. Skin default at -1.',
+  category: 'Voice Satellite',
+  subpage: 'Appearance',
+  min: -1,
+  max: 100,
+  step: 1,
+  unit: '%',
+  dependsOn: 'voice.enabled',
+);
+
+const voiceTextScale = SettingDef<num>(
+  key: 'voice.text_scale',
+  type: SettingType.number,
+  defaultValue: 100,
+  title: 'Text size',
+  description: 'The size of the overlay text.',
+  category: 'Voice Satellite',
+  subpage: 'Appearance',
+  min: 50,
+  max: 200,
+  step: 5,
+  unit: '%',
+  dependsOn: 'voice.enabled',
+);
+
+const voiceReactiveBar = SettingDef<bool>(
+  key: 'voice.reactive_bar',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Reactive activity bar',
+  description: 'The bar follows your voice and the answer.',
+  category: 'Voice Satellite',
+  subpage: 'Appearance',
+  dependsOn: 'voice.enabled',
+);
+
+const voiceShowCommand = SettingDef<bool>(
+  key: 'voice.show_command',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Show what you said',
+  description: 'Your command above the answer.',
+  category: 'Voice Satellite',
+  subpage: 'Conversation',
+  section: 'On screen',
+  dependsOn: 'voice.enabled',
+);
+
+const voiceShowAnswer = SettingDef<bool>(
+  key: 'voice.show_answer',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Show the answer',
+  description: 'The answer as it is spoken.',
+  category: 'Voice Satellite',
+  subpage: 'Conversation',
+  section: 'On screen',
+  dependsOn: 'voice.enabled',
+);
+
+const voiceShowTools = SettingDef<bool>(
+  key: 'voice.show_tools',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Show tool use',
+  description: 'A line for each action the assistant takes.',
+  category: 'Voice Satellite',
+  subpage: 'Conversation',
+  section: 'On screen',
+  dependsOn: 'voice.enabled',
+);
+
+const voiceHideSentimentTags = SettingDef<bool>(
+  key: 'voice.hide_sentiment_tags',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Hide sentiment tags',
+  description: 'Leave out tags like [happy] that some assistants add.',
+  category: 'Voice Satellite',
+  subpage: 'Conversation',
+  section: 'On screen',
+  dependsOn: 'voice.enabled',
+);
+
+const voiceAnswerLinger = SettingDef<num>(
+  key: 'voice.answer_linger',
+  type: SettingType.number,
+  defaultValue: 0,
+  title: 'Keep the answer on screen',
+  description: 'After the answer is spoken.',
+  category: 'Voice Satellite',
+  subpage: 'Conversation',
+  section: 'How long it stays',
+  min: 0,
+  max: 15,
+  step: 1,
+  unit: 's',
+  dependsOn: 'voice.enabled',
+);
+
+const voiceResultsLinger = SettingDef<num>(
+  key: 'voice.results_linger',
+  type: SettingType.number,
+  defaultValue: 30,
+  title: 'Keep results on screen',
+  description:
+      'Images, weather and other results. 0 keeps them until you dismiss '
+      'them.',
+  category: 'Voice Satellite',
+  subpage: 'Conversation',
+  section: 'How long it stays',
+  min: 0,
+  max: 180,
+  step: 5,
+  unit: 's',
+  dependsOn: 'voice.enabled',
+);
+
+const voiceAnnouncementLinger = SettingDef<num>(
+  key: 'voice.announcement_linger',
+  type: SettingType.number,
+  defaultValue: 5,
+  title: 'Announcement time',
+  description: 'After an announcement is spoken.',
+  category: 'Voice Satellite',
+  subpage: 'Conversation',
+  section: 'How long it stays',
+  min: 1,
+  max: 60,
+  step: 1,
+  unit: 's',
+  dependsOn: 'voice.enabled',
+);
+
+const voiceTimerPills = SettingDef<bool>(
+  key: 'voice.timer_pills',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Show timer pills',
+  description: 'Running timers float over the screen. Drag them anywhere.',
+  category: 'Voice Satellite',
+  subpage: 'Timers',
+  section: 'Pills',
+  dependsOn: 'voice.enabled',
+);
+
+const voiceTimerNameInPill = SettingDef<bool>(
+  key: 'voice.timer_name_in_pill',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Show the timer name',
+  description: 'The name beside the time in a pill.',
+  category: 'Voice Satellite',
+  subpage: 'Timers',
+  section: 'Pills',
+  dependsOn: 'voice.enabled',
+);
+
+const voiceMuteTimers = SettingDef<bool>(
+  key: 'voice.mute_timers',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Mute timer alerts',
+  description: 'Show the alert without the sound.',
+  category: 'Voice Satellite',
+  subpage: 'Timers',
+  section: 'When a timer ends',
+  dependsOn: 'voice.enabled',
+);
+
+const voiceTimerNameOnAlert = SettingDef<bool>(
+  key: 'voice.timer_name_on_alert',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Show the name on the alert',
+  description: 'The timer name under the alert.',
+  category: 'Voice Satellite',
+  subpage: 'Timers',
+  section: 'When a timer ends',
+  dependsOn: 'voice.enabled',
+);
+
+const voiceTimerSpeak = SettingDef<bool>(
+  key: 'voice.timer_speak',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Speak when a timer ends',
+  description: 'Say a phrase between the alert sounds.',
+  category: 'Voice Satellite',
+  subpage: 'Timers',
+  section: 'When a timer ends',
+  dependsOn: 'voice.enabled',
+);
+
+const voiceTimerPhrase = SettingDef<String>(
+  key: 'voice.timer_phrase',
+  type: SettingType.string,
+  defaultValue: 'Your timer is up.',
+  title: 'Phrase',
+  description: 'Spoken for a timer without a name.',
+  category: 'Voice Satellite',
+  subpage: 'Timers',
+  section: 'When a timer ends',
+  dependsOn: 'voice.timer_speak',
+);
+
+const voiceTimerNamedPhrase = SettingDef<String>(
+  key: 'voice.timer_named_phrase',
+  type: SettingType.string,
+  defaultValue: 'Your {name} timer is up.',
+  title: 'Phrase for named timers',
+  description: '{name} is replaced with the timer name.',
+  category: 'Voice Satellite',
+  subpage: 'Timers',
+  section: 'When a timer ends',
+  dependsOn: 'voice.timer_speak',
+);
+
+const voiceWakeSound = SettingDef<bool>(
+  key: 'voice.wake_sound',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Play chimes',
+  description: 'The wake, done and error sounds.',
+  category: 'Voice Satellite',
+  subpage: 'Chimes',
+  dependsOn: 'voice.enabled',
+);
+
 // Sounds stored on this kiosk, shared by the device and Remote Admin.
 const voiceChimeWake = SettingDef<String>(
   key: 'voice_chimes.wake',
@@ -8469,6 +8919,36 @@ const List<SettingDef<Object>> allSettings = [
   wakeWordResumeTimeoutSeconds,
   wakeWordDiagnostics,
   vsNativePipeline,
+  voiceRuntime,
+  voiceEnabled,
+  voiceMute,
+  voiceSeamlessWake,
+  voiceFollowupDelayMs,
+  voiceFollowupChime,
+  voiceWakeWordEngine,
+  voiceWakeWords,
+  voiceWakeWordSensitivity,
+  voiceNoiseGate,
+  voiceStopWord,
+  voiceSkin,
+  voiceTheme,
+  voiceBackgroundOpacity,
+  voiceTextScale,
+  voiceReactiveBar,
+  voiceShowCommand,
+  voiceShowAnswer,
+  voiceShowTools,
+  voiceHideSentimentTags,
+  voiceAnswerLinger,
+  voiceResultsLinger,
+  voiceAnnouncementLinger,
+  voiceTimerPills,
+  voiceTimerNameInPill,
+  voiceMuteTimers,
+  voiceTimerNameOnAlert,
+  voiceTimerSpeak,
+  voiceTimerPhrase,
+  voiceTimerNamedPhrase,
   haUrl,
   haToken,
   haAutoLogin,
@@ -8576,6 +9056,7 @@ const List<SettingDef<Object>> allSettings = [
   // The Notifications page sits above the Bluetooth Proxy one.
   notificationsTransparency,
   notificationsBlur,
+  voiceWakeSound,
   voiceChimeWake,
   voiceChimeDone,
   voiceChimeError,

@@ -6,6 +6,7 @@ import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
+import '../model_source.dart';
 import 'onnx_ir.dart';
 
 /// openWakeWord's three ONNX stages. The first two are shared by every wake
@@ -67,7 +68,9 @@ class OwwModelStore {
     final key = sha256.convert(utf8.encode(url)).toString().substring(0, 24);
     final file = File('${dir.path}/$key.onnx');
     Uint8List bytes;
-    if (await file.exists() && await file.length() > 0) {
+    if (isBundledModel(url)) {
+      bytes = await readModelBytes(url);
+    } else if (await file.exists() && await file.length() > 0) {
       bytes = await file.readAsBytes();
     } else {
       final resp =

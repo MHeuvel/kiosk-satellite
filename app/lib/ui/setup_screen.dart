@@ -32,8 +32,9 @@ import 'package:kiosk_satellite/core/lifecycle.dart';
 ///      instead of a chore.
 ///   2. Connect — base URL + token; Next *is* the validation.
 ///   3. Dashboard — pick which one the kiosk shows.
-///   4. Voice Satellite — when the card is found on the instance, offer the
-///      recommended kiosk settings for it. Skipped silently otherwise.
+///   4. Voice Satellite — turn on the native voice satellite (and the
+///      ESPHome server it joins Home Assistant through), plus the
+///      recommended kiosk settings.
 ///   5. Permissions — request what the chosen setup actually needs.
 ///
 /// The same flow exists in the remote admin (an unconfigured device serves
@@ -161,17 +162,11 @@ class _SetupScreenState extends State<SetupScreen> {
   String? _dashboardView;
   List<Map<String, Object?>>? _dashboardViews;
 
-  // Step 4 — Voice Satellite. Each recommended setting is its own choice;
-  // the master switch just sets them all. Microphone and native wake word
-  // detection are not choices — Voice Satellite does not work without
-  // them, so they render locked-on.
-  bool? _vsDetected;
-  List<Map<String, Object?>>? _satellites;
-  String? _satellite;
-  static const _lockedRecommended = <(String, String)>[
-    ('web.microphone', 'Microphone access'),
-    ('wake_word.enabled', 'Native wake word detection'),
-  ];
+  // Step 4 — Voice Satellite. The kiosk is its own satellite: the switch
+  // turns it on with the ESPHome server Home Assistant adds it through.
+  // Each recommended setting is its own choice; the master switch just
+  // sets them all.
+  bool _voiceOn = true;
   static const _optionalRecommended = <(String, String)>[
     ('browser.auto_reload_on_error', 'Auto-reload on error'),
     ('browser.pull_to_refresh', 'Pull to refresh'),
@@ -256,9 +251,9 @@ class _SetupScreenState extends State<SetupScreen> {
     );
   }
 
-  /// Whether the Voice Satellite step (index 3) is part of this run. Unknown
-  /// until step 3's detection completes; the rail dims it meanwhile.
-  bool get _vsStepActive => _vsDetected == true;
+  /// Whether the kiosk listens for a wake word once set up, which the
+  /// permissions step asks for.
+  bool get _vsStepActive => _voiceOn;
 
   /// Restore a full backup from the welcome step. A backup from a configured
   /// device carries the start URL, and applying it fires this screen's
@@ -419,38 +414,19 @@ class _SetupScreenState extends State<SetupScreen> {
           );
           return;
         }
-        setState(() => _busy = true);
-        final vs = await c.homeAssistant.detectVoiceSatellite();
-        final satellites = vs
-            ? await c.homeAssistant.listVoiceSatellites()
-            : null;
-        if (!mounted) return;
-        setState(() {
-          _busy = false;
-          _vsDetected = vs;
-          _satellites = satellites;
-          _satellite ??= satellites?.firstOrNull?['entity_id'] as String?;
-          // No Voice Satellite: nothing to recommend, straight on to the
-          // permissions the minimal setup needs.
-          _step = vs ? 3 : 4;
-        });
+        setState(() => _step = 3);
       case 3:
         setState(() => _step = 4);
       case 4:
         setState(() => _busy = true);
-        if (_vsStepActive) {
-          if (_satellite != null) {
-            await c.settings.setFromJson(
-              defs.haSatelliteEntity.key,
-              _satellite,
-            );
-          }
-          for (final (key, _) in _lockedRecommended) {
-            await c.settings.setFromJson(key, true);
-          }
-          for (final entry in _recommended.entries) {
-            await c.settings.setFromJson(entry.key, entry.value);
-          }
+        if (_voiceOn) {
+          await c.settings.set(defs.esphomeEnabled, true);
+          await c.settings.set(defs.voiceEnabled, true);
+        }
+        for (final entry in _recommended.entries) {
+          // Background listening means nothing without the voice satellite.
+          if (!_voiceOn && entry.key == 'wake_word.background') continue;
+          await c.settings.setFromJson(entry.key, entry.value);
         }
         await c.commands.execute('requestOsPermissions', {
           'which': [
@@ -468,7 +444,7 @@ class _SetupScreenState extends State<SetupScreen> {
             // Auto-reload on error (default on) needs it to bring the app
             // back after a crash; start-on-boot needs it for the boot launch.
             if (c.settings.get(defs.autoReloadOnError) ||
-                (_vsStepActive && _recommended['kiosk.start_on_boot']!))
+                _recommended['kiosk.start_on_boot']!)
               'overlay',
             // Real brightness writes; a settings screen like the admin one.
             'writeSettings',
@@ -493,8 +469,7 @@ class _SetupScreenState extends State<SetupScreen> {
   void _back() => setState(() {
     _error = null;
     _errorHint = null;
-    // Step 5 backs up to the dashboard step when Voice Satellite was skipped.
-    _step = (_step == 4 && !_vsStepActive) ? 2 : _step - 1;
+    _step = _step - 1;
   });
 
   String _viewPath(String urlPath, String route) =>
@@ -683,8 +658,7 @@ class _SetupScreenState extends State<SetupScreen> {
   ) {
     final theme = Theme.of(context);
     final current = index == _step;
-    final done = index < _step && !(index == 3 && !_vsStepActive);
-    final skipped = index == 3 && !_vsStepActive && _step > 3;
+    final done = index < _step;
     final reachable = current || done;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
@@ -697,12 +671,7 @@ class _SetupScreenState extends State<SetupScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           child: Row(
             children: [
-              _StepDisc(
-                number: index + 1,
-                done: done,
-                current: current,
-                skipped: skipped,
-              ),
+              _StepDisc(number: index + 1, done: done, current: current),
               const SizedBox(width: 16),
               Expanded(
                 child: Column(
@@ -719,7 +688,7 @@ class _SetupScreenState extends State<SetupScreen> {
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      skipped ? l10n(context).setupVoiceSkipped : subtitle,
+                      subtitle,
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
@@ -1004,39 +973,40 @@ class _SetupScreenState extends State<SetupScreen> {
         ]);
       case 3:
         return withError([
-          heading(l10n(context).setupVoiceDetected),
-          lead(l10n(context).setupVoiceHelp),
-          if (_satellites == null || _satellites!.isEmpty)
-            _Card([
-              ListTile(
-                title: Text(l10n(context).setupNoSatellites),
-                subtitle: Text(l10n(context).setupNoSatellitesHelp),
+          heading('Voice Satellite'),
+          lead(
+            setupText(
+              context,
+              'Turn this kiosk into a voice assistant for Home Assistant. '
+              'Everything can be changed later.',
+            ),
+          ),
+          _Card([
+            SwitchListTile(
+              title: Text(defs.voiceEnabled.localizedTitle(context)),
+              subtitle: Text(defs.voiceEnabled.localizedDescription(context)),
+              value: _voiceOn,
+              onChanged: (v) => setState(() => _voiceOn = v),
+            ),
+          ]),
+          if (_voiceOn)
+            hint(
+              setupText(
+                context,
+                'After setup, add this kiosk in Home Assistant under '
+                'Settings, Devices & services, where it shows up as '
+                'discovered.',
               ),
-            ])
-          else ...[
-            _Card([
-              for (final s in _satellites!)
-                ListTile(
-                  leading: Icon(
-                    _satellite == s['entity_id']
-                        ? Icons.radio_button_checked
-                        : Icons.radio_button_off,
-                    color: _satellite == s['entity_id']
-                        ? theme.colorScheme.primary
-                        : null,
-                  ),
-                  title: Text('${s['name']}'),
-                  subtitle: Text('${s['entity_id']}'),
-                  onTap: () =>
-                      setState(() => _satellite = s['entity_id'] as String?),
-                ),
-            ]),
-            hint(l10n(context).setupNewSatelliteHelp),
-          ],
+            ),
           _Card([
             SwitchListTile(
               title: Text(l10n(context).setupApplyRecommended),
-              subtitle: Text(l10n(context).setupRecommendedHelp),
+              subtitle: Text(
+                setupText(
+                  context,
+                  'The settings that suit a kiosk on the wall.',
+                ),
+              ),
               value: _allRecommended,
               onChanged: (v) => setState(() {
                 for (final key in _recommended.keys) {
@@ -1046,25 +1016,19 @@ class _SetupScreenState extends State<SetupScreen> {
             ),
           ]),
           _Card([
-            for (final (_, label) in _lockedRecommended)
-              SwitchListTile(
-                title: Text(setupText(context, label)),
-                subtitle: Text(l10n(context).setupVoiceRequired),
-                value: true,
-                onChanged: null,
-              ),
             for (final (key, label) in _optionalRecommended)
-              SwitchListTile(
-                title: Text(setupText(context, label)),
-                value: _recommended[key]!,
-                onChanged: (v) => setState(() => _recommended[key] = v),
-              ),
+              if (_voiceOn || key != 'wake_word.background')
+                SwitchListTile(
+                  title: Text(setupText(context, label)),
+                  value: _recommended[key]!,
+                  onChanged: (v) => setState(() => _recommended[key] = v),
+                ),
           ]),
         ]);
       case 4:
         final background =
             _vsStepActive && _recommended['wake_word.background']!;
-        final bootStart = _vsStepActive && _recommended['kiosk.start_on_boot']!;
+        final bootStart = _recommended['kiosk.start_on_boot']!;
         return withError([
           heading(l10n(context).setupPermissions),
           lead(l10n(context).setupPermissionLead),
@@ -1168,20 +1132,17 @@ class _ErrorCard extends StatelessWidget {
 }
 
 /// The step's numbered badge: a filled disc with the number, a check once
-/// the step is done, or a dash when it was skipped; muted before it is
-/// reached. Mirrors the color-disc language of the settings rail.
+/// the step is done; muted before it is reached. Mirrors the color-disc language of the settings rail.
 class _StepDisc extends StatelessWidget {
   const _StepDisc({
     required this.number,
     required this.done,
     required this.current,
-    required this.skipped,
   });
 
   final int number;
   final bool done;
   final bool current;
-  final bool skipped;
 
   @override
   Widget build(BuildContext context) {
@@ -1197,8 +1158,6 @@ class _StepDisc extends StatelessWidget {
       alignment: Alignment.center,
       child: done
           ? Icon(Icons.check, size: 18, color: scheme.onPrimary)
-          : skipped
-          ? Icon(Icons.remove, size: 18, color: scheme.onSurfaceVariant)
           : Text(
               '$number',
               style: TextStyle(

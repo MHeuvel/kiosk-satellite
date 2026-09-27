@@ -40,6 +40,16 @@ void main() {
     );
     c.commands.register(
       Command(
+        name: 'playSound',
+        description: '',
+        handler: (p) async {
+          sounds.add('speak:${p['url']}');
+          return CommandResult.ok({'id': 'sound${sounds.length}'});
+        },
+      ),
+    );
+    c.commands.register(
+      Command(
         name: 'stopSound',
         description: '',
         handler: (p) async {
@@ -69,12 +79,16 @@ void main() {
     'setVoiceTimers',
     {'entityId': 'assist_satellite.kitchen', 'timers': timers},
   );
-  Future<CommandResult> alert(List<Object?> timers, {bool muted = false}) =>
-      c.commands.execute('setVoiceTimerAlert', {
-        'entityId': 'assist_satellite.kitchen',
-        'timers': timers,
-        'muted': muted,
-      });
+  Future<CommandResult> alert(
+    List<Object?> timers, {
+    bool muted = false,
+    String? speech,
+  }) => c.commands.execute('setVoiceTimerAlert', {
+    'entityId': 'assist_satellite.kitchen',
+    'timers': timers,
+    'muted': muted,
+    'speech': ?speech,
+  });
   Widget app({Locale? locale}) => MaterialApp(
     locale: locale,
     localizationsDelegates: UiStrings.localizationsDelegates,
@@ -208,6 +222,29 @@ void main() {
     await tester.pump(const Duration(seconds: 6));
     expect(sounds.where((s) => s == 'play').length, 3);
     await tester.pumpWidget(const SizedBox());
+  });
+
+  testWidgets('a spoken phrase follows every second chime', (tester) async {
+    await alert([timer('done')]);
+    await tester.pump();
+    // The phrase arrives once Home Assistant made it, mid ring.
+    await alert([timer('done')], speech: 'http://ha/tts.mp3');
+    for (var i = 1; i <= 5; i++) {
+      c.bus.publish(SoundEnded(id: 'sound$i'));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 3));
+    }
+    expect(sounds, [
+      'play',
+      'play',
+      'speak:http://ha/tts.mp3',
+      'play',
+      'play',
+      'speak:http://ha/tts.mp3',
+    ]);
+    await alert([]);
+    await tester.pump(const Duration(seconds: 6));
+    expect(sounds.last, 'stop:sound6');
   });
 
   testWidgets('Spanish timer labels and controls use the imported catalog', (

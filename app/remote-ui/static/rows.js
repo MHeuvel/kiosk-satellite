@@ -1,5 +1,5 @@
 import { confirmRemoteProtocol } from './tls.js';
-import { esphomeText, launcherText, messageLanguage } from './localization.js';
+import { esphomeText, launcherText, messageLanguage, voiceText } from './localization.js';
 import { intercomError, mediaText, cameraText, cameraError, deviceText, haText, screensaverText, screensaverError, t } from './localization.js';
 import { watchUpdates } from './live.js';
 import {
@@ -1484,6 +1484,8 @@ export function settingRow(s) {
         if (h === 0) return t('haMinutes', {minutes: String(m)});
         return m === 0 ? t('haHours', {hours: String(h)}) : t('haHoursMinutes', {hours: String(h), minutes: String(m)});
       }
+      // The overlay's backdrop: the far left keeps the skin's own.
+      if (s.key === 'voice.background_opacity' && Number(v) < 0) return voiceText('Skin default');
       return s.unit === '%'
         ? `${Math.round(s.max <= 1 ? v * 100 : v)}%`
         : `${v}${s.unit || ''}`;

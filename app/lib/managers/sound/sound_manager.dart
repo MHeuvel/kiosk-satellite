@@ -166,6 +166,17 @@ class SoundManager extends Manager {
           bus.publish(
             SoundLevel(id: id, level: (args['level'] as num?)?.toDouble() ?? 0),
           );
+        case 'progress':
+          final duration = (args['duration'] as num?)?.toInt() ?? -1;
+          bus.publish(
+            SoundProgress(
+              id: id,
+              position: Duration(
+                milliseconds: (args['position'] as num?)?.toInt() ?? 0,
+              ),
+              duration: duration > 0 ? Duration(milliseconds: duration) : null,
+            ),
+          );
         case 'ended':
           final error = args['error'] as String?;
           if (_diagnosticReplayId == id) _diagnosticReplayId = null;
@@ -302,6 +313,34 @@ class SoundManager extends Manager {
               return const CommandResult.fail('native playback failed');
             }
             return CommandResult.ok({'id': id});
+          },
+        ),
+      )
+      ..register(
+        Command(
+          name: 'playVoiceChime',
+          description:
+              'Play a voice chime by kind (wake, done, error, alert, '
+              'announce): the pick on the Chimes page, else the bundled '
+              'sound. Resolves {id, duration} in seconds; sound-ended fires '
+              'when it finishes.',
+          params: const {'kind': 'wake | done | error | alert | announce'},
+          handler: (p) async {
+            final kind = p['kind'];
+            if (kind is! String || !voiceChimeSettings.containsKey(kind)) {
+              return const CommandResult.fail('unknown chime');
+            }
+            final (source, duration) = await _voiceChime(kind);
+            final id = 'snd${++_nextId}';
+            final ok = await _channel.invokeMethod<bool>('play', {
+              'id': id,
+              'source': source,
+              'volume': 1.0,
+            });
+            if (ok != true) {
+              return const CommandResult.fail('native playback failed');
+            }
+            return CommandResult.ok({'id': id, 'duration': duration});
           },
         ),
       )

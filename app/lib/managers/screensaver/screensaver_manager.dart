@@ -235,6 +235,21 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   bool _launchOnPlayPending = false;
   Future<void>? _interactionStop;
   bool _cameraViewActive = false;
+
+  /// Native Voice Satellite's overlay is on screen. It draws over the
+  /// screensaver, which stays up underneath: its backlight lifted back to
+  /// the saved level, its rendering paused and its screen-off countdown
+  /// held until the overlay goes (an answer or results can linger after
+  /// the turn itself ends). The integration's engine lives in the
+  /// dashboard, so there a turn still dismisses the screensaver.
+  bool _assistOverlay = false;
+
+  /// The screensaver's animations are paused under the voice overlay.
+  final renderPaused = ValueNotifier<bool>(false);
+
+  bool get _nativeVoice =>
+      _settings.get(defs.voiceRuntime) == 'native' &&
+      _settings.get(defs.voiceEnabled);
   double? _savedBrightness;
 
   /// Whether a notification is on screen. A dimmed screensaver lifts back
@@ -351,9 +366,31 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
       // still observe its playback interaction.
       if (e.source == InteractionSource.sendspin && e.reason == 'media') return;
       _paused = _interactions.update(e);
-      if (_paused) _stopForInteraction();
+      // The native satellite's overlay draws over the screensaver.
+      if (_paused && e.source != InteractionSource.native) {
+        _stopForInteraction();
+      }
       _resetIdleTimer();
       if (!_paused) unawaited(_restoreAfterInteraction());
+    });
+    bus.on<AssistOverlayVisibility>().listen((event) {
+      if (event.visible == _assistOverlay) return;
+      _assistOverlay = event.visible;
+      renderPaused.value = event.visible && _active;
+      if (event.visible) {
+        _cancelIdleTimer();
+        if (_active) {
+          _screenOffTimer?.cancel();
+          _screenOffTimer = null;
+          _armedScreenOffMinutes = null;
+          unawaited(_applyVisuals());
+        }
+      } else if (_active) {
+        if (!_screenDark) _armScreenOffTimer();
+        unawaited(_applyVisuals());
+      } else {
+        _resetIdleTimer();
+      }
     });
     bus.on<CameraViewStateChanged>().listen((event) {
       _cameraViewActive = event.active;
@@ -370,7 +407,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     // spoken reply, and the screensaver could reappear mid-conversation.
     bus.on<WakeWordDetected>().listen((_) {
       _voiceTurn = true;
-      if (_active) {
+      if (_active && !_nativeVoice) {
         log.debug(name, 'dismissed by wake word');
         _stopForInteraction();
       }
@@ -989,7 +1026,9 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
 
   void _resetIdleTimer() {
     _idleTimer?.cancel();
-    if (_cameraViewActive || _behindAnotherApp) return _setIdleDue(null);
+    if (_cameraViewActive || _assistOverlay || _behindAnotherApp) {
+      return _setIdleDue(null);
+    }
     if (!_settings.get(defs.screensaverEnabled) || _paused || _voiceTurn) {
       return _setIdleDue(null);
     }
@@ -1216,11 +1255,12 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     // Say why a start goes nowhere: a page hold that never gets released
     // (a leaked "interaction running" from the dashboard) otherwise reads
     // as "Now Playing launched" followed by nothing at all.
-    if (_paused || _voiceTurn || _cameraViewActive) {
+    if (_paused || _voiceTurn || _cameraViewActive || _assistOverlay) {
       final why = <String>[
         if (_paused) 'interaction held (${_interactions.held.join(', ')})',
         if (_voiceTurn) 'voice turn',
         if (_cameraViewActive) 'camera view',
+        if (_assistOverlay) 'voice overlay',
       ];
       log.info(name, 'start refused: ${why.join(', ')}');
       return;
@@ -1311,7 +1351,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   /// value, the schedule edited live, or the slider moved. Never under a
   /// dark panel, and never for a reapply that leaves the value alone.
   void _syncScreenOffTimer() {
-    if (!_active || _screenDark) return;
+    if (!_active || _screenDark || _assistOverlay) return;
     if (_effectiveScreenOffMinutes == _armedScreenOffMinutes) return;
     _armScreenOffTimer();
   }
@@ -1401,11 +1441,17 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     scheduleWidgets.value = entry?['widgets'] as bool?;
     scheduleGlance.value = entry?['glance'] as bool?;
     _syncScreenOffTimer();
+    // The voice overlay over the screensaver reads at the saved level,
+    // whatever the mode dims to.
+    final liftForVoice = _assistOverlay && _savedBrightness != null;
     if (_blanked) {
       await _ensureSavedBrightness();
       if (!_active || !_blanked) return;
       _setView('blank');
-      await commands.execute('setBrightness', {'level': 0, 'ceiling': true});
+      await commands.execute('setBrightness', {
+        'level': _assistOverlay ? _savedBrightness : 0,
+        'ceiling': true,
+      });
       return;
     }
     // Modes that change brightness save their restore point first.
@@ -1428,9 +1474,10 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     // schedule entry's: the overlay below is still the mode's own, only the
     // backlight is borrowed back until the last card goes.
     final liftForNotification =
-        _notificationShowing &&
-        _savedBrightness != null &&
-        _settings.get(defs.screensaverNotificationBrightness);
+        liftForVoice ||
+        (_notificationShowing &&
+            _savedBrightness != null &&
+            _settings.get(defs.screensaverNotificationBrightness));
     switch (mode) {
       case 'dim':
         // Backlight only — no overlay. stop() restores the saved level.
@@ -1526,6 +1573,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     _launchOnPlayPending = false;
     if (!_active) return;
     _active = false;
+    renderPaused.value = false;
     _nowPlayingShared = false;
     _tapChainStart = null;
     _screenOffTimer?.cancel();

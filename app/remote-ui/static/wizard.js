@@ -1,5 +1,5 @@
 import { setupText, setupImportError, themeLabel, messageLanguage, setLanguagePreference, t } from './localization.js';
-import { WIZ_LOCKED, WIZ_OPTIONAL, wizard } from './app.js';
+import { WIZ_OPTIONAL, wizard } from './app.js';
 import { $, THEME_ICONS, api, showView, state } from './core.js';
 import { readOnlyRow } from './device.js';
 import { askImportOptions } from './pickers.js';
@@ -96,25 +96,23 @@ $('#wizardThemeBtn').addEventListener('click', () => {
 
 export function wizardRender() {
   const s = wizard.steps[wizard.i];
-  // The rail: one row per step, numbered disc → check when done, dash when
-  // skipped, the same shape the on-device wizard and settings rail use.
+  // The rail: one row per step, numbered disc → check when done, the same
+  // shape the on-device wizard and settings rail use.
   const rail = $('#wizardStepsRail');
   rail.innerHTML = '';
   wizard.steps.forEach((step, n) => {
     const row = document.createElement('div');
-    const skipped = step.isVs && wizard.i > n && !wizard.vsDetected;
-    const done = n < wizard.i && !skipped;
+    const done = n < wizard.i;
     row.className = 'wizard-step' +
       (n === wizard.i ? ' now' : '') + (done ? ' done' : '');
     const disc = document.createElement('span');
     disc.className = 'stepdisc';
-    disc.textContent = done ? '\u2713' : skipped ? '-' : String(n + 1);
+    disc.textContent = done ? '\u2713' : String(n + 1);
     const text = document.createElement('span');
     text.className = 'nav-text';
     text.innerHTML = '<span class="nav-title"></span><span class="nav-sub"></span>';
     text.querySelector('.nav-title').textContent = step.railTitle;
-    text.querySelector('.nav-sub').textContent =
-      skipped ? setupText('Not installed, skipped') : step.railSub;
+    text.querySelector('.nav-sub').textContent = step.railSub;
     row.append(disc, text);
     rail.appendChild(row);
   });
@@ -590,34 +588,20 @@ export function wizardSteps() {
     next: async () => {
       if (!wizard.dashboard) throw wizFail(setupText('Select a dashboard'),
         setupText('Choose the dashboard the kiosk will display. You can change it later in Settings.'));
-      const vs = await (await api('/api/commands/haDetectVoiceSatellite', { method: 'POST', body: '{}' })).json();
-      wizard.vsDetected = vs.ok && vs.data === true;
-      if (wizard.vsDetected) {
-        const sats = await (await api('/api/commands/haListVoiceSatellites', { method: 'POST', body: '{}' })).json();
-        wizard.satellites = (sats.ok && sats.data) || [];
-        wizard.satellite = wizard.satellite || wizard.satellites[0]?.entity_id || null;
-      }
-      if (!wizard.vsDetected) wizard.i++; // skip the VS step
     },
   });
   steps.push({
-    isVs: true,
     railTitle: 'Voice Satellite', railSub: t('setupRecommendedSummary'),
-    title: setupText('Voice Satellite detected'),
-    lead: setupText('This Home Assistant instance runs the Voice Satellite integration. Choose which satellite this kiosk is, then review its settings. Everything can be changed later.'),
+    title: 'Voice Satellite',
+    lead: setupText('Turn this kiosk into a voice assistant for Home Assistant. Everything can be changed later.'),
     body: (b) => {
-      const sats = wizardCard(b, true);
-      if (!wizard.satellites.length) {
-        sats.appendChild(readOnlyRow(setupText('No satellites found'),
-          setupText('Add an assist satellite in the Voice Satellite integration, or continue without one and pick it on the dashboard later.'), ''));
-      } else {
-        wizard.satellites.forEach((s) => {
-          sats.appendChild(radioRow(s.name || s.entity_id, s.entity_id,
-            wizard.satellite === s.entity_id,
-            () => { wizard.satellite = s.entity_id; wizardRender(); }));
-        });
-        // The same pointer the device wizard shows under its list: an
-        // existing satellite belongs to the device already using it.
+      const toggleRow = wizardToggleRow;
+      const voice = wizardCard(b, true);
+      voice.appendChild(toggleRow(setupText('Enable Voice Satellite'),
+        setupText('Turns this kiosk into a voice assistant for Home Assistant, on its own ESPHome device.'),
+        wizard.voice, false, () => { wizard.voice = !wizard.voice; wizardRender(); }));
+      if (wizard.voice) {
+        // Where the kiosk turns up once set up, the device wizard's hint.
         const hint = document.createElement('div');
         hint.style.cssText = 'display:flex; gap:10px; align-items:flex-start; '
           + 'color:var(--muted); font-size:13px; font-weight:600; '
@@ -628,28 +612,27 @@ export function wizardSteps() {
           + 'aria-hidden="true"><circle cx="12" cy="12" r="9"/>'
           + '<path d="M12 8h.01M12 12v4"/></svg>';
         const hintText = document.createElement('span');
-        hintText.textContent = setupText('If this is a new device, create a new satellite entity in Home Assistant first. Settings → Devices & Services → Voice Satellite → Add Entry. IMPORTANT: Two devices cannot share the same entity.');
+        hintText.textContent = setupText('After setup, add this kiosk in Home Assistant under Settings, Devices & services, where it shows up as discovered.');
         hint.appendChild(hintText);
         b.appendChild(hint);
       }
-      const toggleRow = wizardToggleRow;
       const master = wizardCard(b, true);
       const all = WIZ_OPTIONAL.every(([k]) => wizard.rec[k]);
       master.appendChild(toggleRow(setupText('Apply all recommended settings'),
-        setupText('The optimal settings for full Voice Satellite integration and functionality.'),
+        setupText('The settings that suit a kiosk on the wall.'),
         all, false, () => {
           const next = !all;
           WIZ_OPTIONAL.forEach(([k]) => { wizard.rec[k] = next; });
           wizardRender();
         }));
       const list = wizardCard(b, true);
-      WIZ_LOCKED.forEach(([, label]) =>
-        list.appendChild(toggleRow(setupText(label), setupText('Required by Voice Satellite'), true, true)));
-      WIZ_OPTIONAL.forEach(([key, label]) =>
+      WIZ_OPTIONAL.forEach(([key, label]) => {
+        if (!wizard.voice && key === 'wake_word.background') return;
         list.appendChild(toggleRow(setupText(label), '', wizard.rec[key], false, () => {
           wizard.rec[key] = !wizard.rec[key];
           wizardRender();
-        })));
+        }));
+      });
     },
     next: async () => {},
   });
@@ -659,8 +642,8 @@ export function wizardSteps() {
     lead: setupText("Android asks for these on the tablet itself. Walk over and accept the prompts, then finish here."),
     nextLabel: t('commonFinish'),
     body: (b) => {
-      const background = wizard.vsDetected && wizard.rec['wake_word.background'];
-      const bootStart = wizard.vsDetected && wizard.rec['kiosk.start_on_boot'];
+      const background = wizard.voice && wizard.rec['wake_word.background'];
+      const bootStart = wizard.rec['kiosk.start_on_boot'];
       const list = wizardCard(b, true);
       // Status to the right of each row, exactly as the settings pages
       // show grants: green Granted / red Not granted, read live from the
@@ -738,14 +721,14 @@ export function wizardSteps() {
       b.appendChild(btn);
     },
     next: async () => {
-      if (wizard.vsDetected) {
-        const chosen = Object.fromEntries([
-          ...WIZ_LOCKED.map(([k]) => [k, true]),
-          ...Object.entries(wizard.rec),
-        ]);
-        if (wizard.satellite) chosen['ha.satellite_entity'] = wizard.satellite;
-        await api('/api/settings', { method: 'PATCH', body: JSON.stringify(chosen) });
+      const chosen = { ...wizard.rec };
+      // Background listening means nothing without the voice satellite.
+      if (!wizard.voice) delete chosen['wake_word.background'];
+      if (wizard.voice) {
+        chosen['esphome.enabled'] = true;
+        chosen['voice.enabled'] = true;
       }
+      await api('/api/settings', { method: 'PATCH', body: JSON.stringify(chosen) });
       // Setting the start URL is what flips the device to configured; the
       // kiosk on the wall navigates to the chosen dashboard view on its own.
       const route = wizard.dashboardView || '';
@@ -792,8 +775,6 @@ $('#wizardNext').addEventListener('click', async () => {
   }
 });
 $('#wizardBack').addEventListener('click', () => {
-  // Stepping back over the VS step when it was skipped forward.
-  const target = wizard.i - 1;
-  wizard.i = (target === 3 && !wizard.vsDetected) ? 2 : Math.max(0, target);
+  wizard.i = Math.max(0, wizard.i - 1);
   wizardRender();
 });

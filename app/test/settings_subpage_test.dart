@@ -144,8 +144,9 @@ void main() {
   });
 
   test('the Voice Satellite Wake Word page holds the detection settings', () {
-    // The rest of that page (engine, wake words, sensitivity) is live rows
-    // from the integration, so these two are all the schema knows about it.
+    // On the dashboard runtime the rest of that page is live rows from the
+    // integration; native Voice Satellite adds its own engine, sensitivity,
+    // noise gate and stop word (the wake words are Home Assistant's selects).
     final moved = [
       for (final d in defs.allSettings)
         if (d.subpage == 'Wake Word') d.key,
@@ -153,6 +154,10 @@ void main() {
     expect(moved, [
       defs.wakeWordPreferFp32.key,
       defs.wakeWordResumeTimeoutSeconds.key,
+      defs.voiceWakeWordEngine.key,
+      defs.voiceWakeWordSensitivity.key,
+      defs.voiceNoiseGate.key,
+      defs.voiceStopWord.key,
     ]);
     // Diagnostics is a page of its own, opened from the tester's group.
     expect(defs.wakeWordDiagnostics.subpage, 'Wake word diagnostics');

@@ -100,6 +100,14 @@ flutter:
     - shaders/weather_mood_clouds_height.frag
     - shaders/weather_mood_blend.frag
     - shaders/weather_mood_glass.frag
+    - shaders/ink_splat_velocity.frag
+    - shaders/ink_curl.frag
+    - shaders/ink_vorticity.frag
+    - shaders/ink_divergence.frag
+    - shaders/ink_clear.frag
+    - shaders/ink_pressure4.frag
+    - shaders/ink_advect_velocity.frag
+    - shaders/ink_advect_dye.frag
   assets:
     - assets/l10n/
     - assets/remote-ui/index.html
@@ -124,6 +132,13 @@ flutter:
     - assets/sounds/voice-error.mp3
     - assets/sounds/voice-announce.mp3
     - assets/camera/camera_off.jpg
+    # The wake word models native Voice Satellite listens with (see
+    # assets/wake_words/README.md). About 19 MB, bundled so a kiosk needs
+    # no integration in Home Assistant to serve them.
+    - assets/wake_words/microwakeword/
+    - assets/wake_words/openwakeword/
+    - assets/wake_words/vswakeword/
+    - assets/wake_words/vswakeword/int8/
     - assets/mdi/
   fonts:
     # Rubik (SIL Open Font License) — an open geometric sans that gives the
@@ -147,6 +162,11 @@ flutter:
     - family: Inter
       fonts:
         - asset: assets/fonts/Inter.ttf
+    # The Retro Terminal voice skin's face (google/fonts ofl/vt323, SIL OFL,
+    # license beside the file), the same one Voice Satellite draws it in.
+    - family: VT323
+      fonts:
+        - asset: assets/fonts/VT323.ttf
     # The Clock screensaver's LCD font option (issue #391): DSEG14 Classic
     # (keshikan/DSEG, SIL OFL, license beside the file), the segmented
     # display face of an LED alarm clock. The fourteen-segment cut rather

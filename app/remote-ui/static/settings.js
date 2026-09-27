@@ -54,6 +54,7 @@ import {
   viewPath,
 } from './views.js';
 import { loadVsPermissions, renderVsControls } from './vs.js';
+import { renderNativeVs, vsMigrationNotice } from './vs_native.js';
 import { mountWakeActivations } from './wake_activations.js';
 import { banner, copyBox, messageBox, showToast } from './widgets.js';
 
@@ -1574,6 +1575,51 @@ kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
   {
     const root = document.getElementById('tab-voicesatellite');
     root.innerHTML = '';
+    // The chime rows' sound pickers, uploads and previews, on either
+    // runtime's Chimes page.
+    const mountChimeRows = () => {
+      const soundSelectors = [];
+      for (const kind of ['wake', 'done', 'error', 'alert', 'announce']) {
+        const key = `voice_chimes.${kind}`;
+        const row = document.querySelector(`[data-key="${key}"]`);
+        if (!row || !byKey[key]) continue;
+        row.classList.add('chime-row');
+        const sound = attachSoundSelect(row, byKey[key]);
+        soundSelectors.push(sound);
+        const controls = document.createElement('div');
+        controls.className = 'chime-controls';
+        const preview = document.createElement('button');
+        preview.className = 'btn-ghost chime-icon';
+        paintChimePreview(preview, false);
+        preview.addEventListener('click', async () => {
+          if (chimePreviewBusy) return;
+          chimePreviewBusy = true;
+          preview.disabled = true;
+          const stop = chimePreview === preview;
+          try {
+            await cmd('stopSound', {id: 'voice-preview'});
+            resetChimePreview();
+            if (stop || !preview.isConnected) return;
+            chimePreview = preview;
+            paintChimePreview(preview, true);
+            const result = await cmd('previewVoiceChime', {kind});
+            if (!result.ok) throw new Error();
+          } catch (_) {
+            resetChimePreview();
+            alert(voiceText('Could not play the sound.'));
+          } finally {
+            preview.disabled = false;
+            chimePreviewBusy = false;
+          }
+        });
+        controls.append(sound.sel, preview);
+        row.appendChild(controls);
+        attachSoundUpload(row, {
+          write: sound.write,
+          refresh: () => Promise.all(soundSelectors.map((selector) => selector.refresh())),
+        }, {inline: true});
+      }
+    };
     let status = {};
     try {
       status = (await (await api('/api/commands/haStatus', { method: 'POST', body: '{}' })).json()).data || {};
@@ -1584,6 +1630,13 @@ kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
       card.appendChild(readOnlyRow(voiceText('Home Assistant not connected'),
         voiceText('Validate the connection under Home Assistant Setup first.'), ''));
       root.appendChild(card);
+    } else if (byKey['voice.runtime']?.value === 'native') {
+      // Native: the kiosk is the satellite. The page is the settings plus
+      // what renderNativeVs adds, the integration's live rows never show.
+      render(root, ['Voice Satellite'].filter((c) => (byCat[c] || []).length));
+      mountChimeRows();
+      mountWakeActivations(root);
+      renderNativeVs(root, byKey).catch((error) => console.warn('Voice Satellite page failed', error));
     } else if (!(byCat['Voice Satellite'] || []).length || !(await (async () => {
       try {
         const vs = await (await api('/api/commands/haDetectVoiceSatellite', { method: 'POST', body: '{}' })).json();
@@ -1634,50 +1687,10 @@ kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
       // Wake word diagnostics stays where render() puts it, right under Wake
       // Word: its setting follows the Wake Word ones in the schema. (The
       // kiosk opens it from the tester's group, which is kiosk-only.)
-      // Page-local controls can be unavailable while the dashboard recovers.
-      // Keep the rest of Remote Admin accessible during that wait.
-      const soundSelectors = [];
-      for (const kind of ['wake', 'done', 'error', 'alert', 'announce']) {
-        const key = `voice_chimes.${kind}`;
-        const row = document.querySelector(`[data-key="${key}"]`);
-        if (!row || !byKey[key]) continue;
-        row.classList.add('chime-row');
-        const sound = attachSoundSelect(row, byKey[key]);
-        soundSelectors.push(sound);
-        const controls = document.createElement('div');
-        controls.className = 'chime-controls';
-        const preview = document.createElement('button');
-        preview.className = 'btn-ghost chime-icon';
-        paintChimePreview(preview, false);
-        preview.addEventListener('click', async () => {
-          if (chimePreviewBusy) return;
-          chimePreviewBusy = true;
-          preview.disabled = true;
-          const stop = chimePreview === preview;
-          try {
-            await cmd('stopSound', {id: 'voice-preview'});
-            resetChimePreview();
-            if (stop || !preview.isConnected) return;
-            chimePreview = preview;
-            paintChimePreview(preview, true);
-            const result = await cmd('previewVoiceChime', {kind});
-            if (!result.ok) throw new Error();
-          } catch (_) {
-            resetChimePreview();
-            alert(voiceText('Could not play the sound.'));
-          } finally {
-            preview.disabled = false;
-            chimePreviewBusy = false;
-          }
-        });
-        controls.append(sound.sel, preview);
-        row.appendChild(controls);
-        attachSoundUpload(row, {
-          write: sound.write,
-          refresh: () => Promise.all(soundSelectors.map((selector) => selector.refresh())),
-        }, {inline: true});
-      }
+      mountChimeRows();
       mountWakeActivations(root);
+      // Still on the integration's engine: the way to native, on top.
+      root.prepend(vsMigrationNotice());
       renderVsControls(root).catch((error) => console.warn('Voice Satellite controls failed', error));
     }
   }

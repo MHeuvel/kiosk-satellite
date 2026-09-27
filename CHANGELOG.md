@@ -4,6 +4,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ## Unreleased
 
+### Added
+- **Voice Satellite runs natively in Kiosk Satellite.** The kiosk's own ESPHome device is now a Home Assistant Assist satellite, so voice no longer needs the Voice Satellite integration or its dashboard runtime. Kiosk Satellite hears the wake word, streams the command to Home Assistant, plays the answer and draws the overlay itself instead of in the dashboard's WebView. All ten skins are ported element for element, including the Waveform, Lens Flares and Ink Blobs animations, which run faster than the integration's on low end devices. Ink Blobs now also draws on devices whose WebView could not run it. The overlay keeps every line of a conversation, fades each answer in as it arrives and scrolls a long answer at the pace it is spoken. Weather, stock, image, video and featured results show in their panels. Timers, announcements, ask question and start conversation work through Home Assistant's satellite entity. The new vs_ entities and the vs_wake, vs_show and vs_start_timer actions control it from automations. A voice turn no longer dismisses the screensaver: the screensaver pauses under the overlay with the brightness raised until the turn ends. On the Voice Satellite page, a migration wizard copies the integration's settings, lists the automations and scripts that use its entities and then switches the kiosk over. Nothing migrates on its own. Onboarding now turns on Voice Satellite and ESPHome, and every wake word model ships with the app.
+
 ### Fixed
 - **Go to dashboard now holds the page with view rotation on.** The ESPHome Go to dashboard button loaded the start page, but nothing paused rotation, so the next rotation step navigated straight back off it (#719). It now pauses rotation for the Pause rotation on interaction window, like the Dashboard view select and a touch do.
 

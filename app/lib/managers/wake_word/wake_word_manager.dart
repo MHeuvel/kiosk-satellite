@@ -798,39 +798,11 @@ class WakeWordManager extends Manager
             if (config == null) {
               return const CommandResult.fail('invalid wake word config');
             }
-            // A genuinely new config (different wake word, stop word toggled on)
-            // has to reach the engine, and it only reads the config at start.
-            // Re-pushing the same config on every page load must NOT restart it,
-            // though: that would re-download every model on each navigation.
-            // A push after a failure must retry, even when the config is
-            // identical: whatever broke (mic permission, a model 404) may well be
-            // fixed by now, and this is the only retry there is.
-            final changed = _config != config || _released || _failed;
-            _released = false; // a fresh push takes the mic back
-            _releaseReason = null;
-            _failed = false; // and re-earns the right to claim availability
-            _config = config;
             // The card announces whether it knows the delegated pipeline
             // transport; absent means a build that predates it. Recorded per
             // push (one per page load), so a downgrade reads honest.
             _pagePipelineSupport = p['nativePipeline'] == true;
-            if (changed && _engine.running) {
-              log.info(name, 'config changed; restarting engine');
-              await _engine.stop();
-            }
-            log.info(
-              name,
-              'configured by page: ${config.engine.name} '
-              '[${config.models.map((m) => m.id).join(', ')}]'
-              '${config.stopModel == null ? '' : ' + stop:${config.stopModel!.id}'}'
-              '${available ? '' : ' (no native runner, reporting unavailable)'}',
-            );
-            await _sync();
-            // A page that has just (re)configured us owns no interruptible state
-            // yet, so it cannot want the stop word armed. Without this, a reload
-            // would inherit the previous page's arming: it never disarms on the
-            // way out, and an unchanged config does not restart the engine.
-            await _engine.setStopWordActive(false);
+            await configure(config, source: 'page');
             return CommandResult.ok({
               'available': available,
               'stopWordAvailable': stopWordAvailable,
@@ -851,20 +823,7 @@ class WakeWordManager extends Manager
             'reason': "optional: 'muted' | 'browser', shown to the user",
           },
           handler: (p) async {
-            if (_released) return const CommandResult.ok();
-            _released = true;
-            _releaseReason = p['reason'] as String?;
-            _resumeTimer?.cancel();
-            _active = true; // a later re-push starts listening, not suspended
-            await _engine.stop();
-            log.info(name, 'released by page (mic closed)');
-            bus.publish(
-              WakeWordStateChanged(
-                active: _active,
-                listening: listening,
-                muted: _muted,
-              ),
-            );
+            await release(p['reason'] as String?, source: 'page');
             return const CommandResult.ok();
           },
         ),
@@ -1354,10 +1313,65 @@ class WakeWordManager extends Manager
   /// Whether an intercom call holds detection (see _sync).
   bool _intercomHold = false;
 
+  /// Run [config]: what Voice Satellite pushes from the page, or what the
+  /// native satellite builds from its own settings ([source] says which, for
+  /// the log). A genuinely new config (a different wake word, the stop word
+  /// switched on) restarts the engine, which only reads it at start; the
+  /// same config again does not, since that would reload every model. A push
+  /// after a failure retries even when identical: whatever broke (a mic
+  /// permission, a missing model) may be fixed by now.
+  Future<void> configure(WakeWordConfig config, {String source = 'page'}) async {
+    final changed = _config != config || _released || _failed;
+    _released = false; // a fresh config takes the mic back
+    _releaseReason = null;
+    _failed = false; // and re-earns the right to claim availability
+    _config = config;
+    if (changed && _engine.running) {
+      log.info(name, 'config changed; restarting engine');
+      await _engine.stop();
+    }
+    log.info(
+      name,
+      'configured by $source: ${config.engine.name} '
+      '[${config.models.map((m) => m.id).join(', ')}]'
+      '${config.stopModel == null ? '' : ' + stop:${config.stopModel!.id}'}'
+      '${available ? '' : ' (no native runner, reporting unavailable)'}',
+    );
+    await _sync();
+    // A fresh config owns no interruptible state yet, so it cannot want the
+    // stop word armed. Without this, a page reload would inherit the previous
+    // page's arming: it never disarms on the way out, and an unchanged config
+    // does not restart the engine.
+    await _engine.setStopWordActive(false);
+  }
+
+  /// Stop detection and close the microphone until the next [configure]:
+  /// the satellite muted ('muted'), detection taken elsewhere ('browser'),
+  /// or the native satellite standing down.
+  Future<void> release(String? reason, {String source = 'page'}) async {
+    if (_released) return;
+    _released = true;
+    _releaseReason = reason;
+    _resumeTimer?.cancel();
+    _active = true; // a later config starts listening, not suspended
+    await _engine.stop();
+    log.info(name, 'released by $source (mic closed)');
+    bus.publish(
+      WakeWordStateChanged(active: _active, listening: listening, muted: _muted),
+    );
+  }
+
+  /// Arm or disarm the stop word classifier; false when none is loaded.
+  Future<bool> setStopWordArmed(bool armed) async {
+    if (!stopWordAvailable) return false;
+    await _engine.setStopWordActive(armed);
+    return true;
+  }
+
   /// Page-driven resume/suspend (setWakeWordActive).
   void setActive(bool active) {
     _active = active;
-    log.info(name, active ? 'resumed by page' : 'suspended by page');
+    log.info(name, active ? 'resumed' : 'suspended');
     if (active) _resumeTimer?.cancel();
     _sync();
   }

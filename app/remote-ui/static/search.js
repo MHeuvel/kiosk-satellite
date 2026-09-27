@@ -97,50 +97,65 @@ export const SEARCH_EXTRAS = [
     desc: 'Serve a plain-http Home Assistant through a secure proxy inside the app.' },
   { tab: 'homeassistant', title: 'Dashboard',
     desc: 'Pick the dashboard and view the kiosk shows.', heading: 'Dashboard' },
-  { tab: 'voicesatellite', title: 'Assigned satellite',
+  { tab: 'voicesatellite', title: 'Assigned satellite', runtime: 'dashboard',
     desc: 'The assist_satellite entity this kiosk identifies as in Home Assistant.' },
-  { tab: 'voicesatellite', title: 'Auto start',
+  { tab: 'voicesatellite', title: 'Auto start', runtime: 'dashboard',
     desc: 'Auto start Voice Satellite on dashboard load.' },
-  { tab: 'voicesatellite', title: 'Assist pipeline 1',
+  { tab: 'voicesatellite', title: 'Assist pipeline 1', runtime: 'dashboard',
     desc: 'The Assist pipeline voice commands run through.' },
-  { tab: 'voicesatellite', title: 'Assist pipeline 2',
+  { tab: 'voicesatellite', title: 'Assist pipeline 2', runtime: 'dashboard',
     desc: 'The pipeline used when the second wake word triggers.' },
-  { tab: 'voicesatellite', title: 'Engine',
+  { tab: 'voicesatellite', title: 'Engine', runtime: 'dashboard',
     desc: 'Start or Stop the Voice Satellite engine.' },
-  { tab: 'voicesatellite', title: 'Mute',
+  { tab: 'voicesatellite', title: 'Mute', runtime: 'dashboard',
     desc: 'Stop listening for wake words.' },
-  { tab: 'voicesatellite', title: 'Finished speaking detection',
+  { tab: 'voicesatellite', title: 'Finished speaking detection', runtime: 'dashboard',
     desc: 'How long a pause ends a voice command.' },
-  { tab: 'voicesatellite', title: 'Disable muted microphone warning',
+  { tab: 'voicesatellite', title: 'Disable muted microphone warning', runtime: 'dashboard',
     desc: 'Hide the muted microphone warning at startup and whenever the satellite microphone is muted.' },
-  { tab: 'voicesatellite', title: 'Debug logging',
+  { tab: 'voicesatellite', title: 'Debug logging', runtime: 'dashboard',
     desc: 'Show Voice Satellite debug info in the browser console.' },
-  { tab: 'voicesatellite', title: 'Voice Satellite version',
+  { tab: 'voicesatellite', title: 'Voice Satellite version', runtime: 'dashboard',
     desc: 'The integration version installed in Home Assistant.' },
-  { tab: 'voicesatellite', title: 'Wake word engine', sub: 'Wake Word',
+  { tab: 'voicesatellite', title: 'Wake word engine', runtime: 'dashboard', sub: 'Wake Word',
     desc: 'Where detection runs and which engine listens.' },
-  { tab: 'voicesatellite', title: 'Wake word sensitivity', sub: 'Wake Word',
+  { tab: 'voicesatellite', title: 'Wake word sensitivity', runtime: 'dashboard', sub: 'Wake Word',
     desc: 'How easily the wake word triggers.' },
-  { tab: 'voicesatellite', title: 'Wake word noise gate', sub: 'Wake Word',
+  { tab: 'voicesatellite', title: 'Wake word noise gate', runtime: 'dashboard', sub: 'Wake Word',
     desc: 'Skip local wake word inference while the room is quiet, saving CPU.' },
-  { tab: 'voicesatellite', title: 'Stop word interruption', sub: 'Wake Word',
+  { tab: 'voicesatellite', title: 'Stop word interruption', runtime: 'dashboard', sub: 'Wake Word',
     desc: 'Say the stop word to interrupt responses.' },
-  { tab: 'voicesatellite', title: 'Wake word 1', sub: 'Wake Word',
+  { tab: 'voicesatellite', title: 'Wake word 1', runtime: 'dashboard', sub: 'Wake Word',
     desc: 'The word that starts a voice command.' },
-  { tab: 'voicesatellite', title: 'Wake word 2', sub: 'Wake Word',
+  { tab: 'voicesatellite', title: 'Wake word 2', runtime: 'dashboard', sub: 'Wake Word',
     desc: 'A second wake word, answered by Assist pipeline 2.' },
-  { tab: 'voicesatellite', title: 'Cached models', sub: 'Wake Word',
+  { tab: 'voicesatellite', title: 'Cached models', runtime: 'dashboard', sub: 'Wake Word',
     desc: 'Re-download from Home Assistant. Use after re-publishing a model.' },
-  { tab: 'voicesatellite', title: 'Skin', sub: 'Appearance',
+  { tab: 'voicesatellite', title: 'Skin', runtime: 'dashboard', sub: 'Appearance',
     desc: 'The look of the voice assistant overlay.' },
-  { tab: 'voicesatellite', title: 'Theme mode', sub: 'Appearance',
+  { tab: 'voicesatellite', title: 'Theme mode', runtime: 'dashboard', sub: 'Appearance',
     desc: 'Light or dark rendering of the overlay.' },
-  { tab: 'voicesatellite', title: 'Reactive activity bar', sub: 'Appearance',
+  { tab: 'voicesatellite', title: 'Reactive activity bar', runtime: 'dashboard', sub: 'Appearance',
     desc: 'The activity bar reacts to audio. NOT RECOMMENDED for low-power devices like the Echo Show.' },
-  { tab: 'voicesatellite', title: 'Reactive bar update rate', sub: 'Appearance',
+  { tab: 'voicesatellite', title: 'Reactive bar update rate', runtime: 'dashboard', sub: 'Appearance',
     desc: 'How often the activity bar redraws. Higher is smoother and uses more CPU.' },
-  { tab: 'voicesatellite', title: 'Text scale', sub: 'Appearance',
+  { tab: 'voicesatellite', title: 'Text scale', runtime: 'dashboard', sub: 'Appearance',
     desc: 'The size of the overlay text.' },
+  // Native Voice Satellite's hand-built rows (vs_native.js).
+  { tab: 'voicesatellite', title: 'Status', runtime: 'native',
+    desc: 'Whether Voice Satellite is listening and how Home Assistant knows this kiosk.' },
+  { tab: 'voicesatellite', title: 'Assistant 1', sub: 'Assistant', runtime: 'native',
+    desc: 'Answers wake word 1.' },
+  { tab: 'voicesatellite', title: 'Assistant 2', sub: 'Assistant', runtime: 'native',
+    desc: 'Answers wake word 2.' },
+  { tab: 'voicesatellite', title: 'Finished speaking detection', sub: 'Assistant', runtime: 'native',
+    desc: 'How long a pause ends a voice command.' },
+  { tab: 'voicesatellite', title: 'Wake word 1', sub: 'Wake Word', runtime: 'native',
+    desc: 'The word that starts a voice command.' },
+  { tab: 'voicesatellite', title: 'Wake word 2', sub: 'Wake Word', runtime: 'native',
+    desc: 'A second wake word, answered by Assistant 2.' },
+  { tab: 'voicesatellite', title: 'Run from the dashboard again', runtime: 'native',
+    desc: 'Go back to the Voice Satellite integration. Nothing set here is lost.' },
   { tab: 'voicesatellite', title: 'Required system permissions',
     desc: 'Microphone and the other grants wake word detection needs.',
     heading: 'Required system permissions' },
@@ -215,6 +230,8 @@ export function searchSettingsIndex(query) {
   DEFLESS_SUBPAGES.forEach(([tab, name]) => addSub(tab, name));
   const hits = [];
   const shown = (key) => (state.settings || []).some((s) => s.key === key && !s.hidden);
+  const runtime = (state.settings || []).find((s) => s.key === 'voice.runtime')?.value === 'native'
+    ? 'native' : 'dashboard';
   [...SEARCH_PAGES.map(page => ({...page, title: navigationText(page.title), desc: navigationText(page.desc), englishAlias: `${page.title} ${page.desc}`})), ...subs, ...defs, ...SEARCH_EXTRAS, ...pluginSearchEntries()].forEach((raw, order) => {
     if (typeof raw.title !== 'string' || !raw.title.trim()) return;
     const e = {...raw, desc: typeof raw.desc === 'string' ? raw.desc : ''};
@@ -225,6 +242,10 @@ export function searchSettingsIndex(query) {
       if (e.tab === 'voicesatellite' && e.heading) e.heading = settingsPageText(e.tab, e.heading);
     }
     if (e.onlyWith && !shown(e.onlyWith)) return;
+    // Voice Satellite draws one of two pages: the integration's live rows
+    // from the dashboard, or the kiosk's own settings when native.
+    if (e.runtime && e.runtime !== runtime) return;
+    if (e.key?.startsWith('voice.') && runtime !== 'native') return;
     const title = e.title.toLowerCase();
     const hay = `${title} ${e.desc.toLowerCase()} ${(e.englishAlias || '').toLowerCase()}`;
     if (!terms.every((t) => hay.includes(t))) return;

@@ -334,6 +334,22 @@ class SoundLevel extends AppEvent {
   Map<String, Object?> toJson() => {'id': id, 'level': level};
 }
 
+/// Where a native sound's playback is, from the player about four times a
+/// second while it plays. Internal: the voice overlay paces a long answer's
+/// scroll to it.
+class SoundProgress extends AppEvent {
+  const SoundProgress({
+    required this.id,
+    required this.position,
+    this.duration,
+  });
+  final String id;
+  final Duration position;
+
+  /// Null while it is unknown, as for a stream still arriving.
+  final Duration? duration;
+}
+
 /// A native sound (playSound) finished, failed, or was stopped. Wire event
 /// so the page can await completion of audio it handed over.
 class SoundEnded extends AppEvent {
@@ -370,7 +386,9 @@ class ActivityDetected extends AppEvent {
 }
 
 /// The owner whose interactions end together when it is replaced.
-enum InteractionSource { page, sendspin, command }
+/// Who reported an interaction: the dashboard page (the Voice Satellite
+/// integration), Sendspin, a command, or the native voice satellite.
+enum InteractionSource { page, sendspin, command, native }
 
 /// A voice interaction is in progress (or has ended). Driven by Voice
 /// Satellite, which brackets every turn — wake, listen, respond, speak — by
@@ -733,6 +751,14 @@ class WebViewRebuildRequested extends AppEvent {
 
 class CameraConfigurationChanged extends AppEvent {
   const CameraConfigurationChanged();
+}
+
+/// Native Voice Satellite's overlay came up or went away. The screensaver
+/// holds its idle countdown while the overlay shows an answer or results,
+/// which linger after the turn itself has ended.
+class AssistOverlayVisibility extends AppEvent {
+  const AssistOverlayVisibility(this.visible);
+  final bool visible;
 }
 
 class CameraViewStateChanged extends AppEvent {

@@ -58,6 +58,7 @@ import 'time_picker.dart';
 import 'media_picker.dart';
 import 'theme.dart';
 import 'toast.dart';
+import 'voice_settings.dart';
 import 'mic_level_meter.dart';
 import 'settings_search.dart';
 import 'subpage_icons.dart';
@@ -479,7 +480,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   List<SettingsSearchEntry> get _searchIndex => [
-    ..._staticSearchIndex,
+    for (final entry in _staticSearchIndex)
+      if (matchesVoiceRuntime(
+        entry,
+        native: widget.container.voice.nativeRuntime,
+      ))
+        entry,
     ...pluginSettingsSearchEntries(
       widget.container.plugins.installed.value,
       textFor: (text) => pluginText(context, text),
@@ -2699,7 +2705,9 @@ class _CategoryContentState extends State<_CategoryContent> {
   Widget _vsDetectionCard(AppContainer container) => SettingsCard(
     children: [
       for (final def in _defsFor('Voice Satellite'))
-        if (def.subpage == 'Wake Word' && container.settings.visible(def))
+        if (def.subpage == 'Wake Word' &&
+            !def.key.startsWith('voice.') &&
+            container.settings.visible(def))
           SettingTile(
             container: container,
             def: def,
@@ -3524,6 +3532,86 @@ class _CategoryContentState extends State<_CategoryContent> {
       ];
     }
 
+    if (widget.category == 'Voice Satellite' && container.voice.nativeRuntime) {
+      final pageDefs = [
+        for (final def in _defsFor(widget.category))
+          if (def.subpage == subpage) def,
+      ];
+      switch (subpage) {
+        case 'Assistant':
+          return [
+            SectionHeading(voiceText(context, 'Pipelines')),
+            SearchLandingTarget(
+              id: 'x:vs_pipelines',
+              child: SettingsCard(
+                children: [
+                  VoiceHaSelects(container: container, rows: voicePipelineRows),
+                ],
+              ),
+            ),
+            ...sectioned(pageDefs),
+          ];
+        case 'Wake Word':
+          final native = [
+            voiceWakeWordEngine,
+            voiceWakeWordSensitivity,
+            voiceNoiseGate,
+            voiceStopWord,
+          ];
+          return [
+            SearchLandingTarget(
+              id: 'x:vs_wake',
+              child: SettingsCard(
+                children: [
+                  SettingTile(
+                    container: container,
+                    def: voiceWakeWordEngine,
+                    onChanged: changed,
+                  ),
+                  VoiceHaSelects(container: container, rows: voiceWakeWordRows),
+                  for (final def in native.skip(1))
+                    SettingTile(
+                      container: container,
+                      def: def,
+                      onChanged: changed,
+                    ),
+                ],
+              ),
+            ),
+            const SizedBox(height: Ks.cardGap),
+            _vsDetectionCard(container),
+          ];
+        case 'Appearance':
+          return sectioned(
+            pageDefs,
+            replace: {
+              ..._rowReplacements(container),
+              voiceSkin.key: VoiceSkinRow(
+                container: container,
+                onChanged: changed,
+              ),
+              voiceBackgroundOpacity.key: VoiceBackgroundRow(
+                container: container,
+                onChanged: changed,
+              ),
+            },
+            after: {
+              ..._rowExtras(container),
+              voiceReactiveBar.key: VoicePreviewRow(container: container),
+            },
+          );
+        case 'Chimes':
+          return [
+            ...sectioned([voiceWakeSound]),
+            ...sectioned(voiceChimeSettings.values.toList()),
+          ];
+        case 'Wake word diagnostics':
+          break;
+        default:
+          return sectioned(pageDefs);
+      }
+    }
+
     if (widget.category == 'Voice Satellite' && subpage == 'Chimes') {
       return [...sectioned(voiceChimeSettings.values.toList())];
     }
@@ -3629,6 +3717,11 @@ class _CategoryContentState extends State<_CategoryContent> {
         : l10n(context).haReturnPath(path);
   }
 
+  /// For the native Voice Satellite page (an extension of this state).
+  void _rebuild() {
+    if (mounted) setState(() {});
+  }
+
   /// The Voice Satellite page: gated on the proven HA connection like the
   /// rest of the HA-derived configuration, then on the integration actually
   /// being installed.
@@ -3650,6 +3743,7 @@ class _CategoryContentState extends State<_CategoryContent> {
         ),
       ];
     }
+    if (container.voice.nativeRuntime) return _nativeVsContent(container);
     return [
       FutureBuilder<bool>(
         future: _vsDetected,
@@ -3788,6 +3882,8 @@ class _CategoryContentState extends State<_CategoryContent> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              // Still on the integration's engine: the way to native.
+              VoiceMigrationNotice(container: container),
               VsControlsSection(
                 container: container,
                 // An important switch lives with the important rows: pulled
@@ -3849,6 +3945,86 @@ class _CategoryContentState extends State<_CategoryContent> {
             ],
           );
         },
+      ),
+    ];
+  }
+}
+
+extension on _CategoryContentState {
+  /// Native Voice Satellite's page: the switch and status, the pages, the
+  /// tester and the permissions, and the way back to the integration while
+  /// it is still installed.
+  List<Widget> _nativeVsContent(AppContainer container) {
+    final settings = container.settings;
+    final enabled = settings.get(voiceEnabled);
+    void changed() => _rebuild();
+    SettingTile tile(SettingDef<Object> def) =>
+        SettingTile(container: container, def: def, onChanged: changed);
+    return [
+      SearchLandingTarget(
+        id: 'x:vs_status',
+        child: VoiceStatusCard(
+          container: container,
+          rows: [
+            tile(voiceEnabled),
+            if (enabled) ...[
+              tile(voiceMute),
+              for (final def in [
+                wakeWordBackground,
+                wakeWordReturnToBackground,
+              ])
+                if (settings.visible(def)) tile(def),
+            ],
+          ],
+        ),
+      ),
+      if (enabled) ...[
+        const SizedBox(height: Ks.cardGap),
+        for (final page in const [
+          'Assistant',
+          'Wake Word',
+          'Appearance',
+          'Conversation',
+          'Timers',
+          'Chimes',
+        ]) ...[
+          _subpageEntryCard(container, 'Voice Satellite', page),
+          const SizedBox(height: Ks.cardGap),
+        ],
+        SectionHeading(voiceText(context, 'Wake Word Tester')),
+        SearchLandingTarget(
+          id: 'x:wake_word_tester',
+          child: SettingsCard(
+            children: [
+              WakeWordTesterTile(container: container),
+              if (settings.visible(wakeWordDiagnostics))
+                _SubpageEntryTile(
+                  container: container,
+                  category: 'Voice Satellite',
+                  subpage: 'Wake word diagnostics',
+                ),
+            ],
+          ),
+        ),
+        SectionHeading(voiceText(context, 'Required system permissions')),
+        SearchLandingTarget(
+          id: 'x:vs_permissions',
+          child: SettingsCard(
+            children: [SystemPermissionsTile(container: container)],
+          ),
+        ),
+      ],
+      FutureBuilder<bool>(
+        future: _vsDetected,
+        builder: (context, snapshot) => snapshot.data == true
+            ? Padding(
+                padding: const EdgeInsets.only(top: Ks.cardGap),
+                child: SearchLandingTarget(
+                  id: 'x:vs_rollback',
+                  child: VoiceRollbackCard(container: container),
+                ),
+              )
+            : const SizedBox.shrink(),
       ),
     ];
   }

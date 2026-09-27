@@ -289,6 +289,24 @@ class SettingsManager extends Manager {
   /// back to the default — so a rename in place has to be rewritten once,
   /// here, before anything reads it.
   Future<void> _migrate() async {
+    // Native Voice Satellite: a kiosk that already runs Voice Satellite in
+    // the dashboard (a satellite assigned) keeps doing so until its owner
+    // migrates; every other install starts native. Written once, the first
+    // time this version starts, so a later assignment never flips it.
+    if (_prefs.get(_prefix + voiceRuntime.key) == null) {
+      final assigned =
+          (_prefs.get(_prefix + haSatelliteEntity.key) as String? ?? '')
+              .trim()
+              .isNotEmpty;
+      await _prefs.setString(
+        _prefix + voiceRuntime.key,
+        assigned ? 'dashboard' : 'native',
+      );
+      log.info(
+        name,
+        'Voice Satellite runtime set to ${assigned ? 'dashboard' : 'native'}',
+      );
+    }
     // The preview's automatic language choice is now explicit English.
     if (_prefs.get(_prefix + uiLanguage.key) == 'system') {
       await _prefs.setString(_prefix + uiLanguage.key, 'en');

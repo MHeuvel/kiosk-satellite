@@ -1,0 +1,479 @@
+import 'dart:typed_data';
+
+import 'package:fake_async/fake_async.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:kiosk_satellite/managers/voice/assist_view.dart';
+import 'package:kiosk_satellite/managers/voice/voice_session.dart';
+
+class _Link implements VoiceLinkPort {
+  final requests = <(bool, String)>[];
+  final sent = <Uint8List>[];
+  int finishedCount = 0;
+  bool subscribed = true;
+
+  @override
+  Future<bool> request({
+    required bool start,
+    String wakeWordPhrase = '',
+  }) async {
+    requests.add((start, wakeWordPhrase));
+    return subscribed;
+  }
+
+  @override
+  Future<bool> audio(Uint8List pcm) async {
+    sent.add(pcm);
+    return true;
+  }
+
+  @override
+  Future<bool> finished() async {
+    finishedCount++;
+    return true;
+  }
+}
+
+class _Mic implements VoiceMicPort {
+  void Function(Uint8List pcm, bool preRoll)? sink;
+  int opens = 0;
+  int closes = 0;
+
+  @override
+  Future<bool> open(void Function(Uint8List pcm, bool preRoll) onChunk) async {
+    opens++;
+    sink = onChunk;
+    return true;
+  }
+
+  @override
+  Future<void> close() async {
+    closes++;
+    sink = null;
+  }
+
+  void speak(int value, {bool preRoll = false}) =>
+      sink?.call(Uint8List(2560)..fillRange(0, 2560, value), preRoll);
+}
+
+class _Player implements VoicePlayerPort {
+  final played = <String>[];
+  final chimes = <String>[];
+  final stopped = <String>[];
+  int _next = 0;
+
+  @override
+  Future<String?> play(String url) async {
+    played.add(url);
+    return 'snd${++_next}';
+  }
+
+  @override
+  Future<(String, double)?> chime(String kind) async {
+    chimes.add(kind);
+    return ('snd${++_next}', 0.3);
+  }
+
+  @override
+  Future<void> stop(String id) async => stopped.add(id);
+
+  String get lastId => 'snd$_next';
+}
+
+class _Harness {
+  _Harness({this.options = const VoiceSessionOptions(), FakeAsync? time}) {
+    session = VoiceSession(
+      link: link,
+      mic: mic,
+      player: player,
+      options: () => options,
+      onView: views.add,
+      onLevel: (_) {},
+      onBusy: (busy, reason) => busy_.add((busy, reason)),
+      onStopArmed: stopArmed.add,
+      onError: (code, message) => errors.add(code),
+      onIdle: () => idles++,
+      now: time == null ? null : () => DateTime(2026).add(time.elapsed),
+    );
+  }
+
+  VoiceSessionOptions options;
+  late final VoiceSession session;
+  final link = _Link();
+  final mic = _Mic();
+  final player = _Player();
+  final views = <AssistView>[];
+  final busy_ = <(bool, String)>[];
+  final stopArmed = <bool>[];
+  final errors = <String>[];
+  int idles = 0;
+
+  AssistView get view => views.last;
+}
+
+void main() {
+  test('a turn: chime, stream past the chime, answer, done', () {
+    fakeAsync((async) {
+      final h = _Harness();
+      h.session.wake('Okay Nabu');
+      async.flushMicrotasks();
+      expect(h.link.requests.single, (true, 'Okay Nabu'));
+      expect(h.view.phase, AssistPhase.listening);
+      // Heard over the dedupe window and the chime: never sent.
+      h.mic.speak(1, preRoll: true);
+      async.elapse(const Duration(milliseconds: 250));
+      expect(h.player.chimes, ['wake']);
+      h.mic.speak(2);
+      async.elapse(const Duration(milliseconds: 600));
+      expect(h.link.sent, isEmpty);
+      h.mic.speak(3);
+      expect(h.link.sent.single.first, 3);
+
+      h.session.onEvent(VaEvent.sttStart, {});
+      h.session.onEvent(VaEvent.sttEnd, {'text': 'turn on the lights'});
+      async.flushMicrotasks();
+      expect(h.mic.closes, 1);
+      expect(h.view.phase, AssistPhase.thinking);
+      expect(h.view.command, 'turn on the lights');
+
+      h.session.onEvent(VaEvent.intentEnd, {
+        'conversation_id': 'c1',
+        'continue_conversation': '0',
+      });
+      h.session.onEvent(VaEvent.ttsStart, {'text': 'Done.'});
+      h.session.onEvent(VaEvent.ttsEnd, {'url': 'http://ha/tts.mp3'});
+      async.flushMicrotasks();
+      expect(h.player.played, ['http://ha/tts.mp3']);
+      expect(h.view.answer, 'Done.');
+      h.session.onEvent(VaEvent.runEnd, {});
+      async.flushMicrotasks();
+      // Still speaking: the run's end waits for the playback.
+      expect(h.session.busy, isTrue);
+      h.session.onSoundEnded(h.player.lastId);
+      async.flushMicrotasks();
+      expect(h.link.finishedCount, 1);
+      expect(h.player.chimes, ['wake', 'done']);
+      expect(h.session.busy, isFalse);
+      expect(h.view.phase, AssistPhase.hidden);
+      expect(h.busy_, [(true, 'voice'), (false, '')]);
+      expect(h.idles, 1);
+    });
+  });
+
+  test('seamless: no chime and the pre-roll goes up', () {
+    fakeAsync((async) {
+      final h = _Harness(options: const VoiceSessionOptions(seamless: true));
+      h.session.wake('Okay Nabu');
+      async.flushMicrotasks();
+      h.mic.speak(9, preRoll: true);
+      async.flushMicrotasks();
+      expect(h.player.chimes, isEmpty);
+      expect(h.link.sent.single.first, 9);
+    });
+  });
+
+  test('a duplicate wake ends silently, other expected errors with done', () {
+    fakeAsync((async) {
+      final h = _Harness();
+      h.session.wake('Okay Nabu');
+      async.flushMicrotasks();
+      h.session.onEvent(VaEvent.error, {
+        'code': 'duplicate_wake_up_detected',
+        'message': 'x',
+      });
+      async.elapse(const Duration(seconds: 2));
+      expect(h.player.chimes, isEmpty);
+      expect(h.errors, isEmpty);
+      expect(h.session.busy, isFalse);
+
+      h.session.wake('Okay Nabu');
+      async.flushMicrotasks();
+      async.elapse(const Duration(seconds: 1));
+      h.session.onEvent(VaEvent.error, {
+        'code': 'stt-no-text-recognized',
+        'message': 'x',
+      });
+      async.flushMicrotasks();
+      expect(h.player.chimes, ['wake', 'done']);
+      expect(h.errors, isEmpty);
+    });
+  });
+
+  test('an unexpected error is reported with the error chime', () {
+    fakeAsync((async) {
+      final h = _Harness();
+      h.session.wake('Okay Nabu');
+      async.elapse(const Duration(seconds: 1));
+      h.session.onEvent(VaEvent.error, {
+        'code': 'intent-failed',
+        'message': 'boom',
+      });
+      async.flushMicrotasks();
+      expect(h.errors, ['intent-failed']);
+      expect(h.player.chimes.last, 'error');
+      expect(h.session.busy, isFalse);
+    });
+  });
+
+  test('not connected: says so and stays out of the way', () {
+    fakeAsync((async) {
+      final h = _Harness();
+      h.link.subscribed = false;
+      h.session.wake('Okay Nabu');
+      async.flushMicrotasks();
+      expect(h.errors, ['not-connected']);
+      expect(h.mic.closes, 1);
+      expect(h.session.busy, isFalse);
+    });
+  });
+
+  test('a follow-up listens again without a new wake word', () {
+    fakeAsync((async) {
+      final h = _Harness(time: async);
+      h.session.wake('Hey Jarvis');
+      async.elapse(const Duration(seconds: 5));
+      h.session.onEvent(VaEvent.sttEnd, {'text': 'set a timer'});
+      h.session.onEvent(VaEvent.intentEnd, {
+        'conversation_id': 'c1',
+        'continue_conversation': '1',
+      });
+      h.session.onEvent(VaEvent.ttsStart, {'text': 'For how long?'});
+      h.session.onEvent(VaEvent.ttsEnd, {'url': 'http://ha/q.mp3'});
+      async.flushMicrotasks();
+      h.session.onSoundEnded(h.player.lastId);
+      async.flushMicrotasks();
+      h.session.onEvent(VaEvent.runEnd, {});
+      async.flushMicrotasks();
+      // Same wake word, so Home Assistant keeps pipeline 2.
+      expect(h.link.requests.last, (true, 'Hey Jarvis'));
+      expect(h.mic.opens, 2);
+      expect(h.session.busy, isTrue);
+      expect(h.view.phase, AssistPhase.listening);
+      // The first turn stays on screen; the second starts its own lines.
+      expect(h.view.earlier.single.command, 'set a timer');
+      expect(h.view.earlier.single.answer, 'For how long?');
+      expect(h.view.command, isEmpty);
+      expect(h.view.answer, isEmpty);
+
+      async.elapse(const Duration(seconds: 1));
+      h.session.onEvent(VaEvent.sttEnd, {'text': 'five minutes'});
+      h.session.onEvent(VaEvent.ttsStart, {'text': 'Timer set.'});
+      async.flushMicrotasks();
+      expect(h.view.earlier.single.command, 'set a timer');
+      expect(h.view.command, 'five minutes');
+      expect(h.view.answer, 'Timer set.');
+    });
+  });
+
+  test('the answer\'s playback clock runs from the player\'s reports', () {
+    fakeAsync((async) {
+      final h = _Harness(time: async);
+      h.session.wake('Okay Nabu');
+      async.elapse(const Duration(seconds: 1));
+      h.session.onEvent(VaEvent.sttEnd, {'text': 'tell me a story'});
+      h.session.onEvent(VaEvent.ttsStart, {'text': 'Once upon a time.'});
+      h.session.onEvent(VaEvent.ttsEnd, {'url': 'http://ha/story.mp3'});
+      async.flushMicrotasks();
+      final id = h.player.lastId;
+      // A stream still arriving has no length yet: no clock.
+      h.session.onSoundProgress(id, const Duration(seconds: 1), null);
+      expect(h.session.playback, isNull);
+      h.session.onSoundProgress(
+        id,
+        const Duration(seconds: 2),
+        const Duration(seconds: 10),
+      );
+      expect(h.session.playback, (elapsed: 2.0, duration: 10.0));
+      // Carried forward between reports, never past the end.
+      async.elapse(const Duration(milliseconds: 500));
+      expect(h.session.playback?.elapsed, 2.5);
+      async.elapse(const Duration(seconds: 20));
+      expect(h.session.playback?.elapsed, 10.0);
+      // Someone else's sound does not move it; the answer's end clears it.
+      h.session.onSoundProgress(
+        'other',
+        Duration.zero,
+        const Duration(seconds: 1),
+      );
+      expect(h.session.playback?.duration, 10.0);
+      h.session.onSoundEnded(id);
+      async.flushMicrotasks();
+      expect(h.session.playback, isNull);
+    });
+  });
+
+  test('cancel during the chime leaves nothing of the turn running', () {
+    fakeAsync((async) {
+      final h = _Harness();
+      h.session.wake('Okay Nabu');
+      async.elapse(const Duration(milliseconds: 300));
+      h.session.cancel();
+      async.elapse(const Duration(seconds: 2));
+      h.mic.speak(5);
+      expect(h.link.sent, isEmpty);
+      expect(h.link.requests.last, (false, ''));
+      expect(h.view.phase, AssistPhase.hidden);
+      expect(h.session.busy, isFalse);
+    });
+  });
+
+  test('the stop word is armed while the answer plays', () {
+    fakeAsync((async) {
+      final h = _Harness(options: const VoiceSessionOptions(stopWord: true));
+      h.session.wake('Okay Nabu');
+      async.elapse(const Duration(seconds: 1));
+      h.session.onEvent(VaEvent.ttsEnd, {'url': 'http://ha/tts.mp3'});
+      async.elapse(const Duration(milliseconds: 300));
+      expect(h.stopArmed, [true]);
+      h.session.cancel();
+      async.flushMicrotasks();
+      expect(h.player.stopped, isNotEmpty);
+      expect(h.stopArmed.last, isFalse);
+      // Home Assistant is told the answer ended.
+      expect(h.link.finishedCount, 1);
+    });
+  });
+
+  test('an announcement plays, reports and lingers', () {
+    fakeAsync((async) {
+      final h = _Harness();
+      h.session.announce(
+        const VoiceAnnouncement(
+          mediaId: 'http://ha/a.mp3',
+          text: 'The laundry is done.',
+          preannounceMediaId:
+              'http://ha/api/assist_satellite/static/preannounce.mp3',
+          startConversation: false,
+        ),
+      );
+      async.flushMicrotasks();
+      expect(h.player.chimes, ['announce']);
+      expect(h.view.phase, AssistPhase.announcement);
+      expect(h.view.answer, 'The laundry is done.');
+      h.session.onSoundEnded(h.player.lastId);
+      async.flushMicrotasks();
+      expect(h.player.played, ['http://ha/a.mp3']);
+      h.session.onSoundEnded(h.player.lastId);
+      async.flushMicrotasks();
+      expect(h.link.finishedCount, 1);
+      expect(h.view.phase, AssistPhase.announcement);
+      async.elapse(const Duration(seconds: 5));
+      expect(h.view.phase, AssistPhase.hidden);
+    });
+  });
+
+  test('start_conversation listens after the announcement', () {
+    fakeAsync((async) {
+      final h = _Harness();
+      h.session.announce(
+        const VoiceAnnouncement(
+          mediaId: 'http://ha/q.mp3',
+          text: 'Close the garage?',
+          preannounceMediaId: '',
+          startConversation: true,
+        ),
+      );
+      async.flushMicrotasks();
+      h.session.onSoundEnded(h.player.lastId);
+      async.flushMicrotasks();
+      expect(h.link.finishedCount, 1);
+      expect(h.link.requests.single, (true, ''));
+      expect(h.view.phase, AssistPhase.listening);
+      expect(h.busy_.last, (true, 'voice'));
+    });
+  });
+
+  test('results keep the overlay up for their linger', () {
+    fakeAsync((async) {
+      final h = _Harness(
+        options: const VoiceSessionOptions(resultsLingerSeconds: 30),
+      );
+      h.session.wake('Okay Nabu');
+      async.elapse(const Duration(seconds: 1));
+      h.session.onEvent(VaEvent.sttEnd, {'text': 'weather'});
+      h.session.showResults(
+        tools: const ['Get weather forecast'],
+        results: const [AssistResult('weather', {})],
+      );
+      h.session.onEvent(VaEvent.runEnd, {});
+      async.flushMicrotasks();
+      expect(h.session.busy, isFalse);
+      expect(h.view.phase, isNot(AssistPhase.hidden));
+      expect(h.view.tools, ['Get weather forecast']);
+      async.elapse(const Duration(seconds: 31));
+      expect(h.view.phase, AssistPhase.hidden);
+    });
+  });
+
+  test('an opened video stops the answer and stays until dismissed', () {
+    fakeAsync((async) {
+      final h = _Harness(
+        options: const VoiceSessionOptions(resultsLingerSeconds: 30),
+      );
+      h.session.wake('Okay Nabu');
+      async.elapse(const Duration(seconds: 1));
+      h.session.onEvent(VaEvent.sttEnd, {'text': 'play a video of cats'});
+      h.session.showResults(
+        results: const [
+          AssistResult('videos', {
+            'items': [
+              {'video_id': 'abc'},
+            ],
+          }),
+        ],
+      );
+      h.session.onEvent(VaEvent.intentEnd, {'continue_conversation': '1'});
+      h.session.onEvent(VaEvent.ttsStart, {'text': 'Here are some cats.'});
+      h.session.onEvent(VaEvent.ttsEnd, {'url': 'http://ha/tts.mp3'});
+      async.flushMicrotasks();
+      final speech = h.player.lastId;
+      h.session.holdResults(silence: true);
+      async.flushMicrotasks();
+      expect(h.player.stopped, contains(speech));
+      h.session.onEvent(VaEvent.runEnd, {});
+      async.flushMicrotasks();
+      // No follow-up: the video is what the person is watching.
+      expect(h.session.busy, isFalse);
+      expect(h.link.requests.length, 1);
+      async.elapse(const Duration(minutes: 5));
+      expect(h.view.phase, isNot(AssistPhase.hidden));
+      h.session.dismiss();
+      expect(h.view.phase, AssistPhase.hidden);
+    });
+  });
+
+  test('a show streams its answer and stays until dismissed', () {
+    fakeAsync((async) {
+      final h = _Harness();
+      final gen = h.session.beginShow('What is on my calendar?')!;
+      async.flushMicrotasks();
+      expect(h.view.phase, AssistPhase.thinking);
+      expect(h.view.command, 'What is on my calendar?');
+      expect(h.player.chimes, ['wake']);
+      // Nothing else starts over it.
+      expect(h.session.beginShow('again'), isNull);
+      h.session.wake('Okay Nabu');
+      async.flushMicrotasks();
+      expect(h.link.requests, isEmpty);
+
+      h.session.showAnswer(gen, 'You have');
+      expect(h.view.answer, 'You have');
+      h.session.showAnswer(gen, 'You have two meetings.');
+      expect(h.view.phase, AssistPhase.speaking);
+      h.session.endShow(gen, seconds: 0);
+      async.flushMicrotasks();
+      expect(h.session.busy, isFalse);
+      async.elapse(const Duration(minutes: 10));
+      expect(h.view.answer, 'You have two meetings.');
+      h.session.dismiss();
+      expect(h.view.phase, AssistPhase.hidden);
+
+      final next = h.session.beginShow('Weather?')!;
+      h.session.showAnswer(next, 'Sunny.');
+      h.session.endShow(next, seconds: 5);
+      async.elapse(const Duration(seconds: 4));
+      expect(h.view.phase, isNot(AssistPhase.hidden));
+      async.elapse(const Duration(seconds: 2));
+      expect(h.view.phase, AssistPhase.hidden);
+    });
+  });
+}

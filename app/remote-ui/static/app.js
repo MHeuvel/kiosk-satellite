@@ -74,10 +74,6 @@ export async function start() {
    serves this passwordless; minting the admin password is the first step
    (skipped when the device wizard already set one, then it appears after
    login instead). */
-export const WIZ_LOCKED = [
-  ['web.microphone', 'Microphone access'],
-  ['wake_word.enabled', 'Native wake word detection'],
-];
 export const WIZ_OPTIONAL = [
   ['browser.auto_reload_on_error', 'Auto-reload on error'],
   ['browser.pull_to_refresh', 'Pull to refresh'],
@@ -96,8 +92,8 @@ export const WIZ_OPTIONAL = [
 ];
 export const wizard = {
   steps: [], i: 0, needPassword: false,
-  vsDetected: false,
+  // Step 4: the kiosk as its own voice satellite, on unless turned off.
+  voice: true,
   rec: Object.fromEntries(WIZ_OPTIONAL.map(([k]) => [k, true])),
-  satellites: [], satellite: null,
   dashboards: [], dashboard: null, dashboardView: '', dashboardViews: null,
 };
