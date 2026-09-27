@@ -1577,7 +1577,6 @@ class _KioskScreenState extends State<KioskScreen>
                     child: ScreensaverOverlay(container: c),
                   ),
                   CameraViewOverlay(container: c),
-                  VoiceTimerOverlay(container: c),
                   // The camera preview a face wake leaves behind
                   // (discussion #371): over the screensaver, whose fade
                   // out it appears through, and answering no touch.
@@ -1600,6 +1599,9 @@ class _KioskScreenState extends State<KioskScreen>
                   // Native Voice Satellite: the assist overlay, in the same
                   // slot, over the screensaver and the camera views.
                   AssistOverlay(container: c),
+                  // The timer pills stay over the voice overlay, as Voice
+                  // Satellite stacks them over its own.
+                  VoiceTimerOverlay(container: c),
                   ScreensaverBlankOverlay(container: c),
                   // Lockdown Mode's touch shield: topmost, above every
                   // overlay, so nothing on screen is tappable while it
