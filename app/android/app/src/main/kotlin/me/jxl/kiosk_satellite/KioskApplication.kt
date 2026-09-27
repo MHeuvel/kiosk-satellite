@@ -69,6 +69,7 @@ class KioskApplication : Application(), CameraXConfig.Provider {
     private lateinit var plugins: me.jxl.kiosk_satellite.plugins.PluginBridge
     private lateinit var fleet: FleetBridge
     private lateinit var intercomAudio: IntercomAudio
+    private lateinit var mediaSessions: MediaSessionBridge
 
     override fun onCreate() {
         super.onCreate()
@@ -141,6 +142,7 @@ class KioskApplication : Application(), CameraXConfig.Provider {
         TlsBridge(applicationContext, messenger)
         fleet = FleetBridge(applicationContext, messenger)
         intercomAudio = IntercomAudio(applicationContext, messenger)
+        mediaSessions = MediaSessionBridge(applicationContext, messenger)
         plugins = me.jxl.kiosk_satellite.plugins.PluginBridge(applicationContext, messenger)
     }
 }

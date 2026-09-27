@@ -5088,6 +5088,21 @@ class UiStringsDe extends UiStrings {
       'Dieses Gerät bietet keine Einstellungsseite für diese Berechtigung. Erteile sie per ADB: adb shell appops set me.jxl.kiosk_satellite SYSTEM_ALERT_WINDOW allow';
 
   @override
+  String get deviceNotificationAccess => 'Zugriff auf Benachrichtigungen';
+
+  @override
+  String get deviceNotificationAccessHeld =>
+      '„Jetzt läuft“ kann den Apps folgen, die auf diesem Gerät wiedergeben.';
+
+  @override
+  String get deviceNotificationAccessMissing =>
+      'Ohne diese Berechtigung listet Android keine Mediensitzungen auf, daher kann „Jetzt läuft“ den Apps, die auf diesem Gerät wiedergeben, nicht folgen.';
+
+  @override
+  String get deviceNotificationAccessIdle =>
+      'Erlaubt „Jetzt läuft“, den Apps zu folgen, die auf diesem Gerät wiedergeben.';
+
+  @override
   String get settingRemoteEnabledTitle => 'Fernverwaltung';
 
   @override
@@ -7949,6 +7964,13 @@ class UiStringsDe extends UiStrings {
 
   @override
   String get mediaSelectFailed => 'Der Player konnte nicht ausgewählt werden';
+
+  @override
+  String get mediaNotificationAccessRemote =>
+      'Ohne diese Berechtigung listet Android keine Mediensitzungen auf, daher kann „Jetzt läuft“ den Apps, die auf diesem Gerät wiedergeben, nicht folgen. Die Seite zum Erteilen der Berechtigung wird auf dem Tablet angezeigt.';
+
+  @override
+  String get mediaLocalMediaSession => 'Lokale Mediensitzung';
 
   @override
   String get settingSendspinEnabledTitle => 'Sendspin-Player aktivieren';

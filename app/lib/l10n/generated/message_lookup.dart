@@ -1385,6 +1385,11 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'deviceMotionIdle' => strings.deviceMotionIdle,
       'deviceBatteryAdb' => strings.deviceBatteryAdb,
       'deviceOverlayAdb' => strings.deviceOverlayAdb,
+      'deviceNotificationAccess' => strings.deviceNotificationAccess,
+      'deviceNotificationAccessHeld' => strings.deviceNotificationAccessHeld,
+      'deviceNotificationAccessMissing' =>
+        strings.deviceNotificationAccessMissing,
+      'deviceNotificationAccessIdle' => strings.deviceNotificationAccessIdle,
       'settingRemoteEnabledTitle' => strings.settingRemoteEnabledTitle,
       'settingRemoteEnabledDescription' =>
         strings.settingRemoteEnabledDescription,
@@ -2337,6 +2342,8 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'mediaSetUpSonos' => strings.mediaSetUpSonos,
       'mediaSaveFailed' => strings.mediaSaveFailed,
       'mediaSelectFailed' => strings.mediaSelectFailed,
+      'mediaNotificationAccessRemote' => strings.mediaNotificationAccessRemote,
+      'mediaLocalMediaSession' => strings.mediaLocalMediaSession,
       'settingSendspinEnabledTitle' => strings.settingSendspinEnabledTitle,
       'settingSendspinEnabledDescription' =>
         strings.settingSendspinEnabledDescription,

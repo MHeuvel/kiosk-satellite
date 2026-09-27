@@ -6324,7 +6324,10 @@ const sendspinPlayerSource = SettingDef<String>(
 /// controls follow: empty is this device's own Sendspin player, otherwise
 /// `ma:<player id>` for a Music Assistant player, `ha:<entity id>` for a
 /// Home Assistant media player or `sonos:<player id>` for a Sonos speaker
-/// followed directly, always of the source picked above. Visible so both
+/// followed directly, always of the source picked above. With this device
+/// as the source, empty is its own Sendspin player and `session:*` the
+/// Local Media Session: whichever other app plays on the device, through
+/// its Android media session. Visible so both
 /// settings surfaces place it under the source, but its row is
 /// hand-built on each: a picker fed by that source's live player list,
 /// never a text field. Always on the page, so a source change never
@@ -6471,6 +6474,10 @@ const sendspinEnabled = SettingDef<bool>(
   // page entry goes with them.
   dependsOn: 'sendspin.player_source',
   dependsOnValue: '',
+  // Gone the same way while this device's Local Media Session is the
+  // pick: the surfaces follow another app then, not the Sendspin player.
+  alsoDependsOn: 'sendspin.player',
+  alsoDependsOnValue: {'ne': 'session:*'},
   type: SettingType.boolean,
   defaultValue: false,
   title: 'Enable Sendspin player',

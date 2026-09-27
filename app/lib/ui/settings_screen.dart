@@ -32,6 +32,8 @@ import '../managers/device/wifi_mac.dart'
     show WifiMacIdentity, WifiMacSource, wifiMacIdentity;
 import '../managers/settings/definitions.dart';
 import '../managers/person/person_sensor_manager.dart' show LogAccess;
+import '../managers/sendspin/session_player.dart' show SessionPlayer;
+import '../managers/sendspin/sendspin_manager.dart' show SendspinManager;
 import '../managers/service/service_manager.dart'
     show batteryAdbHint, overlayAdbHint;
 import '../managers/settings/export_filename.dart';
@@ -2420,6 +2422,19 @@ class _CategoryContentState extends State<_CategoryContent> {
             ),
           ),
         ],
+        // Local Media Session's one grant, only while it is the pick:
+        // Android lists other apps' sessions to no one without it.
+        // Mirrored on the remote (panels.js, updateSessionPermissions).
+        if (widget.category == 'Sendspin' &&
+            _localSessionPicked(container)) ...[
+          SectionHeading(mediaText(context, 'Required system permissions')),
+          SearchLandingTarget(
+            id: 'x:media_session_permissions',
+            child: SettingsCard(
+              children: [_MediaSessionPermissionsTile(container: container)],
+            ),
+          ),
+        ],
         if (widget.category == 'Device') ...[
           UpdateHelperSettings(
             container: container,
@@ -3095,10 +3110,13 @@ class _CategoryContentState extends State<_CategoryContent> {
     // holds it: its own player is gone from Music Assistant and the rows
     // about it are gone from this page.
     if (widget.category == 'Sendspin' &&
-        container.settings.get(sendspinPlayerSource).isNotEmpty)
+        (container.settings.get(sendspinPlayerSource).isNotEmpty ||
+            _localSessionPicked(container)))
       sendspinPlayer.key: WarnRow(
         l10n(context).mediaLocalOffline(
-          container.settings.get(sendspinPlayerName).trim().isEmpty
+          _localSessionPicked(container)
+              ? mediaText(context, SendspinManager.localSessionName)
+              : container.settings.get(sendspinPlayerName).trim().isEmpty
               ? l10n(context).mediaAnotherPlayer
               : container.settings.get(sendspinPlayerName).trim(),
         ),
@@ -4479,6 +4497,89 @@ class _LauncherPermissionsTileState extends State<_LauncherPermissionsTile>
           onGrant: BackgroundListening.requestBatteryUnrestricted,
         ),
       ]),
+    );
+  }
+}
+
+/// The Local Media Session player's Required system permissions group:
+/// the Notification access grant, in the Launcher group's shape.
+class _MediaSessionPermissionsTile extends StatefulWidget {
+  const _MediaSessionPermissionsTile({required this.container});
+
+  final AppContainer container;
+
+  @override
+  State<_MediaSessionPermissionsTile> createState() =>
+      _MediaSessionPermissionsTileState();
+}
+
+class _MediaSessionPermissionsTileState
+    extends State<_MediaSessionPermissionsTile>
+    with WidgetsBindingObserver {
+  bool? _granted;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _refresh();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  final _returned = ReturnWatch();
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // The grant is given on an OS screen that reports nothing back.
+    if (_returned.returned(state)) _refresh();
+  }
+
+  Future<void> _refresh() async {
+    final granted = await SessionPlayer.hasAccess();
+    if (!mounted) return;
+    setState(() => _granted = granted);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final granted = _granted;
+    return SettingsRow(
+      leading: Icon(
+        granted == true
+            ? Icons.check_circle_outline
+            : Icons.notifications_off_outlined,
+        color: granted == true ? null : theme.colorScheme.error,
+      ),
+      title: Text(mediaText(context, 'Notification access')),
+      subtitle: Text(
+        mediaText(
+          context,
+          granted == true
+              ? 'Now Playing can follow the apps playing on this device.'
+              : 'Without this Android lists no media sessions, so Now '
+                    'Playing cannot follow the apps playing on this device.',
+        ),
+      ),
+      trailing: granted == true
+          ? null
+          : TextButton(
+              onPressed: () async {
+                await widget.container.commands.execute(
+                  'requestOsPermissions',
+                  {
+                    'which': ['notificationAccess'],
+                  },
+                );
+                await _refresh();
+              },
+              child: Text(mediaText(context, 'Grant')),
+            ),
     );
   }
 }
@@ -6598,10 +6699,17 @@ class _MaValidateRowState extends State<_MaValidateRow> {
   );
 }
 
+/// Whether this device's Local Media Session is the pick: the surfaces
+/// follow whichever other app plays on the device (issue #722).
+bool _localSessionPicked(AppContainer container) =>
+    container.settings.get(sendspinPlayerSource).isEmpty &&
+    container.settings.get(sendspinPlayer) == SendspinManager.localSessionPick;
+
 /// Which player of the picked source the Now Playing surfaces follow
 /// (issue #265): a wall tablet showing and controlling the kitchen
 /// speakers instead of itself. The list is the source's, fetched when the
-/// row is tapped.
+/// row is tapped. This device offers its own two: the Sendspin player and
+/// the Local Media Session (issue #722).
 class _PlayerRow extends StatefulWidget {
   const _PlayerRow({required this.container, required this.onChanged});
 
@@ -6625,17 +6733,36 @@ class _PlayerRowState extends State<_PlayerRow> {
         container: container,
         source: source,
         current: current,
+        title: source.isEmpty ? sendspinPlayer.localizedTitle(ctx) : null,
+        players: source.isEmpty
+            ? [
+                {'id': '', 'name': mediaText(ctx, 'Sendspin Player')},
+                {
+                  'id': SendspinManager.localSessionPick,
+                  'name': mediaText(ctx, SendspinManager.localSessionName),
+                },
+              ]
+            : null,
       ),
     );
     if (result == null) return;
     await container.settings.set(sendspinPlayer, result[0]);
-    await container.settings.set(sendspinPlayerName, result[1]);
+    // Stored in English like every other name the pick keeps; the rows
+    // translate it on the way out.
+    await container.settings.set(
+      sendspinPlayerName,
+      result[0] == SendspinManager.localSessionPick
+          ? SendspinManager.localSessionName
+          : result[1],
+    );
     // The manager maintains this flag from the same inputs, but over the
     // async bus — write it here too so the pane rebuild below already
     // sees the rows it should.
     await container.settings.set(
       sendspinPlayerActive,
-      container.settings.get(sendspinEnabled) || source.isNotEmpty,
+      container.settings.get(sendspinEnabled) ||
+          source.isNotEmpty ||
+          result[0].isNotEmpty,
     );
     if (mounted) setState(() {});
     widget.onChanged();
@@ -6644,12 +6771,14 @@ class _PlayerRowState extends State<_PlayerRow> {
   @override
   Widget build(BuildContext context) {
     final settings = widget.container.settings;
-    // This device as the source: the one player there is, nothing to
-    // pick, so the box reads its name and stays put.
+    // This device as the source: its Sendspin player unless the Local
+    // Media Session is picked.
     final local = settings.get(sendspinPlayerSource).isEmpty;
     final name = settings.get(sendspinPlayerName).trim();
     final picked = local || settings.get(sendspinPlayer).trim().isNotEmpty;
-    final label = local
+    final label = _localSessionPicked(widget.container)
+        ? mediaText(context, SendspinManager.localSessionName)
+        : local
         ? mediaText(context, 'Sendspin Player')
         : picked && name.isNotEmpty
         ? name
@@ -6658,7 +6787,7 @@ class _PlayerRowState extends State<_PlayerRow> {
       title: Text(sendspinPlayer.localizedTitle(context)),
       subtitle: Text(sendspinPlayer.localizedDescription(context)),
       trailing: ControlBox(
-        onTap: local ? null : _pick,
+        onTap: _pick,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -6679,7 +6808,7 @@ class _PlayerRowState extends State<_PlayerRow> {
           ],
         ),
       ),
-      onTap: local ? null : _pick,
+      onTap: _pick,
     );
   }
 }
@@ -6786,11 +6915,16 @@ class _PlayerPickerDialog extends StatefulWidget {
     required this.current,
     this.title,
     this.noneLabel,
+    this.players,
   });
 
   final AppContainer container;
   final String source;
   final String current;
+
+  /// A fixed list in place of the source's live one: this device's own
+  /// players.
+  final List<Map<String, Object?>>? players;
 
   /// The dialog's title, in place of the source's.
   final String? title;
@@ -6816,6 +6950,10 @@ class _PlayerPickerDialogState extends State<_PlayerPickerDialog> {
   @override
   void initState() {
     super.initState();
+    if (widget.players case final fixed?) {
+      _players = fixed;
+      return;
+    }
     widget.container.commands
         .execute('mediaPlayers', {'source': widget.source})
         .then((result) {
@@ -9239,6 +9377,20 @@ class _DevicePermissionsTileState extends State<_DevicePermissionsTile>
               'Lets the Foreground app sensor name apps other than '
               'Kiosk Satellite.',
           onGrant: () => _requestVia('usageAccess'),
+        ),
+        // The Local Media Session player reads other apps' sessions
+        // through it, so it counts as missing only while it is picked.
+        _row(
+          granted: perms?.notificationAccess,
+          needed: _localSessionPicked(widget.container),
+          missingIcon: Icons.notifications_off_outlined,
+          title: devicePermissionDescriptions['notificationAccess']!.title,
+          held: devicePermissionDescriptions['notificationAccess']!.description,
+          missing:
+              'Without this Android lists no media sessions, so Now '
+              'Playing cannot follow the apps playing on this device.',
+          idle: 'Lets Now Playing follow the apps playing on this device.',
+          onGrant: () => _requestVia('notificationAccess'),
         ),
         // Pages ask for this themselves when they need it, and Bluetooth
         // scanning cannot run without it on any Android version: the scan

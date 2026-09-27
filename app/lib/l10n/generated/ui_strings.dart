@@ -8679,6 +8679,30 @@ abstract class UiStrings {
   /// **'This device has no settings screen for it. Grant it over adb: adb shell appops set me.jxl.kiosk_satellite SYSTEM_ALERT_WINDOW allow'**
   String get deviceOverlayAdb;
 
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification access'**
+  String get deviceNotificationAccess;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Now Playing can follow the apps playing on this device.'**
+  String get deviceNotificationAccessHeld;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Without this Android lists no media sessions, so Now Playing cannot follow the apps playing on this device.'**
+  String get deviceNotificationAccessMissing;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
+  /// **'Lets Now Playing follow the apps playing on this device.'**
+  String get deviceNotificationAccessIdle;
+
   /// Switch label.
   ///
   /// In en, this message translates to:
@@ -13461,6 +13485,18 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Could not select player'**
   String get mediaSelectFailed;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Without this Android lists no media sessions, so Now Playing cannot follow the apps playing on this device. The grant screen appears on the tablet.'**
+  String get mediaNotificationAccessRemote;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Local Media Session'**
+  String get mediaLocalMediaSession;
 
   /// Setting label.
   ///

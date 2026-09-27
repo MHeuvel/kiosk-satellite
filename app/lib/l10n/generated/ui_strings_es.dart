@@ -5051,6 +5051,21 @@ class UiStringsEs extends UiStrings {
       'Este dispositivo no tiene una pantalla de configuración para este permiso. Concédelo mediante ADB: adb shell appops set me.jxl.kiosk_satellite SYSTEM_ALERT_WINDOW allow';
 
   @override
+  String get deviceNotificationAccess => 'Acceso a notificaciones';
+
+  @override
+  String get deviceNotificationAccessHeld =>
+      'Reproduciendo Ahora puede seguir las aplicaciones que reproducen contenido en este dispositivo.';
+
+  @override
+  String get deviceNotificationAccessMissing =>
+      'Sin este permiso, Android no muestra ninguna sesión multimedia, por lo que Reproduciendo Ahora no puede seguir las aplicaciones que reproducen contenido en este dispositivo.';
+
+  @override
+  String get deviceNotificationAccessIdle =>
+      'Permite que Reproduciendo Ahora siga las aplicaciones que reproducen contenido en este dispositivo.';
+
+  @override
   String get settingRemoteEnabledTitle => 'Administración remota';
 
   @override
@@ -7906,6 +7921,13 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get mediaSelectFailed => 'No se pudo seleccionar el reproductor';
+
+  @override
+  String get mediaNotificationAccessRemote =>
+      'Sin este permiso, Android no muestra ninguna sesión multimedia, por lo que Reproduciendo Ahora no puede seguir las aplicaciones que reproducen contenido en este dispositivo. La pantalla para concederlo aparece en la tablet.';
+
+  @override
+  String get mediaLocalMediaSession => 'Sesión multimedia local';
 
   @override
   String get settingSendspinEnabledTitle => 'Activar reproductor Sendspin';

@@ -5001,6 +5001,21 @@ class UiStringsUk extends UiStrings {
       'Цей пристрій не має відповідного екрана налаштувань. Надайте його через adb: adb shell appops set me.jxl.kiosk_satellite SYSTEM_ALERT_WINDOW allow';
 
   @override
+  String get deviceNotificationAccess => 'Notification access';
+
+  @override
+  String get deviceNotificationAccessHeld =>
+      'Now Playing can follow the apps playing on this device.';
+
+  @override
+  String get deviceNotificationAccessMissing =>
+      'Without this Android lists no media sessions, so Now Playing cannot follow the apps playing on this device.';
+
+  @override
+  String get deviceNotificationAccessIdle =>
+      'Lets Now Playing follow the apps playing on this device.';
+
+  @override
   String get settingRemoteEnabledTitle => 'Віддалене керування';
 
   @override
@@ -7827,6 +7842,13 @@ class UiStringsUk extends UiStrings {
 
   @override
   String get mediaSelectFailed => 'Не вдалося вибрати плеєр';
+
+  @override
+  String get mediaNotificationAccessRemote =>
+      'Without this Android lists no media sessions, so Now Playing cannot follow the apps playing on this device. The grant screen appears on the tablet.';
+
+  @override
+  String get mediaLocalMediaSession => 'Local Media Session';
 
   @override
   String get settingSendspinEnabledTitle => 'Увімкнути плеєр Sendspin';

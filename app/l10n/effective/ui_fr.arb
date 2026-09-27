@@ -18394,6 +18394,58 @@
     },
     "x-notes": "Keep the ADB command exactly as written."
   },
+  "deviceNotificationAccess": "Accès aux notifications",
+  "@deviceNotificationAccess": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceNotificationAccessHeld": "Lecture en cours peut suivre les applications qui diffusent sur cet appareil.",
+  "@deviceNotificationAccessHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceNotificationAccessMissing": "Sans cela, Android ne liste aucune session multimédia, donc Lecture en cours ne peut pas suivre les applications qui diffusent sur cet appareil.",
+  "@deviceNotificationAccessMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceNotificationAccessIdle": "Permet à Lecture en cours de suivre les applications qui diffusent sur cet appareil.",
+  "@deviceNotificationAccessIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
   "settingRemoteEnabledTitle": "Gestion à distance",
   "@settingRemoteEnabledTitle": {
     "context": "Settings:Device:Remote Administration",
@@ -28903,6 +28955,32 @@
   },
   "mediaSelectFailed": "Impossible de sélectionner le lecteur",
   "@mediaSelectFailed": {
+    "context": "Settings > Media Player > Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Player"
+      ]
+    }
+  },
+  "mediaNotificationAccessRemote": "Sans cela, Android ne liste aucune session multimédia, donc Lecture en cours ne peut pas suivre les applications qui diffusent sur cet appareil. L'écran d'autorisation apparaît sur la tablette.",
+  "@mediaNotificationAccessRemote": {
+    "context": "Settings > Media Player > Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Player"
+      ]
+    }
+  },
+  "mediaLocalMediaSession": "Session multimédia locale",
+  "@mediaLocalMediaSession": {
     "context": "Settings > Media Player > Player",
     "description": "Label or guidance in this section.",
     "x-locations": {

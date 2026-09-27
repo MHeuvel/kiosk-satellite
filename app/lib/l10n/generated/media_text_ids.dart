@@ -234,5 +234,11 @@ const mediaTextMessageIds = <String, String>{
   "This device cannot decode this video.": "dlnaCannotDecode",
   "This file could not be read.": "dlnaCannotRead",
   "This media could not be played.": "dlnaCannotPlay",
-  "The Sonos speakers this device knows, a search of the network and an address field.": "searchSonosSpeakers"
+  "The Sonos speakers this device knows, a search of the network and an address field.": "searchSonosSpeakers",
+  "Required system permissions": "deviceRequiredPermissions",
+  "Notification access": "deviceNotificationAccess",
+  "Now Playing can follow the apps playing on this device.": "deviceNotificationAccessHeld",
+  "Without this Android lists no media sessions, so Now Playing cannot follow the apps playing on this device.": "deviceNotificationAccessMissing",
+  "Without this Android lists no media sessions, so Now Playing cannot follow the apps playing on this device. The grant screen appears on the tablet.": "mediaNotificationAccessRemote",
+  "Local Media Session": "mediaLocalMediaSession"
 };

@@ -18394,6 +18394,58 @@
     },
     "x-notes": "Keep the ADB command exactly as written."
   },
+  "deviceNotificationAccess": "Acceso a notificaciones",
+  "@deviceNotificationAccess": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceNotificationAccessHeld": "Reproduciendo Ahora puede seguir las aplicaciones que reproducen contenido en este dispositivo.",
+  "@deviceNotificationAccessHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceNotificationAccessMissing": "Sin este permiso, Android no muestra ninguna sesión multimedia, por lo que Reproduciendo Ahora no puede seguir las aplicaciones que reproducen contenido en este dispositivo.",
+  "@deviceNotificationAccessMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceNotificationAccessIdle": "Permite que Reproduciendo Ahora siga las aplicaciones que reproducen contenido en este dispositivo.",
+  "@deviceNotificationAccessIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
   "settingRemoteEnabledTitle": "Administración remota",
   "@settingRemoteEnabledTitle": {
     "context": "Settings:Device:Remote Administration",
@@ -28903,6 +28955,32 @@
   },
   "mediaSelectFailed": "No se pudo seleccionar el reproductor",
   "@mediaSelectFailed": {
+    "context": "Settings > Media Player > Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Player"
+      ]
+    }
+  },
+  "mediaNotificationAccessRemote": "Sin este permiso, Android no muestra ninguna sesión multimedia, por lo que Reproduciendo Ahora no puede seguir las aplicaciones que reproducen contenido en este dispositivo. La pantalla para concederlo aparece en la tablet.",
+  "@mediaNotificationAccessRemote": {
+    "context": "Settings > Media Player > Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Player"
+      ]
+    }
+  },
+  "mediaLocalMediaSession": "Sesión multimedia local",
+  "@mediaLocalMediaSession": {
     "context": "Settings > Media Player > Player",
     "description": "Label or guidance in this section.",
     "x-locations": {

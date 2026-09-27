@@ -1473,7 +1473,7 @@ kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
     const root = document.getElementById('device-permissions');
     root.innerHTML = '';
     const on = (k) => byKey[k]?.value === true;
-    const ROWS = permissionSpecs(on);
+    const ROWS = permissionSpecs(on, (k) => byKey[k]?.value);
 
     const readAll = async () => {
       const out = {};

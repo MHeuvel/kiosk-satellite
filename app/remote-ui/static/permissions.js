@@ -3,8 +3,9 @@
    switched-on feature needs it right now. One list, read by the Device
    page's Permissions Manager (every row, three states) and by the
    Overview's Needs attention card (only what is needed and missing).
-   `on(key)` answers whether a boolean setting is on. */
-export function permissionSpecs(on) {
+   `on(key)` answers whether a boolean setting is on, `value(key)` reads
+   any setting. */
+export function permissionSpecs(on, value = () => undefined) {
   const background = on('wake_word.enabled') && on('wake_word.background');
   return [
     { key: 'microphone', name: 'Microphone', ask: 'microphone',
@@ -77,6 +78,13 @@ export function permissionSpecs(on) {
       held: 'The Foreground app sensor can name whichever app is on screen.',
       missing: '',
       idle: 'Lets the Foreground app sensor name apps other than Kiosk Satellite.' },
+    // The Local Media Session player reads other apps' sessions through
+    // it, so it counts as missing only while it is picked.
+    { key: 'notificationAccess', name: 'Notification access', ask: 'notificationAccess',
+      needed: !value('sendspin.player_source') && value('sendspin.player') === 'session:*',
+      held: 'Now Playing can follow the apps playing on this device.',
+      missing: 'Without this Android lists no media sessions, so Now Playing cannot follow the apps playing on this device.',
+      idle: 'Lets Now Playing follow the apps playing on this device.' },
     { key: 'location', name: 'Location', ask: 'location',
       needed: on('btproxy.enabled') || on('location.enabled'),
       held: 'Pages, Bluetooth scanning and the location sensors can use the device position.',

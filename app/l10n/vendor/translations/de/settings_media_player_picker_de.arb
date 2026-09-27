@@ -12,5 +12,7 @@
   "mediaSetUpSonos": "Es sind noch keine Sonos-Lautsprecher registriert. Suche oder füge einen auf der Sonos-Seite hinzu.",
   "mediaHaFailed": "Home Assistant hat nicht geantwortet: {error}",
   "mediaSaveFailed": "Der Player konnte nicht gespeichert werden.",
-  "mediaSelectFailed": "Der Player konnte nicht ausgewählt werden"
+  "mediaSelectFailed": "Der Player konnte nicht ausgewählt werden",
+  "mediaNotificationAccessRemote": "Ohne diese Berechtigung listet Android keine Mediensitzungen auf, daher kann „Jetzt läuft“ den Apps, die auf diesem Gerät wiedergeben, nicht folgen. Die Seite zum Erteilen der Berechtigung wird auf dem Tablet angezeigt.",
+  "mediaLocalMediaSession": "Lokale Mediensitzung"
 }

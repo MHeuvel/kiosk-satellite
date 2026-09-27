@@ -598,7 +598,7 @@ function paintHealth({ filter = true } = {}) {
     const all = { ...perms };
     if (guard !== null) all.uiGuard = guard === true;
     const text = (t) => (typeof t === 'function' ? t(all) : t);
-    for (const spec of permissionSpecs(settingOn)) {
+    for (const spec of permissionSpecs(settingOn, settingVal)) {
       if (!spec.needed || all[spec.key] !== false) continue;
       // No settings screen for it on this device: the adb line on the
       // Device page is the answer, not a button that opens nothing.

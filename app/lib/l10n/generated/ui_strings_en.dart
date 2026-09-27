@@ -4961,6 +4961,21 @@ class UiStringsEn extends UiStrings {
       'This device has no settings screen for it. Grant it over adb: adb shell appops set me.jxl.kiosk_satellite SYSTEM_ALERT_WINDOW allow';
 
   @override
+  String get deviceNotificationAccess => 'Notification access';
+
+  @override
+  String get deviceNotificationAccessHeld =>
+      'Now Playing can follow the apps playing on this device.';
+
+  @override
+  String get deviceNotificationAccessMissing =>
+      'Without this Android lists no media sessions, so Now Playing cannot follow the apps playing on this device.';
+
+  @override
+  String get deviceNotificationAccessIdle =>
+      'Lets Now Playing follow the apps playing on this device.';
+
+  @override
   String get settingRemoteEnabledTitle => 'Remote management';
 
   @override
@@ -7748,6 +7763,13 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get mediaSelectFailed => 'Could not select player';
+
+  @override
+  String get mediaNotificationAccessRemote =>
+      'Without this Android lists no media sessions, so Now Playing cannot follow the apps playing on this device. The grant screen appears on the tablet.';
+
+  @override
+  String get mediaLocalMediaSession => 'Local Media Session';
 
   @override
   String get settingSendspinEnabledTitle => 'Enable Sendspin player';

@@ -32,6 +32,7 @@ The only update-related permission that requires manual user intervention is **I
 | Modify system settings | Allows the app to adjust the panel's actual hardware brightness rather than simply dimming the application window. |
 | All files access | Grants access to the root directory in the built-in File Manager. Without it, the File Manager is restricted to the app's own internal storage folder. This applies to Android 11 and newer; older versions rely on standard storage permissions. |
 | Usage access | Enables the ESPHome **Foreground app** sensor to identify whichever application is currently visible on screen. Without it, the sensor will only report Kiosk Satellite while it is in front. |
+| Notification access | Lets the Media Player's **Local Media Session** follow other apps playing on the device. Android only lists other apps' media sessions to an app with this grant. Kiosk Satellite reads no notifications with it. See [Media Player](sendspin.md#local-media-session). |
 | Device admin | Enables true **Screen off** functionality, powering down the display panel rather than simply rendering a black overlay. |
 | Location | Required for ESPHome [location sensors](esphome.md#gps-sensor) (off by default), dashboard pages requesting location, and Bluetooth scanning across all Android versions (as required by the OS). |
 | Nearby devices | Controls the Bluetooth scan and connect operations for the [Bluetooth proxy](esphome.md). This is a runtime prompt on Android 12 and newer. On older versions, it is granted at installation, though Android still requires Location permissions and active location services to return scan results. |
@@ -78,6 +79,7 @@ adb shell appops set me.jxl.kiosk_satellite MANAGE_EXTERNAL_STORAGE allow
 adb shell appops set me.jxl.kiosk_satellite GET_USAGE_STATS allow
 adb shell dumpsys deviceidle whitelist +me.jxl.kiosk_satellite
 adb shell dpm set-active-admin me.jxl.kiosk_satellite/.KioskAdminReceiver
+adb shell cmd notification allow_listener me.jxl.kiosk_satellite/.MediaSessionListener
 ```
 
 For Meta Portal devices, enable **Person Detection** for the screensaver using:

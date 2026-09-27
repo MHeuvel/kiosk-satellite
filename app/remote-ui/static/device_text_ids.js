@@ -376,5 +376,9 @@ export const deviceTextMessageIds = {
   "A hostname or IP address is required.": "tlsHostnameRequired",
   "Import a renewed certificate from its issuer.": "tlsIssuerRenewalRequired",
   "Stored TLS identity is damaged.": "tlsStoredIdentityDamaged",
-  "The TLS certificate has expired. Renew or import its replacement.": "tlsExpiredCertificate"
+  "The TLS certificate has expired. Renew or import its replacement.": "tlsExpiredCertificate",
+  "Notification access": "deviceNotificationAccess",
+  "Now Playing can follow the apps playing on this device.": "deviceNotificationAccessHeld",
+  "Without this Android lists no media sessions, so Now Playing cannot follow the apps playing on this device.": "deviceNotificationAccessMissing",
+  "Lets Now Playing follow the apps playing on this device.": "deviceNotificationAccessIdle"
 };

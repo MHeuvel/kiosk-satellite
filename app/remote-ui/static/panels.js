@@ -113,10 +113,16 @@ export function updateMaValidateRow() {
   anchor.insertAdjacentElement('afterend', row);
 }
 
+/* This device's Local Media Session: whichever other app plays on it
+   (issue #722), the device source's second player beside Sendspin. */
+const LOCAL_SESSION = 'session:*';
+const LOCAL_SESSION_NAME = 'Local Media Session';
+
 /* Which player of the picked source the Now Playing surfaces follow
    (issue #265). The definition renders as a text field; this swaps in a
-   select fed by the mediaPlayers command for that source and puts the
-   device's warning under the source row while another source is picked. */
+   select fed by the mediaPlayers command for that source, or this device's
+   own two players, and puts the device's warning under it while the
+   Sendspin player is offline. */
 export async function updatePlayerRow() {
   const tab = document.getElementById('tab-sendspin');
   if (!tab) return;
@@ -133,6 +139,7 @@ export async function updatePlayerRow() {
   const byKey = Object.fromEntries(
     (state.settings || []).map((s) => [s.key, s]));
   const source = byKey['sendspin.player_source']?.value || '';
+  updateSessionPermissions(tab, !source && byKey['sendspin.player']?.value === LOCAL_SESSION);
   const row = tab.querySelector('[data-key="sendspin.player"]');
   if (!row) return;
   if (row.playerSource === source && row.refreshPlayer) {
@@ -146,7 +153,6 @@ export async function updatePlayerRow() {
   sel.className = 'field';
   sel.dataset.source = source;
   sel.style.cssText = 'flex-shrink:0; max-width:240px;';
-  sel.disabled = !source;
   row.appendChild(sel);
   let players = [];
   let note = '';
@@ -164,6 +170,8 @@ export async function updatePlayerRow() {
     };
     sel.replaceChildren();
     add('', mediaText(source ? 'Pick a player' : 'Sendspin Player'));
+    const localSession = !source && id === LOCAL_SESSION;
+    if (!source) add(LOCAL_SESSION, mediaText(LOCAL_SESSION_NAME));
     if (source) {
       if (note && !players.length) add(`note:${source}`, mediaError(note)).disabled = true;
       const names = {};
@@ -175,10 +183,12 @@ export async function updatePlayerRow() {
       }
       if (id && !players.some(p => p.id === id)) add(id, name || id);
     }
-    sel.value = source ? id : '';
+    sel.value = source || localSession ? id : '';
+    updateSessionPermissions(tab, localSession);
     tab.querySelector('.player-warn')?.remove();
-    if (source) {
-      const warning = hintRow(t('mediaLocalOffline', {player: name || mediaText('another player')}), { warn: true });
+    if (source || localSession) {
+      const shown = localSession ? mediaText(LOCAL_SESSION_NAME) : name;
+      const warning = hintRow(t('mediaLocalOffline', {player: shown || mediaText('another player')}), { warn: true });
       warning.classList.add('player-warn', 'divided');
       row.insertAdjacentElement('afterend', warning);
     }
@@ -197,13 +207,16 @@ export async function updatePlayerRow() {
     paint();
   }, { owner: row, intervalMs: 1000 });
   sel.addEventListener('change', async () => {
-    const name = sel.value
-      ? players.find(p => p.id === sel.value)?.name
-        || sel.options[sel.selectedIndex].textContent : '';
+    // Stored in English like every other name the pick keeps.
+    const name = sel.value === LOCAL_SESSION ? LOCAL_SESSION_NAME
+      : sel.value
+        ? players.find(p => p.id === sel.value)?.name
+          || sel.options[sel.selectedIndex].textContent : '';
     const values = {
       'sendspin.player': sel.value,
       'sendspin.player_name': name,
-      'sendspin.player_active': true,
+      'sendspin.player_active': !!sel.value || !!source
+        || byKey['sendspin.enabled']?.value === true,
     };
     try {
       const response = await api('/api/settings', { method: 'PATCH', body: JSON.stringify(values) });
@@ -217,6 +230,73 @@ export async function updatePlayerRow() {
     }
     paint();
   });
+}
+
+/* The Local Media Session's Required system permissions group, at the end
+   of the page and only while it is the pick: Android lists other apps'
+   media sessions to no one without Notification access. The grant screen
+   opens on the tablet, so the row polls until it flips. Mirror of the
+   device's group. */
+function updateSessionPermissions(tab, shown) {
+  let group = tab.querySelector(':scope > .session-permissions');
+  if (!shown) {
+    group?.remove();
+    return;
+  }
+  if (group) {
+    tab.appendChild(group);
+    return;
+  }
+  group = document.createElement('div');
+  group.className = 'session-permissions';
+  const h = document.createElement('h2');
+  h.className = 'card-title';
+  h.textContent = mediaText('Required system permissions');
+  const card = document.createElement('div');
+  card.className = 'card';
+  const row = document.createElement('div');
+  row.className = 'row';
+  const info = document.createElement('div');
+  info.className = 'info';
+  info.innerHTML = '<div class="name"></div><div class="desc"></div>';
+  info.querySelector('.name').textContent = mediaText('Notification access');
+  info.querySelector('.desc').textContent = deviceText('Checking...');
+  const status = document.createElement('span');
+  status.style.whiteSpace = 'nowrap';
+  row.append(info, status);
+  card.appendChild(row);
+  group.append(h, card);
+  tab.appendChild(group);
+  const poll = () => cmd('getSystemPermissions')
+    .then((r) => (r.ok && r.data ? r.data.notificationAccess === true : null))
+    .catch(() => null);
+  const render = (ok) => {
+    info.querySelector('.desc').textContent = ok === null
+      ? deviceText('Status unavailable.')
+      : ok ? mediaText('Now Playing can follow the apps playing on this device.')
+        : mediaText('Without this Android lists no media sessions, so Now Playing cannot follow the apps playing on this device. The grant screen appears on the tablet.');
+    status.textContent = ok === null ? '' : ok ? deviceText('Granted') : deviceText('Missing');
+    status.style.color = ok ? 'var(--ok)' : 'var(--error)';
+    row.querySelector('button')?.remove();
+    if (ok !== false) return;
+    const btn = document.createElement('button');
+    btn.className = 'btn-ghost';
+    btn.textContent = deviceText('Grant on device');
+    btn.style.cssText = 'flex-shrink:0;';
+    btn.addEventListener('click', async () => {
+      btn.disabled = true;
+      try { await cmd('requestOsPermissions', { which: ['notificationAccess'] }); } catch (_) {}
+      // The grant happens on the tablet; keep reading until it lands.
+      for (let i = 0; i < 30 && row.isConnected; i++) {
+        await new Promise((r) => setTimeout(r, 2000));
+        if (await poll()) { render(true); return; }
+      }
+      btn.disabled = false;
+    });
+    row.appendChild(btn);
+  };
+  poll().then(render);
+  watchUpdates(['service'], () => poll().then(render), { owner: row });
 }
 
 /* The Sonos page's speakers, under its setting: every room the device

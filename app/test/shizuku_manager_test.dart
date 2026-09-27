@@ -71,6 +71,7 @@ void main() {
           containsAll([
             'allFiles',
             'usageAccess',
+            'notificationAccess',
             'uiGuard',
             'deviceAdmin',
             'camera',
@@ -79,7 +80,7 @@ void main() {
             'location',
           ]),
         );
-        expect(requested.length, 10);
+        expect(requested.length, 11);
         final result = await manager.run('writeSettings');
         expect((result['results'] as List).single['ok'], false);
         held = {...held, 'writeSettings': true};
@@ -240,7 +241,7 @@ void main() {
       );
       await tester.pumpAndSettle();
       expect(find.byType(FilledButton), findsOneWidget);
-      expect(find.byType(OutlinedButton), findsNWidgets(13));
+      expect(find.byType(OutlinedButton), findsNWidgets(14));
       expect(find.byIcon(Icons.chevron_right), findsNothing);
       for (final info in devicePermissionDescriptions.values) {
         expect(find.text(info.title), findsOneWidget);

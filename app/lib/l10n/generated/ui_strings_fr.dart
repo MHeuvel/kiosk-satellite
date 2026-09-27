@@ -5047,6 +5047,21 @@ class UiStringsFr extends UiStrings {
       'Cet appareil n\'a pas d\'écran de paramètres pour cela. Accordez-la via adb : adb shell appops set me.jxl.kiosk_satellite SYSTEM_ALERT_WINDOW allow';
 
   @override
+  String get deviceNotificationAccess => 'Accès aux notifications';
+
+  @override
+  String get deviceNotificationAccessHeld =>
+      'Lecture en cours peut suivre les applications qui diffusent sur cet appareil.';
+
+  @override
+  String get deviceNotificationAccessMissing =>
+      'Sans cela, Android ne liste aucune session multimédia, donc Lecture en cours ne peut pas suivre les applications qui diffusent sur cet appareil.';
+
+  @override
+  String get deviceNotificationAccessIdle =>
+      'Permet à Lecture en cours de suivre les applications qui diffusent sur cet appareil.';
+
+  @override
   String get settingRemoteEnabledTitle => 'Gestion à distance';
 
   @override
@@ -7900,6 +7915,13 @@ class UiStringsFr extends UiStrings {
 
   @override
   String get mediaSelectFailed => 'Impossible de sélectionner le lecteur';
+
+  @override
+  String get mediaNotificationAccessRemote =>
+      'Sans cela, Android ne liste aucune session multimédia, donc Lecture en cours ne peut pas suivre les applications qui diffusent sur cet appareil. L\'écran d\'autorisation apparaît sur la tablette.';
+
+  @override
+  String get mediaLocalMediaSession => 'Session multimédia locale';
 
   @override
   String get settingSendspinEnabledTitle => 'Activer le lecteur Sendspin';
