@@ -482,6 +482,34 @@ void main() {
     });
   });
 
+  test('ask_question: the reply goes to Home Assistant and the kiosk goes '
+      'idle without confirming it', () {
+    fakeAsync((async) {
+      final h = _Harness();
+      h.session.announce(
+        const VoiceAnnouncement(
+          mediaId: 'http://ha/q.mp3',
+          text: 'Which room?',
+          preannounceMediaId: '',
+          startConversation: true,
+        ),
+      );
+      async.flushMicrotasks();
+      h.session.onSoundEnded(h.player.lastId);
+      async.flushMicrotasks();
+      async.elapse(const Duration(seconds: 1));
+      // Its pipeline ends at speech to text: no intent, no answer.
+      h.session.onEvent(VaEvent.sttStart, {});
+      h.session.onEvent(VaEvent.sttEnd, {'text': 'the garage'});
+      async.flushMicrotasks();
+      h.session.onEvent(VaEvent.runEnd, {});
+      async.flushMicrotasks();
+      expect(h.player.chimes, isNot(contains('done')));
+      expect(h.session.busy, isFalse);
+      expect(h.view.phase, AssistPhase.hidden);
+    });
+  });
+
   test('results keep the overlay up for their linger', () {
     fakeAsync((async) {
       final h = _Harness(
@@ -490,6 +518,7 @@ void main() {
       h.session.wake('Okay Nabu');
       async.elapse(const Duration(seconds: 1));
       h.session.onEvent(VaEvent.sttEnd, {'text': 'weather'});
+      h.session.onEvent(VaEvent.intentEnd, {'conversation_id': 'c1'});
       h.session.showResults(
         tools: const ['Get weather forecast'],
         results: const [AssistResult('weather', {})],

@@ -211,6 +211,10 @@ class VoiceSession {
   String _streamUrl = '';
   bool _answerStarted = false;
 
+  /// This run heard a command (or a reply), and reached the intent stage.
+  bool _heard = false;
+  bool _intentStarted = false;
+
   /// How the answer's playback went: null while none finished yet.
   bool? _answerPlayed;
   bool _continue = false;
@@ -367,6 +371,16 @@ class VoiceSession {
   Future<void> onEvent(int type, Map<String, String> data) async {
     if (!_runActive) return;
     final gen = _gen;
+    // Past speech to text: the run goes on to the assistant.
+    if (const {
+      VaEvent.intentStart,
+      VaEvent.intentProgress,
+      VaEvent.intentEnd,
+      VaEvent.ttsStart,
+      VaEvent.ttsEnd,
+    }.contains(type)) {
+      _intentStarted = true;
+    }
     switch (type) {
       case VaEvent.runStart:
         // A streaming text to speech engine hands the answer's URL here,
@@ -380,6 +394,7 @@ class VoiceSession {
       case VaEvent.sttVadEnd:
         await _closeMic();
       case VaEvent.sttEnd:
+        _heard = true;
         _cancelWatchdog();
         onTrace?.call('command heard', text: data['text'] ?? '');
         await _closeMic();
@@ -429,6 +444,16 @@ class VoiceSession {
         if (gen != _gen) return;
         // Still speaking: the end of the playback takes the turn from here.
         if (_answerStarted && _answerPlayed == null) return;
+        // A reply heard and no intent: ask_question, whose pipeline ends at
+        // speech to text. Home Assistant matches the reply and tells only
+        // the automation that asked, which answers next if it wants to. The
+        // kiosk cannot know whether it matched, so it neither confirms nor
+        // lingers: it goes back to idle, as a Voice PE does.
+        if (_heard && !_intentStarted) {
+          onTrace?.call('reply handed to Home Assistant');
+          await _finish(gen);
+          return;
+        }
         await _afterAnswer(gen, played: _answerPlayed ?? false);
       case VaEvent.error:
         await _onError(gen, data['code'] ?? '', data['message'] ?? '');
@@ -938,6 +963,8 @@ class VoiceSession {
     _answerStarted = false;
     _answerPlayed = null;
     _continue = false;
+    _heard = false;
+    _intentStarted = false;
   }
 
   /// Everything off, for shutdown or a runtime switch.
