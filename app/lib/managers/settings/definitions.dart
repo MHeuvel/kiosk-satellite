@@ -5495,23 +5495,6 @@ const voiceTimerNamedPhrase = SettingDef<String>(
   dependsOn: 'voice.timer_speak',
 );
 
-/// Command and answer text and each raw pipeline event in the App Logs,
-/// as Voice Satellite's Debug logging put them in the console. A turn's
-/// steps are logged either way. This adds what was said.
-const voiceDebugLogging = SettingDef<bool>(
-  key: 'voice.debug_logging',
-  type: SettingType.boolean,
-  defaultValue: false,
-  title: 'Debug logging',
-  description:
-      'Adds what was said, the answers and each pipeline event to the App '
-      'Logs.',
-  category: 'Voice Satellite',
-  section: 'Debug',
-  dependsOn: 'voice.enabled',
-  perDevice: true,
-);
-
 const voiceWakeSound = SettingDef<bool>(
   key: 'voice.wake_sound',
   type: SettingType.boolean,
@@ -9120,7 +9103,6 @@ const List<SettingDef<Object>> allSettings = [
   notificationsTransparency,
   notificationsBlur,
   voiceWakeSound,
-  voiceDebugLogging,
   voiceChimeWake,
   voiceChimeDone,
   voiceChimeError,

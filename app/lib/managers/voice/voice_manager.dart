@@ -1375,9 +1375,7 @@ class VoiceManager extends Manager {
         }
         final type = (fields['type'] as num?)?.toInt() ?? -1;
         _note('event $type $data');
-        if (_settings.get(defs.voiceDebugLogging)) {
-          log.debug(name, 'pipeline event $type $data');
-        }
+        log.debug(name, 'pipeline event $type $data');
         unawaited(_session.onEvent(type, data));
       case 'timer':
         _onTimerEvent(fields);
@@ -1893,13 +1891,9 @@ class VoiceManager extends Manager {
     }
   }
 
-  /// A step of a turn in the App Logs, with what was said or answered only
-  /// under Debug logging.
+  /// A step of a turn in the App Logs, with what was said or answered.
   void _trace(String step, {String? text}) {
-    final said =
-        text != null &&
-        text.isNotEmpty &&
-        _settings.get(defs.voiceDebugLogging);
+    final said = text != null && text.isNotEmpty;
     log.info(name, said ? '$step: "$text"' : step);
   }
 

@@ -205,13 +205,6 @@ export async function renderNativeVs(root, byKey) {
       const entry = entryCard(sub);
       if (entry) root.appendChild(entry);
     }
-    // Debug after the pages, as on the device.
-    const debugCard = root.querySelector(':scope > .card [data-key="voice.debug_logging"]')?.closest('.card');
-    if (debugCard) {
-      const heading = debugCard.previousElementSibling;
-      if (heading?.classList.contains('card-title')) root.appendChild(heading);
-      root.appendChild(debugCard);
-    }
     const tab = root.closest('.tab') || root;
     const panel = (sub) => tab.querySelector(`.subpage[data-subpage="${sub}"]`);
     const assistant = panel('Assistant');

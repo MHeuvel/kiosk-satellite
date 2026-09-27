@@ -4018,8 +4018,6 @@ extension on _CategoryContentState {
             ],
           ),
         ),
-        SectionHeading(voiceText(context, 'Debug')),
-        SettingsCard(children: [tile(voiceDebugLogging)]),
         SectionHeading(voiceText(context, 'Required system permissions')),
         SearchLandingTarget(
           id: 'x:vs_permissions',
