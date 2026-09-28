@@ -286,8 +286,8 @@ export function settingRow(s) {
       || s.key === 'screensaver.dismiss_on_face') {
       updateFaceRows();
     }
-    // The Person Detection page's status row answers for its own switch.
-    if (s.key === 'screensaver.dismiss_on_person') updatePersonSensorRows();
+    // The person sensor pages' status rows answer for their own switches.
+    if (s.key === 'screensaver.dismiss_on_person' || s.key === 'person.sensor') updatePersonSensorRows();
     if (s.key === 'camera.rtsp.enabled' || s.key === 'camera.rtsp.protocol') updateRtspRows();
     // The hints under the brightness sliders come and go with the
     // adaptive brightness switch (issue #343). After the gated sync, so

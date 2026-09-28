@@ -1687,7 +1687,7 @@ void main() {
     });
   });
 
-  group('the Person sensor (discussion #353)', () {
+  group('the Person sensor (discussion #353, issue #734)', () {
     List<String> ids(List<Map<String, Object?>> catalog) => [
       for (final d in catalog) '${d['objectId']}',
     ];
@@ -1699,28 +1699,39 @@ void main() {
       ),
     );
 
-    test('exists only with Dismiss on person on, on a device with a '
+    test('exists only with the Person Sensor switch on, on a device with a '
         'person sensor', () async {
       stub('getPersonSensorSupport', {'supported': true});
       stub('getPersonSensor', {'running': true, 'present': false});
       expect(ids(await surface.build()), isNot(contains('person')));
-      await settings.set(defs.screensaverDismissOnPerson, true);
+      await settings.set(defs.personSensorEnabled, true);
       final catalog = await surface.build();
       final person = catalog.singleWhere((d) => d['objectId'] == 'person');
       expect(person['type'], 'binary_sensor');
       expect(person['deviceClass'], 'occupancy');
     });
 
+    test('Dismiss on person alone does not list it', () async {
+      stub('getPersonSensorSupport', {'supported': true});
+      stub('getPersonSensor', {'running': true, 'present': true});
+      await settings.set(defs.screensaverDismissOnPerson, true);
+      expect(ids(await surface.build()), isNot(contains('person')));
+      await attach();
+      bus.publish(const PersonSensorChanged(present: true));
+      await Future<void>.delayed(Duration.zero);
+      expect(pushed.where((p) => p.$1 == 'person'), isEmpty);
+    });
+
     test('a device without one lists it never, switch or no switch', () async {
       stub('getPersonSensorSupport', {'supported': false, 'hint': 'none'});
-      await settings.set(defs.screensaverDismissOnPerson, true);
+      await settings.set(defs.personSensorEnabled, true);
       expect(ids(await surface.build()), isNot(contains('person')));
     });
 
     test('reads the sensor at attach and follows its changes', () async {
       stub('getPersonSensorSupport', {'supported': true});
       stub('getPersonSensor', {'running': true, 'present': true});
-      await settings.set(defs.screensaverDismissOnPerson, true);
+      await settings.set(defs.personSensorEnabled, true);
       await surface.build();
       await attach();
       expect(pushed, contains(('person', true)));
@@ -1737,7 +1748,7 @@ void main() {
         'present': false,
         'error': 'Log access not granted.',
       });
-      await settings.set(defs.screensaverDismissOnPerson, true);
+      await settings.set(defs.personSensorEnabled, true);
       await surface.build();
       await attach();
       expect(pushed, contains(('person', null)));

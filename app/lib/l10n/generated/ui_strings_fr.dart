@@ -3736,6 +3736,20 @@ class UiStringsFr extends UiStrings {
   String get cameraAppSettings => 'Paramètres de l\'application';
 
   @override
+  String get settingPersonSensorTitle => 'Activer le capteur de personnes';
+
+  @override
+  String get settingPersonSensorDescription =>
+      'Exposer le capteur de présence de l\'appareil à Home Assistant comme capteur d\'occupation. Nécessite l\'autorisation d\'accès aux journaux ci-dessous.';
+
+  @override
+  String get cameraPersonPage => 'Capteur de personnes';
+
+  @override
+  String get cameraPersonHint =>
+      'Capteur d\'occupation Home Assistant basé sur le capteur de présence de l\'appareil';
+
+  @override
   String get cameraLatest => 'Dernier instantané';
 
   @override

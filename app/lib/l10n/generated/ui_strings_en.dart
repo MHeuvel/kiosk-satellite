@@ -3676,6 +3676,20 @@ class UiStringsEn extends UiStrings {
   String get cameraAppSettings => 'App settings';
 
   @override
+  String get settingPersonSensorTitle => 'Enable person sensor';
+
+  @override
+  String get settingPersonSensorDescription =>
+      'Expose the device\'s person sensor to Home Assistant as an occupancy sensor. Needs the Log access grant below.';
+
+  @override
+  String get cameraPersonPage => 'Person Sensor';
+
+  @override
+  String get cameraPersonHint =>
+      'Home Assistant occupancy sensor from the device\'s person sensor';
+
+  @override
   String get cameraLatest => 'Latest snapshot';
 
   @override

@@ -13440,6 +13440,58 @@
       ]
     }
   },
+  "settingPersonSensorTitle": "Personensensor aktivieren",
+  "@settingPersonSensorTitle": {
+    "context": "Settings > Camera > Person Sensor",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Person Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Person Sensor"
+      ]
+    }
+  },
+  "settingPersonSensorDescription": "Stellt den Personensensor des Geräts in Home Assistant als Anwesenheitssensor bereit. Erfordert die unten aufgeführte Berechtigung „Zugriff auf Protokolle“.",
+  "@settingPersonSensorDescription": {
+    "context": "Settings > Camera > Person Sensor",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Person Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Person Sensor"
+      ]
+    }
+  },
+  "cameraPersonPage": "Personensensor",
+  "@cameraPersonPage": {
+    "context": "Settings > Camera > Person Sensor",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Person Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Person Sensor"
+      ]
+    }
+  },
+  "cameraPersonHint": "Home-Assistant-Anwesenheitssensor auf Basis des Personensensors des Geräts",
+  "@cameraPersonHint": {
+    "context": "Settings > Camera > Person Sensor",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Person Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Person Sensor"
+      ]
+    }
+  },
   "cameraLatest": "Letzte Aufnahme",
   "@cameraLatest": {
     "context": "Settings > Camera > Latest snapshot",

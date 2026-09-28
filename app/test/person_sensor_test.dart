@@ -123,6 +123,54 @@ void main() {
   });
 
   test(
+    'the Person Sensor switch reads the sensor on its own (issue #734)',
+    () async {
+      await build({});
+      await pump();
+      await settings.set(defs.personSensorEnabled, true);
+      await pump();
+      expect(sensor.wanted, isTrue);
+      expect(sensor.running, isTrue);
+      lines.add(beat(clock));
+      await pump();
+      expect(sensor.present, isTrue);
+
+      // Dismiss on person going off leaves the sensor to the other switch.
+      await settings.set(defs.screensaverDismissOnPerson, true);
+      await settings.set(defs.screensaverDismissOnPerson, false);
+      await pump();
+      expect(sensor.running, isTrue);
+
+      await settings.set(defs.personSensorEnabled, false);
+      await pump();
+      expect(sensor.running, isFalse);
+    },
+  );
+
+  group('the Person Sensor migration (issue #734)', () {
+    test('a kiosk with Dismiss on person on keeps its Person entity', () async {
+      await build(on);
+      expect(settings.get(defs.personSensorEnabled), isTrue);
+    });
+
+    test('runs once: turning Dismiss on person on later leaves the switch '
+        'alone', () async {
+      await build({});
+      expect(settings.get(defs.personSensorEnabled), isFalse);
+      await settings.set(defs.screensaverDismissOnPerson, true);
+      final log = Logger();
+      final later = SettingsManager(bus, CommandRegistry(log), log);
+      await later.init();
+      expect(later.get(defs.personSensorEnabled), isFalse);
+    });
+
+    test('an explicit choice is never overwritten', () async {
+      await build({...on, 'ks.person.sensor': false});
+      expect(settings.get(defs.personSensorEnabled), isFalse);
+    });
+  });
+
+  test(
     'a fresh beat is a person sighting, and presence holds for 50 s',
     () async {
       await build(on);
@@ -429,11 +477,13 @@ void main() {
     expect(
       defs.deviceHiddenKeys,
       containsAll([
+        defs.personSensorEnabled.key,
         defs.screensaverDismissOnPerson.key,
         defs.screensaverDismissOnPersonScreenOffOnly.key,
         defs.screensaverPostponeOnPerson.key,
       ]),
     );
+    expect(settings.get(defs.personSensorEnabled), isFalse);
     expect(settings.get(defs.screensaverDismissOnPerson), isFalse);
     expect(settings.get(defs.screensaverPostponeOnPerson), isFalse);
     expect(sensor.running, isFalse);
@@ -443,6 +493,9 @@ void main() {
     await settings.set(defs.screensaverDismissOnPerson, true);
     await pump();
     expect(settings.get(defs.screensaverDismissOnPerson), isFalse);
+    await settings.set(defs.personSensorEnabled, true);
+    await pump();
+    expect(settings.get(defs.personSensorEnabled), isFalse);
   });
 
   test('status carries what the rows show', () async {

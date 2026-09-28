@@ -88,6 +88,10 @@ Detection is engineered to be CPU efficient and to work effectively in the dark.
 
 Two related switches are located elsewhere: with **Allow screensaver** turned on under [Lockdown Mode](kiosk.md), Dismiss on motion remains deactivated until the lock lifts. Additionally, the Sendspin player's full screen view only reacts to motion if its own **Dismiss "Now Playing" on motion** setting is enabled.
 
+## Person Sensor
+
+On a Meta Portal, **Camera > Person Sensor** exposes the Portal's built-in person detector to Home Assistant as a **Person** occupancy sensor. It does not use the app's camera or the Camera switch. See [Meta Portal](portal.md#person-sensor).
+
 ## RTSP & ONVIF Streaming
 
 Open **Settings -> Camera -> RTSP & ONVIF Streaming**, after **Motion Sensor**, then turn on **Enable camera streaming**. The page reveals the stream settings and its URL. The Camera master switch and Android camera permission must also be enabled.

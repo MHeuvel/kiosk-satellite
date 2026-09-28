@@ -824,6 +824,10 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingMotionStartDelayTitle",
     "description": "settingMotionStartDelayDescription",
   },
+  "person.sensor": {
+    "title": "settingPersonSensorTitle",
+    "description": "settingPersonSensorDescription",
+  },
   "motion.sensitivity": {
     "title": "settingMotionSensitivityTitle",
     "description": "settingMotionSensitivityDescription",

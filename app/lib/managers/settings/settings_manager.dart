@@ -350,6 +350,22 @@ class SettingsManager extends Manager {
       await _prefs.setBool('${_prefix}esphome.enabled', true);
       log.info(name, 'migrated btproxy.enabled -> esphome.enabled');
     }
+    // The ESPHome Person sensor followed Dismiss on person and has its own
+    // switch now (issue #734). A kiosk that exposed it keeps the entity
+    // across the update. Once only, so turning Dismiss on person on later
+    // never turns the sensor on with it.
+    const personSensorMigration = 'person.sensor.migrated';
+    if (internal(personSensorMigration).isEmpty) {
+      if (_prefs.get(_prefix + personSensorEnabled.key) == null &&
+          _prefs.get(_prefix + screensaverDismissOnPerson.key) == true) {
+        await _prefs.setBool(_prefix + personSensorEnabled.key, true);
+        log.info(
+          name,
+          'migrated screensaver.dismiss_on_person -> person.sensor',
+        );
+      }
+      await setInternal(personSensorMigration, '1');
+    }
     // The HA base URL is normalized to its origin on write now, but a value
     // saved with a trailing slash by an older version keeps breaking the
     // pipeline socket ('http://ha:8123//api/websocket') until rewritten.

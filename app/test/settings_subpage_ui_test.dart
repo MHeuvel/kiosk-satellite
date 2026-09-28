@@ -755,6 +755,55 @@ void main() {
       await drain(tester);
     });
 
+    testWidgets('the Person Sensor page sits on the Camera page with the '
+        'camera off, with its status row and grant (issue #734)', (
+      tester,
+    ) async {
+      await boot();
+      tester.view.physicalSize = const Size(500, 2400);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+      await tester.pumpWidget(
+        MaterialApp(home: SettingsScreen(container: container)),
+      );
+      await settle(tester);
+      await tester.tap(find.text('Camera').first);
+      await settle(tester);
+
+      // No camera session of the app's, so the Camera switch does not
+      // gate it.
+      expect(container.settings.get(cameraEnabled), isFalse);
+      final entry = find.widgetWithText(ListTile, 'Person Sensor');
+      expect(entry, findsOneWidget);
+      await tester.tap(entry);
+      await settle(tester);
+
+      expect(find.widgetWithText(AppBar, 'Person Sensor'), findsOneWidget);
+      expect(find.text(personSensorEnabled.title), findsOneWidget);
+      expect(find.text('Occupancy'), findsOneWidget);
+      final grants = find.widgetWithText(
+        SectionHeading,
+        'Required system permissions',
+      );
+      expect(grants, findsOneWidget);
+      expect(find.text('Log access'), findsOneWidget);
+      expect(
+        tester.getTopLeft(grants).dy,
+        greaterThan(tester.getTopLeft(find.text(personSensorEnabled.title)).dy),
+      );
+      expect(
+        find.widgetWithText(SectionHeading, 'Person Sensor'),
+        findsNothing,
+      );
+
+      await tester.tap(find.byType(Switch).first);
+      await settle(tester);
+      expect(container.settings.get(personSensorEnabled), isTrue);
+      expect(container.settings.get(screensaverDismissOnPerson), isFalse);
+
+      await drain(tester);
+    });
+
     testWidgets('the GPS Sensor page sits under Bluetooth Proxy, with the '
         'grant at its foot', (tester) async {
       await boot();

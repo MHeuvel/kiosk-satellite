@@ -21456,5 +21456,29 @@
     "translation": "6b5aac551fe908f8641d509205c869c848ce9dcaaa030d9541526ea74e6e6a1c",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "settingPersonSensorDescription": {
+    "source": "f3b9bf0c1a6821ea82c90edad2a2c15e195ba4da063796cdd46e7c91dafd2215",
+    "translation": "11efab65e1bceacf9d306345ff0e4a184d1b5ee815ddec8825c29f698dd761bc",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingPersonSensorTitle": {
+    "source": "8cf38c1969ce00ba077ef3578a138135ecc22ae45902daae8a129a1c73db3be9",
+    "translation": "c9d015865cbbdee06cde2f5eb382d276606bfeed265182c2a8da84f1628c9ab0",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "cameraPersonPage": {
+    "source": "7ffb43c99b5d8f81b73518096488f117ebda0ca4f3062c9233c7459cbd43da9c",
+    "translation": "7a486bd82e7ab777aee1dde1fa4072ba928f37299b502c5027328364265fe46c",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "cameraPersonHint": {
+    "source": "025aab26599d723a33b052a366dfe1c29849b3d0f3823f745a1d6d1e1dd5854e",
+    "translation": "8c4968891ee045710591e4ca4389e9ec84f00eb1b2d0f0d8f1322b3e14095012",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

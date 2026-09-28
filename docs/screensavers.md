@@ -320,6 +320,8 @@ Person Detection utilizes native hardware person sensors on supported devices (s
 
 Dismiss triggers on person arrival events. If a person is already present when the screensaver launches, it remains active until they leave and return, or until a touch event occurs.
 
+To use the sensor in Home Assistant without changing the screensaver, turn on **Enable person sensor** under **Camera > Person Sensor** instead. See [Meta Portal](portal.md#person-sensor).
+
 On Meta Portal hardware, this feature utilizes the Smart Camera background tracking service, operating on an internal video feed that never illuminates the camera LED. It detects human bodies at any angle rather than requiring facing faces, and requires a one-time ADB permission grant. It operates independently alongside camera motion and face detection. Full setup details are available in the [Meta Portal](portal.md) guide.
 
 ## Starting and Dismissing

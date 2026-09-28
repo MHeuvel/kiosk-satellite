@@ -6441,6 +6441,30 @@ abstract class UiStrings {
   /// **'App settings'**
   String get cameraAppSettings;
 
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable person sensor'**
+  String get settingPersonSensorTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Expose the device\'s person sensor to Home Assistant as an occupancy sensor. Needs the Log access grant below.'**
+  String get settingPersonSensorDescription;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Person Sensor'**
+  String get cameraPersonPage;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant occupancy sensor from the device\'s person sensor'**
+  String get cameraPersonHint;
+
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:

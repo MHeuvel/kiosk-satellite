@@ -97,6 +97,9 @@ export const SUBPAGE_ICONS = {
   'Person Detection': svg('<circle cx="12" cy="7" r="3"/>'
     + '<path d="M6 21v-2a6 6 0 0 1 12 0v2"/>'
     + '<path d="M3 10a9 9 0 0 1 0 5m18-5a9 9 0 0 1 0 5"/>'),
+  'Person Sensor': svg('<circle cx="12" cy="7" r="3"/>'
+    + '<path d="M6 21v-2a6 6 0 0 1 12 0v2"/>'
+    + '<path d="M3 10a9 9 0 0 1 0 5m18-5a9 9 0 0 1 0 5"/>'),
   'Proximity Detection': svg('<circle cx="12" cy="12" r="1.5"/>'
     + '<path d="M8.5 8.5a5 5 0 0 0 0 7m7-7a5 5 0 0 1 0 7"/>'
     + '<path d="M5.6 5.6a9 9 0 0 0 0 12.8m12.8-12.8a9 9 0 0 1 0 12.8"/>'),

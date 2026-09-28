@@ -48,6 +48,7 @@ const Map<String, Object> subpageIcons = {
   'RTSP & ONVIF Streaming': Icons.videocam_outlined,
   'Motion Detection': Icons.directions_walk,
   'Motion Sensor': Icons.directions_walk,
+  'Person Sensor': Icons.sensor_occupied_outlined,
   'Face Detection': Icons.face_outlined,
   'Proximity Detection': Icons.sensors,
   'Person Detection': Icons.sensor_occupied_outlined,

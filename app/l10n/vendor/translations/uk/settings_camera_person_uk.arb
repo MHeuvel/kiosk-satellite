@@ -1,0 +1,7 @@
+{
+  "@@locale": "uk",
+  "settingPersonSensorTitle": "Увімкнути датчик людей",
+  "settingPersonSensorDescription": "Надавати датчик присутності пристрою в Home Assistant як датчик зайнятості. Потрібен дозвіл на доступ до журналів нижче.",
+  "cameraPersonPage": "Датчик людей",
+  "cameraPersonHint": "Датчик зайнятості Home Assistant на основі датчика присутності пристрою"
+}

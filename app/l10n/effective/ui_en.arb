@@ -13440,6 +13440,58 @@
       ]
     }
   },
+  "settingPersonSensorTitle": "Enable person sensor",
+  "@settingPersonSensorTitle": {
+    "context": "Settings > Camera > Person Sensor",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Person Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Person Sensor"
+      ]
+    }
+  },
+  "settingPersonSensorDescription": "Expose the device's person sensor to Home Assistant as an occupancy sensor. Needs the Log access grant below.",
+  "@settingPersonSensorDescription": {
+    "context": "Settings > Camera > Person Sensor",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Person Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Person Sensor"
+      ]
+    }
+  },
+  "cameraPersonPage": "Person Sensor",
+  "@cameraPersonPage": {
+    "context": "Settings > Camera > Person Sensor",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Person Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Person Sensor"
+      ]
+    }
+  },
+  "cameraPersonHint": "Home Assistant occupancy sensor from the device's person sensor",
+  "@cameraPersonHint": {
+    "context": "Settings > Camera > Person Sensor",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Person Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Person Sensor"
+      ]
+    }
+  },
   "cameraLatest": "Latest snapshot",
   "@cameraLatest": {
     "context": "Settings > Camera > Latest snapshot",

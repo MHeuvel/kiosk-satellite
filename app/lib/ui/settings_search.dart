@@ -556,6 +556,13 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
     subpage: 'Person Detection',
   ),
   SettingsSearchEntry(
+    category: 'Camera',
+    title: 'Required system permissions',
+    description: "The Log access grant the device's person sensor needs.",
+    anchorId: 'x:person_sensor_log_access',
+    subpage: 'Person Sensor',
+  ),
+  SettingsSearchEntry(
     category: 'ESPHome',
     title: 'Nearby devices',
     description:
@@ -617,6 +624,7 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
   String Function(String)? intercomTextFor,
   String Function(String)? mediaTextFor,
   String Function(String)? cameraStreamsTextFor,
+  String Function(String)? cameraTextFor,
   String Function(SettingDef<Object>)? titleFor,
   String Function(SettingDef<Object>)? descriptionFor,
 }) {
@@ -671,7 +679,9 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
       if (categories.contains(entry.category) &&
           // The grant goes with its page (deviceHiddenKeys).
           !(entry.anchorId == 'x:person_log_access' &&
-              deviceHiddenKeys.contains(screensaverDismissOnPerson.key)))
+              deviceHiddenKeys.contains(screensaverDismissOnPerson.key)) &&
+          !(entry.anchorId == 'x:person_sensor_log_access' &&
+              deviceHiddenKeys.contains(personSensorEnabled.key)))
         entry,
   ].map((entry) {
     final translate = entry.category == 'Device'
@@ -702,6 +712,8 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
         ? mediaTextFor
         : entry.category == 'Cameras'
         ? cameraStreamsTextFor
+        : entry.category == 'Camera'
+        ? cameraTextFor
         : null;
     if (translate == null) return entry;
     return SettingsSearchEntry(

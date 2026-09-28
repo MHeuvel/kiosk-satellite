@@ -136,6 +136,7 @@ class KioskApplication : Application(), CameraXConfig.Provider {
         apkInstaller = ApkInstaller(applicationContext, messenger)
         lightSensor = LightSensor(applicationContext, messenger)
         proximitySensor = ProximitySensor(applicationContext, messenger)
+        LogTail(messenger)
         locationSensor = LocationSensor(applicationContext, messenger)
         haptics = HapticsBridge(applicationContext, messenger)
         tapSound = TapSoundBridge(applicationContext, messenger)

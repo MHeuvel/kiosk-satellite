@@ -13440,6 +13440,58 @@
       ]
     }
   },
+  "settingPersonSensorTitle": "Увімкнути датчик людей",
+  "@settingPersonSensorTitle": {
+    "context": "Settings > Camera > Person Sensor",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Person Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Person Sensor"
+      ]
+    }
+  },
+  "settingPersonSensorDescription": "Надавати датчик присутності пристрою в Home Assistant як датчик зайнятості. Потрібен дозвіл на доступ до журналів нижче.",
+  "@settingPersonSensorDescription": {
+    "context": "Settings > Camera > Person Sensor",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Person Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Person Sensor"
+      ]
+    }
+  },
+  "cameraPersonPage": "Датчик людей",
+  "@cameraPersonPage": {
+    "context": "Settings > Camera > Person Sensor",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Person Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Person Sensor"
+      ]
+    }
+  },
+  "cameraPersonHint": "Датчик зайнятості Home Assistant на основі датчика присутності пристрою",
+  "@cameraPersonHint": {
+    "context": "Settings > Camera > Person Sensor",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Person Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Person Sensor"
+      ]
+    }
+  },
   "cameraLatest": "Останній знімок",
   "@cameraLatest": {
     "context": "Settings > Camera > Latest snapshot",

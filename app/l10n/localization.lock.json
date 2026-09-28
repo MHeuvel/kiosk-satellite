@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite-localization",
-  "revision": "a44376cce39d9d23d1e3c2bc85e9ff94cb95638d",
+  "revision": "73e1a7ce0891a7e35dd1e5fad4ba9ff5a55120b0",
   "locales": [
     "de",
     "es",
@@ -9,7 +9,7 @@
     "uk"
   ],
   "files": {
-    "source/manifest.json": "e1cb5f5f722c331a8e0be9db8b7a15baf59b7c6ddbf05d766fdfd4b8ae3d411b",
+    "source/manifest.json": "b3a8d7d31f756dcd81b1af64e20e42b4910589969894d94c9175805841fb72e2",
     "source/about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
     "source/about_localization_en.arb": "392f1bf170bf4813161cd780bf14e68fbd3caa79e16699f6c5a7891529fdbe6a",
     "source/about_updates_en.arb": "b41df3870ffb041249448dc4b13b14a9350ab4417510f23e772458dd1e582c85",
@@ -75,6 +75,7 @@
     "source/settings_camera_general_en.arb": "00d87524bed1865548e20f1740717ca8f698dc4d0831b0b1ab535ccff5a81bab",
     "source/settings_camera_motion_en.arb": "39ebe3fdcb6b7912976e889bba488426f16aeced9e2ef111fd7cc5b1319e82b1",
     "source/settings_camera_permissions_en.arb": "af1f4abccaf91497313d69f836cf52fad5396437ee97554c472c4949e7462cbb",
+    "source/settings_camera_person_en.arb": "b0299cd3595782796067d5dcbe53ef5504a53a71e1772e5bc5d10bb99df6823f",
     "source/settings_camera_snapshot_en.arb": "df01d8263c7598d75619263228b9259db6823d2d0f744bc1c392bdbc32b2972e",
     "source/settings_camera_status_en.arb": "a82c1661ece636cba1c7bfe091e73627932b2005ce1fd3401097441a88fdb6ef",
     "source/settings_camera_streaming_en.arb": "9a869bfd5b5cd4ca32c21eae03d8f39889f953f1a56c3bf978765f820ea199f5",
@@ -270,6 +271,7 @@
     "translations/de/settings_camera_general_de.arb": "95f937479f23f431d14257a939e242620ecb1cfbcbae95e490bffe09874e6d70",
     "translations/de/settings_camera_motion_de.arb": "cbcfbf9d78ba706dc5cebd2cb7675a84fc098cc9fa45189e74bc88bcd0d65d56",
     "translations/de/settings_camera_permissions_de.arb": "dbbed3e5d274b3721660ad5cfbd31ad6b78467ee0c3351af93f6d7da52aedcf6",
+    "translations/de/settings_camera_person_de.arb": "395b81e688df37940430c670379b63e94ee932b958dda5d8ca14c0c43a1e0690",
     "translations/de/settings_camera_snapshot_de.arb": "2bb12fc209966281c83bb880ca604c4cbd3f341c791b3d75b1ae477a9064396e",
     "translations/de/settings_camera_status_de.arb": "2e8df26140f1629b5a2b62d4a2b4812b3ee377cb874967f905feb8fd477985fb",
     "translations/de/settings_camera_streaming_de.arb": "8c82da88e6636375a5def086a6894c4cbde0f17ff584e865d185f12be6ba00ed",
@@ -395,7 +397,7 @@
     "translations/de/voice_notices_de.arb": "122a13f4577a4f2f1ef98ad9436972f4d191aa3652ac6db87399270cccf17864",
     "translations/de/voice_results_de.arb": "7b34db6a7dd49a171e9e05e8ec5105018842eee5f9a8bfb2e2766705de1f6604",
     "translations/de/voice_timers_de.arb": "e9b3f56cfef170d8d66ddfb455521a894bddfd8b815dd0a08c8bbe54ba8638c1",
-    "metadata/reviews/de.json": "52568c9322d989ec7a713027c7a204c043cbb7a799c536e042b340be931cd9bf",
+    "metadata/reviews/de.json": "c9c8383ec4a7ace07c0dd0c2148a9e63045253593f1d192fd51934f455d90af6",
     "metadata/provenance/de/e69b7988f2fca16116639e0fd6a63d4430c75f4c4c7ad86d875642d5cdf89b58.json": "afa4b89b919c03eb8e68a7c62bef1149483bfe6ac9ca94b652c20d05dd8034a2",
     "translations/es/about_identity_es.arb": "8f008ead93633e3c5e58cb310ddb950897fc35fef540245b99ec32e8d06d6ec3",
     "translations/es/about_localization_es.arb": "02ab44cc200f327fa60713123445b23ff42baeb3c9260e9b1ca9094b2898e668",
@@ -462,6 +464,7 @@
     "translations/es/settings_camera_general_es.arb": "e2480068ceb00fab0d1adb4a5dfe51db815f8a4a7d1c0b09c2060cf5b892b34c",
     "translations/es/settings_camera_motion_es.arb": "28d6a40bddd2edec687089d723e668204bb33fe1bedd08dbf55eaf562e53255d",
     "translations/es/settings_camera_permissions_es.arb": "191027da6304671a6d4c3307bab7e4b752792964c2af574cee3068ca7b9517c3",
+    "translations/es/settings_camera_person_es.arb": "f459317df016dbdbb679945e92502616078fb1cb7a5803a11dfc69dc8dbeee8a",
     "translations/es/settings_camera_snapshot_es.arb": "0eb390490afb07e78e02ac3fa3ce917b86fdc8671634e67a0521f13a27404994",
     "translations/es/settings_camera_status_es.arb": "7288416d18698e8851ad19ea4d70fdef4c0185f76d6101898033077a6ffaea8f",
     "translations/es/settings_camera_streaming_es.arb": "60275e7d2216dcfd33b728b5c0e972015a1b76353daaedd0a24147b580e0872e",
@@ -587,7 +590,7 @@
     "translations/es/voice_notices_es.arb": "b1f026d72b85f8b118187265fb6f1d83f70431c31f8480a91cced74f8cf14bfc",
     "translations/es/voice_results_es.arb": "9e27d4a4f5c916d05e9ac6fc0a4c07e792c048d3db9b6fbc60cf90ed2ec9b2f9",
     "translations/es/voice_timers_es.arb": "7cdeeac038ccf5ecbedf5f1d54c16d11ab817e1af9429e64eb7f2c2a575c2182",
-    "metadata/reviews/es.json": "2e1487fc8d70b732fbdb41e829ea1f3c9b15da993dccdf915fa7b9b2917d91aa",
+    "metadata/reviews/es.json": "645f63fc633592a4541fbd3b23b46f224477ed54a995a66b8e94d1ba49fb75de",
     "translations/fr/about_identity_fr.arb": "e6a9e2ec89bfbd98152d9dcef19f1423960d952ce4f0ce0f75a568199ca1a944",
     "translations/fr/about_localization_fr.arb": "e56dd01130d3e2aaf4ee561c724a509cb06b6964b3846a31777d10625a78b355",
     "translations/fr/about_updates_fr.arb": "cd2fe9c95627ddcddb3579aa8f500ad8be7e5c9229ba699e8aac3f364f79a0f3",
@@ -653,6 +656,7 @@
     "translations/fr/settings_camera_general_fr.arb": "9d331961623d1f4aece7dca18316fd13a5800402d698f205db22abd24dadf434",
     "translations/fr/settings_camera_motion_fr.arb": "2394bb2528fd8446811f095713b093c1ed958d024cdfe414af477923fe9d829b",
     "translations/fr/settings_camera_permissions_fr.arb": "bbf8a2c598885d6f7f1a8fa5fcc9de27e9a19dc000e81796c6d4e74728f4fcbf",
+    "translations/fr/settings_camera_person_fr.arb": "8a51c81d9cf0d76d1cf8323129803fea5f4ffc3a49b7cdfb551e87f54fcffea4",
     "translations/fr/settings_camera_snapshot_fr.arb": "0f261dddd8f96c9152037b0aa820f912a1a638953b20ff282ddfdef410c1fe3c",
     "translations/fr/settings_camera_status_fr.arb": "be0adb961ab924beee00f0e70bd0c83b3409d163a33e88989ec376d76cd245a3",
     "translations/fr/settings_camera_streaming_fr.arb": "f6fd6292c5476fa9868cef74ac584ffdadd2b2e15ee7e7c61c6a922e15d25c3c",
@@ -778,7 +782,7 @@
     "translations/fr/voice_notices_fr.arb": "e907c066e974646cfdeda89a575c3e548f651eee7546d57ce957b77ee9e570d0",
     "translations/fr/voice_results_fr.arb": "3b475515061d1ef8251f382b2e8b14d4dae37a302c1e704288e4279c9b2a7904",
     "translations/fr/voice_timers_fr.arb": "980a84440fff8d767f25cb75604b2d83fa6b21055fe1a39aa93657789587adf3",
-    "metadata/reviews/fr.json": "f0debaed99e126c9aa929359a48acc07cc693403273ed16c3f4496d089f546ff",
+    "metadata/reviews/fr.json": "6b03867e3a8dc54a1a5a67dbb20a7b83444ed8de8b2c4e562f454b105bd14964",
     "metadata/provenance/fr/50a40b9b0f2cc752c88ccaa455255d187c5d5a9594152fadced57a7289592afd.json": "ca74da318b181a9585dbc18ff2b3573f22dc5e1764767abb87e4ba16ee4803e0",
     "translations/uk/about_identity_uk.arb": "0158fd1a4591121c57d7dc6213e3b29776194c7430d2eea698b96bfe7970da6d",
     "translations/uk/about_localization_uk.arb": "9939772645e6af4daf29498b93f6d15f39602a57df71f005b3a2b0e5ddf20cbe",
@@ -845,6 +849,7 @@
     "translations/uk/settings_camera_general_uk.arb": "30f603fec39ed1f300f0ba1d2b77138b0ea68a2225678add87a77026d54d6cc1",
     "translations/uk/settings_camera_motion_uk.arb": "d883d346ee26f3c580f0c9e5897bcae15deeedf584c97a99efd23ff94c99eb4a",
     "translations/uk/settings_camera_permissions_uk.arb": "56ea153fe309f76f9659383b50c71e973b41d9ed300776389cb1ccf67498a750",
+    "translations/uk/settings_camera_person_uk.arb": "d4bbe60096256e761d969561ac7700056e01c7317947dd1ab4680cca8e924abb",
     "translations/uk/settings_camera_snapshot_uk.arb": "f055acba7973d013fc281234b7614f50c1856d61ef14e87bb8956dd8f0f1934d",
     "translations/uk/settings_camera_status_uk.arb": "7ef159e9573d306e7107105492456db57a60e651a9cfdeed8398052399e4dfac",
     "translations/uk/settings_camera_streaming_uk.arb": "19241714e75337d4520fc47dd7f835f2eaf3e37c31472a4f73e772a60b872464",
@@ -970,7 +975,7 @@
     "translations/uk/voice_notices_uk.arb": "4469988be95069a3f2f18f40c0b1fa26a39f79a2965f905f5317088bcefe04ac",
     "translations/uk/voice_results_uk.arb": "15b6919e78c2ee929be963002b0395ce0e612b8cc180d7668815f7cf6e122cdf",
     "translations/uk/voice_timers_uk.arb": "62c1512f252788899d4cd566415d330915a71930484180b2f19491d3c1cf0176",
-    "metadata/reviews/uk.json": "1b1ae5f6abd0408bd6f81cb2fd73070225e7f3b44e825af3d1eefc2512f2a09f",
+    "metadata/reviews/uk.json": "1f348748af9192d9ebea35213a12cc1a14fd773d965277d5351c6b0180b91853",
     "metadata/provenance/uk/46fa6328ce5f92c4d1875a765a15713fb19dae857f4fdbdc7af8818fa64498a3.json": "c5b23d35fd7f440ca513084299b1e442762f3b25941d8ed152358f6dc463ce7f"
   }
 }

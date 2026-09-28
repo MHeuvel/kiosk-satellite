@@ -46,6 +46,9 @@ setting('camera.rtsp.resolution', '640x480', 'select', options=['640x480', '1280
 setting('camera.rtsp.datetime', False, 'boolean', section='Overlays', dependsOn='camera.rtsp.enabled')
 setting('camera.rtsp.datetime_background', False, 'boolean', section='Overlays', dependsOn='camera.rtsp.datetime')
 setting('motion.sensor', True, 'boolean', subpage='Motion Sensor')
+setting('person.sensor', True, 'boolean', subpage='Person Sensor', section='Person Sensor')
+person = {'enabled': True, 'running': True, 'lastBeat': None, 'present': False,
+          'logAccess': {'granted': False, 'effective': False}}
 requests = []
 status = dict(protocol='rtsp', encoding=True, clients=1, listening=True, resolution='640x480',
               resolutionFallback=True, requestedResolution='1280x720', captureResolution='640x480',
@@ -77,7 +80,7 @@ def api(route):
         return route.fulfill(json={'ok':False, 'error':'Snapshot failed: <img src=x onerror=alert(1)>'})
     data = {'getRtspStatus':status, 'getVisionSupport':{'faces':True, 'hands':True},
             'hasDeviceCamera':True, 'getCameraFacings':['front','back'],
-            'getSystemPermissions':{'camera':False},
+            'getSystemPermissions':{'camera':False}, 'getPersonSensor':person,
             'listPlugins':[], 'listFiles':[], 'mediaPlayers':{'players':[]},
             'getAudioDevices':{'inputs':[], 'outputs':[]}}.get(name,{})
     route.fulfill(json={'ok':True, 'data':data})
@@ -158,6 +161,23 @@ try:
         }""")
         assert result.startswith('TEST Motion detection, face detection and hand gestures pause')
         assert 'TEST 6 camera sizes are excluded' in result
+        # Camera > Person Sensor (issue #734): the switch, the Occupancy row
+        # and the Log access grant, as on Screensaver > Person Detection.
+        page.evaluate("async () => (await import('/static/tabs.js')).showTab('camera', {refresh: false})")
+        root.locator('[data-subpage-entry="Person Sensor"]').click()
+        expect(page.locator('#pageTitle')).to_contain_text('TEST Person Sensor')
+        panel = root.locator('.subpage[data-subpage="Person Sensor"]')
+        expect(panel.get_by_text('TEST Enable person sensor', exact=True)).to_be_visible()
+        expect(panel.locator('.person-status').get_by_text('TEST Occupancy', exact=True)).to_be_visible()
+        expect(panel.get_by_text('TEST Required system permissions', exact=True)).to_be_visible()
+        command = 'adb shell pm grant me.jxl.kiosk_satellite android.permission.READ_LOGS'
+        expect(panel.locator('.person-grant-command .copy-value')).to_have_text(command)
+        person['logAccess'] = {'granted': True, 'effective': True}
+        person['lastBeat'] = page.evaluate('Date.now() - 120000')
+        person['present'] = True
+        page.evaluate("async () => (await import('/static/settings.js')).updatePersonSensorRows()")
+        expect(panel.get_by_text('TEST Detected', exact=True)).to_be_visible()
+        expect(panel.get_by_text("TEST The device's person sensor can be read.", exact=True)).to_be_visible()
         assert not errors,errors
         browser.close()
 finally:

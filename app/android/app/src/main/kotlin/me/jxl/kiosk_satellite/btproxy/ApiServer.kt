@@ -1,6 +1,7 @@
 package me.jxl.kiosk_satellite.btproxy
 
 import java.io.IOException
+import java.net.InetSocketAddress
 import java.net.ServerSocket
 import java.net.Socket
 import java.util.concurrent.ArrayBlockingQueue
@@ -162,7 +163,14 @@ internal class ApiServer(
 
     fun start() {
         if (!running.compareAndSet(false, true)) return
-        val socket = ServerSocket(port).apply { reuseAddress = true }
+        // Unbound first so SO_REUSEADDR is set before the bind. A restart
+        // closes Home Assistant's sessions from this side, which leaves
+        // them in TIME_WAIT on this port, and without the flag the new
+        // listener is refused with EADDRINUSE until they expire.
+        val socket = ServerSocket().apply {
+            reuseAddress = true
+            bind(InetSocketAddress(port))
+        }
         serverSocket = socket
         acceptThread = Thread({ acceptLoop(socket) }, "btproxy-accept").apply {
             isDaemon = true

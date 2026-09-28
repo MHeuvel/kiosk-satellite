@@ -1002,6 +1002,11 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'cameraCameraBlocked' => strings.cameraCameraBlocked,
       'cameraCameraNeeded' => strings.cameraCameraNeeded,
       'cameraAppSettings' => strings.cameraAppSettings,
+      'settingPersonSensorTitle' => strings.settingPersonSensorTitle,
+      'settingPersonSensorDescription' =>
+        strings.settingPersonSensorDescription,
+      'cameraPersonPage' => strings.cameraPersonPage,
+      'cameraPersonHint' => strings.cameraPersonHint,
       'cameraLatest' => strings.cameraLatest,
       'cameraNoSnapshot' => strings.cameraNoSnapshot,
       'cameraImageAlt' => strings.cameraImageAlt,

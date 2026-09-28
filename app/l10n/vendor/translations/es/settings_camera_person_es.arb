@@ -1,0 +1,7 @@
+{
+  "@@locale": "es",
+  "settingPersonSensorTitle": "Activar sensor de personas",
+  "settingPersonSensorDescription": "Publica el sensor de personas del dispositivo en Home Assistant como un sensor de presencia. Requiere el permiso de acceso a los registros que aparece abajo.",
+  "cameraPersonPage": "Sensor de personas",
+  "cameraPersonHint": "Sensor de presencia de Home Assistant a partir del sensor de personas del dispositivo"
+}

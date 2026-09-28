@@ -132,6 +132,7 @@ void main() {
       'ks.screensaver.schedule':
           '[{"at":"00:00","mode":"black","person":false}]',
       'ks.screensaver.dismiss_on_person': true,
+      'ks.person.sensor': false,
     });
     expect(person.wanted, isTrue);
     expect(person.running, isTrue);
@@ -148,6 +149,23 @@ void main() {
     await pumpEventQueue();
     expect(person.wanted, isTrue);
     expect(person.running, isTrue);
+  });
+
+  test('a person:false entry keeps the tail for the Person Sensor switch '
+      'but dismisses nothing (issue #734)', () async {
+    await build({
+      'ks.screensaver.schedule_enabled': true,
+      'ks.screensaver.schedule':
+          '[{"at":"00:00","mode":"black","person":false}]',
+      'ks.screensaver.dismiss_on_person': true,
+      'ks.person.sensor': true,
+    });
+    await saver.start();
+    await pumpEventQueue();
+    expect(person.running, isTrue);
+    bus.publish(const PersonDetected());
+    await pumpEventQueue();
+    expect(saver.isActive, isTrue);
   });
 
   test('a person:true entry attaches the tail over a switched-off setting '

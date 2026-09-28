@@ -195,7 +195,7 @@ const layoutSettings = new Set([
   'ui.language',
   'audio.mic_agc', 'launcher.auto_return', 'home.enabled',
   'browser.auto_reload_on_error', 'screensaver.dismiss_on_motion',
-  'screensaver.dismiss_on_face', 'screensaver.dismiss_on_person',
+  'screensaver.dismiss_on_face', 'screensaver.dismiss_on_person', 'person.sensor',
   'screen.adaptive_brightness', 'screensaver.clock_night',
   'camera.rtsp.enabled', 'camera.rtsp.protocol', 'camera.onvif.port',
   'camera.rtsp.port', 'btproxy.nearby_sort', 'esphome.real_mac',
@@ -2499,15 +2499,24 @@ export async function refreshRealMacNote() {
    grant, so the row shows the adb line with a copy box while it is
    missing, and a Restart button while it is granted but not in effect.
    The page's definitions are hidden where the device has no such
-   sensor, so the page is simply absent there. Idempotent: the switch's save path re-runs
-   it. */
+   sensor, so the page is simply absent there. Camera > Person Sensor
+   (issue #734) carries the same rows under its own switch. Idempotent:
+   either switch's save path re-runs it. */
+const PERSON_SENSOR_PAGES = [
+  { tab: 'tab-screensaver', subpage: 'Person Detection', key: 'screensaver.dismiss_on_person' },
+  { tab: 'tab-camera', subpage: 'Person Sensor', key: 'person.sensor' },
+];
+
 export function updatePersonSensorRows() {
-  const root = document.getElementById('tab-screensaver');
-  const panel = root?.querySelector('.subpage[data-subpage="Person Detection"]');
+  PERSON_SENSOR_PAGES.forEach(personSensorPage);
+}
+
+function personSensorPage({ tab, subpage, key }) {
+  const root = document.getElementById(tab);
+  const panel = root?.querySelector(`.subpage[data-subpage="${subpage}"]`);
   if (!panel) return;
   for (const stale of panel.querySelectorAll('.person-status, .person-grant')) stale.remove();
-  if (window.__personSensorTimer) { clearInterval(window.__personSensorTimer); window.__personSensorTimer = 0; }
-  const row = panel.querySelector('[data-key="screensaver.dismiss_on_person"]');
+  const row = panel.querySelector(`[data-key="${key}"]`);
   if (!row) return;
   const readStatus = () => cmd('getPersonSensor').then((r) => r.data || null)
     .catch(() => null);
@@ -2588,14 +2597,13 @@ export function updatePersonSensorRows() {
     }
   };
   const paint = async () => {
-    if (!status.isConnected) { clearInterval(window.__personSensorTimer); return; }
+    if (!status.isConnected) return;
     const st = await readStatus();
     const [desc, value] = statusText(st);
     status.querySelector('.desc').textContent = desc;
     status.lastElementChild.textContent = value;
     paintPerm(st);
   };
-  if (window.__personSensorTimer) clearInterval(window.__personSensorTimer);
   watchUpdates(['person', 'service'], paint, { owner: status });
   paint();
 }

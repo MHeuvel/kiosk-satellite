@@ -3708,6 +3708,20 @@ class UiStringsUk extends UiStrings {
   String get cameraAppSettings => 'Налаштування застосунку';
 
   @override
+  String get settingPersonSensorTitle => 'Увімкнути датчик людей';
+
+  @override
+  String get settingPersonSensorDescription =>
+      'Надавати датчик присутності пристрою в Home Assistant як датчик зайнятості. Потрібен дозвіл на доступ до журналів нижче.';
+
+  @override
+  String get cameraPersonPage => 'Датчик людей';
+
+  @override
+  String get cameraPersonHint =>
+      'Датчик зайнятості Home Assistant на основі датчика присутності пристрою';
+
+  @override
   String get cameraLatest => 'Останній знімок';
 
   @override

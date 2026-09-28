@@ -3736,6 +3736,20 @@ class UiStringsEs extends UiStrings {
   String get cameraAppSettings => 'Configuración de la aplicación';
 
   @override
+  String get settingPersonSensorTitle => 'Activar sensor de personas';
+
+  @override
+  String get settingPersonSensorDescription =>
+      'Publica el sensor de personas del dispositivo en Home Assistant como un sensor de presencia. Requiere el permiso de acceso a los registros que aparece abajo.';
+
+  @override
+  String get cameraPersonPage => 'Sensor de personas';
+
+  @override
+  String get cameraPersonHint =>
+      'Sensor de presencia de Home Assistant a partir del sensor de personas del dispositivo';
+
+  @override
   String get cameraLatest => 'Última captura';
 
   @override

@@ -236,6 +236,30 @@ void main() {
     expect(defs.subpageHints, contains('Person Detection'));
   });
 
+  test('the Person Sensor page holds its switch, under Motion Sensor, '
+      'free of the Camera switch (issue #734)', () {
+    expect(
+      [
+        for (final d in defs.allSettings)
+          if (d.subpage == 'Person Sensor') d.key,
+      ],
+      [defs.personSensorEnabled.key],
+    );
+    expect(defs.personSensorEnabled.category, 'Camera');
+    expect(defs.personSensorEnabled.section, 'Person Sensor');
+    expect(defs.personSensorEnabled.dependsOn, isNull);
+    final keys = defs.allSettings.map((d) => d.key).toList();
+    expect(
+      keys.indexOf(defs.personSensorEnabled.key),
+      greaterThan(keys.indexOf(defs.motionStartDelay.key)),
+    );
+    expect(
+      keys.indexOf(defs.personSensorEnabled.key),
+      lessThan(keys.indexOf(defs.cameraRtspEnabled.key)),
+    );
+    expect(defs.subpageHints, contains('Person Sensor'));
+  });
+
   test('a device-hidden definition is hidden in describe() too', () async {
     await build();
     defs.deviceHiddenKeys.add(defs.screensaverDismissOnPerson.key);

@@ -38,7 +38,7 @@ The only update-related permission that requires manual user intervention is **I
 | Nearby devices | Controls the Bluetooth scan and connect operations for the [Bluetooth proxy](esphome.md). This is a runtime prompt on Android 12 and newer. On older versions, it is granted at installation, though Android still requires Location permissions and active location services to return scan results. |
 | System UI guard | An optional accessibility service that forcibly closes the notification shade and recent apps screen while kiosk protections are active. See [Kiosk and Lockdown](kiosk.md#required-system-permissions). |
 | Media library | Grants read access to local folders selected for the Local Media screensaver. |
-| Log access | Specifically for hardware with native person sensors (such as Meta Portals). It reads system logs for the screensaver's Person Detection feature. This can only be granted via `adb` and takes effect after an app restart. See [Meta Portal](portal.md). |
+| Log access | Specifically for hardware with native person sensors (such as Meta Portals). It reads system logs for the Person Sensor and the screensaver's Person Detection feature. This can only be granted via `adb` and takes effect after an app restart. See [Meta Portal](portal.md). |
 
 ## Granting Everything via ADB
 
@@ -82,7 +82,7 @@ adb shell dpm set-active-admin me.jxl.kiosk_satellite/.KioskAdminReceiver
 adb shell cmd notification allow_listener me.jxl.kiosk_satellite/.MediaSessionListener
 ```
 
-For Meta Portal devices, enable **Person Detection** for the screensaver using:
+For Meta Portal devices, enable the **Person Sensor** and the screensaver's **Person Detection** using:
 
 ```
 adb shell pm grant me.jxl.kiosk_satellite android.permission.READ_LOGS
