@@ -1385,8 +1385,12 @@ class VoiceManager extends Manager {
       _step('start', 'run');
       await _settings.set(defs.voiceEnabled, true, source: 'migration');
       await _settings.set(defs.voiceRuntime, 'native', source: 'migration');
+      // A muted satellite (the old one's mute carries over) is up without
+      // listening for the wake word.
       final up = await _waitFor(
-        () => homeAssistant.value.subscribed && _wakeWord.listening,
+        () =>
+            homeAssistant.value.subscribed &&
+            (_wakeWord.listening || _settings.get(defs.voiceMute)),
         const Duration(seconds: 30),
       );
       if (!up) throw StateError('The satellite did not come up in time.');
