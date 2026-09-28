@@ -298,14 +298,29 @@ void main() {
       }
 
       // The page hook still answers (the integration is installed in Home
-      // Assistant) but this kiosk does not run voice through it.
+      // Assistant) but this kiosk does not run voice through it. Off, the
+      // engine's last loaded models are not what the kiosk listens for.
       var u = await usage();
       expect(u['voice_satellite'], 'off');
       expect(u['vs_skin'], '');
+      expect(u['wake_word_engine'], '');
+      expect(u['wake_word'], '');
+      expect(u['native_pipeline'], isTrue);
       await settings.set(defs.voiceEnabled, true);
+      await settings.set(defs.voiceWakeWordEngine, 'microwakeword');
       u = await usage();
       expect(u['voice_satellite'], 'native');
       expect(u['vs_skin'], 'lens-flares');
+      // The engine is the kiosk's own pick, the words what it loaded.
+      expect(u['wake_word_engine'], 'microWakeWord');
+      expect(u['wake_word'], 'Ok Nova');
+      expect(u['wake_word_2'], '');
+      // Muted, the engine is released but still the kiosk's engine.
+      wakeState = {...wakeState, 'released': true};
+      u = await usage();
+      expect(u['voice_satellite'], 'native');
+      expect(u['wake_word_engine'], 'microWakeWord');
+      expect(u['wake_word'], 'Ok Nova');
       // A fresh install never seeds the runtime: it is native by default.
       await build({}, firstDelay: const Duration(days: 1));
       expect((await usage())['voice_satellite'], 'off');

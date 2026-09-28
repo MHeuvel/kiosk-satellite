@@ -11,7 +11,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 - **Timer pill scale.** A new slider under Voice Satellite, Timers sizes the timer pills from 50% to 300%. It works whether Voice Satellite runs natively or on the dashboard, since the kiosk draws the pills either way, so the dashboard runtime now has a Timers page for it too.
 
 ### Changed
-- **Usage analytics tell native voice from the integration.** The Voice Satellite figure used to say whether the integration was installed and running. It now reads off, integration or native, so the two runtimes can be told apart as kiosks migrate. A native kiosk reports its own skin.
+- **Usage analytics tell native voice from the integration.** The Voice Satellite figure used to say whether the integration was installed and running. It now reads off, integration or native, so the two runtimes can be told apart as kiosks migrate. A native kiosk reports its own skin, wake word engine and wake words the way a dashboard kiosk did, and nothing about them while its voice is off.
 - **Fleet profiles leave Voice Satellite's mute and speaker out.** Mute and Play sounds on belong to the room, so new profiles exclude them, and a profile still on the old default exclusions moves to the new one. Add them back to a profile to sync them.
 - **ESPHome comes before Voice Satellite in Settings.** Native Voice Satellite runs on the kiosk's ESPHome device, so ESPHome now leads the Home Assistant group on the device and in the remote admin.
 - **A smaller download.** Native Voice Satellite bundles only the int8 build of the vsWakeWord models, which saves 8 MB. Prefer fp32 vsWakeWord models now shows only while the Voice Satellite integration runs on the dashboard, where it still applies.

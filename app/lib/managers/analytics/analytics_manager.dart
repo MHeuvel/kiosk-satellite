@@ -14,6 +14,8 @@ import '../../core/manager.dart';
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
 import '../update/update_http_client.dart';
+import '../voice/wake_catalog.dart';
+import '../wake_word/engine.dart';
 import 'analytics_scrub.dart';
 import 'crash_journal.dart';
 
@@ -454,27 +456,44 @@ class AnalyticsManager extends Manager {
 
     // What Voice Satellite is listening for and with: the wake word
     // manager's state. Names only; a model name is a catalog label, not
-    // the user's audio.
+    // the user's audio. A native runtime picks the engine itself, so its
+    // setting names it whether the engine is muted or not, and a released
+    // engine means nothing more than that. On the dashboard runtime a
+    // released engine means the page took detection to Home Assistant.
+    // Native voice that is off reports nothing: whatever the engine last
+    // loaded is not what the kiosk listens for.
+    final native = s.get(defs.voiceRuntime) == 'native';
+    final nativeOn = native && s.get(defs.voiceEnabled);
     var wakeEngine = '';
     var wakeWord = '';
     var wakeWord2 = '';
-    try {
-      final r = await commands.execute('getWakeWordState', const {});
-      final data = r.data;
-      if (data is Map) {
-        wakeEngine = data['released'] == true
-            ? 'home_assistant'
-            : '${data['engineLabel'] ?? data['engine'] ?? ''}';
-        final models = data['models'];
-        if (models is List) {
-          String word(int i) => models.length > i && models[i] is Map
-              ? '${(models[i] as Map)['wakeWord'] ?? ''}'
-              : '';
-          wakeWord = word(0);
-          wakeWord2 = word(1);
+    if (nativeOn) {
+      wakeEngine =
+          (voiceEngines[s.get(defs.voiceWakeWordEngine)] ??
+                  WakeWordEngineType.vsWakeWord)
+              .label;
+    }
+    if (!native || nativeOn) {
+      try {
+        final r = await commands.execute('getWakeWordState', const {});
+        final data = r.data;
+        if (data is Map) {
+          if (!native) {
+            wakeEngine = data['released'] == true
+                ? 'home_assistant'
+                : '${data['engineLabel'] ?? data['engine'] ?? ''}';
+          }
+          final models = data['models'];
+          if (models is List) {
+            String word(int i) => models.length > i && models[i] is Map
+                ? '${(models[i] as Map)['wakeWord'] ?? ''}'
+                : '';
+            wakeWord = word(0);
+            wakeWord2 = word(1);
+          }
         }
-      }
-    } catch (_) {}
+      } catch (_) {}
+    }
     final vs = await _voiceSatellite(configPushed: wakeEngine.isNotEmpty);
 
     // Who installs updates: Android itself for a device owner, the ADB
@@ -518,7 +537,9 @@ class AnalyticsManager extends Manager {
       'wake_on_person': s.get(defs.screensaverDismissOnPerson),
       'wake_on_proximity': s.get(defs.screensaverDismissOnProximity),
       'voice_satellite': vs.state,
-      'native_pipeline': s.get(defs.vsNativePipeline),
+      // The native satellite runs every turn itself; the switch is the
+      // dashboard runtime's.
+      'native_pipeline': native || s.get(defs.vsNativePipeline),
       'wake_word_engine': wakeEngine,
       'wake_word': wakeWord,
       'wake_word_2': wakeWord2,
