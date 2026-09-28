@@ -88,6 +88,12 @@ class ScreenManager extends Manager with WidgetsBindingObserver {
   /// [_applyWakelock]).
   bool _screensaverHold = false;
 
+  /// The intercom's roster or call screen is up. A call takes over from the
+  /// screensaver, which lets go of the screen as it stands down, so without
+  /// this the OS timeout runs through the call (discussion #729: a Portal fell
+  /// into Meta's home screen dream during a call nobody touched).
+  bool _intercomHold = false;
+
   @override
   Future<void> init() async {
     await _applyWakelock();
@@ -188,6 +194,11 @@ class ScreenManager extends Manager with WidgetsBindingObserver {
     await _probeLightSensor();
     bus.on<LightLevelChanged>().listen((e) => _onLux(e.lux));
     bus.on<ScreensaverStateChanged>().listen((e) => _onScreensaver(e.active));
+    bus.on<FullscreenViewChanged>().listen((e) async {
+      if (e.view != 'intercom' || e.shown == _intercomHold) return;
+      _intercomHold = e.shown;
+      await _applyWakelock();
+    });
 
     if (_adaptiveOn) {
       // A session starts at Maximum brightness dimmed for the room as it
@@ -388,8 +399,9 @@ class ScreenManager extends Manager with WidgetsBindingObserver {
   }
 
   /// Keep the screen on when the user's setting asks for it, the
-  /// screensaver is holding it, or hold mode is pinning the current view
-  /// (issue #266: a held recipe that goes dark defeats the point).
+  /// screensaver or the intercom is holding it, or hold mode is pinning the
+  /// current view (issue #266: a held recipe that goes dark defeats the
+  /// point).
   /// `FLAG_KEEP_SCREEN_ON` (via wakelock_plus) stops
   /// the OS display timeout — the panel stays powered, brightness is ours to
   /// set (0 for black), and the app is never backgrounded into a freeze.
@@ -397,6 +409,7 @@ class ScreenManager extends Manager with WidgetsBindingObserver {
     final want =
         _settings.get(defs.keepScreenOn) ||
         _screensaverHold ||
+        _intercomHold ||
         _settings.get(defs.haHoldMode);
     try {
       want ? await WakelockPlus.enable() : await WakelockPlus.disable();

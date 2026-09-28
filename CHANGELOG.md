@@ -9,6 +9,8 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Fixed
 - **Dismissing the screensaver hides the navigation bar again.** On some Android 12 devices with gesture navigation, a grey strip stayed across the bottom of the dashboard after the screensaver ended until the side menu was opened and closed (#728). The dismissal now re-applies full screen mode the way waking the screen does.
+- **An intercom call keeps the screen on.** A call takes over from the screensaver, which let go of the screen as it stood down, and nothing held it after that. With Keep screen on off, Android's screen timeout ran through the call, so a call nobody touched could put the device to sleep and a Portal fell into Meta's home screen (#729). The call screen now holds the screen on until it closes.
+- **The call length screen shows when the other kiosk hangs up.** Ending a call from the far side closed it twice, and the second close skipped the ten seconds of call length with Call again and Close. It now shows however the call ends.
 
 ## v2026.9.87 - 2026-09-27
 
