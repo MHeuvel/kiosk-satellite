@@ -2800,6 +2800,13 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingScreensaverScreenOffBlackTitle,
       'settingScreensaverScreenOffBlackDescription' =>
         strings.settingScreensaverScreenOffBlackDescription,
+      'screensaverModeDashboard' => strings.screensaverModeDashboard,
+      'settingScreensaverDashboardViewTitle' =>
+        strings.settingScreensaverDashboardViewTitle,
+      'settingScreensaverDashboardViewDescription' =>
+        strings.settingScreensaverDashboardViewDescription,
+      'screensaverSelectDashboard' => strings.screensaverSelectDashboard,
+      'screensaverDashboardSection' => strings.screensaverDashboardSection,
       'settingScreensaverGlanceScaleTitle' =>
         strings.settingScreensaverGlanceScaleTitle,
       'settingScreensaverGlanceScaleDescription' =>

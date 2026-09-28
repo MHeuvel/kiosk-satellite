@@ -9000,6 +9000,23 @@ class UiStringsUk extends UiStrings {
       'Показувати чорний екран при нульовій яскравості замість повного вимкнення дисплея. Приховує віджети та \"Зараз грає\". Дозвіл адміністратора пристрою не потрібен.';
 
   @override
+  String get screensaverModeDashboard => 'Панель керування Home Assistant';
+
+  @override
+  String get settingScreensaverDashboardViewTitle => 'Вигляд панелі керування';
+
+  @override
+  String get settingScreensaverDashboardViewDescription =>
+      'Вигляд панелі керування Home Assistant, який показує заставка.';
+
+  @override
+  String get screensaverSelectDashboard => 'Вибрати панель керування';
+
+  @override
+  String get screensaverDashboardSection =>
+      'Заставка панелі керування Home Assistant';
+
+  @override
   String get settingScreensaverGlanceScaleTitle => 'Масштаб рядка';
 
   @override

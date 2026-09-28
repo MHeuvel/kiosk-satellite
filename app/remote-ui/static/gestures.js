@@ -11,7 +11,7 @@ import {
 import { api, cmd, state } from './core.js';
 import { applyManagedBanners } from './fleetsync.js';
 import { settingRow } from './rows.js';
-import { fetchViews, radioRow } from './views.js';
+import { dashboardViewEntries, pickDashboardView, radioRow } from './views.js';
 import { messageBox, localizedMessageBox, modalShell } from './widgets.js';
 
 /* ---- Gestures (issue #99) ----
@@ -287,27 +287,9 @@ export async function configureGestureHaEntity(current, spec) {
 }
 
 export async function configureGestureNavigate(current) {
-  // Every dashboard's views, flattened like the rotation picker. Strategy
-  // dashboards expose no views; their root still makes a fine target.
-  const entries = [];
-  const dashboards = await cmd('haListDashboards').catch(() => null);
-  if (dashboards?.ok && Array.isArray(dashboards.data)) {
-    for (const d of dashboards.data) {
-      if (!d.url_path) continue;
-      const views = await fetchViews(d.url_path);
-      if (views?.length) {
-        for (const v of views) {
-          if (!v.route) continue;
-          entries.push({
-            name: `${d.title || d.url_path} / ${v.title || v.route}`,
-            value: `${d.url_path}/${v.route}`,
-          });
-        }
-      } else {
-        entries.push({ name: d.title || d.url_path, value: d.url_path });
-      }
-    }
-  }
+  // The same flattened "dashboard / view" list the Home Assistant
+  // Dashboard screensaver picks from.
+  const entries = await dashboardViewEntries();
   if (!entries.length) {
     await messageBox({
       title: gestureText('No dashboards'),
@@ -315,9 +297,8 @@ export async function configureGestureNavigate(current) {
     });
     return null;
   }
-  const path = await gestureListModal(gestureText('Go to a dashboard view'), entries.map((e) => ({
-    ...e, selected: current?.path === e.value,
-  })));
+  const path = await pickDashboardView(gestureText('Go to a dashboard view'),
+    entries, current?.path);
   return path ? { type: 'navigate', path } : null;
 }
 

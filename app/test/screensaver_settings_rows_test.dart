@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kiosk_satellite/app_container.dart';
+import 'package:kiosk_satellite/core/command_registry.dart';
 import 'package:kiosk_satellite/managers/settings/definitions.dart' as defs;
 import 'package:kiosk_satellite/ui/settings_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -71,6 +72,73 @@ void main() {
     await tester.pumpAndSettle();
     expect(tester.getTopLeft(toggle).dy, toggleY);
     expect(permissionReads, initialReads);
+    await tester.pumpWidget(const SizedBox.shrink());
+  });
+
+  testWidgets('the dashboard view row follows the mode and saves a pick', (
+    tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({'ks.screensaver.mode': 'black'});
+    final container = AppContainer();
+    await container.settings.init();
+    container.commands
+      ..register(
+        Command(
+          name: 'haListDashboards',
+          description: 'stub',
+          handler: (_) async => const CommandResult.ok([
+            {'url_path': 'wall', 'title': 'Wall'},
+          ]),
+        ),
+      )
+      ..register(
+        Command(
+          name: 'haListDashboardViews',
+          description: 'stub',
+          handler: (_) async => const CommandResult.ok([
+            {'title': 'Clock', 'route': 'clock'},
+            {'title': 'Weather', 'route': 'weather'},
+          ]),
+        ),
+      );
+    tester.view.physicalSize = const Size(1000, 2400);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(
+      MaterialApp(
+        home: CategorySettingsScreen(
+          container: container,
+          category: 'Screensaver',
+          title: 'Screensaver',
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    final row = find.text(defs.screensaverDashboardView.title);
+    expect(row, findsNothing);
+    await container.settings.set(defs.screensaverMode, 'dashboard');
+    await tester.pumpAndSettle();
+    expect(row, findsOneWidget);
+    // In its own group, under the heading the other modes' groups use.
+    final heading = find.text('Home Assistant Dashboard screensaver');
+    expect(heading, findsOneWidget);
+    expect(
+      tester.getTopLeft(row).dy,
+      greaterThan(tester.getTopLeft(heading).dy),
+    );
+    await tester.tap(find.text('Select dashboard'));
+    await tester.pumpAndSettle();
+    // The kit's radio picker, each view over its navigation path.
+    expect(find.byType(RadioListTile<String>), findsNWidgets(2));
+    expect(find.text('Wall / Clock'), findsOneWidget);
+    expect(find.text('wall/clock'), findsOneWidget);
+    await tester.tap(find.text('Wall / Weather'));
+    await tester.pumpAndSettle();
+    expect(
+      container.settings.get(defs.screensaverDashboardView),
+      'wall/weather',
+    );
+    expect(find.text('wall/weather'), findsOneWidget);
     await tester.pumpWidget(const SizedBox.shrink());
   });
 }

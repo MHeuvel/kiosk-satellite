@@ -53,6 +53,7 @@ import 'camera_settings.dart';
 import 'tls_settings.dart';
 import 'fleet_settings.dart';
 import 'camera_views_picker.dart';
+import 'dashboard_view_picker.dart';
 import 'import_options_dialog.dart';
 import 'intercom_settings.dart';
 import 'custom_wake_models.dart';
@@ -10425,14 +10426,16 @@ class SettingTile extends StatelessWidget {
 
   AppContainer get c => container;
 
-  /// A select's options, filtered for context. The Home Assistant Media
-  /// screensaver only makes sense with Home Assistant connected, so its option
-  /// is hidden until a URL and token are set.
+  /// A select's options, filtered for context. The Home Assistant Media,
+  /// Weather Mood and Home Assistant Dashboard screensavers only make sense
+  /// with Home Assistant connected, so their options are hidden until a URL
+  /// and token are set.
   List<String> _optionsFor(SettingDef<Object> def) {
     final options = List<String>.from(c.settings.optionsFor(def));
     if (def.key == screensaverMode.key && !c.homeAssistant.configured) {
       options.remove('media');
       options.remove('weather_mood');
+      options.remove('dashboard');
     }
     return options;
   }
@@ -10772,6 +10775,23 @@ class SettingTile extends StatelessWidget {
         if (def.key == screensaverWeatherEntity.key) {
           return WeatherMoodEntityRow(container: c);
         }
+        // The Home Assistant Dashboard screensaver's view is picked from
+        // the instance's dashboards, the same modal the Go to a dashboard
+        // view gesture uses, never typed.
+        if (def.key == screensaverDashboardView.key) {
+          return ListTile(
+            title: Text(def.localizedTitle(context)),
+            subtitle: Text(
+              display,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            trailing: TextButton(
+              onPressed: () => _pickDashboardView(context),
+              child: Text(screensaverText(context, 'Select dashboard')),
+            ),
+          );
+        }
         // The screensaver's media is picked from Home Assistant, not typed.
         if (def.key == screensaverMediaId.key) {
           return ListTile(
@@ -10977,6 +10997,29 @@ class SettingTile extends StatelessWidget {
       screensaverGlanceEntities.key,
       jsonEncode(saved),
     );
+    onChanged();
+  }
+
+  Future<void> _pickDashboardView(BuildContext context) async {
+    final entries = await listDashboardViewEntries(c);
+    if (!context.mounted) return;
+    if (entries.isEmpty) {
+      showToast(
+        context,
+        title: screensaverText(context, 'Could not list dashboards'),
+        message: screensaverText(context, 'Is Home Assistant connected?'),
+        kind: ToastKind.error,
+      );
+      return;
+    }
+    final picked = await showDashboardViewPicker(
+      context,
+      title: screensaverText(context, 'Select dashboard'),
+      entries: entries,
+      current: c.settings.get(screensaverDashboardView),
+    );
+    if (picked == null) return;
+    await c.settings.setFromJson(screensaverDashboardView.key, picked);
     onChanged();
   }
 

@@ -545,5 +545,70 @@
         "Screensaver"
       ]
     }
+  },
+  "screensaverModeDashboard": "Home Assistant Dashboard",
+  "@screensaverModeDashboard": {
+    "context": "Settings:Screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverDashboardViewTitle": "Dashboard view",
+  "@settingScreensaverDashboardViewTitle": {
+    "context": "Settings:Screensaver:Home Assistant Dashboard screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Dashboard screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Dashboard screensaver"
+      ]
+    }
+  },
+  "settingScreensaverDashboardViewDescription": "The Home Assistant dashboard view the screensaver shows.",
+  "@settingScreensaverDashboardViewDescription": {
+    "context": "Settings:Screensaver:Home Assistant Dashboard screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Dashboard screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Dashboard screensaver"
+      ]
+    }
+  },
+  "screensaverSelectDashboard": "Select dashboard",
+  "@screensaverSelectDashboard": {
+    "context": "Settings:Screensaver:Home Assistant Dashboard screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Dashboard screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Dashboard screensaver"
+      ]
+    }
+  },
+  "screensaverDashboardSection": "Home Assistant Dashboard screensaver",
+  "@screensaverDashboardSection": {
+    "context": "Settings:Screensaver:Home Assistant Dashboard screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Dashboard screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Dashboard screensaver"
+      ]
+    }
   }
 }

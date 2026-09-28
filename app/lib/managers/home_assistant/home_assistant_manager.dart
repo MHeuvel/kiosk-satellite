@@ -368,6 +368,35 @@ class HomeAssistantManager extends Manager {
       )
       ..register(
         Command(
+          name: 'showScreensaverDashboard',
+          description:
+              'Move the dashboard to the Home Assistant Dashboard '
+              "screensaver's view, remembering where it was. Called by the "
+              'screensaver as the mode comes up.',
+          params: const {'path': 'the navigation path ("url_path/view-route")'},
+          handler: (p) async {
+            await showScreensaverDashboard(
+              '${p['path'] ?? ''}'.trim().replaceAll(RegExp(r'^/+|/+$'), ''),
+            );
+            return const CommandResult.ok();
+          },
+        ),
+      )
+      ..register(
+        Command(
+          name: 'leaveScreensaverDashboard',
+          description:
+              'Take the dashboard back to where it was before the Home '
+              'Assistant Dashboard screensaver moved it. Called by the '
+              'screensaver as it ends.',
+          handler: (_) async {
+            await leaveScreensaverDashboard();
+            return const CommandResult.ok();
+          },
+        ),
+      )
+      ..register(
+        Command(
           name: 'haPauseRotation',
           description:
               'Hold dashboard view rotation on the current page for the '
@@ -760,7 +789,14 @@ class HomeAssistantManager extends Manager {
         // works with the dashboard WebView hidden.
         _returnHomeTimer?.cancel();
         _returnHomeTimer = null;
-        if (_returnHomeConfigured && !_holdActive) unawaited(_returnHome());
+        // The Home Assistant Dashboard screensaver has just moved the page
+        // to its own view, which is what must show now. The return lands
+        // on its way out instead (leaveScreensaverDashboard).
+        if (_returnHomeConfigured &&
+            !_holdActive &&
+            _saverDashboardPath == null) {
+          unawaited(_returnHome());
+        }
       } else {
         _configureReturnHome();
       }
@@ -1074,6 +1110,95 @@ class HomeAssistantManager extends Manager {
     await navigateToViewPath(path);
   }
 
+  // ── The Home Assistant Dashboard screensaver ──────────────────────
+  // The mode shows a chosen view in the dashboard's own WebView, so the
+  // page never reloads: a soft navigation there as it starts and back as
+  // it ends. The screensaver drives both edges over commands, awaiting
+  // each, so a dismissal and a navigation commanded right after it land
+  // in that order.
+
+  /// Whether the mode is up, from its start to its dismissal. A start
+  /// still reading the page when the dismissal lands stands down.
+  bool _saverDashboardUp = false;
+
+  /// The view the mode moved the page to, null while it moved nothing.
+  String? _saverDashboardPath;
+
+  /// Where the page was before the mode moved it.
+  String? _saverDashboardReturn;
+
+  /// The origin the page actually lives on: the loopback one when the
+  /// secure context proxy is on, [baseUrl] otherwise.
+  Future<String> _pageBase() async {
+    final mapped = await commands.execute('proxyMapUrl', {'url': baseUrl});
+    return mapped.ok && mapped.data is String ? mapped.data as String : baseUrl;
+  }
+
+  /// Move the page to [viewPath] for the screensaver. An empty path, or a
+  /// page that is not this Home Assistant, leaves the screen as it is.
+  /// A mode that comes back within one session (a schedule swapping it
+  /// out and in again) keeps the first return point.
+  Future<void> showScreensaverDashboard(String viewPath) async {
+    _saverDashboardUp = true;
+    if (!configured || baseUrl.isEmpty || viewPath.isEmpty) return;
+    final base = await _pageBase();
+    final where = await commands.execute('evalJs', {
+      'code':
+          '''
+(function () {
+  if (!location.href.startsWith(${jsonEncode(base)})) return 'off-origin';
+  return location.pathname;
+})();
+''',
+    });
+    if (!_saverDashboardUp) return;
+    final page = '${where.data}';
+    final current = where.ok && page.startsWith('/')
+        ? page.replaceAll(RegExp(r'^/+|/+$'), '')
+        : '';
+    if (_saverDashboardReturn == null) {
+      if (current.isEmpty) return;
+      _saverDashboardReturn = current;
+    }
+    _saverDashboardPath = viewPath;
+    log.info(name, 'screensaver shows "$viewPath"');
+    // Awaited up to the navigation itself, not the seconds-long self-heal
+    // after it, which the screensaver's start must not wait out.
+    await navigateToViewPath(viewPath, awaitSelfHeal: false);
+  }
+
+  /// Take the page back as the screensaver ends: to the dashboard's home
+  /// view when Return to the dashboard is on (its return was handed to
+  /// this moment), otherwise to where it was. Only while the page still
+  /// shows the screensaver's view: a navigation from Home Assistant in the
+  /// meantime (browser_mod, a card) is where the person should land.
+  Future<void> leaveScreensaverDashboard() async {
+    _saverDashboardUp = false;
+    final shown = _saverDashboardPath;
+    final previous = _saverDashboardReturn;
+    _saverDashboardPath = null;
+    _saverDashboardReturn = null;
+    if (shown == null || previous == null) return;
+    final back =
+        (_returnHomeConfigured && !_holdActive ? homeViewPath() : null) ??
+        previous;
+    final base = await _pageBase();
+    final still = await commands.execute('evalJs', {
+      'code':
+          '''
+(function () {
+  if (!location.href.startsWith(${jsonEncode(base)})) return false;
+  var shown = '/' + ${jsonEncode(shown)};
+  var path = location.pathname;
+  return path === shown || path.indexOf(shown + '/') === 0;
+})();
+''',
+    });
+    if (!still.ok || '${still.data}' != 'true') return;
+    log.info(name, 'screensaver ended; back to "$back"');
+    await navigateToViewPath(back, awaitSelfHeal: false);
+  }
+
   /// Monotonic navigation stamp: the delayed self-heal check in
   /// [navigateToViewPath] only acts while no newer navigation has started.
   int _navSeq = 0;
@@ -1089,10 +1214,12 @@ class HomeAssistantManager extends Manager {
   /// Returns what actually happened — 'navigated', 'already' (the page is
   /// on that view), 'off-origin' (a non-HA page is on screen, nothing
   /// moved) or 'failed' — so callers reporting state elsewhere (the ESPHome
-  /// select) do not have to guess.
+  /// select) do not have to guess. With [awaitSelfHeal] off the call
+  /// returns once the page has moved and the self-heal runs on its own.
   Future<String> navigateToViewPath(
     String viewPath, {
     bool crossfade = false,
+    bool awaitSelfHeal = true,
   }) async {
     if (baseUrl.isEmpty || viewPath.isEmpty) return 'failed';
     final seq = ++_navSeq;
@@ -1104,10 +1231,7 @@ class HomeAssistantManager extends Manager {
     }
     // With the secure context proxy on, the page lives on the loopback
     // origin, not baseUrl — guard against what is actually on screen.
-    final mappedBase = await commands.execute('proxyMapUrl', {'url': baseUrl});
-    final effectiveBase = mappedBase.ok && mappedBase.data is String
-        ? mappedBase.data as String
-        : baseUrl;
+    final effectiveBase = await _pageBase();
     if (crossfade) {
       final fade = await commands.execute('evalJs', {
         'code': rotationCrossfadeJs(
@@ -1150,14 +1274,23 @@ class HomeAssistantManager extends Manager {
           ? outcome
           : 'failed';
     }
-    // Self-heal, once per path: a soft navigation cannot resolve every
-    // dashboard — strategy dashboards (the auto "Overview") and redirect
-    // aliases leave the panel spinning forever. If it is still spinning
-    // shortly after the soft nav, remember the path as hard-load-only and
-    // do the full load now; every later pass goes straight to loadUrl with
-    // no spinner-then-reload double hit.
+    if (awaitSelfHeal) {
+      await _selfHeal(viewPath, seq);
+    } else {
+      unawaited(_selfHeal(viewPath, seq));
+    }
+    return 'navigated';
+  }
+
+  /// Self-heal, once per path: a soft navigation cannot resolve every
+  /// dashboard — strategy dashboards (the auto "Overview") and redirect
+  /// aliases leave the panel spinning forever. If it is still spinning
+  /// shortly after the soft nav, remember the path as hard-load-only and
+  /// do the full load now; every later pass goes straight to loadUrl with
+  /// no spinner-then-reload double hit.
+  Future<void> _selfHeal(String viewPath, int seq) async {
     await Future<void>.delayed(const Duration(milliseconds: 2500));
-    if (_navSeq != seq) return 'navigated';
+    if (_navSeq != seq) return;
     final check = await commands.execute('evalJs', {
       'code':
           '''
@@ -1192,7 +1325,6 @@ class HomeAssistantManager extends Manager {
       );
       await commands.execute('loadUrl', {'url': '$baseUrl/$viewPath'});
     }
-    return 'navigated';
   }
 
   Timer? _themeTimer;

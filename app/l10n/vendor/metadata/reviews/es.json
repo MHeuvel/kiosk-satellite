@@ -17838,5 +17838,30 @@
     "source": "15fbd945d5f01664675c8e571462f57a29cfd3bb02554fa10f14ed33bcda74bb",
     "translation": "b10597611833465f105fdea06349145c8f4ae63f44c1c7b4dc35d944667ec920",
     "author": "Xavier Larrea"
+  },
+  "screensaverModeDashboard": {
+    "source": "26b45f89f64c0646dda172aba66b9185659a46bc8e256e939355a7b77eb02904",
+    "translation": "7cb0eb2fca851357efea83824bff5797ce4dba060040ca3a8c32d9f830001ecf",
+    "author": "Xavier Larrea"
+  },
+  "screensaverSelectDashboard": {
+    "source": "fd7b3a56217ee2843f838afe2e19e6652bdc4ecb758088f037debbe0bbaba9cd",
+    "translation": "261e315e4289f4d8ba675aeb2ab7efc53a3629dc1bcaaadd2db29cc00e30125c",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverDashboardViewTitle": {
+    "source": "60faa3006b1b9bcf41799621180ff21460c4e6bf67fa0cd484c916a355df397e",
+    "translation": "5bbdfa2544019be30b81d8b89d9137d0046d1cce8f56393e1458a2ae592cc37d",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverDashboardViewDescription": {
+    "source": "a19f0d2be0cbb02baed7886a758fcc54f9f4dc2aae5cc1f69738b32bf8dc4071",
+    "translation": "2ddb163513d51cb23756159c5bfbeac840083db025145a191834f38a4d0fd4c5",
+    "author": "Xavier Larrea"
+  },
+  "screensaverDashboardSection": {
+    "source": "ee3d0fd22d61bf47dc93601c5a63087eb425158b20f974596a9de1e85345809a",
+    "translation": "a6ac74ecba27f5234d8da5e70a1fe5485e6d3d842474bb3e2e557863f42f827c",
+    "author": "Xavier Larrea"
   }
 }

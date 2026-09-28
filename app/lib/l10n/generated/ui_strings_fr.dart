@@ -9076,6 +9076,23 @@ class UiStringsFr extends UiStrings {
       'Afficher un écran entièrement noir à luminosité nulle au lieu d\'éteindre l\'affichage. Masque les widgets et Lecture en cours. Aucune autorisation Administrateur de l\'appareil n\'est nécessaire.';
 
   @override
+  String get screensaverModeDashboard => 'Tableau de bord Home Assistant';
+
+  @override
+  String get settingScreensaverDashboardViewTitle => 'Vue du tableau de bord';
+
+  @override
+  String get settingScreensaverDashboardViewDescription =>
+      'La vue du tableau de bord Home Assistant affichée par l\'économiseur d\'écran.';
+
+  @override
+  String get screensaverSelectDashboard => 'Choisir un tableau de bord';
+
+  @override
+  String get screensaverDashboardSection =>
+      'Économiseur d\'écran tableau de bord Home Assistant';
+
+  @override
   String get settingScreensaverGlanceScaleTitle =>
       'Mise à l\'échelle de la ligne';
 

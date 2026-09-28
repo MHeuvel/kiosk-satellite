@@ -33336,6 +33336,71 @@
       ]
     }
   },
+  "screensaverModeDashboard": "Panel de control de Home Assistant",
+  "@screensaverModeDashboard": {
+    "context": "Settings:Screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverDashboardViewTitle": "Vista del panel de control",
+  "@settingScreensaverDashboardViewTitle": {
+    "context": "Settings:Screensaver:Home Assistant Dashboard screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Dashboard screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Dashboard screensaver"
+      ]
+    }
+  },
+  "settingScreensaverDashboardViewDescription": "La vista del panel de control de Home Assistant que muestra el protector de pantalla.",
+  "@settingScreensaverDashboardViewDescription": {
+    "context": "Settings:Screensaver:Home Assistant Dashboard screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Dashboard screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Dashboard screensaver"
+      ]
+    }
+  },
+  "screensaverSelectDashboard": "Seleccionar panel de control",
+  "@screensaverSelectDashboard": {
+    "context": "Settings:Screensaver:Home Assistant Dashboard screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Dashboard screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Dashboard screensaver"
+      ]
+    }
+  },
+  "screensaverDashboardSection": "Protector de pantalla: Panel de control de Home Assistant",
+  "@screensaverDashboardSection": {
+    "context": "Settings:Screensaver:Home Assistant Dashboard screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Dashboard screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Dashboard screensaver"
+      ]
+    }
+  },
   "settingScreensaverGlanceScaleTitle": "Escala de la fila",
   "@settingScreensaverGlanceScaleTitle": {
     "context": "Settings > Screensaver > At a Glance > Appearance",

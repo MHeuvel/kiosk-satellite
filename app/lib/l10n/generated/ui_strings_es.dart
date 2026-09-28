@@ -9082,6 +9082,24 @@ class UiStringsEs extends UiStrings {
       'Muestra una pantalla negra con el brillo a cero en lugar de apagarla. Oculta los widgets y Reproduciendo Ahora. No requiere permiso de administrador del dispositivo.';
 
   @override
+  String get screensaverModeDashboard => 'Panel de control de Home Assistant';
+
+  @override
+  String get settingScreensaverDashboardViewTitle =>
+      'Vista del panel de control';
+
+  @override
+  String get settingScreensaverDashboardViewDescription =>
+      'La vista del panel de control de Home Assistant que muestra el protector de pantalla.';
+
+  @override
+  String get screensaverSelectDashboard => 'Seleccionar panel de control';
+
+  @override
+  String get screensaverDashboardSection =>
+      'Protector de pantalla: Panel de control de Home Assistant';
+
+  @override
   String get settingScreensaverGlanceScaleTitle => 'Escala de la fila';
 
   @override

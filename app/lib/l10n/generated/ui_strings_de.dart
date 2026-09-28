@@ -9125,6 +9125,23 @@ class UiStringsDe extends UiStrings {
       'Zeigt einen schwarzen Bildschirm mit auf null gesetzter Helligkeit an, anstatt den Bildschirm auszuschalten. Blendet Widgets und „Jetzt läuft“ aus. Erfordert keine Geräteadministrator-Berechtigung.';
 
   @override
+  String get screensaverModeDashboard => 'Home-Assistant-Dashboard';
+
+  @override
+  String get settingScreensaverDashboardViewTitle => 'Dashboard-Ansicht';
+
+  @override
+  String get settingScreensaverDashboardViewDescription =>
+      'Die Home-Assistant-Dashboard-Ansicht, die der Bildschirmschoner zeigt.';
+
+  @override
+  String get screensaverSelectDashboard => 'Dashboard auswählen';
+
+  @override
+  String get screensaverDashboardSection =>
+      'Bildschirmschoner: Home-Assistant-Dashboard';
+
+  @override
   String get settingScreensaverGlanceScaleTitle => 'Skalierung der Leiste';
 
   @override

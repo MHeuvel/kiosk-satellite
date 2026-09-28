@@ -41,5 +41,10 @@
   "screensaverUnavailablePlugin": "Bildschirmschoner eines Plugins nicht verfügbar",
   "screensaverScreenOffWarning": "Wenn der Bildschirm vollständig ausgeschaltet wird, übernimmt das Energiemanagement des Tablets die Kontrolle. Viele Android-Geräte zeigen in diesem Zustand Probleme: WLAN wird in den Ruhezustand versetzt oder getrennt, Home-Assistant-Entitäten werden nicht verfügbar, der Kamerazugriff kann verloren gehen und manche Geräte beenden Anwendungen im Hintergrund. Das Verhalten hängt vom Hersteller ab.\n\nDie zuverlässige Alternative ist die Verwendung des Bildschirmschoners „Schwarz“ bei einem Wert von 0 für diese Option. Der Bildschirm wirkt genauso dunkel, während die Anwendung die Kontrolle behält.",
   "settingScreensaverScreenOffBlackTitle": "Stattdessen einen schwarzen Bildschirm verwenden",
-  "settingScreensaverScreenOffBlackDescription": "Zeigt einen schwarzen Bildschirm mit auf null gesetzter Helligkeit an, anstatt den Bildschirm auszuschalten. Blendet Widgets und „Jetzt läuft“ aus. Erfordert keine Geräteadministrator-Berechtigung."
+  "settingScreensaverScreenOffBlackDescription": "Zeigt einen schwarzen Bildschirm mit auf null gesetzter Helligkeit an, anstatt den Bildschirm auszuschalten. Blendet Widgets und „Jetzt läuft“ aus. Erfordert keine Geräteadministrator-Berechtigung.",
+  "screensaverModeDashboard": "Home-Assistant-Dashboard",
+  "settingScreensaverDashboardViewTitle": "Dashboard-Ansicht",
+  "settingScreensaverDashboardViewDescription": "Die Home-Assistant-Dashboard-Ansicht, die der Bildschirmschoner zeigt.",
+  "screensaverSelectDashboard": "Dashboard auswählen",
+  "screensaverDashboardSection": "Bildschirmschoner: Home-Assistant-Dashboard"
 }

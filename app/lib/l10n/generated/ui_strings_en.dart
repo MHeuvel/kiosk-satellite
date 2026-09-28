@@ -8898,6 +8898,23 @@ class UiStringsEn extends UiStrings {
       'Show a plain black screen at zero brightness instead of powering off the display. Hides widgets and Now Playing. No Device Administrator permission is needed.';
 
   @override
+  String get screensaverModeDashboard => 'Home Assistant Dashboard';
+
+  @override
+  String get settingScreensaverDashboardViewTitle => 'Dashboard view';
+
+  @override
+  String get settingScreensaverDashboardViewDescription =>
+      'The Home Assistant dashboard view the screensaver shows.';
+
+  @override
+  String get screensaverSelectDashboard => 'Select dashboard';
+
+  @override
+  String get screensaverDashboardSection =>
+      'Home Assistant Dashboard screensaver';
+
+  @override
   String get settingScreensaverGlanceScaleTitle => 'Row scaling';
 
   @override

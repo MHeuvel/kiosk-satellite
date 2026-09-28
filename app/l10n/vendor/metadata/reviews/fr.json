@@ -21426,5 +21426,35 @@
     "translation": "73f4df440316167f45d0080b3b5496d54a276823cd95686329016a5bc28a6ed1",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "screensaverModeDashboard": {
+    "source": "26b45f89f64c0646dda172aba66b9185659a46bc8e256e939355a7b77eb02904",
+    "translation": "31c5068a964b244ff7a33ac26e96c476459f5df5220ac659ddcb07265d093060",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingScreensaverDashboardViewDescription": {
+    "source": "a19f0d2be0cbb02baed7886a758fcc54f9f4dc2aae5cc1f69738b32bf8dc4071",
+    "translation": "853f128eef9ea496b6ebd4119f76412e2e90aee01cca31cf0e19ac9226fe115f",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingScreensaverDashboardViewTitle": {
+    "source": "60faa3006b1b9bcf41799621180ff21460c4e6bf67fa0cd484c916a355df397e",
+    "translation": "6b5d620cf6ba7dda5a59b75c6df04fa333fbf4e10d4e6e6bbea6e9edba2bfae0",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "screensaverSelectDashboard": {
+    "source": "fd7b3a56217ee2843f838afe2e19e6652bdc4ecb758088f037debbe0bbaba9cd",
+    "translation": "2399e5ee5a75e05e779edaeed658b3dbe7b1c4e04eef4bc31e6623451ff7bc2d",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "screensaverDashboardSection": {
+    "source": "ee3d0fd22d61bf47dc93601c5a63087eb425158b20f974596a9de1e85345809a",
+    "translation": "6b5aac551fe908f8641d509205c869c848ce9dcaaa030d9541526ea74e6e6a1c",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

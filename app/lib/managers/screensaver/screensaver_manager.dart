@@ -259,9 +259,16 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
 
   /// The visual overlay the UI should render, or null for none.
   ///
-  /// One of 'blank' | 'black' | 'clock' | 'media' | 'website'. Dim only
-  /// lowers the backlight, so this stays null there.
+  /// One of 'blank' | 'black' | 'clock' | 'media' | 'website' | ... Dim
+  /// only lowers the backlight, so this stays null there. 'dashboard' is
+  /// a clear layer over the dashboard itself, there to take the tap that
+  /// dismisses it and to carry the widgets.
   final ValueNotifier<String?> activeView = ValueNotifier(null);
+
+  /// The view the Home Assistant Dashboard mode put on the page this
+  /// session, so the dismissal takes it back and a reapply that changes
+  /// nothing (a notification, a schedule tick) does not navigate again.
+  String? _dashboardShown;
 
   bool get isActive => _active;
 
@@ -747,7 +754,8 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
       if (_active &&
           (e.key == defs.screensaverSchedule.key ||
               e.key == defs.screensaverScheduleEnabled.key ||
-              e.key == defs.screensaverMode.key)) {
+              e.key == defs.screensaverMode.key ||
+              e.key == defs.screensaverDashboardView.key)) {
         unawaited(_applyVisuals());
       }
     });
@@ -1458,10 +1466,22 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     if (mode == 'dim' || mode == 'black' || _contentDimEnabled(mode)) {
       await _ensureSavedBrightness();
     }
+    // The Home Assistant Dashboard mode moves the page to its view before
+    // anything decides what covers it: under the Now Playing takeover the
+    // view waits behind the player, and the dismissal undoes the move
+    // either way.
+    final dashboardView = _settings.get(defs.screensaverDashboardView);
+    if (mode == 'dashboard' && dashboardView != _dashboardShown) {
+      _dashboardShown = dashboardView;
+      await commands.execute('showScreensaverDashboard', {
+        'path': dashboardView,
+      });
+      if (!_active) return;
+    }
     if (_nowPlayingNormalBrightness) {
       // A non-null view gives the override a slot to render into ('dim'
-      // normally shows no overlay at all), at full brightness.
-      _setView((mode == 'dim') ? 'black' : mode);
+      // and 'dashboard' show the page itself), at full brightness.
+      _setView((mode == 'dim' || mode == 'dashboard') ? 'black' : mode);
       if (_savedBrightness != null) {
         await commands.execute('setBrightness', {
           'level': _savedBrightness,
@@ -1508,8 +1528,10 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
         // clock / media / website: a lit overlay showing content, at normal
         // brightness unless the separate screensaver brightness — or the
         // active schedule entry — asks for its own level (a clock that must
-        // not glow all night).
-        _setView(mode);
+        // not glow all night). The dashboard gives way to black beside a
+        // shared player, as Dim does: its view is laid out for the whole
+        // screen.
+        _setView(mode == 'dashboard' && nowPlayingShared ? 'black' : mode);
         if (_contentDimEnabled(mode)) {
           final level =
               _scheduleBrightness ??
@@ -1586,6 +1608,12 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     // never shows a blank hole where the page is (a no-op unless the
     // rendering freeze optimization hid it).
     await commands.execute('unfreezeRendering', const {});
+    // Awaited, so a navigation commanded right after the dismissal (the
+    // ESPHome Dashboard select, haNavigate) lands after this return.
+    if (_dashboardShown != null) {
+      _dashboardShown = null;
+      await commands.execute('leaveScreensaverDashboard', const {});
+    }
     _setView(null);
     await commands.execute('screenOn', const {});
     // Release the hold; the keep-awake setting (if any) still applies.

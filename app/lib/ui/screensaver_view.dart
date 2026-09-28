@@ -303,6 +303,13 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
                   // swallows Flutter gestures), so it dismisses itself
                   // rather than sitting under _Dismissable.
                   'camera' => CameraScreensaver(container: container),
+                  // The Home Assistant Dashboard mode: the dashboard itself
+                  // shows through a clear layer that takes the tap, so a
+                  // touch dismisses rather than pressing a card.
+                  'dashboard' => _Dismissable(
+                    container: container,
+                    child: const SizedBox.expand(),
+                  ),
                   // 'black' and anything unexpected: the safe, opaque cover,
                   // carrying the At a Glance row when there is one — unless
                   // the active schedule entry withholds it for its hours,

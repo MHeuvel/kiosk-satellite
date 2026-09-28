@@ -1,6 +1,6 @@
 # Screensavers
 
-After a period of inactivity, Kiosk Satellite can transition to a clock, a photo frame, a camera wall, a web page, or a black panel. The display returns to the live dashboard immediately when someone touches the screen, speaks the wake word, or approaches the kiosk.
+After a period of inactivity, Kiosk Satellite can transition to a clock, a photo frame, a camera wall, a web page, a Home Assistant dashboard view, or a black panel. The display returns to the live dashboard immediately when someone touches the screen, speaks the wake word, or approaches the kiosk.
 
 A core design principle applies to all modes: the screensaver never powers off the physical display. Even the Black mode sets the backlight to zero behind a black overlay while keeping the application fully active underneath. This ensures motion detection, wake word processing, the ESPHome server, and remote administration (including live view) remain fully functional 24/7. Controlling actual display panel power is handled separately using the Screen light entity via the [ESPHome integration](esphome.md).
 
@@ -119,6 +119,14 @@ Voice Satellite features do not run on screensaver web views. Because Voice Sate
 Displays one or more configured [camera views](cameras.md) as a rotating screensaver. Select the target views under **Camera views** and set the rotation interval using **Seconds per camera view**. Dwell time timing starts once video playback begins. If a single view is selected, the display remains on that grid without cycling. Transitioning between camera views completely tears down the active video grid before loading the next, creating a brief black frame and enforcing a minimum interval threshold of 5 seconds. If a view's camera streams fail to load, the rotation advances after the interval plus a 20-second timeout grace period. 
 
 Rotation can be stepped manually in either direction using the **Screensaver next slide** and **Screensaver previous slide** buttons on the [ESPHome](esphome.md) device. Landing on a view manually resets its full dwell timer. The **Mute all views** toggle (enabled by default) forces all camera views to remain silent, overriding single-camera audio settings configured in [Cameras](cameras.md). Disabling this toggle restores audio playback for single-camera views. Camera grid screensavers act as background scenery; tapping the screen dismisses the screensaver rather than focusing an individual camera tile, and corner clocks are hidden to keep video feeds clear.
+
+### Home Assistant Dashboard
+
+Shows a Home Assistant dashboard view as the screensaver. Selecting the mode reveals the **Home Assistant Dashboard screensaver** group. Pick the view with the **Select dashboard** button on its **Dashboard view** row, which opens the same view list the **Go to a dashboard view** gesture uses. The mode needs a connected Home Assistant.
+
+The view opens in the dashboard's own web view with the same in-page navigation view rotation uses, so Home Assistant does not reload and the Voice Satellite integration keeps running. When the screensaver ends, the dashboard goes back to the view it was on before. With **Return to home dashboard view** on it goes to the home view instead. If something in Home Assistant navigated the dashboard while the screensaver was up, it stays where that navigation left it.
+
+A tap anywhere dismisses the screensaver without pressing the card under the finger. Motion, face, proximity and person detection, the brightness settings, the schedule, widgets and the At a Glance row work as in the other modes. When no view is picked the screensaver keeps whatever the dashboard shows. Like Dim, this mode keeps the dashboard rendering, so **Pause dashboard during screensaver** does not apply.
 
 ## Slideshow Behavior
 
@@ -339,9 +347,9 @@ Touch interactions instantly dismiss the screensaver and reset the idle clock. T
 
 ## Around the Dashboard
 
-While a screensaver obscures the web page, the **Pause dashboard during screensaver** optimization (enabled by default) completely halts web view rendering. This produces the majority of screensaver power and thermal savings (see benchmark details in [Optimizations](optimizations.md)). Dim mode is the single exception, as the dashboard remains visible.
+While a screensaver obscures the web page, the **Pause dashboard during screensaver** optimization (enabled by default) completely halts web view rendering. This produces the majority of screensaver power and thermal savings (see benchmark details in [Optimizations](optimizations.md)). Dim and Home Assistant Dashboard are the exceptions, as the dashboard remains visible.
 
-Automated dashboard view rotation pauses while a screensaver is active, resuming from its current position when dismissed. Conversely, the **Return to home dashboard view** timer continues running quietly behind screensavers, ensuring the kiosk resets to the primary home dashboard view overnight without illuminating the display.
+Automated dashboard view rotation pauses while a screensaver is active, resuming from its current position when dismissed. Conversely, the **Return to home dashboard view** timer continues running quietly behind screensavers, ensuring the kiosk resets to the primary home dashboard view overnight without illuminating the display. Under the Home Assistant Dashboard screensaver that return happens when the screensaver ends.
 
 When using the Voice Satellite integration on the dashboard, the **Turn off the Voice Satellite screensaver** setting (enabled by default in Voice Satellite settings) automatically disables the web integration's internal screensaver to prevent software conflicts.
 

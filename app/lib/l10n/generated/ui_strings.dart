@@ -15478,6 +15478,36 @@ abstract class UiStrings {
   /// **'Show a plain black screen at zero brightness instead of powering off the display. Hides widgets and Now Playing. No Device Administrator permission is needed.'**
   String get settingScreensaverScreenOffBlackDescription;
 
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant Dashboard'**
+  String get screensaverModeDashboard;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard view'**
+  String get settingScreensaverDashboardViewTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The Home Assistant dashboard view the screensaver shows.'**
+  String get settingScreensaverDashboardViewDescription;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Select dashboard'**
+  String get screensaverSelectDashboard;
+
+  /// Label, status or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant Dashboard screensaver'**
+  String get screensaverDashboardSection;
+
   /// Setting label.
   ///
   /// In en, this message translates to:

@@ -1751,6 +1751,7 @@ const screensaverMode = SettingDef<String>(
     'immich',
     'website',
     'camera',
+    'dashboard',
   ],
   optionLabels: {
     'dim': 'Dim',
@@ -1763,7 +1764,24 @@ const screensaverMode = SettingDef<String>(
     'immich': 'Immich Media',
     'website': 'Website',
     'camera': 'Camera Streams',
+    'dashboard': 'Home Assistant Dashboard',
   },
+);
+
+// The Home Assistant Dashboard mode shows this view in the dashboard's own
+// WebView: a soft navigation there and back, never a second page load.
+// Picked from the instance's dashboards in both UIs, never typed. Empty
+// leaves whatever the dashboard shows on screen.
+const screensaverDashboardView = SettingDef<String>(
+  key: 'screensaver.dashboard_view',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Dashboard view',
+  description: 'The Home Assistant dashboard view the screensaver shows.',
+  category: 'Screensaver',
+  section: 'Home Assistant Dashboard screensaver',
+  dependsOn: 'screensaver.mode',
+  dependsOnValue: 'dashboard',
 );
 
 // Weather Mood follows the selected weather entity and sun.sun.
@@ -9035,6 +9053,7 @@ const List<SettingDef<Object>> allSettings = [
   screensaverCameraMute,
   screensaverCameraView,
   screensaverCameraViewName,
+  screensaverDashboardView,
   // The Widgets group: corner overlays riding over the mode panels above,
   // so it sits between them and the other overlay group, At a Glance.
   screensaverWidgets,
