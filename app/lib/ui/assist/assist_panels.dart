@@ -366,7 +366,7 @@ class AssistResultPanel extends StatelessWidget {
         : size.width * (featured ? 0.25 : 0.30);
     final content = switch (result.kind) {
       'weather' => _weather(context, style, shape),
-      'financial' => _financial(style, shape),
+      'financial' => _financial(context, style, shape),
       'videos' => _videos(style, shape),
       _ => _images(style, shape, maxHeight - 24),
     };
@@ -537,7 +537,7 @@ class AssistResultPanel extends StatelessWidget {
     );
   }
 
-  Widget _financial(PanelStyle style, PanelShape shape) {
+  Widget _financial(BuildContext context, PanelStyle style, PanelShape shape) {
     final d = result.data;
     final currency = '${d['currency'] ?? 'USD'}';
     num? n(String key) => d[key] is num ? d[key] as num : null;
@@ -567,16 +567,24 @@ class AssistResultPanel extends StatelessWidget {
     }
     final change = n('change');
     final crypto = d['query_type'] == 'crypto';
+    final strings = l10n(context);
     final details = [
       if (crypto) ...[
-        if (n('high') != null) '24h High: ${formatPrice(n('high')!, currency)}',
-        if (n('low') != null) '24h Low: ${formatPrice(n('low')!, currency)}',
+        if (n('high') != null)
+          strings.voiceFinancialHigh24h(formatPrice(n('high')!, currency)),
+        if (n('low') != null)
+          strings.voiceFinancialLow24h(formatPrice(n('low')!, currency)),
         if (n('market_cap') != null)
-          'MCap: ${formatLargeNumber(n('market_cap')!, currency)}',
+          strings.voiceFinancialMarketCap(
+            formatLargeNumber(n('market_cap')!, currency),
+          ),
       ] else ...[
-        if (n('open') != null) 'Open: ${formatPrice(n('open')!, currency)}',
-        if (n('high') != null) 'High: ${formatPrice(n('high')!, currency)}',
-        if (n('low') != null) 'Low: ${formatPrice(n('low')!, currency)}',
+        if (n('open') != null)
+          strings.voiceFinancialOpen(formatPrice(n('open')!, currency)),
+        if (n('high') != null)
+          strings.voiceFinancialHigh(formatPrice(n('high')!, currency)),
+        if (n('low') != null)
+          strings.voiceFinancialLow(formatPrice(n('low')!, currency)),
       ],
     ];
     final logo = '${d['featured_image'] ?? ''}';

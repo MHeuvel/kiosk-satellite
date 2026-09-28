@@ -32,12 +32,38 @@ import '../wake_word/vsww/ort_init.dart';
 import 'wake_catalog.dart';
 
 /// A model file refused, and why.
+/// Why a file is refused: the English and the message that says it in the
+/// kiosk's language, [code] its message id and [values] its placeholders.
+class WakeModelError implements Exception {
+  const WakeModelError(this.code, this.english, [this.values = const {}]);
+
+  final String code;
+  final String english;
+  final Map<String, String> values;
+
+  @override
+  String toString() => english;
+}
+
 class RejectedWakeFile {
-  const RejectedWakeFile(this.file, this.reason);
+  const RejectedWakeFile(
+    this.file,
+    this.reason, {
+    this.code = '',
+    this.values = const {},
+  });
   final String file;
   final String reason;
 
-  Map<String, Object?> toJson() => {'file': file, 'reason': reason};
+  final String code;
+  final Map<String, String> values;
+
+  Map<String, Object?> toJson() => {
+    'file': file,
+    'reason': reason,
+    if (code.isNotEmpty) 'code': code,
+    if (values.isNotEmpty) 'values': values,
+  };
 }
 
 class CustomWakeModels {
@@ -174,27 +200,34 @@ class CustomWakeModels {
 
   /// Refuses what is not a model file name: no folders, only the three
   /// extensions.
-  static String? _checkName(String name) {
+  static WakeModelError? _checkName(String name) {
     if (name.isEmpty ||
         name.contains('/') ||
         name.contains(r'\') ||
         name.startsWith('.')) {
-      return 'Not a file name.';
+      return const WakeModelError('voiceModelNotFileName', 'Not a file name.');
     }
     if (!_extensions.contains(_ext(name))) {
-      return 'Only .json, .tflite and .onnx files are models.';
+      return const WakeModelError(
+        'voiceModelBadExtension',
+        'Only .json, .tflite and .onnx files are models.',
+      );
     }
     return null;
   }
+
+  static WakeModelError _tooLarge(String name) => WakeModelError(
+    'voiceModelTooLarge',
+    '$name is larger than 64 MB.',
+    {'name': name},
+  );
 
   /// Takes one uploaded file into the staging folder, to be checked with
   /// the others of the same upload by [commit].
   Future<void> stage(String name, Stream<List<int>> body, int? length) async {
     final bad = _checkName(name);
-    if (bad != null) throw StateError(bad);
-    if (length != null && length > maxFileBytes) {
-      throw StateError('$name is larger than 64 MB.');
-    }
+    if (bad != null) throw bad;
+    if (length != null && length > maxFileBytes) throw _tooLarge(name);
     final dir = await _dir('.staging');
     final part = File('${dir.path}/$name.part');
     final sink = part.openWrite();
@@ -202,9 +235,7 @@ class CustomWakeModels {
     try {
       await for (final chunk in body) {
         written += chunk.length;
-        if (written > maxFileBytes) {
-          throw StateError('$name is larger than 64 MB.');
-        }
+        if (written > maxFileBytes) throw _tooLarge(name);
         sink.add(chunk);
       }
       await sink.close();
@@ -215,7 +246,11 @@ class CustomWakeModels {
     }
     if (written == 0 || (length != null && written != length)) {
       await part.delete();
-      throw StateError('$name arrived incomplete.');
+      throw WakeModelError(
+        'voiceModelIncomplete',
+        '$name arrived incomplete.',
+        {'name': name},
+      );
     }
     await part.rename('${dir.path}/$name');
   }
@@ -267,7 +302,16 @@ class CustomWakeModels {
       } catch (err) {
         final reason = err is StateError ? err.message : '$err';
         for (final n in names) {
-          rejected.add(RejectedWakeFile(n, reason));
+          rejected.add(
+            err is WakeModelError
+                ? RejectedWakeFile(
+                    n,
+                    reason,
+                    code: err.code,
+                    values: err.values,
+                  )
+                : RejectedWakeFile(n, reason),
+          );
         }
         log('custom model $stem refused: $reason');
       }
@@ -301,51 +345,91 @@ class CustomWakeModels {
       try {
         manifest = jsonDecode(await json.readAsString());
       } catch (_) {
-        throw StateError('$stem.json is not valid JSON.');
+        throw WakeModelError(
+          'voiceModelBadJson',
+          '$stem.json is not valid JSON.',
+          {'file': '$stem.json'},
+        );
       }
-      if (manifest is! Map) throw StateError('$stem.json is not a manifest.');
+      if (manifest is! Map) {
+        throw WakeModelError(
+          'voiceModelNotManifest',
+          '$stem.json is not a manifest.',
+          {'file': '$stem.json'},
+        );
+      }
       if (manifest['micro'] is Map || manifest['type'] == 'micro') {
         if (tflite == null) {
-          throw StateError('A microWakeWord model needs $stem.tflite too.');
+          throw WakeModelError(
+            'voiceModelMwwNeedsTflite',
+            'A microWakeWord model needs $stem.tflite too.',
+            {'file': '$stem.tflite'},
+          );
         }
         if (MwwManifest.fromJson(manifest.cast<String, Object?>()) == null) {
-          throw StateError('$stem.json is not a valid microWakeWord manifest.');
+          throw WakeModelError(
+            'voiceModelMwwBadManifest',
+            '$stem.json is not a valid microWakeWord manifest.',
+            {'file': '$stem.json'},
+          );
         }
         await _check(_Check.micro, await tflite.readAsBytes());
         return (WakeWordEngineType.microWakeWord, [json, tflite]);
       }
       if (manifest['format'] == 'vs-wake-word-ctc-v1') {
         if (onnx == null) {
-          throw StateError('A vsWakeWord model needs $stem.onnx too.');
+          throw WakeModelError(
+            'voiceModelVswwNeedsOnnx',
+            'A vsWakeWord model needs $stem.onnx too.',
+            {'file': '$stem.onnx'},
+          );
         }
         try {
           if (!VswwManifest.fromJson(manifest.cast<String, dynamic>()).isCtc) {
             throw const FormatException();
           }
         } catch (_) {
-          throw StateError('$stem.json is not a valid vsWakeWord manifest.');
+          throw WakeModelError(
+            'voiceModelVswwBadManifest',
+            '$stem.json is not a valid vsWakeWord manifest.',
+            {'file': '$stem.json'},
+          );
         }
         await _check(_Check.onnx, await onnx.readAsBytes());
         return (WakeWordEngineType.vsWakeWord, [json, onnx]);
       }
-      throw StateError(
+      throw WakeModelError(
+        'voiceModelUnknownManifest',
         '$stem.json is neither a microWakeWord nor a vsWakeWord manifest.',
+        {'file': '$stem.json'},
       );
     }
     // No manifest: an openWakeWord classifier, in either format.
     final model = onnx ?? tflite;
-    if (model == null) throw StateError('No model file for $stem.');
+    if (model == null) {
+      throw WakeModelError(
+        'voiceModelNoModelFile',
+        'No model file for $stem.',
+        {'name': stem},
+      );
+    }
     if (onnx != null && tflite != null) {
-      throw StateError('Add either $stem.onnx or $stem.tflite, not both.');
+      throw WakeModelError(
+        'voiceModelBothFormats',
+        'Add either $stem.onnx or $stem.tflite, not both.',
+        {'onnx': '$stem.onnx', 'tflite': '$stem.tflite'},
+      );
     }
     final bytes = await model.readAsBytes();
     try {
       await _check(_Check.oww, bytes);
     } catch (e) {
       if (tflite != null) {
-        throw StateError(
+        throw WakeModelError(
+          'voiceModelNotOwwTflite',
           '$stem.tflite is not an openWakeWord model. A microWakeWord model '
-          'needs its $stem.json too.',
+              'needs its $stem.json too.',
+          {'file': '$stem.tflite', 'json': '$stem.json'},
         );
       }
       rethrow;
@@ -356,7 +440,9 @@ class CustomWakeModels {
   /// Loads the model in a short lived isolate, off the UI.
   static Future<void> _check(_Check kind, Uint8List bytes) async {
     final error = await Isolate.run(() => _load(kind, bytes));
-    if (error != null) throw StateError(error);
+    if (error != null) {
+      throw WakeModelError(error.code, error.english, error.values);
+    }
   }
 
   // ── removing ───────────────────────────────────────────────────────────
@@ -425,7 +511,7 @@ class CustomWakeModels {
       throw StateError('Not a model path.');
     }
     final bad = _checkName(parts[1]);
-    if (bad != null) throw StateError(bad);
+    if (bad != null) throw bad;
     final dir = await _dir(parts[0]);
     final part = File('${dir.path}/${parts[1]}.part');
     final sink = part.openWrite();
@@ -471,15 +557,33 @@ class CustomWakeModels {
 
 enum _Check { micro, onnx, oww }
 
+/// What the checking isolate found wrong with a model: a [WakeModelError]'s
+/// parts, sent back across the isolate.
+typedef _LoadError = ({
+  String code,
+  String english,
+  Map<String, String> values,
+});
+
+_LoadError _loadError(
+  String code,
+  String english, [
+  Map<String, String> values = const {},
+]) => (code: code, english: english, values: values);
+
 /// In the checking isolate: null when the model loads, else what is wrong.
-String? _load(_Check kind, Uint8List bytes) {
+_LoadError? _load(_Check kind, Uint8List bytes) {
   try {
     switch (kind) {
       case _Check.micro:
-        if (!isTfliteModel(bytes)) return 'Not a TFLite model.';
+        if (!isTfliteModel(bytes)) {
+          return _loadError('voiceModelNotTflite', 'Not a TFLite model.');
+        }
         Interpreter.fromBuffer(bytes).close();
       case _Check.onnx:
-        if (isTfliteModel(bytes)) return 'Not an ONNX model.';
+        if (isTfliteModel(bytes)) {
+          return _loadError('voiceModelNotOnnx', 'Not an ONNX model.');
+        }
         _onnxSession(bytes).release();
       case _Check.oww:
         if (isTfliteModel(bytes)) {
@@ -503,10 +607,15 @@ String? _load(_Check kind, Uint8List bytes) {
           for (final o in out) {
             o?.release();
           }
-          if (value == null) return 'Not an openWakeWord model.';
+          if (value == null) {
+            return _loadError('voiceModelNotOww', 'Not an openWakeWord model.');
+          }
         } catch (_) {
-          return 'Not an openWakeWord model: it does not take the 16 x 96 '
-              'embedding window.';
+          return _loadError(
+            'voiceModelOwwWindow',
+            'Not an openWakeWord model: it does not take the 16 x 96 '
+                'embedding window.',
+          );
         } finally {
           input.release();
           options.release();
@@ -515,7 +624,9 @@ String? _load(_Check kind, Uint8List bytes) {
     }
     return null;
   } catch (e) {
-    return 'The model does not load: $e';
+    return _loadError('voiceModelNoLoad', 'The model does not load: $e', {
+      'error': '$e',
+    });
   }
 }
 

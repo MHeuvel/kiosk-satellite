@@ -9,9 +9,11 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 import '../../app_container.dart';
 import '../../core/events.dart';
+import '../../l10n/messages.dart';
 import '../../managers/device/screen_capture.dart';
 import '../../managers/settings/definitions.dart' as defs;
 import '../../managers/voice/assist_view.dart';
+import '../../managers/voice/voice_manager.dart';
 import '../../managers/voice/voice_notice.dart';
 import '../toast.dart';
 import 'art_ink_blobs.dart';
@@ -203,14 +205,20 @@ class _AssistOverlayState extends State<AssistOverlay>
     if (error && currentToastTag == tag) return;
     // Voice Satellite's toasts: the title from the severity, the source
     // before the message, errors up until closed.
+    // The kiosk's own wording is translated; an error Home Assistant sent
+    // stays as it came.
+    final pipeline = RegExp(r'^Pipeline "(.*)"$').firstMatch(notice.category);
+    final category = pipeline != null
+        ? l10n(context).voiceNoticePipeline(pipeline.group(1)!)
+        : voiceText(context, notice.category);
     showToast(
       context,
-      title: switch (notice.severity) {
+      title: voiceText(context, switch (notice.severity) {
         VoiceSeverity.error => 'Voice Satellite error',
         VoiceSeverity.warning => 'Voice Satellite warning',
         VoiceSeverity.notice => 'Voice Satellite notice',
-      },
-      message: '${notice.category}: ${notice.message}',
+      }),
+      message: '$category: ${voiceText(context, notice.message)}',
       kind: switch (notice.severity) {
         VoiceSeverity.error => ToastKind.error,
         VoiceSeverity.warning => ToastKind.warning,
@@ -253,12 +261,24 @@ class _AssistOverlayState extends State<AssistOverlay>
             ? GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onDoubleTap: c.voice.dismiss,
-                child: _content(context, _shown),
+                child: _content(context, _localizedPreview(context, _shown)),
               )
             : const SizedBox.shrink(),
       ),
     );
   }
+
+  /// Preview's sample turn in the kiosk's language. A real turn's words
+  /// are never looked up: an answer that happens to read like one of the
+  /// app's strings stays as the assistant said it.
+  AssistView _localizedPreview(BuildContext context, AssistView view) =>
+      view.command == VoiceManager.previewCommand &&
+          view.answer == VoiceManager.previewAnswer
+      ? view.copyWith(
+          command: l10n(context).voicePreviewCommand,
+          answer: l10n(context).voicePreviewAnswer,
+        )
+      : view;
 
   Widget _content(BuildContext context, AssistView view) {
     final settings = c.settings;

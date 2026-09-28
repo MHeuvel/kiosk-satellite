@@ -454,7 +454,7 @@ class VoiceSkinThumbnail extends StatelessWidget {
                     right: width * 0.075,
                     bottom: skin.chatBottomReactive + 4,
                     child: Text(
-                      'Sunny and 72° right now.',
+                      l10n(context).voicePreviewThumbAnswer,
                       textAlign: skin.centered
                           ? TextAlign.center
                           : TextAlign.start,
@@ -864,10 +864,7 @@ class _MigrationWizardState extends State<_MigrationWizard> {
               ),
             ),
           Text(
-            voiceText(
-              context,
-              'Step {n} of {total}',
-            ).replaceAll('{n}', '$n').replaceAll('{total}', '$total'),
+            l10n(context).voiceMigrationStep('$n', '$total'),
             style: Theme.of(
               context,
             ).textTheme.labelMedium?.copyWith(color: scheme.onSurfaceVariant),
@@ -1199,14 +1196,7 @@ class _MigrationWizardState extends State<_MigrationWizard> {
             ],
           )
         else ...[
-          Text(
-            voiceText(
-              context,
-              'These still point at {satellite}. Edit them in Home Assistant '
-              'to use this kiosk\'s satellite. The wizard does not change '
-              'them.',
-            ).replaceAll('{satellite}', satellite),
-          ),
+          Text(l10n(context).voiceMigrationStillPoint(satellite)),
           const SizedBox(height: 8),
           for (final item in items)
             ListTile(
@@ -1349,8 +1339,8 @@ class _MigrationWizardState extends State<_MigrationWizard> {
                           'from HACS.',
                         )
                 : widget.onboarding
-                ? '${result['error'] ?? ''}'
-                : '${result['error'] ?? ''} ${voiceText(context, 'Voice Satellite runs from the dashboard again.')}',
+                ? voiceText(context, '${result['error'] ?? ''}')
+                : '${voiceText(context, '${result['error'] ?? ''}')} ${voiceText(context, 'Voice Satellite runs from the dashboard again.')}',
             textAlign: TextAlign.center,
           ),
         ],

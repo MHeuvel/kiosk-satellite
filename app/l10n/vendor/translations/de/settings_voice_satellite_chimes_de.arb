@@ -14,5 +14,7 @@
   "voiceChimeTimerTitle": "Timer-Ton",
   "voiceChimeTimerDescription": "Wird wiederholt abgespielt, wenn ein Timer abläuft, bis du ihn schließt.",
   "voiceChimeAnnounceTitle": "Ansageton",
-  "voiceChimeAnnounceDescription": "Wird vor einer Voice-Satellite-Ansage abgespielt, außer die Ansage enthält bereits einen eigenen Ton."
+  "voiceChimeAnnounceDescription": "Wird vor einer Voice-Satellite-Ansage abgespielt, außer die Ansage enthält bereits einen eigenen Ton.",
+  "settingVoiceWakeSoundTitle": "Töne abspielen",
+  "settingVoiceWakeSoundDescription": "Die Aktivierungs-, Fertig- und Fehlertöne."
 }

@@ -1,0 +1,17 @@
+{
+  "@@locale": "es",
+  "settingVoiceShowCommandTitle": "Mostrar lo que dijiste",
+  "settingVoiceShowCommandDescription": "Tu comando encima de la respuesta.",
+  "settingVoiceShowAnswerTitle": "Mostrar la respuesta",
+  "settingVoiceShowAnswerDescription": "La respuesta mientras se pronuncia.",
+  "settingVoiceShowToolsTitle": "Mostrar el uso de herramientas",
+  "settingVoiceShowToolsDescription": "Una línea por cada acción que realiza el asistente.",
+  "settingVoiceHideSentimentTagsTitle": "Ocultar etiquetas de sentimiento",
+  "settingVoiceHideSentimentTagsDescription": "Omite etiquetas como [happy] que añaden algunos asistentes.",
+  "settingVoiceAnswerLingerTitle": "Mantener la respuesta en pantalla",
+  "settingVoiceAnswerLingerDescription": "Después de pronunciar la respuesta.",
+  "settingVoiceResultsLingerTitle": "Mantener los resultados en pantalla",
+  "settingVoiceResultsLingerDescription": "Imágenes, el tiempo y otros resultados. Con 0 se mantienen hasta que los cierres.",
+  "settingVoiceAnnouncementLingerTitle": "Tiempo del anuncio",
+  "settingVoiceAnnouncementLingerDescription": "Después de pronunciar un anuncio."
+}

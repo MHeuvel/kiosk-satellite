@@ -11,5 +11,20 @@
   "voiceRateHelp": "Con qué frecuencia se actualiza la barra de actividad. Una frecuencia mayor se ve más fluida y usa más CPU.",
   "voiceScaleHelp": "El tamaño del texto del asistente en pantalla.",
   "voiceUpdateIntegration": "Actualiza la integración Voice Satellite en Home Assistant para controlar estos ajustes desde el kiosko.",
-  "voiceDashboardRequired": "Disponible mientras el kiosko muestra tu panel de control de Home Assistant."
+  "voiceDashboardRequired": "Disponible mientras el kiosko muestra tu panel de control de Home Assistant.",
+  "voiceSkinDefault": "Según el estilo",
+  "voiceBackground": "Fondo",
+  "voiceBackgroundHelp": "Cuánto se ve el panel de control a través del fondo.",
+  "voicePreview": "Vista previa",
+  "voicePreviewHelp": "Muestra el asistente en esta pantalla durante cinco segundos.",
+  "voicePreviewRemoteHelp": "Muestra el asistente en la pantalla del kiosko durante cinco segundos.",
+  "settingVoiceThemeTitle": "Tema",
+  "settingVoiceThemeDescription": "Automático sigue el tema de Home Assistant.",
+  "settingVoiceBackgroundDescription": "Cuánto se ve el panel de control a través del fondo. Según el estilo con -1.",
+  "settingVoiceTextScaleTitle": "Tamaño del texto",
+  "settingVoiceReactiveBarTitle": "Barra de actividad reactiva",
+  "settingVoiceReactiveBarDescription": "La barra sigue tu voz y la respuesta.",
+  "voicePreviewCommand": "¿Qué tiempo hace?",
+  "voicePreviewAnswer": "Ahora mismo está soleado y hace 22°, con una brisa ligera.",
+  "voicePreviewThumbAnswer": "Ahora mismo está soleado y hace 22°."
 }

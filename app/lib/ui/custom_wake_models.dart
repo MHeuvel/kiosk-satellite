@@ -23,6 +23,43 @@ const customWakeEngineLabels = {
   'vswakeword': 'vsWakeWord',
 };
 
+/// Why a custom model file was refused, in the kiosk's language: the store
+/// sends its message's code and values beside the English, which stays for
+/// what has no code (an error from the model's loader).
+String wakeModelReason(BuildContext context, Map<Object?, Object?> file) {
+  final strings = l10n(context);
+  final values = file['values'];
+  String v(String key) => values is Map ? '${values[key] ?? ''}' : '';
+  return switch (file['code']) {
+    'voiceModelNotFileName' => strings.voiceModelNotFileName,
+    'voiceModelBadExtension' => strings.voiceModelBadExtension,
+    'voiceModelTooLarge' => strings.voiceModelTooLarge(v('name')),
+    'voiceModelIncomplete' => strings.voiceModelIncomplete(v('name')),
+    'voiceModelBadJson' => strings.voiceModelBadJson(v('file')),
+    'voiceModelNotManifest' => strings.voiceModelNotManifest(v('file')),
+    'voiceModelMwwNeedsTflite' => strings.voiceModelMwwNeedsTflite(v('file')),
+    'voiceModelMwwBadManifest' => strings.voiceModelMwwBadManifest(v('file')),
+    'voiceModelVswwNeedsOnnx' => strings.voiceModelVswwNeedsOnnx(v('file')),
+    'voiceModelVswwBadManifest' => strings.voiceModelVswwBadManifest(v('file')),
+    'voiceModelUnknownManifest' => strings.voiceModelUnknownManifest(v('file')),
+    'voiceModelNoModelFile' => strings.voiceModelNoModelFile(v('name')),
+    'voiceModelBothFormats' => strings.voiceModelBothFormats(
+      v('onnx'),
+      v('tflite'),
+    ),
+    'voiceModelNotOwwTflite' => strings.voiceModelNotOwwTflite(
+      v('file'),
+      v('json'),
+    ),
+    'voiceModelNotTflite' => strings.voiceModelNotTflite,
+    'voiceModelNotOnnx' => strings.voiceModelNotOnnx,
+    'voiceModelNotOww' => strings.voiceModelNotOww,
+    'voiceModelOwwWindow' => strings.voiceModelOwwWindow,
+    'voiceModelNoLoad' => strings.voiceModelNoLoad(v('error')),
+    _ => '${file['reason'] ?? ''}',
+  };
+}
+
 /// The Custom Models group on the Voice Satellite Wake Word page: the models
 /// added to the kiosk, a way to add more and the documentation. The remote
 /// admin draws the same group from customWakeModels.
@@ -92,7 +129,7 @@ class _CustomWakeModelsGroupState extends State<CustomWakeModelsGroup> {
       showToast(
         context,
         title: voiceText(context, 'The models were not added.'),
-        message: r.error ?? '',
+        message: voiceText(context, r.error ?? ''),
         kind: ToastKind.error,
       );
       return;
@@ -107,7 +144,7 @@ class _CustomWakeModelsGroupState extends State<CustomWakeModelsGroup> {
             : voiceText(context, 'Some files were not added.'),
         message: {
           for (final f in rejected)
-            if (f is Map) '${f['file']}: ${f['reason']}',
+            if (f is Map) '${f['file']}: ${wakeModelReason(context, f)}',
         }.join('\n'),
         kind: ToastKind.error,
         // Long enough to read each file's reason.
@@ -151,7 +188,7 @@ class _CustomWakeModelsGroupState extends State<CustomWakeModelsGroup> {
       showToast(
         context,
         title: voiceText(context, 'The model was not deleted.'),
-        message: r.error ?? '',
+        message: voiceText(context, r.error ?? ''),
         kind: ToastKind.error,
       );
     }

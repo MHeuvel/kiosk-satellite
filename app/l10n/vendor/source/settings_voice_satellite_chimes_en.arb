@@ -194,5 +194,15 @@
         "Voice Satellite > Chimes"
       ]
     }
+  },
+  "settingVoiceWakeSoundTitle": "Play chimes",
+  "@settingVoiceWakeSoundTitle": {
+    "context": "Settings > Voice Satellite > Chimes",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceWakeSoundDescription": "The wake, done and error sounds.",
+  "@settingVoiceWakeSoundDescription": {
+    "context": "Settings > Voice Satellite > Chimes",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   }
 }

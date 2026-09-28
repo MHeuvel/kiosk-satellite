@@ -12,5 +12,14 @@
   "setupNativeWakeWord": "Détection native du mot de réveil",
   "setupPullRefresh": "Actualisation par glissement",
   "setupAutoplay": "Lecture automatique de l'audio et de la vidéo",
-  "setupVoiceSkipped": "Non installé, ignoré"
+  "setupVoiceSkipped": "Non installé, ignoré",
+  "setupVoiceLead": "Transformez ce kiosque en assistant vocal pour Home Assistant. Tout peut être modifié plus tard.",
+  "setupVoiceAddHint": "Après la configuration, ajoutez ce kiosque dans Home Assistant sous Paramètres, Appareils et services, où il apparaît comme découvert.",
+  "setupRecommendedWall": "Les réglages adaptés à un kiosque mural.",
+  "setupVoiceFound": "Intégration Voice Satellite trouvée",
+  "setupVoiceFoundHelp": "Voice Satellite fonctionne désormais dans Kiosk Satellite. Migrez pour conserver les mots de réveil, l'assistant et l'apparence de l'un des satellites de l'intégration au lieu de repartir de zéro.",
+  "setupVoiceMigrated": "Migré depuis l'intégration Voice Satellite",
+  "setupVoiceMigratedHelp": "Ce kiosque reprend les réglages de son satellite.",
+  "setupVoicePipelineHelp": "Le pipeline Assist qui répond au mot de réveil.",
+  "setupVoiceEngineHelp": "Le moteur qui écoute le mot de réveil."
 }

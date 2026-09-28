@@ -14,5 +14,7 @@
   "voiceChimeTimerTitle": "Sonido del temporizador",
   "voiceChimeTimerDescription": "Se repite cuando termina un temporizador hasta que lo cierres.",
   "voiceChimeAnnounceTitle": "Sonido de anuncio",
-  "voiceChimeAnnounceDescription": "Se reproduce antes de un anuncio de Voice Satellite, salvo que el anuncio incluya su propio sonido."
+  "voiceChimeAnnounceDescription": "Se reproduce antes de un anuncio de Voice Satellite, salvo que el anuncio incluya su propio sonido.",
+  "settingVoiceWakeSoundTitle": "Reproducir sonidos",
+  "settingVoiceWakeSoundDescription": "Los sonidos de activación, fin y error."
 }

@@ -1,0 +1,19 @@
+{
+  "@@locale": "de",
+  "settingVoiceTimerPillsTitle": "Timer-Anzeigen einblenden",
+  "settingVoiceTimerPillsDescription": "Laufende Timer schweben über dem Bildschirm. Zieh sie an eine beliebige Stelle.",
+  "settingVoiceTimerNameInPillTitle": "Timer-Namen anzeigen",
+  "settingVoiceTimerNameInPillDescription": "Der Name neben der Zeit in einer Anzeige.",
+  "settingVoiceTimerPillScaleTitle": "Größe der Timer-Anzeigen",
+  "settingVoiceTimerPillScaleDescription": "Die Größe der Timer-Anzeigen.",
+  "settingVoiceMuteTimersTitle": "Timer-Alarme stummschalten",
+  "settingVoiceMuteTimersDescription": "Zeigt den Alarm ohne Ton.",
+  "settingVoiceTimerNameOnAlertTitle": "Namen im Alarm anzeigen",
+  "settingVoiceTimerNameOnAlertDescription": "Der Timer-Name unter dem Alarm.",
+  "settingVoiceTimerSpeakTitle": "Ansage, wenn ein Timer abläuft",
+  "settingVoiceTimerSpeakDescription": "Spricht einen Satz zwischen den Alarmtönen.",
+  "settingVoiceTimerPhraseTitle": "Satz",
+  "settingVoiceTimerPhraseDescription": "Wird bei einem Timer ohne Namen gesprochen.",
+  "settingVoiceTimerNamedPhraseTitle": "Satz für benannte Timer",
+  "settingVoiceTimerNamedPhraseDescription": "{name} wird durch den Namen des Timers ersetzt."
+}

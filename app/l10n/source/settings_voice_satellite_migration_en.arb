@@ -1,0 +1,256 @@
+{
+  "@@locale": "en",
+  "voiceMigrationTitle": "Migrate Voice Satellite",
+  "@voiceMigrationTitle": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationPick": "Pick the Voice Satellite integration's satellite this kiosk takes over. Its settings come over to this kiosk.",
+  "@voiceMigrationPick": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationNoSatellites": "The Voice Satellite integration has no satellites.",
+  "@voiceMigrationNoSatellites": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationIntro": "This kiosk becomes the voice satellite itself. The Voice Satellite integration is not needed after this.",
+  "@voiceMigrationIntro": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationCheckAgain": "Check again",
+  "@voiceMigrationCheckAgain": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCheckHaBad": "Not connected. Check Home Assistant Setup.",
+  "@voiceCheckHaBad": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCheckEsphome": "This kiosk in Home Assistant",
+  "@voiceCheckEsphome": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCheckEsphomeOk": "Added through ESPHome.",
+  "@voiceCheckEsphomeOk": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCheckEsphomeBad": "Not added yet. Home Assistant lists this kiosk as discovered under Settings, Devices & services. Add it there, then come back.",
+  "@voiceCheckEsphomeBad": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCheckEsphomeOff": "The ESPHome server is off. Turn it on, then add this kiosk in Home Assistant.",
+  "@voiceCheckEsphomeOff": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCheckAdmin": "Administrator token",
+  "@voiceCheckAdmin": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCheckAdminOk": "Tool use and results will show.",
+  "@voiceCheckAdminOk": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCheckAdminBad": "The token is a regular user's. Voice Satellite works, tool use and results will not show.",
+  "@voiceCheckAdminBad": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCheckMicOk": "Allowed.",
+  "@voiceCheckMicOk": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCheckMicBad": "Not allowed. Grant it under Required system permissions.",
+  "@voiceCheckMicBad": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceTurnOnEsphome": "Turn on ESPHome",
+  "@voiceTurnOnEsphome": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationPlan": "Settings to bring over",
+  "@voiceMigrationPlan": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceGroupVoice": "Voice",
+  "@voiceGroupVoice": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationNotCarried": "Not carried over: custom CSS, the browser microphone processing and the conversation memory length. Custom microWakeWord models work from config/custom_wake_words in Home Assistant.",
+  "@voiceMigrationNotCarried": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationAutomations": "Automations and scripts",
+  "@voiceMigrationAutomations": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationNoAutomations": "Nothing in Home Assistant points at the old satellite.",
+  "@voiceMigrationNoAutomations": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceKindAutomation": "Automation",
+  "@voiceKindAutomation": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceKindScript": "Script",
+  "@voiceKindScript": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationReady": "Ready to switch",
+  "@voiceMigrationReady": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationReady1": "This kiosk listens, answers and draws the overlay.",
+  "@voiceMigrationReady1": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationReadyOnboarding": "Its Assistant and wake words are set once Home Assistant adds this kiosk.",
+  "@voiceMigrationReadyOnboarding": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationReady2": "The dashboard stops running Voice Satellite on this kiosk.",
+  "@voiceMigrationReady2": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationReady3": "The old satellite stays in Home Assistant, unused.",
+  "@voiceMigrationReady3": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationSwitch": "Switch now",
+  "@voiceMigrationSwitch": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationSwitching": "Switching…",
+  "@voiceMigrationSwitching": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationDone": "Voice Satellite runs here now",
+  "@voiceMigrationDone": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCouldNotSwitch": "Could not switch",
+  "@voiceCouldNotSwitch": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationDoneOnboarding": "Finish the setup, then add this kiosk in Home Assistant. Once no other device uses the Voice Satellite integration, uninstall it from HACS.",
+  "@voiceMigrationDoneOnboarding": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationDoneHelp": "Say the wake word to try it. Once no other device uses the Voice Satellite integration, uninstall it from HACS.",
+  "@voiceMigrationDoneHelp": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationRolledBack": "Voice Satellite runs from the dashboard again.",
+  "@voiceMigrationRolledBack": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceDone": "Done",
+  "@voiceDone": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceTryAgain": "Try again",
+  "@voiceTryAgain": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceStepSave": "Save the settings",
+  "@voiceStepSave": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceStepStop": "Stop the dashboard engine",
+  "@voiceStepStop": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceStepStart": "Start listening here",
+  "@voiceStepStart": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceStepTurnOn": "Turn on Voice Satellite on this kiosk",
+  "@voiceStepTurnOn": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceStepEntities": "Set the kiosk's entities in Home Assistant",
+  "@voiceStepEntities": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceStepCheck": "Check the satellite in Home Assistant",
+  "@voiceStepCheck": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationStep": "Step {n} of {total}",
+  "@voiceMigrationStep": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "n": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceMigrationStillPoint": "These still point at {satellite}. Edit them in Home Assistant to use this kiosk's satellite. The wizard does not change them.",
+  "@voiceMigrationStillPoint": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "satellite": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceMigrationNotUp": "The satellite did not come up in time.",
+  "@voiceMigrationNotUp": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationNotReported": "Home Assistant did not report the satellite.",
+  "@voiceMigrationNotReported": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationBusy": "A migration is already running.",
+  "@voiceMigrationBusy": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  }
+}

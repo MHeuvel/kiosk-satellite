@@ -1,0 +1,9 @@
+{
+  "@@locale": "uk",
+  "voiceFinancialOpen": "Відкриття: {value}",
+  "voiceFinancialHigh": "Максимум: {value}",
+  "voiceFinancialLow": "Мінімум: {value}",
+  "voiceFinancialHigh24h": "Максимум за 24 год: {value}",
+  "voiceFinancialLow24h": "Мінімум за 24 год: {value}",
+  "voiceFinancialMarketCap": "Капіталізація: {value}"
+}

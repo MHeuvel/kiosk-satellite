@@ -18412,6 +18412,222 @@ abstract class UiStrings {
   /// **'Available while the kiosk is showing your Home Assistant dashboard.'**
   String get voiceDashboardRequired;
 
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Skin default'**
+  String get voiceSkinDefault;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Background'**
+  String get voiceBackground;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'How much of the dashboard shows through.'**
+  String get voiceBackgroundHelp;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview'**
+  String get voicePreview;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Show the overlay on this screen for five seconds.'**
+  String get voicePreviewHelp;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Show the overlay on the kiosk screen for five seconds.'**
+  String get voicePreviewRemoteHelp;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get settingVoiceThemeTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto follows the Home Assistant theme.'**
+  String get settingVoiceThemeDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'How much of the dashboard shows through. Skin default at -1.'**
+  String get settingVoiceBackgroundDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Text size'**
+  String get settingVoiceTextScaleTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Reactive activity bar'**
+  String get settingVoiceReactiveBarTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The bar follows your voice and the answer.'**
+  String get settingVoiceReactiveBarDescription;
+
+  /// Sample text the overlay preview shows. Adapt the temperature to the units your readers use.
+  ///
+  /// In en, this message translates to:
+  /// **'What is the weather?'**
+  String get voicePreviewCommand;
+
+  /// Sample text the overlay preview shows. Adapt the temperature to the units your readers use.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunny and 72° right now, with a light breeze.'**
+  String get voicePreviewAnswer;
+
+  /// Sample text the overlay preview shows. Adapt the temperature to the units your readers use.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunny and 72° right now.'**
+  String get voicePreviewThumbAnswer;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Assistant 1'**
+  String get voiceAssistant1;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Answers wake word 1.'**
+  String get voiceAssistant1Help;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Assistant 2'**
+  String get voiceAssistant2;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Answers wake word 2.'**
+  String get voiceAssistant2Help;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Pipelines'**
+  String get voicePipelines;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferred'**
+  String get voicePreferred;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get voiceNone;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'This kiosk'**
+  String get voiceThisKiosk;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not change it in Home Assistant.'**
+  String get voiceSelectFailed;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk right after the wake word'**
+  String get settingVoiceSeamlessWakeTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip the wake sound and keep what you say right after the wake word.'**
+  String get settingVoiceSeamlessWakeDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow-up delay'**
+  String get settingVoiceFollowupDelayTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'A pause before listening for the answer to a question.'**
+  String get settingVoiceFollowupDelayDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Chime before a follow-up'**
+  String get settingVoiceFollowupChimeTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Play the wake sound when it starts listening again.'**
+  String get settingVoiceFollowupChimeDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Play sounds on'**
+  String get settingVoiceTtsOutputTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Chimes, answers, announcements and timer alerts play on this speaker.'**
+  String get settingVoiceTtsOutputDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Play as'**
+  String get settingVoiceTtsOutputModeTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'An announcement lets the speaker pause its music and resume it. Normal playback starts the music again afterward, for speakers that ignore announcements.'**
+  String get settingVoiceTtsOutputModeDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcement'**
+  String get voiceOptionAnnouncement;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Normal playback'**
+  String get voiceOptionNormalPlayback;
+
   /// Chime selection, playback or help shown on the device and in Remote Admin.
   ///
   /// In en, this message translates to:
@@ -18501,6 +18717,102 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Plays before a Voice Satellite announcement unless it supplies its own sound.'**
   String get voiceChimeAnnounceDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Play chimes'**
+  String get settingVoiceWakeSoundTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The wake, done and error sounds.'**
+  String get settingVoiceWakeSoundDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Show what you said'**
+  String get settingVoiceShowCommandTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Your command above the answer.'**
+  String get settingVoiceShowCommandDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Show the answer'**
+  String get settingVoiceShowAnswerTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The answer as it is spoken.'**
+  String get settingVoiceShowAnswerDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Show tool use'**
+  String get settingVoiceShowToolsTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'A line for each action the assistant takes.'**
+  String get settingVoiceShowToolsDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide sentiment tags'**
+  String get settingVoiceHideSentimentTagsTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave out tags like [happy] that some assistants add.'**
+  String get settingVoiceHideSentimentTagsDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the answer on screen'**
+  String get settingVoiceAnswerLingerTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'After the answer is spoken.'**
+  String get settingVoiceAnswerLingerDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep results on screen'**
+  String get settingVoiceResultsLingerTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Images, weather and other results. 0 keeps them until you dismiss them.'**
+  String get settingVoiceResultsLingerDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcement time'**
+  String get settingVoiceAnnouncementLingerTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'After an announcement is spoken.'**
+  String get settingVoiceAnnouncementLingerDescription;
 
   /// Label or help shown on the Voice Satellite main page.
   ///
@@ -18693,6 +19005,522 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Return to the previous app or home screen after a voice interaction brings Kiosk Satellite forward and finishes.'**
   String get settingWakeWordReturnToBackgroundDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Assistant'**
+  String get voiceAssistant;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Conversation'**
+  String get voiceConversation;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Timers'**
+  String get voiceTimers;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Pipelines, follow-ups'**
+  String get voiceAssistantHint;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'What the overlay shows and for how long'**
+  String get voiceConversationHint;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Pills, alerts, spoken reminders'**
+  String get voiceTimersHint;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow-up'**
+  String get voiceSectionFollowUp;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'How long it stays'**
+  String get voiceSectionLinger;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'On screen'**
+  String get voiceSectionOnScreen;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Pills'**
+  String get voiceSectionPills;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Speaker'**
+  String get voiceSectionSpeaker;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake word and command'**
+  String get voiceSectionWakeCommand;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'When a timer ends'**
+  String get voiceSectionTimerEnds;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The ESPHome server is off.'**
+  String get voiceStatusEsphomeOff;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'This kiosk is not added to Home Assistant yet.'**
+  String get voiceStatusNotAdded;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The microphone is muted.'**
+  String get voiceStatusMuted;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The wake word is not listening.'**
+  String get voiceStatusNotListening;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening for the wake word.'**
+  String get voiceStatusListening;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Not added'**
+  String get voiceWordNotAdded;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Muted'**
+  String get voiceWordMuted;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Busy'**
+  String get voiceWordBusy;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening'**
+  String get voiceWordListening;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Not listening'**
+  String get voiceWordNotListening;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Added'**
+  String get voiceWordAdded;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Add this kiosk under Settings, Devices & services in Home Assistant, where it shows up as discovered.'**
+  String get voiceHaAddHint;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on the ESPHome server so Home Assistant can add this kiosk as a satellite.'**
+  String get voiceHaEsphomeOff;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on'**
+  String get voiceTurnOn;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Run from the dashboard again'**
+  String get voiceRollbackTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Go back to the Voice Satellite integration. Nothing set here is lost.'**
+  String get voiceRollbackDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Run from the dashboard again?'**
+  String get voiceRollbackConfirm;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The dashboard runs Voice Satellite again through the integration, with the settings it had before. What you set here stays for next time.'**
+  String get voiceRollbackBody;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch back'**
+  String get voiceRollbackSwitch;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Satellite is currently installed as an integration in Home Assistant. Migrate to a native experience inside Kiosk Satellite.'**
+  String get voiceMigrateNotice;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Migrate'**
+  String get voiceMigrate;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Voice Satellite'**
+  String get settingVoiceEnabledTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Turns this kiosk into a voice assistant for Home Assistant through its ESPHome server.'**
+  String get settingVoiceEnabledDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Mute microphone'**
+  String get settingVoiceMuteTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop listening for the wake word.'**
+  String get settingVoiceMuteDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Migrate Voice Satellite'**
+  String get voiceMigrationTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the Voice Satellite integration\'s satellite this kiosk takes over. Its settings come over to this kiosk.'**
+  String get voiceMigrationPick;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The Voice Satellite integration has no satellites.'**
+  String get voiceMigrationNoSatellites;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'This kiosk becomes the voice satellite itself. The Voice Satellite integration is not needed after this.'**
+  String get voiceMigrationIntro;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Check again'**
+  String get voiceMigrationCheckAgain;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Not connected. Check Home Assistant Setup.'**
+  String get voiceCheckHaBad;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'This kiosk in Home Assistant'**
+  String get voiceCheckEsphome;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Added through ESPHome.'**
+  String get voiceCheckEsphomeOk;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Not added yet. Home Assistant lists this kiosk as discovered under Settings, Devices & services. Add it there, then come back.'**
+  String get voiceCheckEsphomeBad;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The ESPHome server is off. Turn it on, then add this kiosk in Home Assistant.'**
+  String get voiceCheckEsphomeOff;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrator token'**
+  String get voiceCheckAdmin;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Tool use and results will show.'**
+  String get voiceCheckAdminOk;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The token is a regular user\'s. Voice Satellite works, tool use and results will not show.'**
+  String get voiceCheckAdminBad;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowed.'**
+  String get voiceCheckMicOk;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Not allowed. Grant it under Required system permissions.'**
+  String get voiceCheckMicBad;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on ESPHome'**
+  String get voiceTurnOnEsphome;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings to bring over'**
+  String get voiceMigrationPlan;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice'**
+  String get voiceGroupVoice;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Not carried over: custom CSS, the browser microphone processing and the conversation memory length. Custom microWakeWord models work from config/custom_wake_words in Home Assistant.'**
+  String get voiceMigrationNotCarried;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Automations and scripts'**
+  String get voiceMigrationAutomations;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing in Home Assistant points at the old satellite.'**
+  String get voiceMigrationNoAutomations;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Automation'**
+  String get voiceKindAutomation;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Script'**
+  String get voiceKindScript;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready to switch'**
+  String get voiceMigrationReady;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'This kiosk listens, answers and draws the overlay.'**
+  String get voiceMigrationReady1;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Its Assistant and wake words are set once Home Assistant adds this kiosk.'**
+  String get voiceMigrationReadyOnboarding;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The dashboard stops running Voice Satellite on this kiosk.'**
+  String get voiceMigrationReady2;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The old satellite stays in Home Assistant, unused.'**
+  String get voiceMigrationReady3;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch now'**
+  String get voiceMigrationSwitch;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Switching…'**
+  String get voiceMigrationSwitching;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Satellite runs here now'**
+  String get voiceMigrationDone;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not switch'**
+  String get voiceCouldNotSwitch;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish the setup, then add this kiosk in Home Assistant. Once no other device uses the Voice Satellite integration, uninstall it from HACS.'**
+  String get voiceMigrationDoneOnboarding;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Say the wake word to try it. Once no other device uses the Voice Satellite integration, uninstall it from HACS.'**
+  String get voiceMigrationDoneHelp;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Satellite runs from the dashboard again.'**
+  String get voiceMigrationRolledBack;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get voiceDone;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get voiceTryAgain;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Save the settings'**
+  String get voiceStepSave;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop the dashboard engine'**
+  String get voiceStepStop;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Start listening here'**
+  String get voiceStepStart;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on Voice Satellite on this kiosk'**
+  String get voiceStepTurnOn;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Set the kiosk\'s entities in Home Assistant'**
+  String get voiceStepEntities;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Check the satellite in Home Assistant'**
+  String get voiceStepCheck;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {n} of {total}'**
+  String voiceMigrationStep(String n, String total);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'These still point at {satellite}. Edit them in Home Assistant to use this kiosk\'s satellite. The wizard does not change them.'**
+  String voiceMigrationStillPoint(String satellite);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The satellite did not come up in time.'**
+  String get voiceMigrationNotUp;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant did not report the satellite.'**
+  String get voiceMigrationNotReported;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'A migration is already running.'**
+  String get voiceMigrationBusy;
 
   /// Label or help shown on the Voice Satellite main page.
   ///
@@ -18939,6 +19767,102 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Play last 10 seconds'**
   String get voiceTesterPlayRecent;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Show timer pills'**
+  String get settingVoiceTimerPillsTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Running timers float over the screen. Drag them anywhere.'**
+  String get settingVoiceTimerPillsDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Show the timer name'**
+  String get settingVoiceTimerNameInPillTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The name beside the time in a pill.'**
+  String get settingVoiceTimerNameInPillDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Timer pill scale'**
+  String get settingVoiceTimerPillScaleTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The size of the timer pills.'**
+  String get settingVoiceTimerPillScaleDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Mute timer alerts'**
+  String get settingVoiceMuteTimersTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Show the alert without the sound.'**
+  String get settingVoiceMuteTimersDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Show the name on the alert'**
+  String get settingVoiceTimerNameOnAlertTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The timer name under the alert.'**
+  String get settingVoiceTimerNameOnAlertDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Speak when a timer ends'**
+  String get settingVoiceTimerSpeakTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Say a phrase between the alert sounds.'**
+  String get settingVoiceTimerSpeakDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Phrase'**
+  String get settingVoiceTimerPhraseTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Spoken for a timer without a name.'**
+  String get settingVoiceTimerPhraseDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Phrase for named timers'**
+  String get settingVoiceTimerNamedPhraseTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} is replaced with the timer name.'**
+  String settingVoiceTimerNamedPhraseDescription(String name);
 
   /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
   ///
@@ -19191,6 +20115,264 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Heard'**
   String get voiceDiagnosticsHeard;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'A second wake word, answered by Assistant 2.'**
+  String get voiceWake2HelpNative;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Models'**
+  String get voiceCustomModels;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'No custom models yet.'**
+  String get voiceCustomNone;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The fleet leader manages the custom models on this kiosk.'**
+  String get voiceCustomManaged;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Add models'**
+  String get voiceCustomAdd;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the files of one or more models. They show up in Wake word 1 and 2 above.'**
+  String get voiceCustomAddHelp;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'How to add custom models'**
+  String get voiceCustomDocs;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The files each engine needs and where the models come from.'**
+  String get voiceCustomDocsHelp;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The models were not added.'**
+  String get voiceCustomNotAdded;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Some files were not added.'**
+  String get voiceCustomSomeNotAdded;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Models added.'**
+  String get voiceCustomAdded;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this model?'**
+  String get voiceCustomDeleteConfirm;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The model was not deleted.'**
+  String get voiceCustomNotDeleted;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'not the engine in use'**
+  String get voiceCustomOtherEngine;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Which engine listens. All models ship with the app.'**
+  String get settingVoiceWakeWordEngineDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake word sensitivity'**
+  String get settingVoiceWakeWordSensitivityTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'How easily the wake word triggers.'**
+  String get settingVoiceWakeWordSensitivityDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake word noise gate'**
+  String get settingVoiceNoiseGateTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip wake word inference while the room is quiet, saving CPU.'**
+  String get settingVoiceNoiseGateDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop word interruption'**
+  String get settingVoiceStopWordTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Say \"stop\" to cut off an answer, a timer alert or an announcement.'**
+  String get settingVoiceStopWordDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Slightly sensitive'**
+  String get voiceOptionSlightly;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderately sensitive'**
+  String get voiceOptionModerately;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Very sensitive'**
+  String get voiceOptionVery;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Not a file name.'**
+  String get voiceModelNotFileName;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Only .json, .tflite and .onnx files are models.'**
+  String get voiceModelBadExtension;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} is larger than 64 MB.'**
+  String voiceModelTooLarge(String name);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} arrived incomplete.'**
+  String voiceModelIncomplete(String name);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{file} is not valid JSON.'**
+  String voiceModelBadJson(String file);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{file} is not a manifest.'**
+  String voiceModelNotManifest(String file);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'A microWakeWord model needs {file} too.'**
+  String voiceModelMwwNeedsTflite(String file);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{file} is not a valid microWakeWord manifest.'**
+  String voiceModelMwwBadManifest(String file);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'A vsWakeWord model needs {file} too.'**
+  String voiceModelVswwNeedsOnnx(String file);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{file} is not a valid vsWakeWord manifest.'**
+  String voiceModelVswwBadManifest(String file);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{file} is neither a microWakeWord nor a vsWakeWord manifest.'**
+  String voiceModelUnknownManifest(String file);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'No model file for {name}.'**
+  String voiceModelNoModelFile(String name);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Add either {onnx} or {tflite}, not both.'**
+  String voiceModelBothFormats(String onnx, String tflite);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{file} is not an openWakeWord model. A microWakeWord model needs its {json} too.'**
+  String voiceModelNotOwwTflite(String file, String json);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Not a TFLite model.'**
+  String get voiceModelNotTflite;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Not an ONNX model.'**
+  String get voiceModelNotOnnx;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Not an openWakeWord model.'**
+  String get voiceModelNotOww;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Not an openWakeWord model: it does not take the 16 x 96 embedding window.'**
+  String get voiceModelOwwWindow;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The model does not load: {error}'**
+  String voiceModelNoLoad(String error);
 
   /// Setting label.
   ///
@@ -19888,6 +21070,60 @@ abstract class UiStrings {
   /// **'Not installed, skipped'**
   String get setupVoiceSkipped;
 
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn this kiosk into a voice assistant for Home Assistant. Everything can be changed later.'**
+  String get setupVoiceLead;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'After setup, add this kiosk in Home Assistant under Settings, Devices & services, where it shows up as discovered.'**
+  String get setupVoiceAddHint;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The settings that suit a kiosk on the wall.'**
+  String get setupRecommendedWall;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Satellite integration found'**
+  String get setupVoiceFound;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Satellite now runs inside Kiosk Satellite. Migrate to keep the wake words, assistant and look of one of the integration\'s satellites instead of starting fresh.'**
+  String get setupVoiceFoundHelp;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Migrated from the Voice Satellite integration'**
+  String get setupVoiceMigrated;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'This kiosk takes over its satellite\'s settings.'**
+  String get setupVoiceMigratedHelp;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The Assist pipeline that answers the wake word.'**
+  String get setupVoicePipelineHelp;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The engine that listens for the wake word.'**
+  String get setupVoiceEngineHelp;
+
   /// Remote administration section heading and step summary.
   ///
   /// In en, this message translates to:
@@ -20097,6 +21333,150 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Pick an MP3, OGG, WAV, FLAC, M4A or AAC file.'**
   String get intercomSoundFormats;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Satellite error'**
+  String get voiceNoticeError;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Satellite warning'**
+  String get voiceNoticeWarning;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Satellite notice'**
+  String get voiceNoticeNotice;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Text-to-speech'**
+  String get voiceNoticeTts;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Assist pipeline'**
+  String get voiceNoticeAssistPipeline;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Pipeline \"{name}\"'**
+  String voiceNoticePipeline(String name);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The microphone is not available.'**
+  String get voiceNoticeMicUnavailable;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant is not connected to this kiosk.'**
+  String get voiceNoticeNotConnected;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Lost connection to Home Assistant. Reconnecting automatically.'**
+  String get voiceNoticeConnectionLost;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio could not be played on the device.'**
+  String get voiceNoticePlayback;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'No response from Home Assistant after you finished speaking. The pipeline may be stuck.'**
+  String get voiceNoticeWatchdog;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant could not start the assistant.'**
+  String get voiceNoticeRefused;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'An unexpected pipeline error occurred.'**
+  String get voiceNoticeUnexpected;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone access is blocked. Allow it for Kiosk Satellite in the Android settings.'**
+  String get voiceNoticeMicBlocked;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone access was declined, so the wake word cannot be heard.'**
+  String get voiceNoticeMicDeclined;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The microphone stopped working.'**
+  String get voiceNoticeMicLost;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The wake word models could not be loaded.'**
+  String get voiceNoticeModels;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The wake word detector kept crashing on this device, so it was stopped.'**
+  String get voiceNoticeCrashed;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Open: {value}'**
+  String voiceFinancialOpen(String value);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'High: {value}'**
+  String voiceFinancialHigh(String value);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Low: {value}'**
+  String voiceFinancialLow(String value);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'24h High: {value}'**
+  String voiceFinancialHigh24h(String value);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'24h Low: {value}'**
+  String voiceFinancialLow24h(String value);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'MCap: {value}'**
+  String voiceFinancialMarketCap(String value);
 
   /// Label for a timer that has no custom name.
   ///

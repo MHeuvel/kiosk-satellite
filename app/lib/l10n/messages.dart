@@ -63,11 +63,21 @@ class MessageDelegate extends LocalizationsDelegate<UiStrings> {
 }
 
 extension LocalizedSetting on SettingDef<Object> {
-  String localizedTitle(BuildContext context) =>
-      messageById(l10n(context), titleMessageId, title);
+  String localizedTitle(BuildContext context) => switch (key) {
+    'voice.timer_named_phrase' => l10n(
+      context,
+    ).settingVoiceTimerNamedPhraseTitle,
+    _ => messageById(l10n(context), titleMessageId, title),
+  };
 
-  String localizedDescription(BuildContext context) =>
-      messageById(l10n(context), descriptionMessageId, description);
+  String localizedDescription(BuildContext context) => switch (key) {
+    // Its description shows the {name} token itself, which a settings
+    // message cannot carry: the token goes in as the placeholder's value.
+    'voice.timer_named_phrase' => l10n(
+      context,
+    ).settingVoiceTimerNamedPhraseDescription('{name}'),
+    _ => messageById(l10n(context), descriptionMessageId, description),
+  };
 }
 
 /// Translate menu presentation while keeping category and route keys stable.

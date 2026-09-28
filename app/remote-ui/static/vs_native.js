@@ -1,5 +1,4 @@
 import { t, voiceText, voiceVadOption } from './localization.js';
-import { voiceTextMessageIds } from './voice_text_ids.js';
 import { api, cmd } from './core.js';
 import { readOnlyRow } from './device.js';
 import { messageBox, modalShell, showToast } from './widgets.js';
@@ -31,10 +30,6 @@ const WAKE_ROWS = [
 ];
 const PAGES = ['Assistant', 'Wake Word', 'Appearance', 'Conversation', 'Timers', 'Chimes'];
 
-// voiceText for copy with placeholders.
-function voiceFormat(english, values) {
-  return t(voiceTextMessageIds[english], values, english);
-}
 
 function voiceRow(name, desc, value = '') {
   return readOnlyRow(voiceText(name), voiceText(desc), value, false);
@@ -383,7 +378,7 @@ function customModelsGroup() {
           });
           if (pick !== 'Delete') return;
           const r = await cmd('deleteCustomWakeModel', { engine: m.engine, id: m.id }).catch(() => null);
-          if (!r?.ok) showToast({ title: voiceText('The model was not deleted.'), message: r?.error || '', kind: 'error' });
+          if (!r?.ok) showToast({ title: voiceText('The model was not deleted.'), message: voiceText(r?.error || ''), kind: 'error' });
           refresh();
         });
         row.appendChild(del);
@@ -399,6 +394,8 @@ function customModelsGroup() {
     busy = true;
     addBtn.disabled = true;
     try {
+      // A file refused on the way in is left out; the rest still go up.
+      const refused = [];
       for (const [i, file] of files.entries()) {
         addBtn.textContent = `${i + 1}/${files.length}`;
         const res = await api(`/api/voice/wake-models/upload?name=${encodeURIComponent(file.name)}`,
@@ -406,17 +403,21 @@ function customModelsGroup() {
         const body = await res.json().catch(() => ({}));
         if (!res.ok || body.ok === false) {
           await cmd('commitCustomWakeModels', {}).catch(() => null);
-          throw new Error(`${file.name}: ${body.error || res.status}`);
+          throw new Error(`${file.name}: ${voiceText(`${body.error || res.status}`)}`);
         }
+        if (body.data?.rejected) refused.push(body.data.rejected);
       }
       const r = await cmd('commitCustomWakeModels', {}, { timeoutMs: 120000 });
-      const rejected = r.data?.rejected || [];
+      const rejected = [...refused, ...(r.data?.rejected || [])];
       const added = r.data?.added || [];
       if (!r.ok) throw new Error(r.error || '');
       if (rejected.length) {
         showToast({
           title: added.length ? voiceText('Some files were not added.') : voiceText('The models were not added.'),
-          message: [...new Set(rejected.map((f) => `${f.file}: ${f.reason}`))].join('\n'),
+          // The store sends each reason's message code and values; the
+          // English stays for what has none.
+          message: [...new Set(rejected.map((f) =>
+            `${f.file}: ${f.code ? t(f.code, f.values || {}, f.reason) : f.reason}`))].join('\n'),
           kind: 'error',
           // Long enough to read each file's reason, then it goes.
           duration: 8000,
@@ -553,7 +554,7 @@ export function openVsMigrationWizard({ onboarding = false } = {}) {
     }
     const label = document.createElement('span');
     label.style.cssText = 'font-size:12.5px; color:var(--muted); white-space:nowrap';
-    label.textContent = voiceFormat('Step {n} of {total}', { n: String(n), total: String(pages.length) });
+    label.textContent = t('voiceMigrationStep', { n: String(n), total: String(pages.length) }, 'Step {n} of {total}');
     bar.appendChild(label);
     return bar;
   };
@@ -677,8 +678,8 @@ export function openVsMigrationWizard({ onboarding = false } = {}) {
       else if (!items.length) {
         body.appendChild(iconLine('ok', 'var(--primary)', voiceText('Nothing in Home Assistant points at the old satellite.'), ''));
       } else {
-        body.appendChild(para(voiceFormat('These still point at {satellite}. Edit them in Home Assistant to use this kiosk\'s satellite. The wizard does not change them.',
-          { satellite: w.satellite })));
+        body.appendChild(para(t('voiceMigrationStillPoint', { satellite: w.satellite },
+          'These still point at {satellite}. Edit them in Home Assistant to use this kiosk\'s satellite. The wizard does not change them.')));
         for (const item of items) {
           const line = document.createElement('div');
           line.style.cssText = 'padding:8px 0; border-top:1px solid var(--divider)';
@@ -724,8 +725,8 @@ export function openVsMigrationWizard({ onboarding = false } = {}) {
           ? 'Finish the setup, then add this kiosk in Home Assistant. Once no other device uses the Voice Satellite integration, uninstall it from HACS.'
           : 'Say the wake word to try it. Once no other device uses the Voice Satellite integration, uninstall it from HACS.')
         : onboarding
-          ? `${w.result.error || ''}`
-          : `${w.result.error || ''} ${voiceText('Voice Satellite runs from the dashboard again.')}`.trim()));
+          ? voiceText(`${w.result.error || ''}`)
+          : `${voiceText(`${w.result.error || ''}`)} ${voiceText('Voice Satellite runs from the dashboard again.')}`.trim()));
       if (!ok) button('Close', 'btn-text', () => finish(false));
       button(ok ? 'Done' : 'Try again', 'btn-primary', () => {
         if (ok) { finish(true); return; }

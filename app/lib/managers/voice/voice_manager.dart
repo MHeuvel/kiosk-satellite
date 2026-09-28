@@ -212,9 +212,14 @@ class VoiceManager extends Manager {
   /// A sample turn for Preview.
   static const _previewView = AssistView(
     phase: AssistPhase.speaking,
-    command: 'What is the weather?',
-    answer: 'Sunny and 72° right now, with a light breeze.',
+    command: previewCommand,
+    answer: previewAnswer,
   );
+
+  /// The preview's sample turn, which the overlay shows in the kiosk's
+  /// language.
+  static const previewCommand = 'What is the weather?';
+  static const previewAnswer = 'Sunny and 72° right now, with a light breeze.';
 
   /// The overlay's frame rate while it is up, for voiceStatus: frames in
   /// the last window and their average build and raster times.
@@ -947,13 +952,21 @@ class VoiceManager extends Manager {
               await body.drain<void>();
               return const CommandResult.fail(_managedError);
             }
+            final name = '${p['name'] ?? ''}';
             try {
-              await _custom.stage(
-                '${p['name'] ?? ''}',
-                body,
-                (p['length'] as num?)?.toInt(),
-              );
+              await _custom.stage(name, body, (p['length'] as num?)?.toInt());
               return const CommandResult.ok();
+            } on WakeModelError catch (e) {
+              // Refused, not failed: the upload goes on with its other files
+              // and the page says why this one was left out.
+              return CommandResult.ok({
+                'rejected': RejectedWakeFile(
+                  name,
+                  e.english,
+                  code: e.code,
+                  values: e.values,
+                ).toJson(),
+              });
             } catch (e) {
               return fail(e);
             }
@@ -973,15 +986,31 @@ class VoiceManager extends Manager {
             if (await _modelsManaged()) {
               return const CommandResult.fail(_managedError);
             }
+            final refused = <Map<String, Object?>>[];
             try {
               for (final path in paths) {
-                await _custom.stageCopy('$path');
+                try {
+                  await _custom.stageCopy('$path');
+                } on WakeModelError catch (e) {
+                  refused.add(
+                    RejectedWakeFile(
+                      '$path'.split('/').last,
+                      e.english,
+                      code: e.code,
+                      values: e.values,
+                    ).toJson(),
+                  );
+                }
               }
             } catch (e) {
               await _custom.commit();
               return fail(e);
             }
-            return CommandResult.ok(await _custom.commit());
+            final result = await _custom.commit();
+            return CommandResult.ok({
+              ...result,
+              'rejected': [...refused, ...(result['rejected'] as List)],
+            });
           },
         ),
       )
@@ -1281,7 +1310,9 @@ class VoiceManager extends Manager {
     List<String> groups, {
     bool deferred = false,
   }) async {
-    if (_migrating) return {'ok': false, 'error': 'already migrating'};
+    if (_migrating) {
+      return {'ok': false, 'error': 'A migration is already running.'};
+    }
     _migrating = true;
     migrationSteps.value = [
       for (final id
@@ -1378,7 +1409,7 @@ class VoiceManager extends Manager {
       if (running['id']!.isNotEmpty) _step(running['id']!, 'failed');
       log.warn(name, 'migration failed, back to the dashboard: $e');
       if (!deferred) await rollback();
-      return {'ok': false, 'error': '$e'};
+      return {'ok': false, 'error': e is StateError ? e.message : '$e'};
     } finally {
       _migrating = false;
     }
@@ -2224,7 +2255,8 @@ class VoiceManager extends Manager {
         id: 'connection',
         severity: VoiceSeverity.error,
         category: 'Connection',
-        message: '$message Reconnecting automatically.',
+        message:
+            'Lost connection to Home Assistant. Reconnecting automatically.',
       ),
       'playback' => VoiceNotice(
         id: code,

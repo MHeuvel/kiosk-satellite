@@ -1,0 +1,21 @@
+{
+  "@@locale": "fr",
+  "voiceNoticeError": "Erreur Voice Satellite",
+  "voiceNoticeWarning": "Avertissement Voice Satellite",
+  "voiceNoticeNotice": "Avis Voice Satellite",
+  "voiceNoticeTts": "Synthèse vocale",
+  "voiceNoticeAssistPipeline": "Pipeline Assist",
+  "voiceNoticePipeline": "Pipeline « {name} »",
+  "voiceNoticeMicUnavailable": "Le microphone n'est pas disponible.",
+  "voiceNoticeNotConnected": "Home Assistant n'est pas connecté à ce kiosque.",
+  "voiceNoticeConnectionLost": "Connexion à Home Assistant perdue. Reconnexion automatique.",
+  "voiceNoticePlayback": "Impossible de lire l'audio sur l'appareil.",
+  "voiceNoticeWatchdog": "Aucune réponse de Home Assistant après la fin de votre phrase. Le pipeline est peut-être bloqué.",
+  "voiceNoticeRefused": "Home Assistant n'a pas pu démarrer l'assistant.",
+  "voiceNoticeUnexpected": "Une erreur inattendue s'est produite dans le pipeline.",
+  "voiceNoticeMicBlocked": "L'accès au microphone est bloqué. Autorisez-le pour Kiosk Satellite dans les paramètres Android.",
+  "voiceNoticeMicDeclined": "L'accès au microphone a été refusé, le mot de réveil ne peut donc pas être entendu.",
+  "voiceNoticeMicLost": "Le microphone a cessé de fonctionner.",
+  "voiceNoticeModels": "Impossible de charger les modèles de mot de réveil.",
+  "voiceNoticeCrashed": "Le détecteur du mot de réveil plantait sans cesse sur cet appareil, il a donc été arrêté."
+}

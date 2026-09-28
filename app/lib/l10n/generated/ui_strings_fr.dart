@@ -10817,6 +10817,128 @@ class UiStringsFr extends UiStrings {
       'Disponible tant que le kiosque affiche votre tableau de bord Home Assistant.';
 
   @override
+  String get voiceSkinDefault => 'Selon l\'habillage';
+
+  @override
+  String get voiceBackground => 'Arrière-plan';
+
+  @override
+  String get voiceBackgroundHelp =>
+      'La part du tableau de bord visible à travers.';
+
+  @override
+  String get voicePreview => 'Aperçu';
+
+  @override
+  String get voicePreviewHelp =>
+      'Affiche la superposition sur cet écran pendant cinq secondes.';
+
+  @override
+  String get voicePreviewRemoteHelp =>
+      'Affiche la superposition sur l\'écran du kiosque pendant cinq secondes.';
+
+  @override
+  String get settingVoiceThemeTitle => 'Thème';
+
+  @override
+  String get settingVoiceThemeDescription =>
+      'Auto suit le thème de Home Assistant.';
+
+  @override
+  String get settingVoiceBackgroundDescription =>
+      'La part du tableau de bord visible à travers. Selon l\'habillage à -1.';
+
+  @override
+  String get settingVoiceTextScaleTitle => 'Taille du texte';
+
+  @override
+  String get settingVoiceReactiveBarTitle => 'Barre d\'activité réactive';
+
+  @override
+  String get settingVoiceReactiveBarDescription =>
+      'La barre suit votre voix et la réponse.';
+
+  @override
+  String get voicePreviewCommand => 'Quel temps fait-il ?';
+
+  @override
+  String get voicePreviewAnswer =>
+      'Ensoleillé et 22° en ce moment, avec une légère brise.';
+
+  @override
+  String get voicePreviewThumbAnswer => 'Ensoleillé et 22° en ce moment.';
+
+  @override
+  String get voiceAssistant1 => 'Assistant 1';
+
+  @override
+  String get voiceAssistant1Help => 'Répond au mot de réveil 1.';
+
+  @override
+  String get voiceAssistant2 => 'Assistant 2';
+
+  @override
+  String get voiceAssistant2Help => 'Répond au mot de réveil 2.';
+
+  @override
+  String get voicePipelines => 'Pipelines';
+
+  @override
+  String get voicePreferred => 'Préféré';
+
+  @override
+  String get voiceNone => 'Aucun';
+
+  @override
+  String get voiceThisKiosk => 'Ce kiosque';
+
+  @override
+  String get voiceSelectFailed =>
+      'Impossible de le modifier dans Home Assistant.';
+
+  @override
+  String get settingVoiceSeamlessWakeTitle =>
+      'Parler juste après le mot de réveil';
+
+  @override
+  String get settingVoiceSeamlessWakeDescription =>
+      'Ignore le son de réveil et garde ce que vous dites juste après le mot de réveil.';
+
+  @override
+  String get settingVoiceFollowupDelayTitle => 'Délai avant le suivi';
+
+  @override
+  String get settingVoiceFollowupDelayDescription =>
+      'Une pause avant d\'écouter la réponse à une question.';
+
+  @override
+  String get settingVoiceFollowupChimeTitle => 'Son avant un suivi';
+
+  @override
+  String get settingVoiceFollowupChimeDescription =>
+      'Joue le son de réveil quand l\'écoute reprend.';
+
+  @override
+  String get settingVoiceTtsOutputTitle => 'Jouer les sons sur';
+
+  @override
+  String get settingVoiceTtsOutputDescription =>
+      'Les sons, réponses, annonces et alertes de minuteur sont joués sur cette enceinte.';
+
+  @override
+  String get settingVoiceTtsOutputModeTitle => 'Jouer comme';
+
+  @override
+  String get settingVoiceTtsOutputModeDescription =>
+      'Une annonce permet à l\'enceinte de mettre sa musique en pause et de la reprendre. La lecture normale relance la musique ensuite, pour les enceintes qui ignorent les annonces.';
+
+  @override
+  String get voiceOptionAnnouncement => 'Annonce';
+
+  @override
+  String get voiceOptionNormalPlayback => 'Lecture normale';
+
+  @override
   String get voiceChimesPage => 'Carillons';
 
   @override
@@ -10867,6 +10989,64 @@ class UiStringsFr extends UiStrings {
   @override
   String get voiceChimeAnnounceDescription =>
       'Joué avant une annonce de Voice Satellite, sauf si l\'annonce fournit son propre son.';
+
+  @override
+  String get settingVoiceWakeSoundTitle => 'Jouer les sons';
+
+  @override
+  String get settingVoiceWakeSoundDescription =>
+      'Les sons de réveil, de fin et d\'erreur.';
+
+  @override
+  String get settingVoiceShowCommandTitle => 'Afficher ce que vous avez dit';
+
+  @override
+  String get settingVoiceShowCommandDescription =>
+      'Votre commande au-dessus de la réponse.';
+
+  @override
+  String get settingVoiceShowAnswerTitle => 'Afficher la réponse';
+
+  @override
+  String get settingVoiceShowAnswerDescription =>
+      'La réponse au fur et à mesure qu\'elle est prononcée.';
+
+  @override
+  String get settingVoiceShowToolsTitle => 'Afficher l\'utilisation des outils';
+
+  @override
+  String get settingVoiceShowToolsDescription =>
+      'Une ligne pour chaque action de l\'assistant.';
+
+  @override
+  String get settingVoiceHideSentimentTagsTitle =>
+      'Masquer les balises d\'émotion';
+
+  @override
+  String get settingVoiceHideSentimentTagsDescription =>
+      'Omet les balises comme [happy] que certains assistants ajoutent.';
+
+  @override
+  String get settingVoiceAnswerLingerTitle => 'Garder la réponse à l\'écran';
+
+  @override
+  String get settingVoiceAnswerLingerDescription =>
+      'Après que la réponse a été prononcée.';
+
+  @override
+  String get settingVoiceResultsLingerTitle =>
+      'Garder les résultats à l\'écran';
+
+  @override
+  String get settingVoiceResultsLingerDescription =>
+      'Images, météo et autres résultats. 0 les garde jusqu\'à ce que vous les fermiez.';
+
+  @override
+  String get settingVoiceAnnouncementLingerTitle => 'Durée des annonces';
+
+  @override
+  String get settingVoiceAnnouncementLingerDescription =>
+      'Après qu\'une annonce a été prononcée.';
 
   @override
   String get voiceEngine => 'Moteur';
@@ -10978,6 +11158,297 @@ class UiStringsFr extends UiStrings {
   @override
   String get settingWakeWordReturnToBackgroundDescription =>
       'Revenir à l\'application précédente ou à l\'écran d\'accueil une fois qu\'une interaction vocale a ramené Kiosk Satellite au premier plan puis s\'est terminée.';
+
+  @override
+  String get voiceAssistant => 'Assistant';
+
+  @override
+  String get voiceConversation => 'Conversation';
+
+  @override
+  String get voiceTimers => 'Minuteurs';
+
+  @override
+  String get voiceAssistantHint => 'Pipelines, suivis';
+
+  @override
+  String get voiceConversationHint =>
+      'Ce que la superposition affiche et pendant combien de temps';
+
+  @override
+  String get voiceTimersHint => 'Pastilles, alertes, rappels vocaux';
+
+  @override
+  String get voiceSectionFollowUp => 'Suivi';
+
+  @override
+  String get voiceSectionLinger => 'Durée d\'affichage';
+
+  @override
+  String get voiceSectionOnScreen => 'À l\'écran';
+
+  @override
+  String get voiceSectionPills => 'Pastilles';
+
+  @override
+  String get voiceSectionSpeaker => 'Enceinte';
+
+  @override
+  String get voiceSectionWakeCommand => 'Mot de réveil et commande';
+
+  @override
+  String get voiceSectionTimerEnds => 'Quand un minuteur se termine';
+
+  @override
+  String get voiceStatusEsphomeOff => 'Le serveur ESPHome est désactivé.';
+
+  @override
+  String get voiceStatusNotAdded =>
+      'Ce kiosque n\'est pas encore ajouté à Home Assistant.';
+
+  @override
+  String get voiceStatusMuted => 'Le microphone est coupé.';
+
+  @override
+  String get voiceStatusNotListening => 'Le mot de réveil n\'écoute pas.';
+
+  @override
+  String get voiceStatusListening => 'À l\'écoute du mot de réveil.';
+
+  @override
+  String get voiceWordNotAdded => 'Non ajouté';
+
+  @override
+  String get voiceWordMuted => 'Coupé';
+
+  @override
+  String get voiceWordBusy => 'Occupé';
+
+  @override
+  String get voiceWordListening => 'À l\'écoute';
+
+  @override
+  String get voiceWordNotListening => 'N\'écoute pas';
+
+  @override
+  String get voiceWordAdded => 'Ajouté';
+
+  @override
+  String get voiceHaAddHint =>
+      'Ajoutez ce kiosque dans Paramètres, Appareils et services de Home Assistant, où il apparaît comme découvert.';
+
+  @override
+  String get voiceHaEsphomeOff =>
+      'Activez le serveur ESPHome pour que Home Assistant puisse ajouter ce kiosque comme satellite.';
+
+  @override
+  String get voiceTurnOn => 'Activer';
+
+  @override
+  String get voiceRollbackTitle => 'Revenir au tableau de bord';
+
+  @override
+  String get voiceRollbackDescription =>
+      'Revenir à l\'intégration Voice Satellite. Rien de ce qui est réglé ici n\'est perdu.';
+
+  @override
+  String get voiceRollbackConfirm => 'Revenir au tableau de bord ?';
+
+  @override
+  String get voiceRollbackBody =>
+      'Le tableau de bord exécute à nouveau Voice Satellite via l\'intégration, avec ses réglages précédents. Ce que vous réglez ici est conservé pour la prochaine fois.';
+
+  @override
+  String get voiceRollbackSwitch => 'Revenir';
+
+  @override
+  String get voiceMigrateNotice =>
+      'Voice Satellite est actuellement installé comme intégration dans Home Assistant. Migrez vers une expérience native dans Kiosk Satellite.';
+
+  @override
+  String get voiceMigrate => 'Migrer';
+
+  @override
+  String get settingVoiceEnabledTitle => 'Activer Voice Satellite';
+
+  @override
+  String get settingVoiceEnabledDescription =>
+      'Transforme ce kiosque en assistant vocal pour Home Assistant via son serveur ESPHome.';
+
+  @override
+  String get settingVoiceMuteTitle => 'Couper le microphone';
+
+  @override
+  String get settingVoiceMuteDescription =>
+      'Arrêter d\'écouter le mot de réveil.';
+
+  @override
+  String get voiceMigrationTitle => 'Migrer Voice Satellite';
+
+  @override
+  String get voiceMigrationPick =>
+      'Choisissez le satellite de l\'intégration Voice Satellite que ce kiosque remplace. Ses réglages sont repris sur ce kiosque.';
+
+  @override
+  String get voiceMigrationNoSatellites =>
+      'L\'intégration Voice Satellite n\'a aucun satellite.';
+
+  @override
+  String get voiceMigrationIntro =>
+      'Ce kiosque devient lui-même le satellite vocal. L\'intégration Voice Satellite n\'est plus nécessaire ensuite.';
+
+  @override
+  String get voiceMigrationCheckAgain => 'Vérifier à nouveau';
+
+  @override
+  String get voiceCheckHaBad =>
+      'Non connecté. Vérifiez la configuration de Home Assistant.';
+
+  @override
+  String get voiceCheckEsphome => 'Ce kiosque dans Home Assistant';
+
+  @override
+  String get voiceCheckEsphomeOk => 'Ajouté via ESPHome.';
+
+  @override
+  String get voiceCheckEsphomeBad =>
+      'Pas encore ajouté. Home Assistant affiche ce kiosque comme découvert dans Paramètres, Appareils et services. Ajoutez-le là-bas, puis revenez.';
+
+  @override
+  String get voiceCheckEsphomeOff =>
+      'Le serveur ESPHome est désactivé. Activez-le, puis ajoutez ce kiosque dans Home Assistant.';
+
+  @override
+  String get voiceCheckAdmin => 'Jeton administrateur';
+
+  @override
+  String get voiceCheckAdminOk =>
+      'L\'utilisation des outils et les résultats s\'afficheront.';
+
+  @override
+  String get voiceCheckAdminBad =>
+      'Le jeton est celui d\'un utilisateur standard. Voice Satellite fonctionne, mais l\'utilisation des outils et les résultats ne s\'afficheront pas.';
+
+  @override
+  String get voiceCheckMicOk => 'Autorisé.';
+
+  @override
+  String get voiceCheckMicBad =>
+      'Non autorisé. Accordez-le dans Autorisations système requises.';
+
+  @override
+  String get voiceTurnOnEsphome => 'Activer ESPHome';
+
+  @override
+  String get voiceMigrationPlan => 'Réglages à reprendre';
+
+  @override
+  String get voiceGroupVoice => 'Voix';
+
+  @override
+  String get voiceMigrationNotCarried =>
+      'Non repris : le CSS personnalisé, le traitement du microphone du navigateur et la durée de mémoire de la conversation. Les modèles microWakeWord personnalisés fonctionnent depuis config/custom_wake_words dans Home Assistant.';
+
+  @override
+  String get voiceMigrationAutomations => 'Automatisations et scripts';
+
+  @override
+  String get voiceMigrationNoAutomations =>
+      'Rien dans Home Assistant ne pointe vers l\'ancien satellite.';
+
+  @override
+  String get voiceKindAutomation => 'Automatisation';
+
+  @override
+  String get voiceKindScript => 'Script';
+
+  @override
+  String get voiceMigrationReady => 'Prêt à basculer';
+
+  @override
+  String get voiceMigrationReady1 =>
+      'Ce kiosque écoute, répond et affiche la superposition.';
+
+  @override
+  String get voiceMigrationReadyOnboarding =>
+      'Son Assistant et ses mots de réveil sont réglés dès que Home Assistant ajoute ce kiosque.';
+
+  @override
+  String get voiceMigrationReady2 =>
+      'Le tableau de bord n\'exécute plus Voice Satellite sur ce kiosque.';
+
+  @override
+  String get voiceMigrationReady3 =>
+      'L\'ancien satellite reste dans Home Assistant, inutilisé.';
+
+  @override
+  String get voiceMigrationSwitch => 'Basculer maintenant';
+
+  @override
+  String get voiceMigrationSwitching => 'Basculement…';
+
+  @override
+  String get voiceMigrationDone => 'Voice Satellite fonctionne maintenant ici';
+
+  @override
+  String get voiceCouldNotSwitch => 'Impossible de basculer';
+
+  @override
+  String get voiceMigrationDoneOnboarding =>
+      'Terminez la configuration, puis ajoutez ce kiosque dans Home Assistant. Quand plus aucun appareil n\'utilise l\'intégration Voice Satellite, désinstallez-la depuis HACS.';
+
+  @override
+  String get voiceMigrationDoneHelp =>
+      'Dites le mot de réveil pour l\'essayer. Quand plus aucun appareil n\'utilise l\'intégration Voice Satellite, désinstallez-la depuis HACS.';
+
+  @override
+  String get voiceMigrationRolledBack =>
+      'Voice Satellite fonctionne à nouveau depuis le tableau de bord.';
+
+  @override
+  String get voiceDone => 'Terminé';
+
+  @override
+  String get voiceTryAgain => 'Réessayer';
+
+  @override
+  String get voiceStepSave => 'Enregistrer les réglages';
+
+  @override
+  String get voiceStepStop => 'Arrêter le moteur du tableau de bord';
+
+  @override
+  String get voiceStepStart => 'Commencer l\'écoute ici';
+
+  @override
+  String get voiceStepTurnOn => 'Activer Voice Satellite sur ce kiosque';
+
+  @override
+  String get voiceStepEntities =>
+      'Régler les entités du kiosque dans Home Assistant';
+
+  @override
+  String get voiceStepCheck => 'Vérifier le satellite dans Home Assistant';
+
+  @override
+  String voiceMigrationStep(String n, String total) {
+    return 'Étape $n sur $total';
+  }
+
+  @override
+  String voiceMigrationStillPoint(String satellite) {
+    return 'Ceux-ci pointent encore vers $satellite. Modifiez-les dans Home Assistant pour utiliser le satellite de ce kiosque. L\'assistant ne les modifie pas.';
+  }
+
+  @override
+  String get voiceMigrationNotUp => 'Le satellite n\'a pas démarré à temps.';
+
+  @override
+  String get voiceMigrationNotReported =>
+      'Home Assistant n\'a pas signalé le satellite.';
+
+  @override
+  String get voiceMigrationBusy => 'Une migration est déjà en cours.';
 
   @override
   String get voiceMicHeld =>
@@ -11119,6 +11590,68 @@ class UiStringsFr extends UiStrings {
 
   @override
   String get voiceTesterPlayRecent => 'Écouter les 10 dernières secondes';
+
+  @override
+  String get settingVoiceTimerPillsTitle =>
+      'Afficher les pastilles de minuteur';
+
+  @override
+  String get settingVoiceTimerPillsDescription =>
+      'Les minuteurs en cours flottent au-dessus de l\'écran. Faites-les glisser n\'importe où.';
+
+  @override
+  String get settingVoiceTimerNameInPillTitle => 'Afficher le nom du minuteur';
+
+  @override
+  String get settingVoiceTimerNameInPillDescription =>
+      'Le nom à côté du temps dans une pastille.';
+
+  @override
+  String get settingVoiceTimerPillScaleTitle =>
+      'Taille des pastilles de minuteur';
+
+  @override
+  String get settingVoiceTimerPillScaleDescription =>
+      'La taille des pastilles de minuteur.';
+
+  @override
+  String get settingVoiceMuteTimersTitle => 'Couper les alertes de minuteur';
+
+  @override
+  String get settingVoiceMuteTimersDescription =>
+      'Affiche l\'alerte sans le son.';
+
+  @override
+  String get settingVoiceTimerNameOnAlertTitle =>
+      'Afficher le nom sur l\'alerte';
+
+  @override
+  String get settingVoiceTimerNameOnAlertDescription =>
+      'Le nom du minuteur sous l\'alerte.';
+
+  @override
+  String get settingVoiceTimerSpeakTitle =>
+      'Parler quand un minuteur se termine';
+
+  @override
+  String get settingVoiceTimerSpeakDescription =>
+      'Dit une phrase entre les sons de l\'alerte.';
+
+  @override
+  String get settingVoiceTimerPhraseTitle => 'Phrase';
+
+  @override
+  String get settingVoiceTimerPhraseDescription =>
+      'Prononcée pour un minuteur sans nom.';
+
+  @override
+  String get settingVoiceTimerNamedPhraseTitle =>
+      'Phrase pour les minuteurs nommés';
+
+  @override
+  String settingVoiceTimerNamedPhraseDescription(String name) {
+    return '$name est remplacé par le nom du minuteur.';
+  }
 
   @override
   String get voiceWakePage => 'Mot de réveil';
@@ -11267,6 +11800,173 @@ class UiStringsFr extends UiStrings {
 
   @override
   String get voiceDiagnosticsHeard => 'Entendu';
+
+  @override
+  String get voiceWake2HelpNative =>
+      'Un second mot de réveil, auquel répond l\'Assistant 2.';
+
+  @override
+  String get voiceCustomModels => 'Modèles personnalisés';
+
+  @override
+  String get voiceCustomNone => 'Aucun modèle personnalisé pour l\'instant.';
+
+  @override
+  String get voiceCustomManaged =>
+      'Le meneur de la flotte gère les modèles personnalisés de ce kiosque.';
+
+  @override
+  String get voiceCustomAdd => 'Ajouter des modèles';
+
+  @override
+  String get voiceCustomAddHelp =>
+      'Choisissez les fichiers d\'un ou plusieurs modèles. Ils apparaissent ci-dessus dans Mot de réveil 1 et 2.';
+
+  @override
+  String get voiceCustomDocs => 'Comment ajouter des modèles personnalisés';
+
+  @override
+  String get voiceCustomDocsHelp =>
+      'Les fichiers nécessaires à chaque moteur et la provenance des modèles.';
+
+  @override
+  String get voiceCustomNotAdded => 'Les modèles n\'ont pas été ajoutés.';
+
+  @override
+  String get voiceCustomSomeNotAdded =>
+      'Certains fichiers n\'ont pas été ajoutés.';
+
+  @override
+  String get voiceCustomAdded => 'Modèles ajoutés.';
+
+  @override
+  String get voiceCustomDeleteConfirm => 'Supprimer ce modèle ?';
+
+  @override
+  String get voiceCustomNotDeleted => 'Le modèle n\'a pas été supprimé.';
+
+  @override
+  String get voiceCustomOtherEngine => 'pas le moteur utilisé';
+
+  @override
+  String get settingVoiceWakeWordEngineDescription =>
+      'Le moteur qui écoute. Tous les modèles sont fournis avec l\'application.';
+
+  @override
+  String get settingVoiceWakeWordSensitivityTitle =>
+      'Sensibilité du mot de réveil';
+
+  @override
+  String get settingVoiceWakeWordSensitivityDescription =>
+      'La facilité avec laquelle le mot de réveil se déclenche.';
+
+  @override
+  String get settingVoiceNoiseGateTitle => 'Porte de bruit du mot de réveil';
+
+  @override
+  String get settingVoiceNoiseGateDescription =>
+      'Ignore la détection du mot de réveil tant que la pièce est calme, ce qui économise le processeur.';
+
+  @override
+  String get settingVoiceStopWordTitle => 'Interruption par mot d\'arrêt';
+
+  @override
+  String get settingVoiceStopWordDescription =>
+      'Dites « stop » pour interrompre une réponse, une alerte de minuteur ou une annonce.';
+
+  @override
+  String get voiceOptionSlightly => 'Peu sensible';
+
+  @override
+  String get voiceOptionModerately => 'Moyennement sensible';
+
+  @override
+  String get voiceOptionVery => 'Très sensible';
+
+  @override
+  String get voiceModelNotFileName => 'Ce n\'est pas un nom de fichier.';
+
+  @override
+  String get voiceModelBadExtension =>
+      'Seuls les fichiers .json, .tflite et .onnx sont des modèles.';
+
+  @override
+  String voiceModelTooLarge(String name) {
+    return '$name dépasse 64 Mo.';
+  }
+
+  @override
+  String voiceModelIncomplete(String name) {
+    return '$name est arrivé incomplet.';
+  }
+
+  @override
+  String voiceModelBadJson(String file) {
+    return '$file n\'est pas un JSON valide.';
+  }
+
+  @override
+  String voiceModelNotManifest(String file) {
+    return '$file n\'est pas un manifeste.';
+  }
+
+  @override
+  String voiceModelMwwNeedsTflite(String file) {
+    return 'Un modèle microWakeWord a aussi besoin de $file.';
+  }
+
+  @override
+  String voiceModelMwwBadManifest(String file) {
+    return '$file n\'est pas un manifeste microWakeWord valide.';
+  }
+
+  @override
+  String voiceModelVswwNeedsOnnx(String file) {
+    return 'Un modèle vsWakeWord a aussi besoin de $file.';
+  }
+
+  @override
+  String voiceModelVswwBadManifest(String file) {
+    return '$file n\'est pas un manifeste vsWakeWord valide.';
+  }
+
+  @override
+  String voiceModelUnknownManifest(String file) {
+    return '$file n\'est ni un manifeste microWakeWord ni un manifeste vsWakeWord.';
+  }
+
+  @override
+  String voiceModelNoModelFile(String name) {
+    return 'Aucun fichier de modèle pour $name.';
+  }
+
+  @override
+  String voiceModelBothFormats(String onnx, String tflite) {
+    return 'Ajoutez $onnx ou $tflite, pas les deux.';
+  }
+
+  @override
+  String voiceModelNotOwwTflite(String file, String json) {
+    return '$file n\'est pas un modèle openWakeWord. Un modèle microWakeWord a aussi besoin de son $json.';
+  }
+
+  @override
+  String get voiceModelNotTflite => 'Ce n\'est pas un modèle TFLite.';
+
+  @override
+  String get voiceModelNotOnnx => 'Ce n\'est pas un modèle ONNX.';
+
+  @override
+  String get voiceModelNotOww => 'Ce n\'est pas un modèle openWakeWord.';
+
+  @override
+  String get voiceModelOwwWindow =>
+      'Ce n\'est pas un modèle openWakeWord : il n\'accepte pas la fenêtre d\'embeddings de 16 x 96.';
+
+  @override
+  String voiceModelNoLoad(String error) {
+    return 'Le modèle ne se charge pas : $error';
+  }
 
   @override
   String get settingDisableCacheTitle => 'Désactiver le cache';
@@ -11684,6 +12384,39 @@ class UiStringsFr extends UiStrings {
   String get setupVoiceSkipped => 'Non installé, ignoré';
 
   @override
+  String get setupVoiceLead =>
+      'Transformez ce kiosque en assistant vocal pour Home Assistant. Tout peut être modifié plus tard.';
+
+  @override
+  String get setupVoiceAddHint =>
+      'Après la configuration, ajoutez ce kiosque dans Home Assistant sous Paramètres, Appareils et services, où il apparaît comme découvert.';
+
+  @override
+  String get setupRecommendedWall => 'Les réglages adaptés à un kiosque mural.';
+
+  @override
+  String get setupVoiceFound => 'Intégration Voice Satellite trouvée';
+
+  @override
+  String get setupVoiceFoundHelp =>
+      'Voice Satellite fonctionne désormais dans Kiosk Satellite. Migrez pour conserver les mots de réveil, l\'assistant et l\'apparence de l\'un des satellites de l\'intégration au lieu de repartir de zéro.';
+
+  @override
+  String get setupVoiceMigrated =>
+      'Migré depuis l\'intégration Voice Satellite';
+
+  @override
+  String get setupVoiceMigratedHelp =>
+      'Ce kiosque reprend les réglages de son satellite.';
+
+  @override
+  String get setupVoicePipelineHelp =>
+      'Le pipeline Assist qui répond au mot de réveil.';
+
+  @override
+  String get setupVoiceEngineHelp => 'Le moteur qui écoute le mot de réveil.';
+
+  @override
   String get setupRemoteHeading => 'Administration à distance';
 
   @override
@@ -11808,6 +12541,103 @@ class UiStringsFr extends UiStrings {
   @override
   String get intercomSoundFormats =>
       'Choisissez un fichier MP3, OGG, WAV, FLAC, M4A ou AAC.';
+
+  @override
+  String get voiceNoticeError => 'Erreur Voice Satellite';
+
+  @override
+  String get voiceNoticeWarning => 'Avertissement Voice Satellite';
+
+  @override
+  String get voiceNoticeNotice => 'Avis Voice Satellite';
+
+  @override
+  String get voiceNoticeTts => 'Synthèse vocale';
+
+  @override
+  String get voiceNoticeAssistPipeline => 'Pipeline Assist';
+
+  @override
+  String voiceNoticePipeline(String name) {
+    return 'Pipeline « $name »';
+  }
+
+  @override
+  String get voiceNoticeMicUnavailable =>
+      'Le microphone n\'est pas disponible.';
+
+  @override
+  String get voiceNoticeNotConnected =>
+      'Home Assistant n\'est pas connecté à ce kiosque.';
+
+  @override
+  String get voiceNoticeConnectionLost =>
+      'Connexion à Home Assistant perdue. Reconnexion automatique.';
+
+  @override
+  String get voiceNoticePlayback =>
+      'Impossible de lire l\'audio sur l\'appareil.';
+
+  @override
+  String get voiceNoticeWatchdog =>
+      'Aucune réponse de Home Assistant après la fin de votre phrase. Le pipeline est peut-être bloqué.';
+
+  @override
+  String get voiceNoticeRefused =>
+      'Home Assistant n\'a pas pu démarrer l\'assistant.';
+
+  @override
+  String get voiceNoticeUnexpected =>
+      'Une erreur inattendue s\'est produite dans le pipeline.';
+
+  @override
+  String get voiceNoticeMicBlocked =>
+      'L\'accès au microphone est bloqué. Autorisez-le pour Kiosk Satellite dans les paramètres Android.';
+
+  @override
+  String get voiceNoticeMicDeclined =>
+      'L\'accès au microphone a été refusé, le mot de réveil ne peut donc pas être entendu.';
+
+  @override
+  String get voiceNoticeMicLost => 'Le microphone a cessé de fonctionner.';
+
+  @override
+  String get voiceNoticeModels =>
+      'Impossible de charger les modèles de mot de réveil.';
+
+  @override
+  String get voiceNoticeCrashed =>
+      'Le détecteur du mot de réveil plantait sans cesse sur cet appareil, il a donc été arrêté.';
+
+  @override
+  String voiceFinancialOpen(String value) {
+    return 'Ouverture : $value';
+  }
+
+  @override
+  String voiceFinancialHigh(String value) {
+    return 'Haut : $value';
+  }
+
+  @override
+  String voiceFinancialLow(String value) {
+    return 'Bas : $value';
+  }
+
+  @override
+  String voiceFinancialHigh24h(String value) {
+    return 'Haut 24 h : $value';
+  }
+
+  @override
+  String voiceFinancialLow24h(String value) {
+    return 'Bas 24 h : $value';
+  }
+
+  @override
+  String voiceFinancialMarketCap(String value) {
+    return 'Cap. boursière : $value';
+  }
 
   @override
   String get voiceTimerDefaultName => 'Minuteur';

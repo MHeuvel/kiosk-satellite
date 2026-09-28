@@ -14,5 +14,7 @@
   "voiceChimeTimerTitle": "Звук таймера",
   "voiceChimeTimerDescription": "Повторюється після завершення таймера, доки ви його не вимкнете.",
   "voiceChimeAnnounceTitle": "Звук оголошення",
-  "voiceChimeAnnounceDescription": "Відтворюється перед оголошенням Voice Satellite, якщо воно не містить власного звуку."
+  "voiceChimeAnnounceDescription": "Відтворюється перед оголошенням Voice Satellite, якщо воно не містить власного звуку.",
+  "settingVoiceWakeSoundTitle": "Відтворювати звуки",
+  "settingVoiceWakeSoundDescription": "Звуки активації, завершення та помилки."
 }

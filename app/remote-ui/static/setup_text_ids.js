@@ -89,5 +89,22 @@ export const setupTextMessageIds = {
   "This device has no settings screen for it. Grant it over adb: adb shell appops set me.jxl.kiosk_satellite SYSTEM_ALERT_WINDOW allow": "deviceOverlayAdb",
   "The backup must contain a JSON object.": "setupBackupObject",
   "This is not a Kiosk Satellite configuration file.": "setupBackupKind",
-  "The backup contains no settings.": "setupBackupSettings"
+  "The backup contains no settings.": "setupBackupSettings",
+  "Assistant": "voiceAssistant",
+  "Migrate": "voiceMigrate",
+  "Preferred": "voicePreferred",
+  "Turn this kiosk into a voice assistant for Home Assistant. Everything can be changed later.": "setupVoiceLead",
+  "After setup, add this kiosk in Home Assistant under Settings, Devices & services, where it shows up as discovered.": "setupVoiceAddHint",
+  "The settings that suit a kiosk on the wall.": "setupRecommendedWall",
+  "Voice Satellite integration found": "setupVoiceFound",
+  "Voice Satellite now runs inside Kiosk Satellite. Migrate to keep the wake words, assistant and look of one of the integration's satellites instead of starting fresh.": "setupVoiceFoundHelp",
+  "Migrated from the Voice Satellite integration": "setupVoiceMigrated",
+  "This kiosk takes over its satellite's settings.": "setupVoiceMigratedHelp",
+  "The Assist pipeline that answers the wake word.": "setupVoicePipelineHelp",
+  "The engine that listens for the wake word.": "setupVoiceEngineHelp",
+  "Wake word": "voiceWakeLabel",
+  "Wake word engine": "voiceWakeEngine",
+  "The word that starts a voice command.": "voiceWake1Help",
+  "Enable Voice Satellite": "settingVoiceEnabledTitle",
+  "Turns this kiosk into a voice assistant for Home Assistant through its ESPHome server.": "settingVoiceEnabledDescription"
 };

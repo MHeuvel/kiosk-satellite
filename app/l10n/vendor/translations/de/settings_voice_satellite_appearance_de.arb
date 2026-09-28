@@ -11,5 +11,20 @@
   "voiceRateHelp": "Legt fest, wie häufig die Aktivitätsleiste aktualisiert wird. Höhere Werte wirken flüssiger, benötigen aber mehr CPU-Leistung.",
   "voiceScaleHelp": "Die Größe des Assistententextes auf dem Bildschirm.",
   "voiceUpdateIntegration": "Aktualisiere die Voice-Satellite-Integration in Home Assistant, um diese Einstellungen vom Kiosk aus steuern zu können.",
-  "voiceDashboardRequired": "Verfügbar, solange der Kiosk dein Home-Assistant-Dashboard anzeigt."
+  "voiceDashboardRequired": "Verfügbar, solange der Kiosk dein Home-Assistant-Dashboard anzeigt.",
+  "voiceSkinDefault": "Wie im Design",
+  "voiceBackground": "Hintergrund",
+  "voiceBackgroundHelp": "Wie viel vom Dashboard durchscheint.",
+  "voicePreview": "Vorschau",
+  "voicePreviewHelp": "Zeigt den Assistenten fünf Sekunden lang auf diesem Bildschirm.",
+  "voicePreviewRemoteHelp": "Zeigt den Assistenten fünf Sekunden lang auf dem Bildschirm des Kiosks.",
+  "settingVoiceThemeTitle": "Thema",
+  "settingVoiceThemeDescription": "Automatisch folgt dem Home Assistant-Thema.",
+  "settingVoiceBackgroundDescription": "Wie viel vom Dashboard durchscheint. Bei -1 wie im Design.",
+  "settingVoiceTextScaleTitle": "Textgröße",
+  "settingVoiceReactiveBarTitle": "Reaktive Aktivitätsleiste",
+  "settingVoiceReactiveBarDescription": "Die Leiste folgt deiner Stimme und der Antwort.",
+  "voicePreviewCommand": "Wie ist das Wetter?",
+  "voicePreviewAnswer": "Gerade sonnig und 22°, mit einer leichten Brise.",
+  "voicePreviewThumbAnswer": "Gerade sonnig und 22°."
 }
