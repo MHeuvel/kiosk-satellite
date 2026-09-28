@@ -225,7 +225,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         delivery = frames
         recording = true
         opened.startRecording()
-        CommunicationPlayback.get(appContext).captureStarted()
+        CommunicationPlayback.get(appContext).captureStarted(wantAec)
         val channelIdx = wantChannel - 1
         worker = thread(name = "vsww-mic") {
             var cur = opened

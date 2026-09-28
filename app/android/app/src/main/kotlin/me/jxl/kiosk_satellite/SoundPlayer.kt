@@ -263,7 +263,7 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
         // Same id twice = replace: the page re-firing a chime wants the new
         // one, not two overlapped copies.
         val selected = AudioRouting.currentOutput()
-        val lease = communication.acquire(selected)
+        val lease = if (communication.echoCancelling) communication.acquire(selected) else null
         val target = if (lease != null) communication.output else selected
         finish(id, null)
         val request = PlaybackRequest(lease, target)

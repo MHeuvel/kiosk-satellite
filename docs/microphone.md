@@ -46,7 +46,7 @@ Android can briefly mute other media when native capture first establishes its r
 
 On by default, and on for every capture the app has ever opened: the stop word listens while the kiosk's own speaker plays a response, and without the canceller the microphone hears that speech and scores it. The canceller only gets a playback reference on the Voice communication capture mode. On the other two modes the effect still attaches and what it does then is up to the device.
 
-Turn it off only when it does harm. On some MediaTek tablets a canceller attached to a Voice recognition or Raw microphone capture attenuates the whole signal to a whisper, a level the gain slider cannot bring back, while a recorder app on the same source sounds fine. With it off, expect the stop word to hear the kiosk's own responses.
+Turn it off only when it does harm. On some MediaTek tablets a canceller attached to a Voice recognition or Raw microphone capture attenuates the whole signal to a whisper, a level the gain slider cannot bring back, while a recorder app on the same source sounds fine. With it off, expect the stop word to hear the kiosk's own responses. With it on, the kiosk holds Android's call audio route while it listens, so on some devices other apps play through the call path at lower quality and the volume buttons set call volume. Turning it off releases that route and assistant sounds play as normal media.
 
 ## Automatic Gain Control
 
