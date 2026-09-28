@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Changed
+- **Native Voice Satellite has its own documentation page.** It covers why voice runs natively now, setting it up, migrating from the integration, every setting, playing sounds on a media player and the port the speaker needs, timers and conversations, the Home Assistant entities and actions and troubleshooting. The README and the ESPHome and custom wake word pages link to it.
+
 ## v2026.9.87 - 2026-09-27
 
 ### Added

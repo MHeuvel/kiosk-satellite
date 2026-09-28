@@ -1,6 +1,6 @@
 # Custom Wake Word Models
 
-Kiosk Satellite ships with wake words for all three of its engines. You can add your own models on top of those. They live on the kiosk, show up in **Wake word 1** and **Wake word 2** next to the built in ones and follow the kiosk's fleet leader when there is one.
+[Voice Satellite](voice-satellite.md) ships with wake words for all three of its engines. You can add your own models on top of those. They live on the kiosk, show up in **Wake word 1** and **Wake word 2** next to the built in ones and follow the kiosk's fleet leader when there is one.
 
 ## Add a model
 
