@@ -672,6 +672,13 @@ class RemoteManager extends Manager {
         return exported.ok
             ? _json(200, (exported.data as Map).cast<String, Object?>())
             : _json(500, {'error': exported.error});
+      // The same backup for this kiosk and every follower it leads, in one
+      // file. An admin token only: a fleet token is not scoped to it.
+      case ('GET', 'api/fleet/export'):
+        final exported = await commands.execute('fleetExport', const {});
+        return exported.ok
+            ? _json(200, (exported.data as Map).cast<String, Object?>())
+            : _json(500, {'error': exported.error});
       case ('POST', 'api/config/import'):
         final body = await _body(request);
         if (body == null) return _json(400, {'error': 'invalid JSON'});
@@ -1008,6 +1015,8 @@ class RemoteManager extends Manager {
     'api/fleet/leave',
     'api/fleet/roster',
     'api/fleet/wake-models',
+    // The leader's fleet backup reads each follower's full configuration.
+    'api/config/export',
     'api/commands/getUpdateStatus',
     'api/commands/checkUpdateNow',
     'api/commands/installUpdate',

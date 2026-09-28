@@ -140,12 +140,13 @@ Files referenced by settings (like notification chimes, gallery photos, or local
 | `/api/fleet/apply` | POST | fleet | `{revision, version, settings}`. Held in queue if versions differ. |
 | `/api/fleet/leave` | POST | fleet | Notifies the kiosk that the leader removed it from the fleet. |
 | `/api/fleet/roster` | POST | fleet | `{devices: [{id, name, version, address, port}]}`: Replaces the saved member directory independently of settings sync. Contains no fleet tokens. |
+| `/api/fleet/export` | GET | admin | Backs up the whole fleet in one file: `{kind, version, exportedAt, devices: [{id, name, self, config}]}`. Each `config` is that kiosk's `/api/config/export`, secrets included. A follower that does not answer carries `error` in place of `config`. Restore a kiosk by posting its `config` to that kiosk's `/api/config/import`. |
 
 The status response includes `rosterRevision` on releases that support the directory. The leader sends a roster only when that revision differs from its current member list.
 
 For manual invitations, call `fleetLookup` with `{address, port}` to verify the target. It returns the kiosk identity and normalized endpoint without saving a member. Pass its `id`, `address` and `port` to `fleetInvite` with the chosen `profile`. The leader verifies the identity again before sending the invitation. Omitting `address` keeps the discovered or saved address path.
 
-A fleet token also grants access to `getUpdateStatus`, `checkUpdateNow`, `installUpdate` and `installUploadedApk` under `/api/commands/` and to `POST /api/update/upload`, but nothing else. Both pages utilize commands like: `fleetStatus`, `fleetCandidates`, `fleetInvite`, `fleetSetProfile`, `fleetDeleteProfile`, `fleetAssignProfile`, `fleetSyncable`, `fleetRemove`, `fleetSyncNow`, `fleetUpdate`, `fleetInstallUploaded`, and `fleetLeave`. Note that `fleetAccept` and `fleetDecline` are rejected if sent over the remote API. The WebSocket broadcast includes a `fleetsync` event upon any change.
+A fleet token also grants access to `getUpdateStatus`, `checkUpdateNow`, `installUpdate` and `installUploadedApk` under `/api/commands/`, to `POST /api/update/upload` and to `GET /api/config/export` for the fleet export, but nothing else. Both pages utilize commands like: `fleetStatus`, `fleetCandidates`, `fleetInvite`, `fleetSetProfile`, `fleetDeleteProfile`, `fleetAssignProfile`, `fleetSyncable`, `fleetRemove`, `fleetSyncNow`, `fleetUpdate`, `fleetInstallUploaded`, `fleetExport`, and `fleetLeave`. Note that `fleetAccept` and `fleetDecline` are rejected if sent over the remote API. The WebSocket broadcast includes a `fleetsync` event upon any change.
 
 ## Encrypted kiosk connections
 

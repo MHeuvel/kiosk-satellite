@@ -1310,6 +1310,16 @@ class FleetSyncManager extends Manager {
       )
       ..register(
         Command(
+          name: 'fleetExport',
+          description:
+              'The full configuration of this kiosk and each follower, '
+              'secrets included, as one backup. A follower that does not '
+              'answer is listed with the reason.',
+          handler: (_) async => CommandResult.ok(await exportFleet()),
+        ),
+      )
+      ..register(
+        Command(
           name: 'fleetInstallUploaded',
           description:
               'Push the APK uploaded to this kiosk (POST /api/update/upload) '
@@ -1872,6 +1882,65 @@ class FleetSyncManager extends Manager {
     );
     _publish();
     return {'started': started, 'skipped': skipped, 'self': self};
+  }
+
+  /// The full configuration of this kiosk and every follower, for a backup
+  /// of the whole fleet in one call. Each follower answers its own
+  /// `exportConfig` over the fleet token, secrets included, like the
+  /// admin's own export. A follower that cannot be reached is listed with
+  /// the reason instead, so one tablet that is off never fails the rest.
+  Future<Map<String, Object?>> exportFleet() async {
+    await _readSelf();
+    final own = await commands.execute('exportConfig', const {});
+    final ownConfig = (own.data as Map?)?.cast<String, Object?>();
+    Future<Map<String, Object?>> follower(Follower f) async {
+      final entry = <String, Object?>{'id': f.id, 'name': f.name};
+      final res = await _get('${f.url}/api/config/export', token: f.token);
+      final body = _jsonOf(res);
+      if (res == null) {
+        entry['error'] = 'Unreachable';
+      } else if (res.statusCode == 200 &&
+          body?['kind'] == 'kiosk-satellite-config') {
+        entry['config'] = body;
+      } else if (body?['error'] == 'fleet token') {
+        // Older kiosks keep their configuration away from a fleet token.
+        entry['error'] = 'Update this kiosk to export it from the fleet';
+      } else if (res.statusCode == 401 || res.statusCode == 403) {
+        entry['error'] = 'No longer follows this kiosk';
+      } else {
+        entry['error'] = '${body?['error'] ?? 'Bad answer'}';
+      }
+      return entry;
+    }
+
+    final followers = leading
+        ? await Future.wait([
+            for (final f in _followers)
+              if (f.token != null) follower(f),
+          ])
+        : const <Map<String, Object?>>[];
+    final exported = followers.where((d) => d['config'] != null).length;
+    log.info(
+      name,
+      'exported the configuration of this kiosk and $exported of '
+      '${followers.length} follower(s)',
+    );
+    return {
+      'kind': 'kiosk-satellite-fleet-config',
+      'version': 1,
+      'exportedAt': DateTime.now().toIso8601String(),
+      'devices': [
+        {
+          'id': _selfId,
+          'name': _selfName.isNotEmpty
+              ? _selfName
+              : '${ownConfig?['deviceName'] ?? ''}',
+          'self': true,
+          if (own.ok) 'config': ownConfig else 'error': own.error,
+        },
+        ...followers,
+      ],
+    };
   }
 
   /// How long one APK upload to a follower may take. A release APK is

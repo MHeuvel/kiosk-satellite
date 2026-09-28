@@ -49,6 +49,7 @@ void main() {
       'fleetApply',
       'fleetLeaderLeft',
       'fleetRosterReceived',
+      'fleetExport',
       'fleetAccept',
       'fleetDecline',
       'getUpdateStatus',
@@ -327,6 +328,35 @@ void main() {
       final (s3, _) = await call('POST', '/api/fleet/leave', token: token);
       expect(s3, 200);
       expect(executed.any((e) => e.$1 == 'fleetLeaderLeft'), isTrue);
+    },
+  );
+
+  test(
+    "a fleet token reads this kiosk's configuration, never the fleet export",
+    () async {
+      await settings.set(
+        defs.fleetLeaderInfo,
+        jsonEncode({'id': 'lead', 'name': 'Living Room'}),
+      );
+      final token = await fleetToken('lead');
+      final (s1, b1) = await call('GET', '/api/config/export', token: token);
+      expect(s1, 200);
+      expect(b1['kind'], 'kiosk-satellite-config');
+      expect((await call('GET', '/api/fleet/export', token: token)).$1, 403);
+      expect(
+        (await call(
+          'POST',
+          '/api/commands/fleetExport',
+          body: {},
+          token: token,
+        )).$1,
+        403,
+      );
+      expect((await call('GET', '/api/fleet/export')).$1, 401);
+      final admin = await login();
+      final (s2, b2) = await call('GET', '/api/fleet/export', token: admin);
+      expect(s2, 200);
+      expect(b2['from'], 'fleetExport');
     },
   );
 

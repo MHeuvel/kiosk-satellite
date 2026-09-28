@@ -1862,6 +1862,73 @@ void main() {
       expect(r.error, contains('No uploaded APK'));
     });
 
+    test('the fleet export carries this kiosk and each follower, and names '
+        'the ones that did not answer', () async {
+      await build(
+        prefs: {
+          'ks.fleet.leader': true,
+          'ks.fleet.followers': jsonEncode([
+            {
+              'id': 'bed',
+              'name': 'Bedroom',
+              'address': '192.168.1.71',
+              'port': 2324,
+              'token': 't',
+            },
+            {
+              'id': 'kit',
+              'name': 'Kitchen',
+              'address': '192.168.1.70',
+              'port': 2324,
+              'token': 'k',
+            },
+            // Invited, not accepted: no token, nothing to ask.
+            {
+              'id': 'hall',
+              'name': 'Hall',
+              'address': '192.168.1.72',
+              'port': 2324,
+              'invite': 'n',
+            },
+          ]),
+        },
+      );
+      answers['GET /api/config/export'] = (req) =>
+          req.url.host == '192.168.1.71'
+          ? {
+              'kind': 'kiosk-satellite-config',
+              'version': 1,
+              'deviceName': 'Bedroom',
+              'settings': {'device.name': 'Bedroom'},
+            }
+          : http.Response(jsonEncode({'error': 'fleet token'}), 403);
+      final r = await commands.execute('fleetExport', const {});
+      expect(r.ok, isTrue, reason: r.error);
+      final out = r.data as Map;
+      expect(out['kind'], 'kiosk-satellite-fleet-config');
+      final devices = (out['devices'] as List).cast<Map>();
+      expect(devices.map((d) => d['id']), ['me', 'bed', 'kit']);
+      expect(devices[0]['self'], isTrue);
+      expect(devices[0]['name'], 'Living Room');
+      expect((devices[0]['config'] as Map)['kind'], 'kiosk-satellite-config');
+      expect((devices[1]['config'] as Map)['deviceName'], 'Bedroom');
+      expect(devices[2]['config'], isNull);
+      expect(devices[2]['error'], contains('Update this kiosk'));
+      final asked = sent.where((q) => q.url.path == '/api/config/export');
+      expect(asked.map((q) => q.headers['Authorization']).toSet(), {
+        'Bearer t',
+        'Bearer k',
+      });
+    });
+
+    test('a kiosk that leads nobody exports only itself', () async {
+      await build();
+      final r = await commands.execute('fleetExport', const {});
+      final devices = ((r.data as Map)['devices'] as List).cast<Map>();
+      expect(devices.single['self'], isTrue);
+      expect(sent.where((q) => q.url.path == '/api/config/export'), isEmpty);
+    });
+
     test(
       'candidates are the kiosks heard, minus the followers, with whom they follow',
       () async {
