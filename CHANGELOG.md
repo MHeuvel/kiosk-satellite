@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.88 - 2026-09-28
 
 ### Added
 - **Fleet export.** A new Remote API endpoint, `GET /api/fleet/export`, returns the full configuration of the leader and every follower in one file, secrets included, for backing up the whole fleet in one call (#721). Each kiosk's entry is the same backup `/api/config/export` gives and restores through `/api/config/import`. A follower that does not answer is listed with the reason. The leader's fleet token can now read a follower's `/api/config/export` to collect it. Followers need this release too.
