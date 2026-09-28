@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.89 - 2026-09-28
 
 ### Fixed
 - **Migrating a muted Voice Satellite no longer fails.** The migration carries the old satellite's mute over, and its Start listening here step waited for the wake word to listen, which a muted satellite never does. It gave up after 30 seconds with "The satellite did not come up in time" until mute was turned off. The step now counts a muted satellite as up once Home Assistant holds it.
