@@ -1,9 +1,10 @@
 import { setupText, setupImportError, themeLabel, messageLanguage, setLanguagePreference, t } from './localization.js';
 import { WIZ_OPTIONAL, wizard } from './app.js';
-import { $, THEME_ICONS, api, showView, state } from './core.js';
+import { $, THEME_ICONS, api, cmd, showView, state } from './core.js';
 import { readOnlyRow } from './device.js';
 import { askImportOptions } from './pickers.js';
 import { fetchViews, pickView, radioRow, viewPath } from './views.js';
+import { openVsMigrationWizard } from './vs_native.js';
 
 // The wizard starts light (the product default) whatever an earlier
 // admin session stored; its own toggle flips light/dark, and the choice
@@ -369,6 +370,106 @@ export async function wizardRestore(file, btn) {
   }
 }
 
+// The Voice Satellite step: whether Home Assistant runs the integration
+// (then the migration is offered), its pipelines and the chosen engine's
+// wake words for a new satellite's basics. Read once, when the step shows.
+const WIZ_ENGINES = [
+  ['vswakeword', 'vsWakeWord'], ['microwakeword', 'microWakeWord'], ['openwakeword', 'openWakeWord'],
+];
+
+async function wizardLoadVoice() {
+  const [detected, pipelines] = await Promise.all([
+    cmd('haDetectVoiceSatellite', {}).catch(() => null),
+    cmd('voicePipelines', {}).catch(() => null),
+  ]);
+  wizard.vsInstalled = detected?.ok === true && detected.data === true;
+  wizard.pipelines = pipelines?.ok ? pipelines.data?.pipelines || [] : [];
+  wizard.preferredPipeline = pipelines?.ok ? pipelines.data?.preferred || null : null;
+  await wizardLoadWakeWords();
+}
+
+async function wizardLoadWakeWords() {
+  const r = await cmd('voiceWakeWordChoices', { engine: wizard.engine }).catch(() => null);
+  wizard.wakeWords = r?.ok && Array.isArray(r.data) ? r.data : [];
+  if (!wizard.wakeWords.some((w) => w.id === wizard.wakeWord)) wizard.wakeWord = wizard.wakeWords[0]?.id || '';
+  wizardRender();
+}
+
+function wizardSelectField(card, title, desc, options, value, onChange) {
+  const label = document.createElement('label');
+  label.className = 'form-field';
+  // Fields after the first sit a gap below the one before, as the device's.
+  if (card.childElementCount) label.style.marginTop = '18px';
+  const name = document.createElement('span');
+  name.textContent = title;
+  const select = document.createElement('select');
+  // The admin's dropdown box; the label's own gap spaces it.
+  select.className = 'field';
+  select.style.marginBottom = '0';
+  for (const [v, text] of options) {
+    const option = document.createElement('option');
+    option.value = v;
+    option.textContent = text;
+    select.appendChild(option);
+  }
+  select.value = value;
+  select.addEventListener('change', () => onChange(select.value));
+  label.append(name, select);
+  const help = document.createElement('div');
+  help.className = 'desc';
+  help.textContent = desc;
+  card.append(label, help);
+}
+
+function wizardVoiceBasics(b) {
+  if (wizard.vsInstalled === true) {
+    const found = wizardCard(b, true);
+    const row = readOnlyRow(
+      setupText(wizard.migrated
+        ? 'Migrated from the Voice Satellite integration'
+        : 'Voice Satellite integration found'),
+      setupText(wizard.migrated
+        ? 'This kiosk takes over its satellite\'s settings.'
+        : 'Voice Satellite now runs inside Kiosk Satellite. Migrate to keep the wake words, assistant and look of one of the integration\'s satellites instead of starting fresh.'),
+      '');
+    row.querySelector('span').remove();
+    if (!wizard.migrated) {
+      const btn = document.createElement('button');
+      btn.className = 'btn-primary';
+      btn.textContent = setupText('Migrate');
+      btn.addEventListener('click', async () => {
+        if (await openVsMigrationWizard({ onboarding: true })) {
+          wizard.migrated = true;
+          wizardRender();
+        }
+      });
+      row.appendChild(btn);
+    }
+    found.appendChild(row);
+  }
+  if (wizard.migrated) return;
+  const card = wizardCard(b);
+  if (wizard.vsInstalled === null) {
+    const wait = document.createElement('div');
+    wait.style.cssText = 'padding:24px; text-align:center; color:var(--muted)';
+    wait.textContent = '…';
+    card.appendChild(wait);
+    return;
+  }
+  const preferred = setupText('Preferred');
+  wizardSelectField(card, setupText('Assistant'), setupText('The Assist pipeline that answers the wake word.'),
+    [['preferred', wizard.preferredPipeline ? `${preferred} (${wizard.preferredPipeline})` : preferred],
+      ...wizard.pipelines.map((name) => [name, name])],
+    wizard.pipeline, (v) => { wizard.pipeline = v; });
+  wizardSelectField(card, setupText('Wake word engine'), setupText('The engine that listens for the wake word.'),
+    WIZ_ENGINES, wizard.engine, (v) => {
+      wizard.engine = v;
+      wizardLoadWakeWords();
+    });
+  wizardSelectField(card, setupText('Wake word'), setupText('The word that starts a voice command.'),
+    wizard.wakeWords.map((w) => [w.id, w.phrase]), wizard.wakeWord, (v) => { wizard.wakeWord = v; });
+}
+
 function wizardLanguageRow(body) {
   const card = wizardCard(body);
   const label = document.createElement('label');
@@ -377,6 +478,8 @@ function wizardLanguageRow(body) {
   title.textContent = t('settingUiLanguageTitle');
   const select = document.createElement('select');
   select.id = 'wzLanguage';
+  select.className = 'field';
+  select.style.marginBottom = '0';
   for (const language of wizard.languages || []) {
     const option = document.createElement('option');
     option.value = language.value;
@@ -598,9 +701,14 @@ export function wizardSteps() {
       const toggleRow = wizardToggleRow;
       const voice = wizardCard(b, true);
       voice.appendChild(toggleRow(setupText('Enable Voice Satellite'),
-        setupText('Turns this kiosk into a voice assistant for Home Assistant, on its own ESPHome device.'),
+        setupText('Turns this kiosk into a voice assistant for Home Assistant through its ESPHome server.'),
         wizard.voice, false, () => { wizard.voice = !wizard.voice; wizardRender(); }));
       if (wizard.voice) {
+        if (wizard.vsInstalled === undefined) {
+          wizard.vsInstalled = null;
+          wizardLoadVoice();
+        }
+        wizardVoiceBasics(b);
         // Where the kiosk turns up once set up, the device wizard's hint.
         const hint = document.createElement('div');
         hint.style.cssText = 'display:flex; gap:10px; align-items:flex-start; '
@@ -726,7 +834,19 @@ export function wizardSteps() {
       if (!wizard.voice) delete chosen['wake_word.background'];
       if (wizard.voice) {
         chosen['esphome.enabled'] = true;
+        if (!wizard.migrated) {
+          // The wake word goes to Home Assistant with the kiosk's first
+          // configuration, the Assistant once its selects are there.
+          const phrase = wizard.wakeWords.find((w) => w.id === wizard.wakeWord)?.phrase;
+          chosen['voice.wake_word_engine'] = wizard.engine;
+          chosen['voice.wake_words'] = JSON.stringify([wizard.wakeWord]);
+          chosen['voice.pending_selects'] = JSON.stringify(
+            phrase ? { pipeline: wizard.pipeline, wake_word: phrase } : { pipeline: wizard.pipeline });
+        }
         chosen['voice.enabled'] = true;
+      } else if (wizard.migrated) {
+        // Migrated, then switched off again: the migration turned it on.
+        chosen['voice.enabled'] = false;
       }
       await api('/api/settings', { method: 'PATCH', body: JSON.stringify(chosen) });
       // Setting the start URL is what flips the device to configured; the

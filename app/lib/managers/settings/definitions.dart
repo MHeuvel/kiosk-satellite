@@ -5057,8 +5057,8 @@ const voiceEnabled = SettingDef<bool>(
   defaultValue: false,
   title: 'Enable Voice Satellite',
   description:
-      'Turns this kiosk into a voice assistant for Home Assistant, on its '
-      'own ESPHome device.',
+      'Turns this kiosk into a voice assistant for Home Assistant through '
+      'its ESPHome server.',
   category: 'Voice Satellite',
   dependsOn: 'voice.runtime',
   dependsOnValue: 'native',
@@ -5240,6 +5240,20 @@ const voiceHaWakeWord2 = SettingDef<String>(
   description: 'A second wake word, answered by Assistant 2.',
   category: 'Voice Satellite',
   hidden: true,
+);
+
+/// Picks for Home Assistant's selects made before Home Assistant has the
+/// kiosk (at onboarding, or migrating then), JSON of select key to option:
+/// set once its selects appear, then cleared. Hidden and per kiosk.
+const voicePendingSelects = SettingDef<String>(
+  key: 'voice.pending_selects',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Pending Home Assistant picks',
+  description: 'Set on the selects once Home Assistant adds this kiosk.',
+  category: 'Voice Satellite',
+  hidden: true,
+  perDevice: true,
 );
 
 /// The mirrored selects by the key the kiosk's device gives each one.
@@ -9109,6 +9123,7 @@ const List<SettingDef<Object>> allSettings = [
   voiceHaVadSensitivity,
   voiceHaWakeWord,
   voiceHaWakeWord2,
+  voicePendingSelects,
   voiceWakeWordSensitivity,
   voiceNoiseGate,
   voiceStopWord,

@@ -32,7 +32,13 @@ class VoiceMigration {
     'timers',
   ];
 
-  String get oldSatellite => _settings.get(defs.haSatelliteEntity).trim();
+  /// The satellite picked in the wizard, over the one the dashboard page
+  /// assigned: a pick there must not change the page's own until the
+  /// migration goes through.
+  String picked = '';
+
+  String get oldSatellite =>
+      picked.isNotEmpty ? picked : _settings.get(defs.haSatelliteEntity).trim();
 
   // ── reading the old satellite ──────────────────────────────────────────
 

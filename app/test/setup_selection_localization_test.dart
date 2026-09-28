@@ -350,6 +350,7 @@ void main() {
     expect(calls.length, reads);
     // Off, background listening goes with it.
     await tester.ensureVisible(voice);
+    await settle();
     await tester.tap(voice);
     await settle();
     expect(tester.widget<SwitchListTile>(voice).value, isFalse);

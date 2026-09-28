@@ -682,18 +682,27 @@ class VoiceRollbackCard extends StatelessWidget {
 
 // ── the migration wizard ─────────────────────────────────────────────────
 
-Future<void> showVoiceMigrationWizard(
+/// True once the kiosk migrated. [onboarding] is the migration offered at
+/// setup: Home Assistant was just checked and cannot have added the kiosk
+/// yet, so there is no check step, and the old satellite's selects are set
+/// once it does.
+Future<bool> showVoiceMigrationWizard(
   BuildContext context,
-  AppContainer container,
-) => showDialog<void>(
-  context: context,
-  barrierDismissible: false,
-  builder: (context) => _MigrationWizard(container: container),
-);
+  AppContainer container, {
+  bool onboarding = false,
+}) async =>
+    await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) =>
+          _MigrationWizard(container: container, onboarding: onboarding),
+    ) ==
+    true;
 
 class _MigrationWizard extends StatefulWidget {
-  const _MigrationWizard({required this.container});
+  const _MigrationWizard({required this.container, required this.onboarding});
   final AppContainer container;
+  final bool onboarding;
 
   @override
   State<_MigrationWizard> createState() => _MigrationWizardState();
@@ -702,7 +711,15 @@ class _MigrationWizard extends StatefulWidget {
 class _MigrationWizardState extends State<_MigrationWizard> {
   AppContainer get c => widget.container;
 
+  /// The pages in order; past the last is the switch itself.
+  late final List<String> _pages = widget.onboarding
+      ? const ['pick', 'plan', 'automations', 'ready']
+      : const ['pick', 'check', 'plan', 'automations', 'ready'];
   int _step = 0;
+
+  /// The integration's satellites, and the one this kiosk takes over.
+  List<Map<String, Object?>>? _satellites;
+  String _satellite = '';
   Map<String, Object?>? _check;
   Map<String, Object?>? _plan;
   List<Map<String, Object?>>? _automations;
@@ -719,8 +736,38 @@ class _MigrationWizardState extends State<_MigrationWizard> {
   @override
   void initState() {
     super.initState();
-    unawaited(_runCheck());
+    unawaited(_loadSatellites());
     c.voice.migrationSteps.addListener(_changed);
+  }
+
+  Future<void> _loadSatellites() async {
+    final result = await c.commands.execute('haListVoiceSatellites', const {});
+    if (!mounted) return;
+    final list = [
+      for (final s in (result.data as List? ?? const []))
+        if (s is Map) s.cast<String, Object?>(),
+    ];
+    final assigned = c.settings.get(defs.haSatelliteEntity).trim();
+    setState(() {
+      _satellites = list;
+      _satellite = list.any((s) => s['entity_id'] == assigned)
+          ? assigned
+          : list.isEmpty
+          ? ''
+          : '${list.first['entity_id']}';
+    });
+  }
+
+  void _go(String page) {
+    setState(() => _step = _pages.indexOf(page));
+    switch (page) {
+      case 'check':
+        unawaited(_runCheck());
+      case 'plan':
+        if (_plan == null) unawaited(_loadPlan());
+      case 'automations':
+        if (_automations == null) unawaited(_loadAutomations());
+    }
   }
 
   @override
@@ -745,7 +792,9 @@ class _MigrationWizardState extends State<_MigrationWizard> {
   }
 
   Future<void> _loadPlan() async {
-    final result = await c.commands.execute('voiceMigrationPlan', const {});
+    final result = await c.commands.execute('voiceMigrationPlan', {
+      'satellite': _satellite,
+    });
     if (!mounted) return;
     setState(
       () => _plan = result.ok && result.data is Map
@@ -755,10 +804,9 @@ class _MigrationWizardState extends State<_MigrationWizard> {
   }
 
   Future<void> _loadAutomations() async {
-    final result = await c.commands.execute(
-      'voiceMigrationAutomations',
-      const {},
-    );
+    final result = await c.commands.execute('voiceMigrationAutomations', {
+      'satellite': _satellite,
+    });
     if (!mounted) return;
     final items = result.ok && result.data is Map
         ? (result.data as Map)['items']
@@ -774,10 +822,12 @@ class _MigrationWizardState extends State<_MigrationWizard> {
   Future<void> _switch() async {
     setState(() {
       _switching = true;
-      _step = 4;
+      _step = _pages.length;
     });
     final result = await c.commands.execute('vsMigrate', {
       'groups': _groups.toList(),
+      'satellite': _satellite,
+      'deferred': widget.onboarding,
     });
     if (!mounted) return;
     setState(() {
@@ -792,14 +842,16 @@ class _MigrationWizardState extends State<_MigrationWizard> {
     });
   }
 
-  Widget _stepper(int n) {
+  Widget _stepper(String page) {
+    final n = _pages.indexOf(page) + 1;
+    final total = _pages.length;
     final scheme = Theme.of(context).colorScheme;
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Row(
         spacing: 8,
         children: [
-          for (var i = 0; i < 4; i++)
+          for (var i = 0; i < total; i++)
             Expanded(
               child: Container(
                 height: 4,
@@ -812,7 +864,10 @@ class _MigrationWizardState extends State<_MigrationWizard> {
               ),
             ),
           Text(
-            voiceText(context, 'Step {n} of 4').replaceAll('{n}', '$n'),
+            voiceText(
+              context,
+              'Step {n} of {total}',
+            ).replaceAll('{n}', '$n').replaceAll('{total}', '$total'),
             style: Theme.of(
               context,
             ).textTheme.labelMedium?.copyWith(color: scheme.onSurfaceVariant),
@@ -915,11 +970,13 @@ class _MigrationWizardState extends State<_MigrationWizard> {
 
   @override
   Widget build(BuildContext context) {
-    final (title, body, actions) = switch (_step) {
-      0 => _stepOne(),
-      1 => _stepTwo(),
-      2 => _stepThree(),
-      3 => _stepFour(),
+    final page = _step < _pages.length ? _pages[_step] : 'switch';
+    final (title, body, actions) = switch (page) {
+      'pick' => _pickStep(),
+      'check' => _stepOne(),
+      'plan' => _stepTwo(),
+      'automations' => _stepThree(),
+      'ready' => _stepFour(),
       _ => _switchingStep(),
     };
     return AlertDialog(
@@ -938,6 +995,68 @@ class _MigrationWizardState extends State<_MigrationWizard> {
     );
   }
 
+  (String?, List<Widget>, List<Widget>) _pickStep() {
+    final satellites = _satellites;
+    return (
+      voiceText(context, 'Migrate Voice Satellite'),
+      [
+        _stepper('pick'),
+        Text(
+          voiceText(
+            context,
+            'Pick the Voice Satellite integration\'s satellite this kiosk '
+            'takes over. Its settings come over to this kiosk.',
+          ),
+        ),
+        const SizedBox(height: 8),
+        if (satellites == null)
+          const Padding(
+            padding: EdgeInsets.all(24),
+            child: Center(child: CircularProgressIndicator()),
+          )
+        else if (satellites.isEmpty)
+          Text(
+            voiceText(
+              context,
+              'The Voice Satellite integration has no satellites.',
+            ),
+          )
+        else
+          RadioGroup<String>(
+            groupValue: _satellite,
+            onChanged: (v) => setState(() {
+              _satellite = v ?? _satellite;
+              _plan = null;
+              _automations = null;
+            }),
+            child: Column(
+              children: [
+                for (final s in satellites)
+                  RadioListTile<String>(
+                    contentPadding: EdgeInsets.zero,
+                    value: '${s['entity_id']}',
+                    title: Text('${s['name']}'),
+                    subtitle: Text('${s['entity_id']}'),
+                  ),
+              ],
+            ),
+          ),
+      ],
+      [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(false),
+          child: Text(voiceText(context, 'Cancel')),
+        ),
+        FilledButton(
+          onPressed: _satellite.isEmpty
+              ? null
+              : () => _go(widget.onboarding ? 'plan' : 'check'),
+          child: Text(voiceText(context, 'Next')),
+        ),
+      ],
+    );
+  }
+
   (String?, List<Widget>, List<Widget>) _stepOne() {
     final check = _check;
     final checks = [
@@ -947,7 +1066,7 @@ class _MigrationWizardState extends State<_MigrationWizard> {
     return (
       voiceText(context, 'Migrate Voice Satellite'),
       [
-        _stepper(1),
+        _stepper('check'),
         Text(
           voiceText(
             context,
@@ -966,8 +1085,8 @@ class _MigrationWizardState extends State<_MigrationWizard> {
       ],
       [
         TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(voiceText(context, 'Cancel')),
+          onPressed: () => _go('pick'),
+          child: Text(voiceText(context, 'Back')),
         ),
         if (check != null && check['ready'] != true)
           TextButton(
@@ -975,12 +1094,7 @@ class _MigrationWizardState extends State<_MigrationWizard> {
             child: Text(voiceText(context, 'Check again')),
           ),
         FilledButton(
-          onPressed: check?['ready'] == true
-              ? () {
-                  setState(() => _step = 1);
-                  unawaited(_loadPlan());
-                }
-              : null,
+          onPressed: check?['ready'] == true ? () => _go('plan') : null,
           child: Text(voiceText(context, 'Next')),
         ),
       ],
@@ -997,7 +1111,7 @@ class _MigrationWizardState extends State<_MigrationWizard> {
     return (
       voiceText(context, 'Settings to bring over'),
       [
-        _stepper(2),
+        _stepper('plan'),
         if (plan == null)
           const Padding(
             padding: EdgeInsets.all(24),
@@ -1043,16 +1157,11 @@ class _MigrationWizardState extends State<_MigrationWizard> {
       ],
       [
         TextButton(
-          onPressed: () => setState(() => _step = 0),
+          onPressed: () => _go(widget.onboarding ? 'pick' : 'check'),
           child: Text(voiceText(context, 'Back')),
         ),
         FilledButton(
-          onPressed: plan == null
-              ? null
-              : () {
-                  setState(() => _step = 2);
-                  unawaited(_loadAutomations());
-                },
+          onPressed: plan == null ? null : () => _go('automations'),
           child: Text(voiceText(context, 'Next')),
         ),
       ],
@@ -1061,11 +1170,11 @@ class _MigrationWizardState extends State<_MigrationWizard> {
 
   (String?, List<Widget>, List<Widget>) _stepThree() {
     final items = _automations;
-    final satellite = '${_check?['satellite'] ?? ''}';
+    final satellite = _satellite;
     return (
       voiceText(context, 'Automations and scripts'),
       [
-        _stepper(3),
+        _stepper('automations'),
         if (items == null)
           const Padding(
             padding: EdgeInsets.all(24),
@@ -1117,11 +1226,11 @@ class _MigrationWizardState extends State<_MigrationWizard> {
       ],
       [
         TextButton(
-          onPressed: () => setState(() => _step = 1),
+          onPressed: () => _go('plan'),
           child: Text(voiceText(context, 'Back')),
         ),
         FilledButton(
-          onPressed: items == null ? null : () => setState(() => _step = 3),
+          onPressed: items == null ? null : () => _go('ready'),
           child: Text(voiceText(context, 'Next')),
         ),
       ],
@@ -1142,10 +1251,14 @@ class _MigrationWizardState extends State<_MigrationWizard> {
     return (
       voiceText(context, 'Ready to switch'),
       [
-        _stepper(4),
+        _stepper('ready'),
         for (final line in [
           'This kiosk listens, answers and draws the overlay.',
-          'The dashboard stops running Voice Satellite on this kiosk.',
+          if (widget.onboarding)
+            'Its Assistant and wake words are set once Home Assistant adds '
+                'this kiosk.'
+          else
+            'The dashboard stops running Voice Satellite on this kiosk.',
           'The old satellite stays in Home Assistant, unused.',
         ])
           Padding(
@@ -1178,7 +1291,7 @@ class _MigrationWizardState extends State<_MigrationWizard> {
       ],
       [
         TextButton(
-          onPressed: () => setState(() => _step = 2),
+          onPressed: () => _go('automations'),
           child: Text(voiceText(context, 'Back')),
         ),
         FilledButton(
@@ -1222,11 +1335,21 @@ class _MigrationWizardState extends State<_MigrationWizard> {
           const SizedBox(height: 8),
           Text(
             ok
-                ? voiceText(
-                    context,
-                    'Say the wake word to try it. Once no other device uses '
-                    'the Voice Satellite integration, uninstall it from HACS.',
-                  )
+                ? widget.onboarding
+                      ? voiceText(
+                          context,
+                          'Finish the setup, then add this kiosk in Home '
+                          'Assistant. Once no other device uses the Voice '
+                          'Satellite integration, uninstall it from HACS.',
+                        )
+                      : voiceText(
+                          context,
+                          'Say the wake word to try it. Once no other device '
+                          'uses the Voice Satellite integration, uninstall it '
+                          'from HACS.',
+                        )
+                : widget.onboarding
+                ? '${result['error'] ?? ''}'
                 : '${result['error'] ?? ''} ${voiceText(context, 'Voice Satellite runs from the dashboard again.')}',
             textAlign: TextAlign.center,
           ),
@@ -1234,15 +1357,15 @@ class _MigrationWizardState extends State<_MigrationWizard> {
         [
           if (!ok)
             TextButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => Navigator.of(context).pop(false),
               child: Text(voiceText(context, 'Close')),
             ),
           FilledButton(
             onPressed: ok
-                ? () => Navigator.of(context).pop()
+                ? () => Navigator.of(context).pop(true)
                 : () => setState(() {
                     _result = null;
-                    _step = 3;
+                    _step = _pages.indexOf('ready');
                   }),
             child: Text(
               ok ? voiceText(context, 'Done') : voiceText(context, 'Try again'),
@@ -1251,11 +1374,13 @@ class _MigrationWizardState extends State<_MigrationWizard> {
         ],
       );
     }
-    const titles = {
+    final titles = {
       'save': 'Save the settings',
       'stop': 'Stop the dashboard engine',
       'start': 'Start listening here',
-      'entities': 'Set the kiosk\'s entities in Home Assistant',
+      'entities': widget.onboarding
+          ? 'Turn on Voice Satellite on this kiosk'
+          : 'Set the kiosk\'s entities in Home Assistant',
       'check': 'Check the satellite in Home Assistant',
     };
     return (

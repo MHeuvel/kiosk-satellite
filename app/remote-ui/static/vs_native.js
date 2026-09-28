@@ -518,12 +518,21 @@ function iconLine(icon, color, title, desc, extra = null) {
   return line;
 }
 
-export function openVsMigrationWizard() {
+/* The migration, as the device's wizard. Resolves true once the kiosk
+   migrated. With onboarding (offered at setup) Home Assistant was just
+   checked and cannot have added the kiosk yet: no check step, and the old
+   satellite's selects are set once it does. */
+export function openVsMigrationWizard({ onboarding = false } = {}) {
+  return new Promise((resolve) => {
   const shell = modalShell({ title: '', width: 560 });
+  const pages = onboarding
+    ? ['pick', 'plan', 'automations', 'ready']
+    : ['pick', 'check', 'plan', 'automations', 'ready'];
   const w = {
-    step: 0, check: null, plan: null, automations: null,
+    step: 0, satellites: null, satellite: '', check: null, plan: null, automations: null,
     groups: new Set(Object.keys(GROUP_TITLES)), result: null, steps: [],
   };
+  const finish = (migrated) => { shell.close(); resolve(migrated); };
   const button = (label, kind, onClick, disabled = false) => {
     const b = document.createElement('button');
     b.className = kind;
@@ -533,34 +542,77 @@ export function openVsMigrationWizard() {
     shell.foot.appendChild(b);
     return b;
   };
-  const stepper = (n) => {
+  const stepper = (page) => {
+    const n = pages.indexOf(page) + 1;
     const bar = document.createElement('div');
     bar.style.cssText = 'display:flex; gap:8px; align-items:center; margin-bottom:14px';
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < pages.length; i++) {
       const seg = document.createElement('div');
       seg.style.cssText = `flex:1; height:4px; border-radius:2px; background:${i < n ? 'var(--primary)' : 'var(--surface-2)'}`;
       bar.appendChild(seg);
     }
     const label = document.createElement('span');
     label.style.cssText = 'font-size:12.5px; color:var(--muted); white-space:nowrap';
-    label.textContent = voiceFormat('Step {n} of 4', { n: String(n) });
+    label.textContent = voiceFormat('Step {n} of {total}', { n: String(n), total: String(pages.length) });
     bar.appendChild(label);
     return bar;
   };
-  const load = async (command, key, fallback) => {
-    const r = await cmd(command, {}, { timeoutMs: 30000 }).catch(() => null);
+  const load = async (command, key, fallback, params = {}) => {
+    const r = await cmd(command, params, { timeoutMs: 30000 }).catch(() => null);
     w[key] = r?.ok && r.data ? r.data : fallback;
     paint();
   };
   const runCheck = () => { w.check = null; paint(); load('voiceMigrationCheck', 'check', { checks: [], ready: false }); };
+  const go = (page) => {
+    w.step = pages.indexOf(page);
+    paint();
+    if (page === 'check') runCheck();
+    if (page === 'plan' && !w.plan) load('voiceMigrationPlan', 'plan', { groups: [] }, { satellite: w.satellite });
+    if (page === 'automations' && !w.automations) {
+      load('voiceMigrationAutomations', 'automations', { items: [] }, { satellite: w.satellite });
+    }
+  };
 
   const paint = () => {
-    const { head, body, foot } = shell;
+    const { head, body } = shell;
     body.innerHTML = '';
-    foot.innerHTML = '';
-    if (w.step === 0) {
+    shell.foot.innerHTML = '';
+    const page = w.step < pages.length ? pages[w.step] : 'switch';
+    if (page === 'pick') {
       head.textContent = voiceText('Migrate Voice Satellite');
-      body.append(stepper(1), para(voiceText('This kiosk becomes the voice satellite itself. The Voice Satellite integration is not needed after this.')));
+      body.append(stepper('pick'), para(voiceText('Pick the Voice Satellite integration\'s satellite this kiosk takes over. Its settings come over to this kiosk.')));
+      if (!w.satellites) body.appendChild(spinner());
+      else if (!w.satellites.length) body.appendChild(para(voiceText('The Voice Satellite integration has no satellites.')));
+      for (const sat of w.satellites || []) {
+        const label = document.createElement('label');
+        label.style.cssText = 'display:flex; gap:12px; align-items:flex-start; padding:8px 0; cursor:pointer';
+        const radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.name = 'vs-migrate-satellite';
+        radio.checked = w.satellite === sat.entity_id;
+        radio.style.marginTop = '3px';
+        radio.addEventListener('change', () => {
+          w.satellite = sat.entity_id;
+          w.plan = null;
+          w.automations = null;
+          paint();
+        });
+        const info = document.createElement('div');
+        const n = document.createElement('div');
+        n.style.fontWeight = '500';
+        n.textContent = sat.name || sat.entity_id;
+        const d = document.createElement('div');
+        d.style.cssText = 'font-size:13px; color:var(--muted); margin-top:2px';
+        d.textContent = sat.entity_id;
+        info.append(n, d);
+        label.append(radio, info);
+        body.appendChild(label);
+      }
+      button('Cancel', 'btn-text', () => finish(false));
+      button('Next', 'btn-primary', () => go(onboarding ? 'plan' : 'check'), !w.satellite);
+    } else if (page === 'check') {
+      head.textContent = voiceText('Migrate Voice Satellite');
+      body.append(stepper('check'), para(voiceText('This kiosk becomes the voice satellite itself. The Voice Satellite integration is not needed after this.')));
       if (!w.check) body.appendChild(spinner());
       for (const c of w.check?.checks || []) {
         const [title, good, bad] = CHECKS[c.id] || [c.id, '', () => ''];
@@ -579,16 +631,12 @@ export function openVsMigrationWizard() {
         body.appendChild(iconLine(c.ok ? 'ok' : c.warnOnly ? 'warn' : 'error', color,
           voiceText(title), voiceText(c.ok ? good : bad(c)), extra));
       }
-      button('Cancel', 'btn-text', () => shell.close());
+      button('Back', 'btn-text', () => go('pick'));
       if (w.check && w.check.ready !== true) button('Check again', 'btn-text', runCheck);
-      button('Next', 'btn-primary', () => {
-        w.step = 1;
-        paint();
-        load('voiceMigrationPlan', 'plan', { groups: [] });
-      }, w.check?.ready !== true);
-    } else if (w.step === 1) {
+      button('Next', 'btn-primary', () => go('plan'), w.check?.ready !== true);
+    } else if (page === 'plan') {
       head.textContent = voiceText('Settings to bring over');
-      body.appendChild(stepper(2));
+      body.appendChild(stepper('plan'));
       if (!w.plan) body.appendChild(spinner());
       else {
         for (const g of w.plan.groups || []) {
@@ -619,22 +667,18 @@ export function openVsMigrationWizard() {
           'margin-top:8px; padding:14px; border-radius:16px; background:var(--surface-2); font-size:13px');
         body.appendChild(note);
       }
-      button('Back', 'btn-text', () => { w.step = 0; paint(); });
-      button('Next', 'btn-primary', () => {
-        w.step = 2;
-        paint();
-        load('voiceMigrationAutomations', 'automations', { items: [] });
-      }, !w.plan);
-    } else if (w.step === 2) {
+      button('Back', 'btn-text', () => go(onboarding ? 'pick' : 'check'));
+      button('Next', 'btn-primary', () => go('automations'), !w.plan);
+    } else if (page === 'automations') {
       head.textContent = voiceText('Automations and scripts');
-      body.appendChild(stepper(3));
+      body.appendChild(stepper('automations'));
       const items = w.automations?.items;
       if (!items) body.appendChild(spinner());
       else if (!items.length) {
         body.appendChild(iconLine('ok', 'var(--primary)', voiceText('Nothing in Home Assistant points at the old satellite.'), ''));
       } else {
         body.appendChild(para(voiceFormat('These still point at {satellite}. Edit them in Home Assistant to use this kiosk\'s satellite. The wizard does not change them.',
-          { satellite: w.check?.satellite || '' })));
+          { satellite: w.satellite })));
         for (const item of items) {
           const line = document.createElement('div');
           line.style.cssText = 'padding:8px 0; border-top:1px solid var(--divider)';
@@ -648,17 +692,19 @@ export function openVsMigrationWizard() {
           body.appendChild(line);
         }
       }
-      button('Back', 'btn-text', () => { w.step = 1; paint(); });
-      button('Next', 'btn-primary', () => { w.step = 3; paint(); }, !items);
-    } else if (w.step === 3) {
+      button('Back', 'btn-text', () => go('plan'));
+      button('Next', 'btn-primary', () => go('ready'), !items);
+    } else if (page === 'ready') {
       head.textContent = voiceText('Ready to switch');
-      body.appendChild(stepper(4));
+      body.appendChild(stepper('ready'));
       for (const line of [
         'This kiosk listens, answers and draws the overlay.',
-        'The dashboard stops running Voice Satellite on this kiosk.',
+        onboarding
+          ? 'Its Assistant and wake words are set once Home Assistant adds this kiosk.'
+          : 'The dashboard stops running Voice Satellite on this kiosk.',
         'The old satellite stays in Home Assistant, unused.',
       ]) body.appendChild(para(`•  ${voiceText(line)}`, 'margin-bottom:6px'));
-      button('Back', 'btn-text', () => { w.step = 2; paint(); });
+      button('Back', 'btn-text', () => go('automations'));
       button('Switch now', 'btn-primary', () => switchNow());
     } else if (!w.result) {
       head.textContent = voiceText('Switching…');
@@ -666,27 +712,32 @@ export function openVsMigrationWizard() {
         const icon = s.state === 'done' ? 'ok' : s.state === 'failed' ? 'error' : 'pending';
         const color = s.state === 'done' ? 'var(--primary)' : s.state === 'failed' ? 'var(--error)'
           : s.state === 'run' ? 'var(--primary)' : 'var(--outline)';
-        body.appendChild(iconLine(icon, color, voiceText(STEP_TITLES[s.id] || s.id), ''));
+        const title = onboarding && s.id === 'entities' ? 'Turn on Voice Satellite on this kiosk' : STEP_TITLES[s.id] || s.id;
+        body.appendChild(iconLine(icon, color, voiceText(title), ''));
       }
       if (!w.steps.length) body.appendChild(spinner());
     } else {
       const ok = w.result.ok === true;
       head.textContent = ok ? voiceText('Voice Satellite runs here now') : voiceText('Could not switch');
       body.appendChild(para(ok
-        ? voiceText('Say the wake word to try it. Once no other device uses the Voice Satellite integration, uninstall it from HACS.')
-        : `${w.result.error || ''} ${voiceText('Voice Satellite runs from the dashboard again.')}`.trim()));
-      if (!ok) button('Close', 'btn-text', () => shell.close());
+        ? voiceText(onboarding
+          ? 'Finish the setup, then add this kiosk in Home Assistant. Once no other device uses the Voice Satellite integration, uninstall it from HACS.'
+          : 'Say the wake word to try it. Once no other device uses the Voice Satellite integration, uninstall it from HACS.')
+        : onboarding
+          ? `${w.result.error || ''}`
+          : `${w.result.error || ''} ${voiceText('Voice Satellite runs from the dashboard again.')}`.trim()));
+      if (!ok) button('Close', 'btn-text', () => finish(false));
       button(ok ? 'Done' : 'Try again', 'btn-primary', () => {
-        if (ok) { shell.close(); return; }
+        if (ok) { finish(true); return; }
         w.result = null;
-        w.step = 3;
+        w.step = pages.indexOf('ready');
         paint();
       });
     }
   };
 
   const switchNow = async () => {
-    w.step = 4;
+    w.step = pages.length;
     w.steps = [];
     paint();
     // The switch runs for a while on the kiosk: follow its steps.
@@ -697,12 +748,24 @@ export function openVsMigrationWizard() {
         paint();
       }
     }, 700);
-    const r = await cmd('vsMigrate', { groups: [...w.groups] }, { timeoutMs: 180000 }).catch((e) => ({ ok: false, error: `${e?.message || ''}` }));
+    const r = await cmd('vsMigrate', { groups: [...w.groups], satellite: w.satellite, deferred: onboarding },
+      { timeoutMs: 180000 }).catch((e) => ({ ok: false, error: `${e?.message || ''}` }));
     clearInterval(poll);
     w.result = { ok: r?.ok === true, error: r?.error };
     paint();
   };
 
-  runCheck();
+  paint();
+  cmd('haListVoiceSatellites', {}).catch(() => null).then((r) => {
+    const list = r?.ok && Array.isArray(r.data) ? r.data : [];
+    w.satellites = list;
+    w.satellite = list[0]?.entity_id || '';
+    api('/api/settings').then((res) => res.json()).then((data) => {
+      const assigned = `${(data.settings || []).find((x) => x.key === 'ha.satellite_entity')?.value || ''}`.trim();
+      if (list.some((x) => x.entity_id === assigned)) w.satellite = assigned;
+      paint();
+    }).catch(() => paint());
+  });
+  });
 }
 

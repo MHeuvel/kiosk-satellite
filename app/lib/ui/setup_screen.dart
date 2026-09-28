@@ -20,6 +20,7 @@ import 'kiosk_screen.dart';
 import 'kit.dart' show LabeledField, NoticeBanner, NoticeKind, SectionHeading;
 import 'theme.dart';
 import 'toast.dart';
+import 'voice_settings.dart' show showVoiceMigrationWizard;
 import 'token_qr_scanner.dart';
 import 'package:kiosk_satellite/core/lifecycle.dart';
 
@@ -167,6 +168,65 @@ class _SetupScreenState extends State<SetupScreen> {
   // Each recommended setting is its own choice; the master switch just
   // sets them all.
   bool _voiceOn = true;
+
+  /// Whether Home Assistant runs the Voice Satellite integration, null
+  /// until checked: with it the step offers the migration.
+  bool? _vsInstalled;
+  bool _migrated = false;
+
+  /// The basics of a new satellite, set once Home Assistant adds the kiosk
+  /// ('preferred' is Home Assistant's own preferred pipeline).
+  List<String> _pipelines = const [];
+  String? _preferredPipeline;
+  String _pipeline = 'preferred';
+  late String _engine = c.settings.get(defs.voiceWakeWordEngine);
+  List<(String, String)> _wakeWords = const [];
+  String _wakeWord = 'ok_nabu';
+
+  Future<void> _loadVoiceStep() async {
+    final detected = await c.commands.execute(
+      'haDetectVoiceSatellite',
+      const {},
+    );
+    final pipelines = await c.commands.execute('voicePipelines', const {});
+    if (!mounted) return;
+    final data = pipelines.data;
+    setState(() {
+      _vsInstalled = detected.ok && detected.data == true;
+      if (pipelines.ok && data is Map) {
+        _pipelines = [for (final p in (data['pipelines'] as List)) '$p'];
+        _preferredPipeline = data['preferred'] as String?;
+      }
+    });
+    await _loadWakeWords();
+  }
+
+  Future<void> _loadWakeWords() async {
+    final result = await c.commands.execute('voiceWakeWordChoices', {
+      'engine': _engine,
+    });
+    if (!mounted) return;
+    final words = [
+      for (final w in (result.data as List? ?? const []))
+        if (w is Map) ('${w['id']}', '${w['phrase']}'),
+    ];
+    setState(() {
+      _wakeWords = words;
+      if (words.isNotEmpty && !words.any((w) => w.$1 == _wakeWord)) {
+        _wakeWord = words.first.$1;
+      }
+    });
+  }
+
+  Future<void> _migrate() async {
+    final migrated = await showVoiceMigrationWizard(
+      context,
+      c,
+      onboarding: true,
+    );
+    if (mounted && migrated) setState(() => _migrated = true);
+  }
+
   static const _optionalRecommended = <(String, String)>[
     ('browser.auto_reload_on_error', 'Auto-reload on error'),
     ('browser.pull_to_refresh', 'Pull to refresh'),
@@ -415,13 +475,31 @@ class _SetupScreenState extends State<SetupScreen> {
           return;
         }
         setState(() => _step = 3);
+        if (_vsInstalled == null) unawaited(_loadVoiceStep());
       case 3:
         setState(() => _step = 4);
       case 4:
         setState(() => _busy = true);
         if (_voiceOn) {
           await c.settings.set(defs.esphomeEnabled, true);
+          if (!_migrated) {
+            // The wake word goes to Home Assistant with the kiosk's first
+            // configuration, the Assistant once its selects are there.
+            await c.settings.set(defs.voiceWakeWordEngine, _engine);
+            await c.settings.set(defs.voiceWakeWords, jsonEncode([_wakeWord]));
+            final phrase = [
+              for (final (id, phrase) in _wakeWords)
+                if (id == _wakeWord) phrase,
+            ].firstOrNull;
+            await c.settings.set(
+              defs.voicePendingSelects,
+              jsonEncode({'pipeline': _pipeline, 'wake_word': ?phrase}),
+            );
+          }
           await c.settings.set(defs.voiceEnabled, true);
+        } else if (_migrated) {
+          // Migrated, then switched off again: the migration turned it on.
+          await c.settings.set(defs.voiceEnabled, false);
         }
         for (final entry in _recommended.entries) {
           // Background listening means nothing without the voice satellite.
@@ -989,6 +1067,122 @@ class _SetupScreenState extends State<SetupScreen> {
               onChanged: (v) => setState(() => _voiceOn = v),
             ),
           ]),
+          if (_voiceOn && _vsInstalled == true)
+            _Card([
+              ListTile(
+                title: Text(
+                  setupText(
+                    context,
+                    _migrated
+                        ? 'Migrated from the Voice Satellite integration'
+                        : 'Voice Satellite integration found',
+                  ),
+                ),
+                subtitle: Text(
+                  setupText(
+                    context,
+                    _migrated
+                        ? 'This kiosk takes over its satellite\'s settings.'
+                        : 'Voice Satellite now runs inside Kiosk Satellite. '
+                              'Migrate to keep the wake words, assistant and '
+                              'look of one of the integration\'s satellites '
+                              'instead of starting fresh.',
+                  ),
+                ),
+                trailing: _migrated
+                    ? null
+                    : FilledButton.tonal(
+                        onPressed: _busy ? null : _migrate,
+                        child: Text(setupText(context, 'Migrate')),
+                      ),
+              ),
+            ]),
+          if (_voiceOn && !_migrated)
+            _Card([
+              if (_vsInstalled == null)
+                const Padding(
+                  padding: EdgeInsets.all(24),
+                  child: Center(child: CircularProgressIndicator()),
+                )
+              else
+                for (final field in [
+                  LabeledField(
+                    label: setupText(context, 'Assistant'),
+                    helper: setupText(
+                      context,
+                      'The Assist pipeline that answers the wake word.',
+                    ),
+                    child: DropdownButtonFormField<String>(
+                      initialValue: _pipeline,
+                      isExpanded: true,
+                      items: [
+                        DropdownMenuItem(
+                          value: 'preferred',
+                          child: Text(
+                            _preferredPipeline == null
+                                ? setupText(context, 'Preferred')
+                                : '${setupText(context, 'Preferred')} '
+                                      '($_preferredPipeline)',
+                          ),
+                        ),
+                        for (final name in _pipelines)
+                          DropdownMenuItem(value: name, child: Text(name)),
+                      ],
+                      onChanged: (v) =>
+                          setState(() => _pipeline = v ?? _pipeline),
+                    ),
+                  ),
+                  LabeledField(
+                    label: defs.voiceWakeWordEngine.localizedTitle(context),
+                    helper: defs.voiceWakeWordEngine.localizedDescription(
+                      context,
+                    ),
+                    child: DropdownButtonFormField<String>(
+                      initialValue: _engine,
+                      isExpanded: true,
+                      items: [
+                        for (final engine in defs.voiceWakeWordEngine.options!)
+                          DropdownMenuItem(
+                            value: engine,
+                            child: Text(
+                              defs.voiceWakeWordEngine.optionLabels?[engine] ??
+                                  engine,
+                            ),
+                          ),
+                      ],
+                      onChanged: (v) {
+                        if (v == null || v == _engine) return;
+                        setState(() => _engine = v);
+                        unawaited(_loadWakeWords());
+                      },
+                    ),
+                  ),
+                  LabeledField(
+                    label: setupText(context, 'Wake word'),
+                    helper: setupText(
+                      context,
+                      'The word that starts a voice command.',
+                    ),
+                    child: DropdownButtonFormField<String>(
+                      key: ValueKey(_engine),
+                      initialValue: _wakeWords.any((w) => w.$1 == _wakeWord)
+                          ? _wakeWord
+                          : null,
+                      isExpanded: true,
+                      items: [
+                        for (final (id, phrase) in _wakeWords)
+                          DropdownMenuItem(value: id, child: Text(phrase)),
+                      ],
+                      onChanged: (v) =>
+                          setState(() => _wakeWord = v ?? _wakeWord),
+                    ),
+                  ),
+                ])
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
+                    child: field,
+                  ),
+            ]),
           if (_voiceOn)
             hint(
               setupText(

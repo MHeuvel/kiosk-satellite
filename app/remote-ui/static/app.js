@@ -94,6 +94,10 @@ export const wizard = {
   steps: [], i: 0, needPassword: false,
   // Step 4: the kiosk as its own voice satellite, on unless turned off.
   voice: true,
+  // The Voice Satellite step: undefined until read, null while reading.
+  vsInstalled: undefined, migrated: false,
+  pipelines: [], preferredPipeline: null, pipeline: 'preferred',
+  engine: 'vswakeword', wakeWords: [], wakeWord: 'ok_nabu',
   rec: Object.fromEntries(WIZ_OPTIONAL.map(([k]) => [k, true])),
   dashboards: [], dashboard: null, dashboardView: '', dashboardViews: null,
 };

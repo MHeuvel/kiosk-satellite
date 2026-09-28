@@ -555,6 +555,58 @@ class VoiceManager extends Manager {
       )
       ..register(
         Command(
+          name: 'voicePipelines',
+          description:
+              "Home Assistant's Assist pipelines by name, the preferred one "
+              'first, for picking the Assistant before Home Assistant has '
+              'this kiosk',
+          quiet: true,
+          handler: (_) async {
+            try {
+              final list = await _ha.request({
+                'type': 'assist_pipeline/pipeline/list',
+              });
+              final pipelines = list is Map ? list['pipelines'] : null;
+              final preferred = list is Map ? list['preferred_pipeline'] : null;
+              return CommandResult.ok({
+                'preferred': [
+                  for (final p in (pipelines as List? ?? const []))
+                    if (p is Map && p['id'] == preferred) '${p['name']}',
+                ].firstOrNull,
+                'pipelines': [
+                  for (final p in pipelines ?? const [])
+                    if (p is Map) '${p['name']}',
+                ],
+              });
+            } catch (e) {
+              return CommandResult.fail('$e');
+            }
+          },
+        ),
+      )
+      ..register(
+        Command(
+          name: 'voiceWakeWordChoices',
+          description:
+              'The wake words an engine offers on this kiosk, id and phrase: '
+              'its bundled models and the custom ones added here',
+          params: const {'engine': 'vswakeword, microwakeword or openwakeword'},
+          quiet: true,
+          handler: (p) async {
+            final engine = voiceEngines['${p['engine'] ?? ''}'] ?? _engine;
+            return CommandResult.ok([
+              for (final w in offeredWakeWords(
+                engine,
+                external: _external,
+                custom: _custom.models,
+              ))
+                {'id': w.id, 'phrase': w.phrase},
+            ]);
+          },
+        ),
+      )
+      ..register(
+        Command(
           name: 'voiceSelectOption',
           description: "Set one of Home Assistant's selects on this kiosk",
           params: const {
@@ -727,8 +779,27 @@ class VoiceManager extends Manager {
       );
       _watchedSelects = signature;
       _watchedOn = _ha.connections;
+      _applyPending();
     } catch (e) {
       log.debug(name, 'selects not followed: $e');
+    }
+  }
+
+  /// Picks made before Home Assistant had this kiosk (at onboarding, or a
+  /// migration then), set now that its selects are there, once.
+  void _applyPending() {
+    final raw = _settings.get(defs.voicePendingSelects);
+    if (raw.isEmpty) return;
+    unawaited(_settings.set(defs.voicePendingSelects, '', source: 'setup'));
+    Object? picks;
+    try {
+      picks = jsonDecode(raw);
+    } catch (_) {}
+    if (picks is! Map) return;
+    for (final entry in picks.entries) {
+      final option = '${entry.value ?? ''}';
+      if (option.isEmpty) continue;
+      unawaited(_applySelect('${entry.key}', option, reason: 'setup'));
     }
   }
 
@@ -1008,6 +1079,13 @@ class VoiceManager extends Manager {
 
   // ── migration ──────────────────────────────────────────────────────────
 
+  static const _satelliteParam =
+      "the integration's assist_satellite to migrate from, else the one the "
+      'dashboard assigned';
+
+  void _pickSatellite(Map<String, Object?> params) =>
+      _migration.picked = '${params['satellite'] ?? ''}'.trim();
+
   void _registerMigrationCommands() {
     commands
       ..register(
@@ -1017,8 +1095,15 @@ class VoiceManager extends Manager {
               'Before migrating from the Voice Satellite integration: Home '
               'Assistant connected, this kiosk added through ESPHome, an '
               'administrator token, the microphone allowed',
+          params: const {
+            'deferred':
+                'true at onboarding: Home Assistant only, the kiosk '
+                'is added and the microphone allowed later',
+          },
           quiet: true,
-          handler: (_) async => CommandResult.ok(await migrationCheck()),
+          handler: (p) async => CommandResult.ok(
+            await migrationCheck(deferred: p['deferred'] == true),
+          ),
         ),
       )
       ..register(
@@ -1027,8 +1112,10 @@ class VoiceManager extends Manager {
           description:
               'What the migration carries over from the old satellite, group '
               'by group, and the values in each',
+          params: const {'satellite': _satelliteParam},
           quiet: true,
-          handler: (_) async {
+          handler: (p) async {
+            _pickSatellite(p);
             try {
               return CommandResult.ok(await migrationPlan());
             } catch (e) {
@@ -1043,8 +1130,10 @@ class VoiceManager extends Manager {
           description:
               'Automations and scripts that reference the old satellite. '
               'Listed only: the migration never changes them.',
+          params: const {'satellite': _satelliteParam},
           quiet: true,
-          handler: (_) async {
+          handler: (p) async {
+            _pickSatellite(p);
             try {
               final entities = await _migration.oldEntities();
               return CommandResult.ok({
@@ -1066,13 +1155,21 @@ class VoiceManager extends Manager {
               'failure.',
           params: const {
             'groups': 'voice, appearance, conversation, assistant, timers',
+            'deferred':
+                'true at onboarding: turn on without waiting for '
+                'Home Assistant, its selects set once it adds the kiosk',
+            'satellite': _satelliteParam,
           },
           handler: (p) async {
+            _pickSatellite(p);
             final raw = p['groups'];
             final groups = raw is List
                 ? [for (final g in raw) '$g']
                 : VoiceMigration.groups;
-            final result = await migrate(groups);
+            final result = await migrate(
+              groups,
+              deferred: p['deferred'] == true,
+            );
             return result['ok'] == true
                 ? CommandResult.ok(result)
                 : CommandResult.fail('${result['error']}');
@@ -1104,12 +1201,19 @@ class VoiceManager extends Manager {
       );
   }
 
-  Future<Map<String, Object?>> migrationCheck() async {
+  Future<Map<String, Object?>> migrationCheck({bool deferred = false}) async {
     final checks = <Map<String, Object?>>[];
     final ha = await commands.execute('haStatus', const {});
     final connected =
         ha.ok && ha.data is Map && (ha.data as Map)['connected'] == true;
     checks.add({'id': 'homeAssistant', 'ok': connected});
+    if (deferred) {
+      return {
+        'checks': checks,
+        'ready': connected,
+        'satellite': _migration.oldSatellite,
+      };
+    }
     final esphomeOn = _settings.get(defs.esphomeEnabled);
     var added = false;
     if (esphomeOn) {
@@ -1169,11 +1273,21 @@ class VoiceManager extends Manager {
 
   /// The switch: every step reported through [migrationSteps]. Rolls back
   /// to the dashboard runtime when the satellite does not come up.
-  Future<Map<String, Object?>> migrate(List<String> groups) async {
+  /// [deferred] is a migration at onboarding: no engine runs in the
+  /// dashboard yet and Home Assistant has not added this kiosk, so the
+  /// satellite is turned on without waiting for it and the old satellite's
+  /// selects are kept to set once Home Assistant has the kiosk.
+  Future<Map<String, Object?>> migrate(
+    List<String> groups, {
+    bool deferred = false,
+  }) async {
     if (_migrating) return {'ok': false, 'error': 'already migrating'};
     _migrating = true;
     migrationSteps.value = [
-      for (final id in const ['save', 'stop', 'start', 'entities', 'check'])
+      for (final id
+          in deferred
+              ? const ['save', 'entities']
+              : const ['save', 'stop', 'start', 'entities', 'check'])
         {'id': id, 'state': 'todo'},
     ];
     final fallbacks = <String>[];
@@ -1196,6 +1310,23 @@ class VoiceManager extends Manager {
         }
       }
       _step('save', 'done');
+
+      if (deferred) {
+        _step('entities', 'run');
+        final selects = groups.contains('voice')
+            ? VoiceMigration.mapSelects(entities)
+            : const <String, String>{};
+        await _settings.set(
+          defs.voicePendingSelects,
+          selects.isEmpty ? '' : jsonEncode(selects),
+          source: 'migration',
+        );
+        await _settings.set(defs.voiceEnabled, true, source: 'migration');
+        await _settings.set(defs.voiceRuntime, 'native', source: 'migration');
+        _step('entities', 'done');
+        log.info(name, 'migrated from the Voice Satellite integration');
+        return {'ok': true, 'fallbacks': fallbacks};
+      }
 
       _step('stop', 'run');
       await commands.execute('vsEngine', const {'action': 'stop'});
@@ -1246,7 +1377,7 @@ class VoiceManager extends Manager {
       );
       if (running['id']!.isNotEmpty) _step(running['id']!, 'failed');
       log.warn(name, 'migration failed, back to the dashboard: $e');
-      await rollback();
+      if (!deferred) await rollback();
       return {'ok': false, 'error': '$e'};
     } finally {
       _migrating = false;
