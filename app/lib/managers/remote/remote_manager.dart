@@ -489,6 +489,9 @@ class RemoteManager extends Manager {
       await _ensureAdminBundle();
       return _staticFile(request, path.substring('static/'.length));
     }
+    if (path.startsWith('voice_skins/')) {
+      return _voiceSkin(path.substring('voice_skins/'.length));
+    }
     if (path == 'api/login') return _login(request);
     if (path == 'api/ws') return _ws(request);
 
@@ -1556,6 +1559,27 @@ class RemoteManager extends Manager {
       'content-type': types[ext] ?? 'application/octet-stream',
       'cache-control': 'public, max-age=31536000, immutable',
     });
+  }
+
+  /// The Voice Satellite skin screenshots the device's picker shows, for
+  /// the admin's picker. Public like the static files: they are the app's
+  /// own pictures.
+  Future<Response> _voiceSkin(String file) async {
+    if (!RegExp(r'^[a-z-]+\.webp$').hasMatch(file)) {
+      return Response.notFound('not found');
+    }
+    try {
+      final data = await _assetBundle.load('assets/voice_skins/$file');
+      return Response.ok(
+        data.buffer.asUint8List(),
+        headers: {
+          'content-type': 'image/webp',
+          'cache-control': 'public, max-age=86400',
+        },
+      );
+    } catch (_) {
+      return Response.notFound('not found');
+    }
   }
 
   static String? _bearerToken(Request request) {

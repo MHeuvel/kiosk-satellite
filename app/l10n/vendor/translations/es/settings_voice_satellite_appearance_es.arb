@@ -25,6 +25,5 @@
   "settingVoiceReactiveBarTitle": "Barra de actividad reactiva",
   "settingVoiceReactiveBarDescription": "La barra sigue tu voz y la respuesta.",
   "voicePreviewCommand": "¿Qué tiempo hace?",
-  "voicePreviewAnswer": "Ahora mismo está soleado y hace 22°, con una brisa ligera.",
-  "voicePreviewThumbAnswer": "Ahora mismo está soleado y hace 22°."
+  "voicePreviewAnswer": "Ahora mismo está soleado y hace 22°, con una brisa ligera."
 }

@@ -9,7 +9,6 @@ import '../core/events.dart';
 import '../l10n/messages.dart';
 import 'kit.dart';
 import 'settings_search.dart';
-import 'theme.dart';
 import 'toast.dart';
 
 /// Where the custom wake word models are explained.
@@ -236,7 +235,6 @@ class _CustomWakeModelsGroupState extends State<CustomWakeModelsGroup> {
         ),
         // Adding, and the documentation, each in a card of its own under
         // the list.
-        const SizedBox(height: Ks.cardGap),
         SettingsCard(
           children: [
             if (_managed)
@@ -268,7 +266,6 @@ class _CustomWakeModelsGroupState extends State<CustomWakeModelsGroup> {
               ),
           ],
         ),
-        const SizedBox(height: Ks.cardGap),
         SettingsCard(
           children: [
             SettingsRow(

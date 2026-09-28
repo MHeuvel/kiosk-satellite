@@ -10796,9 +10796,6 @@ class UiStringsUk extends UiStrings {
   String get voicePreviewAnswer => 'Зараз сонячно і 22°, легкий вітерець.';
 
   @override
-  String get voicePreviewThumbAnswer => 'Зараз сонячно і 22°.';
-
-  @override
   String get voiceAssistant1 => 'Асистент 1';
 
   @override

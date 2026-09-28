@@ -25,6 +25,5 @@
   "settingVoiceReactiveBarTitle": "Reaktive Aktivitätsleiste",
   "settingVoiceReactiveBarDescription": "Die Leiste folgt deiner Stimme und der Antwort.",
   "voicePreviewCommand": "Wie ist das Wetter?",
-  "voicePreviewAnswer": "Gerade sonnig und 22°, mit einer leichten Brise.",
-  "voicePreviewThumbAnswer": "Gerade sonnig und 22°."
+  "voicePreviewAnswer": "Gerade sonnig und 22°, mit einer leichten Brise."
 }

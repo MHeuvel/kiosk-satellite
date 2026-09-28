@@ -10943,9 +10943,6 @@ class UiStringsDe extends UiStrings {
       'Gerade sonnig und 22°, mit einer leichten Brise.';
 
   @override
-  String get voicePreviewThumbAnswer => 'Gerade sonnig und 22°.';
-
-  @override
   String get voiceAssistant1 => 'Assistent 1';
 
   @override

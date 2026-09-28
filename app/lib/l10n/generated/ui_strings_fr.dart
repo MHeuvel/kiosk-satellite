@@ -10897,9 +10897,6 @@ class UiStringsFr extends UiStrings {
       'Ensoleillé et 22° en ce moment, avec une légère brise.';
 
   @override
-  String get voicePreviewThumbAnswer => 'Ensoleillé et 22° en ce moment.';
-
-  @override
   String get voiceAssistant1 => 'Assistant 1';
 
   @override

@@ -6,7 +6,6 @@ import '../app_container.dart';
 import '../core/events.dart';
 import '../l10n/messages.dart';
 import '../managers/settings/definitions.dart' as defs;
-import 'assist/assist_art.dart';
 import 'assist/assist_skins.dart';
 import 'kit.dart';
 import 'theme.dart';
@@ -365,8 +364,7 @@ class _VoiceHaSelectsState extends State<VoiceHaSelects> {
   }
 }
 
-/// The Skin row: the current skin as a thumbnail and name, opening the
-/// picker.
+/// The Skin row: the current skin's name, opening the picker.
 class VoiceSkinRow extends StatelessWidget {
   const VoiceSkinRow({
     super.key,
@@ -392,109 +390,28 @@ class VoiceSkinRow extends StatelessWidget {
           onChanged();
         }
       },
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        spacing: 10,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(6),
-            child: SizedBox(
-              width: 56,
-              height: 35,
-              child: VoiceSkinThumbnail(
-                skin: skin,
-                dark: _dark(context, container, skin),
-              ),
-            ),
-          ),
-          Text(skin.name),
-          const Icon(Icons.chevron_right),
-        ],
-      ),
+      trailing: Text(skin.name, style: Theme.of(context).textTheme.bodyMedium),
     );
   }
 }
 
-bool _dark(BuildContext context, AppContainer container, AssistSkin skin) =>
-    skin.darkOnly ||
-    switch (container.settings.get(defs.voiceTheme)) {
-      'dark' => true,
-      'light' => false,
-      _ => Theme.of(context).brightness == Brightness.dark,
-    };
-
-/// A skin in miniature: its backdrop, its art listening, a line of text.
+/// A skin in miniature: a screenshot of its overlay answering, taken on a
+/// tablet with the text at 150% and no dashboard showing through. Light
+/// where the skin has a light palette.
 class VoiceSkinThumbnail extends StatelessWidget {
-  const VoiceSkinThumbnail({
-    super.key,
-    required this.skin,
-    required this.dark,
-    this.text = true,
-  });
+  const VoiceSkinThumbnail({super.key, required this.skin});
 
   final AssistSkin skin;
-  final bool dark;
-  final bool text;
-
-  static final _level = ValueNotifier<double>(0.4);
-  static final _clock = ArtClock.still();
 
   @override
-  Widget build(BuildContext context) {
-    final palette = skin.palette(dark);
-    return LayoutBuilder(
-      builder: (context, box) {
-        // The art draws at kiosk scale; the thumbnail shrinks all of it.
-        const width = 960.0;
-        final height = width * box.maxHeight / box.maxWidth;
-        return FittedBox(
-          fit: BoxFit.cover,
-          clipBehavior: Clip.hardEdge,
-          child: SizedBox(
-            width: width,
-            height: height,
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                SkinBackdrop(skin: skin, color: palette.backdrop),
-                SkinBarLayer(
-                  skin: skin,
-                  mode: ArtMode.speaking,
-                  reactive: true,
-                  level: _level,
-                  clock: _clock,
-                ),
-                if (text)
-                  Positioned(
-                    left: width * 0.075,
-                    right: width * 0.075,
-                    bottom: skin.chatBottomReactive + 4,
-                    child: Text(
-                      l10n(context).voicePreviewThumbAnswer,
-                      textAlign: skin.centered
-                          ? TextAlign.center
-                          : TextAlign.start,
-                      style: TextStyle(
-                        fontFamily: skin.font,
-                        fontSize: skin.answerSize,
-                        fontWeight: skin.answerWeight,
-                        color: palette.answer,
-                        shadows: [
-                          for (final s in palette.answerShadows) s.shadow,
-                        ],
-                      ),
-                    ),
-                  ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
+  Widget build(BuildContext context) => Image.asset(
+    'assets/voice_skins/${skin.id}.webp',
+    fit: BoxFit.cover,
+    filterQuality: FilterQuality.medium,
+  );
 }
 
-/// Every skin as a live thumbnail, the current one ringed.
+/// Every skin as a thumbnail, the current one ringed.
 Future<String?> showVoiceSkinPicker(
   BuildContext context,
   AppContainer container,
@@ -537,10 +454,7 @@ Future<String?> showVoiceSkinPicker(
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
-                            child: VoiceSkinThumbnail(
-                              skin: skin,
-                              dark: _dark(context, container, skin),
-                            ),
+                            child: VoiceSkinThumbnail(skin: skin),
                           ),
                         ),
                       ),
@@ -1283,10 +1197,7 @@ class _MigrationWizardState extends State<_MigrationWizard> {
               child: SizedBox(
                 width: 120,
                 height: 75,
-                child: VoiceSkinThumbnail(
-                  skin: skin,
-                  dark: _dark(context, c, skin),
-                ),
+                child: VoiceSkinThumbnail(skin: skin),
               ),
             ),
             Expanded(

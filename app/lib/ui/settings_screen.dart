@@ -3639,7 +3639,6 @@ class _CategoryContentState extends State<_CategoryContent> {
                 ],
               ),
             ),
-            const SizedBox(height: Ks.cardGap),
             _vsDetectionCard(container),
             CustomWakeModelsGroup(container: container),
           ];
@@ -4050,7 +4049,6 @@ extension on _CategoryContentState {
         ),
       ),
       if (enabled) ...[
-        const SizedBox(height: Ks.cardGap),
         for (final page in const [
           'Assistant',
           'Wake Word',
@@ -4058,10 +4056,8 @@ extension on _CategoryContentState {
           'Conversation',
           'Timers',
           'Chimes',
-        ]) ...[
+        ])
           _subpageEntryCard(container, 'Voice Satellite', page),
-          const SizedBox(height: Ks.cardGap),
-        ],
         SectionHeading(voiceText(context, 'Wake Word Tester')),
         SearchLandingTarget(
           id: 'x:wake_word_tester',
@@ -4088,12 +4084,9 @@ extension on _CategoryContentState {
       FutureBuilder<bool>(
         future: _vsDetected,
         builder: (context, snapshot) => snapshot.data == true
-            ? Padding(
-                padding: const EdgeInsets.only(top: Ks.cardGap),
-                child: SearchLandingTarget(
-                  id: 'x:vs_rollback',
-                  child: VoiceRollbackCard(container: container),
-                ),
+            ? SearchLandingTarget(
+                id: 'x:vs_rollback',
+                child: VoiceRollbackCard(container: container),
               )
             : const SizedBox.shrink(),
       ),

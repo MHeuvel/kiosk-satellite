@@ -3550,7 +3550,6 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingVoiceReactiveBarDescription,
       'voicePreviewCommand' => strings.voicePreviewCommand,
       'voicePreviewAnswer' => strings.voicePreviewAnswer,
-      'voicePreviewThumbAnswer' => strings.voicePreviewThumbAnswer,
       'voiceAssistant1' => strings.voiceAssistant1,
       'voiceAssistant1Help' => strings.voiceAssistant1Help,
       'voiceAssistant2' => strings.voiceAssistant2,

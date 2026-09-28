@@ -40074,11 +40074,6 @@
     "context": "Settings > Voice Satellite > Appearance",
     "description": "Sample text the overlay preview shows. Adapt the temperature to the units your readers use."
   },
-  "voicePreviewThumbAnswer": "Ahora mismo está soleado y hace 22°.",
-  "@voicePreviewThumbAnswer": {
-    "context": "Settings > Voice Satellite > Appearance",
-    "description": "Sample text the overlay preview shows. Adapt the temperature to the units your readers use."
-  },
   "voiceAssistant1": "Asistente 1",
   "@voiceAssistant1": {
     "context": "Settings > Voice Satellite > Assistant",

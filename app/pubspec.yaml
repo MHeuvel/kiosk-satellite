@@ -122,6 +122,7 @@ flutter:
     - assets/branding/icon.png
     - assets/branding/mark.png
     - assets/svg/
+    - assets/voice_skins/
     - assets/branding/mark_light.png
     - assets/branding/hacs.svg
     - assets/branding/mark.svg

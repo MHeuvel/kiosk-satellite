@@ -134,6 +134,63 @@ async function ttsOutputRow(row, current) {
   row.replaceWith(picker);
 }
 
+/* Skin: the current skin's name, opening a grid of every skin as a
+   screenshot of its overlay, the device's picker. Keeps the row's own
+   (localized) title and option labels and its key. */
+function skinRow(row, current) {
+  const title = row.querySelector('.name')?.textContent || voiceText('Skin');
+  const desc = row.querySelector('.desc')?.textContent || '';
+  const skins = [...(row.querySelector('select')?.options || [])]
+    .map((o) => ({ id: o.value, name: o.textContent }));
+  if (!skins.length) return;
+  const nameOf = (id) => skins.find((k) => k.id === id)?.name || id;
+  const picker = readOnlyRow(title, desc, nameOf(current), false);
+  picker.dataset.key = 'voice.skin';
+  picker.style.cursor = 'pointer';
+  picker.tabIndex = 0;
+  const open = async () => {
+    const picked = await openSkinPicker(skins, current);
+    if (!picked || picked === current) return;
+    current = picked;
+    picker.lastElementChild.textContent = nameOf(picked);
+    api('/api/settings', { method: 'PATCH', body: JSON.stringify({ 'voice.skin': picked }) })
+      .catch(() => null);
+  };
+  picker.addEventListener('click', open);
+  picker.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+  });
+  row.replaceWith(picker);
+}
+
+function openSkinPicker(skins, current) {
+  return new Promise((resolve) => {
+    const shell = modalShell({ title: voiceText('Skin'), width: 640, onDismiss: () => close(null) });
+    const close = (id) => { shell.close(); resolve(id); };
+    shell.foot.remove();
+    const grid = document.createElement('div');
+    grid.style.cssText = 'display:grid; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:14px; padding:4px 2px';
+    for (const skin of skins) {
+      const tile = document.createElement('button');
+      tile.type = 'button';
+      tile.style.cssText = 'display:flex; flex-direction:column; gap:6px; padding:0; border:0; background:none; color:inherit; text-align:start; cursor:pointer; font:inherit';
+      const picked = skin.id === current;
+      const img = document.createElement('img');
+      img.src = `voice_skins/${skin.id}.webp`;
+      img.alt = skin.name;
+      img.loading = 'lazy';
+      img.style.cssText = `display:block; width:100%; aspect-ratio:16/10; object-fit:cover; border-radius:12px; box-sizing:border-box; border:${picked ? '3px solid var(--primary)' : '1px solid var(--divider)'}`;
+      const name = document.createElement('div');
+      name.textContent = skin.name;
+      name.style.cssText = 'font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis';
+      tile.append(img, name);
+      tile.addEventListener('click', () => close(skin.id));
+      grid.appendChild(tile);
+    }
+    shell.body.appendChild(grid);
+  });
+}
+
 /* Home Assistant's selects on the kiosk's device, as dropdowns that write
    them live. `rows` is [key, title, description] per row. */
 async function haSelectRows(container, rows) {
@@ -241,6 +298,8 @@ export async function renderNativeVs(root, byKey) {
       wake.prepend(first);
       if (!wake.querySelector('#vsCustomModels')) wake.append(...customModelsGroup());
     }
+    const skin = panel('Appearance')?.querySelector('[data-key="voice.skin"]');
+    if (skin) skinRow(skin, byKey['voice.skin']?.value || '');
     const reactive = panel('Appearance')?.querySelector('[data-key="voice.reactive_bar"]');
     if (reactive) {
       const row = voiceRow('Preview', 'Show the overlay on the kiosk screen for five seconds.');

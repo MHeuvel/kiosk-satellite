@@ -40074,11 +40074,6 @@
     "context": "Settings > Voice Satellite > Appearance",
     "description": "Sample text the overlay preview shows. Adapt the temperature to the units your readers use."
   },
-  "voicePreviewThumbAnswer": "Sunny and 72° right now.",
-  "@voicePreviewThumbAnswer": {
-    "context": "Settings > Voice Satellite > Appearance",
-    "description": "Sample text the overlay preview shows. Adapt the temperature to the units your readers use."
-  },
   "voiceAssistant1": "Assistant 1",
   "@voiceAssistant1": {
     "context": "Settings > Voice Satellite > Assistant",

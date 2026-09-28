@@ -25,6 +25,5 @@
   "settingVoiceReactiveBarTitle": "Реактивна смуга активності",
   "settingVoiceReactiveBarDescription": "Смуга реагує на ваш голос і відповідь.",
   "voicePreviewCommand": "Яка погода?",
-  "voicePreviewAnswer": "Зараз сонячно і 22°, легкий вітерець.",
-  "voicePreviewThumbAnswer": "Зараз сонячно і 22°."
+  "voicePreviewAnswer": "Зараз сонячно і 22°, легкий вітерець."
 }

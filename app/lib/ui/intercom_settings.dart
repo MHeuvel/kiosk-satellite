@@ -112,7 +112,6 @@ class _IntercomSettingsPanelState extends State<IntercomSettingsPanel> {
               ),
             ],
           ),
-          const SizedBox(height: Ks.cardGap),
         ],
         ...widget.cards,
         if (enabled) ...[
