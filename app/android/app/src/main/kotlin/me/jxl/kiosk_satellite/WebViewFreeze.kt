@@ -110,6 +110,11 @@ class WebViewFreeze(
                 (activity as? MainActivity)?.parkFocusIfIdle()
             }
         }
+        // Revealing the dashboard is the screensaver's dismissal, which
+        // brings no focus change to re-hide the bars the way a wake does.
+        // On some Android 12 ROMs the gesture bar stayed up over the
+        // dashboard until the drawer was opened (issue #728).
+        if (!hidden && changed > 0) SystemBars.reassertOnFocus(activity)
         return changed
     }
 

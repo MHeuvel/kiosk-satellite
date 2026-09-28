@@ -93,6 +93,12 @@ Future<void> main() async {
   container.bus.on<SettingChanged>().listen((e) {
     if (e.key == defs.kioskEnabled.key) applyImmersion();
   });
+  // A screensaver dismissal reveals the dashboard WebView with no focus
+  // change or resume to re-assert the mode, and on some Android 12 ROMs
+  // the gesture bar stayed up over the dashboard afterwards (issue #728).
+  container.bus.on<ScreensaverStateChanged>().listen((e) {
+    if (!e.active) applyImmersion();
+  });
   SystemChrome.setSystemUIChangeCallback((systemOverlaysAreVisible) async {
     if (!systemOverlaysAreVisible) return;
     final locked = container.settings.get(defs.kioskEnabled);

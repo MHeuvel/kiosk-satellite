@@ -7,6 +7,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ### Changed
 - **Native Voice Satellite has its own documentation page.** It covers why voice runs natively now, setting it up, migrating from the integration, every setting, playing sounds on a media player and the port the speaker needs, timers and conversations, the Home Assistant entities and actions and troubleshooting. The README and the ESPHome and custom wake word pages link to it.
 
+### Fixed
+- **Dismissing the screensaver hides the navigation bar again.** On some Android 12 devices with gesture navigation, a grey strip stayed across the bottom of the dashboard after the screensaver ended until the side menu was opened and closed (#728). The dismissal now re-applies full screen mode the way waking the screen does.
+
 ## v2026.9.87 - 2026-09-27
 
 ### Added
