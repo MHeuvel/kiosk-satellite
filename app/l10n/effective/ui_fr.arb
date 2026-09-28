@@ -41005,6 +41005,16 @@
     "context": "Settings > Voice Satellite",
     "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   },
+  "voiceWordReloadNeeded": "Rechargement requis",
+  "@voiceWordReloadNeeded": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceHaSelectsReloadHint": "Home Assistant n'a pas chargé les sélecteurs Assistant et Mot de réveil. Rechargez l'entrée ESPHome de ce kiosque dans Paramètres, Appareils et services. Redémarrer Home Assistant fonctionne aussi.",
+  "@voiceHaSelectsReloadHint": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
   "voiceTurnOn": "Activer",
   "@voiceTurnOn": {
     "context": "Settings > Voice Satellite",

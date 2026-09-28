@@ -11166,6 +11166,13 @@ class UiStringsUk extends UiStrings {
       'Увімкніть сервер ESPHome, щоб Home Assistant міг додати цей кіоск як сателіт.';
 
   @override
+  String get voiceWordReloadNeeded => 'Потрібне перезавантаження';
+
+  @override
+  String get voiceHaSelectsReloadHint =>
+      'Home Assistant не завантажив вибори Асистент і Слово активації. Перезавантажте запис ESPHome цього кіоску в розділі Налаштування, Пристрої та служби. Перезапуск Home Assistant теж допоможе.';
+
+  @override
   String get voiceTurnOn => 'Увімкнути';
 
   @override

@@ -11273,6 +11273,13 @@ class UiStringsFr extends UiStrings {
       'Activez le serveur ESPHome pour que Home Assistant puisse ajouter ce kiosque comme satellite.';
 
   @override
+  String get voiceWordReloadNeeded => 'Rechargement requis';
+
+  @override
+  String get voiceHaSelectsReloadHint =>
+      'Home Assistant n\'a pas chargé les sélecteurs Assistant et Mot de réveil. Rechargez l\'entrée ESPHome de ce kiosque dans Paramètres, Appareils et services. Redémarrer Home Assistant fonctionne aussi.';
+
+  @override
   String get voiceTurnOn => 'Activer';
 
   @override

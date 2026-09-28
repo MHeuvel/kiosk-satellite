@@ -11279,6 +11279,13 @@ class UiStringsEs extends UiStrings {
       'Activa el servidor ESPHome para que Home Assistant pueda añadir este kiosko como satélite.';
 
   @override
+  String get voiceWordReloadNeeded => 'Recarga necesaria';
+
+  @override
+  String get voiceHaSelectsReloadHint =>
+      'Home Assistant no ha cargado los selectores de Asistente y Palabra de activación. Recarga la entrada ESPHome de este kiosko en Ajustes, Dispositivos y servicios. Reiniciar Home Assistant también funciona.';
+
+  @override
   String get voiceTurnOn => 'Activar';
 
   @override

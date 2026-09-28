@@ -191,7 +191,9 @@ class _VoiceStatusCardState extends State<VoiceStatusCard> {
         SettingsRow(
           title: Text(voiceText(context, 'Home Assistant')),
           subtitle: Text(
-            ha.satelliteEntity.isNotEmpty
+            ha.satelliteEntity.isNotEmpty && ha.selectsMissing
+                ? voiceText(context, _reloadHint)
+                : ha.satelliteEntity.isNotEmpty
                 ? ha.satelliteEntity
                 : esphome
                 ? voiceText(
@@ -207,10 +209,12 @@ class _VoiceStatusCardState extends State<VoiceStatusCard> {
           ),
           trailing: esphome
               ? statusWord(
-                  ha.satelliteEntity.isNotEmpty
-                      ? voiceText(context, 'Added')
-                      : voiceText(context, 'Not added'),
-                  ha.satelliteEntity.isNotEmpty
+                  ha.satelliteEntity.isEmpty
+                      ? voiceText(context, 'Not added')
+                      : ha.selectsMissing
+                      ? voiceText(context, 'Reload needed')
+                      : voiceText(context, 'Added'),
+                  ha.satelliteEntity.isNotEmpty && !ha.selectsMissing
                       ? scheme.primary
                       : scheme.tertiary,
                 )
@@ -228,6 +232,13 @@ class _VoiceStatusCardState extends State<VoiceStatusCard> {
     return SettingsCard(children: rows);
   }
 }
+
+/// Home Assistant added the satellite but not its selects, and the kiosk's
+/// token could not reload the entry.
+const _reloadHint =
+    'Home Assistant has not loaded the Assistant and Wake word selects. '
+    "Reload this kiosk's ESPHome entry under Settings, Devices & services. "
+    'Restarting Home Assistant also works.';
 
 /// One of Home Assistant's selects on the kiosk's device (the Assistant
 /// and Wake word pickers), as a dropdown row that writes it live.
@@ -331,7 +342,12 @@ class _VoiceHaSelectsState extends State<VoiceHaSelects> {
         title: Text(voiceText(context, title)),
         subtitle: Text(voiceText(context, description)),
         trailing: Text(
-          voiceText(context, 'Not available'),
+          voiceText(
+            context,
+            widget.container.voice.homeAssistant.value.selectsMissing
+                ? 'Reload needed'
+                : 'Not available',
+          ),
           style: Theme.of(context).textTheme.bodyMedium,
         ),
       );

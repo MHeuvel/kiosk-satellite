@@ -35,6 +35,12 @@ function voiceRow(name, desc, value = '') {
   return readOnlyRow(voiceText(name), voiceText(desc), value, false);
 }
 
+/* Home Assistant added the satellite but not its selects, and the kiosk's
+   token could not reload the entry. */
+const VS_RELOAD_HINT = 'Home Assistant has not loaded the Assistant and Wake word selects. '
+  + "Reload this kiosk's ESPHome entry under Settings, Devices & services. "
+  + 'Restarting Home Assistant also works.';
+
 function statusWord(row, text, color) {
   const span = row.lastElementChild;
   span.textContent = text;
@@ -75,13 +81,15 @@ async function paintStatus(card, byKey) {
         : status.listening ? voiceText('Listening') : voiceText('Not listening'),
     !added || (!muted && !status.busy && !status.listening) ? 'var(--warn)'
       : muted ? 'var(--muted)' : 'var(--primary)');
-  const haRow = voiceRow('Home Assistant', entity ? '' : esphome
+  const reload = entity && status.selectsMissing === true;
+  const haRow = voiceRow('Home Assistant', reload ? VS_RELOAD_HINT : entity ? '' : esphome
     ? 'Add this kiosk under Settings, Devices & services in Home Assistant, where it shows up as discovered.'
     : 'Turn on the ESPHome server so Home Assistant can add this kiosk as a satellite.');
-  if (entity) haRow.querySelector('.desc').textContent = entity;
+  if (entity && !reload) haRow.querySelector('.desc').textContent = entity;
   if (esphome) {
-    statusWord(haRow, entity ? voiceText('Added') : voiceText('Not added'),
-      entity ? 'var(--primary)' : 'var(--warn)');
+    statusWord(haRow, !entity ? voiceText('Not added')
+      : reload ? voiceText('Reload needed') : voiceText('Added'),
+    entity && !reload ? 'var(--primary)' : 'var(--warn)');
   } else {
     haRow.lastElementChild.remove();
     const btn = document.createElement('button');
@@ -143,7 +151,8 @@ async function haSelectRows(container, rows) {
     const entity = data[key];
     const options = Array.isArray(entity?.options) ? entity.options.map(String) : [];
     if (!entity || entity.available !== true || !options.length) {
-      container.appendChild(voiceRow(title, desc, voiceText('Not available')));
+      container.appendChild(voiceRow(title, desc,
+        voiceText(data.selectsMissing === true ? 'Reload needed' : 'Not available')));
       continue;
     }
     container.appendChild(vsSelectRow(voiceText(title), voiceText(desc),

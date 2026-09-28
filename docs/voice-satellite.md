@@ -197,5 +197,6 @@ A fleet leader passes its Voice Satellite settings to followers whose profile sy
 | Status says Not added | Turn on ESPHome, then add the kiosk under **Settings > Devices & services** in Home Assistant. |
 | The wake word never triggers | Check the level on the [Wake Word Tester](microphone.md) and the permissions group. Try another sensitivity. |
 | No tool lines or result panels | The Home Assistant token is a regular user's. Use an administrator's. |
+| Assistant and Wake word say Reload needed | Home Assistant added the satellite but not its selects, and the kiosk's token is not an administrator's, so it cannot reload the ESPHome entry itself. Reload the kiosk's entry under **Settings > Devices & services > ESPHome** or restart Home Assistant. |
 | Chimes silent on a media player | The speaker cannot reach the kiosk on port 2329. |
 | The overlay shows a notice | It names what failed: the microphone, the wake word, the connection, text to speech or the pipeline. Each turn's steps are in the app log. |

@@ -19219,6 +19219,18 @@ abstract class UiStrings {
   /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
   ///
   /// In en, this message translates to:
+  /// **'Reload needed'**
+  String get voiceWordReloadNeeded;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant has not loaded the Assistant and Wake word selects. Reload this kiosk\'s ESPHome entry under Settings, Devices & services. Restarting Home Assistant also works.'**
+  String get voiceHaSelectsReloadHint;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
   /// **'Turn on'**
   String get voiceTurnOn;
 

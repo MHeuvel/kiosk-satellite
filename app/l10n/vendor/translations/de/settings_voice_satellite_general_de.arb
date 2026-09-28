@@ -58,6 +58,8 @@
   "voiceWordAdded": "Hinzugefügt",
   "voiceHaAddHint": "Füge diesen Kiosk in Home Assistant unter Einstellungen, Geräte & Dienste hinzu, wo er als erkannt erscheint.",
   "voiceHaEsphomeOff": "Schalte den ESPHome-Server ein, damit Home Assistant diesen Kiosk als Satellit hinzufügen kann.",
+  "voiceWordReloadNeeded": "Neu laden nötig",
+  "voiceHaSelectsReloadHint": "Home Assistant hat die Auswahlen für Assistent und Aktivierungswort nicht geladen. Lade den ESPHome-Eintrag dieses Kiosks unter Einstellungen, Geräte & Dienste neu. Ein Neustart von Home Assistant hilft ebenfalls.",
   "voiceTurnOn": "Einschalten",
   "voiceRollbackTitle": "Wieder über das Dashboard ausführen",
   "voiceRollbackDescription": "Zurück zur Voice Satellite-Integration. Nichts, was hier eingestellt ist, geht verloren.",

@@ -30,6 +30,7 @@ class VoiceHaState {
     this.subscribed = false,
     this.satelliteEntity = '',
     this.entities = const {},
+    this.selectsMissing = false,
   });
 
   /// A Home Assistant session holds the voice assistant subscription: the
@@ -42,6 +43,10 @@ class VoiceHaState {
   /// Home Assistant's own selects on the kiosk's device, by key: pipeline,
   /// pipeline_2, vad_sensitivity, wake_word, wake_word_2.
   final Map<String, String> entities;
+
+  /// Home Assistant has the satellite but not its Assistant and Wake word
+  /// selects, and the kiosk could not reload its ESPHome entry to add them.
+  final bool selectsMissing;
 }
 
 /// Native Voice Satellite: the kiosk as an Assist satellite of its own,
@@ -1436,7 +1441,7 @@ class VoiceManager extends Manager {
   }
 
   /// Home Assistant's selects on the kiosk, for the settings pages:
-  /// {key: {entity_id, state, options, available}}.
+  /// {key: {entity_id, state, options, available}}, plus selectsMissing.
   Future<Map<String, Object?>> haSelects() async {
     if (homeAssistant.value.entities.isEmpty) await refreshHomeAssistant();
     final out = <String, Object?>{};
@@ -1453,6 +1458,7 @@ class VoiceManager extends Manager {
             state['state'] != 'unknown',
       };
     }
+    out['selectsMissing'] = homeAssistant.value.selectsMissing;
     return out;
   }
 
@@ -1492,6 +1498,7 @@ class VoiceManager extends Manager {
     'subscribed': homeAssistant.value.subscribed,
     'satelliteEntity': homeAssistant.value.satelliteEntity,
     'entities': homeAssistant.value.entities,
+    'selectsMissing': homeAssistant.value.selectsMissing,
     'busy': _session.busy,
     'listening': _wakeWord.listening,
     'phase': view.value.phase.name,
@@ -1698,6 +1705,7 @@ class VoiceManager extends Manager {
           subscribed: on,
           satelliteEntity: homeAssistant.value.satelliteEntity,
           entities: homeAssistant.value.entities,
+          selectsMissing: homeAssistant.value.selectsMissing,
         );
         log.info(
           name,
@@ -1801,21 +1809,33 @@ class VoiceManager extends Manager {
           entities[key] = entityId;
         }
       }
+      // Home Assistant adds its Assistant and Wake word selects when the
+      // ESPHome entry sets up. A kiosk that turned voice on after that has
+      // the satellite but not the selects until the entry reloads. They are
+      // missing from the registry, or kept there from an earlier setup but
+      // not loaded (restored). Reload the entry once, as the user would
+      // have to by hand. Reloading takes an administrator's token.
+      var missing = false;
+      if (satellite.isNotEmpty) {
+        final pipeline = entities['pipeline'];
+        final state = pipeline == null
+            ? null
+            : await _migration.stateOf(pipeline);
+        final attributes = state?['attributes'];
+        missing =
+            pipeline == null ||
+            (attributes is Map && attributes['restored'] == true);
+      }
+      if (missing && !_reloadedEntry) {
+        _reloadedEntry = true;
+        if (await _reloadEsphomeEntry(satellite)) missing = false;
+      }
       homeAssistant.value = VoiceHaState(
         subscribed: homeAssistant.value.subscribed,
         satelliteEntity: satellite,
         entities: entities,
+        selectsMissing: missing,
       );
-      // Home Assistant adds its Assistant and Wake word selects when the
-      // ESPHome entry sets up. A kiosk that turned voice on after that has
-      // the satellite but not the selects until the entry reloads: reload
-      // it once, as the user would have to by hand.
-      if (satellite.isNotEmpty &&
-          !entities.containsKey('pipeline') &&
-          !_reloadedEntry) {
-        _reloadedEntry = true;
-        await _reloadEsphomeEntry(satellite);
-      }
     } catch (e) {
       log.debug(name, 'satellite lookup failed: $e');
     }
@@ -1823,14 +1843,14 @@ class VoiceManager extends Manager {
 
   bool _reloadedEntry = false;
 
-  Future<void> _reloadEsphomeEntry(String satellite) async {
+  Future<bool> _reloadEsphomeEntry(String satellite) async {
     try {
       final entry = await _ha.request({
         'type': 'config/entity_registry/get',
         'entity_id': satellite,
       });
       final id = entry is Map ? entry['config_entry_id'] : null;
-      if (id is! String) return;
+      if (id is! String) return false;
       log.info(name, 'reloading the ESPHome entry for the assistant selects');
       await _ha.request({
         'type': 'call_service',
@@ -1838,8 +1858,10 @@ class VoiceManager extends Manager {
         'service': 'reload_config_entry',
         'service_data': {'entry_id': id},
       }, timeout: const Duration(seconds: 30));
+      return true;
     } catch (e) {
       log.warn(name, 'ESPHome entry not reloaded: $e');
+      return false;
     }
   }
 

@@ -11045,6 +11045,13 @@ class UiStringsEn extends UiStrings {
       'Turn on the ESPHome server so Home Assistant can add this kiosk as a satellite.';
 
   @override
+  String get voiceWordReloadNeeded => 'Reload needed';
+
+  @override
+  String get voiceHaSelectsReloadHint =>
+      'Home Assistant has not loaded the Assistant and Wake word selects. Reload this kiosk\'s ESPHome entry under Settings, Devices & services. Restarting Home Assistant also works.';
+
+  @override
   String get voiceTurnOn => 'Turn on';
 
   @override

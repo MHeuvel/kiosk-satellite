@@ -41005,6 +41005,16 @@
     "context": "Settings > Voice Satellite",
     "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   },
+  "voiceWordReloadNeeded": "Потрібне перезавантаження",
+  "@voiceWordReloadNeeded": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceHaSelectsReloadHint": "Home Assistant не завантажив вибори Асистент і Слово активації. Перезавантажте запис ESPHome цього кіоску в розділі Налаштування, Пристрої та служби. Перезапуск Home Assistant теж допоможе.",
+  "@voiceHaSelectsReloadHint": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
   "voiceTurnOn": "Увімкнути",
   "@voiceTurnOn": {
     "context": "Settings > Voice Satellite",

@@ -11320,6 +11320,13 @@ class UiStringsDe extends UiStrings {
       'Schalte den ESPHome-Server ein, damit Home Assistant diesen Kiosk als Satellit hinzufügen kann.';
 
   @override
+  String get voiceWordReloadNeeded => 'Neu laden nötig';
+
+  @override
+  String get voiceHaSelectsReloadHint =>
+      'Home Assistant hat die Auswahlen für Assistent und Aktivierungswort nicht geladen. Lade den ESPHome-Eintrag dieses Kiosks unter Einstellungen, Geräte & Dienste neu. Ein Neustart von Home Assistant hilft ebenfalls.';
+
+  @override
   String get voiceTurnOn => 'Einschalten';
 
   @override

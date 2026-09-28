@@ -41005,6 +41005,16 @@
     "context": "Settings > Voice Satellite",
     "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   },
+  "voiceWordReloadNeeded": "Recarga necesaria",
+  "@voiceWordReloadNeeded": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceHaSelectsReloadHint": "Home Assistant no ha cargado los selectores de Asistente y Palabra de activación. Recarga la entrada ESPHome de este kiosko en Ajustes, Dispositivos y servicios. Reiniciar Home Assistant también funciona.",
+  "@voiceHaSelectsReloadHint": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
   "voiceTurnOn": "Activar",
   "@voiceTurnOn": {
     "context": "Settings > Voice Satellite",
