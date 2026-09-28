@@ -6481,6 +6481,24 @@ const sendspinDuckPercent = SettingDef<num>(
   unit: '%',
 );
 
+/// The followed player as ESPHome entities (issue #741): transport
+/// buttons and what is playing, for whichever player the surfaces follow.
+/// Not a media_player entity: ESPHome's carries no title or artist and
+/// no skip, and Music Assistant already lists the Sendspin player as one.
+/// Off by default, since it re-registers the device like the other
+/// catalog-shaping switches.
+const sendspinEsphomeEntities = SettingDef<bool>(
+  key: 'sendspin.esphome_entities',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Expose ESPHome entities',
+  description:
+      'Play, pause, next and previous buttons for the followed player in '
+      'Home Assistant, with its state, title, artist and source as '
+      'sensors.',
+  category: 'Sendspin',
+);
+
 /// The device's hardware volume keys steer the followed player instead
 /// of the tablet's own volume (issue #544): a kiosk that only shows and
 /// remotes a speaker elsewhere has nothing of its own to make louder,
@@ -9241,6 +9259,7 @@ const List<SettingDef<Object>> allSettings = [
   sendspinPlayerSource,
   sendspinPlayer,
   sendspinDuckPercent,
+  sendspinEsphomeEntities,
   sendspinVolumeKeys,
   sendspinVolumeKeyStep,
   sendspinPlayerName,

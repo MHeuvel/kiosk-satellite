@@ -2207,6 +2207,10 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingSendspinDuckPercentTitle,
       'settingSendspinDuckPercentDescription' =>
         strings.settingSendspinDuckPercentDescription,
+      'settingSendspinEsphomeEntitiesTitle' =>
+        strings.settingSendspinEsphomeEntitiesTitle,
+      'settingSendspinEsphomeEntitiesDescription' =>
+        strings.settingSendspinEsphomeEntitiesDescription,
       'settingSendspinVolumeKeysTitle' =>
         strings.settingSendspinVolumeKeysTitle,
       'settingSendspinVolumeKeysDescription' =>

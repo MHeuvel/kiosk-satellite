@@ -57,6 +57,8 @@ Use **Settings > ESPHome > Excluded entities** to pick entities that should stay
 | **Restart device** | button | Restarts the whole device, not just the app. Listed only where the restart can land: with Kiosk Satellite provisioned as the [device owner](kiosk.md#going-further-device-ownership), or with a granted [Shizuku](shizuku.md) connection. A Shizuku started over ADB stops at the reboot, so on such a kiosk the button is gone until Shizuku runs again. |
 | **Open app launcher** | button | Requires the App launcher setting to be enabled. |
 | **Show Music Assistant** | button | Requires a Music Assistant server address to be configured. |
+| **Media play**, **Media pause**, **Media next**, **Media previous** | button | Transport for the player the Media Player page follows: the Sendspin player, a Home Assistant, Music Assistant or Sonos player, or the [Local Media Session](sendspin.md#local-media-session). Requires **Expose ESPHome entities** on the Media Player page. |
+| **Media state**, **Media title**, **Media artist**, **Media source** | text sensor | What that player is doing: `playing`, `paused` or `idle`, the track, the artist and the player's name. For the Local Media Session the source is the app that plays, such as YouTube. Requires **Expose ESPHome entities** on the Media Player page. |
 | **Camera view** | select | Includes a "Closed" option, plus one option for every camera view containing cameras. Requires camera views to be configured. The option list is built when the server starts; if you add new views, simply toggle ESPHome off and on, or restart the app to refresh the list. |
 | **Show <view>** (one per camera view), **Close camera view** | button | Opens a specific named view or closes whichever view is currently open. |
 | **Active camera view** | text sensor | Displays the name of the view currently on screen, or reads `none` when closed. |
@@ -361,6 +363,8 @@ Two actions follow a player from an automation, the way the Media Player page's 
 ```
 
 A name that two players share goes to the available one. On the [remote API](remote-api.md) the same two are the `mediaPlayers` and `mediaPlayerSet` commands.
+
+The followed player's buttons and sensors (see [Controls](#controls)) have remote API twins too: `sendspinControl` with a `command` of `play`, `pause`, `next` or `previous`, and `mediaPlayerState` for the state, title, artist and source.
 
 ## Announcements
 

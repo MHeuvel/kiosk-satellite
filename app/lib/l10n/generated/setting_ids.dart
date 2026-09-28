@@ -960,6 +960,10 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingSendspinDuckPercentTitle",
     "description": "settingSendspinDuckPercentDescription",
   },
+  "sendspin.esphome_entities": {
+    "title": "settingSendspinEsphomeEntitiesTitle",
+    "description": "settingSendspinEsphomeEntitiesDescription",
+  },
   "sendspin.volume_keys": {
     "title": "settingSendspinVolumeKeysTitle",
     "description": "settingSendspinVolumeKeysDescription",

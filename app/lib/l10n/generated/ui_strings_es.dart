@@ -7591,6 +7591,13 @@ class UiStringsEs extends UiStrings {
       'La música baja a este porcentaje de su volumen durante las interacciones de voz y las llamadas del intercomunicador. Después vuelve al volumen anterior.';
 
   @override
+  String get settingSendspinEsphomeEntitiesTitle => 'Exponer entidades ESPHome';
+
+  @override
+  String get settingSendspinEsphomeEntitiesDescription =>
+      'Botones de reproducir, pausar, siguiente y anterior para el reproductor controlado en Home Assistant, con su estado, título, artista y origen como sensores.';
+
+  @override
   String get settingSendspinVolumeKeysTitle =>
       'Controlar el reproductor con los botones de volumen';
 

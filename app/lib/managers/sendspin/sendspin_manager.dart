@@ -5,7 +5,7 @@ import 'dart:math' show Random, max;
 import 'dart:typed_data' show BytesBuilder;
 
 import 'package:flutter/foundation.dart'
-    show Uint8List, ValueNotifier, visibleForTesting;
+    show Uint8List, ValueNotifier, mapEquals, visibleForTesting;
 import 'package:flutter/services.dart';
 
 import '../../core/command_registry.dart';
@@ -364,6 +364,33 @@ class SendspinManager extends Manager {
     if (_remotePicked) return _pickedName;
     final own = _settings.get(defs.sendspinLocalPlayerName).trim();
     return own.isNotEmpty ? own : _settings.get(defs.deviceName);
+  }
+
+  /// What the ESPHome media sensors show (issue #741): the shown
+  /// player's state and track, and the player by its chip name. The
+  /// source is empty while there is no player to follow at all.
+  Map<String, String> get mediaSummary {
+    final now = nowPlaying.value;
+    return {
+      'state': now == null
+          ? 'idle'
+          : (now['playing'] == true ? 'playing' : 'paused'),
+      'title': '${now?['title'] ?? ''}',
+      'artist': '${now?['artist'] ?? ''}',
+      'source': _settings.get(defs.sendspinPlayerActive) ? playerChipName : '',
+    };
+  }
+
+  Map<String, String>? _lastMediaSummary;
+
+  /// Tells the bus when [mediaSummary] moved. Called on every snapshot
+  /// and setting change, so it drops the ones that change nothing it
+  /// shows (a position tick, an unrelated setting).
+  void _publishMediaSummary() {
+    final summary = mediaSummary;
+    if (mapEquals(summary, _lastMediaSummary)) return;
+    _lastMediaSummary = summary;
+    bus.publish(MediaSummaryChanged(summary));
   }
 
   /// Whether the chip's menu can put other players in the shown player's
@@ -822,6 +849,7 @@ class SendspinManager extends Manager {
   Future<void> init() async {
     nowPlaying.addListener(_remoteMediaChanged);
     nowPlaying.addListener(_onTrackChanged);
+    nowPlaying.addListener(_publishMediaSummary);
     _channel.setMethodCallHandler((call) async {
       final args = call.arguments;
       final map = args is Map
@@ -980,6 +1008,9 @@ class SendspinManager extends Manager {
     });
 
     bus.on<SettingChanged>().listen((e) {
+      // The source sensor names the player, and a rename or the player
+      // surface going away moves it without a snapshot.
+      _publishMediaSummary();
       if (e.key == defs.sendspinDuckPercent.key) _syncDucking();
       // The card-surface flag rides the settings that decide it.
       if (e.key == defs.sendspinPlayer.key ||
@@ -1261,6 +1292,16 @@ class SendspinManager extends Manager {
               ? const CommandResult.ok()
               : const CommandResult.fail('command not supported or not sent');
         },
+      ),
+    );
+
+    commands.register(
+      Command(
+        name: 'mediaPlayerState',
+        description:
+            'What the followed player is doing: state (playing, paused or '
+            'idle), title, artist and source, the player or app by name.',
+        handler: (_) async => CommandResult.ok(mediaSummary),
       ),
     );
 
@@ -1976,6 +2017,7 @@ class SendspinManager extends Manager {
   @override
   Future<void> dispose() async {
     nowPlaying.removeListener(_remoteMediaChanged);
+    nowPlaying.removeListener(_publishMediaSummary);
     _restartDebounce?.cancel();
     _pausedHoldTimer?.cancel();
     _queuePoll?.cancel();

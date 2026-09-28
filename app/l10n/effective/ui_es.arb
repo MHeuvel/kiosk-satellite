@@ -27736,6 +27736,32 @@
       ]
     }
   },
+  "settingSendspinEsphomeEntitiesTitle": "Exponer entidades ESPHome",
+  "@settingSendspinEsphomeEntitiesTitle": {
+    "context": "Settings > Media Player",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player"
+      ],
+      "remoteAdmin": [
+        "Media Player"
+      ]
+    }
+  },
+  "settingSendspinEsphomeEntitiesDescription": "Botones de reproducir, pausar, siguiente y anterior para el reproductor controlado en Home Assistant, con su estado, título, artista y origen como sensores.",
+  "@settingSendspinEsphomeEntitiesDescription": {
+    "context": "Settings > Media Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player"
+      ],
+      "remoteAdmin": [
+        "Media Player"
+      ]
+    }
+  },
   "settingSendspinVolumeKeysTitle": "Controlar el reproductor con los botones de volumen",
   "@settingSendspinVolumeKeysTitle": {
     "context": "Settings > Media Player",

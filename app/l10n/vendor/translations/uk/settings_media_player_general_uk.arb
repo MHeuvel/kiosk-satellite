@@ -6,6 +6,8 @@
   "settingSendspinPlayerDescription": "Плеєр цього джерела для показу та керування.",
   "settingSendspinDuckPercentTitle": "Зменшувати гучність під час голосових взаємодій",
   "settingSendspinDuckPercentDescription": "Музика знижується до цієї частки своєї гучності під час голосових взаємодій і викликів інтеркому, а потім повертається.",
+  "settingSendspinEsphomeEntitiesTitle": "Експортувати сутності ESPHome",
+  "settingSendspinEsphomeEntitiesDescription": "Кнопки відтворення, паузи, наступного й попереднього треку для плеєра, за яким слідують, у Home Assistant, а також його стан, назва, виконавець і джерело як датчики.",
   "settingSendspinVolumeKeysTitle": "Кнопки гучності керують плеєром",
   "settingSendspinVolumeKeysDescription": "Кнопки гучності цього пристрою змінюють гучність плеєра, за яким слідують, замість власної. Лише поки на екрані режим «Зараз грає», або завжди, коли плеєр відтворює.",
   "settingSendspinVolumeKeyStepTitle": "Крок кнопки гучності",

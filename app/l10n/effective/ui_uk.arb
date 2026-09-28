@@ -27736,6 +27736,32 @@
       ]
     }
   },
+  "settingSendspinEsphomeEntitiesTitle": "Експортувати сутності ESPHome",
+  "@settingSendspinEsphomeEntitiesTitle": {
+    "context": "Settings > Media Player",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player"
+      ],
+      "remoteAdmin": [
+        "Media Player"
+      ]
+    }
+  },
+  "settingSendspinEsphomeEntitiesDescription": "Кнопки відтворення, паузи, наступного й попереднього треку для плеєра, за яким слідують, у Home Assistant, а також його стан, назва, виконавець і джерело як датчики.",
+  "@settingSendspinEsphomeEntitiesDescription": {
+    "context": "Settings > Media Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player"
+      ],
+      "remoteAdmin": [
+        "Media Player"
+      ]
+    }
+  },
   "settingSendspinVolumeKeysTitle": "Кнопки гучності керують плеєром",
   "@settingSendspinVolumeKeysTitle": {
     "context": "Settings > Media Player",

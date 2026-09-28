@@ -7516,6 +7516,14 @@ class UiStringsUk extends UiStrings {
       'Музика знижується до цієї частки своєї гучності під час голосових взаємодій і викликів інтеркому, а потім повертається.';
 
   @override
+  String get settingSendspinEsphomeEntitiesTitle =>
+      'Експортувати сутності ESPHome';
+
+  @override
+  String get settingSendspinEsphomeEntitiesDescription =>
+      'Кнопки відтворення, паузи, наступного й попереднього треку для плеєра, за яким слідують, у Home Assistant, а також його стан, назва, виконавець і джерело як датчики.';
+
+  @override
   String get settingSendspinVolumeKeysTitle =>
       'Кнопки гучності керують плеєром';
 

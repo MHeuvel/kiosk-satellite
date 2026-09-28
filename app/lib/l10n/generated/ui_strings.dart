@@ -12937,6 +12937,18 @@ abstract class UiStrings {
   /// Setting label.
   ///
   /// In en, this message translates to:
+  /// **'Expose ESPHome entities'**
+  String get settingSendspinEsphomeEntitiesTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Play, pause, next and previous buttons for the followed player in Home Assistant, with its state, title, artist and source as sensors.'**
+  String get settingSendspinEsphomeEntitiesDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
   /// **'Volume buttons control the player'**
   String get settingSendspinVolumeKeysTitle;
 

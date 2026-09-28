@@ -7632,6 +7632,14 @@ class UiStringsDe extends UiStrings {
       'Während Sprachinteraktionen und Intercom-Anrufen wird die Musik auf diesen Prozentsatz ihrer ursprünglichen Lautstärke abgesenkt. Anschließend wird die vorherige Lautstärke wiederhergestellt.';
 
   @override
+  String get settingSendspinEsphomeEntitiesTitle =>
+      'ESPHome-Entitäten freigeben';
+
+  @override
+  String get settingSendspinEsphomeEntitiesDescription =>
+      'Tasten für Wiedergabe, Pause, Weiter und Zurück für den gesteuerten Player in Home Assistant, dazu sein Status, Titel, Interpret und seine Quelle als Sensoren.';
+
+  @override
   String get settingSendspinVolumeKeysTitle =>
       'Player mit den Lautstärketasten steuern';
 

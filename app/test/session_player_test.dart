@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kiosk_satellite/core/command_registry.dart';
 import 'package:kiosk_satellite/core/event_bus.dart';
+import 'package:kiosk_satellite/core/events.dart';
 import 'package:kiosk_satellite/core/logging.dart';
 import 'package:kiosk_satellite/managers/sendspin/remote_player.dart';
 import 'package:kiosk_satellite/managers/sendspin/sendspin_manager.dart';
@@ -186,6 +187,38 @@ void main() {
       await settings.set(defs.sendspinPlayerSource, 'ha');
       await pumpEventQueue();
       expect(settings.get(defs.sendspinPlayer), '');
+    });
+
+    test('the media summary follows the app and skips position ticks '
+        '(issue #741)', () async {
+      await boot('session:*');
+      final seen = <Map<String, String>>[];
+      final sub = bus.on<MediaSummaryChanged>().listen(
+        (e) => seen.add(e.summary),
+      );
+      Map<String, Object?> snap(bool playing, int positionMs) => {
+        'title': 'Song',
+        'artist': 'Band',
+        'playing': playing,
+        'positionMs': positionMs,
+        'appName': 'YouTube',
+        'supportedCommands': ['play', 'pause', 'next', 'previous'],
+      };
+      created.single.handleSnapshot(snap(true, 1000));
+      created.single.handleSnapshot(snap(true, 2000));
+      created.single.handleSnapshot(snap(false, 2000));
+      created.single.handleSnapshot(null);
+      await pumpEventQueue();
+      await sub.cancel();
+      expect(seen.map((s) => s['state']), ['playing', 'paused', 'idle']);
+      expect(seen.first, {
+        'state': 'playing',
+        'title': 'Song',
+        'artist': 'Band',
+        'source': 'YouTube',
+      });
+      final state = await commands.execute('mediaPlayerState', const {});
+      expect((state.data as Map)['state'], 'idle');
     });
 
     test('the action picks it by name', () async {

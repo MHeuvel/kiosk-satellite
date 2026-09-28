@@ -282,6 +282,9 @@ class BtProxyManager extends Manager {
       'person.sensor',
       // The intercom entities exist only while the intercom is on.
       'intercom.enabled',
+      // The followed player's buttons and sensors, opt-in from the Media
+      // Player page (issue #741).
+      'sendspin.esphome_entities',
       // The voice assistant, and its vs_ entities and actions, exist only
       // on the native runtime with Voice Satellite on; the engine decides
       // which wake words Home Assistant's selects offer, which it asks for

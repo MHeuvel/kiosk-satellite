@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Added
+- **The followed player in Home Assistant.** A new **Expose ESPHome entities** switch on the Media Player page, off by default, adds Media play, Media pause, Media next and Media previous buttons and Media state, Media title, Media artist and Media source sensors to the kiosk's ESPHome device (#741). They act on whichever player the page follows, including the Local Media Session, whose source reads as the app that plays. They are buttons and sensors rather than a media player, since an ESPHome media player carries no track or skip and Music Assistant already lists the Sendspin player as one. The new `mediaPlayerState` remote API command returns the same state. Translated into Spanish, German, French and Ukrainian.
+
 ## v2026.9.90 - 2026-09-28
 
 ### Changed

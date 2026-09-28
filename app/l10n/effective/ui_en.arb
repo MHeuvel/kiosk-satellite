@@ -27736,6 +27736,32 @@
       ]
     }
   },
+  "settingSendspinEsphomeEntitiesTitle": "Expose ESPHome entities",
+  "@settingSendspinEsphomeEntitiesTitle": {
+    "context": "Settings > Media Player",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player"
+      ],
+      "remoteAdmin": [
+        "Media Player"
+      ]
+    }
+  },
+  "settingSendspinEsphomeEntitiesDescription": "Play, pause, next and previous buttons for the followed player in Home Assistant, with its state, title, artist and source as sensors.",
+  "@settingSendspinEsphomeEntitiesDescription": {
+    "context": "Settings > Media Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player"
+      ],
+      "remoteAdmin": [
+        "Media Player"
+      ]
+    }
+  },
   "settingSendspinVolumeKeysTitle": "Volume buttons control the player",
   "@settingSendspinVolumeKeysTitle": {
     "context": "Settings > Media Player",

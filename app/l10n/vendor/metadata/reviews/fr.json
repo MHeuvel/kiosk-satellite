@@ -21498,5 +21498,17 @@
     "translation": "616c5507016c9766406e6b2ee0829e1190d091bb99b894bcdbd90d6783be769a",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "settingSendspinEsphomeEntitiesDescription": {
+    "source": "1fa19ec4fb88fe1dce35c5b68b4fa0c990df2d1f20a0ce7e571abb7d43236173",
+    "translation": "28286983c4cfa784780d534214b145499cda264c15a78befbf8de3efa33a1929",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingSendspinEsphomeEntitiesTitle": {
+    "source": "7f2acdcfa62fceb4a53bd371446fe9bc2a0f7859015bdeaa0e06d986cc8d07b1",
+    "translation": "216720762e6acaf3e3c2dc4974a89a5a0bc1b6474fc983461dd26562e6246fa0",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

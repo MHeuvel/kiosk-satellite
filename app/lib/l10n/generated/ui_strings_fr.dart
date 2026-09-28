@@ -7587,6 +7587,14 @@ class UiStringsFr extends UiStrings {
       'La musique descend à cette proportion de son volume pendant les interactions vocales et les appels d\'interphone, puis remonte.';
 
   @override
+  String get settingSendspinEsphomeEntitiesTitle =>
+      'Exposer les entités ESPHome';
+
+  @override
+  String get settingSendspinEsphomeEntitiesDescription =>
+      'Boutons lecture, pause, suivant et précédent pour le lecteur suivi dans Home Assistant, avec son état, son titre, son artiste et sa source comme capteurs.';
+
+  @override
   String get settingSendspinVolumeKeysTitle =>
       'Les boutons de volume contrôlent le lecteur';
 

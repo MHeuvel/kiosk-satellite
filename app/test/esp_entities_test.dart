@@ -1687,6 +1687,134 @@ void main() {
     });
   });
 
+  group('the followed player entities (issue #741)', () {
+    const media = [
+      'media_play',
+      'media_pause',
+      'media_next',
+      'media_previous',
+      'media_state',
+      'media_title',
+      'media_artist',
+      'media_source',
+    ];
+    List<String> ids(List<Map<String, Object?>> catalog) => [
+      for (final d in catalog) '${d['objectId']}',
+    ];
+
+    test('the switch sits in the main group under Album art cache, off', () {
+      // The cache row hangs off the duck slider on both surfaces, so the
+      // def right after it renders directly below the cache.
+      final index = defs.allSettings.indexOf(defs.sendspinDuckPercent);
+      expect(defs.allSettings[index + 1], same(defs.sendspinEsphomeEntities));
+      expect(defs.sendspinEsphomeEntities.category, 'Sendspin');
+      expect(defs.sendspinEsphomeEntities.subpage, isNull);
+      expect(defs.sendspinEsphomeEntities.section, isNull);
+      expect(defs.sendspinEsphomeEntities.defaultValue, false);
+      expect(settings.visible(defs.sendspinEsphomeEntities), isTrue);
+    });
+
+    test('exist only with Expose ESPHome entities on', () async {
+      expect(ids(await surface.build()).where(media.contains), isEmpty);
+      await settings.set(defs.sendspinEsphomeEntities, true);
+      final catalog = await surface.build();
+      expect(ids(catalog), containsAll(media));
+      // Buttons and text sensors, never a media_player: ESPHome's has no
+      // track and no skip.
+      for (final d in catalog) {
+        if (media.contains(d['objectId'])) {
+          expect(d['type'], anyOf('button', 'text_sensor'));
+        }
+      }
+    });
+
+    test('the buttons send the transport to the followed player', () async {
+      commands.register(
+        Command(
+          name: 'sendspinControl',
+          description: 'stub',
+          handler: (p) async {
+            executed.add(('sendspinControl', Map<String, Object?>.from(p)));
+            return const CommandResult.ok();
+          },
+        ),
+      );
+      await settings.set(defs.sendspinEsphomeEntities, true);
+      executed.clear();
+      for (final id in [
+        'media_play',
+        'media_pause',
+        'media_next',
+        'media_previous',
+      ]) {
+        await surface.handleCommand(id, null);
+      }
+      expect(
+        [
+          for (final e in executed)
+            if (e.$1 == 'sendspinControl') e.$2['command'],
+        ],
+        ['play', 'pause', 'next', 'previous'],
+      );
+    });
+
+    test('the sensors are seeded at attach and follow the summary', () async {
+      commands.register(
+        Command(
+          name: 'mediaPlayerState',
+          description: 'stub',
+          handler: (_) async => const CommandResult.ok({
+            'state': 'playing',
+            'title': 'Song',
+            'artist': 'Band',
+            'source': 'YouTube',
+          }),
+        ),
+      );
+      await settings.set(defs.sendspinEsphomeEntities, true);
+      await attach();
+      expect(
+        pushed,
+        containsAll([
+          ('media_state', 'playing'),
+          ('media_title', 'Song'),
+          ('media_artist', 'Band'),
+          ('media_source', 'YouTube'),
+        ]),
+      );
+      pushed.clear();
+      bus.publish(
+        const MediaSummaryChanged({
+          'state': 'idle',
+          'title': '',
+          'artist': '',
+          'source': 'YouTube',
+        }),
+      );
+      await Future<void>.delayed(Duration.zero);
+      expect(pushed, [
+        ('media_state', 'idle'),
+        ('media_title', ''),
+        ('media_artist', ''),
+        ('media_source', 'YouTube'),
+      ]);
+    });
+
+    test('nothing is pushed while the switch is off', () async {
+      await attach();
+      bus.publish(
+        const MediaSummaryChanged({
+          'state': 'playing',
+          'title': 'Song',
+          'artist': 'Band',
+          'source': 'YouTube',
+        }),
+      );
+      await Future<void>.delayed(Duration.zero);
+      expect(pushed.where((p) => media.contains(p.$1)), isEmpty);
+    });
+  });
+
   group('the Person sensor (discussion #353, issue #734)', () {
     List<String> ids(List<Map<String, Object?>> catalog) => [
       for (final d in catalog) '${d['objectId']}',

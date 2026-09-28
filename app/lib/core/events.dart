@@ -876,6 +876,14 @@ class SendspinNowPlayingChanged extends AppEvent {
   final bool playing;
 }
 
+/// The followed player's state, title, artist or source moved (issue
+/// #741): what the ESPHome media sensors show. Published only on a real
+/// change, never for a position tick.
+class MediaSummaryChanged extends AppEvent {
+  const MediaSummaryChanged(this.summary);
+  final Map<String, String> summary;
+}
+
 /// Someone asked for the floating player card right now (the "Show the
 /// Sendspin player" gesture action, or the kiosk menu's Show player
 /// entry). The overlay flips the card override to shown on this — which

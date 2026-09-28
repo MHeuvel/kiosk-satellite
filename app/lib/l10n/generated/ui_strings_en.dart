@@ -7443,6 +7443,13 @@ class UiStringsEn extends UiStrings {
       'Music drops to this share of its volume during voice interactions and intercom calls, then comes back.';
 
   @override
+  String get settingSendspinEsphomeEntitiesTitle => 'Expose ESPHome entities';
+
+  @override
+  String get settingSendspinEsphomeEntitiesDescription =>
+      'Play, pause, next and previous buttons for the followed player in Home Assistant, with its state, title, artist and source as sensors.';
+
+  @override
   String get settingSendspinVolumeKeysTitle =>
       'Volume buttons control the player';
 
