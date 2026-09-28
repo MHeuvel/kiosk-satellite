@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.90 - 2026-09-28
 
 ### Changed
 - **The Voice Satellite skin picker shows real screenshots.** The thumbnails were drawn from each skin's parts and looked little like the overlay itself. They are now screenshots of every skin answering on a tablet, in its light palette where it has one. The Skin row shows only the skin's name, and the remote admin's Skin row now opens the same picker instead of a dropdown.
