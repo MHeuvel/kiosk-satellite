@@ -168,6 +168,7 @@ class AssistSkin {
     // Closer to the reactive bar than Voice Satellite's 120, still clear of
     // it at full stretch.
     this.chatBottomReactive = 88,
+    this.chatTop = 32,
     this.gap = 8,
     this.centered = false,
     this.msgMaxWidth = 0.85,
@@ -207,6 +208,11 @@ class AssistSkin {
   /// The chat's bottom edge, and with the reactive bar showing.
   final double chatBottom;
   final double chatBottomReactive;
+
+  /// The room the chat leaves at the top of the screen: a long answer
+  /// scrolls within what is left under it, so the command above it stays
+  /// on screen and clear of a frame skin's border.
+  final double chatTop;
   final double gap;
   final bool centered;
 
@@ -474,6 +480,7 @@ final assistSkins = <AssistSkin>[
     blur: 8,
     chatBottom: 60,
     chatBottomReactive: 100,
+    chatTop: 60,
     gap: 12,
     centered: true,
     fadeMs: 350,
@@ -505,6 +512,7 @@ final assistSkins = <AssistSkin>[
     blur: 4,
     chatBottom: 100,
     chatBottomReactive: 100,
+    chatTop: 72,
     gap: 10,
     msgMaxWidth: 0.9,
     fadeDy: 6,

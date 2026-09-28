@@ -294,6 +294,62 @@ class ArtCost {
       paintMs = paintMs * 0.8 + s.elapsedMicroseconds / 1000 * 0.2;
 }
 
+/// The level the bar and the edge glows follow: a critically damped spring
+/// pulled toward each reading, stepped to the time it is read. The readings
+/// come unevenly (40 to 70 ms apart during speech, with longer gaps) and
+/// swing across the whole range, so easing each one over the gap before it
+/// moves the bar in segments whose speed jumps at every reading. The spring
+/// keeps the speed continuous, the way the eye follows it, and reaches most
+/// of a new reading in about the 50 ms of the skins' CSS transition.
+class LevelGlide extends ChangeNotifier implements ValueListenable<double> {
+  LevelGlide(this._source) {
+    _x = _target = _source.value;
+    _source.addListener(_changed);
+  }
+
+  /// Stiffness in 1/s: 63% of a step in about 2.1 / [_omega] seconds.
+  static const _omega = 45.0;
+
+  final ValueListenable<double> _source;
+  final _time = Stopwatch()..start();
+  double _x = 0;
+  double _v = 0;
+  double _target = 0;
+  int _atUs = 0;
+
+  void _changed() {
+    _step();
+    _target = _source.value;
+    notifyListeners();
+  }
+
+  /// Moves the spring to now, exactly: x(t) = target + (d0 + (v0 + w d0) t)
+  /// e^(-w t) for a critically damped spring, d0 the start offset.
+  void _step() {
+    final now = _time.elapsedMicroseconds;
+    final t = (now - _atUs) / 1e6;
+    _atUs = now;
+    if (t <= 0) return;
+    final d0 = _x - _target;
+    final c = _v + _omega * d0;
+    final e = math.exp(-_omega * t);
+    _x = _target + (d0 + c * t) * e;
+    _v = (c - _omega * (d0 + c * t)) * e;
+  }
+
+  @override
+  double get value {
+    _step();
+    return _x.clamp(0.0, 1.0);
+  }
+
+  @override
+  void dispose() {
+    _source.removeListener(_changed);
+    super.dispose();
+  }
+}
+
 /// A seconds clock for CSS-style animations, shared by the layers of one
 /// overlay so their phases stay locked like the skins' shared start times.
 class ArtClock extends ChangeNotifier {

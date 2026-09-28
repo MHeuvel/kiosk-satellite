@@ -22,6 +22,16 @@ void main() {
     expect(levels.playback(0.8), 1);
   });
 
+  test('an 80 ms chunk moves the bar four times', () {
+    final levels = ReactiveLevel();
+    for (var i = 0; i < 20; i++) {
+      expect(levels.micSlices(_tone(0.002)), [0, 0, 0, 0]);
+    }
+    final speech = levels.micSlices(_tone(0.2));
+    expect(speech, hasLength(4));
+    expect(speech.every((level) => level > 0.5), isTrue);
+  });
+
   test('a quiet room stays dark and speech lights the bar', () {
     final levels = ReactiveLevel();
     for (var i = 0; i < 20; i++) {

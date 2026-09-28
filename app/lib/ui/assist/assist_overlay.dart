@@ -47,6 +47,7 @@ class _AssistOverlayState extends State<AssistOverlay>
   /// One clock for the bar and the dots, so their phases stay locked the
   /// way the skins' animations share a start time.
   late final ArtClock _clock;
+  late final LevelGlide _glide = LevelGlide(c.voice.level);
 
   /// The last view with something on it, kept while the overlay fades out.
   AssistView _shown = AssistView.hidden;
@@ -129,6 +130,7 @@ class _AssistOverlayState extends State<AssistOverlay>
     _errorSub?.cancel();
     _clearedSub?.cancel();
     _clock.dispose();
+    _glide.dispose();
     super.dispose();
   }
 
@@ -331,7 +333,7 @@ class _AssistOverlayState extends State<AssistOverlay>
           skin: skin,
           mode: mode,
           reactive: reactive,
-          level: c.voice.level,
+          level: _glide,
           clock: _clock,
         ),
         if (view.phase == AssistPhase.announcement)
@@ -621,6 +623,40 @@ class _AssistOverlayState extends State<AssistOverlay>
       skin.answerWeight,
       palette.answerShadows,
     );
+    final userStyle = _text(
+      skin,
+      palette.user,
+      skin.userSize * scale,
+      skin.userWeight,
+      palette.userShadows,
+    );
+    final textScaler = MediaQuery.textScalerOf(context);
+    final bottom = reactive ? skin.chatBottomReactive : skin.chatBottom;
+
+    /// How tall the lines above a turn's answer stand: its command and
+    /// tool lines, each with its padding and the gap after it.
+    double aboveAnswer(AssistTurn turn) {
+      var height = 0.0;
+      if (showCommand && turn.command.isNotEmpty) {
+        final painter = TextPainter(
+          text: TextSpan(
+            text: '${skin.prefix}${turn.command}',
+            style: userStyle,
+          ),
+          textAlign: textAlign,
+          textDirection: TextDirection.ltr,
+          textScaler: textScaler,
+        )..layout(maxWidth: chatWidth * skin.msgMaxWidth);
+        height += painter.height + 8 + skin.gap;
+        painter.dispose();
+      }
+      if (showTools) {
+        final line = textScaler.scale(skin.toolSize * scale) * 1.3;
+        height += turn.tools.length * (line + 8 + skin.gap);
+      }
+      return height;
+    }
+
     // Every turn's lines, the earlier ones above the one in progress, as
     // Voice Satellite keeps a conversation on screen. Keys follow the turn
     // so a line keeps its state (and does not fade in again) as later
@@ -641,13 +677,7 @@ class _AssistOverlayState extends State<AssistOverlay>
             Text(
               '${skin.prefix}${turn.command}',
               textAlign: textAlign,
-              style: _text(
-                skin,
-                palette.user,
-                skin.userSize * scale,
-                skin.userWeight,
-                palette.userShadows,
-              ),
+              style: userStyle,
             ),
           ),
         // Frozen indicator lines dim once a later turn starts thinking.
@@ -685,8 +715,21 @@ class _AssistOverlayState extends State<AssistOverlay>
             key: ValueKey('$n.answer'),
             ConstrainedBox(
               constraints: BoxConstraints(
-                maxHeight:
-                    size.height * (result != null && portrait ? 0.4 : 0.7),
+                maxHeight: () {
+                  final cap =
+                      size.height * (result != null && portrait ? 0.4 : 0.7);
+                  if (!current) return cap;
+                  // The turn in progress keeps its command on screen: the
+                  // answer scrolls in what is left under the skin's top.
+                  final room =
+                      size.height -
+                      bottom -
+                      skin.chatTop -
+                      aboveAnswer(turn) -
+                      8;
+                  final line = textScaler.scale(skin.answerSize * scale) * 1.3;
+                  return math.max(line, math.min(cap, room));
+                }(),
               ),
               child: _RevealText(
                 text: turn.answer,
@@ -719,7 +762,7 @@ class _AssistOverlayState extends State<AssistOverlay>
       left: left,
       right: right,
       top: 0,
-      bottom: reactive ? skin.chatBottomReactive : skin.chatBottom,
+      bottom: bottom,
       child: OverflowBox(
         alignment: skin.centered
             ? Alignment.bottomCenter
@@ -877,6 +920,7 @@ class _RevealTextState extends State<_RevealText>
       complete: !widget.streaming,
       active: widget.current,
       playback: widget.playback,
+      fade: (widget.style.fontSize ?? 36) * 1.25,
       child: child,
     );
   }
@@ -909,15 +953,20 @@ typedef Playback = ({double elapsed, double duration})?;
 /// only once all of it has arrived), else from the script's estimate from
 /// the words, counted from when the text is complete. Until the text is
 /// complete or the speech has a clock, the scroll holds, since speech
-/// starts at the top.
+/// starts at the top. The text fades out at an edge it runs past: at the
+/// top once it has scrolled, at the bottom while more is below.
 class _PacedScroll extends StatefulWidget {
   const _PacedScroll({
     required this.text,
     required this.complete,
     required this.active,
     required this.playback,
+    required this.fade,
     required this.child,
   });
+
+  /// How tall each edge's fade is, about a line of the text.
+  final double fade;
 
   final String text;
   final bool complete;
@@ -942,6 +991,11 @@ class _PacedScrollState extends State<_PacedScroll>
     with SingleTickerProviderStateMixin {
   final _controller = ScrollController();
   late final Ticker _ticker = createTicker(_tick);
+
+  /// How far in each edge's fade is, 0..1: it grows over the first line
+  /// scrolled (top) and shrinks over the last line left (bottom).
+  double _top = 0;
+  double _bottom = 0;
   Duration _last = Duration.zero;
   double _speed = 0;
   double _estimate = 0;
@@ -958,11 +1012,23 @@ class _PacedScrollState extends State<_PacedScroll>
     } else {
       _nudge();
     }
+    _fadeAfterLayout();
+  }
+
+  /// The fades once the text is laid out: its first layout sends no
+  /// notification.
+  void _fadeAfterLayout() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || !_controller.hasClients) return;
+      final position = _controller.position;
+      if (position.hasContentDimensions) _onScroll(position);
+    });
   }
 
   @override
   void didUpdateWidget(_PacedScroll old) {
     super.didUpdateWidget(old);
+    if (widget.text != old.text) _fadeAfterLayout();
     if (!widget.active) {
       _stop();
     } else if (widget.complete && (!old.complete || widget.text != old.text)) {
@@ -1046,10 +1112,77 @@ class _PacedScrollState extends State<_PacedScroll>
     super.dispose();
   }
 
+  bool _onScroll(ScrollMetrics metrics) {
+    final fade = math.max(1.0, widget.fade);
+    final top = (metrics.pixels / fade).clamp(0.0, 1.0);
+    final bottom = ((metrics.maxScrollExtent - metrics.pixels) / fade).clamp(
+      0.0,
+      1.0,
+    );
+    if (top != _top || bottom != _bottom) {
+      setState(() {
+        _top = top;
+        _bottom = bottom;
+      });
+    }
+    return false;
+  }
+
   @override
-  Widget build(BuildContext context) => SingleChildScrollView(
-    controller: _controller,
-    physics: const ClampingScrollPhysics(),
-    child: widget.child,
-  );
+  Widget build(BuildContext context) =>
+      NotificationListener<ScrollMetricsNotification>(
+        onNotification: (n) => _onScroll(n.metrics),
+        child: NotificationListener<ScrollUpdateNotification>(
+          onNotification: (n) => _onScroll(n.metrics),
+          child: ShaderMask(
+            blendMode: BlendMode.dstIn,
+            shaderCallback: (bounds) {
+              final edge = bounds.height > 0
+                  ? (widget.fade / bounds.height).clamp(0.0, 0.5)
+                  : 0.0;
+              // Opacity rises with the square of the distance from the
+              // edge: a straight ramp leaves the outer rows at a visible
+              // tenth or so, a faint line of the next row's tops.
+              const steps = [0.0, 0.25, 0.5, 0.75, 1.0];
+              Color at(double amount, double t) =>
+                  Color.fromRGBO(0, 0, 0, 1 - amount * (1 - t * t));
+              return LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  for (final t in steps) at(_top, t),
+                  for (final t in steps.reversed) at(_bottom, t),
+                ],
+                stops: [
+                  for (final t in steps) edge * t,
+                  for (final t in steps.reversed) 1 - edge * t,
+                ],
+              ).createShader(bounds);
+            },
+            // The mask covers the box exactly, and where its edge falls
+            // inside a pixel (a fractional device scale) that row is only
+            // partly masked: the text stops a pixel short of it.
+            child: ClipRect(
+              clipper: const _InsetClip(),
+              child: SingleChildScrollView(
+                controller: _controller,
+                physics: const ClampingScrollPhysics(),
+                child: widget.child,
+              ),
+            ),
+          ),
+        ),
+      );
+}
+
+/// A box's rect less a pixel at the top and the bottom.
+class _InsetClip extends CustomClipper<Rect> {
+  const _InsetClip();
+
+  @override
+  Rect getClip(Size size) =>
+      Rect.fromLTRB(0, 1, size.width, math.max(1, size.height - 1));
+
+  @override
+  bool shouldReclip(_InsetClip oldClipper) => false;
 }

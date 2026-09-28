@@ -17,10 +17,58 @@ class ReactiveLevel {
   double _micPeakEnv = 0;
   bool _micAdaptive = false;
 
-  /// One chunk of 16 kHz PCM16 from the microphone.
+  /// The length of the piece being measured, in analyser ticks.
+  double _ticks = 1;
+
+  /// The analyser's tick on a tablet, which the adaptive references' rates
+  /// per call were tuned to.
+  static const _tickMs = 33.3;
+
+  /// Samples per slice of a microphone chunk: 20 ms at 16 kHz.
+  static const sliceSamples = 320;
+
+  /// Slices a level reads: the last 80 ms, the chunk's own length.
+  static const _windowSlices = 4;
+
+  /// The sums of the latest slices, oldest first.
+  final _window = <_Sums>[];
+
+  /// One chunk of 16 kHz PCM16 from the microphone, as a level per 20 ms
+  /// slice, in order. A chunk is 80 ms, too coarse for the bar: its slices,
+  /// played out over the chunk, move it 50 times a second. Each reads the
+  /// last 80 ms rather than its own 20, as the analyser reads a window of
+  /// recent audio on every tick: a short window of a quiet room flickers
+  /// across the noise gate.
+  List<double> micSlices(Uint8List pcm) {
+    final n = pcm.length ~/ 2;
+    if (n == 0) return const [0];
+    final parts = math.max(1, n ~/ sliceSamples);
+    final size = n ~/ parts * 2;
+    final levels = <double>[];
+    for (var i = 0; i < parts; i++) {
+      final slice = Uint8List.sublistView(
+        pcm,
+        i * size,
+        i == parts - 1 ? pcm.length : (i + 1) * size,
+      );
+      _window.add(_sum(slice));
+      if (_window.length > _windowSlices) _window.removeAt(0);
+      _ticks = slice.length / 2 / 16 / _tickMs;
+      levels.add(_level(_window.reduce((a, b) => a + b)));
+    }
+    return levels;
+  }
+
+  /// One piece of 16 kHz PCM16 from the microphone.
   double mic(Uint8List pcm) {
     final n = pcm.length ~/ 2;
     if (n == 0) return 0;
+    _ticks = n / 16 / _tickMs;
+    return _level(_sum(pcm));
+  }
+
+  _Sums _sum(Uint8List pcm) {
+    final n = pcm.length ~/ 2;
     final data = ByteData.sublistView(pcm);
     const a180 = 0.9318;
     const a3400 = 0.2628;
@@ -37,9 +85,14 @@ class ReactiveLevel {
     }
     _lp180 = l180;
     _lp3400 = l3400;
-    final all = sumAll / n;
-    final low = sumLow / n;
-    final mid = sumMid / n;
+    return _Sums(sumAll, sumLow, sumMid, n);
+  }
+
+  double _level(_Sums sums) {
+    final n = math.max(1, sums.n);
+    final all = sums.all / n;
+    final low = sums.low / n;
+    final mid = sums.mid / n;
     // Favor the speech band, suppress steady rumble and hiss.
     final voice = math.max(0.0, mid - low);
     final air = math.max(0.0, all - mid);
@@ -75,7 +128,7 @@ class ReactiveLevel {
       _micFloor = math.max(meanAbs, eps);
     } else {
       // Capped below speech, so a long utterance never becomes its own floor.
-      _micFloor = math.min(prev * 1.002, 0.05);
+      _micFloor = math.min(prev * math.pow(1.002, _ticks), 0.05);
     }
     if (meanAbs <= _micFloor! * 3) {
       _micAdaptive = false;
@@ -84,7 +137,7 @@ class ReactiveLevel {
     // Up to 64x toward what a healthy capture produces.
     const ref = 0.05;
     const maxBoost = 64.0;
-    _micPeakEnv = math.max(_micPeakEnv * 0.997, meanAbs);
+    _micPeakEnv = math.max(_micPeakEnv * math.pow(0.997, _ticks), meanAbs);
     final boost = math.min(
       maxBoost,
       math.max(1.0, ref / math.max(_micPeakEnv, ref / maxBoost)),
@@ -92,4 +145,18 @@ class ReactiveLevel {
     _micAdaptive = boost > 1.01;
     return meanAbs * boost;
   }
+}
+
+/// Sums of absolute samples over a piece of audio: all of it, below 180 Hz
+/// and below 3400 Hz.
+class _Sums {
+  const _Sums(this.all, this.low, this.mid, this.n);
+
+  final double all;
+  final double low;
+  final double mid;
+  final int n;
+
+  _Sums operator +(_Sums o) =>
+      _Sums(all + o.all, low + o.low, mid + o.mid, n + o.n);
 }

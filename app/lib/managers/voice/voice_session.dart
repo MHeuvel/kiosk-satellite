@@ -315,12 +315,33 @@ class VoiceSession {
     _show(_view.copyWith(reactive: true));
   }
 
+  /// The slices of the latest microphone chunk still to show.
+  Timer? _sliceTimer;
+
+  /// Shows a chunk's slice levels one after another across the chunk's own
+  /// span, so the bar moves 50 times a second rather than jumping every
+  /// 80 ms. A chunk that comes early takes over from the one before.
+  void _micLevels(List<double> levels) {
+    _sliceTimer?.cancel();
+    _sliceTimer = null;
+    onLevel(levels.first);
+    var next = 1;
+    if (next >= levels.length) return;
+    _sliceTimer = Timer.periodic(const Duration(milliseconds: 20), (timer) {
+      onLevel(levels[next++]);
+      if (next >= levels.length) {
+        timer.cancel();
+        if (identical(_sliceTimer, timer)) _sliceTimer = null;
+      }
+    });
+  }
+
   void _onChunk(int gen, Uint8List pcm) {
     if (gen != _gen) return;
     // Dark until the command is being heard: the mic before that picks up
     // the chime and the speaker draining, as Voice Satellite pins its level
     // at 0 through the wait.
-    onLevel(_sending ? _levels.mic(pcm) : 0);
+    _micLevels(_sending ? _levels.micSlices(pcm) : const [0]);
     if (_sending) {
       unawaited(link.audio(pcm));
       return;
@@ -346,6 +367,8 @@ class VoiceSession {
 
   Future<void> _closeMic() async {
     _sending = false;
+    _sliceTimer?.cancel();
+    _sliceTimer = null;
     _held.clear();
     _heldBytes = 0;
     if (!_micOpen) return;
