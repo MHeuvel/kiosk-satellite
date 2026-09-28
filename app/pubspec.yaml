@@ -115,6 +115,8 @@ flutter:
     - assets/remote-ui/static/
     - assets/screensaver/index.html
     - assets/screensaver/screensaver.js
+    # The Weather Mood moon, from NASA imagery (see moon-NASA.txt).
+    - assets/screensaver/moon.png
     - assets/camera-view/index.html
     - assets/camera-view/camera-view.js
     - assets/camera-view/messages.js

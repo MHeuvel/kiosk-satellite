@@ -393,8 +393,19 @@ class WeatherMoodParticles {
 
   /// Batch the small star sprites instead of evaluating random star cells at
   /// every screen pixel. Only the brighter subset twinkles.
-  void paintStars(ui.Canvas canvas, ui.Size size, double night, double time) {
+  void paintStars(
+    ui.Canvas canvas,
+    ui.Size size,
+    double night,
+    double time, {
+    double twilight = 0,
+  }) {
     if (night < .001 || _sprites.length < 4) return;
+    // The moon sits where weather_mood_sky.frag puts the light, and no star
+    // shines in front of it.
+    final moonX = .84 * size.width,
+        moonY = (1 - (.76 + (.28 - .76) * twilight)) * size.height,
+        moonClear = .052 * size.height;
     final scale = size.height / 720;
     final count = (440 * size.aspectRatio / (1280 / 720)).round().clamp(
       1,
@@ -415,9 +426,14 @@ class WeatherMoodParticles {
       final twinkle = p.depth > .65
           ? .70 + .30 * math.sin(time * (.65 + p.variation * 1.1) + p.phase)
           : 1.0;
-      final alpha = (night * (.5 + p.depth * .85) * twinkle * 255)
-          .round()
-          .clamp(0, 255);
+      final dx = p.x * size.width - moonX, dy = p.y * size.height - moonY;
+      final hidden = dx * dx + dy * dy < moonClear * moonClear;
+      final alpha = hidden
+          ? 0
+          : (night * (.5 + p.depth * .85) * twinkle * 255).round().clamp(
+              0,
+              255,
+            );
       final red = (166 + 89 * p.drift).round(),
           green = (204 + 36 * p.drift).round(),
           blue = (255 - 51 * p.drift).round();

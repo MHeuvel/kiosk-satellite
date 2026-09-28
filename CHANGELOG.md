@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Changed
+- **A photorealistic Weather Mood moon.** The moon now shows the real near side of the Moon, from NASA Lunar Reconnaissance Orbiter imagery, about 40% larger and with a fainter glow. Stars no longer shine in front of it.
+
 ## v2026.9.91 - 2026-09-28
 
 ### Added

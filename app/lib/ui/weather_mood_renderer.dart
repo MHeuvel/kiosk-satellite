@@ -5,6 +5,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 import 'weather_mood_particles.dart';
 import 'weather_mood_scene.dart';
@@ -58,10 +59,11 @@ class _Programs {
     this.height,
     this.blend,
     this.noise,
+    this.moon,
     this.flipBlend,
   );
   final ui.FragmentProgram sky, clouds, height, blend;
-  final ui.Image noise;
+  final ui.Image noise, moon;
   final bool flipBlend;
   static final _cache = <bool, Future<_Programs>>{};
   static Future<_Programs> load(bool lowPower) =>
@@ -87,6 +89,7 @@ class _Programs {
             height,
             blend,
             await _noise(),
+            await _moon(),
             await _samplesFlipped(blend),
           );
         } catch (_) {
@@ -151,6 +154,18 @@ class _Programs {
       return picture.toImageSync(width, height);
     } finally {
       picture.dispose();
+    }
+  }
+
+  /// The Moon's near side from NASA imagery, see
+  /// assets/screensaver/moon-NASA.txt.
+  static Future<ui.Image> _moon() async {
+    final data = await rootBundle.load('assets/screensaver/moon.png');
+    final codec = await ui.instantiateImageCodec(data.buffer.asUint8List());
+    try {
+      return (await codec.getNextFrame()).image;
+    } finally {
+      codec.dispose();
     }
   }
 
@@ -235,7 +250,16 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
       final programs = await _Programs.load(widget.lowPower);
       if (!mounted) return;
       _skyShader = programs.sky.fragmentShader()
-        ..setImageSampler(0, programs.noise, filterQuality: FilterQuality.low);
+        ..setImageSampler(0, programs.moon, filterQuality: FilterQuality.low);
+      // The sky no longer samples the shared noise, so the compiler may
+      // drop it. Bind it where it survives.
+      try {
+        _skyShader!.setImageSampler(
+          1,
+          programs.noise,
+          filterQuality: FilterQuality.low,
+        );
+      } catch (_) {}
       _cloudShader = programs.clouds.fragmentShader()
         ..setImageSampler(0, programs.noise, filterQuality: FilterQuality.low);
       _heightShader = programs.height.fragmentShader()
@@ -1001,6 +1025,7 @@ class _WeatherPainter extends CustomPainter {
       size,
       frame.values[1] * (1 - frame.twilight),
       frame.time,
+      twilight: frame.twilight,
     );
     final blend = owner._blendShader;
     if (cloud != null && blend != null) {
