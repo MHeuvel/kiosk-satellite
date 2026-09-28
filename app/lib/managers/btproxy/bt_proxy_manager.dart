@@ -318,6 +318,14 @@ class BtProxyManager extends Manager {
       }
     });
     _settingsSub = bus.on<SettingChanged>().listen((e) {
+      // Real MAC turned off: forget the adopted address, so turning it
+      // back on reads the hardware again (issue #736). Falls through to
+      // the restart below, which runs after the debounce and so after
+      // the adoption is gone.
+      if (e.key == defs.esphomeRealMac.key &&
+          !_settings.get(defs.esphomeRealMac)) {
+        unawaited(forgetAdoptedWifiMac(_settings));
+      }
       // The switch turned on where scanning cannot work (the settings
       // page never offers it, but the remote API and a settings import
       // can): back off, and the write lands here again as false.

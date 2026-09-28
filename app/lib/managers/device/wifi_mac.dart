@@ -27,7 +27,8 @@ typedef WifiMacIdentity = ({String? mac, WifiMacSource source});
 /// later become unreadable (an OS upgrade past the API cutoffs, device
 /// ownership removed) or change (a USB Wi-Fi adapter) — Home Assistant keys
 /// the device entry on this value, and an identity that shifts under it
-/// orphans the entry.
+/// orphans the entry. Turning the setting off forgets the adoption (see
+/// [forgetAdoptedWifiMac]), so turning it back on reads the hardware again.
 ///
 /// The hand-typed address (issue #300) is the fallback, read live, and only
 /// once the platform has come back empty: a working hardware read always
@@ -58,6 +59,14 @@ Future<WifiMacIdentity> wifiMacIdentity(SettingsManager settings) async {
   if (manual != null) return (mac: manual, source: WifiMacSource.manual);
   return (mac: null, source: WifiMacSource.none);
 }
+
+/// Drops the stored hardware adoption (issue #736). Called when the
+/// setting turns off: an address adopted once was otherwise kept for good,
+/// so a ROM that first reported a placeholder (a Broadcom driver default)
+/// and later the real address left the placeholder in place with no way
+/// to replace it.
+Future<void> forgetAdoptedWifiMac(SettingsManager settings) =>
+    settings.setInternal('esphome_adopted_mac', '');
 
 /// The reported address alone, or null for the generated identity.
 Future<String?> adoptedWifiMac(SettingsManager settings) async =>

@@ -7447,7 +7447,8 @@ const esphomeNodeName = SettingDef<String>(
 /// keys the ESPHome device entry on: existing installs have a device built
 /// on the generated address, and adopting the real one creates a new entry.
 /// The first successful read is stored (see adoptedWifiMac), so the identity
-/// holds even if the address later becomes unreadable.
+/// holds even if the address later becomes unreadable. Turning it off drops
+/// the stored address, and turning it back on reads the hardware again.
 const esphomeRealMac = SettingDef<bool>(
   key: 'esphome.real_mac',
   type: SettingType.boolean,
