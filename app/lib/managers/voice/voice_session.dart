@@ -234,7 +234,19 @@ class VoiceSession {
 
   void _show(AssistView view) {
     _view = view;
+    if (!view.visible) _holdStop(false);
     onView(view);
+  }
+
+  /// A result panel lingering after its turn keeps the stop word armed, as
+  /// Voice Satellite does: whatever is on screen can be dismissed by voice
+  /// for as long as it shows. The wake words keep listening beside it.
+  bool _panelStop = false;
+
+  void _holdStop(bool on) {
+    if (_panelStop == on) return;
+    _panelStop = on;
+    onStopArmed(on);
   }
 
   // ── wake ───────────────────────────────────────────────────────────────
@@ -951,6 +963,9 @@ class VoiceSession {
     onBusy(false, '');
     onIdle?.call();
     _linger?.cancel();
+    if (keep != 0 && (_hasResults || _kept) && opts.stopWord) {
+      _holdStop(true);
+    }
     if (keep == 0) {
       _show(AssistView.hidden);
     } else if (keep != null) {
@@ -960,13 +975,16 @@ class VoiceSession {
     }
   }
 
-  /// A double tap: ends a turn, or takes a lingering overlay down.
+  /// A double tap or the stop word: ends a turn, or takes a lingering
+  /// overlay down. A result panel goes with the done chime, as Voice
+  /// Satellite ends its lingering media.
   void dismiss() {
     if (busy) {
       unawaited(cancel());
       return;
     }
     if (!_view.visible) return;
+    if (_hasResults && options().wakeSound) unawaited(player.chime('done'));
     _linger?.cancel();
     _kept = false;
     _gen++;
@@ -975,6 +993,7 @@ class VoiceSession {
 
   void _resetRun({bool keepConversation = false}) {
     _linger?.cancel();
+    _holdStop(false);
     _cancelWatchdog();
     if (!keepConversation) {
       _phrase = '';

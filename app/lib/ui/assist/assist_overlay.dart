@@ -387,7 +387,7 @@ class _AssistOverlayState extends State<AssistOverlay>
     );
     if (portrait) {
       return Positioned(
-        top: size.height * 0.03,
+        top: size.height * panelTop,
         left: 0,
         right: 0,
         child: Align(alignment: Alignment.topCenter, child: panel),
@@ -632,6 +632,15 @@ class _AssistOverlayState extends State<AssistOverlay>
     );
     final textScaler = MediaQuery.textScalerOf(context);
     final bottom = reactive ? skin.chatBottomReactive : skin.chatBottom;
+    // In portrait a result panel stands at the top, down to half the
+    // screen at most: the chat stays under it rather than running across.
+    final underPanel = portrait && result != null;
+    final top = underPanel
+        ? math.max(
+            skin.chatTop,
+            size.height * (panelTop + panelMaxPortrait) + 16,
+          )
+        : skin.chatTop;
 
     /// How tall the lines above a turn's answer stand: its command and
     /// tool lines, each with its padding and the gap after it.
@@ -722,11 +731,7 @@ class _AssistOverlayState extends State<AssistOverlay>
                   // The turn in progress keeps its command on screen: the
                   // answer scrolls in what is left under the skin's top.
                   final room =
-                      size.height -
-                      bottom -
-                      skin.chatTop -
-                      aboveAnswer(turn) -
-                      8;
+                      size.height - bottom - top - aboveAnswer(turn) - 8;
                   final line = textScaler.scale(skin.answerSize * scale) * 1.3;
                   return math.max(line, math.min(cap, room));
                 }(),
@@ -758,26 +763,41 @@ class _AssistOverlayState extends State<AssistOverlay>
     ];
     // The chat grows up from its bottom edge; a long conversation's first
     // lines leave the top of the screen, as they do in Voice Satellite.
+    Widget chat = OverflowBox(
+      alignment: skin.centered ? Alignment.bottomCenter : Alignment.bottomLeft,
+      minHeight: 0,
+      maxHeight: double.infinity,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: skin.centered
+            ? CrossAxisAlignment.center
+            : CrossAxisAlignment.start,
+        spacing: skin.gap,
+        children: lines,
+      ),
+    );
+    if (underPanel) {
+      // Under a portrait panel they leave at its edge instead, fading out
+      // over the first lines' worth below it.
+      chat = ClipRect(
+        child: ShaderMask(
+          blendMode: BlendMode.dstIn,
+          shaderCallback: (bounds) => LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: const [Color(0x00000000), Color(0xFF000000)],
+            stops: [0, bounds.height > 0 ? math.min(1, 24 / bounds.height) : 0],
+          ).createShader(bounds),
+          child: chat,
+        ),
+      );
+    }
     return Positioned(
       left: left,
       right: right,
-      top: 0,
+      top: underPanel ? top : 0,
       bottom: bottom,
-      child: OverflowBox(
-        alignment: skin.centered
-            ? Alignment.bottomCenter
-            : Alignment.bottomLeft,
-        minHeight: 0,
-        maxHeight: double.infinity,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: skin.centered
-              ? CrossAxisAlignment.center
-              : CrossAxisAlignment.start,
-          spacing: skin.gap,
-          children: lines,
-        ),
-      ),
+      child: chat,
     );
   }
 }

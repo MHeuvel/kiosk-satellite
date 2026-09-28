@@ -533,6 +533,37 @@ void main() {
     });
   });
 
+  test('a lingering result panel keeps the stop word armed', () {
+    fakeAsync((async) {
+      final h = _Harness(
+        options: const VoiceSessionOptions(
+          resultsLingerSeconds: 0,
+          stopWord: true,
+        ),
+      );
+      h.session.wake('Okay Nabu');
+      async.elapse(const Duration(seconds: 1));
+      h.session.onEvent(VaEvent.sttEnd, {'text': 'weekly forecast'});
+      h.session.onEvent(VaEvent.intentEnd, {'conversation_id': 'c1'});
+      h.session.showResults(
+        tools: const ['Get weather forecast'],
+        results: const [AssistResult('weather', {})],
+      );
+      h.session.onEvent(VaEvent.runEnd, {});
+      async.flushMicrotasks();
+      // Held until dismissed, dismissible by voice all the while.
+      async.elapse(const Duration(minutes: 5));
+      expect(h.view.phase, isNot(AssistPhase.hidden));
+      expect(h.stopArmed.last, isTrue);
+      // The stop word takes it down with the done chime and lets go.
+      h.session.dismiss();
+      async.flushMicrotasks();
+      expect(h.view.phase, AssistPhase.hidden);
+      expect(h.stopArmed.last, isFalse);
+      expect(h.player.chimes.last, 'done');
+    });
+  });
+
   test('an opened video stops the answer and stays until dismissed', () {
     fakeAsync((async) {
       final h = _Harness(

@@ -312,6 +312,11 @@ AssistResult? primaryResult(List<AssistResult> results) {
 bool isFeaturedResult(AssistResult r) =>
     r.kind == 'weather' || r.kind == 'financial' || r.kind == 'featured';
 
+/// A portrait panel's top and its tallest, of the screen's height: the chat
+/// keeps below the two together.
+const panelTop = 0.03;
+const panelMaxPortrait = 0.47;
+
 /// The right edge the chat keeps clear of the panel, from the right.
 double chatRightInset(Size screen, AssistResult? result) {
   if (result == null || screen.height > screen.width) {
@@ -353,7 +358,7 @@ class AssistResultPanel extends StatelessWidget {
     final bare =
         (result.kind == 'weather' || result.kind == 'financial') &&
         !shape.glass;
-    final maxHeight = size.height * (portrait ? 0.47 : 0.70);
+    final maxHeight = size.height * (portrait ? panelMaxPortrait : 0.70);
     final double width = portrait
         ? (featured
               ? (size.width * 0.9).clamp(0, 460).toDouble()
