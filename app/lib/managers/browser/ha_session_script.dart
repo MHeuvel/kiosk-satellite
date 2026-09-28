@@ -43,19 +43,39 @@ import 'dart:convert';
 /// as the user it belongs to instead of leaving the first token's user
 /// logged in for good (discussion #426). The two are told apart by the
 /// refresh token: a real login always carries one, a seed never does.
-String? buildHaAutoLoginScript({required String? token}) {
+///
+/// [replace] is the one exception: turning auto-login on asks for the
+/// token's user, so the first page load after it replaces a login done by
+/// hand too and revokes that login's refresh token, as Home Assistant's own
+/// Log out would. It is a marker stored in the page, so the replacing
+/// happens once per toggle: a person who then logs in by hand, say because
+/// the token stopped working, is not signed out again on every load.
+String? buildHaAutoLoginScript({required String? token, String? replace}) {
   final trimmed = token?.trim();
   if (trimmed == null || trimmed.isEmpty) return null;
   final encoded = jsonEncode(trimmed);
+  final marker = replace == null ? 'null' : jsonEncode(replace);
   return 'try {'
       'var seed = true;'
+      'var replace = $marker !== null && '
+      'localStorage.getItem("ks-auto-login-replaced") !== $marker;'
       'var stored = localStorage.getItem("hassTokens");'
       'if (stored) {'
       'try {'
       'var s = JSON.parse(stored);'
-      'seed = !s.refresh_token && s.access_token !== $encoded;'
+      'seed = replace'
+      ' ? !!s.refresh_token || s.access_token !== $encoded'
+      ' : !s.refresh_token && s.access_token !== $encoded;'
+      'if (replace && s.refresh_token) {'
+      'var form = new FormData();'
+      'form.append("token", s.refresh_token);'
+      'fetch(location.protocol + "//" + location.host + "/auth/revoke",'
+      ' {method: "POST", body: form, credentials: "same-origin", keepalive: true})'
+      '.catch(function () {});'
+      '}'
       '} catch (e) { seed = true; }'
       '}'
+      'if (replace) localStorage.setItem("ks-auto-login-replaced", $marker);'
       'if (seed) {'
       'localStorage.setItem("hassTokens", JSON.stringify({'
       'access_token: $encoded,'
@@ -68,6 +88,21 @@ String? buildHaAutoLoginScript({required String? token}) {
       '}'
       '} catch (e) {}';
 }
+
+/// Auto-login turned off: the session the seed wrote leaves with it, so the
+/// dashboard shows the login form and someone can sign in as another user.
+/// Home Assistant's own Log out cannot end a seeded session: it revokes the
+/// refresh token, which a seed does not have. A login someone did by hand
+/// carries one and is left alone.
+const haAutoLoginClearScript =
+    'try {'
+    'var stored = localStorage.getItem("hassTokens");'
+    'if (stored) {'
+    'var s = null;'
+    'try { s = JSON.parse(stored); } catch (e) {}'
+    'if (!s || !s.refresh_token) localStorage.removeItem("hassTokens");'
+    '}'
+    '} catch (e) {}';
 
 String? buildHaSessionScript({required String? tokens, required String url}) {
   if (tokens == null || tokens.trim().isEmpty) return null;

@@ -8,6 +8,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 - **The Voice Satellite skin picker shows real screenshots.** The thumbnails were drawn from each skin's parts and looked little like the overlay itself. They are now screenshots of every skin answering on a tablet, in its light palette where it has one. The Skin row shows only the skin's name, and the remote admin's Skin row now opens the same picker instead of a dropdown.
 
 ### Fixed
+- **Turning off Log in automatically signs the dashboard out.** The switch only stopped seeding new sessions, so the dashboard reloaded still signed in as the token's user. Home Assistant's own Log out could not end that session either and showed Log out failed, because it revokes a refresh token the seeded session does not have. With the switch off, the kiosk now removes the session it seeded and the dashboard shows the Home Assistant login page. A login done by hand stays. Turning the switch back on reloads the start page signed in as the token's user instead of staying on the login page, and replaces a login done by hand in the meantime, signing that session out in Home Assistant.
 - **Voice Satellite pages space their cards like the rest of the app.** The main Voice Satellite page, the Wake Word page and the Custom Models group put an extra gap after each card on top of the card's own, so their groups sat twice as far apart as on any other page. The Intercom page had the same doubled gap under its remote admin notice.
 
 ## v2026.9.89 - 2026-09-28

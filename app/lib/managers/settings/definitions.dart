@@ -5792,8 +5792,9 @@ const haToken = SettingDef<String>(
 /// `hassTokens`, see ha_session_script.dart) at document start, so a fresh
 /// kiosk never shows the Home Assistant login form. A login someone did by
 /// hand always wins over the seed; a session the seed wrote for an earlier
-/// token is replaced when the token changes. Turning this off stops future
-/// seeding without logging anything out.
+/// token is replaced when the token changes. Turning this off removes the
+/// seeded session, so the dashboard shows the login form; a login done by
+/// hand stays.
 const haAutoLogin = SettingDef<bool>(
   key: 'ha.auto_login',
   type: SettingType.boolean,

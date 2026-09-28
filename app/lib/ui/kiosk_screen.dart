@@ -348,6 +348,10 @@ class _KioskScreenState extends State<KioskScreen>
   /// where the current page was (a token change, see _onSettingChanged).
   bool _rebuildFromStart = false;
 
+  /// Set when auto-login turns on: the seed replaces a login done by hand
+  /// once, on the first page that sees this marker.
+  String? _autoLoginReplace;
+
   /// Pull-to-refresh, Fully style. The native wrapper handles pages that fit
   /// the screen; scrollable pages never hand it the gesture (Chromium claims
   /// every vertical drag), so those report their pulls through the JS probe
@@ -470,9 +474,23 @@ class _KioskScreenState extends State<KioskScreen>
         e.key == defs.pinchToZoom.key ||
         e.key == defs.wsFilter.key ||
         e.key == defs.disableSuspend.key ||
-        e.key == defs.haAutoLogin.key ||
         e.key == defs.kioskDisableContextMenus.key) {
       setState(() => _webViewEpoch++);
+      return;
+    }
+    // Auto-login on reloads from the start URL: the page on screen is
+    // usually Home Assistant's login form, which never reads the seeded
+    // session. It also signs out a login done by hand, once, since turning
+    // it on asks for the token's user. Off reloads in place and the login
+    // form follows.
+    if (e.key == defs.haAutoLogin.key) {
+      setState(() {
+        _webViewEpoch++;
+        if (c.settings.get(defs.haAutoLogin)) {
+          _rebuildFromStart = true;
+          _autoLoginReplace = '${DateTime.now().microsecondsSinceEpoch}';
+        }
+      });
       return;
     }
     // A new long-lived token reaches the dashboard only through the
@@ -963,7 +981,16 @@ class _KioskScreenState extends State<KioskScreen>
     if (c.settings.get(defs.haAutoLogin) &&
         c.settings.get(defs.haToken).trim().isNotEmpty)
       UserScript(
-        source: buildHaAutoLoginScript(token: c.settings.get(defs.haToken))!,
+        source: buildHaAutoLoginScript(
+          token: c.settings.get(defs.haToken),
+          replace: _autoLoginReplace,
+        )!,
+        injectionTime: UserScriptInjectionTime.AT_DOCUMENT_START,
+      ),
+    // Off, the seeded session goes too, so the page asks for a login.
+    if (!c.settings.get(defs.haAutoLogin))
+      UserScript(
+        source: haAutoLoginClearScript,
         injectionTime: UserScriptInjectionTime.AT_DOCUMENT_START,
       ),
     // The wizard's satellite choice, handed to Voice Satellite before its
