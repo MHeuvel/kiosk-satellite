@@ -19381,6 +19381,12 @@ abstract class UiStrings {
   /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
   ///
   /// In en, this message translates to:
+  /// **'Could not check the token. Tool use and results need an administrator\'s.'**
+  String get voiceCheckAdminUnknown;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
   /// **'Allowed.'**
   String get voiceCheckMicOk;
 

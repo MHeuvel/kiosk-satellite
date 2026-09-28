@@ -11368,6 +11368,10 @@ class UiStringsFr extends UiStrings {
       'Le jeton est celui d\'un utilisateur standard. Voice Satellite fonctionne, mais l\'utilisation des outils et les résultats ne s\'afficheront pas.';
 
   @override
+  String get voiceCheckAdminUnknown =>
+      'Impossible de vérifier le jeton. L\'utilisation des outils et les résultats nécessitent celui d\'un administrateur.';
+
+  @override
   String get voiceCheckMicOk => 'Autorisé.';
 
   @override

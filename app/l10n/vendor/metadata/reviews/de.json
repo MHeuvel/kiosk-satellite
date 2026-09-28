@@ -21677,5 +21677,11 @@
     "translation": "823ea66831f2f685b5f7c7987520cb9ae89bd59006ff9d104f7ec20a72f9ca86",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "voiceCheckAdminUnknown": {
+    "source": "657e492474fd4a7d6c465e26f4a8c7a1a0ca63137220f2f6cc7e8465bd589585",
+    "translation": "c369cafe9b4444b60ea47101e4c6257a84e8158458edf013fa372d7a7c28ba3c",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

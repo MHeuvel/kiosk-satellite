@@ -11137,6 +11137,10 @@ class UiStringsEn extends UiStrings {
       'The token is a regular user\'s. Voice Satellite works, tool use and results will not show.';
 
   @override
+  String get voiceCheckAdminUnknown =>
+      'Could not check the token. Tool use and results need an administrator\'s.';
+
+  @override
   String get voiceCheckMicOk => 'Allowed.';
 
   @override

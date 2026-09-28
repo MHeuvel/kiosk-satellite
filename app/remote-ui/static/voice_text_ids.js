@@ -242,6 +242,7 @@ export const voiceTextMessageIds = {
   "Administrator token": "voiceCheckAdmin",
   "Tool use and results will show.": "voiceCheckAdminOk",
   "The token is a regular user's. Voice Satellite works, tool use and results will not show.": "voiceCheckAdminBad",
+  "Could not check the token. Tool use and results need an administrator's.": "voiceCheckAdminUnknown",
   "Allowed.": "voiceCheckMicOk",
   "Not allowed. Grant it under Required system permissions.": "voiceCheckMicBad",
   "Turn on ESPHome": "voiceTurnOnEsphome",

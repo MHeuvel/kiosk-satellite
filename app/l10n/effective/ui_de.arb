@@ -41140,6 +41140,11 @@
     "context": "Voice Satellite migration wizard",
     "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   },
+  "voiceCheckAdminUnknown": "Das Token konnte nicht geprüft werden. Werkzeugnutzung und Ergebnisse brauchen das eines Administrators.",
+  "@voiceCheckAdminUnknown": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
   "voiceCheckMicOk": "Erlaubt.",
   "@voiceCheckMicOk": {
     "context": "Voice Satellite migration wizard",

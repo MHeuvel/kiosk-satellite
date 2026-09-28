@@ -11374,6 +11374,10 @@ class UiStringsEs extends UiStrings {
       'El token es de un usuario normal. Voice Satellite funciona, pero no se mostrarán el uso de herramientas ni los resultados.';
 
   @override
+  String get voiceCheckAdminUnknown =>
+      'No se pudo comprobar el token. El uso de herramientas y los resultados necesitan el de un administrador.';
+
+  @override
   String get voiceCheckMicOk => 'Permitido.';
 
   @override

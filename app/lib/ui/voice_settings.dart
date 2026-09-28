@@ -913,8 +913,11 @@ class _MigrationWizardState extends State<_MigrationWizard> {
       'admin' => (
         'Administrator token',
         'Tool use and results will show.',
-        'The token is a regular user\'s. Voice Satellite works, tool use '
-            'and results will not show.',
+        check['unknown'] == true
+            ? 'Could not check the token. Tool use and results need an '
+                  'administrator\'s.'
+            : 'The token is a regular user\'s. Voice Satellite works, tool '
+                  'use and results will not show.',
       ),
       'microphone' => (
         'Microphone',

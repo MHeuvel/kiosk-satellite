@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Fixed
+- **The migration check no longer calls an administrator's token a regular user's when it cannot tell.** The Administrator token check reported a regular user's token whenever Home Assistant did not answer the question. It now says it could not check the token, and the app log records why. Translated into Spanish, German, French and Ukrainian.
 - **Slideshows move on when a video fails mid-playback.** A video decoder that failed partway through a clip left the Immich, Local and Gallery slideshows stuck on a black or grey screen until the screensaver restarted (#739). The failed video now counts as finished and the next slide shows.
 
 ## v2026.9.88 - 2026-09-28

@@ -13,6 +13,7 @@
   "voiceCheckAdmin": "Jeton administrateur",
   "voiceCheckAdminOk": "L'utilisation des outils et les résultats s'afficheront.",
   "voiceCheckAdminBad": "Le jeton est celui d'un utilisateur standard. Voice Satellite fonctionne, mais l'utilisation des outils et les résultats ne s'afficheront pas.",
+  "voiceCheckAdminUnknown": "Impossible de vérifier le jeton. L'utilisation des outils et les résultats nécessitent celui d'un administrateur.",
   "voiceCheckMicOk": "Autorisé.",
   "voiceCheckMicBad": "Non autorisé. Accordez-le dans Autorisations système requises.",
   "voiceTurnOnEsphome": "Activer ESPHome",

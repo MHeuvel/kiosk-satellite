@@ -3712,6 +3712,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'voiceCheckAdmin' => strings.voiceCheckAdmin,
       'voiceCheckAdminOk' => strings.voiceCheckAdminOk,
       'voiceCheckAdminBad' => strings.voiceCheckAdminBad,
+      'voiceCheckAdminUnknown' => strings.voiceCheckAdminUnknown,
       'voiceCheckMicOk' => strings.voiceCheckMicOk,
       'voiceCheckMicBad' => strings.voiceCheckMicBad,
       'voiceTurnOnEsphome' => strings.voiceTurnOnEsphome,

@@ -13,6 +13,7 @@
   "voiceCheckAdmin": "Token de administrador",
   "voiceCheckAdminOk": "Se mostrarán el uso de herramientas y los resultados.",
   "voiceCheckAdminBad": "El token es de un usuario normal. Voice Satellite funciona, pero no se mostrarán el uso de herramientas ni los resultados.",
+  "voiceCheckAdminUnknown": "No se pudo comprobar el token. El uso de herramientas y los resultados necesitan el de un administrador.",
   "voiceCheckMicOk": "Permitido.",
   "voiceCheckMicBad": "No permitido. Concédelo en Permisos del sistema necesarios.",
   "voiceTurnOnEsphome": "Activar ESPHome",

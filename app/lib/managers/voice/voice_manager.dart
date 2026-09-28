@@ -1261,14 +1261,25 @@ class VoiceManager extends Manager {
           ((status.data as Map)['clients'] as num? ?? 0) > 0;
     }
     checks.add({'id': 'esphome', 'ok': added, 'esphomeOn': esphomeOn});
+    // Unknown when Home Assistant did not answer: that says nothing about
+    // the token's user.
     var admin = false;
+    var known = false;
     if (connected) {
       try {
         final user = await _ha.request({'type': 'auth/current_user'});
         admin = user is Map && user['is_admin'] == true;
-      } catch (_) {}
+        known = user is Map;
+      } catch (e) {
+        log.warn(name, 'token user not checked: $e');
+      }
     }
-    checks.add({'id': 'admin', 'ok': admin, 'warnOnly': true});
+    checks.add({
+      'id': 'admin',
+      'ok': admin,
+      'warnOnly': true,
+      'unknown': !known,
+    });
     final perms = await commands.execute('getSystemPermissions', const {});
     final mic =
         perms.ok &&

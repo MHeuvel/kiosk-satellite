@@ -486,7 +486,9 @@ const CHECKS = {
     ? 'Not added yet. Home Assistant lists this kiosk as discovered under Settings, Devices & services. Add it there, then come back.'
     : 'The ESPHome server is off. Turn it on, then add this kiosk in Home Assistant.'],
   admin: ['Administrator token', 'Tool use and results will show.',
-    () => 'The token is a regular user\'s. Voice Satellite works, tool use and results will not show.'],
+    (c) => c.unknown
+      ? 'Could not check the token. Tool use and results need an administrator\'s.'
+      : 'The token is a regular user\'s. Voice Satellite works, tool use and results will not show.'],
   microphone: ['Microphone', 'Allowed.', () => 'Not allowed. Grant it under Required system permissions.'],
 };
 
