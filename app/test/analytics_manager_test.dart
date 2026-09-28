@@ -181,7 +181,7 @@ void main() {
   test(
     'the defaults send one snapshot with both parts, and then wait',
     () async {
-      await build({});
+      await build({'ks.voice.runtime': 'dashboard'});
       await pump();
       expect(sent, hasLength(1));
       final body = bodyOf(sent.single);
@@ -212,8 +212,8 @@ void main() {
       expect(usage['intercom_answer_mode'], 'ring');
       expect(usage['intercom_talk_mode'], 'ptt');
       expect(usage['announcements'], true);
-      // The hook answered with a stopped engine: installed, not running.
-      expect(usage['voice_satellite'], 'stopped');
+      // The hook answered: the integration runs voice on this kiosk.
+      expect(usage['voice_satellite'], 'integration');
       expect(usage['widgets'], isEmpty);
       expect(usage['widget_count'], 0);
       expect(usage['gesture_triggers'], isEmpty);
@@ -232,49 +232,85 @@ void main() {
   );
 
   test(
-    'Voice Satellite reads by the page hook, then by memory of it',
+    'a dashboard runtime reads by the page hook, then by memory of it',
     () async {
-      await build({}, firstDelay: const Duration(days: 1));
+      await build({
+        'ks.voice.runtime': 'dashboard',
+      }, firstDelay: const Duration(days: 1));
       Future<Map> usage() async {
         sent.clear();
         expect(await analytics.sendSnapshot(force: true), isTrue);
         return bodyOf(sent.single)['usage'] as Map;
       }
 
-      // The hook answers: the engine decides.
-      expect((await usage())['voice_satellite'], 'stopped');
+      // The hook answers: the integration is there, whatever its engine
+      // is doing right now.
+      expect((await usage())['voice_satellite'], 'integration');
       vsPage = {
         'config': {'skin': 'waveform'},
         'engine': {'running': true},
       };
       var u = await usage();
-      expect(u['voice_satellite'], 'running');
+      expect(u['voice_satellite'], 'integration');
       expect(u['vs_skin'], 'waveform');
       // No hook (the page is elsewhere), but Voice Satellite pushed the
       // wake word config this session.
       vsPage = null;
       u = await usage();
-      expect(u['voice_satellite'], 'installed');
+      expect(u['voice_satellite'], 'integration');
       expect(u['vs_skin'], '');
       // No hook and no config either: the sighting holds for a week.
       wakeState = {'released': false, 'models': <Object?>[]};
       now = now.add(const Duration(days: 6));
-      expect((await usage())['voice_satellite'], 'installed');
+      expect((await usage())['voice_satellite'], 'integration');
       now = now.add(const Duration(days: 2));
-      expect((await usage())['voice_satellite'], 'not_installed');
+      expect((await usage())['voice_satellite'], 'off');
     },
   );
 
-  test('a kiosk that never met Voice Satellite reads not_installed', () async {
-    await build({}, firstDelay: const Duration(days: 1));
-    vsPage = null;
-    wakeState = {'released': false, 'models': <Object?>[]};
-    expect(await analytics.sendSnapshot(force: true), isTrue);
-    final usage = bodyOf(sent.single)['usage'] as Map;
-    expect(usage['voice_satellite'], 'not_installed');
-    expect(usage['wake_word_engine'], '');
-    expect(usage['wake_word'], '');
-  });
+  test(
+    'a dashboard runtime that never met Voice Satellite reads off',
+    () async {
+      await build({
+        'ks.voice.runtime': 'dashboard',
+      }, firstDelay: const Duration(days: 1));
+      vsPage = null;
+      wakeState = {'released': false, 'models': <Object?>[]};
+      expect(await analytics.sendSnapshot(force: true), isTrue);
+      final usage = bodyOf(sent.single)['usage'] as Map;
+      expect(usage['voice_satellite'], 'off');
+      expect(usage['wake_word_engine'], '');
+      expect(usage['wake_word'], '');
+    },
+  );
+
+  test(
+    'a native runtime reads by its own switch and skin, never the page',
+    () async {
+      await build({
+        'ks.voice.runtime': 'native',
+        'ks.voice.skin': 'lens-flares',
+      }, firstDelay: const Duration(days: 1));
+      Future<Map> usage() async {
+        sent.clear();
+        expect(await analytics.sendSnapshot(force: true), isTrue);
+        return bodyOf(sent.single)['usage'] as Map;
+      }
+
+      // The page hook still answers (the integration is installed in Home
+      // Assistant) but this kiosk does not run voice through it.
+      var u = await usage();
+      expect(u['voice_satellite'], 'off');
+      expect(u['vs_skin'], '');
+      await settings.set(defs.voiceEnabled, true);
+      u = await usage();
+      expect(u['voice_satellite'], 'native');
+      expect(u['vs_skin'], 'lens-flares');
+      // A fresh install never seeds the runtime: it is native by default.
+      await build({}, firstDelay: const Duration(days: 1));
+      expect((await usage())['voice_satellite'], 'off');
+    },
+  );
 
   test('widgets, gestures, cameras and the installer read as kinds and '
       'counts, never as what they point at', () async {

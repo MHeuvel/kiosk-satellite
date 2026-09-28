@@ -54,8 +54,8 @@ class AnalyticsManager extends Manager {
   static const _sentCrashesKey = 'analytics_sent_crashes';
   static const _vsSeenKey = 'analytics_vs_seen';
 
-  /// How long a Voice Satellite sighting keeps an install reading
-  /// 'installed' while the page hook is not answering.
+  /// How long a Voice Satellite sighting keeps a dashboard runtime reading
+  /// 'integration' while the page hook is not answering.
   static const vsMemory = Duration(days: 7);
 
   /// How many crashes one tick reports at most: a journal that holds a
@@ -576,17 +576,23 @@ class AnalyticsManager extends Manager {
     };
   }
 
-  /// Voice Satellite as the page reports it. The hook the integration
-  /// puts on every Home Assistant page answers only where it is
-  /// installed, so an answer settles both questions: 'running' or
-  /// 'stopped', by the engine. No answer, while the page is mid-load or
-  /// showing something else, says nothing on its own, so an install that
-  /// received a wake word config this session or heard the hook within
-  /// the last week reads 'installed', and anything else 'not_installed'.
-  /// The skin rides along from the same answer.
+  /// How this kiosk does voice: 'native' (the app's own satellite, turned
+  /// on), 'integration' (the Voice Satellite integration in the dashboard)
+  /// or 'off'. A native runtime answers from its own switch and skin. A
+  /// dashboard runtime asks the hook the integration puts on every Home
+  /// Assistant page, which answers only where it is installed. No answer,
+  /// while the page is mid-load or showing something else, says nothing on
+  /// its own, so an install that received a wake word config this session
+  /// or heard the hook within the last week still reads 'integration'.
   Future<({String state, String skin})> _voiceSatellite({
     required bool configPushed,
   }) async {
+    final s = _settings;
+    if (s.get(defs.voiceRuntime) == 'native') {
+      return s.get(defs.voiceEnabled)
+          ? (state: 'native', skin: s.get(defs.voiceSkin))
+          : (state: 'off', skin: '');
+    }
     Map? page;
     try {
       final r = await commands.execute('vsEngineState', const {});
@@ -597,23 +603,21 @@ class AnalyticsManager extends Manager {
     if (page != null) {
       final config = page['config'];
       if (config is Map) skin = '${config['skin'] ?? ''}';
-      await _settings.setInternal(_vsSeenKey, stamp);
-      final engine = page['engine'];
-      final running = engine is Map && engine['running'] == true;
-      return (state: running ? 'running' : 'stopped', skin: skin);
+      await s.setInternal(_vsSeenKey, stamp);
+      return (state: 'integration', skin: skin);
     }
     if (configPushed) {
-      await _settings.setInternal(_vsSeenKey, stamp);
-      return (state: 'installed', skin: skin);
+      await s.setInternal(_vsSeenKey, stamp);
+      return (state: 'integration', skin: skin);
     }
-    final seen = int.tryParse(_settings.internal(_vsSeenKey));
+    final seen = int.tryParse(s.internal(_vsSeenKey));
     if (seen != null) {
       final at = DateTime.fromMillisecondsSinceEpoch(seen, isUtc: true);
       if (_now().toUtc().difference(at) <= vsMemory) {
-        return (state: 'installed', skin: skin);
+        return (state: 'integration', skin: skin);
       }
     }
-    return (state: 'not_installed', skin: skin);
+    return (state: 'off', skin: skin);
   }
 
   /// The native journal's text, or nothing where there is no journal (a
