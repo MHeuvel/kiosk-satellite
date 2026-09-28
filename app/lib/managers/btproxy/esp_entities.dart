@@ -1168,6 +1168,9 @@ class EspEntitySurface {
         {'name': 'slot', 'type': 'int'},
       ],
     },
+    // Ends the turn on screen as a double tap does: listening, thinking or
+    // speaking, a lingering answer or a ringing timer.
+    {'name': 'vs_cancel', 'supportsResponse': true, 'args': []},
     // Sends a prompt to the assistant and shows the answer and results on
     // this kiosk. Actions cannot leave a field out, so speaking is opt in
     // (false is the silent show), pipeline 0 counts as 1 and duration 0
@@ -1333,6 +1336,10 @@ class EspEntitySurface {
           'slot': slot < 1 ? 1 : slot,
         });
         if (!result.ok) throw StateError(result.error ?? 'not started');
+        return const {};
+      case 'vs_cancel':
+        final result = await commands.execute('voiceCancel', const {});
+        if (!result.ok) throw StateError(result.error ?? 'not cancelled');
         return const {};
       case 'vs_show':
         final result = await commands.execute('voiceShow', {

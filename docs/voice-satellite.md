@@ -132,7 +132,7 @@ With **Expose kiosk entities** on under **Settings > ESPHome**, the kiosk adds i
 | VS Answer linger | number | Keep the answer on screen |
 | VS Announcement linger | number | Announcement time |
 
-And three actions, named after the kiosk's [node name](esphome.md#node-name):
+And four actions, named after the kiosk's [node name](esphome.md#node-name):
 
 ```yaml
 # Listen as if the wake word fired. Slot 2 runs Assistant 2.
@@ -140,6 +140,13 @@ action: esphome.kitchen_tablet_vs_wake
 data:
   slot: 1
 ```
+
+```yaml
+# End the turn on screen, as a double tap does.
+action: esphome.kitchen_tablet_vs_cancel
+```
+
+`vs_cancel` stops listening or speaking, takes down a lingering answer and silences a ringing timer.
 
 ```yaml
 # Ask the assistant and show the answer and results on the kiosk.
@@ -164,6 +171,20 @@ data:
 ```
 
 The entities and actions appear only while Voice Satellite runs natively and is on.
+
+## Android broadcasts
+
+Apps on the device can start and end a turn with a broadcast, without going through Home Assistant. This suits a remote's button mapper, Tasker, Automate or ADB:
+
+```sh
+# Listen as if the wake word fired. Slot 2 runs Assistant 2.
+adb shell am broadcast -a me.jxl.kiosk_satellite.action.VOICE_WAKE --ei slot 1
+
+# End the turn on screen, as a double tap does.
+adb shell am broadcast -a me.jxl.kiosk_satellite.action.VOICE_CANCEL
+```
+
+`slot` is optional and defaults to 1. The broadcasts work while Kiosk Satellite is running, even with another app in front, and do nothing while Voice Satellite is off.
 
 ## Fleets
 

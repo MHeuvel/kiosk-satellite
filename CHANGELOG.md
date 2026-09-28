@@ -6,6 +6,8 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Added
 - **Fleet export.** A new Remote API endpoint, `GET /api/fleet/export`, returns the full configuration of the leader and every follower in one file, secrets included, for backing up the whole fleet in one call (#721). Each kiosk's entry is the same backup `/api/config/export` gives and restores through `/api/config/import`. A follower that does not answer is listed with the reason. The leader's fleet token can now read a follower's `/api/config/export` to collect it. Followers need this release too.
+- **Android broadcasts start and end a Voice Satellite turn.** Apps on the device can send `me.jxl.kiosk_satellite.action.VOICE_WAKE` to listen as if the wake word fired, with an optional `slot` extra for Assistant 2, and `me.jxl.kiosk_satellite.action.VOICE_CANCEL` to end the turn the way a double tap does (#733). A remote's button mapper, Tasker, Automate or `adb shell am broadcast` can drive voice without a round trip through Home Assistant.
+- **vs_cancel action.** Native Voice Satellite's new `vs_cancel` ESPHome action ends the turn on screen from an automation, the counterpart to `vs_wake`.
 
 ### Changed
 - **Native Voice Satellite has its own documentation page.** It covers why voice runs natively now, setting it up, migrating from the integration, every setting, playing sounds on a media player and the port the speaker needs, timers and conversations, the Home Assistant entities and actions and troubleshooting. The README and the ESPHome and custom wake word pages link to it.

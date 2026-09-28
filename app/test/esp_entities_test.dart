@@ -376,6 +376,38 @@ void main() {
     });
   });
 
+  group('ESPHome vs_cancel', () {
+    test('is advertised only while Voice Satellite runs natively', () async {
+      bool advertised() =>
+          surface.buildServices().any((s) => s['name'] == 'vs_cancel');
+      await settings.set(defs.voiceRuntime, 'dashboard');
+      await settings.set(defs.voiceEnabled, true);
+      expect(advertised(), isFalse);
+      await settings.set(defs.voiceRuntime, 'native');
+      expect(advertised(), isTrue);
+      final action = surface.buildServices().singleWhere(
+        (service) => service['name'] == 'vs_cancel',
+      );
+      expect(action['supportsResponse'], isTrue);
+      expect(action['args'], isEmpty);
+    });
+
+    test('runs voiceCancel', () async {
+      commands.register(
+        Command(
+          name: 'voiceCancel',
+          description: 'voiceCancel',
+          handler: (p) async {
+            executed.add(('voiceCancel', Map<String, Object?>.from(p)));
+            return const CommandResult.ok();
+          },
+        ),
+      );
+      expect(await surface.handleService('vs_cancel', const {}), isEmpty);
+      expect(executed.single.$1, 'voiceCancel');
+    });
+  });
+
   test('picker groups honor categories before the entity type', () {
     expect(
       EspEntitySurface.categoryLabel({'type': 'switch', 'category': 1}),

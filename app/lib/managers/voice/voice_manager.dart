@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 import '../../core/command_registry.dart';
@@ -285,6 +286,8 @@ class VoiceManager extends Manager {
       const Duration(seconds: 30),
       (_) => _watchSelects(),
     );
+
+    _intents.setMethodCallHandler(_onIntent);
 
     _subs
       ..add(
@@ -2347,12 +2350,32 @@ class VoiceManager extends Manager {
     );
   }
 
+  /// The VOICE_WAKE and VOICE_CANCEL broadcasts (VoiceIntentBridge.kt),
+  /// sent by ADB, a remote's button mapper or an automation app.
+  static const _intents = MethodChannel('kiosk_satellite/voice_intents');
+
+  Future<void> _onIntent(MethodCall call) async {
+    final (command, params) = switch (call.method) {
+      'wake' => (
+        'voiceWake',
+        {'slot': ((call.arguments as Map?)?['slot'] as num?) ?? 1},
+      ),
+      'cancel' => ('voiceCancel', const <String, Object?>{}),
+      _ => (null, const <String, Object?>{}),
+    };
+    if (command == null) return;
+    log.info(name, '${call.method} broadcast');
+    final result = await commands.execute(command, params);
+    if (!result.ok) log.warn(name, '${call.method} broadcast: ${result.error}');
+  }
+
   /// Tells the remote admin's status rows to read the status again.
   void _announceStatus() =>
       bus.publish(const RemoteStatusChanged('voice-status'));
 
   @override
   Future<void> dispose() async {
+    _intents.setMethodCallHandler(null);
     homeAssistant.removeListener(_announceStatus);
     homeAssistant.removeListener(_watchSelects);
     _watchTimer?.cancel();
