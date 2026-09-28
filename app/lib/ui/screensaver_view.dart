@@ -2795,6 +2795,12 @@ setInterval(function () {
 /// The descriptor already accounts for EXIF orientation.
 Future<double?> _aspectOf(Uint8List bytes) => photoAspect(bytes);
 
+/// Whether [video] has frames to show. A video slide clears the photo, and
+/// a decoder error resets the controller to uninitialized, so an errored
+/// video with no photo behind it is an empty slide until the next one.
+bool _videoShowing(VideoPlayerController? video) =>
+    video != null && video.value.isInitialized;
+
 /// Screen-off preserves the slide and its remaining hold. In-flight reads
 /// finish, but decoding and committing a new slide wait for the panel. The
 /// native voice overlay holds it the same way: it shows a still of the
@@ -3121,6 +3127,17 @@ class _LocalMediaScreensaverState extends State<LocalMediaScreensaver>
             // no longer the slideshow's cue.
             ended = true;
             if (identical(_video, video)) _advance();
+          } else if (!ended && v.hasError) {
+            // A decoder that dies mid-playback resets the controller to
+            // uninitialized and never reaches the end, so the error is the
+            // cue instead.
+            ended = true;
+            if (!identical(_video, video)) return;
+            c.log.warn(
+              'screensaver',
+              'video stopped playing (${file.path}): ${v.errorDescription}',
+            );
+            _advance();
           }
         });
         if (!mounted) {
@@ -3337,7 +3354,7 @@ class _LocalMediaScreensaverState extends State<LocalMediaScreensaver>
           style: const TextStyle(color: Colors.white54, fontSize: 16),
         ),
       );
-    } else if (_files.isEmpty || (_image == null && video == null)) {
+    } else if (_files.isEmpty || (_image == null && !_videoShowing(video))) {
       body = const SizedBox.expand();
     } else {
       final transition = _transition;
@@ -3790,6 +3807,18 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
             // no longer the slideshow's cue.
             ended = true;
             if (identical(_video, video)) _advance();
+          } else if (!ended && v.hasError) {
+            // A decoder that dies mid-playback resets the controller to
+            // uninitialized and never reaches the end, so the error is the
+            // cue instead.
+            ended = true;
+            if (!identical(_video, video)) return;
+            c.log.warn(
+              'screensaver',
+              'immich video stopped playing (${asset.id}): '
+                  '${v.errorDescription}',
+            );
+            _advance();
           }
         });
         if (!mounted) {
@@ -4205,7 +4234,7 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
           style: const TextStyle(color: Colors.white54, fontSize: 16),
         ),
       );
-    } else if (_image == null && video == null) {
+    } else if (_image == null && !_videoShowing(video)) {
       body = const SizedBox.expand();
     } else {
       final transition = _transition;

@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **Slideshows move on when a video fails mid-playback.** A video decoder that failed partway through a clip left the Immich, Local and Gallery slideshows stuck on a black or grey screen until the screensaver restarted (#739). The failed video now counts as finished and the next slide shows.
+
 ## v2026.9.88 - 2026-09-28
 
 ### Added
