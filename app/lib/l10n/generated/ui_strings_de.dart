@@ -249,7 +249,7 @@ class UiStringsDe extends UiStrings {
 
   @override
   String get alarmsVoiceHint =>
-      'Benötigt den Kiosk Satellite Wecker-Blueprint und einen LLM-Konversationsagenten in Home Assistant. Öffnet die Anleitung.';
+      'Benötigt den Kiosk Satellite Wecker-Blueprint und einen LLM-Konversationsagenten in Home Assistant.';
 
   @override
   String get androidAccessibilityHelp =>

@@ -37,7 +37,7 @@ export const SEARCH_EXTRAS = [
     desc: 'Learn how to create plugins with the Hello World template and documentation.', anchor: 'x:plugins:create' },
   { tab: 'device', title: 'TLS', sub: 'TLS', desc: 'Connection encryption and certificates' },
   { tab: 'alarms', title: 'Manage alarms using Voice Satellite',
-    desc: 'Needs the Kiosk Satellite alarms blueprint and an LLM conversation agent in Home Assistant. Opens the guide.', anchor: 'x:alarms_voice' },
+    desc: 'Needs the Kiosk Satellite alarms blueprint and an LLM conversation agent in Home Assistant.', anchor: 'x:alarms_voice' },
   { tab: 'device', title: 'Learn how we process your data',
     desc: 'What Kiosk Satellite Analytics sends and what it never sends.', sub: 'Kiosk Satellite Analytics', anchor: 'x:analytics_docs' },
   { tab: 'device', title: 'Install from file',

@@ -520,7 +520,7 @@ abstract class UiStrings {
   /// Description under that row. Keep Kiosk Satellite and Home Assistant unchanged. A blueprint is a Home Assistant template for a script.
   ///
   /// In en, this message translates to:
-  /// **'Needs the Kiosk Satellite alarms blueprint and an LLM conversation agent in Home Assistant. Opens the guide.'**
+  /// **'Needs the Kiosk Satellite alarms blueprint and an LLM conversation agent in Home Assistant.'**
   String get alarmsVoiceHint;
 
   /// Service description displayed by Android in its own language.

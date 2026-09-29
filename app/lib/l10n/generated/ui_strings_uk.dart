@@ -248,7 +248,7 @@ class UiStringsUk extends UiStrings {
 
   @override
   String get alarmsVoiceHint =>
-      'Потрібні blueprint будильників Kiosk Satellite і агент розмови LLM у Home Assistant. Відкриває посібник.';
+      'Потрібні blueprint будильників Kiosk Satellite і агент розмови LLM у Home Assistant.';
 
   @override
   String get androidAccessibilityHelp =>

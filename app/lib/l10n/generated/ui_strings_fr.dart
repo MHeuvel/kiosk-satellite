@@ -248,7 +248,7 @@ class UiStringsFr extends UiStrings {
 
   @override
   String get alarmsVoiceHint =>
-      'Nécessite le blueprint d\'alarmes de Kiosk Satellite et un agent de conversation LLM dans Home Assistant. Ouvre le guide.';
+      'Nécessite le blueprint d\'alarmes de Kiosk Satellite et un agent de conversation LLM dans Home Assistant.';
 
   @override
   String get androidAccessibilityHelp =>

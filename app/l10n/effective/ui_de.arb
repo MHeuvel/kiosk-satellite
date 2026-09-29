@@ -917,7 +917,7 @@
       ]
     }
   },
-  "alarmsVoiceHint": "Benötigt den Kiosk Satellite Wecker-Blueprint und einen LLM-Konversationsagenten in Home Assistant. Öffnet die Anleitung.",
+  "alarmsVoiceHint": "Benötigt den Kiosk Satellite Wecker-Blueprint und einen LLM-Konversationsagenten in Home Assistant.",
   "@alarmsVoiceHint": {
     "context": "Settings > Alarms",
     "description": "Description under that row. Keep Kiosk Satellite and Home Assistant unchanged. A blueprint is a Home Assistant template for a script.",

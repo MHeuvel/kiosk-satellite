@@ -100,7 +100,7 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
     title: "Manage alarms using Voice Satellite",
     description:
         "Needs the Kiosk Satellite alarms blueprint and an LLM conversation "
-        "agent in Home Assistant. Opens the guide.",
+        "agent in Home Assistant.",
     anchorId: "x:alarms_voice",
   ),
   SettingsSearchEntry(

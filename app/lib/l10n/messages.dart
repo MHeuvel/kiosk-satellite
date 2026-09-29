@@ -447,7 +447,7 @@ String settingsPageText(
     'Voice Alarms' => l10n(context).alarmsVoiceSection,
     'Manage alarms using Voice Satellite' => l10n(context).alarmsVoiceManage,
     'Needs the Kiosk Satellite alarms blueprint and an LLM conversation '
-        'agent in Home Assistant. Opens the guide.' =>
+        'agent in Home Assistant.' =>
       l10n(context).alarmsVoiceHint,
     _ => english,
   },

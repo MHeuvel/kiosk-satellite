@@ -428,11 +428,13 @@ export async function renderAlarmsPage({ fetch = true } = {}) {
   const set = button(t('alarmsSetAnAlarm'), 'btn-primary', () => openEditor(null));
   set.insertAdjacentHTML('afterbegin', PLUS_ICON);
   add.appendChild(set);
-  putTop(tab, [heading, card, add, ...voiceCards()]);
+  putTop(tab, [heading, card, add]);
+  tab.append(...voiceCards());
 }
 
 // Voice alarms live in Home Assistant (the blueprint), so this group only
-// points at the guide. Mirrors the device's Voice Alarms group.
+// points at the guide. Last on the page, after the defaults, as on the
+// device.
 const VOICE_DOCS_URL = 'https://kiosksatellite.com/docs/alarms/#setting-alarms-by-voice';
 
 function voiceCards() {

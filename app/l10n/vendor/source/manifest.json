@@ -1,13 +1,13 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "209d3bb3de4f918537058eaa911004a50a1ea46d",
+  "revision": "7ca292b29d490c9c9d0af6874062bc95f6883e17",
   "workingTree": true,
   "files": {
     "about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
     "about_localization_en.arb": "392f1bf170bf4813161cd780bf14e68fbd3caa79e16699f6c5a7891529fdbe6a",
     "about_updates_en.arb": "b41df3870ffb041249448dc4b13b14a9350ab4417510f23e772458dd1e582c85",
-    "alarms_en.arb": "dae081012423d69277a2762ec410897f0f619b7c7966aa5d6545c4fd43763abb",
+    "alarms_en.arb": "5958583845963c4efeeb5394d5f13195815b165405f1cab41470478783cf9647",
     "android_accessibility_en.arb": "6fe33a6ec23fb984d2c9b695d0dcaa41b8136a83cbedae702ee37e563a9a78a0",
     "android_service_en.arb": "ad23388106fe8d11bf83f3c1b35d4cc6033f9af2009eb030bb46ac12e2ea7939",
     "app_launcher_errors_en.arb": "3f8855859bed85bd36afea30451c358c92cd43773b0532cca7d142134cd04d25",

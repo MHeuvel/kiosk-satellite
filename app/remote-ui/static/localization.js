@@ -122,7 +122,7 @@ const ALARMS_PAGE_TEXT = {
   'Defaults': 'alarmsDefaultsSection',
   'Voice Alarms': 'alarmsVoiceSection',
   'Manage alarms using Voice Satellite': 'alarmsVoiceManage',
-  'Needs the Kiosk Satellite alarms blueprint and an LLM conversation agent in Home Assistant. Opens the guide.': 'alarmsVoiceHint',
+  'Needs the Kiosk Satellite alarms blueprint and an LLM conversation agent in Home Assistant.': 'alarmsVoiceHint',
 };
 
 function alarmsPageText(english) {

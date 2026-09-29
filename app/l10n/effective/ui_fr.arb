@@ -917,7 +917,7 @@
       ]
     }
   },
-  "alarmsVoiceHint": "Nécessite le blueprint d'alarmes de Kiosk Satellite et un agent de conversation LLM dans Home Assistant. Ouvre le guide.",
+  "alarmsVoiceHint": "Nécessite le blueprint d'alarmes de Kiosk Satellite et un agent de conversation LLM dans Home Assistant.",
   "@alarmsVoiceHint": {
     "context": "Settings > Alarms",
     "description": "Description under that row. Keep Kiosk Satellite and Home Assistant unchanged. A blueprint is a Home Assistant template for a script.",

@@ -2300,7 +2300,8 @@ class _CategoryContentState extends State<_CategoryContent> {
         else if (widget.category == 'Alarms') ...[
           // Show in the kiosk menu on its own untitled card, then the list
           // itself (the full screen overlay, opened from here), then the
-          // defaults. Mirrored on the remote's Alarms page.
+          // defaults, then Voice Alarms. Mirrored on the remote's Alarms
+          // page.
           ..._sectionedCards(
             container,
             [
@@ -2313,8 +2314,19 @@ class _CategoryContentState extends State<_CategoryContent> {
           ),
           SectionHeading(l10n(context).alarmsTitle),
           AlarmsManageCard(container: container),
+          ..._sectionedCards(
+            container,
+            [
+              for (final def in _inlineDefsFor('Alarms'))
+                if (def.section != null) def,
+            ],
+            () => setState(() {}),
+            replace: _rowReplacements(container),
+            after: _rowExtras(container),
+          ),
           // Voice alarms live in Home Assistant (the blueprint), so this
-          // group only points at the guide. Mirrored in alarms.js.
+          // group only points at the guide. Last on the page, mirrored in
+          // alarms.js.
           SectionHeading(l10n(context).alarmsVoiceSection),
           SettingsCard(
             children: [
@@ -2334,16 +2346,6 @@ class _CategoryContentState extends State<_CategoryContent> {
                 ),
               ),
             ],
-          ),
-          ..._sectionedCards(
-            container,
-            [
-              for (final def in _inlineDefsFor('Alarms'))
-                if (def.section != null) def,
-            ],
-            () => setState(() {}),
-            replace: _rowReplacements(container),
-            after: _rowExtras(container),
           ),
         ] else if (widget.category == 'Screen & Audio') ...[
           // Through the generic renderer, heading included, so the row
