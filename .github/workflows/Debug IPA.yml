@@ -35,9 +35,16 @@ jobs:
         with:
           node-version: 20
 
-      # Generates assets/remote-ui/ before the Xcode build runs.
+      # Generates assets/remote-ui/ before the Xcode build runs. On
+      # Android, a Gradle task does this automatically; iOS's build has
+      # no equivalent hook in this CI flow, so it's run explicitly here
+      # (npm install alone only fetches esbuild, it doesn't run the
+      # generator).
       - name: Install the remote-ui build tool
         run: npm install
+
+      - name: Generate assets/remote-ui
+        run: node tool/build_remote_ui.mjs
 
       - name: Get Flutter dependencies
         run: flutter pub get
