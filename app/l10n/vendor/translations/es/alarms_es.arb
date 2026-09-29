@@ -39,5 +39,6 @@
   "alarmsSnoozed": "Alarma pospuesta",
   "alarmsSunriseRunning": "Amanecer antes de una alarma",
   "alarmsSunriseHint": "La pantalla se ilumina durante {minutes} minutos antes de que suene.",
-  "alarmsDeleteFailed": "No se pudo eliminar la alarma."
+  "alarmsDeleteFailed": "No se pudo eliminar la alarma.",
+  "alarmsDuplicate": "Ya hay una alarma a esa hora: {time}"
 }

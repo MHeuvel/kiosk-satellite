@@ -217,6 +217,11 @@ class UiStringsEn extends UiStrings {
   String get alarmsDeleteFailed => 'Could not delete the alarm.';
 
   @override
+  String alarmsDuplicate(String time) {
+    return 'You already have an alarm at $time';
+  }
+
+  @override
   String get androidAccessibilityHelp =>
       'Closes the notification shade and the recents screen whenever they open while Kiosk Mode or Lockdown Mode is protecting the screen. Kiosk Satellite does not read any screen content.';
 

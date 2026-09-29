@@ -790,6 +790,25 @@
       ]
     }
   },
+  "alarmsDuplicate": "Будильник на {time} вже встановлено",
+  "@alarmsDuplicate": {
+    "context": "Alarm list",
+    "description": "Shown instead of setting a second alarm with the same time and repeat days. {time} is a clock time.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > Set an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    },
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "description": "A clock time like 6:30 AM."
+      }
+    }
+  },
   "androidAccessibilityHelp": "Закриває панель сповіщень та екран нещодавніх програм щоразу, коли вони відкриваються, доки режим кіоска або захищений режим блокує екран. Kiosk Satellite не зчитує вміст екрана.",
   "@androidAccessibilityHelp": {
     "context": "Android Settings > Accessibility > Kiosk Satellite",

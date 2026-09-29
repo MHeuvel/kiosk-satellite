@@ -19,6 +19,8 @@ Open the list from **Alarms** in the kiosk menu, from **Manage alarms** under **
 
 Tap the time on the details page to change it. The switch in the list turns an alarm on or off without opening it.
 
+There is one alarm per time and repeat. Setting a time that already has an alarm on the same days opens that alarm, turned on, instead of adding a second one. The remote admin refuses the duplicate the same way.
+
 ## When an alarm rings
 
 The alarm wakes the screen, comes in front of the dashboard or another app and plays its tone on the Android alarm stream, so a muted media volume does not silence it. It rings until one of these happens:

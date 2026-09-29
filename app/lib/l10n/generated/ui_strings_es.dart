@@ -217,6 +217,11 @@ class UiStringsEs extends UiStrings {
   String get alarmsDeleteFailed => 'No se pudo eliminar la alarma.';
 
   @override
+  String alarmsDuplicate(String time) {
+    return 'Ya hay una alarma a esa hora: $time';
+  }
+
+  @override
   String get androidAccessibilityHelp =>
       'Cierra el panel de notificaciones y la pantalla de aplicaciones recientes cuando se abren mientras el modo kiosko o el modo de bloqueo protege la pantalla. Kiosk Satellite no lee el contenido de la pantalla.';
 

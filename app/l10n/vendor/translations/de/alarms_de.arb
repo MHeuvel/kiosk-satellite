@@ -39,5 +39,6 @@
   "alarmsSnoozed": "Wecker schlummert",
   "alarmsSunriseRunning": "Sonnenaufgang vor einem Wecker",
   "alarmsSunriseHint": "Der Bildschirm wird {minutes} Minuten lang heller, bevor er klingelt.",
-  "alarmsDeleteFailed": "Der Wecker konnte nicht gelöscht werden."
+  "alarmsDeleteFailed": "Der Wecker konnte nicht gelöscht werden.",
+  "alarmsDuplicate": "Es gibt bereits einen Wecker um {time}"
 }

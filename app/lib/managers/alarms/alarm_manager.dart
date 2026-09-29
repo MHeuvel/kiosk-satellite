@@ -16,6 +16,17 @@ import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
 import 'alarm_model.dart';
 
+/// Saving would make a second alarm with the same time and repeat days.
+class DuplicateAlarm implements Exception {
+  const DuplicateAlarm(this.existing);
+
+  /// The alarm already set for that time.
+  final Alarm existing;
+
+  @override
+  String toString() => 'an alarm is already set for ${existing.time}';
+}
+
 /// Where an alarm stands right now.
 enum AlarmPhase { idle, sunrise, ringing, snoozed }
 
@@ -267,10 +278,33 @@ class AlarmManager extends Manager {
     _publish();
   }
 
+  /// Another alarm with the same time and the same repeat days, the Nest
+  /// Hub's "you already have an alarm set for 7 AM". Two one time alarms
+  /// at the same time are the same alarm too, since both ring at the next
+  /// time the clock reads it.
+  Alarm? duplicateOf(Alarm alarm) {
+    final days = alarm.days.toSet();
+    for (final other in alarms.value) {
+      if (other.id == alarm.id) continue;
+      if (other.hour != alarm.hour || other.minute != alarm.minute) continue;
+      final otherDays = other.days.toSet();
+      if (otherDays.length == days.length && otherDays.containsAll(days)) {
+        return other;
+      }
+    }
+    return null;
+  }
+
   /// Saves [alarm] (new when its id is unknown) and returns it as stored.
   /// A one time alarm that is on rings at the next time its clock reads
-  /// its time.
-  Future<Alarm> save(Alarm alarm) async {
+  /// its time. Throws [DuplicateAlarm] when another alarm already rings at
+  /// that time on those days, unless [allowDuplicate] (a switch flipped on
+  /// an alarm that already exists).
+  Future<Alarm> save(Alarm alarm, {bool allowDuplicate = false}) async {
+    if (!allowDuplicate) {
+      final other = duplicateOf(alarm);
+      if (other != null) throw DuplicateAlarm(other);
+    }
     final now = _clock();
     final stored = alarm.on && !alarm.repeats
         ? alarm.copyWith(date: () => onceDate(alarm.hour, alarm.minute, now))
@@ -305,7 +339,7 @@ class AlarmManager extends Manager {
   Future<bool> setEnabled(String id, bool on) async {
     final alarm = alarms.value.where((a) => a.id == id).firstOrNull;
     if (alarm == null) return false;
-    await save(alarm.copyWith(on: on));
+    await save(alarm.copyWith(on: on), allowDuplicate: true);
     if (!on && _s.ids.contains(id)) await stop(source: 'turned off');
     return true;
   }
@@ -1004,7 +1038,9 @@ class AlarmManager extends Manager {
         Command(
           name: 'alarmSave',
           description:
-              'Add or change an alarm. An alarm without a known id is new.',
+              'Add or change an alarm. An alarm without a known id is new. '
+              'Fails with "duplicate" when another alarm already rings at '
+              'that time on the same days.',
           params: const {
             'alarm':
                 '{id?, time: "HH:mm", days: [0..6, 0 = Sunday], label, '
@@ -1021,8 +1057,14 @@ class AlarmManager extends Manager {
                 ? null
                 : defs.validateNotificationSound(alarm.tone);
             if (toneError != null) return CommandResult.fail(toneError);
-            final saved = await save(alarm);
-            return CommandResult.ok(saved.toJson());
+            try {
+              final saved = await save(alarm);
+              return CommandResult.ok(saved.toJson());
+            } on DuplicateAlarm {
+              // A code rather than words: each surface says it in its own
+              // language, with the time in its own format.
+              return const CommandResult.fail('duplicate');
+            }
           },
         ),
       )

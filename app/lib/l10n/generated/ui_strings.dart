@@ -469,6 +469,12 @@ abstract class UiStrings {
   /// **'Could not delete the alarm.'**
   String get alarmsDeleteFailed;
 
+  /// Shown instead of setting a second alarm with the same time and repeat days. {time} is a clock time.
+  ///
+  /// In en, this message translates to:
+  /// **'You already have an alarm at {time}'**
+  String alarmsDuplicate(String time);
+
   /// Service description displayed by Android in its own language.
   ///
   /// In en, this message translates to:

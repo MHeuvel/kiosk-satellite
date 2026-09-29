@@ -217,6 +217,11 @@ class UiStringsFr extends UiStrings {
   String get alarmsDeleteFailed => 'Impossible de supprimer l\'alarme.';
 
   @override
+  String alarmsDuplicate(String time) {
+    return 'Une alarme est déjà réglée à $time';
+  }
+
+  @override
   String get androidAccessibilityHelp =>
       'Ferme le panneau de notifications et l\'écran des applications récentes chaque fois qu\'ils s\'ouvrent tant que le mode Kiosque ou le mode Verrouillage protège l\'écran. Kiosk Satellite ne lit aucun contenu d\'écran.';
 

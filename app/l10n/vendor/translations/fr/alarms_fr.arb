@@ -39,5 +39,6 @@
   "alarmsSnoozed": "Alarme reportée",
   "alarmsSunriseRunning": "Lever du soleil avant une alarme",
   "alarmsSunriseHint": "L'écran s'éclaircit pendant {minutes} minutes avant la sonnerie.",
-  "alarmsDeleteFailed": "Impossible de supprimer l'alarme."
+  "alarmsDeleteFailed": "Impossible de supprimer l'alarme.",
+  "alarmsDuplicate": "Une alarme est déjà réglée à {time}"
 }

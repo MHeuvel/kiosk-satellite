@@ -281,7 +281,9 @@ function openEditor(existing) {
     if (edit) alarm.id = existing.id;
     const out = await run('alarmSave', { alarm });
     if (!out.ok) {
-      error.textContent = out.error || t('commonSaveFailed');
+      error.textContent = out.error === 'duplicate'
+        ? t('alarmsDuplicate', { time: alarmTimeText(alarm.time) })
+        : out.error || t('commonSaveFailed');
       save.disabled = false;
       return;
     }

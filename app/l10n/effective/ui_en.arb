@@ -790,6 +790,25 @@
       ]
     }
   },
+  "alarmsDuplicate": "You already have an alarm at {time}",
+  "@alarmsDuplicate": {
+    "context": "Alarm list",
+    "description": "Shown instead of setting a second alarm with the same time and repeat days. {time} is a clock time.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > Set an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    },
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "description": "A clock time like 6:30 AM."
+      }
+    }
+  },
   "androidAccessibilityHelp": "Closes the notification shade and the recents screen whenever they open while Kiosk Mode or Lockdown Mode is protecting the screen. Kiosk Satellite does not read any screen content.",
   "@androidAccessibilityHelp": {
     "context": "Android Settings > Accessibility > Kiosk Satellite",

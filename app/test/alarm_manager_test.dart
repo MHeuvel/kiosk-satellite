@@ -25,6 +25,7 @@ void main() {
   late List<(String, Map<String, Object?>)> calls;
   late List<VoiceInteractionChanged> holds;
   late DateTime now;
+  late CommandRegistry registry;
   var takeoverOk = true;
 
   Future<void> build(
@@ -38,6 +39,7 @@ void main() {
     bus = EventBus();
     final log = Logger();
     final commands = CommandRegistry(log);
+    registry = commands;
     settings = SettingsManager(bus, commands, log);
     await settings.init();
     calls = [];
@@ -303,6 +305,62 @@ void main() {
       ]);
     },
   );
+
+  test('a second alarm at the same time on the same days is refused', () async {
+    now = DateTime(2026, 10, 2, 9);
+    await build([
+      {'id': 'o', 'time': '07:00', 'on': false},
+      {
+        'id': 'w',
+        'time': '06:30',
+        'days': [1, 2, 3, 4, 5],
+      },
+    ]);
+    // Another one time alarm at 7:00, even with the first one off.
+    expect(
+      () => alarms.save(const Alarm(id: 'n1', hour: 7, minute: 0)),
+      throwsA(
+        isA<DuplicateAlarm>().having((e) => e.existing.id, 'existing', 'o'),
+      ),
+    );
+    // Same days, in any order, are the same repeat.
+    expect(
+      () => alarms.save(
+        const Alarm(id: 'n2', hour: 6, minute: 30, days: [5, 4, 3, 2, 1]),
+      ),
+      throwsA(isA<DuplicateAlarm>()),
+    );
+    // Other days or another minute are a different alarm.
+    await alarms.save(const Alarm(id: 'n3', hour: 6, minute: 30, days: [6]));
+    await alarms.save(const Alarm(id: 'n4', hour: 7, minute: 1));
+    // Saving an alarm over itself is no duplicate.
+    await alarms.save(
+      const Alarm(id: 'w', hour: 6, minute: 30, days: [1, 2, 3, 4, 5]),
+    );
+    expect(alarms.alarms.value, hasLength(4));
+  });
+
+  test('the save command answers duplicate for the remote to word', () async {
+    now = DateTime(2026, 10, 2, 9);
+    await build([
+      {'id': 'o', 'time': '07:00'},
+    ]);
+    final r = await registry.execute('alarmSave', {
+      'alarm': {'time': '07:00', 'on': true},
+    });
+    expect(r.ok, isFalse);
+    expect(r.error, 'duplicate');
+    expect(alarms.alarms.value, hasLength(1));
+  });
+
+  test('turning an existing alarm on is never refused', () async {
+    now = DateTime(2026, 10, 2, 9);
+    await build([
+      {'id': 'a', 'time': '07:00'},
+      {'id': 'b', 'time': '07:00', 'on': false},
+    ]);
+    expect(await alarms.setEnabled('b', true), isTrue);
+  });
 
   test('deleting a ringing alarm stops it', () async {
     now = DateTime(2026, 10, 2, 7, 0, 5);

@@ -790,6 +790,25 @@
       ]
     }
   },
+  "alarmsDuplicate": "Ya hay una alarma a esa hora: {time}",
+  "@alarmsDuplicate": {
+    "context": "Alarm list",
+    "description": "Shown instead of setting a second alarm with the same time and repeat days. {time} is a clock time.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > Set an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    },
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "description": "A clock time like 6:30 AM."
+      }
+    }
+  },
   "androidAccessibilityHelp": "Cierra el panel de notificaciones y la pantalla de aplicaciones recientes cuando se abren mientras el modo kiosko o el modo de bloqueo protege la pantalla. Kiosk Satellite no lee el contenido de la pantalla.",
   "@androidAccessibilityHelp": {
     "context": "Android Settings > Accessibility > Kiosk Satellite",

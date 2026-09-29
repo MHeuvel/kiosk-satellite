@@ -218,6 +218,11 @@ class UiStringsDe extends UiStrings {
   String get alarmsDeleteFailed => 'Der Wecker konnte nicht gelöscht werden.';
 
   @override
+  String alarmsDuplicate(String time) {
+    return 'Es gibt bereits einen Wecker um $time';
+  }
+
+  @override
   String get androidAccessibilityHelp =>
       'Schließt das Benachrichtigungsfeld und den Bildschirm der zuletzt verwendeten Apps, wenn diese geöffnet werden, während der Kioskmodus oder der Sperrmodus den Bildschirm schützt. Kiosk Satellite liest den Inhalt des Bildschirms nicht.';
 

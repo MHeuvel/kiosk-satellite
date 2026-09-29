@@ -217,6 +217,11 @@ class UiStringsUk extends UiStrings {
   String get alarmsDeleteFailed => 'Не вдалося видалити будильник.';
 
   @override
+  String alarmsDuplicate(String time) {
+    return 'Будильник на $time вже встановлено';
+  }
+
+  @override
   String get androidAccessibilityHelp =>
       'Закриває панель сповіщень та екран нещодавніх програм щоразу, коли вони відкриваються, доки режим кіоска або захищений режим блокує екран. Kiosk Satellite не зчитує вміст екрана.';
 

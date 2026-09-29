@@ -39,5 +39,6 @@
   "alarmsSnoozed": "Будильник відкладено",
   "alarmsSunriseRunning": "Світанок перед будильником",
   "alarmsSunriseHint": "Екран поступово яскравішає протягом {minutes} хв перед сигналом.",
-  "alarmsDeleteFailed": "Не вдалося видалити будильник."
+  "alarmsDeleteFailed": "Не вдалося видалити будильник.",
+  "alarmsDuplicate": "Будильник на {time} вже встановлено"
 }

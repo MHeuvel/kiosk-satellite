@@ -156,7 +156,9 @@ class _AlarmsScreenState extends State<_AlarmsScreen> {
     // it, the way leaving the Nest Hub's page keeps it.
     final draft = _draft;
     if (_step == _Step.details && draft != null && _dirty) {
-      unawaited(alarms.save(draft));
+      // A change that would duplicate another alarm is dropped, as Done
+      // would have refused it.
+      unawaited(alarms.save(draft).then((_) {}, onError: (_) {}));
     }
     super.dispose();
   }
@@ -179,18 +181,56 @@ class _AlarmsScreenState extends State<_AlarmsScreen> {
     _step = _Step.details;
   });
 
+  /// "You already have an alarm at 7:00 AM", the Nest Hub's answer to a
+  /// second alarm at the same time on the same days.
+  void _toastDuplicate(Alarm existing) => showToast(
+    context,
+    title: l10n(context).alarmsDuplicate(
+      alarmTimeText(
+        context,
+        DateTime(2000, 1, 1, existing.hour, existing.minute),
+      ),
+    ),
+    kind: ToastKind.warning,
+  );
+
   Future<void> _set() async {
     if (_wheelEditsDraft && _draft != null) {
+      final next = _draft!.copyWith(hour: _hour, minute: _minute);
+      final other = alarms.duplicateOf(next);
+      if (other != null) {
+        // Stay on the wheel for another time.
+        _toastDuplicate(other);
+        return;
+      }
       setState(() {
-        _draft = _draft!.copyWith(hour: _hour, minute: _minute);
+        _draft = next;
         _dirty = true;
         _step = _Step.details;
       });
       return;
     }
-    final saved = await alarms.save(
-      Alarm(id: newAlarmId(), hour: _hour, minute: _minute),
-    );
+    final Alarm saved;
+    try {
+      saved = await alarms.save(
+        Alarm(id: newAlarmId(), hour: _hour, minute: _minute),
+      );
+    } on DuplicateAlarm catch (e) {
+      // That alarm exists: open it, set to ring, instead of a second one.
+      if (!mounted) return;
+      _toastDuplicate(e.existing);
+      if (!e.existing.on) await alarms.setEnabled(e.existing.id, true);
+      if (!mounted) return;
+      final current = alarms.alarms.value
+          .where((a) => a.id == e.existing.id)
+          .firstOrNull;
+      setState(() {
+        _draft = current ?? e.existing;
+        _dirty = false;
+        _step = _Step.details;
+      });
+      return;
+    }
     if (!mounted) return;
     _toastRingsIn(saved);
     setState(() {
@@ -224,8 +264,14 @@ class _AlarmsScreenState extends State<_AlarmsScreen> {
   Future<void> _done() async {
     final draft = _draft;
     if (draft != null && _dirty) {
-      final saved = await alarms.save(draft.copyWith(on: true));
-      if (mounted) _toastRingsIn(saved);
+      try {
+        final saved = await alarms.save(draft.copyWith(on: true));
+        if (mounted) _toastRingsIn(saved);
+      } on DuplicateAlarm catch (e) {
+        // Its new days or time match another alarm: say so and stay here.
+        if (mounted) _toastDuplicate(e.existing);
+        return;
+      }
     }
     if (!mounted) return;
     setState(() {
