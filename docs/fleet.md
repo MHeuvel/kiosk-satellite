@@ -68,7 +68,7 @@ Settings that scale the UI, control screen brightness, or manage volume often de
 | `screensaver.brightness_level`, `screensaver.dim_level` | Screensaver |
 | `audio.media_volume` Media volume, `audio.assistant_volume` Assistant volume | Screen & Audio |
 | `notifications.volume` Notification volume | Notifications |
-| `ha.tap_sound_volume` Tap sound volume | Home Assistant Setup, User Interface |
+| `ha.tap_sound_volume` Tap sound volume | Home Assistant, User Interface |
 | `screensaver.gallery_items` Photo Gallery selection | Photo Gallery screensaver |
 | `screensaver.local_folder` Local media folder | Local Media screensaver |
 | `screensaver.clock_background` Clock background photo | Clock screensaver |

@@ -13180,10 +13180,15 @@
     "provenance": "50a40b9b0f2cc752c88ccaa455255d187c5d5a9594152fadced57a7289592afd"
   },
   "settingsMenuHomeAssistant": {
-    "source": "a96d7876f71689c560da8c3d47b89cac0964647f538d186ad00b69d841c740df",
-    "translation": "d315cf59e3e555566ae9c761d734d883a9f76dfe88053a65111eb1862fd56000",
+    "source": "88c1c4394e52ae8d49da175e42a7a1c75c14fdeb4202cc65eecd35f79aed1008",
+    "translation": "2a366abb0cd47f51f3725bf0fb7ebcb4fefa6e20f4971e25fe2bb8da8145ce2b",
     "author": "Limoniak",
-    "provenance": "50a40b9b0f2cc752c88ccaa455255d187c5d5a9594152fadced57a7289592afd"
+    "provenance": "50a40b9b0f2cc752c88ccaa455255d187c5d5a9594152fadced57a7289592afd",
+    "maintainerCorrection": {
+      "reviewer": "Xavier Larrea",
+      "originalTranslation": "d315cf59e3e555566ae9c761d734d883a9f76dfe88053a65111eb1862fd56000",
+      "reason": "The settings entry is named Home Assistant, without Setup."
+    }
   },
   "settingsMenuHomeAssistantSummary": {
     "source": "39a92d9371c9489766574239639da2dc9526944853e3b3d22b2e1d1d59db5be9",

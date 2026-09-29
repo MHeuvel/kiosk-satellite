@@ -1,6 +1,6 @@
 {
   "@@locale": "de",
-  "settingsMenuHomeAssistant": "Home-Assistant-Einstellungen",
+  "settingsMenuHomeAssistant": "Home Assistant",
   "settingsMenuHomeAssistantSummary": "Verbindung, Dashboard, Kioskmodus",
   "settingsMenuVoiceSatellite": "Voice Satellite",
   "settingsMenuVoiceSatelliteSummary": "Aktivierungswort, Hintergrundabhören",

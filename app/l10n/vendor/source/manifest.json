@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "e07929cf980b3c661a26cabda2a67e33fd03207a",
+  "revision": "cf0e3cc374bef4f39dd97f5fce25f4f8c3d2318b",
   "workingTree": true,
   "files": {
     "about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
@@ -131,7 +131,7 @@
     "settings_media_player_picker_en.arb": "42ec3e6f91bee4bd316a6e6ac1d56040a309c5edbf1ccac3c90e59af1d87dab3",
     "settings_media_player_sendspin_en.arb": "f7652dabeee326455079fe0470340915da410cf950d2d3a2d856b73802d7882b",
     "settings_media_player_sonos_en.arb": "daf0a51ab1dc951f25e3091c6ce8125abb0f98b18787a659530e94a79f86b68c",
-    "settings_menu_en.arb": "b2cfb709ab5942d9ac7e9a459938c243d4fbc6963e97d1bbbda1f02db37a0f58",
+    "settings_menu_en.arb": "5333cfe55cd15e576ae3526462235c7f1c7d06edb97dc84ca67a9c6ef8138184",
     "settings_screen_audio_adaptive_brightness_en.arb": "cba22d56130bb959b5a06f32b92a2f5131268cd813d1ad50eb1f5befbb8a6867",
     "settings_screen_audio_devices_en.arb": "73e8996a1e380818dc17cea250802c181298df42bf2a89ad5ec20f29e1eabf8a",
     "settings_screen_audio_microphone_en.arb": "861ba0287cab8a533934f9665b5b9fc4c44dd1115e0615c2b47941a85069a54a",

@@ -8125,7 +8125,7 @@ class UiStringsDe extends UiStrings {
   }
 
   @override
-  String get settingsMenuHomeAssistant => 'Home-Assistant-Einstellungen';
+  String get settingsMenuHomeAssistant => 'Home Assistant';
 
   @override
   String get settingsMenuHomeAssistantSummary =>

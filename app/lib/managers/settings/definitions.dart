@@ -8398,7 +8398,7 @@ const intercomVolume = SettingDef<num>(
 const fleetSyncCategories = <(String, String, String)>[
   // ha.satellite_entity stays per kiosk; its row (Assigned satellite) is
   // on the Voice Satellite page, so the note goes there.
-  ('Home Assistant', 'Home Assistant Setup', ''),
+  ('Home Assistant', 'Home Assistant', ''),
   ('Voice Satellite', 'Voice Satellite', 'the assigned satellite'),
   (
     'Screen & Audio',

@@ -1570,7 +1570,7 @@ kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
   }
 
   // ── Voice Satellite ───────────────────────────────────────────────────
-  // Its own page under Home Assistant Setup, gated the same way;
+  // Its own page under Home Assistant, gated the same way;
   // loadVsPermissions() appends the permissions card.
   {
     const root = document.getElementById('tab-voicesatellite');
@@ -1697,7 +1697,7 @@ kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
     }
   }
 
-  // ── Home Assistant Setup ──────────────────────────────────────
+  // ── Home Assistant ────────────────────────────────────────────
   // The connection card is the gate: base URL, token, a Validate row.
   // Everything else (the dashboard picker, kiosk mode, theme, Voice
   // Satellite) appears only after this run's connection check passed,

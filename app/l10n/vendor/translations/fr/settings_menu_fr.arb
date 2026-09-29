@@ -1,6 +1,6 @@
 {
   "@@locale": "fr",
-  "settingsMenuHomeAssistant": "Configuration Home Assistant",
+  "settingsMenuHomeAssistant": "Home Assistant",
   "settingsMenuHomeAssistantSummary": "Connexion, tableau de bord, mode kiosque",
   "settingsMenuVoiceSatellite": "Voice Satellite",
   "settingsMenuVoiceSatelliteSummary": "Mot de réveil, écoute en arrière-plan",

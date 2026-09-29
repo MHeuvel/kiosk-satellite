@@ -29545,7 +29545,7 @@
       }
     }
   },
-  "settingsMenuHomeAssistant": "Home-Assistant-Einstellungen",
+  "settingsMenuHomeAssistant": "Home Assistant",
   "@settingsMenuHomeAssistant": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",

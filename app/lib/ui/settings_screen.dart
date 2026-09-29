@@ -206,7 +206,7 @@ const _updateDocsUrl =
 const _categories = <(String, String, Object, String)>[
   (
     'Home Assistant',
-    'Home Assistant Setup',
+    'Home Assistant',
     'assets/svg/home-assistant.svg',
     'Connection, dashboard, kiosk mode',
   ),

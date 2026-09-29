@@ -13759,7 +13759,7 @@ abstract class UiStrings {
   /// Settings menu entry. Product names stay unchanged.
   ///
   /// In en, this message translates to:
-  /// **'Home Assistant Setup'**
+  /// **'Home Assistant'**
   String get settingsMenuHomeAssistant;
 
   /// Summary below Home Assistant Setup in the Settings menu.

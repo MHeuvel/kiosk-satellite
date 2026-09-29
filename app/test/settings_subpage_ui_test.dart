@@ -69,7 +69,7 @@ void main() {
     await settle(tester);
     if (size.width < 720) {
       // Narrow: the hub lists the categories, and Home Assistant pushes.
-      await tester.tap(find.text('Home Assistant Setup'));
+      await tester.tap(find.text('Home Assistant'));
       await settle(tester);
     }
   }
@@ -124,7 +124,7 @@ void main() {
         ),
       );
       await settle(tester);
-      await tester.tap(find.text('Home Assistant Setup'));
+      await tester.tap(find.text('Home Assistant'));
       await settle(tester);
       // The category page: its glyph follows the arrow's button closely.
       final bar = find.byType(AppBar);
@@ -1164,7 +1164,7 @@ void main() {
       // One level only: back on the category page, Settings still open.
       expect(entryRow(), findsOneWidget);
       expect(find.text(haHaptics.title), findsNothing);
-      expect(find.text('Home Assistant Setup'), findsWidgets);
+      expect(find.text('Home Assistant'), findsWidgets);
 
       await drain(tester);
     });

@@ -1,5 +1,4 @@
 {
-  "Home Assistant Setup": "settingsMenuHomeAssistant",
   "Connection, dashboard, kiosk mode": "settingsMenuHomeAssistantSummary",
   "Voice Satellite": "settingsMenuVoiceSatellite",
   "Wake word, background listening": "settingsMenuVoiceSatelliteSummary",

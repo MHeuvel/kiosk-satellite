@@ -7917,7 +7917,7 @@ class UiStringsEn extends UiStrings {
   }
 
   @override
-  String get settingsMenuHomeAssistant => 'Home Assistant Setup';
+  String get settingsMenuHomeAssistant => 'Home Assistant';
 
   @override
   String get settingsMenuHomeAssistantSummary =>

@@ -963,7 +963,7 @@ void main() {
       localized(
         CategorySettingsScreen(
           container: container,
-          title: 'Home Assistant Setup',
+          title: 'Home Assistant',
           category: 'Home Assistant',
         ),
       ),

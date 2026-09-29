@@ -31,7 +31,7 @@ export const TAB_TITLES = {
   dashboard: 'Overview', browser: 'Web Browsing',
   kiosk: 'Kiosk Mode', lockdown: 'Lockdown Mode', launcher: 'App Launcher', home: 'Home Launcher', screenaudio: 'Screen & Audio', screensaver: 'Screensaver',
   camera: 'Camera',
-  homeassistant: 'Home Assistant Setup',
+  homeassistant: 'Home Assistant',
   voicesatellite: 'Voice Satellite',
   cameras: 'Camera Streams',
   sendspin: 'Media Player',
