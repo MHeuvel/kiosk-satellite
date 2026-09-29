@@ -21555,5 +21555,47 @@
     "translation": "42d7e7a9e78175642cb44b216e3be2a9902530d516cb01e7e5352aaf947681ea",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "screenAudioCurveLevelRange": {
+    "source": "46c611989bf2be28bde2fe6762612f4bf590acb2b237acca58c5ed3cba8757e5",
+    "translation": "43383116b9d12b023117c2aa9ac26a359309f79ca7229a84a4e2ddaed863146a",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "screenAudioCurveHint": {
+    "source": "9fdea570f771108c66ac37929ea41579071078d55c3868249e78e28e391c41ca",
+    "translation": "c27e0997c91a1bdf38a08c6ac73cabacf2f98806b233b6efd3d8f32dc73b0335",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "screenAudioBrightnessCurve": {
+    "source": "90203bf33efba47292f390dce60d2a9095de31cd9c30d877fdf2ff292b636349",
+    "translation": "644e6e6b0395307e27239f1d9df60de5b5a8fd51c2b9feef1fe0acbc7b40073c",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "screenAudioCurveBrightness": {
+    "source": "f53a98d55a7749205daeefc09d67651b6861a3faded17f17373157beb0567ad6",
+    "translation": "1b84f186a6bcf2142b2790dd145fcc2fa592af1071a610aaad0e411fbb0fb467",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "screenAudioCurveLightLevel": {
+    "source": "7f05f9615bd5c8931cf0615efb5a2ed02794438a08fe8c8122e0f2c6dc9e9a0c",
+    "translation": "90b2059fc9b097037e1dbee502db019bad8365a8881ba84b7818d5015a50dea5",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "screenAudioCurvePoint": {
+    "source": "6adafeccf33e584cc909c0574f051e0a045af0aa2b18d55c60bf8198d3b76576",
+    "translation": "3cca5b0018d94954d1080c39153b88b6821ece5a77e6e28104060fcd84344d80",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "screenAudioCurveLuxRange": {
+    "source": "82770ec18590560c0dd168676ddc85885654608a630438577241bfadaf2a5177",
+    "translation": "338cc326014b5e6641a49f8a42e60194bf30147949e3d86762054e6814c7c80b",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

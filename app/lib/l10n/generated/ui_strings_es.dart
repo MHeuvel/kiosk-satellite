@@ -8343,6 +8343,34 @@ class UiStringsEs extends UiStrings {
   String get screenAudioSetsDefault => 'Ajusta el brillo predeterminado.';
 
   @override
+  String get screenAudioBrightnessCurve => 'Curva de brillo';
+
+  @override
+  String get screenAudioCurveHint =>
+      'Arrastra un punto o tócalo para escribir valores exactos. La luz Screen de Home Assistant mueve el punto superior y la curva lo sigue.';
+
+  @override
+  String screenAudioCurvePoint(String number) {
+    return 'Punto $number';
+  }
+
+  @override
+  String get screenAudioCurveLightLevel => 'Nivel de luz (lx)';
+
+  @override
+  String get screenAudioCurveBrightness => 'Brillo (%)';
+
+  @override
+  String screenAudioCurveLuxRange(String low, String high) {
+    return 'Introduce un nivel de luz entre $low y $high lx';
+  }
+
+  @override
+  String screenAudioCurveLevelRange(String low, String high) {
+    return 'Introduce un brillo entre $low% y $high%';
+  }
+
+  @override
   String get settingAudioMicDeviceTitle => 'Micrófono';
 
   @override

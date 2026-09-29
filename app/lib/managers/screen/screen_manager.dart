@@ -233,14 +233,11 @@ class ScreenManager extends Manager with WidgetsBindingObserver {
       if (e.key == defs.adaptiveBrightness.key) {
         await _onAdaptiveSwitch();
       } else if (e.key == defs.adaptiveMaxBrightness.key && _adaptiveOn) {
-        // The floor is Minimum over Maximum, so the factor moves too.
+        // The factor is the curve over Maximum, so it moves too.
         final lux = _lastLux;
         if (lux != null) _factor = _curve.factor(lux);
         await _applyKnob();
-      } else if ((e.key == defs.adaptiveMinBrightness.key ||
-              e.key == defs.adaptiveDarkLux.key ||
-              e.key == defs.adaptiveBrightLux.key) &&
-          _adaptiveOn) {
+      } else if (_curveKeys.contains(e.key) && _adaptiveOn) {
         final lux = _lastLux;
         if (lux != null) await _moveFactor(_curve.factor(lux), force: true);
       }
@@ -553,21 +550,34 @@ class ScreenManager extends Manager with WidgetsBindingObserver {
   double get _maxBrightness =>
       _settings.get(defs.adaptiveMaxBrightness).toDouble().clamp(0.0, 1.0);
 
-  /// The curve in factor terms: Minimum over Maximum is the floor, since
-  /// the same factor scales the screensaver's own level and it should
-  /// reach the same share of it in the dark.
-  AdaptiveCurve get _curve {
-    final max = _maxBrightness;
-    final min = _settings
+  /// The curve's settings other than Maximum brightness, which is also
+  /// the knob and has its own handling.
+  static final _curveKeys = {
+    defs.adaptiveMinBrightness.key,
+    defs.adaptiveDarkLux.key,
+    defs.adaptiveBrightLux.key,
+    defs.adaptivePoint2Position.key,
+    defs.adaptivePoint2Level.key,
+    defs.adaptivePoint3Position.key,
+    defs.adaptivePoint3Level.key,
+  };
+
+  /// The four-point curve from its settings. Its factor is the level over
+  /// Maximum brightness, since the same factor scales the screensaver's
+  /// own level and it should reach the same share of it in the dark.
+  AdaptiveCurve get _curve => AdaptiveCurve.fromSettings(
+    minLevel: _settings
         .get(defs.adaptiveMinBrightness)
         .toDouble()
-        .clamp(0.0, 1.0);
-    return AdaptiveCurve(
-      floor: max <= 0 ? 1.0 : (min / max).clamp(0.0, 1.0),
-      darkLux: _settings.get(defs.adaptiveDarkLux).toDouble(),
-      brightLux: _settings.get(defs.adaptiveBrightLux).toDouble(),
-    );
-  }
+        .clamp(0.0, 1.0),
+    maxLevel: _maxBrightness,
+    darkLux: _settings.get(defs.adaptiveDarkLux).toDouble(),
+    brightLux: _settings.get(defs.adaptiveBrightLux).toDouble(),
+    point2Position: _settings.get(defs.adaptivePoint2Position).toDouble(),
+    point2Level: _settings.get(defs.adaptivePoint2Level).toDouble(),
+    point3Position: _settings.get(defs.adaptivePoint3Position).toDouble(),
+    point3Level: _settings.get(defs.adaptivePoint3Level).toDouble(),
+  );
 
   static String _formatLux(double lux) => lux == lux.roundToDouble()
       ? lux.toInt().toString()

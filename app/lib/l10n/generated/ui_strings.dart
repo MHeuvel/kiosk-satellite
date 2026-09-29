@@ -14224,6 +14224,48 @@ abstract class UiStrings {
   /// **'Sets Default brightness.'**
   String get screenAudioSetsDefault;
 
+  /// Heading over the chart of screen brightness against the room's light level.
+  ///
+  /// In en, this message translates to:
+  /// **'Brightness curve'**
+  String get screenAudioBrightnessCurve;
+
+  /// Help under the brightness curve chart. The Screen light is the kiosk's light entity in Home Assistant.
+  ///
+  /// In en, this message translates to:
+  /// **'Drag a point, or tap it to type exact values. The Screen light in Home Assistant moves the top point and the curve follows.'**
+  String get screenAudioCurveHint;
+
+  /// Title of the dialog that edits one of the four points on the brightness curve.
+  ///
+  /// In en, this message translates to:
+  /// **'Point {number}'**
+  String screenAudioCurvePoint(String number);
+
+  /// Field label in the curve point dialog: the room light level in lux.
+  ///
+  /// In en, this message translates to:
+  /// **'Light level (lx)'**
+  String get screenAudioCurveLightLevel;
+
+  /// Field label in the curve point dialog: the screen brightness in percent.
+  ///
+  /// In en, this message translates to:
+  /// **'Brightness (%)'**
+  String get screenAudioCurveBrightness;
+
+  /// Error under the light level field when the value is out of range.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a light level between {low} and {high} lx'**
+  String screenAudioCurveLuxRange(String low, String high);
+
+  /// Error under the brightness field when the value is out of range.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a brightness from {low}% to {high}%'**
+  String screenAudioCurveLevelRange(String low, String high);
+
   /// Setting label.
   ///
   /// In en, this message translates to:

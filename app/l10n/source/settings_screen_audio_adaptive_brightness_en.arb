@@ -284,5 +284,122 @@
         "Screen & Audio > Adaptive brightness"
       ]
     }
+  },
+  "screenAudioBrightnessCurve": "Brightness curve",
+  "@screenAudioBrightnessCurve": {
+    "context": "Settings:Screen & Audio:Adaptive brightness",
+    "description": "Heading over the chart of screen brightness against the room's light level.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Adaptive brightness"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Adaptive brightness"
+      ]
+    }
+  },
+  "screenAudioCurveHint": "Drag a point, or tap it to type exact values. The Screen light in Home Assistant moves the top point and the curve follows.",
+  "@screenAudioCurveHint": {
+    "context": "Settings:Screen & Audio:Adaptive brightness",
+    "description": "Help under the brightness curve chart. The Screen light is the kiosk's light entity in Home Assistant.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Adaptive brightness"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Adaptive brightness"
+      ]
+    }
+  },
+  "screenAudioCurvePoint": "Point {number}",
+  "@screenAudioCurvePoint": {
+    "context": "Settings:Screen & Audio:Adaptive brightness",
+    "description": "Title of the dialog that edits one of the four points on the brightness curve.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Adaptive brightness"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Adaptive brightness"
+      ]
+    },
+    "placeholders": {
+      "number": {
+        "type": "String",
+        "description": "The point's number, 1 to 4, counting from the darkest."
+      }
+    }
+  },
+  "screenAudioCurveLightLevel": "Light level (lx)",
+  "@screenAudioCurveLightLevel": {
+    "context": "Settings:Screen & Audio:Adaptive brightness",
+    "description": "Field label in the curve point dialog: the room light level in lux.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Adaptive brightness"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Adaptive brightness"
+      ]
+    }
+  },
+  "screenAudioCurveBrightness": "Brightness (%)",
+  "@screenAudioCurveBrightness": {
+    "context": "Settings:Screen & Audio:Adaptive brightness",
+    "description": "Field label in the curve point dialog: the screen brightness in percent.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Adaptive brightness"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Adaptive brightness"
+      ]
+    }
+  },
+  "screenAudioCurveLuxRange": "Enter a light level between {low} and {high} lx",
+  "@screenAudioCurveLuxRange": {
+    "context": "Settings:Screen & Audio:Adaptive brightness",
+    "description": "Error under the light level field when the value is out of range.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Adaptive brightness"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Adaptive brightness"
+      ]
+    },
+    "placeholders": {
+      "low": {
+        "type": "String",
+        "description": "Lowest light level allowed, in lux."
+      },
+      "high": {
+        "type": "String",
+        "description": "Highest light level allowed, in lux."
+      }
+    }
+  },
+  "screenAudioCurveLevelRange": "Enter a brightness from {low}% to {high}%",
+  "@screenAudioCurveLevelRange": {
+    "context": "Settings:Screen & Audio:Adaptive brightness",
+    "description": "Error under the brightness field when the value is out of range.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Adaptive brightness"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Adaptive brightness"
+      ]
+    },
+    "placeholders": {
+      "low": {
+        "type": "String",
+        "description": "Lowest brightness allowed, in percent."
+      },
+      "high": {
+        "type": "String",
+        "description": "Highest brightness allowed, in percent."
+      }
+    }
   }
 }

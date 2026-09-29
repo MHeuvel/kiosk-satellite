@@ -8388,6 +8388,34 @@ class UiStringsDe extends UiStrings {
   String get screenAudioSetsDefault => 'Legt die Standardhelligkeit fest.';
 
   @override
+  String get screenAudioBrightnessCurve => 'Helligkeitskurve';
+
+  @override
+  String get screenAudioCurveHint =>
+      'Ziehe einen Punkt oder tippe darauf, um genaue Werte einzugeben. Das Screen-Licht in Home Assistant verschiebt den obersten Punkt und die Kurve folgt.';
+
+  @override
+  String screenAudioCurvePoint(String number) {
+    return 'Punkt $number';
+  }
+
+  @override
+  String get screenAudioCurveLightLevel => 'Lichtstärke (lx)';
+
+  @override
+  String get screenAudioCurveBrightness => 'Helligkeit (%)';
+
+  @override
+  String screenAudioCurveLuxRange(String low, String high) {
+    return 'Gib eine Lichtstärke zwischen $low und $high lx ein';
+  }
+
+  @override
+  String screenAudioCurveLevelRange(String low, String high) {
+    return 'Gib eine Helligkeit von $low % bis $high % ein';
+  }
+
+  @override
   String get settingAudioMicDeviceTitle => 'Mikrofon';
 
   @override

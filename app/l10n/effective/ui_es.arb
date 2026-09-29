@@ -30559,6 +30559,123 @@
       ]
     }
   },
+  "screenAudioBrightnessCurve": "Curva de brillo",
+  "@screenAudioBrightnessCurve": {
+    "context": "Settings:Screen & Audio:Adaptive brightness",
+    "description": "Heading over the chart of screen brightness against the room's light level.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Adaptive brightness"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Adaptive brightness"
+      ]
+    }
+  },
+  "screenAudioCurveHint": "Arrastra un punto o tócalo para escribir valores exactos. La luz Screen de Home Assistant mueve el punto superior y la curva lo sigue.",
+  "@screenAudioCurveHint": {
+    "context": "Settings:Screen & Audio:Adaptive brightness",
+    "description": "Help under the brightness curve chart. The Screen light is the kiosk's light entity in Home Assistant.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Adaptive brightness"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Adaptive brightness"
+      ]
+    }
+  },
+  "screenAudioCurvePoint": "Punto {number}",
+  "@screenAudioCurvePoint": {
+    "context": "Settings:Screen & Audio:Adaptive brightness",
+    "description": "Title of the dialog that edits one of the four points on the brightness curve.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Adaptive brightness"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Adaptive brightness"
+      ]
+    },
+    "placeholders": {
+      "number": {
+        "type": "String",
+        "description": "The point's number, 1 to 4, counting from the darkest."
+      }
+    }
+  },
+  "screenAudioCurveLightLevel": "Nivel de luz (lx)",
+  "@screenAudioCurveLightLevel": {
+    "context": "Settings:Screen & Audio:Adaptive brightness",
+    "description": "Field label in the curve point dialog: the room light level in lux.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Adaptive brightness"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Adaptive brightness"
+      ]
+    }
+  },
+  "screenAudioCurveBrightness": "Brillo (%)",
+  "@screenAudioCurveBrightness": {
+    "context": "Settings:Screen & Audio:Adaptive brightness",
+    "description": "Field label in the curve point dialog: the screen brightness in percent.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Adaptive brightness"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Adaptive brightness"
+      ]
+    }
+  },
+  "screenAudioCurveLuxRange": "Introduce un nivel de luz entre {low} y {high} lx",
+  "@screenAudioCurveLuxRange": {
+    "context": "Settings:Screen & Audio:Adaptive brightness",
+    "description": "Error under the light level field when the value is out of range.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Adaptive brightness"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Adaptive brightness"
+      ]
+    },
+    "placeholders": {
+      "low": {
+        "type": "String",
+        "description": "Lowest light level allowed, in lux."
+      },
+      "high": {
+        "type": "String",
+        "description": "Highest light level allowed, in lux."
+      }
+    }
+  },
+  "screenAudioCurveLevelRange": "Introduce un brillo entre {low}% y {high}%",
+  "@screenAudioCurveLevelRange": {
+    "context": "Settings:Screen & Audio:Adaptive brightness",
+    "description": "Error under the brightness field when the value is out of range.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Adaptive brightness"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Adaptive brightness"
+      ]
+    },
+    "placeholders": {
+      "low": {
+        "type": "String",
+        "description": "Lowest brightness allowed, in percent."
+      },
+      "high": {
+        "type": "String",
+        "description": "Highest brightness allowed, in percent."
+      }
+    }
+  },
   "settingAudioMicDeviceTitle": "Micrófono",
   "@settingAudioMicDeviceTitle": {
     "context": "Settings:Screen & Audio:Audio Devices",

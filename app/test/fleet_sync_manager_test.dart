@@ -2018,6 +2018,34 @@ void main() {
     );
   });
 
+  test('the brightness curve travels as one: its middle points go where '
+      'Minimum brightness goes', () {
+    final mids = [
+      defs.adaptivePoint2Position,
+      defs.adaptivePoint2Level,
+      defs.adaptivePoint3Position,
+      defs.adaptivePoint3Level,
+    ];
+    // Screen & Audio with the default exclusions: the ends stay per room,
+    // and so do the middle points.
+    const kept = SyncProfile(categories: {'Screen & Audio'});
+    expect(FleetSyncManager.syncs(defs.adaptiveMinBrightness, kept), isFalse);
+    for (final def in mids) {
+      expect(FleetSyncManager.syncs(def, kept), isFalse, reason: def.key);
+    }
+    // Brought back into the profile, the whole curve travels.
+    const shared = SyncProfile(categories: {'Screen & Audio'}, excluded: {});
+    expect(FleetSyncManager.syncs(defs.adaptiveMinBrightness, shared), isTrue);
+    for (final def in mids) {
+      expect(FleetSyncManager.syncs(def, shared), isTrue, reason: def.key);
+    }
+    // Hidden, so a profile never lists them among its exclusions.
+    for (final def in mids) {
+      expect(def.hidden, isTrue);
+      expect(defs.fleetDefaultExcluded, isNot(contains(def.key)));
+    }
+  });
+
   test('the recorded former default exclusions lead to the current one', () {
     // Each former list is a real past default: a strict subset of the
     // current one, never equal to it (or every fresh profile would be

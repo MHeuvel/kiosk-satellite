@@ -90,5 +90,9 @@ export const screenAudioTextMessageIds = {
   "Speak from where you use the device; adjust the gain until normal speech tops out around the end of the green.": "screenAudioMicrophoneLevelHelp",
   "Grant": "commonGrant",
   "Grant on device": "deviceGrantOnDevice",
-  "The device volume the media and assistant faders scale under.": "searchMasterVolume"
+  "The device volume the media and assistant faders scale under.": "searchMasterVolume",
+  "Brightness curve": "screenAudioBrightnessCurve",
+  "Drag a point, or tap it to type exact values. The Screen light in Home Assistant moves the top point and the curve follows.": "screenAudioCurveHint",
+  "Light level (lx)": "screenAudioCurveLightLevel",
+  "Brightness (%)": "screenAudioCurveBrightness"
 };

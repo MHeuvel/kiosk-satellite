@@ -20,5 +20,12 @@
   "screenAudioLux": "{lux} lx",
   "screenAudioLuxLast": "{lux} lx (dernière valeur connue)",
   "screenAudioSetsMaximum": "Définit la luminosité maximale : la luminosité adaptative est activée.",
-  "screenAudioSetsDefault": "Définit la luminosité par défaut."
+  "screenAudioSetsDefault": "Définit la luminosité par défaut.",
+  "screenAudioBrightnessCurve": "Courbe de luminosité",
+  "screenAudioCurveHint": "Faites glisser un point ou touchez-le pour saisir des valeurs exactes. La lumière Screen dans Home Assistant déplace le point le plus haut et la courbe suit.",
+  "screenAudioCurvePoint": "Point {number}",
+  "screenAudioCurveLightLevel": "Niveau de lumière (lx)",
+  "screenAudioCurveBrightness": "Luminosité (%)",
+  "screenAudioCurveLuxRange": "Saisissez un niveau de lumière entre {low} et {high} lx",
+  "screenAudioCurveLevelRange": "Saisissez une luminosité de {low} % à {high} %"
 }

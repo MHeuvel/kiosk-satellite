@@ -1,4 +1,5 @@
 import { confirmRemoteProtocol } from './tls.js';
+import { brightnessCurveRow } from './brightness_curve.js';
 import { esphomeText, launcherText, messageLanguage, voiceText } from './localization.js';
 import { intercomError, mediaText, cameraText, cameraError, deviceText, haText, screensaverText, screensaverError, t } from './localization.js';
 import { watchUpdates } from './live.js';
@@ -301,6 +302,21 @@ export function settingRow(s) {
       await refreshRealMacNote();
     }
   };
+
+  // The adaptive brightness curve (issue #742): one editor for its
+  // settings, in Minimum brightness's row, as on the device. The other
+  // three ends draw no row of their own; the editor's chips carry their
+  // keys, so their live updates and search hits land on it.
+  if (s.key === 'screen.adaptive_min_brightness') {
+    return brightnessCurveRow(row, {
+      showError: (message) => showRowError(row, message),
+      clearError: () => clearRowError(row),
+    });
+  }
+  if (['screen.adaptive_max_brightness', 'screen.adaptive_dark_lux',
+    'screen.adaptive_bright_lux'].includes(s.key)) {
+    return document.createDocumentFragment();
+  }
 
   // The clock's background photo deliberately has no special case: the
   // generic text input edits the file path directly, the same contract as

@@ -638,6 +638,56 @@
   .row:has(+ .hint-row.divided) { border-bottom: 1px solid var(--divider); }
   .hint-row.divided { padding-top: 12px; }
   #tab-esphome .bt-inert { pointer-events: none; opacity: 0.45; }
+  /* The adaptive brightness curve (brightness_curve.js), the device's
+     BrightnessCurveEditor: a chart the width of the card, invisible 44
+     handles over its points that take the drag and the keyboard, and a
+     row of four value chips in the control box surface. */
+  .row.curve-row { display: block; padding: 18px 0 4px; }
+  .curve-chart { position: relative; height: 250px; user-select: none;
+    -webkit-user-select: none; }
+  .curve-chart svg { display: block; width: 100%; height: 100%;
+    overflow: visible; }
+  .curve-grid { stroke: var(--divider); stroke-width: 1; }
+  .curve-label { fill: var(--muted); font-size: 11px;
+    font-variant-numeric: tabular-nums; }
+  .curve-line { fill: none; stroke: var(--primary); stroke-width: 2.5;
+    stroke-linejoin: round; stroke-linecap: round; }
+  .curve-now { stroke: var(--warn); stroke-width: 1.5; stroke-dasharray: 3.5 3.5;
+    opacity: .8; }
+  .curve-now-halo { fill: var(--warn); opacity: .22; }
+  .curve-now-dot { fill: var(--warn); }
+  .curve-pill { fill: var(--tertiary-container); }
+  .curve-pill-text { fill: var(--on-tertiary-container); font-size: 11px;
+    font-weight: 600; font-variant-numeric: tabular-nums; }
+  .curve-dot { fill: var(--surface); stroke: var(--primary); stroke-width: 2.5; }
+  .curve-dot.active { fill: var(--primary); stroke: var(--surface); }
+  .curve-halo { fill: var(--primary); opacity: .16; }
+  .curve-handle { position: absolute; width: 44px; height: 44px; padding: 0;
+    margin: 0; transform: translate(-50%, -50%); border: none;
+    border-radius: 50%; background: transparent; cursor: grab;
+    touch-action: none; }
+  .curve-handle:active { cursor: grabbing; }
+  .curve-handle:focus { outline: none; }
+  .curve-handle:focus-visible { box-shadow: 0 0 0 2px var(--primary) inset; }
+  .curve-points { display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 8px; margin-top: 14px; }
+  .curve-point { display: flex; flex-direction: column; align-items: center;
+    gap: 2px; min-width: 0; padding: 9px 4px; border-radius: var(--radius-sm);
+    background: var(--surface-2); border: 1px solid var(--border);
+    color: var(--text); font-variant-numeric: tabular-nums;
+    transition: background .16s, border-color .16s; }
+  .curve-point:hover { border-color: var(--outline); }
+  .curve-point.active { background: var(--primary-soft);
+    border-color: var(--primary); }
+  .curve-point:focus-visible { outline: 2px solid var(--primary);
+    outline-offset: 2px; }
+  .curve-lux { max-width: 100%; overflow: hidden; white-space: nowrap;
+    font-size: 14.5px; font-weight: 600; line-height: 1.3; }
+  .curve-level { font-size: 12.5px; color: var(--muted); line-height: 1.3; }
+  .curve-row .hint-row { padding-top: 12px; }
+  @media (max-width: 640px) {
+    .curve-chart { height: 210px; }
+  }
   /* In a row a field carries no label, the name is the label. Text caps
      at 220 on the wide pane; numbers are 90 wide, right aligned, tabular. */
   .row input[type=text], .row input[type=password], .row input[type=url],

@@ -2489,6 +2489,10 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'screenAudioNoReading' => strings.screenAudioNoReading,
       'screenAudioSetsMaximum' => strings.screenAudioSetsMaximum,
       'screenAudioSetsDefault' => strings.screenAudioSetsDefault,
+      'screenAudioBrightnessCurve' => strings.screenAudioBrightnessCurve,
+      'screenAudioCurveHint' => strings.screenAudioCurveHint,
+      'screenAudioCurveLightLevel' => strings.screenAudioCurveLightLevel,
+      'screenAudioCurveBrightness' => strings.screenAudioCurveBrightness,
       'settingAudioMicDeviceTitle' => strings.settingAudioMicDeviceTitle,
       'settingAudioMicDeviceDescription' =>
         strings.settingAudioMicDeviceDescription,

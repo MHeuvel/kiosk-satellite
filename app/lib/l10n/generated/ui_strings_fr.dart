@@ -8339,6 +8339,34 @@ class UiStringsFr extends UiStrings {
   String get screenAudioSetsDefault => 'Définit la luminosité par défaut.';
 
   @override
+  String get screenAudioBrightnessCurve => 'Courbe de luminosité';
+
+  @override
+  String get screenAudioCurveHint =>
+      'Faites glisser un point ou touchez-le pour saisir des valeurs exactes. La lumière Screen dans Home Assistant déplace le point le plus haut et la courbe suit.';
+
+  @override
+  String screenAudioCurvePoint(String number) {
+    return 'Point $number';
+  }
+
+  @override
+  String get screenAudioCurveLightLevel => 'Niveau de lumière (lx)';
+
+  @override
+  String get screenAudioCurveBrightness => 'Luminosité (%)';
+
+  @override
+  String screenAudioCurveLuxRange(String low, String high) {
+    return 'Saisissez un niveau de lumière entre $low et $high lx';
+  }
+
+  @override
+  String screenAudioCurveLevelRange(String low, String high) {
+    return 'Saisissez une luminosité de $low % à $high %';
+  }
+
+  @override
   String get settingAudioMicDeviceTitle => 'Microphone';
 
   @override

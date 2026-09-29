@@ -8266,6 +8266,34 @@ class UiStringsUk extends UiStrings {
       'Встановлює яскравість за замовчуванням.';
 
   @override
+  String get screenAudioBrightnessCurve => 'Крива яскравості';
+
+  @override
+  String get screenAudioCurveHint =>
+      'Перетягніть точку або торкніться її, щоб ввести точні значення. Світло Screen у Home Assistant переміщує верхню точку, і крива слідує за нею.';
+
+  @override
+  String screenAudioCurvePoint(String number) {
+    return 'Точка $number';
+  }
+
+  @override
+  String get screenAudioCurveLightLevel => 'Рівень освітлення (лк)';
+
+  @override
+  String get screenAudioCurveBrightness => 'Яскравість (%)';
+
+  @override
+  String screenAudioCurveLuxRange(String low, String high) {
+    return 'Введіть рівень освітлення від $low до $high лк';
+  }
+
+  @override
+  String screenAudioCurveLevelRange(String low, String high) {
+    return 'Введіть яскравість від $low% до $high%';
+  }
+
+  @override
   String get settingAudioMicDeviceTitle => 'Мікрофон';
 
   @override

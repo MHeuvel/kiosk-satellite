@@ -38,6 +38,7 @@ import '../managers/service/service_manager.dart'
     show batteryAdbHint, overlayAdbHint;
 import '../managers/settings/export_filename.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'brightness_curve_editor.dart';
 
 import '../core/permissions.dart';
 import '../managers/wake_word/background_listening.dart';
@@ -3542,12 +3543,30 @@ class _CategoryContentState extends State<_CategoryContent> {
       ];
     }
 
+    // The curve's four settings draw as one editor (issue #742), in the
+    // place of the first of them; the search lands on it for any of the
+    // four. Mirrored on the remote (brightness_curve.js).
     if (widget.category == 'Screen & Audio' &&
         subpage == 'Adaptive brightness') {
-      return sectioned([
-        for (final def in _defsFor(widget.category))
-          if (def.subpage == subpage) def,
-      ]);
+      const folded = {
+        'screen.adaptive_max_brightness',
+        'screen.adaptive_dark_lux',
+        'screen.adaptive_bright_lux',
+      };
+      Widget editor = BrightnessCurveEditor(container: container);
+      for (final key in [adaptiveMinBrightness.key, ...folded]) {
+        editor = SearchLandingTarget(id: key, child: editor);
+      }
+      return sectioned(
+        [
+          for (final def in _defsFor(widget.category))
+            if (def.subpage == subpage && !folded.contains(def.key)) def,
+        ],
+        replace: {
+          ..._rowReplacements(container),
+          adaptiveMinBrightness.key: editor,
+        },
+      );
     }
 
     if (widget.category == 'Screen & Audio') {

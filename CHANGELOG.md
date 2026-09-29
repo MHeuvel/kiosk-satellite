@@ -4,6 +4,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ## Unreleased
 
+### Added
+- **An adjustable adaptive brightness curve.** The Adaptive brightness page replaces its Minimum brightness, Maximum brightness, Dark room and Bright room rows with a Brightness curve: a chart of screen brightness against the room's light with four points to drag, the live reading marked on it, and each point's values under the chart to tap for exact numbers (#742). The two middle points shape how the screen climbs between the ends, so a sensor that reads low in the evening can get its climb where its readings actually land. A smooth curve runs through all four and never dims the screen as the room gets brighter. Existing setups keep the straight line they had. The Screen light in Home Assistant still sets the top point and the middle points scale with it. The remote admin has the same editor, with arrow keys to nudge a focused point. Translated into Spanish, German, French and Ukrainian.
+
 ### Changed
 - **A photorealistic Weather Mood moon.** The moon now shows the real near side of the Moon, from NASA Lunar Reconnaissance Orbiter imagery, about 40% larger and with a fainter glow. Stars no longer shine in front of it.
 

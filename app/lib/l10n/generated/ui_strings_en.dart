@@ -8174,6 +8174,34 @@ class UiStringsEn extends UiStrings {
   String get screenAudioSetsDefault => 'Sets Default brightness.';
 
   @override
+  String get screenAudioBrightnessCurve => 'Brightness curve';
+
+  @override
+  String get screenAudioCurveHint =>
+      'Drag a point, or tap it to type exact values. The Screen light in Home Assistant moves the top point and the curve follows.';
+
+  @override
+  String screenAudioCurvePoint(String number) {
+    return 'Point $number';
+  }
+
+  @override
+  String get screenAudioCurveLightLevel => 'Light level (lx)';
+
+  @override
+  String get screenAudioCurveBrightness => 'Brightness (%)';
+
+  @override
+  String screenAudioCurveLuxRange(String low, String high) {
+    return 'Enter a light level between $low and $high lx';
+  }
+
+  @override
+  String screenAudioCurveLevelRange(String low, String high) {
+    return 'Enter a brightness from $low% to $high%';
+  }
+
+  @override
   String get settingAudioMicDeviceTitle => 'Microphone';
 
   @override
