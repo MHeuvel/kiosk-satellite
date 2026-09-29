@@ -2,11 +2,6 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## v2026.9.96 - 2026-09-29
-
-### Fixed
-- **Native Voice Satellite plays answers when Home Assistant's own URL is unreachable.** Home Assistant builds the answer's address on the Local network URL in its Network settings. When that URL points at a port or proxy the kiosk cannot reach, every answer failed with "Audio could not be played on the device", while the dashboard runtime played it fine because it used the dashboard's address (#755). The kiosk now fetches text to speech answers from the Home Assistant URL it already uses. Answers sent to a media player still use Home Assistant's URL.
-
 ## v2026.9.95 - 2026-09-29
 
 ### Fixed

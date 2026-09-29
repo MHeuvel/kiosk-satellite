@@ -463,7 +463,7 @@ class VoiceManager extends Manager {
             final target = _speakerTarget;
             if (target.isEmpty) {
               return commands.execute('playSound', {
-                'url': speechUrlOnKioskHa(url, _settings.get(defs.haUrl)),
+                'url': url,
                 'stream': true,
               });
             }
@@ -2483,27 +2483,6 @@ class _EspLink implements VoiceLinkPort {
 
   @override
   Future<bool> finished() => _esphome.voiceAnnounceFinished();
-}
-
-/// Home Assistant builds a speech URL on its own network URL, which the
-/// kiosk may not reach (a wrong port or a proxy that is not running). Text
-/// to speech paths need no sign-in, so the kiosk fetches them from the Home
-/// Assistant URL it already uses, as the dashboard runtime did. Any other
-/// URL is left alone.
-@visibleForTesting
-String speechUrlOnKioskHa(String url, String haUrl) {
-  final uri = Uri.tryParse(url);
-  final base = Uri.tryParse(haUrl.trim());
-  if (uri == null ||
-      base == null ||
-      !uri.path.startsWith('/api/tts_proxy/') ||
-      !const {'http', 'https'}.contains(base.scheme) ||
-      base.host.isEmpty) {
-    return url;
-  }
-  return uri
-      .replace(scheme: base.scheme, host: base.host, port: base.port)
-      .toString();
 }
 
 class _WakeMic implements VoiceMicPort {
