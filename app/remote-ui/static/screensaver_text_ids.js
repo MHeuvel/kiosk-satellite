@@ -535,5 +535,6 @@ export const screensaverTextMessageIds = {
   "Select dashboard": "screensaverSelectDashboard",
   "Could not list dashboards": "haListFailed",
   "Is Home Assistant connected?": "gestureHaConnected",
-  "Home Assistant Dashboard screensaver": "screensaverDashboardSection"
+  "Home Assistant Dashboard screensaver": "screensaverDashboardSection",
+  "Next alarm": "alarmsNextWidget"
 };

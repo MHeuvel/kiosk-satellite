@@ -1,3 +1,4 @@
+import 'alarms_overlay.dart' show AlarmsManageCard;
 import '../l10n/fleet_messages.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -251,6 +252,7 @@ const _categories = <(String, String, Object, String)>[
     'Play images, videos and audio remotely',
   ),
   ('Intercom', 'Intercom', Icons.speaker_phone_outlined, 'Talk between kiosks'),
+  ('Alarms', 'Alarms', Icons.alarm, 'Set alarms, tone, snooze, sunrise'),
   (
     'Camera',
     'Camera',
@@ -2292,7 +2294,18 @@ class _CategoryContentState extends State<_CategoryContent> {
               after: _rowExtras(container),
             ),
           )
-        else if (widget.category == 'Screen & Audio') ...[
+        else if (widget.category == 'Alarms') ...[
+          // The list itself is the full screen overlay; this page opens it
+          // and holds the defaults. Mirrored on the remote's Alarms page.
+          AlarmsManageCard(container: container),
+          ..._sectionedCards(
+            container,
+            _inlineDefsFor('Alarms'),
+            () => setState(() {}),
+            replace: _rowReplacements(container),
+            after: _rowExtras(container),
+          ),
+        ] else if (widget.category == 'Screen & Audio') ...[
           // Through the generic renderer, heading included, so the row
           // replacements and extras reach this card like any other: the
           // Default brightness row standing down under adaptive brightness
@@ -5414,6 +5427,7 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
     'weather' => Icons.cloud_outlined,
     'battery' => Icons.battery_full,
     'entity' => Icons.sensors,
+    'alarm' => Icons.alarm,
     _ => Icons.widgets_outlined,
   };
 
@@ -5432,7 +5446,7 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
       context,
       'Hidden in the Camera Streams screensaver mode.',
     ),
-    'entity' => screensaverText(
+    'entity' || 'alarm' => screensaverText(
       context,
       'Hidden in the Camera Streams screensaver mode.',
     ),
@@ -6367,6 +6381,8 @@ class _NotificationSoundTileState extends State<_NotificationSoundTile> {
         '',
         def.key == intercomRingSound.key
             ? intercomText(context, "Built-in ring")
+            : def.key == alarmsTone.key
+            ? l10n(context).alarmsBuiltInTone
             : intercomText(context, "Built-in chime"),
       ),
       for (final sound in _sounds) (sound, sound),
@@ -10760,7 +10776,8 @@ class SettingTile extends StatelessWidget {
         if (voiceChimeSettings.values.any((sound) => sound.key == def.key) ||
             def.key == notificationsChimeFile.key ||
             def.key == intercomRingSound.key ||
-            def.key == announcementsChimeFile.key) {
+            def.key == announcementsChimeFile.key ||
+            def.key == alarmsTone.key) {
           return _NotificationSoundTile(
             key: ValueKey('sound-${def.key}'),
             container: c,

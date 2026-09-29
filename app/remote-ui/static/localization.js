@@ -112,6 +112,7 @@ export function settingsPageText(category, english) {
     : ['Plugins', 'plugins'].includes(category) ? pluginText(english)
     : ['Kiosk', 'kiosk', 'Home', 'home', 'Lockdown', 'lockdown'].includes(category) ? kioskText(english)
     : category === 'Intercom' || category === 'intercom' ? (english === 'Answer' ? t('intercomAnswerSection') : english === 'Talk' ? t('intercomTalkSection') : intercomText(english))
+    : category === 'Alarms' || category === 'alarms' ? (english === 'Defaults' ? t('alarmsDefaultsSection') : english)
     : category === 'Sendspin' || category === 'sendspin' ? mediaText(english) : english;
 }
 

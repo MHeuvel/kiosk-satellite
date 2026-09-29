@@ -10,6 +10,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import 'alarm_ring_overlay.dart';
+import 'alarms_overlay.dart';
 import '../core/permissions.dart';
 
 import '../app_container.dart';
@@ -176,6 +178,7 @@ class _KioskScreenState extends State<KioskScreen>
         !c.screensaver.isActive &&
         !c.launcher.visible.value &&
         !c.intercom.rosterVisible.value &&
+        !c.alarms.visible.value &&
         c.camera.activeViewId.value == null &&
         !c.kiosk.lockdownActive &&
         c.plugins.windows.value.isNotEmpty) {
@@ -191,7 +194,9 @@ class _KioskScreenState extends State<KioskScreen>
       drawerOpen: _drawer.value > 0,
       armed: armed,
       launcherVisible:
-          c.launcher.visible.value || c.intercom.rosterVisible.value,
+          c.launcher.visible.value ||
+          c.intercom.rosterVisible.value ||
+          c.alarms.visible.value,
       overlayUp: c.browser.overlayUrl.value != null,
       cameraViewUp: c.camera.activeViewId.value != null,
       cameraFocused: c.camera.focusedCameraId.value != null,
@@ -217,6 +222,7 @@ class _KioskScreenState extends State<KioskScreen>
       case BackAction.hideLauncher:
         c.launcher.visible.value = false;
         c.intercom.rosterVisible.value = false;
+        c.alarms.visible.value = false;
       case BackAction.dismissOverlay:
         // A link or rotation page covers the dashboard: back uncovers it.
         c.browser.dismissOverlay();
@@ -310,7 +316,8 @@ class _KioskScreenState extends State<KioskScreen>
         (c.settings.get(defs.kioskAllowHold) && hasHold) ||
         (c.settings.get(defs.kioskAllowLockdown) &&
             c.settings.get(defs.lockdownMenu)) ||
-        (c.settings.get(defs.kioskAllowApps) && hasApps);
+        (c.settings.get(defs.kioskAllowApps) && hasApps) ||
+        c.settings.get(defs.kioskAllowAlarms);
   }
 
   /// Pull-to-refresh as the user experiences it: the Web Browsing toggle,
@@ -551,6 +558,7 @@ class _KioskScreenState extends State<KioskScreen>
         if (_settingsOpen) Navigator.of(context).popUntil((r) => r.isFirst);
         c.launcher.visible.value = false;
         c.intercom.rosterVisible.value = false;
+        c.alarms.visible.value = false;
       }
       return;
     }
@@ -580,6 +588,7 @@ class _KioskScreenState extends State<KioskScreen>
         e.key == defs.intercomEnabled.key ||
         e.key == defs.intercomMenu.key ||
         e.key == defs.kioskAllowIntercom.key ||
+        e.key == defs.kioskAllowAlarms.key ||
         e.key == defs.remoteEnabled.key ||
         e.key == defs.remoteFleetDiscovery.key) {
       setState(() {});
@@ -724,6 +733,7 @@ class _KioskScreenState extends State<KioskScreen>
       if (_settingsOpen) Navigator.of(context).popUntil((r) => r.isFirst);
       c.launcher.visible.value = false;
       c.intercom.rosterVisible.value = false;
+      c.alarms.visible.value = false;
       if (c.browser.overlayUrl.value != null) c.browser.dismissOverlay();
       if (c.camera.activeViewId.value != null) c.camera.hideView();
       unawaited(c.commands.execute('stopScreensaver', const {}));
@@ -736,6 +746,7 @@ class _KioskScreenState extends State<KioskScreen>
     c.browser.overlayUrl.addListener(_onOverlayChanged);
     c.launcher.visible.addListener(_onOverlayChanged);
     c.intercom.rosterVisible.addListener(_onOverlayChanged);
+    c.alarms.visible.addListener(_onOverlayChanged);
     c.plugins.windows.addListener(_onOverlayChanged);
     c.plugins.installed.addListener(_onOverlayChanged);
     c.homeLauncher.roleHeld.addListener(_onOverlayChanged);
@@ -1108,6 +1119,7 @@ class _KioskScreenState extends State<KioskScreen>
         c.kiosk.lockdownActive ||
         c.launcher.visible.value ||
         c.intercom.rosterVisible.value ||
+        c.alarms.visible.value ||
         c.camera.activeViewId.value != null ||
         c.plugins.windows.value.isNotEmpty;
     if (capture == _lastNavCapture) return;
@@ -1219,6 +1231,7 @@ class _KioskScreenState extends State<KioskScreen>
       overlayUp:
           c.launcher.visible.value ||
           c.intercom.rosterVisible.value ||
+          c.alarms.visible.value ||
           c.browser.overlayUrl.value != null ||
           c.camera.activeViewId.value != null,
       // Any route above this one: settings, and every dialog — the exit
@@ -1379,6 +1392,7 @@ class _KioskScreenState extends State<KioskScreen>
     c.browser.overlayUrl.removeListener(_onOverlayChanged);
     c.launcher.visible.removeListener(_onOverlayChanged);
     c.intercom.rosterVisible.removeListener(_onOverlayChanged);
+    c.alarms.visible.removeListener(_onOverlayChanged);
     c.plugins.windows.removeListener(_onOverlayChanged);
     c.plugins.installed.removeListener(_onOverlayChanged);
     c.homeLauncher.roleHeld.removeListener(_onOverlayChanged);
@@ -1595,6 +1609,9 @@ class _KioskScreenState extends State<KioskScreen>
                   // twin: full screen, below the screensaver, closed by
                   // the manager when a call starts.
                   IntercomRosterOverlay(container: c),
+                  // The alarm list, the launcher's twin again: full
+                  // screen, below the screensaver.
+                  AlarmsOverlay(container: c),
                   // The screensaver covers both planes — it owns the whole
                   // display, drawer open or not.
                   // Paused under the native voice overlay, which
@@ -1640,6 +1657,10 @@ class _KioskScreenState extends State<KioskScreen>
                     LockdownShield(
                       blackout: c.settings.get(defs.lockdownBlackout),
                     ),
+                  // An alarm on its own view: over everything, the lockdown
+                  // shield included, since Stop has to answer. Its sunrise
+                  // covers the screensaver and the dark panel too.
+                  AlarmRingOverlay(container: c),
                   // A fleet invitation: above the shield, since answering
                   // it is an admin act the shield must not swallow.
                   FleetInviteOverlay(container: c),

@@ -25,6 +25,12 @@ class BootReceiver : BroadcastReceiver() {
         }
         val prefs = context.getSharedPreferences(
             "FlutterSharedPreferences", Context.MODE_PRIVATE)
+        // A reboot drops every AlarmManager entry. With an alarm on, the
+        // process comes up whatever Start on boot says, so Dart can put the
+        // next ring back; the Activity still waits for that setting.
+        val alarmsOn = (prefs.getString("flutter.ks.alarms.list", "") ?: "")
+            .contains("\"on\":true")
+        if (alarmsOn) KioskSatelliteService.ensureRunning(context)
         if (!prefs.getBoolean("flutter.ks.kiosk.start_on_boot", false)) return
         KioskSatelliteService.ensureRunning(context)
         // As the device's home app the system has already launched the

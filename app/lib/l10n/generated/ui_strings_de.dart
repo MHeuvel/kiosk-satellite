@@ -82,6 +82,142 @@ class UiStringsDe extends UiStrings {
       'Der Download erfolgt auf dem Tablet. Die Installation muss auf dem Tablet bestätigt werden.';
 
   @override
+  String get alarmsTitle => 'Wecker';
+
+  @override
+  String get alarmsSetAnAlarm => 'Wecker stellen';
+
+  @override
+  String get alarmsNone => 'Keine Wecker';
+
+  @override
+  String get alarmsDone => 'Fertig';
+
+  @override
+  String get alarmsRepeat => 'Wiederholen';
+
+  @override
+  String get alarmsLabel => 'Bezeichnung';
+
+  @override
+  String get alarmsAddLabel => 'Bezeichnung hinzufügen';
+
+  @override
+  String get alarmsTone => 'Weckton';
+
+  @override
+  String get alarmsSunrise => 'Sonnenaufgang';
+
+  @override
+  String get alarmsDefaultTone => 'Standard';
+
+  @override
+  String get alarmsBuiltInTone => 'Integrierter Weckton';
+
+  @override
+  String get alarmsSoundsFolder => 'Tonordner';
+
+  @override
+  String get alarmsToday => 'Heute';
+
+  @override
+  String get alarmsTomorrow => 'Morgen';
+
+  @override
+  String get alarmsOnce => 'Einmalig';
+
+  @override
+  String get alarmsEveryDay => 'Täglich';
+
+  @override
+  String get alarmsWeekdays => 'Werktags';
+
+  @override
+  String get alarmsWeekends => 'Am Wochenende';
+
+  @override
+  String alarmsSnoozedUntil(String time) {
+    return 'Schlummern bis $time';
+  }
+
+  @override
+  String get alarmsSnooze => 'Schlummern';
+
+  @override
+  String get alarmsStop => 'Stopp';
+
+  @override
+  String get alarmsDefaultLabel => 'Wecker';
+
+  @override
+  String get alarmsSetToast => 'Wecker gestellt';
+
+  @override
+  String alarmsRingsIn(String duration) {
+    return 'Klingelt in $duration';
+  }
+
+  @override
+  String alarmsDurationHoursMinutes(String hours, String minutes) {
+    return '$hours Std. $minutes Min.';
+  }
+
+  @override
+  String alarmsDurationHours(String hours) {
+    return '$hours Std.';
+  }
+
+  @override
+  String alarmsDurationMinutes(String minutes) {
+    return '$minutes Min.';
+  }
+
+  @override
+  String alarmsAt(String time) {
+    return 'Wecker um $time';
+  }
+
+  @override
+  String get alarmsNextWidget => 'Nächster Wecker';
+
+  @override
+  String get alarmsManage => 'Wecker verwalten';
+
+  @override
+  String alarmsNextAt(String day, String time) {
+    return 'Nächster: $day um $time';
+  }
+
+  @override
+  String get alarmsNoneSet => 'Kein Wecker gestellt';
+
+  @override
+  String get alarmsDefaultsSection => 'Standardwerte';
+
+  @override
+  String get alarmsEditAlarm => 'Wecker bearbeiten';
+
+  @override
+  String get alarmsTime => 'Uhrzeit';
+
+  @override
+  String get alarmsRinging => 'Wecker klingelt';
+
+  @override
+  String get alarmsSnoozed => 'Wecker schlummert';
+
+  @override
+  String get alarmsSunriseRunning => 'Sonnenaufgang vor einem Wecker';
+
+  @override
+  String alarmsSunriseHint(String minutes) {
+    return 'Der Bildschirm wird $minutes Minuten lang heller, bevor er klingelt.';
+  }
+
+  @override
+  String get alarmsDeleteFailed => 'Der Wecker konnte nicht gelöscht werden.';
+
+  @override
   String get androidAccessibilityHelp =>
       'Schließt das Benachrichtigungsfeld und den Bildschirm der zuletzt verwendeten Apps, wenn diese geöffnet werden, während der Kioskmodus oder der Sperrmodus den Bildschirm schützt. Kiosk Satellite liest den Inhalt des Bildschirms nicht.';
 
@@ -3591,6 +3727,89 @@ class UiStringsDe extends UiStrings {
   @override
   String get screensaverVideosTooLarge =>
       'Alle Videos in dieser Liste sind zu groß, um auf diesem Gerät wiedergegeben zu werden.';
+
+  @override
+  String get settingKioskAllowAlarmsTitle => 'Wecker';
+
+  @override
+  String get settingKioskAllowAlarmsDescription =>
+      'Wecker über das Kiosk-Menü stellen und verwalten.';
+
+  @override
+  String get settingScreensaverClockAlarmTakeoverTitle =>
+      'Wecker übernehmen lassen';
+
+  @override
+  String get settingScreensaverClockAlarmTakeoverDescription =>
+      'Ein klingelnder Wecker erscheint in seinem Stil auf diesem Bildschirmschoner statt auf einem eigenen Bildschirm.';
+
+  @override
+  String get settingScreensaverWeatherAlarmTakeoverTitle =>
+      'Wecker übernehmen lassen';
+
+  @override
+  String get settingScreensaverWeatherAlarmTakeoverDescription =>
+      'Ein klingelnder Wecker erscheint in seinem Stil auf diesem Bildschirmschoner statt auf einem eigenen Bildschirm.';
+
+  @override
+  String get settingAlarmsVolumeTitle => 'Weckerlautstärke';
+
+  @override
+  String get settingAlarmsVolumeDescription =>
+      'Wie laut Wecker klingeln, unabhängig von der Medienlautstärke.';
+
+  @override
+  String get settingAlarmsToneTitle => 'Weckton';
+
+  @override
+  String get settingAlarmsToneDescription =>
+      'Wird mit der Weckerlautstärke abgespielt.';
+
+  @override
+  String get settingAlarmsSnoozeMinutesTitle => 'Schlummerdauer';
+
+  @override
+  String get settingAlarmsSnoozeMinutesDescription =>
+      'Wie lange Schlummern einen Wecker aufschiebt.';
+
+  @override
+  String get settingAlarmsSilenceAfterMinutesTitle => 'Stumm nach';
+
+  @override
+  String get settingAlarmsSilenceAfterMinutesDescription =>
+      'Ein Wecker, den niemand stoppt, verstummt nach dieser Zeit.';
+
+  @override
+  String get settingAlarmsSunriseMinutesTitle => 'Sonnenaufgangsdauer';
+
+  @override
+  String get settingAlarmsSunriseMinutesDescription =>
+      'Wie lange der Bildschirm vor einem Sonnenaufgangswecker heller wird.';
+
+  @override
+  String get alarmsOption5Minutes => '5 Minuten';
+
+  @override
+  String get alarmsOption10Minutes => '10 Minuten';
+
+  @override
+  String get alarmsOption15Minutes => '15 Minuten';
+
+  @override
+  String get alarmsOption20Minutes => '20 Minuten';
+
+  @override
+  String get alarmsOption25Minutes => '25 Minuten';
+
+  @override
+  String get alarmsOption30Minutes => '30 Minuten';
+
+  @override
+  String get settingsMenuAlarms => 'Wecker';
+
+  @override
+  String get settingsMenuAlarmsSummary =>
+      'Wecker, Weckton, Schlummern, Sonnenaufgang';
 
   @override
   String get settingLauncherEnabledTitle => 'App-Launcher aktivieren';

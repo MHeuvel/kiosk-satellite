@@ -8,3 +8,7 @@ The Voice Satellite defaults are bundled from
 Custom sounds are selected under Settings > Voice Satellite > Chimes and stored
 in the app's `sounds` folder. They survive app updates. Home Assistant sound
 replacements do not change the sounds played locally by Kiosk Satellite.
+
+`alarm.ogg` is the built-in alarm tone. It is made in this repository by
+`tool/generate_alarm_sound.py` (two rising marimba-like arpeggios sized to
+loop), so it carries no outside license.

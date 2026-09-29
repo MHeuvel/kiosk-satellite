@@ -1698,5 +1698,37 @@
   "voice.wake_sound": {
     "title": "settingVoiceWakeSoundTitle",
     "description": "settingVoiceWakeSoundDescription"
+  },
+  "kiosk.allow_alarms": {
+    "title": "settingKioskAllowAlarmsTitle",
+    "description": "settingKioskAllowAlarmsDescription"
+  },
+  "screensaver.clock_alarm_takeover": {
+    "title": "settingScreensaverClockAlarmTakeoverTitle",
+    "description": "settingScreensaverClockAlarmTakeoverDescription"
+  },
+  "screensaver.weather_alarm_takeover": {
+    "title": "settingScreensaverWeatherAlarmTakeoverTitle",
+    "description": "settingScreensaverWeatherAlarmTakeoverDescription"
+  },
+  "alarms.volume": {
+    "title": "settingAlarmsVolumeTitle",
+    "description": "settingAlarmsVolumeDescription"
+  },
+  "alarms.tone": {
+    "title": "settingAlarmsToneTitle",
+    "description": "settingAlarmsToneDescription"
+  },
+  "alarms.snooze_minutes": {
+    "title": "settingAlarmsSnoozeMinutesTitle",
+    "description": "settingAlarmsSnoozeMinutesDescription"
+  },
+  "alarms.silence_after_minutes": {
+    "title": "settingAlarmsSilenceAfterMinutesTitle",
+    "description": "settingAlarmsSilenceAfterMinutesDescription"
+  },
+  "alarms.sunrise_minutes": {
+    "title": "settingAlarmsSunriseMinutesTitle",
+    "description": "settingAlarmsSunriseMinutesDescription"
   }
 }

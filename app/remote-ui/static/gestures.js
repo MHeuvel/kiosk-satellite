@@ -779,6 +779,7 @@ export const CATEGORY_TABS = [
   ['tab-sendspin', ['Sendspin']],
   ['tab-dlna', ['DLNA']],
   ['tab-intercom', ['Intercom']],
+  ['tab-alarms', ['Alarms']],
   ['tab-esphome', ['ESPHome']],
   ['device-settings', ['Device'],
     // Read-only reports, filled by loadDeviceInfo: no setting declares

@@ -1003,6 +1003,18 @@ const kioskAllowIntercom = SettingDef<bool>(
   dependsOn: 'kiosk.allow_drawer',
 );
 
+const kioskAllowAlarms = SettingDef<bool>(
+  key: 'kiosk.allow_alarms',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Alarms',
+  description: 'Set and manage alarms from the kiosk menu.',
+  category: 'Kiosk',
+  section: 'Allowed Actions',
+  subpage: 'Allowed Actions',
+  dependsOn: 'kiosk.allow_drawer',
+);
+
 const kioskAllowMusic = SettingDef<bool>(
   key: 'kiosk.allow_music',
   type: SettingType.boolean,
@@ -2309,6 +2321,23 @@ const screensaverWeatherPreviewPeriod = SettingDef<String>(
   optionLabels: {'day': 'Day', 'twilight': 'Dawn/Dusk', 'night': 'Night'},
 );
 
+/// The Weather Mood twin of [screensaverClockAlarmTakeover]: the weather
+/// bar makes way for Snooze and Stop in its glass.
+const screensaverWeatherAlarmTakeover = SettingDef<bool>(
+  key: 'screensaver.weather_alarm_takeover',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Let alarms take over',
+  description:
+      'A ringing alarm shows on this screensaver, in its style, instead '
+      'of on its own screen.',
+  category: 'Screensaver',
+  section: 'Weather Mood screensaver',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.mode',
+  dependsOnValue: 'weather_mood',
+);
+
 // ── Black (mode: black) ──
 
 // The Black panel's one control (issue #151): people schedule Black
@@ -2790,6 +2819,24 @@ const screensaverClockNightCardColor = SettingDef<String>(
   dependsOn: 'screensaver.clock_night',
   alsoDependsOn: 'screensaver.clock_style',
   alsoDependsOnValue: 'flip',
+);
+
+/// A ringing alarm shows on the Clock screensaver in its own style (the
+/// date line becomes the label, Snooze and Stop come in under the face)
+/// instead of on the alarm's own full screen view.
+const screensaverClockAlarmTakeover = SettingDef<bool>(
+  key: 'screensaver.clock_alarm_takeover',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Let alarms take over',
+  description:
+      'A ringing alarm shows on this screensaver, in its style, instead '
+      'of on its own screen.',
+  category: 'Screensaver',
+  section: 'Clock screensaver',
+  subpage: 'Clock screensaver',
+  dependsOn: 'screensaver.mode',
+  dependsOnValue: 'clock',
 );
 
 // ── Media (mode: media) ──
@@ -8390,6 +8437,142 @@ const intercomVolume = SettingDef<num>(
   dependsOn: 'intercom.enabled',
 );
 
+// ── Alarms ─────────────────────────────────────────────────────────────
+// The kiosk's own alarms: they live here and ring without Home Assistant.
+// The list and the ringing state are hand-edited on both surfaces (the
+// full screen alarm list on the device, the Alarms page on the remote);
+// the defaults below render from these definitions.
+
+/// Every alarm, a JSON array of
+/// `{id, time: "HH:mm", days: [0..6, 0 = Sunday], date: "yyyy-MM-dd"?,
+/// label, tone, sunrise, on}`. `days` empty rings once, on `date`.
+const alarmsList = SettingDef<String>(
+  key: 'alarms.list',
+  type: SettingType.string,
+  defaultValue: '[]',
+  title: 'Alarms',
+  description: 'Every alarm set on this kiosk.',
+  category: 'Alarms',
+  hidden: true,
+  validator: validateAlarmsList,
+);
+
+/// What the alarm manager keeps across a restart: the occurrence each
+/// alarm last rang for, and a ring or a snooze in progress.
+const alarmsRuntime = SettingDef<String>(
+  key: 'alarms.runtime',
+  type: SettingType.string,
+  defaultValue: '{}',
+  title: 'Alarm state',
+  description: 'Rings and snoozes in progress.',
+  category: 'Alarms',
+  hidden: true,
+);
+
+/// The alarm stream is set to this share of its range while an alarm
+/// rings, apart from the media and assistant volumes.
+const alarmsVolume = SettingDef<num>(
+  key: 'alarms.volume',
+  type: SettingType.number,
+  defaultValue: 0.7,
+  title: 'Alarm volume',
+  description: 'How loud alarms ring, apart from the media volume.',
+  category: 'Alarms',
+  section: 'Defaults',
+  min: 0.05,
+  max: 1,
+  step: 0.05,
+  unit: '%',
+);
+
+/// A file in the sounds folder, or empty for the built-in alarm. An alarm
+/// set to Default rings this.
+const alarmsTone = SettingDef<String>(
+  key: 'alarms.tone',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Alarm tone',
+  description: 'Plays at the alarm volume.',
+  category: 'Alarms',
+  section: 'Defaults',
+  validator: validateNotificationSound,
+);
+
+const alarmsSnoozeMinutes = SettingDef<String>(
+  key: 'alarms.snooze_minutes',
+  type: SettingType.select,
+  defaultValue: '10',
+  title: 'Snooze length',
+  description: 'How long Snooze holds an alarm off.',
+  category: 'Alarms',
+  section: 'Defaults',
+  options: ['5', '10', '15', '20', '25', '30'],
+  optionLabels: {
+    '5': '5 minutes',
+    '10': '10 minutes',
+    '15': '15 minutes',
+    '20': '20 minutes',
+    '25': '25 minutes',
+    '30': '30 minutes',
+  },
+);
+
+const alarmsSilenceAfterMinutes = SettingDef<String>(
+  key: 'alarms.silence_after_minutes',
+  type: SettingType.select,
+  defaultValue: '10',
+  title: 'Silence after',
+  description: 'An alarm nobody stops goes quiet after this long.',
+  category: 'Alarms',
+  section: 'Defaults',
+  options: ['5', '10', '15', '20', '30'],
+  optionLabels: {
+    '5': '5 minutes',
+    '10': '10 minutes',
+    '15': '15 minutes',
+    '20': '20 minutes',
+    '30': '30 minutes',
+  },
+);
+
+const alarmsSunriseMinutes = SettingDef<String>(
+  key: 'alarms.sunrise_minutes',
+  type: SettingType.select,
+  defaultValue: '30',
+  title: 'Sunrise length',
+  description: 'How long the screen takes to brighten before a sunrise alarm.',
+  category: 'Alarms',
+  section: 'Defaults',
+  options: ['10', '15', '20', '25', '30'],
+  optionLabels: {
+    '10': '10 minutes',
+    '15': '15 minutes',
+    '20': '20 minutes',
+    '25': '25 minutes',
+    '30': '30 minutes',
+  },
+);
+
+/// The list must decode to alarms, or it is refused rather than stored:
+/// a bad write over the API would otherwise silently drop every alarm.
+String? validateAlarmsList(Object? value) {
+  if (value is! String) return 'Alarms must be a JSON array.';
+  try {
+    final raw = jsonDecode(value);
+    if (raw is! List) return 'Alarms must be a JSON array.';
+    for (final item in raw) {
+      if (item is! Map) return 'Each alarm must be an object.';
+      final time = '${item['time'] ?? ''}';
+      if (!RegExp(r'^([01]\d|2[0-3]):[0-5]\d$').hasMatch(time)) {
+        return 'Each alarm needs a time as HH:mm.';
+      }
+    }
+    return null;
+  } catch (_) {
+    return 'Alarms must be a JSON array.';
+  }
+}
+
 /// The categories a fleet leader can push, in the sidebar's order: the
 /// definitions category, the name both UIs show for it and what stays per
 /// kiosk inside it (the [SettingDef.perDevice] keys it holds, in words).
@@ -9044,6 +9227,7 @@ const List<SettingDef<Object>> allSettings = [
   kioskAllowHaKiosk,
   kioskAllowCamera,
   kioskAllowIntercom,
+  kioskAllowAlarms,
   kioskAllowMusic,
   kioskAllowSendspinPlayer,
   kioskAllowScreensaver,
@@ -9121,6 +9305,7 @@ const List<SettingDef<Object>> allSettings = [
   screensaverWeatherEntity,
   screensaverWeatherLightning,
   screensaverWeatherBlur,
+  screensaverWeatherAlarmTakeover,
   screensaverWeatherClock,
   screensaverWeatherClockFont,
   screensaverWeatherClockFontWeight,
@@ -9167,6 +9352,7 @@ const List<SettingDef<Object>> allSettings = [
   screensaverFlipBackdropColor,
   screensaverRollerDigitColor,
   screensaverRollerBgColor,
+  screensaverClockAlarmTakeover,
   screensaverClockNight,
   screensaverClockNightLux,
   screensaverClockNightColor,
@@ -9523,4 +9709,11 @@ const List<SettingDef<Object>> allSettings = [
   intercomAcceptAnnouncements,
   intercomTalkMode,
   intercomTls,
+  alarmsList,
+  alarmsRuntime,
+  alarmsVolume,
+  alarmsTone,
+  alarmsSnoozeMinutes,
+  alarmsSilenceAfterMinutes,
+  alarmsSunriseMinutes,
 ];

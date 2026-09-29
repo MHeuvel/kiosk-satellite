@@ -1070,6 +1070,50 @@
     .row.camera-list-row, .camera-row-main { gap: 10px; }
   }
 
+  /* Alarms (alarms.js): the time big over the days and label, muted while
+     the alarm is off, the snooze end in primary. A portrait phone drops
+     edit and delete, the row tap edits. */
+  .alarm-row .info .alarm-time { font-size: 24px; font-weight: 500;
+    line-height: 1.25; font-variant-numeric: tabular-nums; }
+  .alarm-row.off .info .alarm-time { color: var(--muted); }
+  .alarm-row .info .alarm-when { display: flex; align-items: center; gap: 6px;
+    white-space: nowrap; }
+  .alarm-row .info .alarm-when > span:last-child { overflow: hidden;
+    text-overflow: ellipsis; }
+  .alarm-row .info .alarm-when.snoozed { color: var(--primary); }
+  .alarm-sunrise { display: flex; flex: none; }
+  .alarm-sunrise svg { width: 15px; height: 15px; }
+  .alarms-add { margin: 0 0 24px; }
+  .alarms-add svg { width: 18px; height: 18px; }
+  /* Repeat days in the editor: 40 discs, filled while the day is on. */
+  .day-discs { display: flex; gap: 6px; }
+  .day-disc { flex: 0 1 40px; min-width: 0; aspect-ratio: 1; padding: 0;
+    border-radius: 50%; border: none; background: transparent;
+    color: var(--text); box-shadow: inset 0 0 0 1.5px var(--outline);
+    font-size: 14px; font-weight: 600; }
+  .day-disc.on { background: var(--primary-fill); color: var(--primary-ink);
+    box-shadow: none; }
+  .modal-foot .btn-text.danger { color: var(--error); margin-right: auto; }
+  /* The Overview while an alarm rings, is snoozed or runs its sunrise. */
+  .alarm-banner { display: flex; flex-wrap: wrap; align-items: center;
+    gap: 12px 14px; padding: 14px 16px 14px 20px; border-radius: 20px;
+    margin: 0 0 16px; background: var(--tertiary-container);
+    color: var(--on-tertiary-container); }
+  .alarm-banner-icon { display: flex; flex: none; }
+  .alarm-banner-icon svg { width: 24px; height: 24px; }
+  .alarm-banner-text { flex: 1 1 180px; min-width: 0; display: flex;
+    flex-direction: column; gap: 2px; font-size: 13px; }
+  .alarm-banner-text b { font-size: 15px; font-weight: 600; }
+  .alarm-banner-actions { display: flex; gap: 8px; margin-left: auto; }
+  .alarm-banner .btn-ghost { color: inherit; border-color: currentColor; }
+  @media (max-width: 640px) {
+    .alarm-row .alarm-action { display: none; }
+    /* Delete, Cancel and Save share a phone's footer: the two text
+       buttons give up the 96 floor to fit. */
+    .alarm-editor .modal-foot .btn-text { min-width: 0; padding: 0 12px; }
+    .day-discs { gap: 4px; }
+  }
+
   /* ---- Onboarding wizard: the settings split layout, the step list on
      a One UI rail, the current step's work on the right. */
   #wizard { min-height: 100vh; display: flex; }

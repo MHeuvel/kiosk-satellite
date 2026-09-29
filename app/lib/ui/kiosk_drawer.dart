@@ -279,6 +279,21 @@ class KioskDrawer extends StatelessWidget {
                                       );
                                     },
                                   ),
+                              // The kiosk's own alarms: the full screen
+                              // list. Kiosk Mode's Allowed Actions gates
+                              // it in the restricted menu.
+                              if (!restricted ||
+                                  c.settings.get(defs.kioskAllowAlarms))
+                                _item(
+                                  divided: sep(),
+                                  context,
+                                  Icons.alarm,
+                                  l10n(context).alarmsTitle,
+                                  () {
+                                    onClose();
+                                    c.commands.execute('openAlarms', const {});
+                                  },
+                                ),
                               // Music Assistant's own web interface, over
                               // the dashboard on the same surface a tapped
                               // link gets — browsing, queueing and

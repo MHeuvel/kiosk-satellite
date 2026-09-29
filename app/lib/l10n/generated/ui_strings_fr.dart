@@ -81,6 +81,142 @@ class UiStringsFr extends UiStrings {
       'Le téléchargement s\'exécute sur la tablette ; l\'installation doit être confirmée sur l\'écran de la tablette.';
 
   @override
+  String get alarmsTitle => 'Alarmes';
+
+  @override
+  String get alarmsSetAnAlarm => 'Régler une alarme';
+
+  @override
+  String get alarmsNone => 'Aucune alarme';
+
+  @override
+  String get alarmsDone => 'Terminé';
+
+  @override
+  String get alarmsRepeat => 'Répéter';
+
+  @override
+  String get alarmsLabel => 'Libellé';
+
+  @override
+  String get alarmsAddLabel => 'Ajouter un libellé';
+
+  @override
+  String get alarmsTone => 'Sonnerie d\'alarme';
+
+  @override
+  String get alarmsSunrise => 'Lever du soleil';
+
+  @override
+  String get alarmsDefaultTone => 'Par défaut';
+
+  @override
+  String get alarmsBuiltInTone => 'Alarme intégrée';
+
+  @override
+  String get alarmsSoundsFolder => 'Dossier des sons';
+
+  @override
+  String get alarmsToday => 'Aujourd\'hui';
+
+  @override
+  String get alarmsTomorrow => 'Demain';
+
+  @override
+  String get alarmsOnce => 'Une fois';
+
+  @override
+  String get alarmsEveryDay => 'Tous les jours';
+
+  @override
+  String get alarmsWeekdays => 'En semaine';
+
+  @override
+  String get alarmsWeekends => 'Le week-end';
+
+  @override
+  String alarmsSnoozedUntil(String time) {
+    return 'Reportée jusqu\'à $time';
+  }
+
+  @override
+  String get alarmsSnooze => 'Reporter';
+
+  @override
+  String get alarmsStop => 'Arrêter';
+
+  @override
+  String get alarmsDefaultLabel => 'Alarme';
+
+  @override
+  String get alarmsSetToast => 'Alarme réglée';
+
+  @override
+  String alarmsRingsIn(String duration) {
+    return 'Sonne dans $duration';
+  }
+
+  @override
+  String alarmsDurationHoursMinutes(String hours, String minutes) {
+    return '$hours h $minutes min';
+  }
+
+  @override
+  String alarmsDurationHours(String hours) {
+    return '$hours h';
+  }
+
+  @override
+  String alarmsDurationMinutes(String minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String alarmsAt(String time) {
+    return 'Alarme à $time';
+  }
+
+  @override
+  String get alarmsNextWidget => 'Prochaine alarme';
+
+  @override
+  String get alarmsManage => 'Gérer les alarmes';
+
+  @override
+  String alarmsNextAt(String day, String time) {
+    return 'Prochaine : $day à $time';
+  }
+
+  @override
+  String get alarmsNoneSet => 'Aucune alarme réglée';
+
+  @override
+  String get alarmsDefaultsSection => 'Valeurs par défaut';
+
+  @override
+  String get alarmsEditAlarm => 'Modifier l\'alarme';
+
+  @override
+  String get alarmsTime => 'Heure';
+
+  @override
+  String get alarmsRinging => 'Alarme en cours';
+
+  @override
+  String get alarmsSnoozed => 'Alarme reportée';
+
+  @override
+  String get alarmsSunriseRunning => 'Lever du soleil avant une alarme';
+
+  @override
+  String alarmsSunriseHint(String minutes) {
+    return 'L\'écran s\'éclaircit pendant $minutes minutes avant la sonnerie.';
+  }
+
+  @override
+  String get alarmsDeleteFailed => 'Impossible de supprimer l\'alarme.';
+
+  @override
   String get androidAccessibilityHelp =>
       'Ferme le panneau de notifications et l\'écran des applications récentes chaque fois qu\'ils s\'ouvrent tant que le mode Kiosque ou le mode Verrouillage protège l\'écran. Kiosk Satellite ne lit aucun contenu d\'écran.';
 
@@ -3560,6 +3696,88 @@ class UiStringsFr extends UiStrings {
   @override
   String get screensaverVideosTooLarge =>
       'Toutes les vidéos de cette liste de lecture sont trop volumineuses pour être lues sur cet appareil.';
+
+  @override
+  String get settingKioskAllowAlarmsTitle => 'Alarmes';
+
+  @override
+  String get settingKioskAllowAlarmsDescription =>
+      'Régler et gérer les alarmes depuis le menu du kiosque.';
+
+  @override
+  String get settingScreensaverClockAlarmTakeoverTitle =>
+      'Laisser les alarmes prendre le relais';
+
+  @override
+  String get settingScreensaverClockAlarmTakeoverDescription =>
+      'Une alarme qui sonne s\'affiche sur cet économiseur d\'écran, dans son style, au lieu de son propre écran.';
+
+  @override
+  String get settingScreensaverWeatherAlarmTakeoverTitle =>
+      'Laisser les alarmes prendre le relais';
+
+  @override
+  String get settingScreensaverWeatherAlarmTakeoverDescription =>
+      'Une alarme qui sonne s\'affiche sur cet économiseur d\'écran, dans son style, au lieu de son propre écran.';
+
+  @override
+  String get settingAlarmsVolumeTitle => 'Volume des alarmes';
+
+  @override
+  String get settingAlarmsVolumeDescription =>
+      'Volume des alarmes, indépendamment du volume multimédia.';
+
+  @override
+  String get settingAlarmsToneTitle => 'Sonnerie d\'alarme';
+
+  @override
+  String get settingAlarmsToneDescription => 'Jouée au volume des alarmes.';
+
+  @override
+  String get settingAlarmsSnoozeMinutesTitle => 'Durée du report';
+
+  @override
+  String get settingAlarmsSnoozeMinutesDescription =>
+      'Durée pendant laquelle Reporter retarde une alarme.';
+
+  @override
+  String get settingAlarmsSilenceAfterMinutesTitle => 'Silence après';
+
+  @override
+  String get settingAlarmsSilenceAfterMinutesDescription =>
+      'Une alarme que personne n\'arrête se tait après cette durée.';
+
+  @override
+  String get settingAlarmsSunriseMinutesTitle => 'Durée du lever du soleil';
+
+  @override
+  String get settingAlarmsSunriseMinutesDescription =>
+      'Le temps que met l\'écran à s\'éclaircir avant une alarme avec lever du soleil.';
+
+  @override
+  String get alarmsOption5Minutes => '5 minutes';
+
+  @override
+  String get alarmsOption10Minutes => '10 minutes';
+
+  @override
+  String get alarmsOption15Minutes => '15 minutes';
+
+  @override
+  String get alarmsOption20Minutes => '20 minutes';
+
+  @override
+  String get alarmsOption25Minutes => '25 minutes';
+
+  @override
+  String get alarmsOption30Minutes => '30 minutes';
+
+  @override
+  String get settingsMenuAlarms => 'Alarmes';
+
+  @override
+  String get settingsMenuAlarmsSummary =>
+      'Alarmes, sonnerie, report, lever du soleil';
 
   @override
   String get settingLauncherEnabledTitle =>

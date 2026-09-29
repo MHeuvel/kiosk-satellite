@@ -83,6 +83,13 @@
     <!-- Starting our Activity from behind another app on Android 10+. -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+    <!-- The kiosk's own alarms: setAlarmClock rings exactly and in Doze.
+         USE_EXACT_ALARM is granted at install to an alarm clock app from
+         Android 13; SCHEDULE_EXACT_ALARM covers 12 and 12L, where it is
+         granted by default. -->
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"
+        android:maxSdkVersion="32"/>
     <!-- In-app updates: handing the downloaded APK to the system installer. -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
     <!-- Without this, Android 12+ ignores USER_ACTION_NOT_REQUIRED and shows
@@ -262,6 +269,11 @@
         </service>
         <receiver
             android:name=".CrashHeartbeatReceiver"
+            android:exported="false"/>
+        <!-- The kiosk's own alarms (AlarmBridge): the ring and the sunrise
+             wake. Only our own PendingIntents send it. -->
+        <receiver
+            android:name=".AlarmReceiver"
             android:exported="false"/>
         <!-- Start on boot (kiosk.start_on_boot; RECEIVE_BOOT_COMPLETED is
              declared above). -->

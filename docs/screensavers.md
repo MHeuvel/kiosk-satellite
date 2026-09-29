@@ -42,6 +42,8 @@ Turn on **Enable weather bar** to show the selected entity's temperature and con
 
 The **Weather Preview** group on the device and in Remote Admin lets you try any scene. Turn on **Enable weather preview** to reveal **Weather type** and **Time of day**. The active Weather Mood screensaver changes immediately to your selection, including when no weather entity is configured. Turn preview off to follow Home Assistant again. Preview changes only the animated background, so weather widgets continue showing their own entity readings. Preview settings stay local to each kiosk.
 
+**Let alarms take over** (on by default) makes a ringing [alarm](alarms.md) show over the scene: the date line becomes the alarm's label and the weather bar makes way for Snooze and Stop in its glass. Turn it off to ring on the alarm's own screen instead.
+
 Turn off **Lightning flashes** to keep thunderstorm clouds and rain without the flashes. Rainy scenes add drops that land on the glass in front of the sky, rest and sometimes slide down leaving a wet trail. Heavier rain brings more of them. The renderer uses Flutter GPU shaders and canvas drawing from bundled assets. Clouds render a few rows at a time across several frames and fade from one cloud image to the next, so older devices keep a steady frame rate. Each cloud image slides along with the wind until the next one is ready, low clouds faster than high ones, so moving clouds glide instead of jumping. It pauses when the display turns off or the app goes into the background and respects reduced motion. If weather data becomes unavailable, the scene retains its last known condition. Before the first valid reading it shows a neutral cloudy sky.
 
 Older devices use fewer cloud samples and a smaller cloud image that adjusts when frames remain slow. The renderer caches the sky at the display's resolution and renders a fresh cloud image about once a second, twice as often in full wind. Precipitation, twinkling stars and lightning animate separately at up to 20 frames per second. This reduces repeated GPU work while keeping the sun, moon and stars sharp. Weather Preview changes refresh the background immediately.
@@ -85,6 +87,8 @@ Changes apply live while the clock is running, and writing an empty value clears
 | Night background | Sets the background display color in dark environments (pure black by default) to eliminate panel glow. |
 | Hide background photo | Disabled by default. Hides the photo while Night mode is active so the clock uses the Night background color. Works with every clock face and restores the photo when the room brightens. Changes apply immediately. |
 | Night card color | Flip Clock face only. Sets the card color in the dark (near-black by default). |
+
+**Let alarms take over** (on by default) makes a ringing [alarm](alarms.md) show on the Clock screensaver in its own style: the date line becomes the alarm's label and Snooze and Stop come in under the clock in the clock's colors, Night mode included. Turn it off to ring on the alarm's own screen instead.
 
 ### Home Assistant Media
 
@@ -196,6 +200,15 @@ Displays the device's physical battery status in a display corner over any mode 
 | Only when low | Off | Hides the widget until battery capacity drops to 20% or below. Remains hidden whenever external power is connected. |
 
 Reads hardware battery state directly from Android rather than a Home Assistant entity, operating independently of network connectivity. State re-checks occur every minute, while power cable connection changes update instantly. Devices lacking battery hardware (such as mains-powered boxes) automatically suppress this widget.
+
+### Next alarm
+
+Shows the next [alarm](alarms.md) set on the kiosk when it rings within 24 hours, and the snooze while one runs, over any mode except Camera Streams. The corner stays empty the rest of the time. A tap on the widget opens the alarm list.
+
+| Setting | Default | Notes |
+| --- | --- | --- |
+| Corner | First free corner | Displays in the first available corner. |
+| Color | White | Applies to the icon and the time. |
 
 ### Entity
 

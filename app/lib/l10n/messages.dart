@@ -438,6 +438,8 @@ String settingsPageText(
   'Launcher' => launcherText(context, english),
   'Gestures' => gestureText(context, english),
   'Kiosk' || 'Home' || 'Lockdown' => kioskText(context, english),
+  'Alarms' =>
+    english == 'Defaults' ? l10n(context).alarmsDefaultsSection : english,
   'Intercom' => switch (english) {
     'Answer' => l10n(context).intercomAnswerSection,
     'Talk' => l10n(context).intercomTalkSection,

@@ -789,6 +789,24 @@ class WakeWordManager extends Manager
     commands
       ..register(
         Command(
+          name: 'setStopWordArmed',
+          description:
+              'Arm or disarm the stop word for a holder (a ringing alarm). '
+              'It listens while any holder wants it.',
+          params: const {
+            'armed': 'true or false',
+            'holder': 'who is asking, alarm by default',
+          },
+          handler: (p) async => CommandResult.ok(
+            await setStopWordArmed(
+              p['armed'] == true,
+              holder: '${p['holder'] ?? 'alarm'}',
+            ),
+          ),
+        ),
+      )
+      ..register(
+        Command(
           name: 'setWakeWordConfig',
           description:
               'Inherit wake-word config from Voice Satellite: engine '
@@ -1380,10 +1398,17 @@ class WakeWordManager extends Manager
     );
   }
 
-  /// Arm or disarm the stop word classifier; false when none is loaded.
-  Future<bool> setStopWordArmed(bool armed) async {
+  /// Who wants the stop word listening: the voice turn (TTS, a ringing
+  /// timer) and a ringing alarm arm it apart, and it stays armed while
+  /// either still wants it.
+  final _stopWordHolders = <String>{};
+
+  /// Arm or disarm the stop word classifier for [holder]; false when none
+  /// is loaded.
+  Future<bool> setStopWordArmed(bool armed, {String holder = 'voice'}) async {
+    armed ? _stopWordHolders.add(holder) : _stopWordHolders.remove(holder);
     if (!stopWordAvailable) return false;
-    await _engine.setStopWordActive(armed);
+    await _engine.setStopWordActive(_stopWordHolders.isNotEmpty);
     return true;
   }
 

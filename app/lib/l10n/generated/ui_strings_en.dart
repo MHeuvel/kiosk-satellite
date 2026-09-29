@@ -81,6 +81,142 @@ class UiStringsEn extends UiStrings {
       'The download runs on the tablet; the installation must be confirmed on the tablet screen.';
 
   @override
+  String get alarmsTitle => 'Alarms';
+
+  @override
+  String get alarmsSetAnAlarm => 'Set an alarm';
+
+  @override
+  String get alarmsNone => 'No alarms';
+
+  @override
+  String get alarmsDone => 'Done';
+
+  @override
+  String get alarmsRepeat => 'Repeat';
+
+  @override
+  String get alarmsLabel => 'Label';
+
+  @override
+  String get alarmsAddLabel => 'Add label';
+
+  @override
+  String get alarmsTone => 'Alarm tone';
+
+  @override
+  String get alarmsSunrise => 'Sunrise';
+
+  @override
+  String get alarmsDefaultTone => 'Default';
+
+  @override
+  String get alarmsBuiltInTone => 'Built-in alarm';
+
+  @override
+  String get alarmsSoundsFolder => 'Sounds folder';
+
+  @override
+  String get alarmsToday => 'Today';
+
+  @override
+  String get alarmsTomorrow => 'Tomorrow';
+
+  @override
+  String get alarmsOnce => 'Once';
+
+  @override
+  String get alarmsEveryDay => 'Every day';
+
+  @override
+  String get alarmsWeekdays => 'Weekdays';
+
+  @override
+  String get alarmsWeekends => 'Weekends';
+
+  @override
+  String alarmsSnoozedUntil(String time) {
+    return 'Snoozed until $time';
+  }
+
+  @override
+  String get alarmsSnooze => 'Snooze';
+
+  @override
+  String get alarmsStop => 'Stop';
+
+  @override
+  String get alarmsDefaultLabel => 'Alarm';
+
+  @override
+  String get alarmsSetToast => 'Alarm set';
+
+  @override
+  String alarmsRingsIn(String duration) {
+    return 'Rings in $duration';
+  }
+
+  @override
+  String alarmsDurationHoursMinutes(String hours, String minutes) {
+    return '$hours h $minutes min';
+  }
+
+  @override
+  String alarmsDurationHours(String hours) {
+    return '$hours h';
+  }
+
+  @override
+  String alarmsDurationMinutes(String minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String alarmsAt(String time) {
+    return 'Alarm at $time';
+  }
+
+  @override
+  String get alarmsNextWidget => 'Next alarm';
+
+  @override
+  String get alarmsManage => 'Manage alarms';
+
+  @override
+  String alarmsNextAt(String day, String time) {
+    return 'Next: $day at $time';
+  }
+
+  @override
+  String get alarmsNoneSet => 'No alarms set';
+
+  @override
+  String get alarmsDefaultsSection => 'Defaults';
+
+  @override
+  String get alarmsEditAlarm => 'Edit alarm';
+
+  @override
+  String get alarmsTime => 'Time';
+
+  @override
+  String get alarmsRinging => 'Alarm ringing';
+
+  @override
+  String get alarmsSnoozed => 'Alarm snoozed';
+
+  @override
+  String get alarmsSunriseRunning => 'Sunrise before an alarm';
+
+  @override
+  String alarmsSunriseHint(String minutes) {
+    return 'The screen brightens over $minutes minutes before it rings.';
+  }
+
+  @override
+  String get alarmsDeleteFailed => 'Could not delete the alarm.';
+
+  @override
   String get androidAccessibilityHelp =>
       'Closes the notification shade and the recents screen whenever they open while Kiosk Mode or Lockdown Mode is protecting the screen. Kiosk Satellite does not read any screen content.';
 
@@ -3506,6 +3642,87 @@ class UiStringsEn extends UiStrings {
   @override
   String get screensaverVideosTooLarge =>
       'Every video in this playlist is too large for this device to play.';
+
+  @override
+  String get settingKioskAllowAlarmsTitle => 'Alarms';
+
+  @override
+  String get settingKioskAllowAlarmsDescription =>
+      'Set and manage alarms from the kiosk menu.';
+
+  @override
+  String get settingScreensaverClockAlarmTakeoverTitle =>
+      'Let alarms take over';
+
+  @override
+  String get settingScreensaverClockAlarmTakeoverDescription =>
+      'A ringing alarm shows on this screensaver, in its style, instead of on its own screen.';
+
+  @override
+  String get settingScreensaverWeatherAlarmTakeoverTitle =>
+      'Let alarms take over';
+
+  @override
+  String get settingScreensaverWeatherAlarmTakeoverDescription =>
+      'A ringing alarm shows on this screensaver, in its style, instead of on its own screen.';
+
+  @override
+  String get settingAlarmsVolumeTitle => 'Alarm volume';
+
+  @override
+  String get settingAlarmsVolumeDescription =>
+      'How loud alarms ring, apart from the media volume.';
+
+  @override
+  String get settingAlarmsToneTitle => 'Alarm tone';
+
+  @override
+  String get settingAlarmsToneDescription => 'Plays at the alarm volume.';
+
+  @override
+  String get settingAlarmsSnoozeMinutesTitle => 'Snooze length';
+
+  @override
+  String get settingAlarmsSnoozeMinutesDescription =>
+      'How long Snooze holds an alarm off.';
+
+  @override
+  String get settingAlarmsSilenceAfterMinutesTitle => 'Silence after';
+
+  @override
+  String get settingAlarmsSilenceAfterMinutesDescription =>
+      'An alarm nobody stops goes quiet after this long.';
+
+  @override
+  String get settingAlarmsSunriseMinutesTitle => 'Sunrise length';
+
+  @override
+  String get settingAlarmsSunriseMinutesDescription =>
+      'How long the screen takes to brighten before a sunrise alarm.';
+
+  @override
+  String get alarmsOption5Minutes => '5 minutes';
+
+  @override
+  String get alarmsOption10Minutes => '10 minutes';
+
+  @override
+  String get alarmsOption15Minutes => '15 minutes';
+
+  @override
+  String get alarmsOption20Minutes => '20 minutes';
+
+  @override
+  String get alarmsOption25Minutes => '25 minutes';
+
+  @override
+  String get alarmsOption30Minutes => '30 minutes';
+
+  @override
+  String get settingsMenuAlarms => 'Alarms';
+
+  @override
+  String get settingsMenuAlarmsSummary => 'Set alarms, tone, snooze, sunrise';
 
   @override
   String get settingLauncherEnabledTitle => 'Enable App Launcher';

@@ -81,6 +81,142 @@ class UiStringsUk extends UiStrings {
       'Завантаження виконується на планшеті; встановлення має бути підтверджено на екрані планшета.';
 
   @override
+  String get alarmsTitle => 'Будильники';
+
+  @override
+  String get alarmsSetAnAlarm => 'Встановити будильник';
+
+  @override
+  String get alarmsNone => 'Немає будильників';
+
+  @override
+  String get alarmsDone => 'Готово';
+
+  @override
+  String get alarmsRepeat => 'Повторювати';
+
+  @override
+  String get alarmsLabel => 'Мітка';
+
+  @override
+  String get alarmsAddLabel => 'Додати мітку';
+
+  @override
+  String get alarmsTone => 'Мелодія будильника';
+
+  @override
+  String get alarmsSunrise => 'Світанок';
+
+  @override
+  String get alarmsDefaultTone => 'За замовчуванням';
+
+  @override
+  String get alarmsBuiltInTone => 'Вбудований будильник';
+
+  @override
+  String get alarmsSoundsFolder => 'Папка звуків';
+
+  @override
+  String get alarmsToday => 'Сьогодні';
+
+  @override
+  String get alarmsTomorrow => 'Завтра';
+
+  @override
+  String get alarmsOnce => 'Одноразово';
+
+  @override
+  String get alarmsEveryDay => 'Щодня';
+
+  @override
+  String get alarmsWeekdays => 'У будні';
+
+  @override
+  String get alarmsWeekends => 'У вихідні';
+
+  @override
+  String alarmsSnoozedUntil(String time) {
+    return 'Відкладено до $time';
+  }
+
+  @override
+  String get alarmsSnooze => 'Відкласти';
+
+  @override
+  String get alarmsStop => 'Зупинити';
+
+  @override
+  String get alarmsDefaultLabel => 'Будильник';
+
+  @override
+  String get alarmsSetToast => 'Будильник встановлено';
+
+  @override
+  String alarmsRingsIn(String duration) {
+    return 'Задзвонить через $duration';
+  }
+
+  @override
+  String alarmsDurationHoursMinutes(String hours, String minutes) {
+    return '$hours год $minutes хв';
+  }
+
+  @override
+  String alarmsDurationHours(String hours) {
+    return '$hours год';
+  }
+
+  @override
+  String alarmsDurationMinutes(String minutes) {
+    return '$minutes хв';
+  }
+
+  @override
+  String alarmsAt(String time) {
+    return 'Будильник о $time';
+  }
+
+  @override
+  String get alarmsNextWidget => 'Наступний будильник';
+
+  @override
+  String get alarmsManage => 'Керувати будильниками';
+
+  @override
+  String alarmsNextAt(String day, String time) {
+    return 'Наступний: $day о $time';
+  }
+
+  @override
+  String get alarmsNoneSet => 'Будильники не встановлено';
+
+  @override
+  String get alarmsDefaultsSection => 'Типові значення';
+
+  @override
+  String get alarmsEditAlarm => 'Редагувати будильник';
+
+  @override
+  String get alarmsTime => 'Час';
+
+  @override
+  String get alarmsRinging => 'Будильник дзвонить';
+
+  @override
+  String get alarmsSnoozed => 'Будильник відкладено';
+
+  @override
+  String get alarmsSunriseRunning => 'Світанок перед будильником';
+
+  @override
+  String alarmsSunriseHint(String minutes) {
+    return 'Екран поступово яскравішає протягом $minutes хв перед сигналом.';
+  }
+
+  @override
+  String get alarmsDeleteFailed => 'Не вдалося видалити будильник.';
+
+  @override
   String get androidAccessibilityHelp =>
       'Закриває панель сповіщень та екран нещодавніх програм щоразу, коли вони відкриваються, доки режим кіоска або захищений режим блокує екран. Kiosk Satellite не зчитує вміст екрана.';
 
@@ -3535,6 +3671,89 @@ class UiStringsUk extends UiStrings {
   @override
   String get screensaverVideosTooLarge =>
       'Усі відео в цьому списку завеликі для відтворення на цьому пристрої.';
+
+  @override
+  String get settingKioskAllowAlarmsTitle => 'Будильники';
+
+  @override
+  String get settingKioskAllowAlarmsDescription =>
+      'Встановлювати будильники й керувати ними з меню кіоска.';
+
+  @override
+  String get settingScreensaverClockAlarmTakeoverTitle =>
+      'Показувати будильники тут';
+
+  @override
+  String get settingScreensaverClockAlarmTakeoverDescription =>
+      'Будильник, що дзвонить, з\'являється на цій заставці в її стилі, а не на окремому екрані.';
+
+  @override
+  String get settingScreensaverWeatherAlarmTakeoverTitle =>
+      'Показувати будильники тут';
+
+  @override
+  String get settingScreensaverWeatherAlarmTakeoverDescription =>
+      'Будильник, що дзвонить, з\'являється на цій заставці в її стилі, а не на окремому екрані.';
+
+  @override
+  String get settingAlarmsVolumeTitle => 'Гучність будильника';
+
+  @override
+  String get settingAlarmsVolumeDescription =>
+      'Гучність будильників окремо від гучності медіа.';
+
+  @override
+  String get settingAlarmsToneTitle => 'Мелодія будильника';
+
+  @override
+  String get settingAlarmsToneDescription =>
+      'Відтворюється з гучністю будильника.';
+
+  @override
+  String get settingAlarmsSnoozeMinutesTitle => 'Тривалість відкладення';
+
+  @override
+  String get settingAlarmsSnoozeMinutesDescription =>
+      'На скільки кнопка «Відкласти» відкладає будильник.';
+
+  @override
+  String get settingAlarmsSilenceAfterMinutesTitle => 'Вимкнути через';
+
+  @override
+  String get settingAlarmsSilenceAfterMinutesDescription =>
+      'Будильник, який ніхто не зупинив, замовкає через цей час.';
+
+  @override
+  String get settingAlarmsSunriseMinutesTitle => 'Тривалість світанку';
+
+  @override
+  String get settingAlarmsSunriseMinutesDescription =>
+      'Скільки часу екран яскравішає перед будильником зі світанком.';
+
+  @override
+  String get alarmsOption5Minutes => '5 хвилин';
+
+  @override
+  String get alarmsOption10Minutes => '10 хвилин';
+
+  @override
+  String get alarmsOption15Minutes => '15 хвилин';
+
+  @override
+  String get alarmsOption20Minutes => '20 хвилин';
+
+  @override
+  String get alarmsOption25Minutes => '25 хвилин';
+
+  @override
+  String get alarmsOption30Minutes => '30 хвилин';
+
+  @override
+  String get settingsMenuAlarms => 'Будильники';
+
+  @override
+  String get settingsMenuAlarmsSummary =>
+      'Будильники, мелодія, відкладення, світанок';
 
   @override
   String get settingLauncherEnabledTitle => 'Увімкнути запуск застосунків';

@@ -413,6 +413,22 @@ class VoiceInteractionChanged extends AppEvent {
   final String reason;
 }
 
+// ── Alarms ─────────────────────────────────────────────────────────────
+
+/// The alarms or their ringing state changed: an alarm added, edited or
+/// removed, a sunrise starting, a ring, a snooze, a stop. Carries the whole
+/// `alarmsStatus` shape so the remote admin redraws from the event alone.
+class AlarmStateChanged extends AppEvent {
+  const AlarmStateChanged(this.status);
+  final Map<String, Object?> status;
+
+  @override
+  String get wireName => 'alarms';
+
+  @override
+  Map<String, Object?> toJson() => status;
+}
+
 // ── Intercom ───────────────────────────────────────────────────────────
 
 /// The intercom's state changed: a call placed, ringing, answered, ended,

@@ -229,6 +229,246 @@ abstract class UiStrings {
   /// **'The download runs on the tablet; the installation must be confirmed on the tablet screen.'**
   String get aboutInstallHelp;
 
+  /// Name of the alarms feature: the kiosk menu entry, the alarm list eyebrow and section headings.
+  ///
+  /// In en, this message translates to:
+  /// **'Alarms'**
+  String get alarmsTitle;
+
+  /// Button that starts a new alarm, and the name of the time picking step.
+  ///
+  /// In en, this message translates to:
+  /// **'Set an alarm'**
+  String get alarmsSetAnAlarm;
+
+  /// Shown when no alarm exists yet.
+  ///
+  /// In en, this message translates to:
+  /// **'No alarms'**
+  String get alarmsNone;
+
+  /// Button that saves the alarm and returns to the list.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get alarmsDone;
+
+  /// Row that picks the days an alarm repeats on.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat'**
+  String get alarmsRepeat;
+
+  /// Row and dialog for the alarm name.
+  ///
+  /// In en, this message translates to:
+  /// **'Label'**
+  String get alarmsLabel;
+
+  /// Value shown when the alarm has no label yet.
+  ///
+  /// In en, this message translates to:
+  /// **'Add label'**
+  String get alarmsAddLabel;
+
+  /// Row and dialog that pick the sound an alarm rings with.
+  ///
+  /// In en, this message translates to:
+  /// **'Alarm tone'**
+  String get alarmsTone;
+
+  /// Switch that brightens the screen gradually before the alarm rings.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunrise'**
+  String get alarmsSunrise;
+
+  /// Tone choice that follows the Alarm tone setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Default'**
+  String get alarmsDefaultTone;
+
+  /// The alarm sound bundled with the app.
+  ///
+  /// In en, this message translates to:
+  /// **'Built-in alarm'**
+  String get alarmsBuiltInTone;
+
+  /// Heading over the sound files the user added.
+  ///
+  /// In en, this message translates to:
+  /// **'Sounds folder'**
+  String get alarmsSoundsFolder;
+
+  /// When a one time alarm rings.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get alarmsToday;
+
+  /// When a one time alarm rings.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow'**
+  String get alarmsTomorrow;
+
+  /// A one time alarm that is off.
+  ///
+  /// In en, this message translates to:
+  /// **'Once'**
+  String get alarmsOnce;
+
+  /// Repeat summary for all seven days.
+  ///
+  /// In en, this message translates to:
+  /// **'Every day'**
+  String get alarmsEveryDay;
+
+  /// Repeat summary for Monday to Friday.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekdays'**
+  String get alarmsWeekdays;
+
+  /// Repeat summary for Saturday and Sunday.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekends'**
+  String get alarmsWeekends;
+
+  /// Shown on a snoozed alarm. {time} is a clock time like 6:40 AM.
+  ///
+  /// In en, this message translates to:
+  /// **'Snoozed until {time}'**
+  String alarmsSnoozedUntil(String time);
+
+  /// Button that snoozes the ringing alarm.
+  ///
+  /// In en, this message translates to:
+  /// **'Snooze'**
+  String get alarmsSnooze;
+
+  /// Button that stops the ringing or snoozed alarm.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get alarmsStop;
+
+  /// Shown on a ringing alarm that has no label.
+  ///
+  /// In en, this message translates to:
+  /// **'Alarm'**
+  String get alarmsDefaultLabel;
+
+  /// Title of the confirmation after setting an alarm.
+  ///
+  /// In en, this message translates to:
+  /// **'Alarm set'**
+  String get alarmsSetToast;
+
+  /// Confirmation after setting an alarm. {duration} reads like 9 h 12 min.
+  ///
+  /// In en, this message translates to:
+  /// **'Rings in {duration}'**
+  String alarmsRingsIn(String duration);
+
+  /// A span of hours and minutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} h {minutes} min'**
+  String alarmsDurationHoursMinutes(String hours, String minutes);
+
+  /// A span of whole hours.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} h'**
+  String alarmsDurationHours(String hours);
+
+  /// A span of minutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min'**
+  String alarmsDurationMinutes(String minutes);
+
+  /// Shown under the clock while the screen brightens before an alarm. {time} is a clock time.
+  ///
+  /// In en, this message translates to:
+  /// **'Alarm at {time}'**
+  String alarmsAt(String time);
+
+  /// Screensaver corner widget that shows the next alarm.
+  ///
+  /// In en, this message translates to:
+  /// **'Next alarm'**
+  String get alarmsNextWidget;
+
+  /// Row that opens the alarm list.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage alarms'**
+  String get alarmsManage;
+
+  /// When the next alarm rings. {day} is Today, Tomorrow or a weekday, {time} a clock time.
+  ///
+  /// In en, this message translates to:
+  /// **'Next: {day} at {time}'**
+  String alarmsNextAt(String day, String time);
+
+  /// Shown when no alarm is on.
+  ///
+  /// In en, this message translates to:
+  /// **'No alarms set'**
+  String get alarmsNoneSet;
+
+  /// Heading over the default alarm settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Defaults'**
+  String get alarmsDefaultsSection;
+
+  /// Title of the dialog that changes an alarm.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit alarm'**
+  String get alarmsEditAlarm;
+
+  /// Label of the alarm time field.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get alarmsTime;
+
+  /// Banner shown while an alarm rings.
+  ///
+  /// In en, this message translates to:
+  /// **'Alarm ringing'**
+  String get alarmsRinging;
+
+  /// Banner shown while an alarm is snoozed.
+  ///
+  /// In en, this message translates to:
+  /// **'Alarm snoozed'**
+  String get alarmsSnoozed;
+
+  /// Banner shown while the screen brightens before an alarm.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunrise before an alarm'**
+  String get alarmsSunriseRunning;
+
+  /// Description of the Sunrise switch. {minutes} is a number.
+  ///
+  /// In en, this message translates to:
+  /// **'The screen brightens over {minutes} minutes before it rings.'**
+  String alarmsSunriseHint(String minutes);
+
+  /// Error toast.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the alarm.'**
+  String get alarmsDeleteFailed;
+
   /// Service description displayed by Android in its own language.
   ///
   /// In en, this message translates to:
@@ -6152,6 +6392,150 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Every video in this playlist is too large for this device to play.'**
   String get screensaverVideosTooLarge;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Alarms'**
+  String get settingKioskAllowAlarmsTitle;
+
+  /// Setting description.
+  ///
+  /// In en, this message translates to:
+  /// **'Set and manage alarms from the kiosk menu.'**
+  String get settingKioskAllowAlarmsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Let alarms take over'**
+  String get settingScreensaverClockAlarmTakeoverTitle;
+
+  /// Setting description.
+  ///
+  /// In en, this message translates to:
+  /// **'A ringing alarm shows on this screensaver, in its style, instead of on its own screen.'**
+  String get settingScreensaverClockAlarmTakeoverDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Let alarms take over'**
+  String get settingScreensaverWeatherAlarmTakeoverTitle;
+
+  /// Setting description.
+  ///
+  /// In en, this message translates to:
+  /// **'A ringing alarm shows on this screensaver, in its style, instead of on its own screen.'**
+  String get settingScreensaverWeatherAlarmTakeoverDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Alarm volume'**
+  String get settingAlarmsVolumeTitle;
+
+  /// Setting description.
+  ///
+  /// In en, this message translates to:
+  /// **'How loud alarms ring, apart from the media volume.'**
+  String get settingAlarmsVolumeDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Alarm tone'**
+  String get settingAlarmsToneTitle;
+
+  /// Setting description.
+  ///
+  /// In en, this message translates to:
+  /// **'Plays at the alarm volume.'**
+  String get settingAlarmsToneDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Snooze length'**
+  String get settingAlarmsSnoozeMinutesTitle;
+
+  /// Setting description.
+  ///
+  /// In en, this message translates to:
+  /// **'How long Snooze holds an alarm off.'**
+  String get settingAlarmsSnoozeMinutesDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Silence after'**
+  String get settingAlarmsSilenceAfterMinutesTitle;
+
+  /// Setting description.
+  ///
+  /// In en, this message translates to:
+  /// **'An alarm nobody stops goes quiet after this long.'**
+  String get settingAlarmsSilenceAfterMinutesDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunrise length'**
+  String get settingAlarmsSunriseMinutesTitle;
+
+  /// Setting description.
+  ///
+  /// In en, this message translates to:
+  /// **'How long the screen takes to brighten before a sunrise alarm.'**
+  String get settingAlarmsSunriseMinutesDescription;
+
+  /// Setting option: a length in minutes.
+  ///
+  /// In en, this message translates to:
+  /// **'5 minutes'**
+  String get alarmsOption5Minutes;
+
+  /// Setting option: a length in minutes.
+  ///
+  /// In en, this message translates to:
+  /// **'10 minutes'**
+  String get alarmsOption10Minutes;
+
+  /// Setting option: a length in minutes.
+  ///
+  /// In en, this message translates to:
+  /// **'15 minutes'**
+  String get alarmsOption15Minutes;
+
+  /// Setting option: a length in minutes.
+  ///
+  /// In en, this message translates to:
+  /// **'20 minutes'**
+  String get alarmsOption20Minutes;
+
+  /// Setting option: a length in minutes.
+  ///
+  /// In en, this message translates to:
+  /// **'25 minutes'**
+  String get alarmsOption25Minutes;
+
+  /// Setting option: a length in minutes.
+  ///
+  /// In en, this message translates to:
+  /// **'30 minutes'**
+  String get alarmsOption30Minutes;
+
+  /// Settings category name.
+  ///
+  /// In en, this message translates to:
+  /// **'Alarms'**
+  String get settingsMenuAlarms;
+
+  /// Settings category summary.
+  ///
+  /// In en, this message translates to:
+  /// **'Set alarms, tone, snooze, sunrise'**
+  String get settingsMenuAlarmsSummary;
 
   /// Setting label.
   ///

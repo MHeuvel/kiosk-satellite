@@ -11,6 +11,7 @@ import { loadPlugins } from './plugins.js';
 import { showTab } from './tabs.js';
 import { attachSlider, showToast } from './widgets.js';
 import { openVsMigrationWizard } from './vs_native.js';
+import { ALARM_ICON, alarmClockText } from './alarms.js';
 
 /* ---- Overview ----
    The first page, and for most visits the only one: what the kiosk needs
@@ -876,6 +877,65 @@ document.addEventListener('ks-event', (e) => {
   if (e.detail.data && typeof e.detail.data === 'object') paintDndTile(e.detail.data);
 });
 
+/* ---- Alarm banner ----
+   While an alarm rings, is snoozed or runs its sunrise, a banner over
+   everything else on the page with Snooze (while ringing) and Stop.
+   Painted from the alarmsStatus command on a visit and from the alarms
+   event the device pushes, which carries the same status. */
+let alarmState = null;
+function paintAlarmBanner(s) {
+  alarmState = s;
+  const el = $('#alarmBanner');
+  if (!el) return;
+  const phase = s?.phase;
+  const title = { ringing: t('alarmsRinging'), snoozed: t('alarmsSnoozed'),
+    sunrise: t('alarmsSunriseRunning') }[phase];
+  el.classList.toggle('hidden', !title);
+  if (!title) { el.replaceChildren(); return; }
+  const labels = (s.labels || []).filter(Boolean);
+  const line = (phase === 'snoozed' && s.snoozedUntil
+    ? [t('alarmsSnoozedUntil', { time: alarmClockText(s.snoozedUntil) }), ...labels]
+    : [s.at ? alarmClockText(s.at) : '', ...labels]).filter(Boolean).join(' \u00b7 ');
+  const icon = document.createElement('span');
+  icon.className = 'alarm-banner-icon';
+  icon.innerHTML = ALARM_ICON;
+  const text = document.createElement('div');
+  text.className = 'alarm-banner-text';
+  const head = document.createElement('b');
+  head.textContent = title;
+  const sub = document.createElement('span');
+  sub.textContent = line;
+  text.append(head, sub);
+  const actions = document.createElement('div');
+  actions.className = 'alarm-banner-actions';
+  const act = (label, cls, name) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = cls;
+    b.textContent = label;
+    b.addEventListener('click', async () => {
+      b.disabled = true;
+      const res = await cmd(name).catch(() => null);
+      if (!res || res.ok === false) {
+        showToast({ title: label, message: (res && res.error) || overviewText('The device did not answer.'), kind: 'error' });
+        b.disabled = false;
+      }
+      paintAlarmBanner(await ask('alarmsStatus'));
+    });
+    return b;
+  };
+  if (phase === 'ringing') actions.appendChild(act(t('alarmsSnooze'), 'btn-ghost', 'alarmSnooze'));
+  actions.appendChild(act(t('alarmsStop'), 'btn-primary', 'alarmStop'));
+  el.replaceChildren(icon, text, actions);
+}
+async function refreshAlarmBanner() {
+  paintAlarmBanner(await ask('alarmsStatus'));
+}
+document.addEventListener('ks-event', (e) => {
+  if (e.detail?.event !== 'alarms') return;
+  if (e.detail.data && typeof e.detail.data === 'object') paintAlarmBanner(e.detail.data);
+});
+
 function paintSnapshotTile() {
   const tile = $('#tileSnapshot');
   tile.classList.toggle('hidden', !settingOn('camera.enabled') || state.cameraPresent === false);
@@ -948,6 +1008,7 @@ export function overviewShown() {
   paintSnapshotTile();
   paintRestartDeviceTile();
   refreshDndTile();
+  refreshAlarmBanner();
   paintTaken();
   if (live && (!state.screenshotAt || Date.now() - state.screenshotAt > TICK_MS)) loadScreenshot();
 }
@@ -961,11 +1022,13 @@ export async function initOverview() {
   paintShotMode();
   paintShotBadge();
   paintSnapshotTile();
-  await Promise.all([refreshHealth(), refreshVolume(), paintRestartDeviceTile(), refreshDndTile(), readMetricHistory()]);
+  await Promise.all([refreshHealth(), refreshVolume(), paintRestartDeviceTile(), refreshDndTile(), refreshAlarmBanner(), readMetricHistory()]);
 }
 
 document.addEventListener('ks-settings-cached', () => {
   paintHealth({filter: false});
+  // A language change: the banner's words, from the status already held.
+  paintAlarmBanner(alarmState);
   paintShotMode();
   renderQuickControls();
 });

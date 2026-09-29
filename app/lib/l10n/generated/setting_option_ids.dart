@@ -297,6 +297,28 @@ const settingOptionMessageIds = <String, Map<String, String>>{
   },
   "voice.skin": {
     "default": "voiceVadDefault"
+  },
+  "alarms.snooze_minutes": {
+    "5": "alarmsOption5Minutes",
+    "10": "alarmsOption10Minutes",
+    "15": "alarmsOption15Minutes",
+    "20": "alarmsOption20Minutes",
+    "25": "alarmsOption25Minutes",
+    "30": "alarmsOption30Minutes"
+  },
+  "alarms.silence_after_minutes": {
+    "5": "alarmsOption5Minutes",
+    "10": "alarmsOption10Minutes",
+    "15": "alarmsOption15Minutes",
+    "20": "alarmsOption20Minutes",
+    "30": "alarmsOption30Minutes"
+  },
+  "alarms.sunrise_minutes": {
+    "10": "alarmsOption10Minutes",
+    "15": "alarmsOption15Minutes",
+    "20": "alarmsOption20Minutes",
+    "25": "alarmsOption25Minutes",
+    "30": "alarmsOption30Minutes"
   }
 };
 const settingPlaceholderMessageIds = <String, String>{

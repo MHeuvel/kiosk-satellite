@@ -25,6 +25,7 @@ import 'managers/notifications/notification_manager.dart';
 import 'managers/fleet/fleet_manager.dart';
 import 'managers/fleet/fleet_sync_manager.dart';
 import 'managers/intercom/intercom_manager.dart';
+import 'managers/alarms/alarm_manager.dart';
 import 'managers/analytics/analytics_manager.dart';
 import 'managers/location/location_manager.dart';
 import 'managers/person/person_sensor_manager.dart';
@@ -128,6 +129,7 @@ class AppContainer {
     fleet = FleetManager(bus, commands, log, settings);
     fleetSync = FleetSyncManager(bus, commands, log, settings);
     intercom = IntercomManager(bus, commands, log, settings);
+    alarms = AlarmManager(bus, commands, log, settings);
   }
 
   final bus = EventBus();
@@ -175,6 +177,7 @@ class AppContainer {
   late final FleetManager fleet;
   late final FleetSyncManager fleetSync;
   late final IntercomManager intercom;
+  late final AlarmManager alarms;
 
   /// Built after [device.init] so it can carry the app version.
   late final JsApiManager jsApi;
@@ -237,6 +240,9 @@ class AppContainer {
     // After fleet too: the roster is the switcher's list. After sound: it
     // chimes through it.
     intercom,
+    // Last: its first check can ring at once, and a ring reaches for the
+    // screen, the screensaver, the kiosk and the wake word's stop word.
+    alarms,
   ];
 
   Future<void> init() async {

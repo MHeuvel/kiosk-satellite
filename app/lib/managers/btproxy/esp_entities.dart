@@ -605,6 +605,8 @@ class EspEntitySurface {
       if (_rebootListed)
         button('restart_device', 'Restart device', 'mdi:power-cycle'),
       button('bring_to_front', 'Bring to front', 'mdi:flip-to-front'),
+      button('alarm_stop', 'Stop alarm', 'mdi:alarm-off'),
+      button('alarm_snooze', 'Snooze alarm', 'mdi:alarm-snooze'),
       if (_settings.get(defs.launcherEnabled))
         button('open_launcher', 'Open app launcher', 'mdi:apps'),
       // Only with a Music Assistant server address configured, exactly like
@@ -801,6 +803,22 @@ class EspEntitySurface {
         'objectId': 'next_alarm',
         'name': 'Next alarm',
         'icon': 'mdi:alarm',
+        'deviceClass': 'timestamp',
+      },
+      // The kiosk's own alarms: ringing, and until when a snooze holds one
+      // off. A morning routine is an automation on Alarm ringing turning
+      // off.
+      {
+        'type': 'binary_sensor',
+        'objectId': 'alarm_ringing',
+        'name': 'Alarm ringing',
+        'icon': 'mdi:alarm-bell',
+      },
+      {
+        'type': 'text_sensor',
+        'objectId': 'alarm_snoozed_until',
+        'name': 'Alarm snoozed until',
+        'icon': 'mdi:alarm-snooze',
         'deviceClass': 'timestamp',
       },
       // When the user last touched the screen or spoke to the device
@@ -1630,6 +1648,7 @@ class EspEntitySurface {
     );
     _subs.add(bus.on<UpdateStateChanged>().listen((_) => _sendUpdateState()));
     _subs.add(bus.on<NextAlarmChanged>().listen((_) => _sendNextAlarm()));
+    _subs.add(bus.on<AlarmStateChanged>().listen((e) => _sendAlarm(e.status)));
     _subs.add(
       bus.on<PowerChanged>().listen((e) => _send('charging', e.charging)),
     );
@@ -1869,6 +1888,10 @@ class EspEntitySurface {
         });
       case 'reload':
         await commands.execute('reload', const {});
+      case 'alarm_stop':
+        await commands.execute('alarmStop', const {'source': 'esphome'});
+      case 'alarm_snooze':
+        await commands.execute('alarmSnooze', const {'source': 'esphome'});
       case 'load_start_url':
         await commands.execute('loadStartUrl', const {});
       case 'clear_cache':
@@ -2105,6 +2128,10 @@ class EspEntitySurface {
     await _sendVolume();
     await _sendUpdateState();
     await _sendNextAlarm();
+    final alarm = await commands.execute('alarmsStatus', const {});
+    if (alarm.ok && alarm.data is Map) {
+      await _sendAlarm((alarm.data as Map).cast<String, Object?>());
+    }
     await _sendAdminUrl();
     await _sendLastLocation();
     await _sendPersonState();
@@ -2355,6 +2382,11 @@ class EspEntitySurface {
     final result = await commands.execute('getNextAlarm', const {});
     final data = result.ok ? result.data : null;
     await _send('next_alarm', data is Map ? '${data['at']}' : null);
+  }
+
+  Future<void> _sendAlarm(Map<String, Object?> status) async {
+    await _send('alarm_ringing', status['phase'] == 'ringing');
+    await _send('alarm_snoozed_until', status['snoozedUntil']);
   }
 
   Future<void> _sendAdminUrl() async {
