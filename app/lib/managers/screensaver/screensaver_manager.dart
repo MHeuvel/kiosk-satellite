@@ -794,7 +794,11 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
             if (phase == null) {
               if (alarmTakeover.value == null) return const CommandResult.ok();
               alarmTakeover.value = null;
-              if (_active) _armScreenOffTimer();
+              if (_active) {
+                _armScreenOffTimer();
+                // Back down to the screensaver's own level.
+                await _applyVisuals();
+              }
               return const CommandResult.ok();
             }
             return await _takeOverForAlarm(phase)
@@ -897,9 +901,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
             if (holder.isEmpty) {
               return const CommandResult.fail('holder is required');
             }
-            p['held'] == true
-                ? _holders.add(holder)
-                : _holders.remove(holder);
+            p['held'] == true ? _holders.add(holder) : _holders.remove(holder);
             _resetIdleTimer();
             return const CommandResult.ok();
           },
@@ -1335,8 +1337,9 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
       _panelDark = false;
       _blanked = false;
       await commands.execute('screenOn', const {});
-      await _applyVisuals();
     }
+    // A ring lifts the screensaver's own dimming back to normal.
+    await _applyVisuals();
     return true;
   }
 
@@ -1539,14 +1542,16 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     scheduleGlance.value = entry?['glance'] as bool?;
     _syncScreenOffTimer();
     // The voice overlay over the screensaver reads at the saved level,
-    // whatever the mode dims to.
-    final liftForVoice = _assistOverlay && _savedBrightness != null;
+    // whatever the mode dims to, and so does an alarm ringing on it: a
+    // screensaver at 0% must not ring in the dark.
+    final lift = _assistOverlay || alarmTakeover.value == 'ringing';
+    final liftForVoice = lift && _savedBrightness != null;
     if (_blanked) {
       await _ensureSavedBrightness();
       if (!_active || !_blanked) return;
       _setView('blank');
       await commands.execute('setBrightness', {
-        'level': _assistOverlay ? _savedBrightness : 0,
+        'level': lift ? _savedBrightness : 0,
         'ceiling': true,
       });
       return;
