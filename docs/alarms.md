@@ -91,6 +91,8 @@ The built-in **Home Assistant** conversation agent does not work for this. It on
 
 Then ask the kiosk: "wake me up at 6:30 on weekdays", "set an alarm called Gym for 7 tomorrow", "what alarms do I have?", "turn off the Gym alarm" or "delete my 6:30 alarm". The agent confirms what the kiosk did and when the alarm rings next.
 
+It works in any language your agent speaks, with no sentences to set up per language. Ask in Spanish, German, French, Ukrainian or anything else the same way, like "despiértame a las seis y media de lunes a viernes", and the agent answers in that language.
+
 The alarm goes to the kiosk you are talking to. A request typed into Home Assistant's own chat reaches no kiosk until it names one, as in "set an alarm on the bedroom kiosk", which matches the kiosk's device name or ESPHome name.
 
 The kiosk listens for the script over its own Home Assistant connection, so it needs the Home Assistant address and token under **Settings, Home Assistant**, and the token has to belong to an administrator. Nothing new appears in ESPHome.

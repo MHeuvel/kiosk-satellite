@@ -5,7 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Added
-- **Alarms can be set by voice.** A new Kiosk Satellite alarms script blueprint lets any LLM conversation agent set, list, delete and switch the kiosk's alarms, in any language the agent speaks. The alarm goes to the kiosk that heard the request, or to a kiosk named in it. Turning an alarm off keeps it in the list, and only asking to delete or remove one deletes it. The built-in Home Assistant agent cannot fill in the script, so this needs an LLM agent, which can still prefer handling other commands locally. The kiosk listens over its own Home Assistant connection, so no ESPHome entities are added and nothing needs the LLM Tools integration.
+- **Alarms can be set by voice.** A new Kiosk Satellite alarms script blueprint lets any LLM conversation agent set, list, delete and switch the kiosk's alarms, in any language the agent speaks, with no sentences to set up per language. The alarm goes to the kiosk that heard the request, or to a kiosk named in it. Turning an alarm off keeps it in the list, and only asking to delete or remove one deletes it. The built-in Home Assistant agent cannot fill in the script, so this needs an LLM agent, which can still prefer handling other commands locally. The kiosk listens over its own Home Assistant connection, so no ESPHome entities are added and nothing needs the LLM Tools integration.
 
 ## v2026.9.95 - 2026-09-29
 
