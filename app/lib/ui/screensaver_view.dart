@@ -657,16 +657,31 @@ class _Dismissable extends StatelessWidget {
   );
 }
 
-/// A timeout cover above widgets, timers and notifications.
+/// A timeout cover above widgets, timers and notifications. A voice turn
+/// draws over it: while the voice overlay is up the kiosk places the cover
+/// right under it instead ([underVoice]), so the turn shows on black.
 class ScreensaverBlankOverlay extends StatelessWidget {
-  const ScreensaverBlankOverlay({super.key, required this.container});
+  const ScreensaverBlankOverlay({
+    super.key,
+    required this.container,
+    this.underVoice = false,
+  });
 
   final AppContainer container;
 
+  /// This copy is the one under the voice overlay, shown only during a
+  /// turn; the other is shown only outside one.
+  final bool underVoice;
+
   @override
-  Widget build(BuildContext context) => ValueListenableBuilder<String?>(
-    valueListenable: container.screensaver.activeView,
-    builder: (context, view, _) => view == 'blank'
+  Widget build(BuildContext context) => ListenableBuilder(
+    listenable: Listenable.merge([
+      container.screensaver.activeView,
+      container.screensaver.renderPaused,
+    ]),
+    builder: (context, _) =>
+        container.screensaver.activeView.value == 'blank' &&
+            container.screensaver.renderPaused.value == underVoice
         ? Positioned.fill(
             child: _Dismissable(
               container: container,

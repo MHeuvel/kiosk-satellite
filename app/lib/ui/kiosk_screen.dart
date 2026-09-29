@@ -1642,6 +1642,10 @@ class _KioskScreenState extends State<KioskScreen>
                   // An announcement from Home Assistant: its own card, with
                   // the spoken text, in the same slot.
                   AnnouncementOverlay(container: c),
+                  // The black timeout cover while a voice turn shows: the
+                  // turn draws over it (issue #746). Outside a turn it
+                  // sits above everything below.
+                  ScreensaverBlankOverlay(container: c, underVoice: true),
                   // Native Voice Satellite: the assist overlay, in the same
                   // slot, over the screensaver and the camera views.
                   AssistOverlay(container: c),
