@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Changed
+- **Usage analytics cover alarms and the native satellite's settings.** Alarms report as counts (how many, switched on, repeating, sunrise) with the tone as built in or custom and the snooze, silence and sunrise picks. The native Voice Satellite adds its picks and switches: custom wake word model count, sensitivity, mute, noise gate, stop word, seamless wake, follow-up, finished speaking detection, whether a second assistant is set, whether answers play on the device or a speaker and how, wake sound, custom chime count, theme, reactive bar, the show command, answer and tools switches, timer pills and spoken timer names. Alarm times and labels, tone files, speaker entity ids and assistant names never leave the kiosk.
+
 ## v2026.9.92 - 2026-09-29
 
 ### Added
