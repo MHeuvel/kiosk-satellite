@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.95 - 2026-09-29
 
 ### Fixed
 - **A kiosk still set to run Voice Satellite from the dashboard switches to native once the integration is uninstalled.** Kiosks that had a satellite assigned when native Voice Satellite arrived kept the integration until migrated, and only the integration's migration could move them. With the integration removed from Home Assistant that way was gone, and the Voice Satellite page only offered to install it again (#753). When Home Assistant answers that the integration is not installed, the kiosk now switches to native Voice Satellite, which stays off until turned on.
