@@ -2,9 +2,10 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## v2026.9.92 - 2026-09-28
+## v2026.9.91 - 2026-09-28
 
 ### Added
+- **The followed player in Home Assistant.** A new **Expose ESPHome entities** switch on the Media Player page, off by default, adds Media play, Media pause, Media next and Media previous buttons and Media state, Media title, Media artist and Media source sensors to the kiosk's ESPHome device (#741). They act on whichever player the page follows, including the Local Media Session, whose source reads as the app that plays. They are buttons and sensors rather than a media player, since an ESPHome media player carries no track or skip and Music Assistant already lists the Sendspin player as one. The new `mediaPlayerState` remote API command returns the same state. Translated into Spanish, German, French and Ukrainian.
 - **An adjustable adaptive brightness curve.** The Adaptive brightness page replaces its Minimum brightness, Maximum brightness, Dark room and Bright room rows with a Brightness curve: a chart of screen brightness against the room's light with four points to drag, the live reading marked on it, and each point's values under the chart to tap for exact numbers (#742). The two middle points shape how the screen climbs between the ends, so a sensor that reads low in the evening can get its climb where its readings actually land. A smooth curve runs through all four and never dims the screen as the room gets brighter. Existing setups keep the straight line they had. The Screen light in Home Assistant still sets the top point and the middle points scale with it. The remote admin has the same editor, with arrow keys to nudge a focused point. Translated into Spanish, German, French and Ukrainian.
 
 ### Changed
@@ -13,11 +14,6 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Fixed
 - **Weather Mood no longer judders in windy scenes on fast devices.** The soft text shadows on the clock, the weather chips and At a Glance were redrawn with offscreen blurs on every frame, which on a Galaxy Tab S8 cost about 80% of a core and made frames miss their slot while the clouds moved. The shadowed text is now drawn once and reused until it changes, so the scenes run as smoothly as without shadows.
-
-## v2026.9.91 - 2026-09-28
-
-### Added
-- **The followed player in Home Assistant.** A new **Expose ESPHome entities** switch on the Media Player page, off by default, adds Media play, Media pause, Media next and Media previous buttons and Media state, Media title, Media artist and Media source sensors to the kiosk's ESPHome device (#741). They act on whichever player the page follows, including the Local Media Session, whose source reads as the app that plays. They are buttons and sensors rather than a media player, since an ESPHome media player carries no track or skip and Music Assistant already lists the Sendspin player as one. The new `mediaPlayerState` remote API command returns the same state. Translated into Spanish, German, French and Ukrainian.
 
 ## v2026.9.90 - 2026-09-28
 
