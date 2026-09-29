@@ -78,7 +78,7 @@ The screensaver waits while the alarm list is open, so it never cuts off an alar
 
 ## Setting alarms by voice
 
-Home Assistant has no alarm intent, so voice alarms go through an LLM conversation agent (OpenAI, Google Gemini, Anthropic, Ollama or any other agent that can control Home Assistant). The agent understands the request in any language it speaks and calls a script that Kiosk Satellite ships as a blueprint.
+Home Assistant has no alarm intent, so voice alarms go through an LLM conversation agent (Qwen, Gemma, Gemini, Claude, OpenAI or any other agent that can control Home Assistant). The agent understands the request in any language it speaks and calls a script that Kiosk Satellite ships as a blueprint.
 
 The built-in **Home Assistant** conversation agent does not work for this. It only matches sentences against Home Assistant's own intents and cannot fill in the script's time, days or label. An LLM agent with **Prefer handling commands locally** turned on works fine: Home Assistant still handles lights, timers and the rest itself and passes alarm requests on to the LLM.
 
