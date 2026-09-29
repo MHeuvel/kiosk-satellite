@@ -547,8 +547,8 @@ class _AlarmRow extends StatelessWidget {
         ],
       ],
     );
-    final when = Row(
-      mainAxisSize: compact ? MainAxisSize.max : MainAxisSize.min,
+    Widget when(bool stacked) => Row(
+      mainAxisSize: stacked ? MainAxisSize.max : MainAxisSize.min,
       children: [
         if (snoozed != null || alarm.sunrise) ...[
           Icon(
@@ -585,11 +585,13 @@ class _AlarmRow extends StatelessWidget {
         ),
       ],
     );
-    // On a tablet the day line sits in the middle of the row, between the
-    // time and the switch: the two sides take the same width so it lands
-    // on the row's center whatever the time reads. A phone has no room
-    // beside the time and keeps it underneath.
-    const side = 260.0;
+    // With room across the row (a tablet, a phone on its side) the day line
+    // sits in the middle, between the time and the switch: the two sides
+    // take the same width so it lands on the row's center whatever the
+    // time reads. The row's own width decides, not the screen's height: a
+    // phone in landscape is short but wide. A narrow row (a phone upright)
+    // keeps it under the time.
+    final side = compact ? 220.0 : 260.0;
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -599,34 +601,39 @@ class _AlarmRow extends StatelessWidget {
               ? null
               : Border(bottom: BorderSide(color: scheme.outlineVariant)),
         ),
-        child: compact
-            ? Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [time, const SizedBox(height: 4), when],
+        child: LayoutBuilder(
+          builder: (context, constraints) => constraints.maxWidth < 600
+              ? Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [time, const SizedBox(height: 4), when(true)],
+                      ),
                     ),
-                  ),
-                  controls,
-                ],
-              )
-            : Row(
-                children: [
-                  SizedBox(
-                    width: side,
-                    child: Align(alignment: Alignment.centerLeft, child: time),
-                  ),
-                  Expanded(child: Center(child: when)),
-                  SizedBox(
-                    width: side,
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: controls,
+                    controls,
+                  ],
+                )
+              : Row(
+                  children: [
+                    SizedBox(
+                      width: side,
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: time,
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                    Expanded(child: Center(child: when(false))),
+                    SizedBox(
+                      width: side,
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: controls,
+                      ),
+                    ),
+                  ],
+                ),
+        ),
       ),
     );
   }
