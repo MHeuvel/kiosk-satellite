@@ -1406,6 +1406,9 @@ class UiStringsEs extends UiStrings {
       'la clave, salvo que se sincronice como credencial';
 
   @override
+  String get fleetTheAlarmsThemselves => 'las propias alarmas';
+
+  @override
   String get fleetNameRemoteAdministrationRendererWorkaroundsScale =>
       'el nombre, la administración remota, los ajustes de compatibilidad del renderizador y la escala';
 

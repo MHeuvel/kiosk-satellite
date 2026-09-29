@@ -8454,6 +8454,9 @@ const alarmsList = SettingDef<String>(
   description: 'Every alarm set on this kiosk.',
   category: 'Alarms',
   hidden: true,
+  // A bedroom's wake up alarm is not the kitchen's: the defaults travel
+  // with the Alarms category, the alarms themselves never do.
+  perDevice: true,
   validator: validateAlarmsList,
 );
 
@@ -8467,6 +8470,7 @@ const alarmsRuntime = SettingDef<String>(
   description: 'Rings and snoozes in progress.',
   category: 'Alarms',
   hidden: true,
+  perDevice: true,
 );
 
 /// The Alarms entry in the kiosk menu. The restricted menu also needs
@@ -8614,6 +8618,7 @@ const fleetSyncCategories = <(String, String, String)>[
   ('Launcher', 'App Launcher', ''),
   ('Gestures', 'Gestures', ''),
   ('Intercom', 'Intercom', 'the key, unless synced as a credential'),
+  ('Alarms', 'Alarms', 'the alarms themselves'),
   (
     'Device',
     'Device',

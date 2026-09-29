@@ -387,6 +387,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'fleetThePinIsAlsoSynced' => strings.fleetThePinIsAlsoSynced,
       'fleetTheKeyUnlessSyncedAsACredential' =>
         strings.fleetTheKeyUnlessSyncedAsACredential,
+      'fleetTheAlarmsThemselves' => strings.fleetTheAlarmsThemselves,
       'fleetNameRemoteAdministrationRendererWorkaroundsScale' =>
         strings.fleetNameRemoteAdministrationRendererWorkaroundsScale,
       'fleetHomeAssistantToken' => strings.fleetHomeAssistantToken,

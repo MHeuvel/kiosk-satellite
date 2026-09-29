@@ -162,5 +162,6 @@ const fleetTextMessageIds = <String, String>{
   "That address did not return a valid kiosk identity.": "fleetErrorInvalidIdentity",
   "This kiosk already belongs to this fleet.": "fleetErrorAlreadyMember",
   "That kiosk leads a fleet.": "fleetErrorIsLeader",
-  "That kiosk already follows another leader.": "fleetErrorOtherLeader"
+  "That kiosk already follows another leader.": "fleetErrorOtherLeader",
+  "the alarms themselves": "fleetTheAlarmsThemselves"
 };

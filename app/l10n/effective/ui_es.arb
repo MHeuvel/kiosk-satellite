@@ -4940,6 +4940,19 @@
       ]
     }
   },
+  "fleetTheAlarmsThemselves": "las propias alarmas",
+  "@fleetTheAlarmsThemselves": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "What stays on each kiosk in the Alarms category.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
   "fleetNameRemoteAdministrationRendererWorkaroundsScale": "el nombre, la administración remota, los ajustes de compatibilidad del renderizador y la escala",
   "@fleetNameRemoteAdministrationRendererWorkaroundsScale": {
     "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",

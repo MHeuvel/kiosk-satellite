@@ -1397,6 +1397,9 @@ class UiStringsUk extends UiStrings {
       'ключ, якщо він не синхронізується як облікові дані';
 
   @override
+  String get fleetTheAlarmsThemselves => 'самі будильники';
+
+  @override
   String get fleetNameRemoteAdministrationRendererWorkaroundsScale =>
       'ім\'я, віддалене керування, виправлення рендерера, масштаб';
 

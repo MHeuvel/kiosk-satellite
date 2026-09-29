@@ -16,6 +16,7 @@
   "fleetNodeNameMacEncryptionKey": "der Knotenname, die MAC-Adresse und der Verschlüsselungsschlüssel",
   "fleetThePinIsAlsoSynced": "die PIN wird ebenfalls synchronisiert",
   "fleetTheKeyUnlessSyncedAsACredential": "der Schlüssel, sofern er nicht als Anmeldedaten synchronisiert wird",
+  "fleetTheAlarmsThemselves": "die Wecker selbst",
   "fleetNameRemoteAdministrationRendererWorkaroundsScale": "der Name, die Fernverwaltung, Renderer-Kompatibilitätseinstellungen und die Skalierung",
   "fleetHomeAssistantToken": "Home-Assistant-Token",
   "fleetMusicAssistantToken": "Music-Assistant-Token",

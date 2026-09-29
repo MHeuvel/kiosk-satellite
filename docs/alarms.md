@@ -57,7 +57,7 @@ On a Clock or Weather Mood screensaver that lets alarms take over, the screensav
 
 The screensaver waits while the alarm list is open, so it never cuts off an alarm being set.
 
-Alarms are kept per kiosk. [Fleet Management](fleet.md) does not copy them to other kiosks.
+[Fleet Management](fleet.md) syncs these defaults, Show in the kiosk menu included, under its Alarms category. The alarms themselves stay on each kiosk.
 
 ## Next alarm widget
 

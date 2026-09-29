@@ -1415,6 +1415,9 @@ class UiStringsDe extends UiStrings {
       'der Schlüssel, sofern er nicht als Anmeldedaten synchronisiert wird';
 
   @override
+  String get fleetTheAlarmsThemselves => 'die Wecker selbst';
+
+  @override
   String get fleetNameRemoteAdministrationRendererWorkaroundsScale =>
       'der Name, die Fernverwaltung, Renderer-Kompatibilitätseinstellungen und die Skalierung';
 

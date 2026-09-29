@@ -2516,6 +2516,12 @@ abstract class UiStrings {
   /// **'the key, unless synced as a credential'**
   String get fleetTheKeyUnlessSyncedAsACredential;
 
+  /// What stays on each kiosk in the Alarms category.
+  ///
+  /// In en, this message translates to:
+  /// **'the alarms themselves'**
+  String get fleetTheAlarmsThemselves;
+
   /// Visible label, help or status in this section.
   ///
   /// In en, this message translates to:

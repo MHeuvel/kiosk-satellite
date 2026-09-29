@@ -16,6 +16,7 @@
   "fleetNodeNameMacEncryptionKey": "el nombre del nodo, la MAC y la clave de cifrado",
   "fleetThePinIsAlsoSynced": "el PIN también se sincroniza",
   "fleetTheKeyUnlessSyncedAsACredential": "la clave, salvo que se sincronice como credencial",
+  "fleetTheAlarmsThemselves": "las propias alarmas",
   "fleetNameRemoteAdministrationRendererWorkaroundsScale": "el nombre, la administración remota, los ajustes de compatibilidad del renderizador y la escala",
   "fleetHomeAssistantToken": "Token de Home Assistant",
   "fleetMusicAssistantToken": "Token de Music Assistant",
