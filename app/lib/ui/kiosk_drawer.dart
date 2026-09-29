@@ -280,10 +280,12 @@ class KioskDrawer extends StatelessWidget {
                                     },
                                   ),
                               // The kiosk's own alarms: the full screen
-                              // list. Kiosk Mode's Allowed Actions gates
-                              // it in the restricted menu.
-                              if (!restricted ||
-                                  c.settings.get(defs.kioskAllowAlarms))
+                              // list, unless Show in the kiosk menu is off.
+                              // Kiosk Mode's Allowed Actions gates it in the
+                              // restricted menu.
+                              if (c.settings.get(defs.alarmsMenu) &&
+                                  (!restricted ||
+                                      c.settings.get(defs.kioskAllowAlarms)))
                                 _item(
                                   divided: sep(),
                                   context,

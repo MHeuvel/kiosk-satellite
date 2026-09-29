@@ -3721,6 +3721,13 @@ class UiStringsFr extends UiStrings {
       'Une alarme qui sonne s\'affiche sur cet économiseur d\'écran, dans son style, au lieu de son propre écran.';
 
   @override
+  String get settingAlarmsMenuTitle => 'Afficher dans le menu du kiosque';
+
+  @override
+  String get settingAlarmsMenuDescription =>
+      'Ajoute une entrée Alarmes au menu du kiosque.';
+
+  @override
   String get settingAlarmsVolumeTitle => 'Volume des alarmes';
 
   @override

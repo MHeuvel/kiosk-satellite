@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "879efbe2154759d82e9d5446f08c35bf4fddd085",
+  "revision": "de144bf0eaf96b5aec1e87e46eba5ae1474e34ff",
   "workingTree": true,
   "files": {
     "about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
@@ -65,7 +65,7 @@
     "remote_overview_screen_en.arb": "8a3fd605d0d74a4cedf1ad25e63d7e9edbf7aef47e0fd1603aee7ec50356d8a6",
     "remote_overview_views_en.arb": "deaa735cf85667db613813c4cb18d6f9ceb93b609dccfc507092321338ac1c39",
     "screensaver_playback_notices_en.arb": "f523a3bc4ccafa2ae5f7765ecfd623a32ebd30a75c59add860b2e606c26ba7a1",
-    "settings_alarms_en.arb": "eeee68e59c818dc17cdd790ef9224706825609fa4bb74d4adf3ffe6ec9f08217",
+    "settings_alarms_en.arb": "67f47833f480924a1b492768f277ef5111c55c4b6cb41aa267a715b75229bcb3",
     "settings_app_launcher_en.arb": "bcfe4add767f2ac32d1abb99b4ff9fa035b2f48d30563630276ceba84aae1350",
     "settings_app_launcher_permissions_en.arb": "0be89fecc325751499b4709455ed64da9906b6678816c0eee73c71fc0243604d",
     "settings_camera_general_en.arb": "00d87524bed1865548e20f1740717ca8f698dc4d0831b0b1ab535ccff5a81bab",

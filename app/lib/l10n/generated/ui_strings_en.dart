@@ -3667,6 +3667,13 @@ class UiStringsEn extends UiStrings {
       'A ringing alarm shows on this screensaver, in its style, instead of on its own screen.';
 
   @override
+  String get settingAlarmsMenuTitle => 'Show in the kiosk menu';
+
+  @override
+  String get settingAlarmsMenuDescription =>
+      'Add an Alarms entry to the kiosk menu.';
+
+  @override
   String get settingAlarmsVolumeTitle => 'Alarm volume';
 
   @override

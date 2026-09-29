@@ -1732,4 +1732,8 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingAlarmsSunriseMinutesTitle",
     "description": "settingAlarmsSunriseMinutesDescription",
   },
+  "alarms.menu": {
+    "title": "settingAlarmsMenuTitle",
+    "description": "settingAlarmsMenuDescription",
+  },
 };

@@ -43,6 +43,7 @@ On a Clock or Weather Mood screensaver that lets alarms take over, the screensav
 
 | Setting | What it does |
 | --- | --- |
+| Show in the kiosk menu | Adds the Alarms entry to the kiosk menu. On by default. |
 | Manage alarms | Opens the alarm list. Shows when the next alarm rings. |
 | Alarm volume | How loud alarms ring. It sets the Android alarm volume while an alarm rings and puts it back after, apart from the media and assistant volumes. |
 | Alarm tone | The tone an alarm set to Default plays: the built-in alarm or a sound from the sounds folder. **Add a sound** copies a file into the folder, the same way the notification and announcement sounds work. |
@@ -50,7 +51,9 @@ On a Clock or Weather Mood screensaver that lets alarms take over, the screensav
 | Silence after | How long an alarm rings when nobody stops it, 5 to 30 minutes. |
 | Sunrise length | How long the screen takes to brighten before a sunrise alarm, 10 to 30 minutes. |
 
-The cog on the alarm list opens this page too. **Alarms** under **Kiosk Mode, Allowed Actions** decides whether the restricted kiosk menu offers the list.
+**Alarms** under **Kiosk Mode, Allowed Actions** decides whether the restricted kiosk menu offers the list too.
+
+The screensaver waits while the alarm list is open, so it never cuts off an alarm being set.
 
 Alarms are kept per kiosk. [Fleet Management](fleet.md) does not copy them to other kiosks.
 

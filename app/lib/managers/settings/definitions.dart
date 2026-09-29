@@ -8469,6 +8469,17 @@ const alarmsRuntime = SettingDef<String>(
   hidden: true,
 );
 
+/// The Alarms entry in the kiosk menu. The restricted menu also needs
+/// Alarms under Kiosk Mode's Allowed Actions.
+const alarmsMenu = SettingDef<bool>(
+  key: 'alarms.menu',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Show in the kiosk menu',
+  description: 'Add an Alarms entry to the kiosk menu.',
+  category: 'Alarms',
+);
+
 /// The alarm stream is set to this share of its range while an alarm
 /// rings, apart from the media and assistant volumes.
 const alarmsVolume = SettingDef<num>(
@@ -9711,6 +9722,7 @@ const List<SettingDef<Object>> allSettings = [
   intercomTls,
   alarmsList,
   alarmsRuntime,
+  alarmsMenu,
   alarmsVolume,
   alarmsTone,
   alarmsSnoozeMinutes,

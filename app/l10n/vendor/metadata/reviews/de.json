@@ -22126,5 +22126,17 @@
     "translation": "14b70096fe0c20ed972bc23a9a762bdce5e118d2f355e8c4b1edf7592f4a647c",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "settingAlarmsMenuTitle": {
+    "source": "f2386997c57d91682352a846890ed139e5e0de7e8fa5c22ce0c18f18763b7b6d",
+    "translation": "3214e2ee6de24849bd795a6ca6bf020a89fe6b135ed486290152db467f4c1f59",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingAlarmsMenuDescription": {
+    "source": "f6f61972377f26227d65988d4ef1119e1eec28777c1b20cebce7da213f351802",
+    "translation": "5b8843336fc23efe6a99835221f70559f8c93d077495da94523b1f5dc53aedee",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

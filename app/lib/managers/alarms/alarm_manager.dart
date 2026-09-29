@@ -181,6 +181,9 @@ class AlarmManager extends Manager {
       return null;
     });
     _registerCommands();
+    // Setting an alarm is not idle time: the screensaver waits while the
+    // list is up.
+    visible.addListener(_syncHold);
     _subs
       ..add(
         bus.on<SettingChanged>().listen((e) {
@@ -237,6 +240,19 @@ class AlarmManager extends Manager {
     visible.dispose();
     alarms.dispose();
     status.dispose();
+  }
+
+  bool _listHeld = false;
+
+  void _syncHold() {
+    if (visible.value == _listHeld) return;
+    _listHeld = visible.value;
+    unawaited(
+      commands.execute('holdScreensaver', {
+        'holder': 'alarms',
+        'held': _listHeld,
+      }),
+    );
   }
 
   // ── The list ──────────────────────────────────────────────────────────

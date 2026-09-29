@@ -10,7 +10,6 @@ import '../managers/alarms/alarm_model.dart';
 import '../managers/notifications/notification_sounds.dart';
 import '../managers/settings/definitions.dart' as defs;
 import 'kit.dart';
-import 'settings_screen.dart' show CategorySettingsScreen;
 import 'theme.dart';
 import 'toast.dart';
 
@@ -45,6 +44,27 @@ bool _compact(BuildContext context) {
 
 bool _use24h(BuildContext context) =>
     MediaQuery.alwaysUse24HourFormatOf(context);
+
+/// The alarm screens' buttons: bigger than the app's settings buttons, for
+/// a wall panel read and tapped from a step away.
+ButtonStyle alarmButtonStyle(BuildContext context) {
+  final compact = _compact(context);
+  return ButtonStyle(
+    minimumSize: WidgetStatePropertyAll(
+      Size(compact ? 112 : 140, compact ? 52 : 60),
+    ),
+    padding: WidgetStatePropertyAll(
+      EdgeInsets.symmetric(horizontal: compact ? 24 : 32),
+    ),
+    textStyle: WidgetStatePropertyAll(
+      TextStyle(
+        fontFamily: Ks.displayFont,
+        fontSize: compact ? 16 : 18,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
+  );
+}
 
 /// The time as the list and the details draw it: the digits, and the AM or
 /// PM beside them in a smaller size (empty in a 24 hour locale).
@@ -231,21 +251,6 @@ class _AlarmsScreenState extends State<_AlarmsScreen> {
     _dirty = true;
   });
 
-  Future<void> _openSettings() async {
-    await c.commands.execute('pauseScreensaver', {'paused': true});
-    if (!mounted) return;
-    await Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) => CategorySettingsScreen(
-          container: c,
-          title: l10n(context).settingsMenuAlarms,
-          category: 'Alarms',
-        ),
-      ),
-    );
-    await c.commands.execute('pauseScreensaver', {'paused': false});
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -315,24 +320,12 @@ class _AlarmsScreenState extends State<_AlarmsScreen> {
                   Positioned(
                     top: 8,
                     right: 8,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.settings_outlined),
-                          tooltip: s.settingsMenuAlarms,
-                          iconSize: 26,
-                          color: theme.colorScheme.onSurfaceVariant,
-                          onPressed: _openSettings,
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.close),
-                          tooltip: s.commonClose,
-                          iconSize: 28,
-                          color: theme.colorScheme.onSurfaceVariant,
-                          onPressed: _close,
-                        ),
-                      ],
+                    child: IconButton(
+                      icon: const Icon(Icons.close),
+                      tooltip: s.commonClose,
+                      iconSize: 28,
+                      color: theme.colorScheme.onSurfaceVariant,
+                      onPressed: _close,
                     ),
                   ),
               ],
@@ -368,15 +361,7 @@ class _ListStep extends StatelessWidget {
       onPressed: onNew,
       icon: const Icon(Icons.add),
       label: Text(s.alarmsSetAnAlarm),
-      style: FilledButton.styleFrom(
-        minimumSize: Size(0, compact ? 48 : 56),
-        padding: EdgeInsets.symmetric(horizontal: compact ? 22 : 28),
-        textStyle: TextStyle(
-          fontFamily: Ks.displayFont,
-          fontSize: compact ? 15.5 : 17,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
+      style: alarmButtonStyle(context),
     );
     return ValueListenableBuilder<List<Alarm>>(
       valueListenable: container.alarms.alarms,
@@ -420,33 +405,20 @@ class _ListStep extends StatelessWidget {
                         child: ListView(
                           padding: EdgeInsets.fromLTRB(gutter, 0, gutter, 16),
                           children: [
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: ConstrainedBox(
-                                constraints: const BoxConstraints(
-                                  maxWidth: 760,
-                                ),
-                                child: Column(
-                                  children: [
-                                    for (var i = 0; i < list.length; i++)
-                                      _AlarmRow(
-                                        container: container,
-                                        alarm: list[i],
-                                        now: now,
-                                        compact: compact,
-                                        last: i == list.length - 1,
-                                        snoozedUntil:
-                                            status.phase ==
-                                                    AlarmPhase.snoozed &&
-                                                status.ids.contains(list[i].id)
-                                            ? status.snoozedUntil
-                                            : null,
-                                        onTap: () => onOpen(list[i]),
-                                      ),
-                                  ],
-                                ),
+                            for (var i = 0; i < list.length; i++)
+                              _AlarmRow(
+                                container: container,
+                                alarm: list[i],
+                                now: now,
+                                compact: compact,
+                                last: i == list.length - 1,
+                                snoozedUntil:
+                                    status.phase == AlarmPhase.snoozed &&
+                                        status.ids.contains(list[i].id)
+                                    ? status.snoozedUntil
+                                    : null,
+                                onTap: () => onOpen(list[i]),
                               ),
-                            ),
                           ],
                         ),
                       ),
@@ -506,83 +478,109 @@ class _AlarmRow extends StatelessWidget {
           ].join(' · ');
     final subColor = snoozed != null ? scheme.primary : scheme.onSurfaceVariant;
     final subSize = compact ? 15.0 : 17.0;
+    final time = Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
+      children: [
+        Text(
+          digits,
+          style: TextStyle(
+            fontSize: compact ? 40 : 52,
+            height: 1,
+            color: timeColor,
+            fontFeatures: const [FontFeature.tabularFigures()],
+          ),
+        ),
+        if (suffix.isNotEmpty) ...[
+          const SizedBox(width: 6),
+          Text(
+            suffix,
+            style: TextStyle(fontSize: compact ? 18 : 22, color: timeColor),
+          ),
+        ],
+      ],
+    );
+    final when = Row(
+      mainAxisSize: compact ? MainAxisSize.max : MainAxisSize.min,
+      children: [
+        if (snoozed != null || alarm.sunrise) ...[
+          Icon(
+            snoozed != null ? Icons.snooze : Icons.wb_twilight,
+            size: subSize + 2,
+            color: subColor,
+          ),
+          const SizedBox(width: 8),
+        ],
+        Flexible(
+          child: Text(
+            sub,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(fontSize: subSize, color: subColor),
+          ),
+        ),
+      ],
+    );
+    final controls = Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (snoozed != null) ...[
+          OutlinedButton(
+            style: alarmButtonStyle(context),
+            onPressed: () => container.alarms.stop(source: 'list'),
+            child: Text(s.alarmsStop),
+          ),
+          const SizedBox(width: 16),
+        ],
+        Switch(
+          value: alarm.on,
+          onChanged: (on) => container.alarms.setEnabled(alarm.id, on),
+        ),
+      ],
+    );
+    // On a tablet the day line sits in the middle of the row, between the
+    // time and the switch: the two sides take the same width so it lands
+    // on the row's center whatever the time reads. A phone has no room
+    // beside the time and keeps it underneath.
+    const side = 260.0;
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: compact ? 14 : 18),
+        padding: EdgeInsets.symmetric(vertical: compact ? 14 : 22),
         decoration: BoxDecoration(
           border: last
               ? null
               : Border(bottom: BorderSide(color: scheme.outlineVariant)),
         ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        child: compact
+            ? Row(
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.baseline,
-                    textBaseline: TextBaseline.alphabetic,
-                    children: [
-                      Text(
-                        digits,
-                        style: TextStyle(
-                          fontSize: compact ? 40 : 52,
-                          height: 1,
-                          color: timeColor,
-                          fontFeatures: const [FontFeature.tabularFigures()],
-                        ),
-                      ),
-                      if (suffix.isNotEmpty) ...[
-                        const SizedBox(width: 6),
-                        Text(
-                          suffix,
-                          style: TextStyle(
-                            fontSize: compact ? 18 : 22,
-                            color: timeColor,
-                          ),
-                        ),
-                      ],
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [time, const SizedBox(height: 4), when],
+                    ),
                   ),
-                  const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      if (snoozed != null || alarm.sunrise) ...[
-                        Icon(
-                          snoozed != null ? Icons.snooze : Icons.wb_twilight,
-                          size: subSize + 2,
-                          color: subColor,
-                        ),
-                        const SizedBox(width: 8),
-                      ],
-                      Flexible(
-                        child: Text(
-                          sub,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontSize: subSize, color: subColor),
-                        ),
-                      ),
-                    ],
+                  controls,
+                ],
+              )
+            : Row(
+                children: [
+                  SizedBox(
+                    width: side,
+                    child: Align(alignment: Alignment.centerLeft, child: time),
+                  ),
+                  Expanded(child: Center(child: when)),
+                  SizedBox(
+                    width: side,
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: controls,
+                    ),
                   ),
                 ],
               ),
-            ),
-            if (snoozed != null) ...[
-              OutlinedButton(
-                onPressed: () => container.alarms.stop(source: 'list'),
-                child: Text(s.alarmsStop),
-              ),
-              const SizedBox(width: 12),
-            ],
-            Switch(
-              value: alarm.on,
-              onChanged: (on) => container.alarms.setEnabled(alarm.id, on),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -824,9 +822,17 @@ class _WheelStep extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              TextButton(onPressed: onCancel, child: Text(s.commonCancel)),
+              TextButton(
+                style: alarmButtonStyle(context),
+                onPressed: onCancel,
+                child: Text(s.commonCancel),
+              ),
               const SizedBox(width: 12),
-              FilledButton(onPressed: onSet, child: Text(s.commonSet)),
+              FilledButton(
+                style: alarmButtonStyle(context),
+                onPressed: onSet,
+                child: Text(s.commonSet),
+              ),
             ],
           ),
         ),
@@ -1000,11 +1006,17 @@ class _DetailsStep extends StatelessWidget {
             children: [
               TextButton(
                 onPressed: onDelete,
-                style: TextButton.styleFrom(foregroundColor: scheme.error),
+                style: TextButton.styleFrom(
+                  foregroundColor: scheme.error,
+                ).merge(alarmButtonStyle(context)),
                 child: Text(s.commonDelete),
               ),
               const Spacer(),
-              FilledButton(onPressed: onDone, child: Text(s.alarmsDone)),
+              FilledButton(
+                style: alarmButtonStyle(context),
+                onPressed: onDone,
+                child: Text(s.alarmsDone),
+              ),
             ],
           ),
         ),
@@ -1164,10 +1176,12 @@ Future<String?> _showLabelDialog(BuildContext context, String current) {
       ),
       actions: [
         TextButton(
+          style: alarmButtonStyle(context),
           onPressed: () => Navigator.of(context).pop(),
           child: Text(s.commonCancel),
         ),
         FilledButton(
+          style: alarmButtonStyle(context),
           onPressed: () => Navigator.of(context).pop(controller.text),
           child: Text(s.commonSave),
         ),
@@ -1287,10 +1301,12 @@ class _TonePickerState extends State<_TonePicker> {
       ),
       actions: [
         TextButton(
+          style: alarmButtonStyle(context),
           onPressed: () => Navigator.of(context).pop(),
           child: Text(s.commonCancel),
         ),
         FilledButton(
+          style: alarmButtonStyle(context),
           onPressed: () => Navigator.of(context).pop(_pick),
           child: Text(s.commonOk),
         ),

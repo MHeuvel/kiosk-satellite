@@ -13422,6 +13422,32 @@
       ]
     }
   },
+  "settingAlarmsMenuTitle": "Показувати в меню кіоска",
+  "@settingAlarmsMenuTitle": {
+    "context": "Settings > Alarms",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Show in the kiosk menu"
+      ],
+      "remoteAdmin": [
+        "Alarms > Show in the kiosk menu"
+      ]
+    }
+  },
+  "settingAlarmsMenuDescription": "Додати пункт «Будильники» до меню кіоска.",
+  "@settingAlarmsMenuDescription": {
+    "context": "Settings > Alarms",
+    "description": "Setting description.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Show in the kiosk menu"
+      ],
+      "remoteAdmin": [
+        "Alarms > Show in the kiosk menu"
+      ]
+    }
+  },
   "settingAlarmsVolumeTitle": "Гучність будильника",
   "@settingAlarmsVolumeTitle": {
     "context": "Settings > Alarms",

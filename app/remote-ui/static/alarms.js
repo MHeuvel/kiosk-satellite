@@ -348,9 +348,12 @@ function decorateRows(tab) {
   }
 }
 
-// The built cards go after the fleet banner when a leader pushes this
+// The built cards go under the untitled Show in the kiosk menu card, the
+// device's order, or after the fleet banner when a leader pushes this
 // category, so the banner keeps the top of the tab.
 function putTop(tab, nodes) {
+  const menu = tab.querySelector('[data-key="alarms.menu"]')?.closest('.card');
+  if (menu) { menu.after(...nodes); return; }
   const banners = tab.querySelectorAll(':scope > .fleet-banner');
   const after = banners.length ? banners[banners.length - 1] : null;
   if (after) after.after(...nodes); else tab.prepend(...nodes);
@@ -369,6 +372,9 @@ export async function renderAlarmsPage({ fetch = true } = {}) {
     putTop(tab, [h]);
     return;
   }
+  const heading = document.createElement('h2');
+  heading.className = 'card-title alarms-built';
+  heading.textContent = t('alarmsTitle');
   const card = document.createElement('div');
   card.className = 'card alarms-built';
   const alarms = status.alarms || [];
@@ -385,7 +391,7 @@ export async function renderAlarmsPage({ fetch = true } = {}) {
   const set = button(t('alarmsSetAnAlarm'), 'btn-primary', () => openEditor(null));
   set.insertAdjacentHTML('afterbegin', PLUS_ICON);
   add.appendChild(set);
-  putTop(tab, [card, add]);
+  putTop(tab, [heading, card, add]);
 }
 
 /* ---- lifecycle ---- */

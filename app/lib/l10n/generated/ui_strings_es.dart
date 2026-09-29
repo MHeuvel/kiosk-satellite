@@ -3722,6 +3722,13 @@ class UiStringsEs extends UiStrings {
       'Una alarma que suena se muestra en este protector de pantalla, con su estilo, en lugar de en su propia pantalla.';
 
   @override
+  String get settingAlarmsMenuTitle => 'Mostrar en el menú del kiosko';
+
+  @override
+  String get settingAlarmsMenuDescription =>
+      'Añade la opción Alarmas al menú del kiosko.';
+
+  @override
   String get settingAlarmsVolumeTitle => 'Volumen de alarma';
 
   @override

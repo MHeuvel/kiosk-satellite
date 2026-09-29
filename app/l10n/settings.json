@@ -1730,5 +1730,9 @@
   "alarms.sunrise_minutes": {
     "title": "settingAlarmsSunriseMinutesTitle",
     "description": "settingAlarmsSunriseMinutesDescription"
+  },
+  "alarms.menu": {
+    "title": "settingAlarmsMenuTitle",
+    "description": "settingAlarmsMenuDescription"
   }
 }

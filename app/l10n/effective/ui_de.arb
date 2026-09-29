@@ -13422,6 +13422,32 @@
       ]
     }
   },
+  "settingAlarmsMenuTitle": "Im Kiosk-Menü anzeigen",
+  "@settingAlarmsMenuTitle": {
+    "context": "Settings > Alarms",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Show in the kiosk menu"
+      ],
+      "remoteAdmin": [
+        "Alarms > Show in the kiosk menu"
+      ]
+    }
+  },
+  "settingAlarmsMenuDescription": "Fügt dem Kiosk-Menü den Eintrag „Wecker“ hinzu.",
+  "@settingAlarmsMenuDescription": {
+    "context": "Settings > Alarms",
+    "description": "Setting description.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Show in the kiosk menu"
+      ],
+      "remoteAdmin": [
+        "Alarms > Show in the kiosk menu"
+      ]
+    }
+  },
   "settingAlarmsVolumeTitle": "Weckerlautstärke",
   "@settingAlarmsVolumeTitle": {
     "context": "Settings > Alarms",

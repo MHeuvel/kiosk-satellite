@@ -2295,12 +2295,27 @@ class _CategoryContentState extends State<_CategoryContent> {
             ),
           )
         else if (widget.category == 'Alarms') ...[
-          // The list itself is the full screen overlay; this page opens it
-          // and holds the defaults. Mirrored on the remote's Alarms page.
+          // Show in the kiosk menu on its own untitled card, then the list
+          // itself (the full screen overlay, opened from here), then the
+          // defaults. Mirrored on the remote's Alarms page.
+          ..._sectionedCards(
+            container,
+            [
+              for (final def in _inlineDefsFor('Alarms'))
+                if (def.section == null) def,
+            ],
+            () => setState(() {}),
+            replace: _rowReplacements(container),
+            after: _rowExtras(container),
+          ),
+          SectionHeading(l10n(context).alarmsTitle),
           AlarmsManageCard(container: container),
           ..._sectionedCards(
             container,
-            _inlineDefsFor('Alarms'),
+            [
+              for (final def in _inlineDefsFor('Alarms'))
+                if (def.section != null) def,
+            ],
             () => setState(() {}),
             replace: _rowReplacements(container),
             after: _rowExtras(container),

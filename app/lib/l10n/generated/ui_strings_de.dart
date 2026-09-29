@@ -3752,6 +3752,13 @@ class UiStringsDe extends UiStrings {
       'Ein klingelnder Wecker erscheint in seinem Stil auf diesem Bildschirmschoner statt auf einem eigenen Bildschirm.';
 
   @override
+  String get settingAlarmsMenuTitle => 'Im Kiosk-Menü anzeigen';
+
+  @override
+  String get settingAlarmsMenuDescription =>
+      'Fügt dem Kiosk-Menü den Eintrag „Wecker“ hinzu.';
+
+  @override
   String get settingAlarmsVolumeTitle => 'Weckerlautstärke';
 
   @override

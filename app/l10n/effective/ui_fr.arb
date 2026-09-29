@@ -13422,6 +13422,32 @@
       ]
     }
   },
+  "settingAlarmsMenuTitle": "Afficher dans le menu du kiosque",
+  "@settingAlarmsMenuTitle": {
+    "context": "Settings > Alarms",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Show in the kiosk menu"
+      ],
+      "remoteAdmin": [
+        "Alarms > Show in the kiosk menu"
+      ]
+    }
+  },
+  "settingAlarmsMenuDescription": "Ajoute une entrée Alarmes au menu du kiosque.",
+  "@settingAlarmsMenuDescription": {
+    "context": "Settings > Alarms",
+    "description": "Setting description.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Show in the kiosk menu"
+      ],
+      "remoteAdmin": [
+        "Alarms > Show in the kiosk menu"
+      ]
+    }
+  },
   "settingAlarmsVolumeTitle": "Volume des alarmes",
   "@settingAlarmsVolumeTitle": {
     "context": "Settings > Alarms",

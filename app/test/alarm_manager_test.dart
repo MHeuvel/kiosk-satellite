@@ -50,6 +50,7 @@ void main() {
       'alarmBrightness',
       'setStopWordArmed',
       'alarmTakeover',
+      'holdScreensaver',
     ]) {
       commands.register(
         Command(
@@ -287,6 +288,21 @@ void main() {
     expect(s.phase, AlarmPhase.snoozed);
     expect(s.snoozedUntil, DateTime(2026, 10, 2, 7, 10));
   });
+
+  test(
+    'the open list holds the screensaver and lets go when it closes',
+    () async {
+      now = DateTime(2026, 10, 2, 9);
+      await build(const []);
+      alarms.visible.value = true;
+      alarms.visible.value = false;
+      await pumpEventQueue();
+      expect(named('holdScreensaver'), [
+        '{"holder":"alarms","held":true}',
+        '{"holder":"alarms","held":false}',
+      ]);
+    },
+  );
 
   test('deleting a ringing alarm stops it', () async {
     now = DateTime(2026, 10, 2, 7, 0, 5);

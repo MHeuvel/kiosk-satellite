@@ -3696,6 +3696,13 @@ class UiStringsUk extends UiStrings {
       'Будильник, що дзвонить, з\'являється на цій заставці в її стилі, а не на окремому екрані.';
 
   @override
+  String get settingAlarmsMenuTitle => 'Показувати в меню кіоска';
+
+  @override
+  String get settingAlarmsMenuDescription =>
+      'Додати пункт «Будильники» до меню кіоска.';
+
+  @override
   String get settingAlarmsVolumeTitle => 'Гучність будильника';
 
   @override

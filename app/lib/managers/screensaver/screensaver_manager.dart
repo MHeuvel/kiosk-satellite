@@ -883,6 +883,30 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
       )
       ..register(
         Command(
+          name: 'holdScreensaver',
+          description:
+              'Keep the screensaver from starting on its idle timer while a '
+              'screen is up, by holder name. Releasing restarts the '
+              'countdown.',
+          params: const {
+            'holder': 'who holds it',
+            'held': 'true to hold, false to let go',
+          },
+          handler: (p) async {
+            final holder = '${p['holder'] ?? ''}';
+            if (holder.isEmpty) {
+              return const CommandResult.fail('holder is required');
+            }
+            p['held'] == true
+                ? _holders.add(holder)
+                : _holders.remove(holder);
+            _resetIdleTimer();
+            return const CommandResult.ok();
+          },
+        ),
+      )
+      ..register(
+        Command(
           name: 'isScreensaverActive',
           description: 'Whether the screensaver is showing right now',
           quiet: true,
@@ -1059,8 +1083,15 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     _resetIdleTimer();
   }
 
+  /// Screens that keep the screensaver away while they are up, by name
+  /// (the alarm list while an alarm is being set). Only the idle clock
+  /// stands still: unlike an interaction hold, music, the wake word and
+  /// the dashboard rotation carry on.
+  final _holders = <String>{};
+
   void _resetIdleTimer() {
     _idleTimer?.cancel();
+    if (_holders.isNotEmpty) return _setIdleDue(null);
     if (_cameraViewActive || _assistOverlay || _behindAnotherApp) {
       return _setIdleDue(null);
     }

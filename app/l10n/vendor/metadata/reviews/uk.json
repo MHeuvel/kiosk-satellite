@@ -21981,5 +21981,17 @@
     "translation": "d597a5b1764d5b2fd800ac425dbb8802fdbd3678b9b05d44c5720a852eb71def",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "settingAlarmsMenuTitle": {
+    "source": "f2386997c57d91682352a846890ed139e5e0de7e8fa5c22ce0c18f18763b7b6d",
+    "translation": "1c1d22c082881f46d1ea7ae6616e2202abd240cdf88590976ccadebb0f2b611e",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingAlarmsMenuDescription": {
+    "source": "f6f61972377f26227d65988d4ef1119e1eec28777c1b20cebce7da213f351802",
+    "translation": "0a6cd5b21156be878352f32f05120df818df7a66ee084a510e02b223e1ae31c1",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

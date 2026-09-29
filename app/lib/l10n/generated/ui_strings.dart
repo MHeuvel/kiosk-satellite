@@ -6432,6 +6432,18 @@ abstract class UiStrings {
   /// Setting label.
   ///
   /// In en, this message translates to:
+  /// **'Show in the kiosk menu'**
+  String get settingAlarmsMenuTitle;
+
+  /// Setting description.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an Alarms entry to the kiosk menu.'**
+  String get settingAlarmsMenuDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
   /// **'Alarm volume'**
   String get settingAlarmsVolumeTitle;
 

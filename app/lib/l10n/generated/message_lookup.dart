@@ -977,6 +977,8 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingScreensaverWeatherAlarmTakeoverTitle,
       'settingScreensaverWeatherAlarmTakeoverDescription' =>
         strings.settingScreensaverWeatherAlarmTakeoverDescription,
+      'settingAlarmsMenuTitle' => strings.settingAlarmsMenuTitle,
+      'settingAlarmsMenuDescription' => strings.settingAlarmsMenuDescription,
       'settingAlarmsVolumeTitle' => strings.settingAlarmsVolumeTitle,
       'settingAlarmsVolumeDescription' =>
         strings.settingAlarmsVolumeDescription,

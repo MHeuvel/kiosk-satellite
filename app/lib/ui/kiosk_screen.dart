@@ -317,7 +317,8 @@ class _KioskScreenState extends State<KioskScreen>
         (c.settings.get(defs.kioskAllowLockdown) &&
             c.settings.get(defs.lockdownMenu)) ||
         (c.settings.get(defs.kioskAllowApps) && hasApps) ||
-        c.settings.get(defs.kioskAllowAlarms);
+        (c.settings.get(defs.kioskAllowAlarms) &&
+            c.settings.get(defs.alarmsMenu));
   }
 
   /// Pull-to-refresh as the user experiences it: the Web Browsing toggle,
@@ -589,6 +590,7 @@ class _KioskScreenState extends State<KioskScreen>
         e.key == defs.intercomMenu.key ||
         e.key == defs.kioskAllowIntercom.key ||
         e.key == defs.kioskAllowAlarms.key ||
+        e.key == defs.alarmsMenu.key ||
         e.key == defs.remoteEnabled.key ||
         e.key == defs.remoteFleetDiscovery.key) {
       setState(() {});
