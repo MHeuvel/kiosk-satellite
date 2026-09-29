@@ -222,6 +222,25 @@ class UiStringsFr extends UiStrings {
   }
 
   @override
+  String get alarmsEaseIn => 'Augmenter le volume progressivement';
+
+  @override
+  String alarmsEaseHint(String seconds) {
+    return 'Atteint le volume de l\'alarme en $seconds secondes.';
+  }
+
+  @override
+  String get alarmsSpeak => 'Parler pendant la sonnerie';
+
+  @override
+  String get alarmsPhrase => 'Phrase';
+
+  @override
+  String alarmsPhraseHint(String label, String time, String day) {
+    return '$label, $time et $day sont remplacés par le libellé, l\'heure et le jour de l\'alarme.';
+  }
+
+  @override
   String get androidAccessibilityHelp =>
       'Ferme le panneau de notifications et l\'écran des applications récentes chaque fois qu\'ils s\'ouvrent tant que le mode Kiosque ou le mode Verrouillage protège l\'écran. Kiosk Satellite ne lit aucun contenu d\'écran.';
 
@@ -3793,6 +3812,27 @@ class UiStringsFr extends UiStrings {
   @override
   String get settingsMenuAlarmsSummary =>
       'Alarmes, sonnerie, report, lever du soleil';
+
+  @override
+  String get settingAlarmsEaseInTitle => 'Augmenter le volume progressivement';
+
+  @override
+  String get settingAlarmsEaseInDescription =>
+      'Commencer doucement et monter jusqu\'au volume de l\'alarme.';
+
+  @override
+  String get settingAlarmsEaseInSecondsTitle => 'Durée de la montée';
+
+  @override
+  String get settingAlarmsEaseInSecondsDescription =>
+      'Le temps que met une alarme pour atteindre son plein volume.';
+
+  @override
+  String get settingAlarmsTtsEngineTitle => 'Moteur de synthèse vocale';
+
+  @override
+  String get settingAlarmsTtsEngineDescription =>
+      'L\'entité de synthèse vocale de Home Assistant qui prononce les alarmes.';
 
   @override
   String get settingLauncherEnabledTitle =>

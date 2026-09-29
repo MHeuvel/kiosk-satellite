@@ -809,6 +809,88 @@
       }
     }
   },
+  "alarmsEaseIn": "Subir el volumen poco a poco",
+  "@alarmsEaseIn": {
+    "context": "Alarm details",
+    "description": "Switch that starts the alarm quiet and grows it to the alarm volume.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    }
+  },
+  "alarmsEaseHint": "Llega al volumen de la alarma en {seconds} segundos.",
+  "@alarmsEaseHint": {
+    "context": "Remote admin alarms",
+    "description": "Description of the Ease in the volume switch. {seconds} is a number.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    },
+    "placeholders": {
+      "seconds": {
+        "type": "String",
+        "description": "A whole number of seconds."
+      }
+    }
+  },
+  "alarmsSpeak": "Hablar al sonar",
+  "@alarmsSpeak": {
+    "context": "Alarm details",
+    "description": "Switch that has Home Assistant speak a phrase between the rings of the alarm tone.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    }
+  },
+  "alarmsPhrase": "Frase",
+  "@alarmsPhrase": {
+    "context": "Alarm details",
+    "description": "The words spoken between the rings. Opens a text box.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    }
+  },
+  "alarmsPhraseHint": "{label}, {time} y {day} se sustituyen por la etiqueta, la hora y el día de la alarma.",
+  "@alarmsPhraseHint": {
+    "context": "Alarm details",
+    "description": "Hint under the phrase text box. The three placeholders are shown to the user literally, in braces, and must not be translated.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    },
+    "placeholders": {
+      "label": {
+        "type": "String",
+        "description": "The literal text {label}."
+      },
+      "time": {
+        "type": "String",
+        "description": "The literal text {time}."
+      },
+      "day": {
+        "type": "String",
+        "description": "The literal text {day}."
+      }
+    }
+  },
   "androidAccessibilityHelp": "Cierra el panel de notificaciones y la pantalla de aplicaciones recientes cuando se abren mientras el modo kiosko o el modo de bloqueo protege la pantalla. Kiosk Satellite no lee el contenido de la pantalla.",
   "@androidAccessibilityHelp": {
     "context": "Android Settings > Accessibility > Kiosk Satellite",
@@ -13708,6 +13790,84 @@
     "x-locations": {
       "device": [
         "Settings"
+      ]
+    }
+  },
+  "settingAlarmsEaseInTitle": "Subir el volumen poco a poco",
+  "@settingAlarmsEaseInTitle": {
+    "context": "Settings > Alarms",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Ease in the volume"
+      ],
+      "remoteAdmin": [
+        "Alarms > Ease in the volume"
+      ]
+    }
+  },
+  "settingAlarmsEaseInDescription": "Empieza bajo y sube hasta el volumen de la alarma.",
+  "@settingAlarmsEaseInDescription": {
+    "context": "Settings > Alarms",
+    "description": "Setting description.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Ease in the volume"
+      ],
+      "remoteAdmin": [
+        "Alarms > Ease in the volume"
+      ]
+    }
+  },
+  "settingAlarmsEaseInSecondsTitle": "Subir durante",
+  "@settingAlarmsEaseInSecondsTitle": {
+    "context": "Settings > Alarms",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Ease in over"
+      ],
+      "remoteAdmin": [
+        "Alarms > Ease in over"
+      ]
+    }
+  },
+  "settingAlarmsEaseInSecondsDescription": "Cuánto tarda una alarma en llegar a su volumen completo.",
+  "@settingAlarmsEaseInSecondsDescription": {
+    "context": "Settings > Alarms",
+    "description": "Setting description.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Ease in over"
+      ],
+      "remoteAdmin": [
+        "Alarms > Ease in over"
+      ]
+    }
+  },
+  "settingAlarmsTtsEngineTitle": "Motor de texto a voz",
+  "@settingAlarmsTtsEngineTitle": {
+    "context": "Settings > Alarms",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Text to speech engine"
+      ],
+      "remoteAdmin": [
+        "Alarms > Text to speech engine"
+      ]
+    }
+  },
+  "settingAlarmsTtsEngineDescription": "La entidad de texto a voz de Home Assistant que lee las alarmas.",
+  "@settingAlarmsTtsEngineDescription": {
+    "context": "Settings > Alarms",
+    "description": "Setting description.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Text to speech engine"
+      ],
+      "remoteAdmin": [
+        "Alarms > Text to speech engine"
       ]
     }
   },

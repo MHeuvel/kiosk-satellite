@@ -16,6 +16,9 @@ Open the list from **Alarms** in the kiosk menu, from **Manage alarms** under **
 | Label | A name shown in the list and on the ringing screen. |
 | Alarm tone | **Default** follows the Alarm tone setting. **Built-in alarm** is the sound bundled with the app. Any sound in the sounds folder works too. Picking a tone plays it once at the alarm volume. |
 | Sunrise | The screen brightens gradually before the alarm rings. See [Sunrise](#sunrise). |
+| Ease in the volume | The tone starts quiet and grows to the alarm volume over the **Ease in over** time. An alarm follows the default switch until you flip its own. |
+| Speak when it rings | Home Assistant speaks a phrase between the rings. See [Spoken phrase](#spoken-phrase). |
+| Phrase | Shows while Speak when it rings is on. It starts as the default phrase, and an alarm left on it follows later changes to the default. |
 
 Tap the time on the details page to change it. The switch in the list turns an alarm on or off without opening it.
 
@@ -41,6 +44,12 @@ A sunrise alarm starts before its time, as long as **Sunrise length** says. On t
 
 On a Clock or Weather Mood screensaver that lets alarms take over, the screensaver shows through the sunrise and only the brightness climbs. A touch that dismisses the screensaver ends the sunrise, and the alarm still rings at its time.
 
+## Spoken phrase
+
+An alarm with **Speak when it rings** on plays its tone twice, says its phrase, then plays the tone twice again, the way a timer speaks. `{label}`, `{time}` and `{day}` in the phrase become the alarm's label, its time and the day of the week, in the kiosk's language. The default is `It's {time}. {label}`. An alarm without a label drops the placeholder and the punctuation around it, so the default says "It's 7:00 AM."
+
+Home Assistant makes the speech with the **Text to speech engine** setting, the same way announcements are spoken, so the kiosk needs its Home Assistant address and token. The tone rings from the first second either way. When Home Assistant is slow or out of reach, the alarm rings without the words.
+
 ## Settings, Alarms
 
 | Setting | What it does |
@@ -48,10 +57,14 @@ On a Clock or Weather Mood screensaver that lets alarms take over, the screensav
 | Show in the kiosk menu | Adds the Alarms entry to the kiosk menu. On by default. |
 | Manage alarms | Opens the alarm list. Shows when the next alarm rings. |
 | Alarm volume | How loud alarms ring. It sets the Android alarm volume while an alarm rings and puts it back after, apart from the media and assistant volumes. |
+| Ease in the volume | The default for new alarms and alarms that never chose: start quiet and grow to the alarm volume. Off by default. |
+| Ease in over | How long the volume takes to grow, 5 to 120 seconds. Shows while Ease in the volume is on and applies to every alarm that eases in. |
 | Alarm tone | The tone an alarm set to Default plays: the built-in alarm or a sound from the sounds folder. **Add a sound** copies a file into the folder, the same way the notification and announcement sounds work. |
 | Snooze length | 5 to 30 minutes. |
 | Silence after | How long an alarm rings when nobody stops it, 5 to 30 minutes. |
 | Sunrise length | How long the screen takes to brighten before a sunrise alarm, 10 to 30 minutes. |
+| Text to speech engine | The Home Assistant text to speech entity that speaks alarms. **First available** takes the first one Home Assistant has. |
+| Phrase | The default phrase for alarms that speak. |
 
 **Alarms** under **Kiosk Mode, Allowed Actions** decides whether the restricted kiosk menu offers the list too.
 
@@ -65,7 +78,7 @@ The screensaver waits while the alarm list is open, so it never cuts off an alar
 
 ## Remote admin
 
-The **Alarms** page lists every alarm with a switch, an edit button and a delete button. **Set an alarm** and the edit button open one dialog with the time, repeat days, label, tone and sunrise. The same defaults as the device follow the list, including an **Upload** button for sounds from your computer. While an alarm rings, sits in its sunrise or is snoozed, the Overview shows a banner with Snooze and Stop.
+The **Alarms** page lists every alarm with a switch, an edit button and a delete button. **Set an alarm** and the edit button open one dialog with the time, repeat days, label, tone, sunrise, ease in, the speak switch and the phrase. The same defaults as the device follow the list, including an **Upload** button for sounds from your computer. While an alarm rings, sits in its sunrise or is snoozed, the Overview shows a banner with Snooze and Stop.
 
 ## Home Assistant
 

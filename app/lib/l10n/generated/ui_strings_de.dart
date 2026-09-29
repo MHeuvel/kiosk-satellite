@@ -223,6 +223,25 @@ class UiStringsDe extends UiStrings {
   }
 
   @override
+  String get alarmsEaseIn => 'Lautstärke langsam steigern';
+
+  @override
+  String alarmsEaseHint(String seconds) {
+    return 'Erreicht die Weckerlautstärke in $seconds Sekunden.';
+  }
+
+  @override
+  String get alarmsSpeak => 'Beim Klingeln sprechen';
+
+  @override
+  String get alarmsPhrase => 'Satz';
+
+  @override
+  String alarmsPhraseHint(String label, String time, String day) {
+    return '$label, $time und $day werden durch Bezeichnung, Uhrzeit und Tag des Weckers ersetzt.';
+  }
+
+  @override
   String get androidAccessibilityHelp =>
       'Schließt das Benachrichtigungsfeld und den Bildschirm der zuletzt verwendeten Apps, wenn diese geöffnet werden, während der Kioskmodus oder der Sperrmodus den Bildschirm schützt. Kiosk Satellite liest den Inhalt des Bildschirms nicht.';
 
@@ -3825,6 +3844,27 @@ class UiStringsDe extends UiStrings {
   @override
   String get settingsMenuAlarmsSummary =>
       'Wecker, Weckton, Schlummern, Sonnenaufgang';
+
+  @override
+  String get settingAlarmsEaseInTitle => 'Lautstärke langsam steigern';
+
+  @override
+  String get settingAlarmsEaseInDescription =>
+      'Leise beginnen und bis zur Weckerlautstärke steigern.';
+
+  @override
+  String get settingAlarmsEaseInSecondsTitle => 'Steigern über';
+
+  @override
+  String get settingAlarmsEaseInSecondsDescription =>
+      'Wie lange ein Wecker braucht, bis er seine volle Lautstärke erreicht.';
+
+  @override
+  String get settingAlarmsTtsEngineTitle => 'Text-zu-Sprache-Engine';
+
+  @override
+  String get settingAlarmsTtsEngineDescription =>
+      'Die Text-zu-Sprache-Entität von Home Assistant, die die Wecker vorliest.';
 
   @override
   String get settingLauncherEnabledTitle => 'App-Launcher aktivieren';

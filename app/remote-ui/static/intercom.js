@@ -298,14 +298,13 @@ document.addEventListener('ks-event', (e) => {
   renderIntercomPage({ fetch: false });
 });
 
-/* ---- the Announcements page under ESPHome ----
-   Its text to speech engine: a box with the picked entity's name that
-   opens the list of every tts entity Home Assistant has, First available
-   on top. Mirrors the device row. The chime sound select rides the same
-   helper as the notification sound. */
-export function decorateAnnouncementsPage() {
-  const ttsRow = document.querySelector('[data-key="announcements.tts_engine"]');
-  const ttsDef = byKey('announcements.tts_engine');
+/* ---- text to speech engine rows ----
+   A box with the picked entity's name that opens the list of every tts
+   entity Home Assistant has, First available on top. Mirrors the device
+   row. Announcements and Alarms each have one. */
+export function attachTtsPicker(key) {
+  const ttsRow = document.querySelector(`[data-key="${key}"]`);
+  const ttsDef = byKey(key);
   if (ttsRow && ttsDef && !ttsRow.querySelector('.tts-pick')) {
     ttsRow.querySelector('input')?.remove();
     const box = document.createElement('button');
@@ -362,16 +361,23 @@ export function decorateAnnouncementsPage() {
       if (picked === null) return;
       const res = await api('/api/settings', {
         method: 'PATCH',
-        body: JSON.stringify({ 'announcements.tts_engine': picked }),
+        body: JSON.stringify({ [key]: picked }),
       });
       if (!res.ok) { showToast({ title: esphomeText('Not saved'), kind: 'error' }); return; }
-      const currentDef = byKey('announcements.tts_engine') || ttsDef;
+      const currentDef = byKey(key) || ttsDef;
       currentDef.value = picked;
-      const currentBox = document.querySelector('[data-key="announcements.tts_engine"] .tts-pick') || box;
+      const currentBox = document.querySelector(`[data-key="${key}"] .tts-pick`) || box;
       currentBox.textContent = engines.find((e) => e.entity_id === picked)?.name || picked || esphomeText('First available');
     });
     ttsRow.appendChild(box);
   }
+}
+
+/* ---- the Announcements page under ESPHome ----
+   Its text to speech engine, and the chime sound select riding the same
+   helper as the notification sound. */
+export function decorateAnnouncementsPage() {
+  attachTtsPicker('announcements.tts_engine');
 
   const chimeRow = document.querySelector('[data-key="announcements.chime_file"]');
   const chimeDef = byKey('announcements.chime_file');

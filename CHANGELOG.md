@@ -4,6 +4,13 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ## Unreleased
 
+### Added
+- **Alarms can ease in their volume.** A new **Ease in the volume** switch under **Settings, Alarms, Defaults** starts the tone quiet and grows it to the alarm volume over **Ease in over**, 5 to 120 seconds. Each alarm has its own switch on its details page, which follows the default until it is flipped.
+- **Alarms can speak when they ring (#750).** Turn on **Speak when it rings** on an alarm and Home Assistant says a phrase between every second pass of the tone, the way timers speak. The Defaults group picks the **Text to speech engine**, as Announcements does, and the default **Phrase**, `It's {time}. {label}`. Each alarm can say its own phrase, with `{label}`, `{time}` and `{day}` filled in, and a blank label leaves no stray punctuation. The tone rings from the first second either way, so a slow or unreachable Home Assistant only costs the words. The remote admin's alarm dialog has the same switches and phrase. Translated into Spanish, German, French and Ukrainian.
+
+### Fixed
+- **An alarm dialog no longer outlives the alarm screens.** When the remote admin, Home Assistant, the screensaver or a ring closed the alarm list, an open Label, Phrase or Alarm tone dialog stayed on screen by itself. It now closes with them.
+
 ### Changed
 - **The README lists Alarms.** A new Alarms entry follows Intercom, the Kiosk setup docs line links the Alarms guide and the guide now opens with a plain description of its screens.
 - **Usage analytics cover alarms and the native satellite's settings.** Alarms report as counts (how many, switched on, repeating, sunrise) with the tone as built in or custom and the snooze, silence and sunrise picks. The native Voice Satellite adds its picks and switches: custom wake word model count, sensitivity, mute, noise gate, stop word, seamless wake, follow-up, finished speaking detection, whether a second assistant is set, whether answers play on the device or a speaker and how, wake sound, custom chime count, theme, reactive bar, the show command, answer and tools switches, timer pills and spoken timer names. Alarm times and labels, tone files, speaker entity ids and assistant names never leave the kiosk.

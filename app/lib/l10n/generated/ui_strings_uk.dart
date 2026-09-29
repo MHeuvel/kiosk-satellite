@@ -222,6 +222,25 @@ class UiStringsUk extends UiStrings {
   }
 
   @override
+  String get alarmsEaseIn => 'Поступово збільшувати гучність';
+
+  @override
+  String alarmsEaseHint(String seconds) {
+    return 'Досягає гучності будильника за $seconds с.';
+  }
+
+  @override
+  String get alarmsSpeak => 'Говорити під час сигналу';
+
+  @override
+  String get alarmsPhrase => 'Фраза';
+
+  @override
+  String alarmsPhraseHint(String label, String time, String day) {
+    return '$label, $time і $day замінюються на мітку, час і день будильника.';
+  }
+
+  @override
   String get androidAccessibilityHelp =>
       'Закриває панель сповіщень та екран нещодавніх програм щоразу, коли вони відкриваються, доки режим кіоска або захищений режим блокує екран. Kiosk Satellite не зчитує вміст екрана.';
 
@@ -3769,6 +3788,27 @@ class UiStringsUk extends UiStrings {
   @override
   String get settingsMenuAlarmsSummary =>
       'Будильники, мелодія, відкладення, світанок';
+
+  @override
+  String get settingAlarmsEaseInTitle => 'Поступово збільшувати гучність';
+
+  @override
+  String get settingAlarmsEaseInDescription =>
+      'Починати тихо й збільшувати до гучності будильника.';
+
+  @override
+  String get settingAlarmsEaseInSecondsTitle => 'Тривалість наростання';
+
+  @override
+  String get settingAlarmsEaseInSecondsDescription =>
+      'Скільки часу будильник набирає повну гучність.';
+
+  @override
+  String get settingAlarmsTtsEngineTitle => 'Рушій синтезу мовлення';
+
+  @override
+  String get settingAlarmsTtsEngineDescription =>
+      'Сутність синтезу мовлення Home Assistant, яка озвучує будильники.';
 
   @override
   String get settingLauncherEnabledTitle => 'Увімкнути запуск застосунків';

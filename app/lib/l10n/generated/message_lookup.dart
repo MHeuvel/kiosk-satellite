@@ -54,6 +54,9 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'alarmsSnoozed' => strings.alarmsSnoozed,
       'alarmsSunriseRunning' => strings.alarmsSunriseRunning,
       'alarmsDeleteFailed' => strings.alarmsDeleteFailed,
+      'alarmsEaseIn' => strings.alarmsEaseIn,
+      'alarmsSpeak' => strings.alarmsSpeak,
+      'alarmsPhrase' => strings.alarmsPhrase,
       'androidAccessibilityHelp' => strings.androidAccessibilityHelp,
       'androidServiceChannelHelp' => strings.androidServiceChannelHelp,
       'androidServiceListening' => strings.androidServiceListening,
@@ -1005,6 +1008,16 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'alarmsOption30Minutes' => strings.alarmsOption30Minutes,
       'settingsMenuAlarms' => strings.settingsMenuAlarms,
       'settingsMenuAlarmsSummary' => strings.settingsMenuAlarmsSummary,
+      'settingAlarmsEaseInTitle' => strings.settingAlarmsEaseInTitle,
+      'settingAlarmsEaseInDescription' =>
+        strings.settingAlarmsEaseInDescription,
+      'settingAlarmsEaseInSecondsTitle' =>
+        strings.settingAlarmsEaseInSecondsTitle,
+      'settingAlarmsEaseInSecondsDescription' =>
+        strings.settingAlarmsEaseInSecondsDescription,
+      'settingAlarmsTtsEngineTitle' => strings.settingAlarmsTtsEngineTitle,
+      'settingAlarmsTtsEngineDescription' =>
+        strings.settingAlarmsTtsEngineDescription,
       'settingLauncherEnabledTitle' => strings.settingLauncherEnabledTitle,
       'settingLauncherEnabledDescription' =>
         strings.settingLauncherEnabledDescription,

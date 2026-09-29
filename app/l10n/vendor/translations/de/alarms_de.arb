@@ -40,5 +40,10 @@
   "alarmsSunriseRunning": "Sonnenaufgang vor einem Wecker",
   "alarmsSunriseHint": "Der Bildschirm wird {minutes} Minuten lang heller, bevor er klingelt.",
   "alarmsDeleteFailed": "Der Wecker konnte nicht gelöscht werden.",
-  "alarmsDuplicate": "Es gibt bereits einen Wecker um {time}"
+  "alarmsDuplicate": "Es gibt bereits einen Wecker um {time}",
+  "alarmsEaseIn": "Lautstärke langsam steigern",
+  "alarmsEaseHint": "Erreicht die Weckerlautstärke in {seconds} Sekunden.",
+  "alarmsSpeak": "Beim Klingeln sprechen",
+  "alarmsPhrase": "Satz",
+  "alarmsPhraseHint": "{label}, {time} und {day} werden durch Bezeichnung, Uhrzeit und Tag des Weckers ersetzt."
 }

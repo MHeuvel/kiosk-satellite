@@ -1,6 +1,7 @@
 import { messageLanguage, overviewText, t } from './localization.js';
 import { cmd, state } from './core.js';
 import { cameraAction, cameraListRow, cameraToggle } from './cameras.js';
+import { attachTtsPicker } from './intercom.js';
 import { attachSoundSelect, attachSoundUpload } from './settings.js';
 import { hintRow, modalShell, showToast, timeBox } from './widgets.js';
 
@@ -171,7 +172,7 @@ async function deleteAlarm(alarm) {
 
 /* ---- the editor ----
    Set an alarm and Edit alarm, one dialog: the time, the repeat days, the
-   label, the tone and the sunrise. Picking a tone plays it on the kiosk
+   label, the tone, the sunrise, the ease in and the phrase. Picking a tone plays it on the kiosk
    at the alarm volume, as the device's picker does, and closing stops it. */
 function openEditor(existing) {
   const edit = !!existing;
@@ -256,8 +257,37 @@ function openEditor(existing) {
   const sunrise = cameraToggle(t('alarmsSunrise'), existing?.sunrise === true,
     t('alarmsSunriseHint', { minutes }));
 
+  // Shows what the alarm does now. An alarm that never chose follows the
+  // default switch, and keeps following it until this switch is touched.
+  const seconds = Number(byKey('alarms.ease_in_seconds')?.value) || 30;
+  const easeDefault = byKey('alarms.ease_in')?.value === true;
+  let easeTouched = typeof existing?.ease === 'boolean';
+  const ease = cameraToggle(t('alarmsEaseIn'),
+    typeof existing?.ease === 'boolean' ? existing.ease : easeDefault,
+    t('alarmsEaseHint', { seconds }));
+  ease.input.addEventListener('change', () => { easeTouched = true; });
+
+  const speak = cameraToggle(t('alarmsSpeak'), existing?.speak === true);
+  // The default phrase stands in until it is changed, and an unchanged
+  // default is saved as empty so it keeps following the setting.
+  const fallbackPhrase = `${byKey('alarms.phrase')?.value ?? ''}`;
+  const phrase = document.createElement('input');
+  phrase.type = 'text';
+  phrase.className = 'field';
+  phrase.maxLength = 200;
+  phrase.value = existing?.phrase || fallbackPhrase;
+  const phraseField = field(t('alarmsPhrase'), phrase);
+  const phraseHint = document.createElement('span');
+  phraseHint.className = 'desc';
+  phraseHint.textContent = t('alarmsPhraseHint', { label: '{label}', time: '{time}', day: '{day}' });
+  phraseField.appendChild(phraseHint);
+  const showPhrase = () => { phraseField.style.display = speak.input.checked ? '' : 'none'; };
+  speak.input.addEventListener('change', showPhrase);
+  showPhrase();
+
   form.append(field(t('alarmsTime'), time.el), field(t('alarmsRepeat'), discs),
-    field(t('alarmsLabel'), label), field(t('alarmsTone'), tone), sunrise.wrap);
+    field(t('alarmsLabel'), label), field(t('alarmsTone'), tone), sunrise.wrap,
+    ease.wrap, speak.wrap, phraseField);
   shell.body.appendChild(form);
 
   // The refusal stays in view under the form, above the fixed actions.
@@ -275,9 +305,12 @@ function openEditor(existing) {
       label: label.value.trim(),
       tone: tone.value,
       sunrise: sunrise.input.checked,
+      speak: speak.input.checked,
+      phrase: phrase.value.trim() === fallbackPhrase.trim() ? '' : phrase.value.trim(),
       // A new alarm is set to ring. An edit keeps whatever it was.
       on: edit ? existing.on !== false : true,
     };
+    if (easeTouched) alarm.ease = ease.input.checked;
     if (edit) alarm.id = existing.id;
     const out = await run('alarmSave', { alarm });
     if (!out.ok) {
@@ -340,9 +373,11 @@ function alarmRow(alarm) {
 }
 
 // The Alarm tone row as a dropdown over the sounds folder with the Add a
-// sound row under it, the Announcements chime's pair. Done once per render
-// of the definition rows and left alone on a list redraw.
+// sound row under it, the Announcements chime's pair, and the text to
+// speech engine as Announcements picks it. Done once per render of the
+// definition rows and left alone on a list redraw.
 function decorateRows(tab) {
+  attachTtsPicker('alarms.tts_engine');
   const toneRow = tab.querySelector('[data-key="alarms.tone"]');
   const toneDef = byKey('alarms.tone');
   if (toneRow && toneDef && !toneRow.querySelector('select')) {

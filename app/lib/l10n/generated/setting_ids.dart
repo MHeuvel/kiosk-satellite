@@ -1716,6 +1716,14 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingAlarmsVolumeTitle",
     "description": "settingAlarmsVolumeDescription",
   },
+  "alarms.ease_in": {
+    "title": "settingAlarmsEaseInTitle",
+    "description": "settingAlarmsEaseInDescription",
+  },
+  "alarms.ease_in_seconds": {
+    "title": "settingAlarmsEaseInSecondsTitle",
+    "description": "settingAlarmsEaseInSecondsDescription",
+  },
   "alarms.tone": {
     "title": "settingAlarmsToneTitle",
     "description": "settingAlarmsToneDescription",
@@ -1731,6 +1739,10 @@ const settingMessageIds = <String, Map<String, String>>{
   "alarms.sunrise_minutes": {
     "title": "settingAlarmsSunriseMinutesTitle",
     "description": "settingAlarmsSunriseMinutesDescription",
+  },
+  "alarms.tts_engine": {
+    "title": "settingAlarmsTtsEngineTitle",
+    "description": "settingAlarmsTtsEngineDescription",
   },
   "alarms.menu": {
     "title": "settingAlarmsMenuTitle",

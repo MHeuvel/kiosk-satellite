@@ -41,6 +41,28 @@ void main() {
       expect(back.on, isTrue);
     });
 
+    test('keeps the ease choice, the speech switch and the phrase', () {
+      const source = Alarm(
+        id: 'x2',
+        hour: 7,
+        minute: 0,
+        ease: false,
+        speak: true,
+        phrase: 'Up, {label}',
+      );
+      final back = decodeAlarms(encodeAlarms([source])).single;
+      expect(back.ease, isFalse);
+      expect(back.speak, isTrue);
+      expect(back.phrase, 'Up, {label}');
+      // An alarm that never chose keeps following the default.
+      final plain = decodeAlarms('[{"id":"p","time":"07:00"}]').single;
+      expect(plain.ease, isNull);
+      expect(plain.speak, isFalse);
+      expect(plain.phrase, isEmpty);
+      expect(plain.copyWith(ease: () => true).ease, isTrue);
+      expect(source.copyWith(ease: () => null).ease, isNull);
+    });
+
     test('drops bad entries and repeated ids instead of the whole list', () {
       final list = decodeAlarms(
         '[{"id":"a","time":"07:00"},{"id":"b","time":"25:00"},'
@@ -154,5 +176,30 @@ void main() {
     expect(repeatWord([0, 6]), 'Weekends');
     expect(repeatWord([1, 3, 5]), isNull);
     expect(repeatWord(const []), isNull);
+  });
+
+  group('fillAlarmPhrase', () {
+    String fill(String t, {String label = ''}) =>
+        fillAlarmPhrase(t, label: label, time: '7:00 AM', day: 'Friday');
+
+    test('fills every placeholder', () {
+      expect(
+        fill("It's {time} on {day}. {label}", label: 'Gym'),
+        "It's 7:00 AM on Friday. Gym",
+      );
+    });
+
+    test('an empty label leaves no stray punctuation', () {
+      expect(fill("It's {time}. {label}"), "It's 7:00 AM.");
+      expect(fill('{label}, time to get up'), 'time to get up');
+      expect(fill('Wake up {label}!'), 'Wake up!');
+      expect(fill('Good morning, {label}. {time}'), 'Good morning. 7:00 AM');
+    });
+
+    test('a phrase without placeholders is left alone', () {
+      expect(fill('Rise and shine'), 'Rise and shine');
+      expect(fill('Wait... really?! {time}'), 'Wait... really?! 7:00 AM');
+      expect(fill('Hello, {label} how are you'), 'Hello, how are you');
+    });
   });
 }

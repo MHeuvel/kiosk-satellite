@@ -809,6 +809,88 @@
       }
     }
   },
+  "alarmsEaseIn": "Lautstärke langsam steigern",
+  "@alarmsEaseIn": {
+    "context": "Alarm details",
+    "description": "Switch that starts the alarm quiet and grows it to the alarm volume.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    }
+  },
+  "alarmsEaseHint": "Erreicht die Weckerlautstärke in {seconds} Sekunden.",
+  "@alarmsEaseHint": {
+    "context": "Remote admin alarms",
+    "description": "Description of the Ease in the volume switch. {seconds} is a number.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    },
+    "placeholders": {
+      "seconds": {
+        "type": "String",
+        "description": "A whole number of seconds."
+      }
+    }
+  },
+  "alarmsSpeak": "Beim Klingeln sprechen",
+  "@alarmsSpeak": {
+    "context": "Alarm details",
+    "description": "Switch that has Home Assistant speak a phrase between the rings of the alarm tone.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    }
+  },
+  "alarmsPhrase": "Satz",
+  "@alarmsPhrase": {
+    "context": "Alarm details",
+    "description": "The words spoken between the rings. Opens a text box.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    }
+  },
+  "alarmsPhraseHint": "{label}, {time} und {day} werden durch Bezeichnung, Uhrzeit und Tag des Weckers ersetzt.",
+  "@alarmsPhraseHint": {
+    "context": "Alarm details",
+    "description": "Hint under the phrase text box. The three placeholders are shown to the user literally, in braces, and must not be translated.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    },
+    "placeholders": {
+      "label": {
+        "type": "String",
+        "description": "The literal text {label}."
+      },
+      "time": {
+        "type": "String",
+        "description": "The literal text {time}."
+      },
+      "day": {
+        "type": "String",
+        "description": "The literal text {day}."
+      }
+    }
+  },
   "androidAccessibilityHelp": "Schließt das Benachrichtigungsfeld und den Bildschirm der zuletzt verwendeten Apps, wenn diese geöffnet werden, während der Kioskmodus oder der Sperrmodus den Bildschirm schützt. Kiosk Satellite liest den Inhalt des Bildschirms nicht.",
   "@androidAccessibilityHelp": {
     "context": "Android Settings > Accessibility > Kiosk Satellite",
@@ -13708,6 +13790,84 @@
     "x-locations": {
       "device": [
         "Settings"
+      ]
+    }
+  },
+  "settingAlarmsEaseInTitle": "Lautstärke langsam steigern",
+  "@settingAlarmsEaseInTitle": {
+    "context": "Settings > Alarms",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Ease in the volume"
+      ],
+      "remoteAdmin": [
+        "Alarms > Ease in the volume"
+      ]
+    }
+  },
+  "settingAlarmsEaseInDescription": "Leise beginnen und bis zur Weckerlautstärke steigern.",
+  "@settingAlarmsEaseInDescription": {
+    "context": "Settings > Alarms",
+    "description": "Setting description.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Ease in the volume"
+      ],
+      "remoteAdmin": [
+        "Alarms > Ease in the volume"
+      ]
+    }
+  },
+  "settingAlarmsEaseInSecondsTitle": "Steigern über",
+  "@settingAlarmsEaseInSecondsTitle": {
+    "context": "Settings > Alarms",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Ease in over"
+      ],
+      "remoteAdmin": [
+        "Alarms > Ease in over"
+      ]
+    }
+  },
+  "settingAlarmsEaseInSecondsDescription": "Wie lange ein Wecker braucht, bis er seine volle Lautstärke erreicht.",
+  "@settingAlarmsEaseInSecondsDescription": {
+    "context": "Settings > Alarms",
+    "description": "Setting description.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Ease in over"
+      ],
+      "remoteAdmin": [
+        "Alarms > Ease in over"
+      ]
+    }
+  },
+  "settingAlarmsTtsEngineTitle": "Text-zu-Sprache-Engine",
+  "@settingAlarmsTtsEngineTitle": {
+    "context": "Settings > Alarms",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Text to speech engine"
+      ],
+      "remoteAdmin": [
+        "Alarms > Text to speech engine"
+      ]
+    }
+  },
+  "settingAlarmsTtsEngineDescription": "Die Text-zu-Sprache-Entität von Home Assistant, die die Wecker vorliest.",
+  "@settingAlarmsTtsEngineDescription": {
+    "context": "Settings > Alarms",
+    "description": "Setting description.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Text to speech engine"
+      ],
+      "remoteAdmin": [
+        "Alarms > Text to speech engine"
       ]
     }
   },

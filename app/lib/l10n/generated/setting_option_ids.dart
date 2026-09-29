@@ -332,5 +332,6 @@ const settingPlaceholderMessageIds = <String, String>{
   "intercom.key": "settingIntercomKeyPlaceholder",
   "esphome.node_name": "settingEsphomeNodeNamePlaceholder",
   "btproxy.key": "settingBtproxyKeyPlaceholder",
-  "announcements.tts_engine": "esphomeTtsFirst"
+  "announcements.tts_engine": "esphomeTtsFirst",
+  "alarms.tts_engine": "esphomeTtsFirst"
 };

@@ -22005,5 +22005,71 @@
     "translation": "1594b7e1d1084a3b08669d0b137dcd7797d96671d98def7cba742e7e08919eb8",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "alarmsEaseIn": {
+    "source": "9d3e830007ab2db6ccc81e289f90dc7f13428e540d4cc3f257770997819aea4c",
+    "translation": "e297e7d09391259860e4d852ef9258f9d912b3968ffbe05d92ea349e0b81ad15",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingAlarmsEaseInSecondsTitle": {
+    "source": "acfed0a870614255e2cc8cded88dfd639d73c7bacbc53d797904910620aa817a",
+    "translation": "8b82c033c1b4444d6b2698130ca1920a8ff26bec676789b1435c567d38d25890",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingAlarmsTtsEngineDescription": {
+    "source": "cc08baaa126c786f305e7b0b02c54e39352a341c93e9c842e3930fe3e2df8739",
+    "translation": "effa9487bd646c310c2d9b8c20a733c61fead1e3ade597dd5466d35568b268ee",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingAlarmsTtsEngineTitle": {
+    "source": "8d8e54ac5612dfc6fc324c9f84fbe4d5b0bde703f0d5319a38999330aa7317ca",
+    "translation": "49597976a414cb815a468d575b8e382d3c348f9bd48e7292141d23f240c7e3fa",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingAlarmsEaseInTitle": {
+    "source": "6ca29f0d92cce62771712ad7b949ea8443f5113aa7388952a7ad2ce2db8c3d4d",
+    "translation": "e297e7d09391259860e4d852ef9258f9d912b3968ffbe05d92ea349e0b81ad15",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "alarmsPhraseHint": {
+    "source": "ea9db59887dfb4bd3d1486e4e2d7a00d510338372e355c22c35b606ae30ee90e",
+    "translation": "c66665d6fe886417d4f86976cdb209293b30b7faf17ff41a0a5166da38fa5044",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "alarmsEaseHint": {
+    "source": "6d21f256b03969a5612666ff2647f85d1072a80197f9c789065e27ed42d6992b",
+    "translation": "f53e53044be550e409c23ef68b13fd9770bd85336554b1e173109cfd5cb60cce",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "alarmsPhrase": {
+    "source": "285c3f0414523f1ed05d0dcbbf7cca2edbe48fb50c275fff3a132d4509c79615",
+    "translation": "5fe3b7c92889fc8535e7dcc889436e1254a90a1cd5b55692d5131a6cd555a24b",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingAlarmsEaseInDescription": {
+    "source": "2a8c9aee652f576780bbe60f2d0b19618228d74590efcdfd58809ac92e243f51",
+    "translation": "e23002668558b1738f4ca107b37e711555de6097fbd9f0ee9bc79f2b3d62ffbe",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "alarmsSpeak": {
+    "source": "8320e9a4bbb8f867a105c354621b17196d63f8ee6b1e494bea94344944672e11",
+    "translation": "0c2bcdfc00a5d8d20e7dee485526efdbfa19bd0585b0be6998bbbc69bd77cf70",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingAlarmsEaseInSecondsDescription": {
+    "source": "83c9e56b00a428a6e3ceb761824d28f52f6adc86a101a2218c3fdfbb7d6be18b",
+    "translation": "1cad01e0a8cdaa3adedb63097bde0561df45df55dabd48c976d42292f69c34cd",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

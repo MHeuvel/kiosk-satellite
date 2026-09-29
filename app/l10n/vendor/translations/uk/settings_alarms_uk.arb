@@ -25,5 +25,11 @@
   "alarmsOption25Minutes": "25 хвилин",
   "alarmsOption30Minutes": "30 хвилин",
   "settingsMenuAlarms": "Будильники",
-  "settingsMenuAlarmsSummary": "Будильники, мелодія, відкладення, світанок"
+  "settingsMenuAlarmsSummary": "Будильники, мелодія, відкладення, світанок",
+  "settingAlarmsEaseInTitle": "Поступово збільшувати гучність",
+  "settingAlarmsEaseInDescription": "Починати тихо й збільшувати до гучності будильника.",
+  "settingAlarmsEaseInSecondsTitle": "Тривалість наростання",
+  "settingAlarmsEaseInSecondsDescription": "Скільки часу будильник набирає повну гучність.",
+  "settingAlarmsTtsEngineTitle": "Рушій синтезу мовлення",
+  "settingAlarmsTtsEngineDescription": "Сутність синтезу мовлення Home Assistant, яка озвучує будильники."
 }

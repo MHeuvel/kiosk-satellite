@@ -25,5 +25,11 @@
   "alarmsOption25Minutes": "25 minutos",
   "alarmsOption30Minutes": "30 minutos",
   "settingsMenuAlarms": "Alarmas",
-  "settingsMenuAlarmsSummary": "Alarmas, tono, posponer, amanecer"
+  "settingsMenuAlarmsSummary": "Alarmas, tono, posponer, amanecer",
+  "settingAlarmsEaseInTitle": "Subir el volumen poco a poco",
+  "settingAlarmsEaseInDescription": "Empieza bajo y sube hasta el volumen de la alarma.",
+  "settingAlarmsEaseInSecondsTitle": "Subir durante",
+  "settingAlarmsEaseInSecondsDescription": "Cuánto tarda una alarma en llegar a su volumen completo.",
+  "settingAlarmsTtsEngineTitle": "Motor de texto a voz",
+  "settingAlarmsTtsEngineDescription": "La entidad de texto a voz de Home Assistant que lee las alarmas."
 }

@@ -67,6 +67,7 @@ extension LocalizedSetting on SettingDef<Object> {
     'voice.timer_named_phrase' => l10n(
       context,
     ).settingVoiceTimerNamedPhraseTitle,
+    'alarms.phrase' => l10n(context).alarmsPhrase,
     _ => messageById(l10n(context), titleMessageId, title),
   };
 
@@ -76,6 +77,9 @@ extension LocalizedSetting on SettingDef<Object> {
     'voice.timer_named_phrase' => l10n(
       context,
     ).settingVoiceTimerNamedPhraseDescription('{name}'),
+    'alarms.phrase' => l10n(
+      context,
+    ).alarmsPhraseHint('{label}', '{time}', '{day}'),
     _ => messageById(l10n(context), descriptionMessageId, description),
   };
 }

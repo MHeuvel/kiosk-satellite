@@ -475,6 +475,36 @@ abstract class UiStrings {
   /// **'You already have an alarm at {time}'**
   String alarmsDuplicate(String time);
 
+  /// Switch that starts the alarm quiet and grows it to the alarm volume.
+  ///
+  /// In en, this message translates to:
+  /// **'Ease in the volume'**
+  String get alarmsEaseIn;
+
+  /// Description of the Ease in the volume switch. {seconds} is a number.
+  ///
+  /// In en, this message translates to:
+  /// **'Grows to the alarm volume over {seconds} seconds.'**
+  String alarmsEaseHint(String seconds);
+
+  /// Switch that has Home Assistant speak a phrase between the rings of the alarm tone.
+  ///
+  /// In en, this message translates to:
+  /// **'Speak when it rings'**
+  String get alarmsSpeak;
+
+  /// The words spoken between the rings. Opens a text box.
+  ///
+  /// In en, this message translates to:
+  /// **'Phrase'**
+  String get alarmsPhrase;
+
+  /// Hint under the phrase text box. The three placeholders are shown to the user literally, in braces, and must not be translated.
+  ///
+  /// In en, this message translates to:
+  /// **'{label}, {time} and {day} become the alarm\'s label, time and day.'**
+  String alarmsPhraseHint(String label, String time, String day);
+
   /// Service description displayed by Android in its own language.
   ///
   /// In en, this message translates to:
@@ -6560,6 +6590,42 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Set alarms, tone, snooze, sunrise'**
   String get settingsMenuAlarmsSummary;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Ease in the volume'**
+  String get settingAlarmsEaseInTitle;
+
+  /// Setting description.
+  ///
+  /// In en, this message translates to:
+  /// **'Start quiet and grow to the alarm volume.'**
+  String get settingAlarmsEaseInDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Ease in over'**
+  String get settingAlarmsEaseInSecondsTitle;
+
+  /// Setting description.
+  ///
+  /// In en, this message translates to:
+  /// **'How long an alarm takes to reach its full volume.'**
+  String get settingAlarmsEaseInSecondsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Text to speech engine'**
+  String get settingAlarmsTtsEngineTitle;
+
+  /// Setting description.
+  ///
+  /// In en, this message translates to:
+  /// **'The Home Assistant text to speech entity that speaks alarms.'**
+  String get settingAlarmsTtsEngineDescription;
 
   /// Setting label.
   ///

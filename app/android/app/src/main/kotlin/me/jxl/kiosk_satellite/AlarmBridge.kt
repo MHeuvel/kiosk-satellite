@@ -11,6 +11,7 @@ import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Looper
 import android.os.PowerManager
+import android.os.SystemClock
 import android.util.Log
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
@@ -60,6 +61,45 @@ class AlarmBridge(private val context: Context, messenger: BinaryMessenger) {
     private var player: MediaPlayer? = null
     private var savedAlarmVolume: Int? = null
 
+    /** The spoken phrase that plays after every second pass of the tone,
+     *  once Dart has made it; null rings the tone alone. */
+    private var speechPath: String? = null
+    private var voice: MediaPlayer? = null
+    private var passes = 0
+
+    /** Ease in: the ring starts silent and its gain climbs to full over
+     *  [rampMs], on a square curve so the first seconds stay soft. */
+    private var rampStart = 0L
+    private var rampMs = 0L
+    private val ramp = object : Runnable {
+        override fun run() {
+            applyGain()
+            if (gain() < 1f) main.postDelayed(this, 100)
+        }
+    }
+
+    private fun gain(): Float {
+        if (rampMs <= 0) return 1f
+        val t = ((SystemClock.elapsedRealtime() - rampStart).toFloat() / rampMs).coerceIn(0f, 1f)
+        return t * t
+    }
+
+    private fun applyGain() {
+        val g = gain()
+        try { player?.setVolume(g, g) } catch (_: IllegalStateException) {}
+        try { voice?.setVolume(g, g) } catch (_: IllegalStateException) {}
+    }
+
+    private fun alarmPlayer(path: String): MediaPlayer = MediaPlayer().apply {
+        setAudioAttributes(
+            AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_ALARM)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build(),
+        )
+        setDataSource(path)
+    }
+
     init {
         onFire = { kind -> main.post { channel.invokeMethod("alarmFired", mapOf("kind" to kind)) } }
         channel.setMethodCallHandler { call, result ->
@@ -76,8 +116,13 @@ class AlarmBridge(private val context: Context, messenger: BinaryMessenger) {
                         call.argument<String>("path") ?: "",
                         (call.argument<Number>("volume") ?: 0.7).toDouble(),
                         call.argument<Boolean>("loop") ?: true,
+                        (call.argument<Number>("easeMs") ?: 0).toLong(),
                     ),
                 )
+                "speech" -> {
+                    speak(call.argument<String>("path"))
+                    result.success(null)
+                }
                 "stop" -> {
                     stopRing()
                     result.success(null)
@@ -123,7 +168,7 @@ class AlarmBridge(private val context: Context, messenger: BinaryMessenger) {
 
     /** Loop [path] on the alarm stream with that stream set to [volume]
      *  of its range, restored when the ring stops. */
-    private fun ring(path: String, volume: Double, loop: Boolean): Boolean {
+    private fun ring(path: String, volume: Double, loop: Boolean, easeMs: Long = 0): Boolean {
         stopRing()
         if (path.isEmpty()) return false
         val audio = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
@@ -138,21 +183,20 @@ class AlarmBridge(private val context: Context, messenger: BinaryMessenger) {
                 // stream's own level rather than not at all.
                 Log.w(TAG, "alarm volume not set: $e")
             }
-            val mp = MediaPlayer()
-            mp.setAudioAttributes(
-                AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .build(),
-            )
-            mp.setDataSource(path)
+            val mp = alarmPlayer(path)
+            // Gapless until a phrase joins the ring; then each pass ends
+            // here and the next one, or the phrase, starts by hand.
             mp.isLooping = loop
             mp.setOnCompletionListener {
-                // A preview plays once: let go of the player and put the
-                // alarm volume back as soon as it ends.
-                if (!loop) main.post {
-                    if (player === mp) stopRing()
-                    channel.invokeMethod("ringEnded", null)
+                if (!loop) {
+                    // A preview plays once: let go of the player and put the
+                    // alarm volume back as soon as it ends.
+                    main.post {
+                        if (player === mp) stopRing()
+                        channel.invokeMethod("ringEnded", null)
+                    }
+                } else if (player === mp) {
+                    onPass(mp)
                 }
             }
             mp.setOnErrorListener { _, what, extra ->
@@ -161,8 +205,12 @@ class AlarmBridge(private val context: Context, messenger: BinaryMessenger) {
                 true
             }
             mp.prepare()
-            mp.start()
+            rampMs = if (loop) easeMs.coerceAtLeast(0) else 0
+            rampStart = SystemClock.elapsedRealtime()
             player = mp
+            applyGain()
+            mp.start()
+            if (rampMs > 0) main.postDelayed(ramp, 100)
             true
         } catch (e: Exception) {
             Log.w(TAG, "ring($path) failed: $e")
@@ -171,7 +219,67 @@ class AlarmBridge(private val context: Context, messenger: BinaryMessenger) {
         }
     }
 
+    /** The phrase to say between the rings, or null to ring the tone
+     *  alone again. Takes effect at the end of the current pass. */
+    private fun speak(path: String?) {
+        speechPath = path?.takeIf { it.isNotEmpty() }
+        passes = 0
+        try { player?.isLooping = speechPath == null } catch (_: IllegalStateException) {}
+    }
+
+    /** A pass of the tone ended: the phrase after every second one, the
+     *  tone again otherwise. */
+    private fun onPass(tone: MediaPlayer) {
+        passes++
+        val phrase = speechPath
+        if (phrase == null || passes % 2 != 0) {
+            restart(tone)
+            return
+        }
+        try {
+            val v = alarmPlayer(phrase)
+            v.setOnCompletionListener { endVoice(v, tone) }
+            v.setOnErrorListener { _, what, extra ->
+                Log.w(TAG, "phrase failed: $what/$extra")
+                endVoice(v, tone)
+                true
+            }
+            v.prepare()
+            voice = v
+            applyGain()
+            v.start()
+        } catch (e: Exception) {
+            Log.w(TAG, "phrase($phrase) failed: $e")
+            voice = null
+            restart(tone)
+        }
+    }
+
+    private fun endVoice(v: MediaPlayer, tone: MediaPlayer) {
+        if (voice === v) voice = null
+        v.release()
+        if (player === tone) restart(tone)
+    }
+
+    private fun restart(tone: MediaPlayer) {
+        try {
+            tone.seekTo(0)
+            tone.start()
+        } catch (e: IllegalStateException) {
+            Log.w(TAG, "ring restart failed: $e")
+        }
+    }
+
     private fun stopRing() {
+        main.removeCallbacks(ramp)
+        rampMs = 0
+        speechPath = null
+        passes = 0
+        voice?.let {
+            try { it.stop() } catch (_: IllegalStateException) {}
+            it.release()
+        }
+        voice = null
         player?.let {
             try { it.stop() } catch (_: IllegalStateException) {}
             it.release()

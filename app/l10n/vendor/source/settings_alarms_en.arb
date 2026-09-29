@@ -334,5 +334,83 @@
         "Settings"
       ]
     }
+  },
+  "settingAlarmsEaseInTitle": "Ease in the volume",
+  "@settingAlarmsEaseInTitle": {
+    "context": "Settings > Alarms",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Ease in the volume"
+      ],
+      "remoteAdmin": [
+        "Alarms > Ease in the volume"
+      ]
+    }
+  },
+  "settingAlarmsEaseInDescription": "Start quiet and grow to the alarm volume.",
+  "@settingAlarmsEaseInDescription": {
+    "context": "Settings > Alarms",
+    "description": "Setting description.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Ease in the volume"
+      ],
+      "remoteAdmin": [
+        "Alarms > Ease in the volume"
+      ]
+    }
+  },
+  "settingAlarmsEaseInSecondsTitle": "Ease in over",
+  "@settingAlarmsEaseInSecondsTitle": {
+    "context": "Settings > Alarms",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Ease in over"
+      ],
+      "remoteAdmin": [
+        "Alarms > Ease in over"
+      ]
+    }
+  },
+  "settingAlarmsEaseInSecondsDescription": "How long an alarm takes to reach its full volume.",
+  "@settingAlarmsEaseInSecondsDescription": {
+    "context": "Settings > Alarms",
+    "description": "Setting description.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Ease in over"
+      ],
+      "remoteAdmin": [
+        "Alarms > Ease in over"
+      ]
+    }
+  },
+  "settingAlarmsTtsEngineTitle": "Text to speech engine",
+  "@settingAlarmsTtsEngineTitle": {
+    "context": "Settings > Alarms",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Text to speech engine"
+      ],
+      "remoteAdmin": [
+        "Alarms > Text to speech engine"
+      ]
+    }
+  },
+  "settingAlarmsTtsEngineDescription": "The Home Assistant text to speech entity that speaks alarms.",
+  "@settingAlarmsTtsEngineDescription": {
+    "context": "Settings > Alarms",
+    "description": "Setting description.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Text to speech engine"
+      ],
+      "remoteAdmin": [
+        "Alarms > Text to speech engine"
+      ]
+    }
   }
 }

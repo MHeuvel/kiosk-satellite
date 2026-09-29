@@ -15,6 +15,9 @@ class Alarm {
     this.tone = '',
     this.sunrise = false,
     this.on = true,
+    this.ease,
+    this.speak = false,
+    this.phrase = '',
   });
 
   final String id;
@@ -33,6 +36,16 @@ class Alarm {
   final String tone;
   final bool sunrise, on;
 
+  /// Whether the ring starts quiet and grows to the alarm volume; null
+  /// follows the Ease in the volume default.
+  final bool? ease;
+
+  /// Say [phrase] between the rings.
+  final bool speak;
+
+  /// What to say; empty follows the Phrase default.
+  final String phrase;
+
   bool get repeats => days.isNotEmpty;
 
   String get time =>
@@ -47,6 +60,9 @@ class Alarm {
     String? tone,
     bool? sunrise,
     bool? on,
+    bool? Function()? ease,
+    bool? speak,
+    String? phrase,
   }) => Alarm(
     id: id,
     hour: hour ?? this.hour,
@@ -57,6 +73,9 @@ class Alarm {
     tone: tone ?? this.tone,
     sunrise: sunrise ?? this.sunrise,
     on: on ?? this.on,
+    ease: ease != null ? ease() : this.ease,
+    speak: speak ?? this.speak,
+    phrase: phrase ?? this.phrase,
   );
 
   Map<String, Object?> toJson() => {
@@ -68,6 +87,9 @@ class Alarm {
     'tone': tone,
     'sunrise': sunrise,
     'on': on,
+    if (ease != null) 'ease': ease,
+    'speak': speak,
+    'phrase': phrase,
   };
 
   /// Null for anything that is not an alarm, so one bad entry never takes
@@ -94,6 +116,9 @@ class Alarm {
       tone: '${raw['tone'] ?? ''}'.trim(),
       sunrise: raw['sunrise'] == true,
       on: raw['on'] != false,
+      ease: raw['ease'] is bool ? raw['ease'] as bool : null,
+      speak: raw['speak'] == true,
+      phrase: '${raw['phrase'] ?? ''}'.trim(),
     );
   }
 }
@@ -206,6 +231,35 @@ DateTime? lastRing(Alarm alarm, DateTime now) {
     }
   }
   return best;
+}
+
+/// [template] with {label}, {time} and {day} filled in: the words an alarm
+/// says between its rings. A blank label leaves no stray punctuation or
+/// spaces behind.
+String fillAlarmPhrase(
+  String template, {
+  required String label,
+  required String time,
+  required String day,
+}) {
+  var text = template.replaceAll('{time}', time).replaceAll('{day}', day);
+  label = label.trim();
+  if (label.isNotEmpty) return text.replaceAll('{label}', label).trim();
+  // No label: the gap goes with the weaker of the marks around it, so
+  // "Hi, {label}. It's 7" says "Hi. It's 7", and nothing else the phrase
+  // says is touched.
+  text = text.replaceAllMapped(
+    RegExp(r'([.,!?;:]?)\s*\{label\}\s*([.,!?;:]?)'),
+    (m) {
+      final before = m[1]!, after = m[2]!;
+      if (after.isNotEmpty) return after;
+      return before.isEmpty ? ' ' : '$before ';
+    },
+  );
+  return text
+      .replaceAll(RegExp(r'\s{2,}'), ' ')
+      .trim()
+      .replaceFirst(RegExp(r'^[.,;:]\s*'), '');
 }
 
 /// Which days a repeat covers, in words: Every day, Weekdays, Weekends or

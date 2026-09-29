@@ -4,11 +4,13 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../core/command_registry.dart';
 import '../../core/events.dart';
 import '../../core/manager.dart';
+import '../home_assistant/ha_tts.dart';
 import '../notifications/notification_sounds.dart';
 import '../screensaver/screensaver_manager.dart'
     show currentScreensaverScheduleEntry;
@@ -619,6 +621,7 @@ class AlarmManager extends Manager {
     }
     final alarm = alarms.value.firstWhere((a) => a.id == known.first);
     final path = await _tonePath(alarm.tone);
+    final gen = ++_ringGen;
     var rang = false;
     try {
       rang =
@@ -626,6 +629,7 @@ class AlarmManager extends Manager {
             'path': path,
             'volume': _settings.get(defs.alarmsVolume).toDouble(),
             'loop': true,
+            'easeMs': easesIn(alarm) ? _easeMs : 0,
           }) ??
           false;
     } on MissingPluginException {
@@ -634,10 +638,94 @@ class AlarmManager extends Manager {
       log.warn(name, 'ring failed: $e');
     }
     if (!rang) log.warn(name, 'the alarm tone did not play ($path)');
+    final speaker = [
+      for (final id in known) ...alarms.value.where((a) => a.id == id),
+    ].where((a) => a.speak).firstOrNull;
+    if (rang && speaker != null) unawaited(_speakRing(speaker, at, gen));
     _previewing = false;
     await _armStopWord(true);
     _persist();
     _publish();
+  }
+
+  // ── Speech and ease in ────────────────────────────────────────────────
+
+  /// Bumped by every ring and every quiet, so a phrase that comes back
+  /// from Home Assistant after Stop or Snooze is dropped.
+  int _ringGen = 0;
+
+  /// Made phrases on disk by their words, so a snooze's second ring does
+  /// not ask Home Assistant again.
+  final _phrases = <String, String>{};
+
+  /// Whether [alarm] starts quiet and grows to the alarm volume.
+  bool easesIn(Alarm alarm) => alarm.ease ?? _settings.get(defs.alarmsEaseIn);
+
+  int get _easeMs =>
+      (_settings.get(defs.alarmsEaseInSeconds).toDouble() * 1000).round();
+
+  /// What [alarm] says ringing at [at]: its own phrase or the default, with
+  /// {label}, {time} and {day} in the device's language.
+  String phraseFor(Alarm alarm, DateTime at) => fillAlarmPhrase(
+    alarm.phrase.isEmpty ? _settings.get(defs.alarmsPhrase) : alarm.phrase,
+    label: alarm.label,
+    time: _safeFormat((l) => DateFormat.jm(l), at),
+    day: _safeFormat((l) => DateFormat.EEEE(l), at),
+  );
+
+  /// Plain spaces: intl puts a narrow no-break one before AM, which a
+  /// text to speech engine may read out or trip on.
+  static String _safeFormat(DateFormat Function(String?) make, DateTime t) {
+    String out;
+    try {
+      out = make(null).format(t);
+    } catch (_) {
+      out = make('en_US').format(t);
+    }
+    return out.replaceAll(RegExp('[\u00a0\u202f]'), ' ');
+  }
+
+  /// Has Home Assistant say the phrase and hands the audio to the ring,
+  /// which plays it after every second pass of the tone. The tone rings
+  /// from the first second either way: a slow or missing Home Assistant
+  /// only costs the words.
+  Future<void> _speakRing(Alarm alarm, DateTime at, int gen) async {
+    final text = phraseFor(alarm, at);
+    if (text.isEmpty) return;
+    var path = _phrases[text];
+    if (path == null || !File(path).existsSync()) {
+      final audio = await haSpeak(
+        base: _settings.get(defs.haUrl),
+        token: _settings.get(defs.haToken),
+        engine: _settings.get(defs.alarmsTtsEngine),
+        message: text,
+      );
+      if (audio == null) {
+        log.warn(name, 'Home Assistant did not speak "$text"; ringing on');
+        return;
+      }
+      try {
+        final dir = await getTemporaryDirectory();
+        final file = File(
+          '${dir.path}/ks_alarm_phrase_${text.hashCode.toUnsigned(32)}',
+        );
+        await file.writeAsBytes(audio, flush: true);
+        path = file.path;
+        _phrases[text] = path;
+      } catch (e) {
+        log.warn(name, 'could not keep the phrase: $e');
+        return;
+      }
+    }
+    if (gen != _ringGen || _s.phase != AlarmPhase.ringing) return;
+    log.info(name, 'speaking "$text" between the rings');
+    try {
+      await _channel.invokeMethod('speech', {'path': path});
+    } on MissingPluginException {
+      // Tests.
+    } catch (e) {
+      log.warn(name, 'could not add the phrase: $e');
+    }
   }
 
   /// A one time alarm is spent once it rings, or once its sunrise is
@@ -705,6 +793,7 @@ class AlarmManager extends Manager {
   /// Everything a ring holds, let go: the tone, the stop word, the
   /// brightness, the screen and the screensaver.
   Future<void> _quiet() async {
+    _ringGen++;
     _ramp?.cancel();
     _silence?.cancel();
     _ringStarted = null;
@@ -1045,7 +1134,9 @@ class AlarmManager extends Manager {
             'alarm':
                 '{id?, time: "HH:mm", days: [0..6, 0 = Sunday], label, '
                 'tone: "" (default) | "builtin" | a sounds folder file, '
-                'sunrise, on}',
+                'sunrise, ease?: true | false (absent follows '
+                'alarms.ease_in), speak, phrase: "" (alarms.phrase) | '
+                'text with {label}, {time} and {day}, on}',
           },
           handler: (p) async {
             final raw = p['alarm'];

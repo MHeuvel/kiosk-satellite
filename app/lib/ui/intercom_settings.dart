@@ -380,14 +380,19 @@ Future<bool> showIntercomKeyDialog(
 
 // ── The sheet ──────────────────────────────────────────────────────────
 
-/// The Announcements page's Text to speech engine row: the picked
+/// A Text to speech engine row, Announcements' or Alarms': the picked
 /// entity's name in a control box, and a tap opens the radio picker over
 /// every text to speech entity Home Assistant has, First available on
 /// top. Mirrored on the remote.
 class AnnouncementTtsEngineRow extends StatefulWidget {
-  const AnnouncementTtsEngineRow({super.key, required this.container});
+  const AnnouncementTtsEngineRow({
+    super.key,
+    required this.container,
+    this.def = defs.announcementsTtsEngine,
+  });
 
   final AppContainer container;
+  final defs.SettingDef<String> def;
 
   @override
   State<AnnouncementTtsEngineRow> createState() =>
@@ -404,7 +409,7 @@ class _AnnouncementTtsEngineRowState extends State<AnnouncementTtsEngineRow> {
   void initState() {
     super.initState();
     _sub = c.bus.on<SettingChanged>().listen((e) {
-      if (e.key == defs.announcementsTtsEngine.key && mounted) setState(() {});
+      if (e.key == widget.def.key && mounted) setState(() {});
     });
     unawaited(_load());
   }
@@ -447,7 +452,7 @@ class _AnnouncementTtsEngineRowState extends State<AnnouncementTtsEngineRow> {
       );
       return;
     }
-    final current = c.settings.get(defs.announcementsTtsEngine).trim();
+    final current = c.settings.get(widget.def).trim();
     final picked = await showDialog<String>(
       context: context,
       builder: (context) => SimpleDialog(
@@ -476,20 +481,18 @@ class _AnnouncementTtsEngineRowState extends State<AnnouncementTtsEngineRow> {
       ),
     );
     if (picked == null) return;
-    await c.settings.set(defs.announcementsTtsEngine, picked);
+    await c.settings.set(widget.def, picked);
   }
 
   @override
   Widget build(BuildContext context) {
-    final current = c.settings.get(defs.announcementsTtsEngine).trim();
+    final current = c.settings.get(widget.def).trim();
     return SearchLandingTarget(
-      id: defs.announcementsTtsEngine.key,
+      id: widget.def.key,
       child: SettingsRow(
         stack: true,
-        title: Text(defs.announcementsTtsEngine.localizedTitle(context)),
-        subtitle: Text(
-          defs.announcementsTtsEngine.localizedDescription(context),
-        ),
+        title: Text(widget.def.localizedTitle(context)),
+        subtitle: Text(widget.def.localizedDescription(context)),
         trailing: ControlBox(
           onTap: _pick,
           child: Row(

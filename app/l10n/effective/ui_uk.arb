@@ -809,6 +809,88 @@
       }
     }
   },
+  "alarmsEaseIn": "Поступово збільшувати гучність",
+  "@alarmsEaseIn": {
+    "context": "Alarm details",
+    "description": "Switch that starts the alarm quiet and grows it to the alarm volume.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    }
+  },
+  "alarmsEaseHint": "Досягає гучності будильника за {seconds} с.",
+  "@alarmsEaseHint": {
+    "context": "Remote admin alarms",
+    "description": "Description of the Ease in the volume switch. {seconds} is a number.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    },
+    "placeholders": {
+      "seconds": {
+        "type": "String",
+        "description": "A whole number of seconds."
+      }
+    }
+  },
+  "alarmsSpeak": "Говорити під час сигналу",
+  "@alarmsSpeak": {
+    "context": "Alarm details",
+    "description": "Switch that has Home Assistant speak a phrase between the rings of the alarm tone.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    }
+  },
+  "alarmsPhrase": "Фраза",
+  "@alarmsPhrase": {
+    "context": "Alarm details",
+    "description": "The words spoken between the rings. Opens a text box.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    }
+  },
+  "alarmsPhraseHint": "{label}, {time} і {day} замінюються на мітку, час і день будильника.",
+  "@alarmsPhraseHint": {
+    "context": "Alarm details",
+    "description": "Hint under the phrase text box. The three placeholders are shown to the user literally, in braces, and must not be translated.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    },
+    "placeholders": {
+      "label": {
+        "type": "String",
+        "description": "The literal text {label}."
+      },
+      "time": {
+        "type": "String",
+        "description": "The literal text {time}."
+      },
+      "day": {
+        "type": "String",
+        "description": "The literal text {day}."
+      }
+    }
+  },
   "androidAccessibilityHelp": "Закриває панель сповіщень та екран нещодавніх програм щоразу, коли вони відкриваються, доки режим кіоска або захищений режим блокує екран. Kiosk Satellite не зчитує вміст екрана.",
   "@androidAccessibilityHelp": {
     "context": "Android Settings > Accessibility > Kiosk Satellite",
@@ -13708,6 +13790,84 @@
     "x-locations": {
       "device": [
         "Settings"
+      ]
+    }
+  },
+  "settingAlarmsEaseInTitle": "Поступово збільшувати гучність",
+  "@settingAlarmsEaseInTitle": {
+    "context": "Settings > Alarms",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Ease in the volume"
+      ],
+      "remoteAdmin": [
+        "Alarms > Ease in the volume"
+      ]
+    }
+  },
+  "settingAlarmsEaseInDescription": "Починати тихо й збільшувати до гучності будильника.",
+  "@settingAlarmsEaseInDescription": {
+    "context": "Settings > Alarms",
+    "description": "Setting description.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Ease in the volume"
+      ],
+      "remoteAdmin": [
+        "Alarms > Ease in the volume"
+      ]
+    }
+  },
+  "settingAlarmsEaseInSecondsTitle": "Тривалість наростання",
+  "@settingAlarmsEaseInSecondsTitle": {
+    "context": "Settings > Alarms",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Ease in over"
+      ],
+      "remoteAdmin": [
+        "Alarms > Ease in over"
+      ]
+    }
+  },
+  "settingAlarmsEaseInSecondsDescription": "Скільки часу будильник набирає повну гучність.",
+  "@settingAlarmsEaseInSecondsDescription": {
+    "context": "Settings > Alarms",
+    "description": "Setting description.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Ease in over"
+      ],
+      "remoteAdmin": [
+        "Alarms > Ease in over"
+      ]
+    }
+  },
+  "settingAlarmsTtsEngineTitle": "Рушій синтезу мовлення",
+  "@settingAlarmsTtsEngineTitle": {
+    "context": "Settings > Alarms",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Text to speech engine"
+      ],
+      "remoteAdmin": [
+        "Alarms > Text to speech engine"
+      ]
+    }
+  },
+  "settingAlarmsTtsEngineDescription": "Сутність синтезу мовлення Home Assistant, яка озвучує будильники.",
+  "@settingAlarmsTtsEngineDescription": {
+    "context": "Settings > Alarms",
+    "description": "Setting description.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Text to speech engine"
+      ],
+      "remoteAdmin": [
+        "Alarms > Text to speech engine"
       ]
     }
   },

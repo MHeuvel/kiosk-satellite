@@ -25,5 +25,11 @@
   "alarmsOption25Minutes": "25 minutes",
   "alarmsOption30Minutes": "30 minutes",
   "settingsMenuAlarms": "Alarmes",
-  "settingsMenuAlarmsSummary": "Alarmes, sonnerie, report, lever du soleil"
+  "settingsMenuAlarmsSummary": "Alarmes, sonnerie, report, lever du soleil",
+  "settingAlarmsEaseInTitle": "Augmenter le volume progressivement",
+  "settingAlarmsEaseInDescription": "Commencer doucement et monter jusqu'au volume de l'alarme.",
+  "settingAlarmsEaseInSecondsTitle": "Durée de la montée",
+  "settingAlarmsEaseInSecondsDescription": "Le temps que met une alarme pour atteindre son plein volume.",
+  "settingAlarmsTtsEngineTitle": "Moteur de synthèse vocale",
+  "settingAlarmsTtsEngineDescription": "L'entité de synthèse vocale de Home Assistant qui prononce les alarmes."
 }

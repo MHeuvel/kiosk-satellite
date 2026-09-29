@@ -40,5 +40,10 @@
   "alarmsSunriseRunning": "Lever du soleil avant une alarme",
   "alarmsSunriseHint": "L'écran s'éclaircit pendant {minutes} minutes avant la sonnerie.",
   "alarmsDeleteFailed": "Impossible de supprimer l'alarme.",
-  "alarmsDuplicate": "Une alarme est déjà réglée à {time}"
+  "alarmsDuplicate": "Une alarme est déjà réglée à {time}",
+  "alarmsEaseIn": "Augmenter le volume progressivement",
+  "alarmsEaseHint": "Atteint le volume de l'alarme en {seconds} secondes.",
+  "alarmsSpeak": "Parler pendant la sonnerie",
+  "alarmsPhrase": "Phrase",
+  "alarmsPhraseHint": "{label}, {time} et {day} sont remplacés par le libellé, l'heure et le jour de l'alarme."
 }

@@ -25,5 +25,11 @@
   "alarmsOption25Minutes": "25 Minuten",
   "alarmsOption30Minutes": "30 Minuten",
   "settingsMenuAlarms": "Wecker",
-  "settingsMenuAlarmsSummary": "Wecker, Weckton, Schlummern, Sonnenaufgang"
+  "settingsMenuAlarmsSummary": "Wecker, Weckton, Schlummern, Sonnenaufgang",
+  "settingAlarmsEaseInTitle": "Lautstärke langsam steigern",
+  "settingAlarmsEaseInDescription": "Leise beginnen und bis zur Weckerlautstärke steigern.",
+  "settingAlarmsEaseInSecondsTitle": "Steigern über",
+  "settingAlarmsEaseInSecondsDescription": "Wie lange ein Wecker braucht, bis er seine volle Lautstärke erreicht.",
+  "settingAlarmsTtsEngineTitle": "Text-zu-Sprache-Engine",
+  "settingAlarmsTtsEngineDescription": "Die Text-zu-Sprache-Entität von Home Assistant, die die Wecker vorliest."
 }

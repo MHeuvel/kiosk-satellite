@@ -222,6 +222,25 @@ class UiStringsEn extends UiStrings {
   }
 
   @override
+  String get alarmsEaseIn => 'Ease in the volume';
+
+  @override
+  String alarmsEaseHint(String seconds) {
+    return 'Grows to the alarm volume over $seconds seconds.';
+  }
+
+  @override
+  String get alarmsSpeak => 'Speak when it rings';
+
+  @override
+  String get alarmsPhrase => 'Phrase';
+
+  @override
+  String alarmsPhraseHint(String label, String time, String day) {
+    return '$label, $time and $day become the alarm\'s label, time and day.';
+  }
+
+  @override
   String get androidAccessibilityHelp =>
       'Closes the notification shade and the recents screen whenever they open while Kiosk Mode or Lockdown Mode is protecting the screen. Kiosk Satellite does not read any screen content.';
 
@@ -3738,6 +3757,27 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get settingsMenuAlarmsSummary => 'Set alarms, tone, snooze, sunrise';
+
+  @override
+  String get settingAlarmsEaseInTitle => 'Ease in the volume';
+
+  @override
+  String get settingAlarmsEaseInDescription =>
+      'Start quiet and grow to the alarm volume.';
+
+  @override
+  String get settingAlarmsEaseInSecondsTitle => 'Ease in over';
+
+  @override
+  String get settingAlarmsEaseInSecondsDescription =>
+      'How long an alarm takes to reach its full volume.';
+
+  @override
+  String get settingAlarmsTtsEngineTitle => 'Text to speech engine';
+
+  @override
+  String get settingAlarmsTtsEngineDescription =>
+      'The Home Assistant text to speech entity that speaks alarms.';
 
   @override
   String get settingLauncherEnabledTitle => 'Enable App Launcher';

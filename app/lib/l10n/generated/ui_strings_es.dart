@@ -222,6 +222,25 @@ class UiStringsEs extends UiStrings {
   }
 
   @override
+  String get alarmsEaseIn => 'Subir el volumen poco a poco';
+
+  @override
+  String alarmsEaseHint(String seconds) {
+    return 'Llega al volumen de la alarma en $seconds segundos.';
+  }
+
+  @override
+  String get alarmsSpeak => 'Hablar al sonar';
+
+  @override
+  String get alarmsPhrase => 'Frase';
+
+  @override
+  String alarmsPhraseHint(String label, String time, String day) {
+    return '$label, $time y $day se sustituyen por la etiqueta, la hora y el día de la alarma.';
+  }
+
+  @override
   String get androidAccessibilityHelp =>
       'Cierra el panel de notificaciones y la pantalla de aplicaciones recientes cuando se abren mientras el modo kiosko o el modo de bloqueo protege la pantalla. Kiosk Satellite no lee el contenido de la pantalla.';
 
@@ -3793,6 +3812,27 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get settingsMenuAlarmsSummary => 'Alarmas, tono, posponer, amanecer';
+
+  @override
+  String get settingAlarmsEaseInTitle => 'Subir el volumen poco a poco';
+
+  @override
+  String get settingAlarmsEaseInDescription =>
+      'Empieza bajo y sube hasta el volumen de la alarma.';
+
+  @override
+  String get settingAlarmsEaseInSecondsTitle => 'Subir durante';
+
+  @override
+  String get settingAlarmsEaseInSecondsDescription =>
+      'Cuánto tarda una alarma en llegar a su volumen completo.';
+
+  @override
+  String get settingAlarmsTtsEngineTitle => 'Motor de texto a voz';
+
+  @override
+  String get settingAlarmsTtsEngineDescription =>
+      'La entidad de texto a voz de Home Assistant que lee las alarmas.';
 
   @override
   String get settingLauncherEnabledTitle => 'Activar lanzador de aplicaciones';

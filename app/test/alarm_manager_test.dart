@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kiosk_satellite/core/command_registry.dart';
 import 'package:kiosk_satellite/core/event_bus.dart';
@@ -368,5 +369,93 @@ void main() {
     expect(await alarms.delete('a'), isTrue);
     expect(alarms.status.value.phase, AlarmPhase.idle);
     expect(alarms.alarms.value, isEmpty);
+  });
+
+  group('ease in', () {
+    const channel = MethodChannel('kiosk_satellite/alarms');
+    late List<Map<Object?, Object?>> rings;
+
+    setUp(() {
+      rings = [];
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (call) async {
+            if (call.method != 'ring') return null;
+            rings.add(call.arguments as Map<Object?, Object?>);
+            return true;
+          });
+    });
+
+    tearDown(() {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, null);
+    });
+
+    Future<int> easeOf(
+      Map<String, Object?> alarm, {
+      Map<String, Object> extra = const {},
+    }) async {
+      now = DateTime(2026, 10, 2, 7, 0, 5);
+      await build([alarm], extra: extra);
+      return rings.single['easeMs']! as int;
+    }
+
+    test('rings at once by default', () async {
+      expect(await easeOf(daily('07:00')), 0);
+    });
+
+    test('follows the default switch over its seconds', () async {
+      expect(
+        await easeOf(
+          daily('07:00'),
+          extra: {'ks.alarms.ease_in': true, 'ks.alarms.ease_in_seconds': 45},
+        ),
+        45000,
+      );
+    });
+
+    test("an alarm's own choice wins either way", () async {
+      expect(
+        await easeOf(
+          {...daily('07:00'), 'ease': false},
+          extra: {'ks.alarms.ease_in': true},
+        ),
+        0,
+      );
+      await alarms.dispose();
+      rings.clear();
+      expect(await easeOf({...daily('07:00'), 'ease': true}), 30000);
+    });
+  });
+
+  group('phrase', () {
+    test('the default phrase names the time and the label', () async {
+      now = DateTime(2026, 10, 2, 9);
+      await build([daily('07:00', label: 'Gym')]);
+      final alarm = alarms.alarms.value.single;
+      expect(
+        alarms.phraseFor(alarm, DateTime(2026, 10, 2, 7)),
+        "It's 7:00 AM. Gym",
+      );
+    });
+
+    test("an alarm's own phrase wins over the default", () async {
+      now = DateTime(2026, 10, 2, 9);
+      await build([
+        {...daily('07:00', label: 'Gym'), 'phrase': 'Happy {day}, {label}'},
+      ]);
+      expect(
+        alarms.phraseFor(alarms.alarms.value.single, DateTime(2026, 10, 2, 7)),
+        'Happy Friday, Gym',
+      );
+    });
+
+    test('no label leaves no stray stop', () async {
+      now = DateTime(2026, 10, 2, 9);
+      await build([daily('07:00')]);
+      expect(
+        alarms.phraseFor(alarms.alarms.value.single, DateTime(2026, 10, 2, 7)),
+        "It's 7:00 AM.",
+      );
+    });
   });
 }

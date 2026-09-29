@@ -8500,6 +8500,34 @@ const alarmsVolume = SettingDef<num>(
   unit: '%',
 );
 
+/// Alarms start quiet and grow to the alarm volume over
+/// [alarmsEaseInSeconds]. Each alarm follows this unless it was switched
+/// on or off by itself.
+const alarmsEaseIn = SettingDef<bool>(
+  key: 'alarms.ease_in',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Ease in the volume',
+  description: 'Start quiet and grow to the alarm volume.',
+  category: 'Alarms',
+  section: 'Defaults',
+);
+
+const alarmsEaseInSeconds = SettingDef<num>(
+  key: 'alarms.ease_in_seconds',
+  type: SettingType.number,
+  defaultValue: 30,
+  title: 'Ease in over',
+  description: 'How long an alarm takes to reach its full volume.',
+  category: 'Alarms',
+  section: 'Defaults',
+  min: 5,
+  max: 120,
+  step: 5,
+  unit: 's',
+  dependsOn: 'alarms.ease_in',
+);
+
 /// A file in the sounds folder, or empty for the built-in alarm. An alarm
 /// set to Default rings this.
 const alarmsTone = SettingDef<String>(
@@ -8566,6 +8594,33 @@ const alarmsSunriseMinutes = SettingDef<String>(
     '25': '25 minutes',
     '30': '30 minutes',
   },
+);
+
+/// The Home Assistant text to speech entity an alarm speaks its phrase
+/// with; empty picks the first one Home Assistant has. Picked from the
+/// list, never typed, like the Announcements engine.
+const alarmsTtsEngine = SettingDef<String>(
+  key: 'alarms.tts_engine',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Text to speech engine',
+  description: 'The Home Assistant text to speech entity that speaks alarms.',
+  category: 'Alarms',
+  section: 'Defaults',
+  placeholder: 'First available',
+);
+
+/// What an alarm set to speak says between its rings, unless it has a
+/// phrase of its own. {label}, {time} and {day} are filled in.
+const alarmsPhrase = SettingDef<String>(
+  key: 'alarms.phrase',
+  type: SettingType.string,
+  defaultValue: "It's {time}. {label}",
+  title: 'Phrase',
+  description:
+      "{label}, {time} and {day} become the alarm's label, time and day.",
+  category: 'Alarms',
+  section: 'Defaults',
 );
 
 /// The list must decode to alarms, or it is refused rather than stored:
@@ -9729,8 +9784,12 @@ const List<SettingDef<Object>> allSettings = [
   alarmsRuntime,
   alarmsMenu,
   alarmsVolume,
+  alarmsEaseIn,
+  alarmsEaseInSeconds,
   alarmsTone,
   alarmsSnoozeMinutes,
   alarmsSilenceAfterMinutes,
   alarmsSunriseMinutes,
+  alarmsTtsEngine,
+  alarmsPhrase,
 ];

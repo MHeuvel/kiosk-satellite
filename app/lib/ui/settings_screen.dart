@@ -2952,6 +2952,11 @@ class _CategoryContentState extends State<_CategoryContent> {
       announcementsTtsEngine.key: AnnouncementTtsEngineRow(
         container: container,
       ),
+    if (widget.category == 'Alarms')
+      alarmsTtsEngine.key: AnnouncementTtsEngineRow(
+        container: container,
+        def: alarmsTtsEngine,
+      ),
     // The Clock screensaver's Night mode (issue #391) has nothing to
     // watch without the sensor either: same disabled switch, same reason.
     // Mirrored on the remote (notices.js, updateClockNightRows).

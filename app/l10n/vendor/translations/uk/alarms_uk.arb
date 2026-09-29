@@ -40,5 +40,10 @@
   "alarmsSunriseRunning": "Світанок перед будильником",
   "alarmsSunriseHint": "Екран поступово яскравішає протягом {minutes} хв перед сигналом.",
   "alarmsDeleteFailed": "Не вдалося видалити будильник.",
-  "alarmsDuplicate": "Будильник на {time} вже встановлено"
+  "alarmsDuplicate": "Будильник на {time} вже встановлено",
+  "alarmsEaseIn": "Поступово збільшувати гучність",
+  "alarmsEaseHint": "Досягає гучності будильника за {seconds} с.",
+  "alarmsSpeak": "Говорити під час сигналу",
+  "alarmsPhrase": "Фраза",
+  "alarmsPhraseHint": "{label}, {time} і {day} замінюються на мітку, час і день будильника."
 }

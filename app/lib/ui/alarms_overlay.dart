@@ -151,7 +151,22 @@ class _AlarmsScreenState extends State<_AlarmsScreen> {
   int _hour = 7, _minute = 0;
 
   @override
+  void initState() {
+    super.initState();
+    alarms.visible.addListener(_closeDialogs);
+  }
+
+  void _closeDialogs() {
+    if (alarms.visible.value || !mounted) return;
+    final nav = Navigator.of(context, rootNavigator: true);
+    for (var i = _openDialogs; i > 0; i--) {
+      nav.pop();
+    }
+  }
+
+  @override
   void dispose() {
+    alarms.visible.removeListener(_closeDialogs);
     // Back, Home or the screensaver closed the overlay over an edit: keep
     // it, the way leaving the Nest Hub's page keeps it.
     final draft = _draft;
@@ -918,6 +933,17 @@ class _DetailsStep extends StatelessWidget {
     if (next != null) onChanged(alarm.copyWith(label: next.trim()));
   }
 
+  Future<void> _phrase(BuildContext context, String fallback) async {
+    final next = await _showPhraseDialog(
+      context,
+      alarm.phrase.isEmpty ? fallback : alarm.phrase,
+    );
+    if (next == null) return;
+    // The default's own words keep following the default.
+    final text = next.trim();
+    onChanged(alarm.copyWith(phrase: text == fallback.trim() ? '' : text));
+  }
+
   Future<void> _tone(BuildContext context) async {
     final next = await _showTonePicker(context, container, alarm.tone);
     if (next != null) onChanged(alarm.copyWith(tone: next));
@@ -986,6 +1012,10 @@ class _DetailsStep extends StatelessWidget {
         : alarm.tone == 'builtin'
         ? s.alarmsBuiltInTone
         : alarm.tone;
+    final settings = container.settings;
+    // An alarm that never chose follows the default switch.
+    final bool ease = alarm.ease ?? settings.get(defs.alarmsEaseIn);
+    final phrase = settings.get(defs.alarmsPhrase);
     final rows = Column(
       children: [
         _DetailRow(
@@ -1013,13 +1043,39 @@ class _DetailsStep extends StatelessWidget {
         _DetailRow(
           icon: Icons.wb_twilight,
           name: s.alarmsSunrise,
-          last: true,
           control: Switch(
             value: alarm.sunrise,
             onChanged: (on) => onChanged(alarm.copyWith(sunrise: on)),
           ),
           onTap: () => onChanged(alarm.copyWith(sunrise: !alarm.sunrise)),
         ),
+        _DetailRow(
+          icon: Icons.trending_up,
+          name: s.alarmsEaseIn,
+          control: Switch(
+            value: ease,
+            onChanged: (on) => onChanged(alarm.copyWith(ease: () => on)),
+          ),
+          onTap: () => onChanged(alarm.copyWith(ease: () => !ease)),
+        ),
+        _DetailRow(
+          icon: Icons.record_voice_over_outlined,
+          name: s.alarmsSpeak,
+          last: !alarm.speak,
+          control: Switch(
+            value: alarm.speak,
+            onChanged: (on) => onChanged(alarm.copyWith(speak: on)),
+          ),
+          onTap: () => onChanged(alarm.copyWith(speak: !alarm.speak)),
+        ),
+        if (alarm.speak)
+          _DetailRow(
+            icon: Icons.short_text,
+            name: s.alarmsPhrase,
+            last: true,
+            value: alarm.phrase.isEmpty ? phrase : alarm.phrase,
+            onTap: () => _phrase(context, phrase),
+          ),
       ],
     );
     final gutter = compact ? 20.0 : 40.0;
@@ -1213,19 +1269,89 @@ class DayDiscs extends StatelessWidget {
 
 // ── Dialogs ───────────────────────────────────────────────────────────────
 
-Future<String?> _showLabelDialog(BuildContext context, String current) {
-  final controller = TextEditingController(text: current);
-  final s = l10n(context);
-  return showDialog<String>(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: Text(s.alarmsLabel),
-      content: TextField(
-        controller: controller,
-        autofocus: true,
+/// How many dialogs the alarm screens have open. They sit on the root
+/// navigator, over the overlay, so the overlay closing from elsewhere (the
+/// remote, Home Assistant, the screensaver, a ring) takes them with it.
+int _openDialogs = 0;
+
+Future<T?> _alarmDialog<T>({
+  required BuildContext context,
+  required WidgetBuilder builder,
+}) async {
+  _openDialogs++;
+  try {
+    return await showDialog<T>(context: context, builder: builder);
+  } finally {
+    _openDialogs--;
+  }
+}
+
+Future<String?> _showLabelDialog(BuildContext context, String current) =>
+    _alarmDialog<String>(
+      context: context,
+      builder: (context) => _TextDialog(
+        title: l10n(context).alarmsLabel,
+        initial: current,
         maxLength: 40,
+      ),
+    );
+
+Future<String?> _showPhraseDialog(BuildContext context, String current) =>
+    _alarmDialog<String>(
+      context: context,
+      builder: (context) => _TextDialog(
+        title: l10n(context).alarmsPhrase,
+        initial: current,
+        maxLength: 200,
+        maxLines: 3,
+        helper: l10n(context).alarmsPhraseHint('{label}', '{time}', '{day}'),
+      ),
+    );
+
+/// One line of text, or a few, with Cancel and Save. It owns its
+/// controller, which lives until the dialog has animated away.
+class _TextDialog extends StatefulWidget {
+  const _TextDialog({
+    required this.title,
+    required this.initial,
+    required this.maxLength,
+    this.maxLines = 1,
+    this.helper,
+  });
+
+  final String title, initial;
+  final int maxLength, maxLines;
+  final String? helper;
+
+  @override
+  State<_TextDialog> createState() => _TextDialogState();
+}
+
+class _TextDialogState extends State<_TextDialog> {
+  late final _controller = TextEditingController(text: widget.initial);
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final s = l10n(context);
+    return AlertDialog(
+      title: Text(widget.title),
+      content: TextField(
+        controller: _controller,
+        autofocus: true,
+        maxLength: widget.maxLength,
+        minLines: 1,
+        maxLines: widget.maxLines,
         textCapitalization: TextCapitalization.sentences,
         onSubmitted: (v) => Navigator.of(context).pop(v),
+        decoration: widget.helper == null
+            ? null
+            : InputDecoration(helperText: widget.helper, helperMaxLines: 3),
       ),
       actions: [
         TextButton(
@@ -1235,12 +1361,12 @@ Future<String?> _showLabelDialog(BuildContext context, String current) {
         ),
         FilledButton(
           style: alarmButtonStyle(context),
-          onPressed: () => Navigator.of(context).pop(controller.text),
+          onPressed: () => Navigator.of(context).pop(_controller.text),
           child: Text(s.commonSave),
         ),
       ],
-    ),
-  ).whenComplete(controller.dispose);
+    );
+  }
 }
 
 Future<String?> _showTonePicker(
@@ -1250,7 +1376,7 @@ Future<String?> _showTonePicker(
 ) async {
   final sounds = await NotificationSounds.list();
   if (!context.mounted) return null;
-  return showDialog<String>(
+  return _alarmDialog<String>(
     context: context,
     builder: (context) =>
         _TonePicker(container: container, current: current, sounds: sounds),
