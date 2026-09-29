@@ -112,8 +112,22 @@ export function settingsPageText(category, english) {
     : ['Plugins', 'plugins'].includes(category) ? pluginText(english)
     : ['Kiosk', 'kiosk', 'Home', 'home', 'Lockdown', 'lockdown'].includes(category) ? kioskText(english)
     : category === 'Intercom' || category === 'intercom' ? (english === 'Answer' ? t('intercomAnswerSection') : english === 'Talk' ? t('intercomTalkSection') : intercomText(english))
-    : category === 'Alarms' || category === 'alarms' ? (english === 'Defaults' ? t('alarmsDefaultsSection') : english)
+    : category === 'Alarms' || category === 'alarms' ? alarmsPageText(english)
     : category === 'Sendspin' || category === 'sendspin' ? mediaText(english) : english;
+}
+
+// The Alarms page's own headings and hand-built rows, Settings > Alarms
+// on the device (settingsPageText in messages.dart).
+const ALARMS_PAGE_TEXT = {
+  'Defaults': 'alarmsDefaultsSection',
+  'Voice Alarms': 'alarmsVoiceSection',
+  'Manage alarms using Voice Satellite': 'alarmsVoiceManage',
+  'Needs the Kiosk Satellite alarms blueprint and an LLM conversation agent in Home Assistant. Opens the guide.': 'alarmsVoiceHint',
+};
+
+function alarmsPageText(english) {
+  const id = ALARMS_PAGE_TEXT[english];
+  return id ? t(id, {}, english) : english;
 }
 
 export function haConnectionError(error) {

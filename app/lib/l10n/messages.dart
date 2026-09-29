@@ -442,8 +442,15 @@ String settingsPageText(
   'Launcher' => launcherText(context, english),
   'Gestures' => gestureText(context, english),
   'Kiosk' || 'Home' || 'Lockdown' => kioskText(context, english),
-  'Alarms' =>
-    english == 'Defaults' ? l10n(context).alarmsDefaultsSection : english,
+  'Alarms' => switch (english) {
+    'Defaults' => l10n(context).alarmsDefaultsSection,
+    'Voice Alarms' => l10n(context).alarmsVoiceSection,
+    'Manage alarms using Voice Satellite' => l10n(context).alarmsVoiceManage,
+    'Needs the Kiosk Satellite alarms blueprint and an LLM conversation '
+        'agent in Home Assistant. Opens the guide.' =>
+      l10n(context).alarmsVoiceHint,
+    _ => english,
+  },
   'Intercom' => switch (english) {
     'Answer' => l10n(context).intercomAnswerSection,
     'Talk' => l10n(context).intercomTalkSection,

@@ -891,6 +891,45 @@
       }
     }
   },
+  "alarmsVoiceSection": "Alarmas por voz",
+  "@alarmsVoiceSection": {
+    "context": "Settings > Alarms",
+    "description": "Heading of the group about setting alarms by voice.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsVoiceManage": "Gestionar alarmas con Voice Satellite",
+  "@alarmsVoiceManage": {
+    "context": "Settings > Alarms",
+    "description": "Row that opens the guide to setting alarms by voice. Keep Voice Satellite unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsVoiceHint": "Requiere el blueprint de alarmas de Kiosk Satellite y un agente de conversación LLM en Home Assistant. Abre la guía.",
+  "@alarmsVoiceHint": {
+    "context": "Settings > Alarms",
+    "description": "Description under that row. Keep Kiosk Satellite and Home Assistant unchanged. A blueprint is a Home Assistant template for a script.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
   "androidAccessibilityHelp": "Cierra el panel de notificaciones y la pantalla de aplicaciones recientes cuando se abren mientras el modo kiosko o el modo de bloqueo protege la pantalla. Kiosk Satellite no lee el contenido de la pantalla.",
   "@androidAccessibilityHelp": {
     "context": "Android Settings > Accessibility > Kiosk Satellite",

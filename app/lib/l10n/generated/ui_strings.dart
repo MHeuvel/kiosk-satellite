@@ -505,6 +505,24 @@ abstract class UiStrings {
   /// **'{label}, {time} and {day} become the alarm\'s label, time and day.'**
   String alarmsPhraseHint(String label, String time, String day);
 
+  /// Heading of the group about setting alarms by voice.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Alarms'**
+  String get alarmsVoiceSection;
+
+  /// Row that opens the guide to setting alarms by voice. Keep Voice Satellite unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage alarms using Voice Satellite'**
+  String get alarmsVoiceManage;
+
+  /// Description under that row. Keep Kiosk Satellite and Home Assistant unchanged. A blueprint is a Home Assistant template for a script.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs the Kiosk Satellite alarms blueprint and an LLM conversation agent in Home Assistant. Opens the guide.'**
+  String get alarmsVoiceHint;
+
   /// Service description displayed by Android in its own language.
   ///
   /// In en, this message translates to:

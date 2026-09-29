@@ -891,6 +891,45 @@
       }
     }
   },
+  "alarmsVoiceSection": "Wecker per Sprache",
+  "@alarmsVoiceSection": {
+    "context": "Settings > Alarms",
+    "description": "Heading of the group about setting alarms by voice.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsVoiceManage": "Wecker mit Voice Satellite verwalten",
+  "@alarmsVoiceManage": {
+    "context": "Settings > Alarms",
+    "description": "Row that opens the guide to setting alarms by voice. Keep Voice Satellite unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsVoiceHint": "Benötigt den Kiosk Satellite Wecker-Blueprint und einen LLM-Konversationsagenten in Home Assistant. Öffnet die Anleitung.",
+  "@alarmsVoiceHint": {
+    "context": "Settings > Alarms",
+    "description": "Description under that row. Keep Kiosk Satellite and Home Assistant unchanged. A blueprint is a Home Assistant template for a script.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
   "androidAccessibilityHelp": "Schließt das Benachrichtigungsfeld und den Bildschirm der zuletzt verwendeten Apps, wenn diese geöffnet werden, während der Kioskmodus oder der Sperrmodus den Bildschirm schützt. Kiosk Satellite liest den Inhalt des Bildschirms nicht.",
   "@androidAccessibilityHelp": {
     "context": "Android Settings > Accessibility > Kiosk Satellite",

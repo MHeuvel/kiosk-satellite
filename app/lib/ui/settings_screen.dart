@@ -192,6 +192,8 @@ const _analyticsIntro =
     'Kiosk Satellite better and guide which devices and features get '
     'attention.';
 const _analyticsDocsUrl = 'https://kiosksatellite.com/docs/analytics/';
+const _voiceAlarmsDocsUrl =
+    'https://kiosksatellite.com/docs/alarms/#setting-alarms-by-voice';
 
 // The Updates page closes with a link to the custom repository guide: the
 // folder layout, the releases file and the APK names live in the docs, not
@@ -478,6 +480,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         fleetTextFor: (text) => fleetText(context, text),
         pluginTextFor: (text) => pluginText(context, text),
         intercomTextFor: (text) => intercomText(context, text),
+        alarmsTextFor: (text) => settingsPageText(context, 'Alarms', text),
         mediaTextFor: (text) => mediaText(context, text),
         cameraStreamsTextFor: (text) => cameraStreamsText(context, text),
         cameraTextFor: (text) => cameraText(context, text),
@@ -2310,6 +2313,28 @@ class _CategoryContentState extends State<_CategoryContent> {
           ),
           SectionHeading(l10n(context).alarmsTitle),
           AlarmsManageCard(container: container),
+          // Voice alarms live in Home Assistant (the blueprint), so this
+          // group only points at the guide. Mirrored in alarms.js.
+          SectionHeading(l10n(context).alarmsVoiceSection),
+          SettingsCard(
+            children: [
+              SearchLandingTarget(
+                id: 'x:alarms_voice',
+                child: SettingsRow(
+                  leading: const Icon(Icons.record_voice_over_outlined),
+                  title: Text(l10n(context).alarmsVoiceManage),
+                  subtitle: Text(l10n(context).alarmsVoiceHint),
+                  trailing: const Icon(Icons.open_in_new),
+                  onTap: () {
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    container.commands.execute('showLinkPage', {
+                      'url': _voiceAlarmsDocsUrl,
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
           ..._sectionedCards(
             container,
             [

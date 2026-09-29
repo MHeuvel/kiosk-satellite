@@ -241,6 +241,16 @@ class UiStringsUk extends UiStrings {
   }
 
   @override
+  String get alarmsVoiceSection => 'Голосові будильники';
+
+  @override
+  String get alarmsVoiceManage => 'Керувати будильниками через Voice Satellite';
+
+  @override
+  String get alarmsVoiceHint =>
+      'Потрібні blueprint будильників Kiosk Satellite і агент розмови LLM у Home Assistant. Відкриває посібник.';
+
+  @override
   String get androidAccessibilityHelp =>
       'Закриває панель сповіщень та екран нещодавніх програм щоразу, коли вони відкриваються, доки режим кіоска або захищений режим блокує екран. Kiosk Satellite не зчитує вміст екрана.';
 

@@ -241,6 +241,16 @@ class UiStringsEn extends UiStrings {
   }
 
   @override
+  String get alarmsVoiceSection => 'Voice Alarms';
+
+  @override
+  String get alarmsVoiceManage => 'Manage alarms using Voice Satellite';
+
+  @override
+  String get alarmsVoiceHint =>
+      'Needs the Kiosk Satellite alarms blueprint and an LLM conversation agent in Home Assistant. Opens the guide.';
+
+  @override
   String get androidAccessibilityHelp =>
       'Closes the notification shade and the recents screen whenever they open while Kiosk Mode or Lockdown Mode is protecting the screen. Kiosk Satellite does not read any screen content.';
 

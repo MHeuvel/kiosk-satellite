@@ -1,4 +1,4 @@
-import { messageLanguage, overviewText, t } from './localization.js';
+import { deviceText, messageLanguage, overviewText, t } from './localization.js';
 import { cmd, state } from './core.js';
 import { cameraAction, cameraListRow, cameraToggle } from './cameras.js';
 import { attachTtsPicker } from './intercom.js';
@@ -428,7 +428,36 @@ export async function renderAlarmsPage({ fetch = true } = {}) {
   const set = button(t('alarmsSetAnAlarm'), 'btn-primary', () => openEditor(null));
   set.insertAdjacentHTML('afterbegin', PLUS_ICON);
   add.appendChild(set);
-  putTop(tab, [heading, card, add]);
+  putTop(tab, [heading, card, add, ...voiceCards()]);
+}
+
+// Voice alarms live in Home Assistant (the blueprint), so this group only
+// points at the guide. Mirrors the device's Voice Alarms group.
+const VOICE_DOCS_URL = 'https://kiosksatellite.com/docs/alarms/#setting-alarms-by-voice';
+
+function voiceCards() {
+  const heading = document.createElement('h2');
+  heading.className = 'card-title alarms-built';
+  heading.textContent = t('alarmsVoiceSection');
+  const card = document.createElement('div');
+  card.className = 'card alarms-built';
+  const row = document.createElement('div');
+  row.className = 'row';
+  row.dataset.searchId = 'x:alarms_voice';
+  const info = document.createElement('div');
+  info.className = 'info';
+  info.innerHTML = '<div class="name"></div><div class="desc"></div>';
+  info.querySelector('.name').textContent = t('alarmsVoiceManage');
+  info.querySelector('.desc').textContent = t('alarmsVoiceHint');
+  const link = document.createElement('a');
+  link.className = 'btn-ghost';
+  link.textContent = deviceText('Open guide');
+  link.href = VOICE_DOCS_URL;
+  link.target = '_blank';
+  link.rel = 'noreferrer';
+  row.append(info, link);
+  card.appendChild(row);
+  return [heading, card];
 }
 
 /* ---- lifecycle ---- */

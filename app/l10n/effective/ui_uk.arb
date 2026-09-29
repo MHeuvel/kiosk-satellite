@@ -891,6 +891,45 @@
       }
     }
   },
+  "alarmsVoiceSection": "Голосові будильники",
+  "@alarmsVoiceSection": {
+    "context": "Settings > Alarms",
+    "description": "Heading of the group about setting alarms by voice.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsVoiceManage": "Керувати будильниками через Voice Satellite",
+  "@alarmsVoiceManage": {
+    "context": "Settings > Alarms",
+    "description": "Row that opens the guide to setting alarms by voice. Keep Voice Satellite unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsVoiceHint": "Потрібні blueprint будильників Kiosk Satellite і агент розмови LLM у Home Assistant. Відкриває посібник.",
+  "@alarmsVoiceHint": {
+    "context": "Settings > Alarms",
+    "description": "Description under that row. Keep Kiosk Satellite and Home Assistant unchanged. A blueprint is a Home Assistant template for a script.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
   "androidAccessibilityHelp": "Закриває панель сповіщень та екран нещодавніх програм щоразу, коли вони відкриваються, доки режим кіоска або захищений режим блокує екран. Kiosk Satellite не зчитує вміст екрана.",
   "@androidAccessibilityHelp": {
     "context": "Android Settings > Accessibility > Kiosk Satellite",

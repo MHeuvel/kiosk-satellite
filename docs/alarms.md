@@ -97,6 +97,8 @@ The alarm goes to the kiosk you are talking to. A request typed into Home Assist
 
 The kiosk listens for the script over its own Home Assistant connection, so it needs the Home Assistant address and token under **Settings, Home Assistant**, and the token has to belong to an administrator. Nothing new appears in ESPHome.
 
+**Manage alarms using Voice Satellite** under **Settings, Alarms, Voice Alarms** and on the remote admin's **Alarms** page opens this guide.
+
 Stopping and snoozing a ringing alarm still works with the stop word, the screen and the **Stop alarm** and **Snooze alarm** buttons.
 
 ## Remote admin

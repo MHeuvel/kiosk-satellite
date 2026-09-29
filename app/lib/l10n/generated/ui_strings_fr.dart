@@ -241,6 +241,16 @@ class UiStringsFr extends UiStrings {
   }
 
   @override
+  String get alarmsVoiceSection => 'Alarmes vocales';
+
+  @override
+  String get alarmsVoiceManage => 'Gérer les alarmes avec Voice Satellite';
+
+  @override
+  String get alarmsVoiceHint =>
+      'Nécessite le blueprint d\'alarmes de Kiosk Satellite et un agent de conversation LLM dans Home Assistant. Ouvre le guide.';
+
+  @override
   String get androidAccessibilityHelp =>
       'Ferme le panneau de notifications et l\'écran des applications récentes chaque fois qu\'ils s\'ouvrent tant que le mode Kiosque ou le mode Verrouillage protège l\'écran. Kiosk Satellite ne lit aucun contenu d\'écran.';
 

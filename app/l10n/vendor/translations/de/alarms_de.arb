@@ -45,5 +45,8 @@
   "alarmsEaseHint": "Erreicht die Weckerlautstärke in {seconds} Sekunden.",
   "alarmsSpeak": "Beim Klingeln sprechen",
   "alarmsPhrase": "Satz",
-  "alarmsPhraseHint": "{label}, {time} und {day} werden durch Bezeichnung, Uhrzeit und Tag des Weckers ersetzt."
+  "alarmsPhraseHint": "{label}, {time} und {day} werden durch Bezeichnung, Uhrzeit und Tag des Weckers ersetzt.",
+  "alarmsVoiceSection": "Wecker per Sprache",
+  "alarmsVoiceManage": "Wecker mit Voice Satellite verwalten",
+  "alarmsVoiceHint": "Benötigt den Kiosk Satellite Wecker-Blueprint und einen LLM-Konversationsagenten in Home Assistant. Öffnet die Anleitung."
 }
