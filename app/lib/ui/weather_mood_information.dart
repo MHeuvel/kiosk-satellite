@@ -13,6 +13,7 @@ import 'clock_faces.dart';
 import 'digital_clock_face.dart';
 import 'glance_row.dart';
 import 'glass_chip.dart';
+import 'text_snapshot.dart';
 import 'weather_readings.dart';
 
 /// A soft shadow for text over the open sky, sized to the text: a faint
@@ -233,6 +234,31 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
     final clockSize = math.min(size.width * .20, size.height * .30) * scale;
     final dateSize = math.min(size.width * .05, size.height * .07) * scale;
     final shadow = s.get(defs.screensaverWeatherClockShadow);
+    final date = s.get(defs.screensaverWeatherClockDate)
+        ? fullDate(_now)
+        : null;
+    final color = _color(s.get(defs.screensaverWeatherClockColor));
+    final weight =
+        clockWeightOverride(s.get(defs.screensaverWeatherClockFontWeight)) ??
+        clockFontWeight(font);
+    final face = DigitalClockFace(
+      time: time,
+      dateGapFactor: .015,
+      dateOpacity: 1,
+      date: date,
+      color: color,
+      clockSize: clockSize,
+      dateSize: dateSize,
+      fontFamily: clockFontFamily(font),
+      weight: weight,
+      opticalSize: clockOpticalSize(font),
+      // Each line's shadow is sized to its own text.
+      shadows: shadow ? _skyShadows(clockSize) : const [],
+      dateShadows: shadow ? _dateShadows(dateSize) : const [],
+      // A step heavier than the Clock screensaver's, so the thin
+      // strokes hold up over white clouds.
+      dateWeight: FontWeight.w500,
+    );
     return Padding(
       padding: const EdgeInsets.all(28),
       child: Center(
@@ -240,30 +266,24 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
           offset: _offset,
           child: FittedBox(
             fit: BoxFit.scaleDown,
-            child: DigitalClockFace(
-              time: time,
-              dateGapFactor: .015,
-              dateOpacity: 1,
-              date: s.get(defs.screensaverWeatherClockDate)
-                  ? fullDate(_now)
-                  : null,
-              color: _color(s.get(defs.screensaverWeatherClockColor)),
-              clockSize: clockSize,
-              dateSize: dateSize,
-              fontFamily: clockFontFamily(font),
-              weight:
-                  clockWeightOverride(
-                    s.get(defs.screensaverWeatherClockFontWeight),
-                  ) ??
-                  clockFontWeight(font),
-              opticalSize: clockOpticalSize(font),
-              // Each line's shadow is sized to its own text.
-              shadows: shadow ? _skyShadows(clockSize) : const [],
-              dateShadows: shadow ? _dateShadows(dateSize) : const [],
-              // A step heavier than the Clock screensaver's, so the thin
-              // strokes hold up over white clouds.
-              dateWeight: FontWeight.w500,
-            ),
+            // Blurred shadows redraw every frame on Impeller unless the
+            // face is kept as an image until the time changes.
+            child: shadow
+                ? TextSnapshot(
+                    // The soft shadows reach this far past the text.
+                    bleed: math.max(clockSize * .16, dateSize * .8),
+                    content: (
+                      time,
+                      date,
+                      color,
+                      clockSize,
+                      dateSize,
+                      font,
+                      weight,
+                    ),
+                    child: face,
+                  )
+                : face,
           ),
         ),
       ),
@@ -372,15 +392,26 @@ class WeatherMoodBar extends StatelessWidget {
     );
     // A StadiumBorder keeps the radius at half the chip's own height; an
     // oversized corner radius once froze Impeller's raster thread.
-    Widget chip(Widget child, EdgeInsets padding) => GlassChip(
-      palette: glass,
-      fallback: Container(
-        padding: padding * scale,
-        decoration: glass.decoration,
-        child: child,
-      ),
-      child: Padding(padding: padding * scale, child: child),
-    );
+    // [content] is everything the chip shows, so the snapshot that keeps
+    // its shadowed text from redrawing every frame refreshes when it does.
+    Widget chip(Widget child, EdgeInsets padding, Object content) {
+      final body = shadows.isEmpty
+          ? child
+          : TextSnapshot(
+              content: (content, scale, color),
+              bleed: 20 * scale,
+              child: child,
+            );
+      return GlassChip(
+        palette: glass,
+        fallback: Container(
+          padding: padding * scale,
+          decoration: glass.decoration,
+          child: body,
+        ),
+        child: Padding(padding: padding * scale, child: body),
+      );
+    }
 
     Widget disc(double diameter, Widget icon) => Container(
       width: diameter * scale,
@@ -431,6 +462,7 @@ class WeatherMoodBar extends StatelessWidget {
         ],
       ),
       const EdgeInsets.fromLTRB(6, 6, 18, 6),
+      (screensaverText(context, title), value, icon, titles),
     );
     final metrics = <Widget>[
       if (s.get(defs.screensaverWeatherBarHumidity) &&
@@ -522,6 +554,7 @@ class WeatherMoodBar extends StatelessWidget {
         ],
       ),
       const EdgeInsets.fromLTRB(6, 6, 18, 6),
+      (temperature, condition, location, forecast, readings.condition),
     );
     final gap = 12 * scale;
     // One row when the chips' real widths fit: conditions at the left and

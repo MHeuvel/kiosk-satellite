@@ -7,6 +7,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ### Changed
 - **A photorealistic Weather Mood moon.** The moon now shows the real near side of the Moon, from NASA Lunar Reconnaissance Orbiter imagery, about 40% larger and with a fainter glow. Stars no longer shine in front of it.
 
+### Fixed
+- **Weather Mood no longer judders in windy scenes on fast devices.** The soft text shadows on the clock, the weather chips and At a Glance were redrawn with offscreen blurs on every frame, which on a Galaxy Tab S8 cost about 80% of a core and made frames miss their slot while the clouds moved. The shadowed text is now drawn once and reused until it changes, so the scenes run as smoothly as without shadows.
+
 ## v2026.9.91 - 2026-09-28
 
 ### Added

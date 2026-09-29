@@ -9,6 +9,7 @@ import '../managers/glance/glance_manager.dart';
 import '../managers/settings/definitions.dart' as defs;
 import 'clock_faces.dart';
 import 'glass_chip.dart';
+import 'text_snapshot.dart';
 import 'mdi_icon.dart';
 
 /// The screensaver's At a Glance row: a few entity states (issue #37).
@@ -555,11 +556,29 @@ class _GlanceCard extends StatelessWidget {
         ),
       ],
     );
+    // Blurred shadows redraw every frame on Impeller unless the pill's
+    // content is kept as an image until what it shows changes.
+    final body = shadows.isEmpty
+        ? content
+        : TextSnapshot(
+            content: (
+              entity.displayName,
+              glanceStateText(entity, strings: l10n(context)),
+              entity.icon,
+              accent,
+              hideName,
+              scale,
+              font.family,
+              font.weight,
+            ),
+            bleed: 20 * scale,
+            child: content,
+          );
     if (glass != null) {
       return GlassChip(
         palette: glass,
-        fallback: pill(glass.decoration, content),
-        child: pill(null, content),
+        fallback: pill(glass.decoration, body),
+        child: pill(null, body),
       );
     }
     // A StadiumBorder, not a BoxDecoration with a large corner radius: the
@@ -573,7 +592,7 @@ class _GlanceCard extends StatelessWidget {
         color: background,
         shape: StadiumBorder(side: BorderSide(color: border)),
       ),
-      content,
+      body,
     );
   }
 }
