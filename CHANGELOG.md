@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.92 - 2026-09-28
 
 ### Added
 - **An adjustable adaptive brightness curve.** The Adaptive brightness page replaces its Minimum brightness, Maximum brightness, Dark room and Bright room rows with a Brightness curve: a chart of screen brightness against the room's light with four points to drag, the live reading marked on it, and each point's values under the chart to tap for exact numbers (#742). The two middle points shape how the screen climbs between the ends, so a sensor that reads low in the evening can get its climb where its readings actually land. A smooth curve runs through all four and never dims the screen as the room gets brighter. Existing setups keep the straight line they had. The Screen light in Home Assistant still sets the top point and the middle points scale with it. The remote admin has the same editor, with arrow keys to nudge a focused point. Translated into Spanish, German, French and Ukrainian.
