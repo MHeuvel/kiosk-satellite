@@ -169,11 +169,26 @@ class _KioskScreenState extends State<KioskScreen>
   DateTime? _backArmedUntil;
 
   static const _backAgainWindow = Duration(seconds: 3);
+  static const _backEcho = Duration(milliseconds: 200);
+
+  /// When the last back press ran the ladder, to drop its echo.
+  DateTime? _lastBackAt;
 
   /// One ladder for every back press — the predictive pop (the PopScope in
   /// build) and the KeyEvent path KioskLock routes here as KioskBackPressed
   /// land in the same place, so the two can never drift apart.
   void _handleBack() {
+    // Android 16 with targetSdk 36 hands a key-driven back to both paths
+    // at once when KioskLock swallows it (kiosk mode or the home role):
+    // the predictive callback Flutter registers for the PopScope, and the
+    // KeyEvent. The two land a few milliseconds apart, and ran the ladder
+    // twice: the first opened the menu, the second closed it again and
+    // stepped back, so a remote's back could never open the menu (issue
+    // #745). No hand presses back twice this fast.
+    final now = DateTime.now();
+    final last = _lastBackAt;
+    _lastBackAt = now;
+    if (last != null && now.difference(last) < _backEcho) return;
     if (_drawer.value == 0 &&
         !c.screensaver.isActive &&
         !c.launcher.visible.value &&
@@ -235,6 +250,11 @@ class _KioskScreenState extends State<KioskScreen>
         // restricted quick menu, never the full one.
         setState(() => _drawerRestricted = c.kiosk.locked);
         _drawer.fling(velocity: 1);
+        // Back is the remote's menu key (issue #745), so the arrows start
+        // on the first entry the way they did when left opened the menu.
+        // A touch-driven back leaves Flutter in touch highlight mode and
+        // the focus draws nothing.
+        _focusDrawer();
         _backArmedUntil = DateTime.now().add(_backAgainWindow);
         // No toast while the home role is held: a home screen's back has
         // no app to close and usually no history to step, so there is
@@ -1242,19 +1262,10 @@ class _KioskScreenState extends State<KioskScreen>
           _settingsOpen || !(ModalRoute.of(context)?.isCurrent ?? true),
       drawerOpen: _drawer.value > 0,
       drawerFocused: _drawerFocus.hasFocus,
-      openAllowed: !c.kiosk.locked || _quickMenuAvailable,
-      isLeft: key == LogicalKeyboardKey.arrowLeft,
     )) {
       case KeyNavAction.pass:
         return false;
       case KeyNavAction.swallow:
-        return true;
-      case KeyNavAction.openDrawer:
-        // Mirrors the edge swipe: opening while locked earns only the
-        // restricted quick menu, never the full one.
-        setState(() => _drawerRestricted = c.kiosk.locked);
-        _drawer.fling(velocity: 1);
-        _focusDrawer();
         return true;
       case KeyNavAction.focusDrawer:
         _focusDrawer();

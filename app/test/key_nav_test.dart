@@ -12,8 +12,6 @@ void main() {
     bool routeCovered = false,
     bool drawerOpen = false,
     bool drawerFocused = false,
-    bool openAllowed = true,
-    bool isLeft = false,
     bool nowPlayingControls = false,
   }) => decideNavKey(
     lockdown: lockdown,
@@ -23,8 +21,6 @@ void main() {
     routeCovered: routeCovered,
     drawerOpen: drawerOpen,
     drawerFocused: drawerFocused,
-    openAllowed: openAllowed,
-    isLeft: isLeft,
   );
 
   group('decideNavKey', () {
@@ -46,28 +42,15 @@ void main() {
       );
     });
 
-    test('left over the bare kiosk opens the drawer', () {
-      expect(decide(isLeft: true), KeyNavAction.openDrawer);
-    });
-
-    test('other keys over the bare kiosk are swallowed, not left to a '
+    test('keys over the bare kiosk are swallowed, not left to a '
         'focus search across invisible widgets', () {
+      // Native routing hands them all to the WebView, left included
+      // (issue #745); one only lands here with no WebView to take it.
       expect(decide(), KeyNavAction.swallow);
     });
 
-    test(
-      'left while the kiosk is locked without the quick menu stays shut',
-      () {
-        expect(decide(isLeft: true, openAllowed: false), KeyNavAction.swallow);
-      },
-    );
-
-    test('locked with the quick menu opted in still opens', () {
-      expect(decide(isLeft: true, openAllowed: true), KeyNavAction.openDrawer);
-    });
-
     test('lockdown swallows everything, screensaver dismissal included', () {
-      expect(decide(lockdown: true, isLeft: true), KeyNavAction.swallow);
+      expect(decide(lockdown: true), KeyNavAction.swallow);
       expect(
         decide(lockdown: true, screensaverActive: true),
         KeyNavAction.swallow,
@@ -76,10 +59,6 @@ void main() {
 
     test('a showing screensaver takes the press as its dismissal only', () {
       expect(decide(screensaverActive: true), KeyNavAction.swallow);
-      expect(
-        decide(screensaverActive: true, isLeft: true),
-        KeyNavAction.swallow,
-      );
     });
 
     test('an open drawer without focus gets focused first', () {
@@ -91,12 +70,12 @@ void main() {
     });
 
     test('a covering route - settings, a dialog - owns its keys', () {
-      expect(decide(routeCovered: true, isLeft: true), KeyNavAction.pass);
+      expect(decide(routeCovered: true), KeyNavAction.pass);
       expect(decide(routeCovered: true, drawerOpen: true), KeyNavAction.pass);
     });
 
     test('launcher, camera view and rotation pages are left alone', () {
-      expect(decide(overlayUp: true, isLeft: true), KeyNavAction.pass);
+      expect(decide(overlayUp: true), KeyNavAction.pass);
     });
 
     test('screensaver outranks an open drawer left behind it', () {

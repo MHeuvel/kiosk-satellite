@@ -5,11 +5,13 @@
 /// focus, leaving no way to reach the menu. MainActivity routes the dpad,
 /// arrow and select keys by hand: into Flutter while a surface of ours
 /// navigates (the navCapture flag the kiosk screen pushes), to the
-/// frontmost WebView over the bare dashboard — all but left, which always
-/// comes here to open the drawer. The kiosk screen asks this table what
-/// an arriving press means where the UI currently stands, and leaves
-/// everything it can to the framework's own focus traversal (arrows walk
-/// the focusable rows, select taps the focused one).
+/// frontmost WebView over the bare dashboard. Left used to open the
+/// drawer from here, which left a remote-driven card no way to move left
+/// (issue #745); back opens it now (see back_nav.dart). The kiosk screen
+/// asks this table what an arriving press means where the UI currently
+/// stands, and leaves everything it can to the framework's own focus
+/// traversal (arrows walk the focusable rows, select taps the focused
+/// one).
 ///
 /// Pure on purpose: the kiosk screen itself cannot be pumped in a widget
 /// test (the dashboard is a platform view), so the decision is kept where
@@ -72,9 +74,6 @@ enum KeyNavAction {
   /// also land somewhere behind it.
   swallow,
 
-  /// Open the drawer and move focus onto its first entry.
-  openDrawer,
-
   /// The drawer is open (an edge swipe opened it) but holds no focus yet:
   /// focus its first entry so the arrows have somewhere to start.
   focusDrawer,
@@ -88,8 +87,7 @@ enum KeyNavAction {
 /// dialog, a picker — each a focus scope of its own that the framework's
 /// traversal bootstraps and walks by itself; grabbing the drawer's focus
 /// from under an "Exit Application" confirm would send the arrows behind
-/// the modal. [openAllowed] mirrors the edge swipe's own gate: the kiosk
-/// is unlocked, or the owner opted into the restricted quick menu.
+/// the modal.
 KeyNavAction decideNavKey({
   required bool lockdown,
   required bool screensaverActive,
@@ -98,8 +96,6 @@ KeyNavAction decideNavKey({
   required bool routeCovered,
   required bool drawerOpen,
   required bool drawerFocused,
-  required bool openAllowed,
-  required bool isLeft,
 }) {
   // Lockdown swallows keys like its shield swallows touches: nothing on
   // screen may answer.
@@ -114,8 +110,8 @@ KeyNavAction decideNavKey({
   if (drawerOpen) {
     return drawerFocused ? KeyNavAction.pass : KeyNavAction.focusDrawer;
   }
-  if (isLeft && openAllowed) return KeyNavAction.openDrawer;
-  // Up, down, right and select over the bare kiosk: consumed, or a focus
-  // search would land on something invisible behind the dashboard.
+  // Over the bare kiosk the keys belong to the WebView. One that reaches
+  // Flutter anyway (no WebView to take it) is consumed, or a focus search
+  // would land on something invisible behind the dashboard.
   return KeyNavAction.swallow;
 }

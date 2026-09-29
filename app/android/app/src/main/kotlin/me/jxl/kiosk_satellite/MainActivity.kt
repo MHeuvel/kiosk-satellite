@@ -336,15 +336,15 @@ class MainActivity : FlutterActivity() {
         // whatever view happens to be focused, and a TV remote has no way
         // to reach the menu. While Flutter has a surface up that navigates
         // (drawer, settings, screensaver, lockdown — the navCapture flag),
-        // every key goes into the FlutterView; over the bare dashboard,
-        // left goes to Flutter (it opens the drawer) and the rest go to
-        // the frontmost WebView, so the page keeps its scrolling and its
-        // own key handling. Text entry is the exception — arrows belong to
-        // the cursor while a field is taking input, wherever that field
-        // lives.
+        // every key goes into the FlutterView; over the bare dashboard
+        // every key goes to the frontmost WebView, so the page keeps its
+        // scrolling and its own key handling. Left included (issue #745):
+        // a remote-driven card needs it to walk back along a row, and
+        // back is what opens the menu. Text entry is the exception —
+        // arrows belong to the cursor while a field is taking input,
+        // wherever that field lives.
         if (isNavKey(event.keyCode) && !isTextEditing()) {
-            val toFlutter = kioskLock?.navCapture == true ||
-                event.keyCode == KeyEvent.KEYCODE_DPAD_LEFT
+            val toFlutter = kioskLock?.navCapture == true
             if (toFlutter && event.action == KeyEvent.ACTION_DOWN) {
                 // Park native focus on the one-pixel spot even while
                 // Flutter owns the keys (they are routed by hand below,
@@ -367,6 +367,16 @@ class MainActivity : FlutterActivity() {
                     // focused the WebView.
                     if (!it.hasFocus()) it.requestFocus()
                     it.dispatchKeyEvent(webViewKey(event))
+                    // The press skips Flutter, where every other key
+                    // counts as activity: without this, walking the
+                    // dashboard with a remote let the screensaver start
+                    // mid-navigation. A held key's repeats are not new
+                    // activity, same as on the Flutter side.
+                    if (event.action == KeyEvent.ACTION_DOWN &&
+                        event.repeatCount == 0
+                    ) {
+                        kioskLock?.notifyPageKey()
+                    }
                     return true
                 }
             }
@@ -400,9 +410,9 @@ class MainActivity : FlutterActivity() {
      * Shift+Tab: a dashboard's controls are focusables the way a desktop
      * browser walks them with Tab — Chromium hands the dpad to the page as
      * plain arrow keys, which a Home Assistant dashboard ignores. Focus
-     * movement scrolls the page along with it. Right stays an arrow (a
-     * focused slider answers to it); center and enter already activate the
-     * focused control.
+     * movement scrolls the page along with it. Left and right stay arrows
+     * (a focused slider answers to them); center and enter already
+     * activate the focused control.
      */
     private fun webViewKey(event: KeyEvent): KeyEvent = when (event.keyCode) {
         KeyEvent.KEYCODE_DPAD_UP -> KeyEvent(
