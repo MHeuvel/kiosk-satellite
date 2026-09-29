@@ -1241,26 +1241,31 @@ class _ClockScreensaverState extends State<ClockScreensaver>
               offset: _offset,
               child: !ringing
                   ? face
+                  // The face gives way to the label and the buttons, which
+                  // keep their full size: a flip or roller face fills the
+                  // screen on its own and would otherwise squeeze them.
                   : Padding(
                       padding: const EdgeInsets.all(24),
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            face,
-                            SizedBox(height: clockSize * .1),
-                            AlarmTakeoverControls(
-                              container: widget.container,
-                              color: digitColor,
-                              ink: backdrop,
-                              glass: digitColor.withValues(alpha: .1),
-                              edge: digitColor.withValues(alpha: .22),
-                              labelSize: dateSize,
-                              fontFamily: font,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Flexible(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: face,
                             ),
-                          ],
-                        ),
+                          ),
+                          SizedBox(height: clockSize * .1),
+                          AlarmTakeoverControls(
+                            container: widget.container,
+                            color: digitColor,
+                            ink: backdrop,
+                            glass: digitColor.withValues(alpha: .1),
+                            edge: digitColor.withValues(alpha: .22),
+                            labelSize: dateSize,
+                            fontFamily: font,
+                          ),
+                        ],
                       ),
                     ),
             ),
