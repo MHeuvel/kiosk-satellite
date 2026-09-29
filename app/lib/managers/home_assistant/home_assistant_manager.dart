@@ -114,9 +114,10 @@ class HomeAssistantManager extends Manager {
         _watchRemoteVoice();
       }
     });
-    connectionOk.addListener(
-      () => bus.publish(const RemoteStatusChanged('ha')),
-    );
+    connectionOk.addListener(() {
+      bus.publish(const RemoteStatusChanged('ha'));
+      if (connectionOk.value) unawaited(_leaveDashboardRuntime());
+    });
     commands.register(
       Command(
         name: 'haPluginReadEntity',
@@ -1453,6 +1454,35 @@ class HomeAssistantManager extends Manager {
 
   /// Whether the Voice Satellite integration is installed on the connected
   /// HA instance (probes its static frontend path). Cached per app run.
+  /// A kiosk that had a satellite assigned when native Voice Satellite
+  /// arrived stayed on the dashboard runtime, and only the integration's
+  /// migration moves it on. Once the integration is uninstalled that way is
+  /// gone and the page only offers to install it again, so switch the kiosk
+  /// to native here. Only on Home Assistant's own 404 for the integration's
+  /// script: a network error says nothing. Voice stays off until its owner
+  /// turns it on.
+  Future<void> _leaveDashboardRuntime() async {
+    if (_settings.get(defs.voiceRuntime) != 'dashboard' || baseUrl.isEmpty) {
+      return;
+    }
+    try {
+      final response = await http
+          .head(Uri.parse('$baseUrl/voice_satellite/voice-satellite-card.js'))
+          .timeout(const Duration(seconds: 5));
+      if (response.statusCode != 404) return;
+    } catch (_) {
+      return;
+    }
+    if (_settings.get(defs.voiceRuntime) != 'dashboard') return;
+    _vsDetected = false;
+    await _settings.set(defs.voiceRuntime, 'native');
+    log.info(
+      name,
+      'the Voice Satellite integration is not installed; Voice Satellite '
+      'now runs natively',
+    );
+  }
+
   Future<bool> detectVoiceSatellite() async {
     if (_vsDetected != null) return _vsDetected!;
     if (baseUrl.isEmpty) return false;
