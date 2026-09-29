@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.93 - 2026-09-29
 
 ### Added
 - **Alarms can ease in their volume.** A new **Ease in the volume** switch under **Settings, Alarms, Defaults** starts the tone quiet and grows it to the alarm volume over **Ease in over**, 5 to 120 seconds. Each alarm has its own switch on its details page, which follows the default until it is flipped.
