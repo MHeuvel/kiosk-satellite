@@ -4,6 +4,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ## Unreleased
 
+### Changed
+- **Weather Mood's clock stands out more on overcast days.** In the Cloudy scene by day and at dawn and dusk, bright cloud fills the whole sky and the white clock washed into it. The clock and date shadows are darker there, with a broad halo that dims the cloud around the digits. Every other scene keeps its lighter shadow.
+
 ### Fixed
 - **Home Assistant's Voice Satellite picks can be excluded from a fleet profile.** A leader passes its Assistant, Wake word and Finished speaking detection picks to its followers, but the exclusion list left them out, so a profile could not keep them per kiosk. They now show in the list under Voice Satellite, Assistant and Wake Word, on the device and in the remote admin.
 

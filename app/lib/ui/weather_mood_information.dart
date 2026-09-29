@@ -20,34 +20,44 @@ import 'weather_readings.dart';
 /// A soft shadow for text over the open sky, sized to the text: a faint
 /// contact shadow that holds the edges and a wide, light one for depth. A
 /// hard shadow read as a dark copy under every glyph.
-List<Shadow> _skyShadows(double size) => [
+///
+/// [bright] is for a sky of bright cloud from edge to edge, where the light
+/// version leaves white text with nothing to stand on: darker layers and a
+/// broad halo that dims the cloud around the text.
+List<Shadow> _skyShadows(double size, {bool bright = false}) => [
   Shadow(
-    color: const Color(0x40000000),
+    color: Color(bright ? 0x73000000 : 0x40000000),
     offset: Offset(0, size * .006),
-    blurRadius: size * .014,
+    blurRadius: size * (bright ? .02 : .014),
   ),
   Shadow(
-    color: const Color(0x4D000000),
+    color: Color(bright ? 0x73000000 : 0x4D000000),
     offset: Offset(0, size * .02),
     blurRadius: size * .08,
   ),
+  if (bright)
+    Shadow(
+      color: const Color(0x80000000),
+      offset: Offset(0, size * .03),
+      blurRadius: size * .3,
+    ),
 ];
 
 /// The date's version: small, thin text needs more around it than the
 /// digits do to stay readable over bright clouds.
-List<Shadow> _dateShadows(double size) => [
+List<Shadow> _dateShadows(double size, {bool bright = false}) => [
   Shadow(
-    color: const Color(0x66000000),
+    color: Color(bright ? 0x8C000000 : 0x66000000),
     offset: Offset(0, size * .015),
     blurRadius: size * .05,
   ),
   Shadow(
-    color: const Color(0x4D000000),
+    color: Color(bright ? 0x66000000 : 0x4D000000),
     offset: Offset(0, size * .03),
     blurRadius: size * .15,
   ),
   Shadow(
-    color: const Color(0x40000000),
+    color: Color(bright ? 0x59000000 : 0x40000000),
     offset: Offset(0, size * .05),
     blurRadius: size * .4,
   ),
@@ -141,10 +151,15 @@ class WeatherMoodInformation extends StatefulWidget {
     required this.container,
     required this.readings,
     this.translations = const {},
+    this.brightSky = false,
   });
   final AppContainer container;
   final WeatherMoodReadings readings;
   final Map<String, String> translations;
+
+  /// Bright cloud fills the sky behind the clock, so its shadow needs to
+  /// be heavier.
+  final bool brightSky;
 
   @override
   State<WeatherMoodInformation> createState() => _WeatherMoodInformationState();
@@ -273,6 +288,7 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
     final clockSize = math.min(size.width * .20, size.height * .30) * scale;
     final dateSize = math.min(size.width * .05, size.height * .07) * scale;
     final shadow = s.get(defs.screensaverWeatherClockShadow);
+    final bright = widget.brightSky;
     final ringing = _ringing;
     final date = !ringing && s.get(defs.screensaverWeatherClockDate)
         ? fullDate(_now)
@@ -293,8 +309,8 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
       weight: weight,
       opticalSize: clockOpticalSize(font),
       // Each line's shadow is sized to its own text.
-      shadows: shadow ? _skyShadows(clockSize) : const [],
-      dateShadows: shadow ? _dateShadows(dateSize) : const [],
+      shadows: shadow ? _skyShadows(clockSize, bright: bright) : const [],
+      dateShadows: shadow ? _dateShadows(dateSize, bright: bright) : const [],
       // A step heavier than the Clock screensaver's, so the thin
       // strokes hold up over white clouds.
       dateWeight: FontWeight.w500,
@@ -320,8 +336,12 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
                 : shadow
                 ? TextSnapshot(
                     // The soft shadows reach this far past the text.
-                    bleed: math.max(clockSize * .16, dateSize * .8),
+                    bleed: math.max(
+                      clockSize * (bright ? .55 : .16),
+                      dateSize * .8,
+                    ),
                     content: (
+                      bright,
                       time,
                       date,
                       color,

@@ -426,6 +426,8 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
             container: widget.container,
             readings: _readings,
             translations: _translations,
+            // Day and dawn overcast: bright cloud from edge to edge.
+            brightSky: scene.condition == 'cloudy' && !scene.night,
           ),
         ),
       ],
