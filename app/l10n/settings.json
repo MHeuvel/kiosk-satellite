@@ -1607,6 +1607,26 @@
     "title": "voiceWakeEngine",
     "description": "settingVoiceWakeWordEngineDescription"
   },
+  "voice.ha_pipeline": {
+    "title": "voiceAssistant1",
+    "description": "voiceAssistant1Help"
+  },
+  "voice.ha_pipeline_2": {
+    "title": "voiceAssistant2",
+    "description": "voiceAssistant2Help"
+  },
+  "voice.ha_vad_sensitivity": {
+    "title": "voiceVad",
+    "description": "voiceVadHelp"
+  },
+  "voice.ha_wake_word": {
+    "title": "voiceWake1",
+    "description": "voiceWake1Help"
+  },
+  "voice.ha_wake_word_2": {
+    "title": "voiceWake2",
+    "description": "voiceWake2HelpNative"
+  },
   "voice.wake_word_sensitivity": {
     "title": "settingVoiceWakeWordSensitivityTitle",
     "description": "settingVoiceWakeWordSensitivityDescription"

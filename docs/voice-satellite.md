@@ -188,7 +188,7 @@ adb shell am broadcast -a me.jxl.kiosk_satellite.action.VOICE_CANCEL
 
 ## Fleets
 
-A fleet leader passes its Voice Satellite settings to followers whose profile syncs **Voice Satellite**, along with its custom wake word models and its Assistant, Wake word and Finished speaking detection picks. Each follower sets those picks on its own device in Home Assistant. Mute and Play sounds on stay per kiosk by default. See [Fleet Management](fleet.md).
+A fleet leader passes its Voice Satellite settings to followers whose profile syncs **Voice Satellite**, along with its custom wake word models and its Assistant, Wake word and Finished speaking detection picks. Each follower sets those picks on its own device in Home Assistant. A profile can exclude each pick like any other setting. Mute and Play sounds on stay per kiosk by default. See [Fleet Management](fleet.md).
 
 ## Troubleshooting
 

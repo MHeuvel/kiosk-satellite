@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **Home Assistant's Voice Satellite picks can be excluded from a fleet profile.** A leader passes its Assistant, Wake word and Finished speaking detection picks to its followers, but the exclusion list left them out, so a profile could not keep them per kiosk. They now show in the list under Voice Satellite, Assistant and Wake Word, on the device and in the remote admin.
+
 ## v2026.9.93 - 2026-09-29
 
 ### Added

@@ -1797,9 +1797,15 @@ class FleetSyncManager extends Manager {
 
   /// Every setting a profile can take out: what travels with a category
   /// (the credentials and the dashboard have switches of their own), with
-  /// the page it lives on so a picker can say where it is.
+  /// the page it lives on so a picker can say where it is. Home Assistant's
+  /// mirrored selects are hidden settings but travel like any other, so the
+  /// pickers list them on the Voice Satellite page that draws them.
   List<Map<String, Object?>> syncable() {
     final titles = {for (final c in defs.fleetSyncCategories) c.$1: c.$2};
+    final selects = {
+      for (final e in defs.voiceHaSelectSettings.entries)
+        e.value.key: e.key.startsWith('wake_word') ? 'Wake Word' : 'Assistant',
+    };
     return [
       for (final d in defs.allSettings)
         if (!d.perDevice &&
@@ -1811,8 +1817,9 @@ class FleetSyncManager extends Manager {
             'title': d.title,
             'description': d.description,
             'category': titles[defs.fleetCategoryOf(d)],
-            if (d.subpage != null) 'subpage': d.subpage,
-            'hidden': d.hidden,
+            if ((d.subpage ?? selects[d.key]) != null)
+              'subpage': d.subpage ?? selects[d.key],
+            'hidden': d.hidden && !selects.containsKey(d.key),
           },
     ];
   }
