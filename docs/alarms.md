@@ -80,6 +80,8 @@ The screensaver waits while the alarm list is open, so it never cuts off an alar
 
 Home Assistant has no alarm intent, so voice alarms go through an LLM conversation agent (OpenAI, Google Gemini, Anthropic, Ollama or any other agent that can control Home Assistant). The agent understands the request in any language it speaks and calls a script that Kiosk Satellite ships as a blueprint.
 
+The built-in **Home Assistant** conversation agent does not work for this. It only matches sentences against Home Assistant's own intents and cannot fill in the script's time, days or label. An LLM agent with **Prefer handling commands locally** turned on works fine: Home Assistant still handles lights, timers and the rest itself and passes alarm requests on to the LLM.
+
 1. Import the blueprint:
 
     [![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fjxlarrea%2Fkiosk-satellite%2Fblob%2Fmain%2Fblueprints%2Fscript%2Fkiosk_satellite_alarms.yaml)
