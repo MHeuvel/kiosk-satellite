@@ -6,6 +6,8 @@
   "settingSendspinPlayerDescription": "Der Player dieser Quelle, der angezeigt und gesteuert werden soll.",
   "settingSendspinDuckPercentTitle": "Lautstärke während Sprachinteraktionen reduzieren",
   "settingSendspinDuckPercentDescription": "Während Sprachinteraktionen und Intercom-Anrufen wird die Musik auf diesen Prozentsatz ihrer ursprünglichen Lautstärke abgesenkt. Anschließend wird die vorherige Lautstärke wiederhergestellt.",
+  "settingSendspinEsphomeEntitiesTitle": "ESPHome-Entitäten freigeben",
+  "settingSendspinEsphomeEntitiesDescription": "Tasten für Wiedergabe, Pause, Weiter und Zurück für den gesteuerten Player in Home Assistant, dazu sein Status, Titel, Interpret und seine Quelle als Sensoren.",
   "settingSendspinVolumeKeysTitle": "Player mit den Lautstärketasten steuern",
   "settingSendspinVolumeKeysDescription": "Die Lautstärketasten dieses Geräts ändern die Lautstärke des gesteuerten Players. Dies gilt entweder nur, solange „Jetzt läuft“ angezeigt wird, oder immer während der Player Musik wiedergibt.",
   "settingSendspinVolumeKeyStepTitle": "Schrittweite der Lautstärketasten",

@@ -51,7 +51,8 @@ const settingOptionMessageIds = <String, Map<String, String>>{
     "immich": "screensaverModeImmich",
     "website": "screensaverModeWebsite",
     "camera": "screensaverModeCamera",
-    "weather_mood": "screensaverWeatherMood"
+    "weather_mood": "screensaverWeatherMood",
+    "dashboard": "screensaverModeDashboard"
   },
   "screensaver.clock_style": {
     "digital": "screensaverStyleDigital",
@@ -279,6 +280,23 @@ const settingOptionMessageIds = <String, Map<String, String>>{
     "medium": "screensaverFontMedium",
     "bold": "screensaverFontBold",
     "black": "screensaverFontBlack"
+  },
+  "voice.tts_output_mode": {
+    "announcement": "voiceOptionAnnouncement",
+    "normal_playback": "voiceOptionNormalPlayback"
+  },
+  "voice.wake_word_sensitivity": {
+    "slightly": "voiceOptionSlightly",
+    "moderately": "voiceOptionModerately",
+    "very": "voiceOptionVery"
+  },
+  "voice.theme": {
+    "auto": "haThemeAuto",
+    "light": "deviceThemeLight",
+    "dark": "deviceThemeDark"
+  },
+  "voice.skin": {
+    "default": "voiceVadDefault"
   }
 };
 const settingPlaceholderMessageIds = <String, String>{

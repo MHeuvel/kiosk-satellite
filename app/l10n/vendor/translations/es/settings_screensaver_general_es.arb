@@ -41,5 +41,10 @@
   "screensaverUnavailablePlugin": "Protector de pantalla de un plugin no disponible",
   "screensaverScreenOffWarning": "Cuando la pantalla se apaga por completo, la administración de energía de la tableta toma el control. Muchos modelos de Android presentan problemas en ese estado: el Wi-Fi se suspende o se desconecta, las entidades de Home Assistant dejan de estar disponibles, se puede perder el acceso a la cámara y algunos modelos cierran las aplicaciones en segundo plano. El comportamiento depende del fabricante.\n\nLa alternativa fiable es usar el protector de pantalla Negro y dejar esta opción en 0. La pantalla se ve igual de oscura y la aplicación mantiene el control.",
   "settingScreensaverScreenOffBlackTitle": "Usar una pantalla negra en su lugar",
-  "settingScreensaverScreenOffBlackDescription": "Muestra una pantalla negra con el brillo a cero en lugar de apagarla. Oculta los widgets y Reproduciendo Ahora. No requiere permiso de administrador del dispositivo."
+  "settingScreensaverScreenOffBlackDescription": "Muestra una pantalla negra con el brillo a cero en lugar de apagarla. Oculta los widgets y Reproduciendo Ahora. No requiere permiso de administrador del dispositivo.",
+  "screensaverModeDashboard": "Panel de control de Home Assistant",
+  "settingScreensaverDashboardViewTitle": "Vista del panel de control",
+  "settingScreensaverDashboardViewDescription": "La vista del panel de control de Home Assistant que muestra el protector de pantalla.",
+  "screensaverSelectDashboard": "Seleccionar panel de control",
+  "screensaverDashboardSection": "Protector de pantalla: Panel de control de Home Assistant"
 }

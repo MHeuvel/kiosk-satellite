@@ -3,6 +3,7 @@ package me.jxl.kiosk_satellite
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 
 /**
  * Launches the kiosk when the device powers on, if the "Start on boot"
@@ -34,6 +35,15 @@ class BootReceiver : BroadcastReceiver() {
         // the flags that surface an existing task instead of rooting a
         // duplicate beside it.
         val launch = HomeRole.launchIntent(context) ?: return
-        context.startActivity(launch)
+        try {
+            context.startActivity(launch)
+        } catch (e: Exception) {
+            // A Fire TV Stick's system server threw a NullPointerException
+            // of its own out of this call at every boot, which took the
+            // receiver and the app down with it. The service above is up
+            // and its heartbeat brings the kiosk back; the launch is not
+            // worth a crash.
+            Log.w("BootReceiver", "launch at boot refused: $e")
+        }
     }
 }

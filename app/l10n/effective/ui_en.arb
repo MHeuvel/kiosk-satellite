@@ -13440,6 +13440,58 @@
       ]
     }
   },
+  "settingPersonSensorTitle": "Enable person sensor",
+  "@settingPersonSensorTitle": {
+    "context": "Settings > Camera > Person Sensor",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Person Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Person Sensor"
+      ]
+    }
+  },
+  "settingPersonSensorDescription": "Expose the device's person sensor to Home Assistant as an occupancy sensor. Needs the Log access grant below.",
+  "@settingPersonSensorDescription": {
+    "context": "Settings > Camera > Person Sensor",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Person Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Person Sensor"
+      ]
+    }
+  },
+  "cameraPersonPage": "Person Sensor",
+  "@cameraPersonPage": {
+    "context": "Settings > Camera > Person Sensor",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Person Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Person Sensor"
+      ]
+    }
+  },
+  "cameraPersonHint": "Home Assistant occupancy sensor from the device's person sensor",
+  "@cameraPersonHint": {
+    "context": "Settings > Camera > Person Sensor",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera > Person Sensor"
+      ],
+      "remoteAdmin": [
+        "Camera > Person Sensor"
+      ]
+    }
+  },
   "cameraLatest": "Latest snapshot",
   "@cameraLatest": {
     "context": "Settings > Camera > Latest snapshot",
@@ -18393,6 +18445,58 @@
       ]
     },
     "x-notes": "Keep the ADB command exactly as written."
+  },
+  "deviceNotificationAccess": "Notification access",
+  "@deviceNotificationAccess": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceNotificationAccessHeld": "Now Playing can follow the apps playing on this device.",
+  "@deviceNotificationAccessHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceNotificationAccessMissing": "Without this Android lists no media sessions, so Now Playing cannot follow the apps playing on this device.",
+  "@deviceNotificationAccessMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceNotificationAccessIdle": "Lets Now Playing follow the apps playing on this device.",
+  "@deviceNotificationAccessIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
   },
   "settingRemoteEnabledTitle": "Remote management",
   "@settingRemoteEnabledTitle": {
@@ -27632,6 +27736,32 @@
       ]
     }
   },
+  "settingSendspinEsphomeEntitiesTitle": "Expose ESPHome entities",
+  "@settingSendspinEsphomeEntitiesTitle": {
+    "context": "Settings > Media Player",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player"
+      ],
+      "remoteAdmin": [
+        "Media Player"
+      ]
+    }
+  },
+  "settingSendspinEsphomeEntitiesDescription": "Play, pause, next and previous buttons for the followed player in Home Assistant, with its state, title, artist and source as sensors.",
+  "@settingSendspinEsphomeEntitiesDescription": {
+    "context": "Settings > Media Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player"
+      ],
+      "remoteAdmin": [
+        "Media Player"
+      ]
+    }
+  },
   "settingSendspinVolumeKeysTitle": "Volume buttons control the player",
   "@settingSendspinVolumeKeysTitle": {
     "context": "Settings > Media Player",
@@ -28914,6 +29044,32 @@
       ]
     }
   },
+  "mediaNotificationAccessRemote": "Without this Android lists no media sessions, so Now Playing cannot follow the apps playing on this device. The grant screen appears on the tablet.",
+  "@mediaNotificationAccessRemote": {
+    "context": "Settings > Media Player > Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Player"
+      ]
+    }
+  },
+  "mediaLocalMediaSession": "Local Media Session",
+  "@mediaLocalMediaSession": {
+    "context": "Settings > Media Player > Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Player"
+      ]
+    }
+  },
   "settingSendspinEnabledTitle": "Enable Sendspin player",
   "@settingSendspinEnabledTitle": {
     "context": "Settings > Media Player > Sendspin Player",
@@ -29389,7 +29545,7 @@
       }
     }
   },
-  "settingsMenuHomeAssistant": "Home Assistant Setup",
+  "settingsMenuHomeAssistant": "Home Assistant",
   "@settingsMenuHomeAssistant": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",
@@ -30401,6 +30557,123 @@
       "remoteAdmin": [
         "Screen & Audio > Adaptive brightness"
       ]
+    }
+  },
+  "screenAudioBrightnessCurve": "Brightness curve",
+  "@screenAudioBrightnessCurve": {
+    "context": "Settings:Screen & Audio:Adaptive brightness",
+    "description": "Heading over the chart of screen brightness against the room's light level.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Adaptive brightness"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Adaptive brightness"
+      ]
+    }
+  },
+  "screenAudioCurveHint": "Drag a point, or tap it to type exact values. The Screen light in Home Assistant moves the top point and the curve follows.",
+  "@screenAudioCurveHint": {
+    "context": "Settings:Screen & Audio:Adaptive brightness",
+    "description": "Help under the brightness curve chart. The Screen light is the kiosk's light entity in Home Assistant.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Adaptive brightness"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Adaptive brightness"
+      ]
+    }
+  },
+  "screenAudioCurvePoint": "Point {number}",
+  "@screenAudioCurvePoint": {
+    "context": "Settings:Screen & Audio:Adaptive brightness",
+    "description": "Title of the dialog that edits one of the four points on the brightness curve.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Adaptive brightness"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Adaptive brightness"
+      ]
+    },
+    "placeholders": {
+      "number": {
+        "type": "String",
+        "description": "The point's number, 1 to 4, counting from the darkest."
+      }
+    }
+  },
+  "screenAudioCurveLightLevel": "Light level (lx)",
+  "@screenAudioCurveLightLevel": {
+    "context": "Settings:Screen & Audio:Adaptive brightness",
+    "description": "Field label in the curve point dialog: the room light level in lux.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Adaptive brightness"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Adaptive brightness"
+      ]
+    }
+  },
+  "screenAudioCurveBrightness": "Brightness (%)",
+  "@screenAudioCurveBrightness": {
+    "context": "Settings:Screen & Audio:Adaptive brightness",
+    "description": "Field label in the curve point dialog: the screen brightness in percent.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Adaptive brightness"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Adaptive brightness"
+      ]
+    }
+  },
+  "screenAudioCurveLuxRange": "Enter a light level between {low} and {high} lx",
+  "@screenAudioCurveLuxRange": {
+    "context": "Settings:Screen & Audio:Adaptive brightness",
+    "description": "Error under the light level field when the value is out of range.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Adaptive brightness"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Adaptive brightness"
+      ]
+    },
+    "placeholders": {
+      "low": {
+        "type": "String",
+        "description": "Lowest light level allowed, in lux."
+      },
+      "high": {
+        "type": "String",
+        "description": "Highest light level allowed, in lux."
+      }
+    }
+  },
+  "screenAudioCurveLevelRange": "Enter a brightness from {low}% to {high}%",
+  "@screenAudioCurveLevelRange": {
+    "context": "Settings:Screen & Audio:Adaptive brightness",
+    "description": "Error under the brightness field when the value is out of range.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Adaptive brightness"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Adaptive brightness"
+      ]
+    },
+    "placeholders": {
+      "low": {
+        "type": "String",
+        "description": "Lowest brightness allowed, in percent."
+      },
+      "high": {
+        "type": "String",
+        "description": "Highest brightness allowed, in percent."
+      }
     }
   },
   "settingAudioMicDeviceTitle": "Microphone",
@@ -33255,6 +33528,71 @@
       ],
       "remoteAdmin": [
         "Screensaver"
+      ]
+    }
+  },
+  "screensaverModeDashboard": "Home Assistant Dashboard",
+  "@screensaverModeDashboard": {
+    "context": "Settings:Screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverDashboardViewTitle": "Dashboard view",
+  "@settingScreensaverDashboardViewTitle": {
+    "context": "Settings:Screensaver:Home Assistant Dashboard screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Dashboard screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Dashboard screensaver"
+      ]
+    }
+  },
+  "settingScreensaverDashboardViewDescription": "The Home Assistant dashboard view the screensaver shows.",
+  "@settingScreensaverDashboardViewDescription": {
+    "context": "Settings:Screensaver:Home Assistant Dashboard screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Dashboard screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Dashboard screensaver"
+      ]
+    }
+  },
+  "screensaverSelectDashboard": "Select dashboard",
+  "@screensaverSelectDashboard": {
+    "context": "Settings:Screensaver:Home Assistant Dashboard screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Dashboard screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Dashboard screensaver"
+      ]
+    }
+  },
+  "screensaverDashboardSection": "Home Assistant Dashboard screensaver",
+  "@screensaverDashboardSection": {
+    "context": "Settings:Screensaver:Home Assistant Dashboard screensaver",
+    "description": "Label, status or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Home Assistant Dashboard screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Home Assistant Dashboard screensaver"
       ]
     }
   },
@@ -38349,6 +38687,32 @@
       ]
     }
   },
+  "settingScreensaverWeatherBarTitlesTitle": "Show titles",
+  "@settingScreensaverWeatherBarTitlesTitle": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood clock or weather information bar control.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "settingScreensaverWeatherBarTitlesDescription": "Name each reading above its value. When off, values match the temperature size.",
+  "@settingScreensaverWeatherBarTitlesDescription": {
+    "context": "Settings:Screensaver:Weather Mood screensaver",
+    "description": "Weather Mood clock or weather information bar control.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
   "screensaverWeatherBarHumidityDescription": "Show humidity when the weather entity reports it.",
   "@screensaverWeatherBarHumidityDescription": {
     "context": "Settings:Screensaver:Weather Mood screensaver",
@@ -39783,6 +40147,181 @@
       ]
     }
   },
+  "voiceSkinDefault": "Skin default",
+  "@voiceSkinDefault": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceBackground": "Background",
+  "@voiceBackground": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceBackgroundHelp": "How much of the dashboard shows through.",
+  "@voiceBackgroundHelp": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voicePreview": "Preview",
+  "@voicePreview": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voicePreviewHelp": "Show the overlay on this screen for five seconds.",
+  "@voicePreviewHelp": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voicePreviewRemoteHelp": "Show the overlay on the kiosk screen for five seconds.",
+  "@voicePreviewRemoteHelp": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceThemeTitle": "Theme",
+  "@settingVoiceThemeTitle": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceThemeDescription": "Auto follows the Home Assistant theme.",
+  "@settingVoiceThemeDescription": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceBackgroundDescription": "How much of the dashboard shows through. Skin default at -1.",
+  "@settingVoiceBackgroundDescription": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTextScaleTitle": "Text size",
+  "@settingVoiceTextScaleTitle": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceReactiveBarTitle": "Reactive activity bar",
+  "@settingVoiceReactiveBarTitle": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceReactiveBarDescription": "The bar follows your voice and the answer.",
+  "@settingVoiceReactiveBarDescription": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voicePreviewCommand": "What is the weather?",
+  "@voicePreviewCommand": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Sample text the overlay preview shows. Adapt the temperature to the units your readers use."
+  },
+  "voicePreviewAnswer": "Sunny and 72° right now, with a light breeze.",
+  "@voicePreviewAnswer": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Sample text the overlay preview shows. Adapt the temperature to the units your readers use."
+  },
+  "voiceAssistant1": "Assistant 1",
+  "@voiceAssistant1": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceAssistant1Help": "Answers wake word 1.",
+  "@voiceAssistant1Help": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceAssistant2": "Assistant 2",
+  "@voiceAssistant2": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceAssistant2Help": "Answers wake word 2.",
+  "@voiceAssistant2Help": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voicePipelines": "Pipelines",
+  "@voicePipelines": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voicePreferred": "Preferred",
+  "@voicePreferred": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNone": "None",
+  "@voiceNone": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceThisKiosk": "This kiosk",
+  "@voiceThisKiosk": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceSelectFailed": "Could not change it in Home Assistant.",
+  "@voiceSelectFailed": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceSeamlessWakeTitle": "Talk right after the wake word",
+  "@settingVoiceSeamlessWakeTitle": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceSeamlessWakeDescription": "Skip the wake sound and keep what you say right after the wake word.",
+  "@settingVoiceSeamlessWakeDescription": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceFollowupDelayTitle": "Follow-up delay",
+  "@settingVoiceFollowupDelayTitle": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceFollowupDelayDescription": "A pause before listening for the answer to a question.",
+  "@settingVoiceFollowupDelayDescription": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceFollowupChimeTitle": "Chime before a follow-up",
+  "@settingVoiceFollowupChimeTitle": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceFollowupChimeDescription": "Play the wake sound when it starts listening again.",
+  "@settingVoiceFollowupChimeDescription": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTtsOutputTitle": "Play sounds on",
+  "@settingVoiceTtsOutputTitle": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTtsOutputDescription": "Chimes, answers, announcements and timer alerts play on this speaker.",
+  "@settingVoiceTtsOutputDescription": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTtsOutputModeTitle": "Play as",
+  "@settingVoiceTtsOutputModeTitle": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTtsOutputModeDescription": "An announcement lets the speaker pause its music and resume it. Normal playback starts the music again afterward, for speakers that ignore announcements.",
+  "@settingVoiceTtsOutputModeDescription": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceOptionAnnouncement": "Announcement",
+  "@voiceOptionAnnouncement": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceOptionNormalPlayback": "Normal playback",
+  "@voiceOptionNormalPlayback": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
   "voiceChimesPage": "Chimes",
   "@voiceChimesPage": {
     "context": "Settings > Voice Satellite > Chimes",
@@ -39977,6 +40516,86 @@
         "Voice Satellite > Chimes"
       ]
     }
+  },
+  "settingVoiceWakeSoundTitle": "Play chimes",
+  "@settingVoiceWakeSoundTitle": {
+    "context": "Settings > Voice Satellite > Chimes",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceWakeSoundDescription": "The wake, done and error sounds.",
+  "@settingVoiceWakeSoundDescription": {
+    "context": "Settings > Voice Satellite > Chimes",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceShowCommandTitle": "Show what you said",
+  "@settingVoiceShowCommandTitle": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceShowCommandDescription": "Your command above the answer.",
+  "@settingVoiceShowCommandDescription": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceShowAnswerTitle": "Show the answer",
+  "@settingVoiceShowAnswerTitle": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceShowAnswerDescription": "The answer as it is spoken.",
+  "@settingVoiceShowAnswerDescription": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceShowToolsTitle": "Show tool use",
+  "@settingVoiceShowToolsTitle": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceShowToolsDescription": "A line for each action the assistant takes.",
+  "@settingVoiceShowToolsDescription": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceHideSentimentTagsTitle": "Hide sentiment tags",
+  "@settingVoiceHideSentimentTagsTitle": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceHideSentimentTagsDescription": "Leave out tags like [happy] that some assistants add.",
+  "@settingVoiceHideSentimentTagsDescription": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceAnswerLingerTitle": "Keep the answer on screen",
+  "@settingVoiceAnswerLingerTitle": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceAnswerLingerDescription": "After the answer is spoken.",
+  "@settingVoiceAnswerLingerDescription": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceResultsLingerTitle": "Keep results on screen",
+  "@settingVoiceResultsLingerTitle": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceResultsLingerDescription": "Images, weather and other results. 0 keeps them until you dismiss them.",
+  "@settingVoiceResultsLingerDescription": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceAnnouncementLingerTitle": "Announcement time",
+  "@settingVoiceAnnouncementLingerTitle": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceAnnouncementLingerDescription": "After an announcement is spoken.",
+  "@settingVoiceAnnouncementLingerDescription": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   },
   "voiceEngine": "Engine",
   "@voiceEngine": {
@@ -40393,6 +41012,464 @@
         "Voice Satellite"
       ]
     }
+  },
+  "voiceAssistant": "Assistant",
+  "@voiceAssistant": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceConversation": "Conversation",
+  "@voiceConversation": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceTimers": "Timers",
+  "@voiceTimers": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceAssistantHint": "Pipelines, follow-ups",
+  "@voiceAssistantHint": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceConversationHint": "What the overlay shows and for how long",
+  "@voiceConversationHint": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceTimersHint": "Pills, alerts, spoken reminders",
+  "@voiceTimersHint": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceSectionFollowUp": "Follow-up",
+  "@voiceSectionFollowUp": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceSectionLinger": "How long it stays",
+  "@voiceSectionLinger": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceSectionOnScreen": "On screen",
+  "@voiceSectionOnScreen": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceSectionPills": "Pills",
+  "@voiceSectionPills": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceSectionSpeaker": "Speaker",
+  "@voiceSectionSpeaker": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceSectionWakeCommand": "Wake word and command",
+  "@voiceSectionWakeCommand": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceSectionTimerEnds": "When a timer ends",
+  "@voiceSectionTimerEnds": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceStatusEsphomeOff": "The ESPHome server is off.",
+  "@voiceStatusEsphomeOff": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceStatusNotAdded": "This kiosk is not added to Home Assistant yet.",
+  "@voiceStatusNotAdded": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceStatusMuted": "The microphone is muted.",
+  "@voiceStatusMuted": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceStatusNotListening": "The wake word is not listening.",
+  "@voiceStatusNotListening": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceStatusListening": "Listening for the wake word.",
+  "@voiceStatusListening": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceWordNotAdded": "Not added",
+  "@voiceWordNotAdded": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceWordMuted": "Muted",
+  "@voiceWordMuted": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceWordBusy": "Busy",
+  "@voiceWordBusy": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceWordListening": "Listening",
+  "@voiceWordListening": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceWordNotListening": "Not listening",
+  "@voiceWordNotListening": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceWordAdded": "Added",
+  "@voiceWordAdded": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceHaAddHint": "Add this kiosk under Settings, Devices & services in Home Assistant, where it shows up as discovered.",
+  "@voiceHaAddHint": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceHaEsphomeOff": "Turn on the ESPHome server so Home Assistant can add this kiosk as a satellite.",
+  "@voiceHaEsphomeOff": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceWordReloadNeeded": "Reload needed",
+  "@voiceWordReloadNeeded": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceHaSelectsReloadHint": "Home Assistant has not loaded the Assistant and Wake word selects. Reload this kiosk's ESPHome entry under Settings, Devices & services. Restarting Home Assistant also works.",
+  "@voiceHaSelectsReloadHint": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceTurnOn": "Turn on",
+  "@voiceTurnOn": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceRollbackTitle": "Run from the dashboard again",
+  "@voiceRollbackTitle": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceRollbackDescription": "Go back to the Voice Satellite integration. Nothing set here is lost.",
+  "@voiceRollbackDescription": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceRollbackConfirm": "Run from the dashboard again?",
+  "@voiceRollbackConfirm": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceRollbackBody": "The dashboard runs Voice Satellite again through the integration, with the settings it had before. What you set here stays for next time.",
+  "@voiceRollbackBody": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceRollbackSwitch": "Switch back",
+  "@voiceRollbackSwitch": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrateNotice": "Voice Satellite is currently installed as an integration in Home Assistant. Migrate to a native experience inside Kiosk Satellite.",
+  "@voiceMigrateNotice": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrate": "Migrate",
+  "@voiceMigrate": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceEnabledTitle": "Enable Voice Satellite",
+  "@settingVoiceEnabledTitle": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceEnabledDescription": "Turns this kiosk into a voice assistant for Home Assistant through its ESPHome server.",
+  "@settingVoiceEnabledDescription": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceMuteTitle": "Mute microphone",
+  "@settingVoiceMuteTitle": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceMuteDescription": "Stop listening for the wake word.",
+  "@settingVoiceMuteDescription": {
+    "context": "Settings > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationTitle": "Migrate Voice Satellite",
+  "@voiceMigrationTitle": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationPick": "Pick the Voice Satellite integration's satellite this kiosk takes over. Its settings come over to this kiosk.",
+  "@voiceMigrationPick": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationNoSatellites": "The Voice Satellite integration has no satellites.",
+  "@voiceMigrationNoSatellites": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationIntro": "This kiosk becomes the voice satellite itself. The Voice Satellite integration is not needed after this.",
+  "@voiceMigrationIntro": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationCheckAgain": "Check again",
+  "@voiceMigrationCheckAgain": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCheckHaBad": "Not connected. Check Home Assistant Setup.",
+  "@voiceCheckHaBad": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCheckEsphome": "This kiosk in Home Assistant",
+  "@voiceCheckEsphome": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCheckEsphomeOk": "Added through ESPHome.",
+  "@voiceCheckEsphomeOk": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCheckEsphomeBad": "Not added yet. Home Assistant lists this kiosk as discovered under Settings, Devices & services. Add it there, then come back.",
+  "@voiceCheckEsphomeBad": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCheckEsphomeOff": "The ESPHome server is off. Turn it on, then add this kiosk in Home Assistant.",
+  "@voiceCheckEsphomeOff": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCheckAdmin": "Administrator token",
+  "@voiceCheckAdmin": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCheckAdminOk": "Tool use and results will show.",
+  "@voiceCheckAdminOk": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCheckAdminBad": "The token is a regular user's. Voice Satellite works, tool use and results will not show.",
+  "@voiceCheckAdminBad": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCheckAdminUnknown": "Could not check the token. Tool use and results need an administrator's.",
+  "@voiceCheckAdminUnknown": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCheckMicOk": "Allowed.",
+  "@voiceCheckMicOk": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCheckMicBad": "Not allowed. Grant it under Required system permissions.",
+  "@voiceCheckMicBad": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceTurnOnEsphome": "Turn on ESPHome",
+  "@voiceTurnOnEsphome": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationPlan": "Settings to bring over",
+  "@voiceMigrationPlan": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceGroupVoice": "Voice",
+  "@voiceGroupVoice": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationNotCarried": "Not carried over: custom CSS, the browser microphone processing and the conversation memory length. Custom microWakeWord models work from config/custom_wake_words in Home Assistant.",
+  "@voiceMigrationNotCarried": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationAutomations": "Automations and scripts",
+  "@voiceMigrationAutomations": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationNoAutomations": "Nothing in Home Assistant points at the old satellite.",
+  "@voiceMigrationNoAutomations": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceKindAutomation": "Automation",
+  "@voiceKindAutomation": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceKindScript": "Script",
+  "@voiceKindScript": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationReady": "Ready to switch",
+  "@voiceMigrationReady": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationReady1": "This kiosk listens, answers and draws the overlay.",
+  "@voiceMigrationReady1": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationReadyOnboarding": "Its Assistant and wake words are set once Home Assistant adds this kiosk.",
+  "@voiceMigrationReadyOnboarding": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationReady2": "The dashboard stops running Voice Satellite on this kiosk.",
+  "@voiceMigrationReady2": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationReady3": "The old satellite stays in Home Assistant, unused.",
+  "@voiceMigrationReady3": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationSwitch": "Switch now",
+  "@voiceMigrationSwitch": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationSwitching": "Switching…",
+  "@voiceMigrationSwitching": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationDone": "Voice Satellite runs here now",
+  "@voiceMigrationDone": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCouldNotSwitch": "Could not switch",
+  "@voiceCouldNotSwitch": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationDoneOnboarding": "Finish the setup, then add this kiosk in Home Assistant. Once no other device uses the Voice Satellite integration, uninstall it from HACS.",
+  "@voiceMigrationDoneOnboarding": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationDoneHelp": "Say the wake word to try it. Once no other device uses the Voice Satellite integration, uninstall it from HACS.",
+  "@voiceMigrationDoneHelp": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationRolledBack": "Voice Satellite runs from the dashboard again.",
+  "@voiceMigrationRolledBack": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceDone": "Done",
+  "@voiceDone": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceTryAgain": "Try again",
+  "@voiceTryAgain": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceStepSave": "Save the settings",
+  "@voiceStepSave": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceStepStop": "Stop the dashboard engine",
+  "@voiceStepStop": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceStepStart": "Start listening here",
+  "@voiceStepStart": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceStepTurnOn": "Turn on Voice Satellite on this kiosk",
+  "@voiceStepTurnOn": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceStepEntities": "Set the kiosk's entities in Home Assistant",
+  "@voiceStepEntities": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceStepCheck": "Check the satellite in Home Assistant",
+  "@voiceStepCheck": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationStep": "Step {n} of {total}",
+  "@voiceMigrationStep": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "n": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceMigrationStillPoint": "These still point at {satellite}. Edit them in Home Assistant to use this kiosk's satellite. The wizard does not change them.",
+  "@voiceMigrationStillPoint": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "satellite": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceMigrationNotUp": "The satellite did not come up in time.",
+  "@voiceMigrationNotUp": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationNotReported": "Home Assistant did not report the satellite.",
+  "@voiceMigrationNotReported": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceMigrationBusy": "A migration is already running.",
+  "@voiceMigrationBusy": {
+    "context": "Voice Satellite migration wizard",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   },
   "voiceMicHeld": "Wake word detection can hear you.",
   "@voiceMicHeld": {
@@ -40879,6 +41956,102 @@
       "remoteAdmin": []
     }
   },
+  "voiceTesterPlayRecent": "Play last 10 seconds",
+  "@voiceTesterPlayRecent": {
+    "context": "Settings > Voice Satellite > Wake Word Tester",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake Word Tester"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "settingVoiceTimerPillsTitle": "Show timer pills",
+  "@settingVoiceTimerPillsTitle": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerPillsDescription": "Running timers float over the screen. Drag them anywhere.",
+  "@settingVoiceTimerPillsDescription": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerNameInPillTitle": "Show the timer name",
+  "@settingVoiceTimerNameInPillTitle": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerNameInPillDescription": "The name beside the time in a pill.",
+  "@settingVoiceTimerNameInPillDescription": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerPillScaleTitle": "Timer pill scale",
+  "@settingVoiceTimerPillScaleTitle": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerPillScaleDescription": "The size of the timer pills.",
+  "@settingVoiceTimerPillScaleDescription": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceMuteTimersTitle": "Mute timer alerts",
+  "@settingVoiceMuteTimersTitle": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceMuteTimersDescription": "Show the alert without the sound.",
+  "@settingVoiceMuteTimersDescription": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerNameOnAlertTitle": "Show the name on the alert",
+  "@settingVoiceTimerNameOnAlertTitle": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerNameOnAlertDescription": "The timer name under the alert.",
+  "@settingVoiceTimerNameOnAlertDescription": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerSpeakTitle": "Speak when a timer ends",
+  "@settingVoiceTimerSpeakTitle": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerSpeakDescription": "Say a phrase between the alert sounds.",
+  "@settingVoiceTimerSpeakDescription": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerPhraseTitle": "Phrase",
+  "@settingVoiceTimerPhraseTitle": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerPhraseDescription": "Spoken for a timer without a name.",
+  "@settingVoiceTimerPhraseDescription": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerNamedPhraseTitle": "Phrase for named timers",
+  "@settingVoiceTimerNamedPhraseTitle": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerNamedPhraseDescription": "{name} is replaced with the timer name.",
+  "@settingVoiceTimerNamedPhraseDescription": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "voiceWakePage": "Wake Word",
   "@voiceWakePage": {
     "context": "Settings > Voice Satellite > Wake Word",
@@ -41293,6 +42466,435 @@
     },
     "placeholders": {
       "engine": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceDiagnosticsPage": "Wake word diagnostics",
+  "@voiceDiagnosticsPage": {
+    "context": "Settings > Voice Satellite > Wake word diagnostics",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake word diagnostics"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake word diagnostics"
+      ]
+    }
+  },
+  "voiceDiagnosticsHint": "Recent activations and near misses with audio clips",
+  "@voiceDiagnosticsHint": {
+    "context": "Settings > Voice Satellite > Wake word diagnostics",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake word diagnostics"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake word diagnostics"
+      ]
+    }
+  },
+  "voiceDiagnosticsTitle": "Enable wake word diagnostics",
+  "@voiceDiagnosticsTitle": {
+    "context": "Settings > Voice Satellite > Wake word diagnostics",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake word diagnostics"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake word diagnostics"
+      ]
+    }
+  },
+  "voiceDiagnosticsDescription": "Records the last 10 wake word activations and near misses with their scores and a 3 second audio clip of each. Turning this off deletes them.",
+  "@voiceDiagnosticsDescription": {
+    "context": "Settings > Voice Satellite > Wake word diagnostics",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake word diagnostics"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake word diagnostics"
+      ]
+    }
+  },
+  "voiceDiagnosticsEmpty": "No wake word activations recorded yet.",
+  "@voiceDiagnosticsEmpty": {
+    "context": "Settings > Voice Satellite > Wake word diagnostics",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake word diagnostics"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake word diagnostics"
+      ]
+    }
+  },
+  "voiceDiagnosticsActivations": "Activations",
+  "@voiceDiagnosticsActivations": {
+    "context": "Settings > Voice Satellite > Wake word diagnostics",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake word diagnostics"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake word diagnostics"
+      ]
+    }
+  },
+  "voiceDiagnosticsNoNearMisses": "No near misses recorded yet.",
+  "@voiceDiagnosticsNoNearMisses": {
+    "context": "Settings > Voice Satellite > Wake word diagnostics",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake word diagnostics"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake word diagnostics"
+      ]
+    }
+  },
+  "voiceDiagnosticsPeakLevel": "Peak level",
+  "@voiceDiagnosticsPeakLevel": {
+    "context": "Settings > Voice Satellite > Wake word diagnostics",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake word diagnostics"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake word diagnostics"
+      ]
+    }
+  },
+  "voiceDiagnosticsAverageLevel": "Average level",
+  "@voiceDiagnosticsAverageLevel": {
+    "context": "Settings > Voice Satellite > Wake word diagnostics",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake word diagnostics"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake word diagnostics"
+      ]
+    }
+  },
+  "voiceDiagnosticsClipped": "Clipped",
+  "@voiceDiagnosticsClipped": {
+    "context": "Settings > Voice Satellite > Wake word diagnostics",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake word diagnostics"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake word diagnostics"
+      ]
+    }
+  },
+  "voiceDiagnosticsHeard": "Heard",
+  "@voiceDiagnosticsHeard": {
+    "context": "Settings > Voice Satellite > Wake word diagnostics",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake word diagnostics"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake word diagnostics"
+      ]
+    }
+  },
+  "voiceWake2HelpNative": "A second wake word, answered by Assistant 2.",
+  "@voiceWake2HelpNative": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomModels": "Custom Models",
+  "@voiceCustomModels": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomNone": "No custom models yet.",
+  "@voiceCustomNone": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomManaged": "The fleet leader manages the custom models on this kiosk.",
+  "@voiceCustomManaged": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomAdd": "Add models",
+  "@voiceCustomAdd": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomAddHelp": "Pick the files of one or more models. They show up in Wake word 1 and 2 above.",
+  "@voiceCustomAddHelp": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomDocs": "How to add custom models",
+  "@voiceCustomDocs": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomDocsHelp": "The files each engine needs and where the models come from.",
+  "@voiceCustomDocsHelp": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomNotAdded": "The models were not added.",
+  "@voiceCustomNotAdded": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomSomeNotAdded": "Some files were not added.",
+  "@voiceCustomSomeNotAdded": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomAdded": "Models added.",
+  "@voiceCustomAdded": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomDeleteConfirm": "Delete this model?",
+  "@voiceCustomDeleteConfirm": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomNotDeleted": "The model was not deleted.",
+  "@voiceCustomNotDeleted": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomOtherEngine": "not the engine in use",
+  "@voiceCustomOtherEngine": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceWakeWordEngineDescription": "Which engine listens. All models ship with the app.",
+  "@settingVoiceWakeWordEngineDescription": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceWakeWordSensitivityTitle": "Wake word sensitivity",
+  "@settingVoiceWakeWordSensitivityTitle": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceWakeWordSensitivityDescription": "How easily the wake word triggers.",
+  "@settingVoiceWakeWordSensitivityDescription": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceNoiseGateTitle": "Wake word noise gate",
+  "@settingVoiceNoiseGateTitle": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceNoiseGateDescription": "Skip wake word inference while the room is quiet, saving CPU.",
+  "@settingVoiceNoiseGateDescription": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceStopWordTitle": "Stop word interruption",
+  "@settingVoiceStopWordTitle": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceStopWordDescription": "Say \"stop\" to cut off an answer, a timer alert or an announcement.",
+  "@settingVoiceStopWordDescription": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceOptionSlightly": "Slightly sensitive",
+  "@voiceOptionSlightly": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceOptionModerately": "Moderately sensitive",
+  "@voiceOptionModerately": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceOptionVery": "Very sensitive",
+  "@voiceOptionVery": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceModelNotFileName": "Not a file name.",
+  "@voiceModelNotFileName": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceModelBadExtension": "Only .json, .tflite and .onnx files are models.",
+  "@voiceModelBadExtension": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceModelTooLarge": "{name} is larger than 64 MB.",
+  "@voiceModelTooLarge": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelIncomplete": "{name} arrived incomplete.",
+  "@voiceModelIncomplete": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelBadJson": "{file} is not valid JSON.",
+  "@voiceModelBadJson": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelNotManifest": "{file} is not a manifest.",
+  "@voiceModelNotManifest": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelMwwNeedsTflite": "A microWakeWord model needs {file} too.",
+  "@voiceModelMwwNeedsTflite": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelMwwBadManifest": "{file} is not a valid microWakeWord manifest.",
+  "@voiceModelMwwBadManifest": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelVswwNeedsOnnx": "A vsWakeWord model needs {file} too.",
+  "@voiceModelVswwNeedsOnnx": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelVswwBadManifest": "{file} is not a valid vsWakeWord manifest.",
+  "@voiceModelVswwBadManifest": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelUnknownManifest": "{file} is neither a microWakeWord nor a vsWakeWord manifest.",
+  "@voiceModelUnknownManifest": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelNoModelFile": "No model file for {name}.",
+  "@voiceModelNoModelFile": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelBothFormats": "Add either {onnx} or {tflite}, not both.",
+  "@voiceModelBothFormats": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "onnx": {
+        "type": "String"
+      },
+      "tflite": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelNotOwwTflite": "{file} is not an openWakeWord model. A microWakeWord model needs its {json} too.",
+  "@voiceModelNotOwwTflite": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "file": {
+        "type": "String"
+      },
+      "json": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelNotTflite": "Not a TFLite model.",
+  "@voiceModelNotTflite": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceModelNotOnnx": "Not an ONNX model.",
+  "@voiceModelNotOnnx": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceModelNotOww": "Not an openWakeWord model.",
+  "@voiceModelNotOww": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceModelOwwWindow": "Not an openWakeWord model: it does not take the 16 x 96 embedding window.",
+  "@voiceModelOwwWindow": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceModelNoLoad": "The model does not load: {error}",
+  "@voiceModelNoLoad": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "error": {
         "type": "String"
       }
     }
@@ -42513,6 +44115,51 @@
       ]
     }
   },
+  "setupVoiceLead": "Turn this kiosk into a voice assistant for Home Assistant. Everything can be changed later.",
+  "@setupVoiceLead": {
+    "context": "Setup > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "setupVoiceAddHint": "After setup, add this kiosk in Home Assistant under Settings, Devices & services, where it shows up as discovered.",
+  "@setupVoiceAddHint": {
+    "context": "Setup > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "setupRecommendedWall": "The settings that suit a kiosk on the wall.",
+  "@setupRecommendedWall": {
+    "context": "Setup > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "setupVoiceFound": "Voice Satellite integration found",
+  "@setupVoiceFound": {
+    "context": "Setup > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "setupVoiceFoundHelp": "Voice Satellite now runs inside Kiosk Satellite. Migrate to keep the wake words, assistant and look of one of the integration's satellites instead of starting fresh.",
+  "@setupVoiceFoundHelp": {
+    "context": "Setup > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "setupVoiceMigrated": "Migrated from the Voice Satellite integration",
+  "@setupVoiceMigrated": {
+    "context": "Setup > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "setupVoiceMigratedHelp": "This kiosk takes over its satellite's settings.",
+  "@setupVoiceMigratedHelp": {
+    "context": "Setup > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "setupVoicePipelineHelp": "The Assist pipeline that answers the wake word.",
+  "@setupVoicePipelineHelp": {
+    "context": "Setup > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "setupVoiceEngineHelp": "The engine that listens for the wake word.",
+  "@setupVoiceEngineHelp": {
+    "context": "Setup > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
   "setupRemoteHeading": "Remote administration",
   "@setupRemoteHeading": {
     "context": "First-time setup:Welcome",
@@ -42852,6 +44499,161 @@
         "ESPHome > Notifications > Notification sound",
         "ESPHome > Announcements > Chime sound"
       ]
+    }
+  },
+  "voiceNoticeError": "Voice Satellite error",
+  "@voiceNoticeError": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeWarning": "Voice Satellite warning",
+  "@voiceNoticeWarning": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeNotice": "Voice Satellite notice",
+  "@voiceNoticeNotice": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeTts": "Text-to-speech",
+  "@voiceNoticeTts": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeAssistPipeline": "Assist pipeline",
+  "@voiceNoticeAssistPipeline": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticePipeline": "Pipeline \"{name}\"",
+  "@voiceNoticePipeline": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceNoticeMicUnavailable": "The microphone is not available.",
+  "@voiceNoticeMicUnavailable": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeNotConnected": "Home Assistant is not connected to this kiosk.",
+  "@voiceNoticeNotConnected": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeConnectionLost": "Lost connection to Home Assistant. Reconnecting automatically.",
+  "@voiceNoticeConnectionLost": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticePlayback": "Audio could not be played on the device.",
+  "@voiceNoticePlayback": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeWatchdog": "No response from Home Assistant after you finished speaking. The pipeline may be stuck.",
+  "@voiceNoticeWatchdog": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeRefused": "Home Assistant could not start the assistant.",
+  "@voiceNoticeRefused": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeUnexpected": "An unexpected pipeline error occurred.",
+  "@voiceNoticeUnexpected": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeMicBlocked": "Microphone access is blocked. Allow it for Kiosk Satellite in the Android settings.",
+  "@voiceNoticeMicBlocked": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeMicDeclined": "Microphone access was declined, so the wake word cannot be heard.",
+  "@voiceNoticeMicDeclined": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeMicLost": "The microphone stopped working.",
+  "@voiceNoticeMicLost": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeModels": "The wake word models could not be loaded.",
+  "@voiceNoticeModels": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeCrashed": "The wake word detector kept crashing on this device, so it was stopped.",
+  "@voiceNoticeCrashed": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceFinancialOpen": "Open: {value}",
+  "@voiceFinancialOpen": {
+    "context": "Voice Satellite result panels on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceFinancialHigh": "High: {value}",
+  "@voiceFinancialHigh": {
+    "context": "Voice Satellite result panels on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceFinancialLow": "Low: {value}",
+  "@voiceFinancialLow": {
+    "context": "Voice Satellite result panels on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceFinancialHigh24h": "24h High: {value}",
+  "@voiceFinancialHigh24h": {
+    "context": "Voice Satellite result panels on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceFinancialLow24h": "24h Low: {value}",
+  "@voiceFinancialLow24h": {
+    "context": "Voice Satellite result panels on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceFinancialMarketCap": "MCap: {value}",
+  "@voiceFinancialMarketCap": {
+    "context": "Voice Satellite result panels on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
     }
   },
   "voiceTimerDefaultName": "Timer",

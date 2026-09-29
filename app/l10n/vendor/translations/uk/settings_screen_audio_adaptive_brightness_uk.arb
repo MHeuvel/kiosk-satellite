@@ -20,5 +20,12 @@
   "screenAudioLux": "{lux} лк",
   "screenAudioLuxLast": "{lux} лк (останнє відоме)",
   "screenAudioSetsMaximum": "Встановлює максимальну яскравість: адаптивна яскравість увімкнена.",
-  "screenAudioSetsDefault": "Встановлює яскравість за замовчуванням."
+  "screenAudioSetsDefault": "Встановлює яскравість за замовчуванням.",
+  "screenAudioBrightnessCurve": "Крива яскравості",
+  "screenAudioCurveHint": "Перетягніть точку або торкніться її, щоб ввести точні значення. Світло Screen у Home Assistant переміщує верхню точку, і крива слідує за нею.",
+  "screenAudioCurvePoint": "Точка {number}",
+  "screenAudioCurveLightLevel": "Рівень освітлення (лк)",
+  "screenAudioCurveBrightness": "Яскравість (%)",
+  "screenAudioCurveLuxRange": "Введіть рівень освітлення від {low} до {high} лк",
+  "screenAudioCurveLevelRange": "Введіть яскравість від {low}% до {high}%"
 }

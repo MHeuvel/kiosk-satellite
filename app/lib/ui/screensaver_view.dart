@@ -6,6 +6,7 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:flutter/foundation.dart' show ValueListenable;
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -302,6 +303,13 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
                   // swallows Flutter gestures), so it dismisses itself
                   // rather than sitting under _Dismissable.
                   'camera' => CameraScreensaver(container: container),
+                  // The Home Assistant Dashboard mode: the dashboard itself
+                  // shows through a clear layer that takes the tap, so a
+                  // touch dismisses rather than pressing a card.
+                  'dashboard' => _Dismissable(
+                    container: container,
+                    child: const SizedBox.expand(),
+                  ),
                   // 'black' and anything unexpected: the safe, opaque cover,
                   // carrying the At a Glance row when there is one — unless
                   // the active schedule entry withholds it for its hours,
@@ -2407,7 +2415,8 @@ class _ScreensaverWebViewState extends State<ScreensaverWebView> {
     try {
       await _webView?.evaluateJavascript(
         source:
-            'window.__ksPhotoActive && window.__ksPhotoActive($_photoScreenOn)',
+            'window.__ksPhotoActive && '
+            'window.__ksPhotoActive(${_photoScreenOn && !_renderPaused})',
       );
     } catch (_) {
       // A navigating renderer receives the state again after its load.
@@ -2472,9 +2481,22 @@ class _ScreensaverWebViewState extends State<ScreensaverWebView> {
   /// the whole session; a paced reload brings the site back on its own.
   Timer? _retry;
 
+  bool get _renderPaused => widget.container.screensaver.renderPaused.value;
+
+  /// Under the native voice overlay, which shows a still of the
+  /// screensaver: the page is paused (its own onPause, which stops its
+  /// scripts' rendering, animations and video) and the Media deck holds.
+  void _renderPausedChanged() {
+    unawaited(_setPhotoActivity());
+    final controller = _webView;
+    if (controller == null) return;
+    unawaited(_renderPaused ? controller.pause() : controller.resume());
+  }
+
   @override
   void initState() {
     super.initState();
+    widget.container.screensaver.renderPaused.addListener(_renderPausedChanged);
     if (widget.mode == 'media') {
       _photoScreenSub = widget.container.bus.on<ScreenStateChanged>().listen((
         e,
@@ -2512,6 +2534,9 @@ class _ScreensaverWebViewState extends State<ScreensaverWebView> {
 
   @override
   void dispose() {
+    widget.container.screensaver.renderPaused.removeListener(
+      _renderPausedChanged,
+    );
     widget.container.screensaver.detachSlides(_step);
     _retry?.cancel();
     _kioskSub?.cancel();
@@ -2734,6 +2759,7 @@ setInterval(function () {
       },
       onWebViewCreated: (controller) {
         _webView = controller;
+        if (_renderPaused) unawaited(controller.pause());
         controller.addJavaScriptHandler(
           handlerName: 'dismiss',
           callback: (_) {
@@ -2769,10 +2795,20 @@ setInterval(function () {
 /// The descriptor already accounts for EXIF orientation.
 Future<double?> _aspectOf(Uint8List bytes) => photoAspect(bytes);
 
+/// Whether [video] has frames to show. A video slide clears the photo, and
+/// a decoder error resets the controller to uninitialized, so an errored
+/// video with no photo behind it is an empty slide until the next one.
+bool _videoShowing(VideoPlayerController? video) =>
+    video != null && video.value.isInitialized;
+
 /// Screen-off preserves the slide and its remaining hold. In-flight reads
-/// finish, but decoding and committing a new slide wait for the panel.
+/// finish, but decoding and committing a new slide wait for the panel. The
+/// native voice overlay holds it the same way: it shows a still of the
+/// screensaver, so nothing under it advances or decodes.
 mixin _PhotoScreenState<T extends StatefulWidget> on State<T> {
   bool _awake = true;
+  bool _screenOn = true;
+  ValueListenable<bool>? _photoRenderPaused;
   StreamSubscription<ScreenStateChanged>? _photoScreenSub;
   Completer<void>? _wake;
   StreamSubscription<SettingChanged>? _photoSettingsSub;
@@ -2810,16 +2846,27 @@ mixin _PhotoScreenState<T extends StatefulWidget> on State<T> {
   final _photoRetireTimers = <Timer>[];
 
   void _watchPhotoScreen(AppContainer c) {
-    _awake = c.screen.isScreenOn;
+    _screenOn = c.screen.isScreenOn;
+    _photoRenderPaused = c.screensaver.renderPaused
+      ..addListener(_photoAwakeChanged);
+    _awake = _photoAwake;
     _photoScreenSub = c.bus.on<ScreenStateChanged>().listen((e) {
-      if (!mounted || _awake == e.on) return;
-      setState(() => _awake = e.on);
-      if (e.on) {
-        _wake?.complete();
-        _wake = null;
-      }
-      _photoScreenChanged(e.on);
+      _screenOn = e.on;
+      _photoAwakeChanged();
     });
+  }
+
+  bool get _photoAwake => _screenOn && !(_photoRenderPaused?.value ?? false);
+
+  void _photoAwakeChanged() {
+    final awake = _photoAwake;
+    if (!mounted || _awake == awake) return;
+    setState(() => _awake = awake);
+    if (awake) {
+      _wake?.complete();
+      _wake = null;
+    }
+    _photoScreenChanged(awake);
   }
 
   Future<void> _waitForPhotoScreen() async {
@@ -2827,6 +2874,20 @@ mixin _PhotoScreenState<T extends StatefulWidget> on State<T> {
   }
 
   void _photoScreenChanged(bool awake);
+
+  /// Holds the video on screen with the slideshow, and plays it on after.
+  void _holdVideo(VideoPlayerController? video, bool awake) {
+    if (video == null || !video.value.isInitialized) return;
+    if (!awake) {
+      unawaited(video.pause());
+      return;
+    }
+    final value = video.value;
+    if (value.duration > Duration.zero && value.position >= value.duration) {
+      return;
+    }
+    unawaited(video.play());
+  }
 
   void _retirePhoto(PreparedPhoto? photo) {
     if (photo == null) return;
@@ -2843,6 +2904,7 @@ mixin _PhotoScreenState<T extends StatefulWidget> on State<T> {
   @override
   void dispose() {
     _photoScreenSub?.cancel();
+    _photoRenderPaused?.removeListener(_photoAwakeChanged);
     _photoSettingsSub?.cancel();
     _wake?.complete();
     for (final timer in _photoRetireTimers) {
@@ -3065,6 +3127,17 @@ class _LocalMediaScreensaverState extends State<LocalMediaScreensaver>
             // no longer the slideshow's cue.
             ended = true;
             if (identical(_video, video)) _advance();
+          } else if (!ended && v.hasError) {
+            // A decoder that dies mid-playback resets the controller to
+            // uninitialized and never reaches the end, so the error is the
+            // cue instead.
+            ended = true;
+            if (!identical(_video, video)) return;
+            c.log.warn(
+              'screensaver',
+              'video stopped playing (${file.path}): ${v.errorDescription}',
+            );
+            _advance();
           }
         });
         if (!mounted) {
@@ -3206,6 +3279,7 @@ class _LocalMediaScreensaverState extends State<LocalMediaScreensaver>
 
   @override
   void _photoScreenChanged(bool awake) {
+    _holdVideo(_video, awake);
     if (awake) {
       _timer?.resume();
       if (_image != null && _stepping == null) _prefetch(_index + 1);
@@ -3280,7 +3354,7 @@ class _LocalMediaScreensaverState extends State<LocalMediaScreensaver>
           style: const TextStyle(color: Colors.white54, fontSize: 16),
         ),
       );
-    } else if (_files.isEmpty || (_image == null && video == null)) {
+    } else if (_files.isEmpty || (_image == null && !_videoShowing(video))) {
       body = const SizedBox.expand();
     } else {
       final transition = _transition;
@@ -3733,6 +3807,18 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
             // no longer the slideshow's cue.
             ended = true;
             if (identical(_video, video)) _advance();
+          } else if (!ended && v.hasError) {
+            // A decoder that dies mid-playback resets the controller to
+            // uninitialized and never reaches the end, so the error is the
+            // cue instead.
+            ended = true;
+            if (!identical(_video, video)) return;
+            c.log.warn(
+              'screensaver',
+              'immich video stopped playing (${asset.id}): '
+                  '${v.errorDescription}',
+            );
+            _advance();
           }
         });
         if (!mounted) {
@@ -3981,6 +4067,7 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
 
   @override
   void _photoScreenChanged(bool awake) {
+    _holdVideo(_video, awake);
     if (awake) {
       _timer?.resume();
       _retry?.resume();
@@ -4147,7 +4234,7 @@ class _ImmichScreensaverState extends State<ImmichScreensaver>
           style: const TextStyle(color: Colors.white54, fontSize: 16),
         ),
       );
-    } else if (_image == null && video == null) {
+    } else if (_image == null && !_videoShowing(video)) {
       body = const SizedBox.expand();
     } else {
       final transition = _transition;
@@ -4696,6 +4783,7 @@ class _CameraScreensaverState extends State<CameraScreensaver>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    c.screensaver.renderPaused.addListener(_syncPaused);
     // The next and previous slide buttons step the rotation like a
     // slideshow, through the same hand-off as the timer.
     c.screensaver.attachSlides(_step);
@@ -4804,9 +4892,18 @@ class _CameraScreensaverState extends State<CameraScreensaver>
   /// the screen is never left black.
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    final paused =
+    _background =
         state != AppLifecycleState.resumed &&
         state != AppLifecycleState.inactive;
+    _syncPaused();
+  }
+
+  bool _background = false;
+
+  /// Behind another app, or under the native voice overlay (which shows a
+  /// still of the grid): the rotation holds.
+  void _syncPaused() {
+    final paused = _background || c.screensaver.renderPaused.value;
     if (paused == _paused) return;
     _paused = paused;
     if (paused) {
@@ -4819,6 +4916,7 @@ class _CameraScreensaverState extends State<CameraScreensaver>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    c.screensaver.renderPaused.removeListener(_syncPaused);
     c.screensaver.detachSlides(_step);
     _settingsSub?.cancel();
     _dwell?.cancel();
@@ -4846,6 +4944,7 @@ class _CameraScreensaverState extends State<CameraScreensaver>
               interactive: false,
               onDismiss: () => c.screensaver.notifyActivity('touch'),
               onPlaying: _onPlaying,
+              paused: c.screensaver.renderPaused,
             ),
     ),
   );

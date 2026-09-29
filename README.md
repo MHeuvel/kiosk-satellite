@@ -32,7 +32,7 @@
 
 ## Features
 
-&bull; **Native voice control:** Combine it with [Voice Satellite](https://github.com/jxlarrea/voice-satellite-card-integration) for native wake-word detection that works with the screen off or, with background listening enabled, while another app is open. Microphone access also works with HTTP dashboards without setting up certificates.
+&bull; **Native voice control:** Kiosk Satellite is a Home Assistant Assist satellite on its own, with [Voice Satellite](https://kiosksatellite.com/docs/voice-satellite/) built in: ten skins, timers, announcements and wake word detection that works with the screen off or, with background listening enabled, while another app is open. Nothing to install in Home Assistant.
 
 <p align="center">
   <img src="assets/vs-demo.gif" alt="Hands-free voice control with Voice Satellite" width="650" />
@@ -79,11 +79,11 @@ You need **Android 7.0 or newer**, a reachable Home Assistant instance and a lon
 
 You can also enable Remote Administration in the first setup step and finish setup from your computer at `http://<device-ip>:2324`.
 
-For voice control, install [Voice Satellite](https://github.com/jxlarrea/voice-satellite-card-integration) through HACS. Kiosk Satellite detects it and uses its configuration automatically.
+For voice control, leave Voice Satellite on in the setup wizard, then add the kiosk in Home Assistant under **Settings > Devices & services**, where it shows up as discovered. See [Voice Satellite](https://kiosksatellite.com/docs/voice-satellite/).
 
 ## Documentation
 
-[Voice Satellite](https://github.com/jxlarrea/voice-satellite-card-integration) · [Screensavers](https://kiosksatellite.com/docs/screensavers/) · [Music](https://kiosksatellite.com/docs/sendspin/) · [ESPHome & Bluetooth](https://kiosksatellite.com/docs/esphome/) · [Fleet management](https://kiosksatellite.com/docs/fleet/)
+[Voice Satellite](https://kiosksatellite.com/docs/voice-satellite/) · [Screensavers](https://kiosksatellite.com/docs/screensavers/) · [Music](https://kiosksatellite.com/docs/sendspin/) · [ESPHome & Bluetooth](https://kiosksatellite.com/docs/esphome/) · [Fleet management](https://kiosksatellite.com/docs/fleet/)
 
 <details>
 <summary><strong>All guides and API references</strong></summary>
@@ -91,13 +91,13 @@ For voice control, install [Voice Satellite](https://github.com/jxlarrea/voice-s
   
 &bull; **Display:** [Screen settings](https://kiosksatellite.com/docs/screen/), [screensavers](https://kiosksatellite.com/docs/screensavers/), [Immich](https://kiosksatellite.com/docs/immich/) and [At a Glance widgets](https://kiosksatellite.com/docs/at-a-glance/).
 
-&bull; **Voice and media:** [Voice Satellite](https://github.com/jxlarrea/voice-satellite-card-integration), [microphone](https://kiosksatellite.com/docs/microphone/), [media player](https://kiosksatellite.com/docs/sendspin/), [camera views](https://kiosksatellite.com/docs/cameras/), [device camera](https://kiosksatellite.com/docs/camera/), [intercom](https://kiosksatellite.com/docs/intercom/) and [DLNA](https://kiosksatellite.com/docs/dlna/).
+&bull; **Voice and media:** [Voice Satellite](https://kiosksatellite.com/docs/voice-satellite/), [microphone](https://kiosksatellite.com/docs/microphone/), [media player](https://kiosksatellite.com/docs/sendspin/), [camera views](https://kiosksatellite.com/docs/cameras/), [device camera](https://kiosksatellite.com/docs/camera/), [intercom](https://kiosksatellite.com/docs/intercom/) and [DLNA](https://kiosksatellite.com/docs/dlna/).
 
 &bull; **Kiosk setup:** [Lockdown](https://kiosksatellite.com/docs/kiosk/), [home launcher](https://kiosksatellite.com/docs/home-launcher/), [gestures](https://kiosksatellite.com/docs/gestures/), [optimizations](https://kiosksatellite.com/docs/optimizations/), [permissions](https://kiosksatellite.com/docs/permissions/), [Shizuku](https://kiosksatellite.com/docs/shizuku/) and [updates](https://kiosksatellite.com/docs/updates/).
 
 &bull; **Automation and management:** [ESPHome](https://kiosksatellite.com/docs/esphome/), [fleet management](https://kiosksatellite.com/docs/fleet/), [Remote API](https://kiosksatellite.com/docs/remote-api/), [TLS encryption](https://kiosksatellite.com/docs/tls/) and [JavaScript API](https://kiosksatellite.com/docs/js-api/).
 
-&bull; **Device guides:** [Amazon Fire tablets](https://kiosksatellite.com/docs/fire/) and [Meta Portal](https://kiosksatellite.com/docs/portal/).
+&bull; **Device guides:** [Amazon Fire tablets](https://kiosksatellite.com/docs/fire/), [Meta Portal](https://kiosksatellite.com/docs/portal/) and [Raspberry Pi 4](https://kiosksatellite.com/docs/raspberry-pi/).
 
 &bull; **Plugin Manager:** Install and create [community plugins](https://kiosksatellite.com/docs/plugins/) for Kiosk Satellite.
 

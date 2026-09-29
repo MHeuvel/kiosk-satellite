@@ -12,5 +12,7 @@
   "mediaSetUpSonos": "Todavía no hay altavoces Sonos registrados. Busca o añade uno en la página Sonos.",
   "mediaHaFailed": "Home Assistant no respondió: {error}",
   "mediaSaveFailed": "No se pudo guardar el reproductor.",
-  "mediaSelectFailed": "No se pudo seleccionar el reproductor"
+  "mediaSelectFailed": "No se pudo seleccionar el reproductor",
+  "mediaNotificationAccessRemote": "Sin este permiso, Android no muestra ninguna sesión multimedia, por lo que Reproduciendo Ahora no puede seguir las aplicaciones que reproducen contenido en este dispositivo. La pantalla para concederlo aparece en la tablet.",
+  "mediaLocalMediaSession": "Sesión multimedia local"
 }

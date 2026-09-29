@@ -89,6 +89,10 @@ class MenuMessages extends UiStringsEn {
   @override
   String get screensaverDetectionOff => 'TEST detection off';
   @override
+  String get cameraPersonPage => 'TEST person sensor page';
+  @override
+  String get settingPersonSensorTitle => 'TEST enable person sensor';
+  @override
   String get screensaverOverlaySmallClock => 'TEST small clock';
   @override
   String get screensaverOverlayCorner => 'TEST corner';
@@ -643,6 +647,41 @@ void main() {
     },
   );
 
+  testWidgets(
+    'translated Person Sensor page carries its switch and grant (issue #734)',
+    (tester) async {
+      final container = await containerFor(tester, const Size(800, 1400));
+      const channel = MethodChannel('kiosk_satellite/background');
+      final messenger =
+          TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+      messenger.setMockMethodCallHandler(
+        channel,
+        (call) async => switch (call.method) {
+          'personSensorSupport' => {'supported': true},
+          'readLogsState' => {'granted': false, 'effective': false},
+          _ => null,
+        },
+      );
+      addTearDown(() => messenger.setMockMethodCallHandler(channel, null));
+      await tester.pumpWidget(
+        localized(
+          SubpageSettingsScreen(
+            container: container,
+            category: 'Camera',
+            subpage: 'Person Sensor',
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('TEST person sensor page'), findsWidgets);
+      expect(find.text('TEST enable person sensor'), findsOneWidget);
+      expect(find.text('TEST permissions'), findsOneWidget);
+      expect(find.text('TEST ADB instructions'), findsOneWidget);
+      expect(find.text('TEST detection off'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    },
+  );
+
   testWidgets('translated widget editor preserves corner and font settings', (
     tester,
   ) async {
@@ -924,7 +963,7 @@ void main() {
       localized(
         CategorySettingsScreen(
           container: container,
-          title: 'Home Assistant Setup',
+          title: 'Home Assistant',
           category: 'Home Assistant',
         ),
       ),

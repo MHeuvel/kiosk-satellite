@@ -41,6 +41,7 @@ void main() {
           defs.screensaverClockFontWeight,
         ),
         (defs.screensaverWeatherClock24h, defs.screensaverClock24h),
+        (defs.screensaverWeatherClockSeconds, defs.screensaverClockSeconds),
         (defs.screensaverWeatherClockDate, defs.screensaverClockDate),
         (defs.screensaverWeatherClockScale, defs.screensaverClockScale),
         (defs.screensaverWeatherClockColor, defs.screensaverClockColor),
@@ -55,7 +56,8 @@ void main() {
       expect(defs.screensaverWeatherBar.defaultValue, true);
       expect(defs.screensaverWeatherClockShadow.defaultValue, true);
       expect(defs.screensaverWeatherBarShadow.defaultValue, true);
-      expect(defs.screensaverWeatherBarOpacity.defaultValue, 60);
+      expect(defs.screensaverWeatherBarTitles.defaultValue, false);
+      expect(defs.screensaverWeatherBarOpacity.defaultValue, 50);
     },
   );
   test(
@@ -91,6 +93,17 @@ void main() {
       expect(r.available, false);
     },
   );
+  test('the glass blurs the scene except on low-power devices', () async {
+    final c = await container({'ks.screensaver.weather_bar_opacity': 40});
+    c.device.abis = const ['arm64-v8a', 'armeabi-v7a'];
+    expect(weatherMoodLowPower(c), false);
+    expect(weatherMoodGlass(c).blur, 20);
+    expect(weatherMoodGlass(c).opacity, closeTo(.4, 1e-9));
+    // A 32-bit device like the Echo Show 8 keeps the shader's frosting.
+    c.device.abis = const ['armeabi-v7a', 'armeabi'];
+    expect(weatherMoodLowPower(c), true);
+    expect(weatherMoodGlass(c).blur, 0);
+  });
   testWidgets('rain uses a rain cloud icon with the text shadow', (
     tester,
   ) async {
@@ -170,6 +183,10 @@ void main() {
         find.text(strings.settingScreensaverWidgetTextShadowTitle),
         findsOneWidget,
       );
+      expect(
+        find.text(strings.settingScreensaverClockSecondsTitle),
+        findsOneWidget,
+      );
       await tester.tap(find.text(strings.settingScreensaverClock24hTitle));
       await tester.pumpAndSettle();
       expect(c.settings.get(defs.screensaverWeatherClock24h), true);
@@ -183,6 +200,10 @@ void main() {
       expect(
         find.text(strings.settingScreensaverWidgetTextShadowTitle),
         findsNWidgets(2),
+      );
+      expect(
+        find.text(strings.settingScreensaverWeatherBarTitlesTitle),
+        findsOneWidget,
       );
       expect(find.text(strings.screensaverOverlayFeelsLikeOnly), findsNothing);
       expect(
@@ -349,6 +370,14 @@ void main() {
       expect(face.date, isNull);
       expect(face.shadows, isEmpty);
       expect(face.time, matches(RegExp(r'^\d{2}:\d{2}$')));
+      // Show seconds adds them to the same face.
+      await c.settings.set(defs.screensaverWeatherClockSeconds, true);
+      await show(const Size(1280, 800), 100, 'fr');
+      expect(
+        tester.widget<DigitalClockFace>(find.byType(DigitalClockFace)).time,
+        matches(RegExp(r'^\d{2}:\d{2}:\d{2}$')),
+      );
+      await c.settings.set(defs.screensaverWeatherClockSeconds, false);
       List<ShapeDecoration> chips() => [
         for (final box in tester.widgetList<DecoratedBox>(
           find.descendant(
@@ -367,6 +396,22 @@ void main() {
         await c.settings.set(defs.screensaverWeatherBarOpacity, opacity);
         await show(const Size(1280, 800), 100, 'fr');
         expect(chips(), hasLength(4));
+        // At a Glance wears the same glass, tinted alike.
+        final pills = [
+          for (final box in tester.widgetList<DecoratedBox>(
+            find.descendant(
+              of: find.byType(GlanceRow),
+              matching: find.byType(DecoratedBox),
+            ),
+          ))
+            if (box.decoration case final ShapeDecoration decoration)
+              decoration,
+        ];
+        expect(pills, hasLength(1));
+        expect(
+          (pills.single.gradient! as LinearGradient).colors.last.a,
+          closeTo(opacity / 100, .01),
+        );
         // The test renderer has no backdrop shaders, so the chips are the
         // plain tinted fallback: no per-frame backdrop blur.
         expect(
@@ -385,6 +430,23 @@ void main() {
           );
         }
       }
+      // At a Glance takes the chips' Text drop shadow too.
+      List<Shadow>? glanceShadows() => tester
+          .widget<Text>(
+            find
+                .descendant(
+                  of: find.byType(GlanceRow),
+                  matching: find.byType(Text),
+                )
+                .first,
+          )
+          .style!
+          .shadows;
+      expect(glanceShadows(), isNotEmpty);
+      await c.settings.set(defs.screensaverWeatherBarShadow, false);
+      await show(const Size(1280, 800), 100, 'fr');
+      expect(glanceShadows(), isEmpty);
+      await c.settings.set(defs.screensaverWeatherBarShadow, true);
       List<Rect> chipRects() => [
         for (final element
             in find
@@ -451,6 +513,23 @@ void main() {
         stacked.where((rect) => rect != main).every((r) => r.bottom < main.top),
         isTrue,
       );
+      // Without titles each reading shows its value alone, at the size of
+      // the temperature, and every chip keeps the same height.
+      await c.settings.set(defs.screensaverWeatherBarTitles, true);
+      await show(const Size(1280, 800), 100, 'en');
+      final titled = chipRects();
+      expect(find.text('Humidity'), findsOneWidget);
+      await c.settings.set(defs.screensaverWeatherBarTitles, false);
+      await show(const Size(1280, 800), 100, 'en');
+      expect(find.text('Humidity'), findsNothing);
+      double fontSize(String text) =>
+          tester.widget<Text>(find.text(text)).style!.fontSize!;
+      expect(fontSize('72%'), fontSize('29°C'));
+      final untitled = chipRects();
+      expect(untitled, hasLength(titled.length));
+      for (final rect in untitled) {
+        expect(rect.height, closeTo(titled.first.height, .5));
+      }
       // With every reading off, the lone conditions chip sits centered.
       await c.settings.set(defs.screensaverWeatherBarHumidity, false);
       await c.settings.set(defs.screensaverWeatherBarWind, false);

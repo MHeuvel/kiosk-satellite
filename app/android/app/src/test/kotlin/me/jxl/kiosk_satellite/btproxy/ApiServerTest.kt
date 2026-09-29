@@ -267,10 +267,17 @@ class ApiServerTest {
         assertEquals(Msg.BT_SCANNER_STATE_RESPONSE, c.read().type)
         assertEquals(listOf("demand:PASSIVE"), backend.calls)
 
-        // Different mode: one new demand with the new mode, no release.
+        // Different mode: one new demand with the new mode, no release, and
+        // a state reporting it (HA's Auto mode windows read the label from it).
         c.send(Msg.BT_SCANNER_SET_MODE_REQUEST, ProtoWriter().run {
             varint(1, ScannerMode.ACTIVE.wire); toByteArray()
         })
+        val changed = c.readUntil(Msg.BT_SCANNER_STATE_RESPONSE)
+        var reportedMode = -1
+        ProtoReader(changed.payload).let { r ->
+            while (r.next()) if (r.field == 2) reportedMode = r.asInt()
+        }
+        assertEquals(ScannerMode.ACTIVE.wire, reportedMode)
         waitFor { backend.calls == listOf("demand:PASSIVE", "demand:ACTIVE") }
 
         c.send(Msg.UNSUBSCRIBE_BLE_ADVERTISEMENTS_REQUEST)
@@ -289,10 +296,17 @@ class ApiServerTest {
         s.reportScannerState(ScannerState.RUNNING, ScannerMode.PASSIVE)
         val state = c.readUntil(Msg.BT_SCANNER_STATE_RESPONSE)
         var wireState = 0
+        var configuredMode = -1
         ProtoReader(state.payload).let { r ->
-            while (r.next()) if (r.field == 1) wireState = r.asInt()
+            while (r.next()) when (r.field) {
+                1 -> wireState = r.asInt()
+                3 -> configuredMode = r.asInt()
+            }
         }
         assertEquals(ScannerState.RUNNING.wire, wireState)
+        // Missing or PASSIVE makes Home Assistant pin the entry to passive
+        // scanning for good, so it must be ACTIVE even while mode is PASSIVE.
+        assertEquals(ScannerMode.ACTIVE.wire, configuredMode)
     }
 
     @Test

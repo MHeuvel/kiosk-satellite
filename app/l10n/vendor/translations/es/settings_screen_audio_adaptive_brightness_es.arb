@@ -20,5 +20,12 @@
   "screenAudioLux": "{lux} lx",
   "screenAudioLuxLast": "{lux} lx (última lectura)",
   "screenAudioSetsMaximum": "Ajusta el brillo máximo porque el brillo adaptativo está activado.",
-  "screenAudioSetsDefault": "Ajusta el brillo predeterminado."
+  "screenAudioSetsDefault": "Ajusta el brillo predeterminado.",
+  "screenAudioBrightnessCurve": "Curva de brillo",
+  "screenAudioCurveHint": "Arrastra un punto o tócalo para escribir valores exactos. La luz Screen de Home Assistant mueve el punto superior y la curva lo sigue.",
+  "screenAudioCurvePoint": "Punto {number}",
+  "screenAudioCurveLightLevel": "Nivel de luz (lx)",
+  "screenAudioCurveBrightness": "Brillo (%)",
+  "screenAudioCurveLuxRange": "Introduce un nivel de luz entre {low} y {high} lx",
+  "screenAudioCurveLevelRange": "Introduce un brillo entre {low}% y {high}%"
 }

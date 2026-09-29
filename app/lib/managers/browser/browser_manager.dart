@@ -79,6 +79,37 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
     bus.publish(const WebViewMissing());
   }
 
+  /// A provider that is installed but failed to start: the creation threw
+  /// AndroidRuntimeException around an InvocationTargetException. Seen
+  /// while Android System WebView updates itself (over in a minute) and
+  /// on a board whose WebView build does not run at all. The watchdog's
+  /// restart every minute changes nothing either way, so the dashboard
+  /// slot shows the WebView notice and the build is tried again after
+  /// [retryAfter]; a provider that came good takes over on that retry, a
+  /// broken one lands here again for another wait.
+  Timer? _webViewRetry;
+
+  void markWebViewBroken(
+    String why, {
+    Duration retryAfter = const Duration(minutes: 5),
+  }) {
+    if (_webViewMissing) return;
+    _webViewMissing = true;
+    log.error(
+      name,
+      'the WebView provider failed to start ($why): the dashboard cannot '
+      'be shown; trying again in ${retryAfter.inMinutes} minutes',
+    );
+    bus.publish(const WebViewMissing());
+    _webViewRetry?.cancel();
+    _webViewRetry = Timer(retryAfter, () {
+      _webViewRetry = null;
+      _webViewMissing = false;
+      log.info(name, 'retrying the WebView after the provider failure');
+      bus.publish(const WebViewMissing());
+    });
+  }
+
   Future<void> _probeWebView() async {
     final details = await DeviceDetails.read();
     if (details.webviewAvailable == false) {
@@ -226,9 +257,22 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
       }
       _scheduleFreezeSync();
     });
+    // The native voice overlay draws over the dashboard, which shows
+    // through its backdrop: the page is paused (its own onPause, which
+    // stops its scripts, animations and video) and keeps its last frame on
+    // screen, instead of repainting under every overlay frame.
+    bus.on<AssistOverlayVisibility>().listen((e) {
+      if (e.visible == _underAssist) return;
+      _underAssist = e.visible;
+      unawaited(_syncAssistPause());
+    });
     bus.on<ScreensaverViewChanged>().listen((e) {
-      _screensaverHasOverlay = e.view != null;
-      _dashboardCovered = e.view != null && !_screensaverIsOwnOrigin(e.view);
+      // The Home Assistant Dashboard screensaver's layer is clear: like
+      // Dim, the page IS the display, so it is neither frozen nor stripped
+      // of its camera streams.
+      final covers = e.view != null && e.view != 'dashboard';
+      _screensaverHasOverlay = covers;
+      _dashboardCovered = covers && !_screensaverIsOwnOrigin(e.view);
       _scheduleFreezeSync();
     });
     // When the panel last woke, for the screenshot command: a capture
@@ -462,6 +506,9 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
             if (target.isEmpty) {
               return const CommandResult.fail('no Start URL configured');
             }
+            // Nobody touched the screen, so without this the next rotation
+            // tick navigates straight back off the page (issue #719).
+            await commands.execute('haPauseRotation', const {});
             await loadUrl(target);
             return const CommandResult.ok();
           },
@@ -741,6 +788,29 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
     // onPageLoaded retries once the page — and its URL — exist.
     _frozen = false;
     unawaited(_syncFreeze());
+    if (_underAssist) unawaited(_syncAssistPause());
+  }
+
+  /// Whether the native voice overlay is up over the dashboard.
+  bool _underAssist = false;
+
+  Future<void> _syncAssistPause() async {
+    final controller = _controller;
+    if (controller == null) return;
+    try {
+      if (_underAssist) {
+        await controller.pause();
+      } else {
+        await controller.resume();
+      }
+      log.debug(
+        name,
+        'dashboard ${_underAssist ? 'paused under' : 'resumed after'} the '
+        'voice overlay',
+      );
+    } catch (e) {
+      log.debug(name, 'dashboard pause for the voice overlay failed: $e');
+    }
   }
 
   bool isAttached(InAppWebViewController controller) =>

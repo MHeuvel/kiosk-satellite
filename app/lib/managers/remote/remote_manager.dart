@@ -489,6 +489,9 @@ class RemoteManager extends Manager {
       await _ensureAdminBundle();
       return _staticFile(request, path.substring('static/'.length));
     }
+    if (path.startsWith('voice_skins/')) {
+      return _voiceSkin(path.substring('voice_skins/'.length));
+    }
     if (path == 'api/login') return _login(request);
     if (path == 'api/ws') return _ws(request);
 
@@ -672,6 +675,13 @@ class RemoteManager extends Manager {
         return exported.ok
             ? _json(200, (exported.data as Map).cast<String, Object?>())
             : _json(500, {'error': exported.error});
+      // The same backup for this kiosk and every follower it leads, in one
+      // file. An admin token only: a fleet token is not scoped to it.
+      case ('GET', 'api/fleet/export'):
+        final exported = await commands.execute('fleetExport', const {});
+        return exported.ok
+            ? _json(200, (exported.data as Map).cast<String, Object?>())
+            : _json(500, {'error': exported.error});
       case ('POST', 'api/config/import'):
         final body = await _body(request);
         if (body == null) return _json(400, {'error': 'invalid JSON'});
@@ -747,6 +757,32 @@ class RemoteManager extends Manager {
         final r = await commands.execute('receiveUploadedUpdate', {
           'stream': request.read(),
           'length': request.contentLength,
+        });
+        return _json(r.ok ? 200 : 400, r.toJson());
+      // A custom wake word file, the raw body, into the staging folder.
+      // commitCustomWakeModels then checks the upload's files together.
+      case ('POST', 'api/voice/wake-models/upload'):
+        final r = await commands.execute('stageCustomWakeModel', {
+          'name': request.url.queryParameters['name'] ?? '',
+          'stream': request.read(),
+          'length': request.contentLength,
+        });
+        return _json(r.ok ? 200 : 400, r.toJson());
+      // The fleet leader's side of the custom wake word models: what this
+      // kiosk has, a file to keep and a file to drop.
+      case ('GET', 'api/fleet/wake-models'):
+        final r = await commands.execute('customWakeModelsManifest', const {});
+        return _json(r.ok ? 200 : 400, r.toJson());
+      case ('PUT', 'api/fleet/wake-models'):
+        final r = await commands.execute('receiveCustomWakeModelFile', {
+          'path': request.url.queryParameters['path'] ?? '',
+          'stream': request.read(),
+          'length': request.contentLength,
+        });
+        return _json(r.ok ? 200 : 400, r.toJson());
+      case ('DELETE', 'api/fleet/wake-models'):
+        final r = await commands.execute('removeCustomWakeModelFile', {
+          'path': request.url.queryParameters['path'] ?? '',
         });
         return _json(r.ok ? 200 : 400, r.toJson());
     }
@@ -981,6 +1017,9 @@ class RemoteManager extends Manager {
     'api/fleet/apply',
     'api/fleet/leave',
     'api/fleet/roster',
+    'api/fleet/wake-models',
+    // The leader's fleet backup reads each follower's full configuration.
+    'api/config/export',
     'api/commands/getUpdateStatus',
     'api/commands/checkUpdateNow',
     'api/commands/installUpdate',
@@ -1520,6 +1559,27 @@ class RemoteManager extends Manager {
       'content-type': types[ext] ?? 'application/octet-stream',
       'cache-control': 'public, max-age=31536000, immutable',
     });
+  }
+
+  /// The Voice Satellite skin screenshots the device's picker shows, for
+  /// the admin's picker. Public like the static files: they are the app's
+  /// own pictures.
+  Future<Response> _voiceSkin(String file) async {
+    if (!RegExp(r'^[a-z-]+\.webp$').hasMatch(file)) {
+      return Response.notFound('not found');
+    }
+    try {
+      final data = await _assetBundle.load('assets/voice_skins/$file');
+      return Response.ok(
+        data.buffer.asUint8List(),
+        headers: {
+          'content-type': 'image/webp',
+          'cache-control': 'public, max-age=86400',
+        },
+      );
+    } catch (_) {
+      return Response.notFound('not found');
+    }
   }
 
   static String? _bearerToken(Request request) {

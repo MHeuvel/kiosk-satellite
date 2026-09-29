@@ -180,5 +180,31 @@
         "Media Player > Player"
       ]
     }
+  },
+  "mediaNotificationAccessRemote": "Without this Android lists no media sessions, so Now Playing cannot follow the apps playing on this device. The grant screen appears on the tablet.",
+  "@mediaNotificationAccessRemote": {
+    "context": "Settings > Media Player > Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Player"
+      ]
+    }
+  },
+  "mediaLocalMediaSession": "Local Media Session",
+  "@mediaLocalMediaSession": {
+    "context": "Settings > Media Player > Player",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Player"
+      ]
+    }
   }
 }

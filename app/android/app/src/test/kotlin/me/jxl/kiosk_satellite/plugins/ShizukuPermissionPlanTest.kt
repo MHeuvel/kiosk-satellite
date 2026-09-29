@@ -19,6 +19,7 @@ class ShizukuPermissionPlanTest {
         assertThrows(IllegalArgumentException::class.java) { ShizukuPermissionPlan.commands("shell", 35, pkg) }
         assertThrows(IllegalArgumentException::class.java) { ShizukuPermissionPlan.commands("camera", 35, "app; reboot") }
         assertArrayEquals(arrayOf("/system/bin/dpm", "set-active-admin", "$pkg/.KioskAdminReceiver"), ShizukuPermissionPlan.commands("deviceAdmin", 35, pkg).single())
+        assertArrayEquals(arrayOf("/system/bin/cmd", "notification", "allow_listener", "$pkg/.MediaSessionListener"), ShizukuPermissionPlan.commands("notificationAccess", 35, pkg).single())
     }
 
     @Test fun enablingUiGuardPreservesOtherServicesAndAvoidsDuplicates() {

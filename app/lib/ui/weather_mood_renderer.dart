@@ -5,6 +5,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 import 'weather_mood_particles.dart';
 import 'weather_mood_scene.dart';
@@ -58,10 +59,11 @@ class _Programs {
     this.height,
     this.blend,
     this.noise,
+    this.moon,
     this.flipBlend,
   );
   final ui.FragmentProgram sky, clouds, height, blend;
-  final ui.Image noise;
+  final ui.Image noise, moon;
   final bool flipBlend;
   static final _cache = <bool, Future<_Programs>>{};
   static Future<_Programs> load(bool lowPower) =>
@@ -87,6 +89,7 @@ class _Programs {
             height,
             blend,
             await _noise(),
+            await _moon(),
             await _samplesFlipped(blend),
           );
         } catch (_) {
@@ -151,6 +154,18 @@ class _Programs {
       return picture.toImageSync(width, height);
     } finally {
       picture.dispose();
+    }
+  }
+
+  /// The Moon's near side from NASA imagery, see
+  /// assets/screensaver/moon-NASA.txt.
+  static Future<ui.Image> _moon() async {
+    final data = await rootBundle.load('assets/screensaver/moon.png');
+    final codec = await ui.instantiateImageCodec(data.buffer.asUint8List());
+    try {
+      return (await codec.getNextFrame()).image;
+    } finally {
+      codec.dispose();
     }
   }
 
@@ -235,7 +250,16 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
       final programs = await _Programs.load(widget.lowPower);
       if (!mounted) return;
       _skyShader = programs.sky.fragmentShader()
-        ..setImageSampler(0, programs.noise, filterQuality: FilterQuality.low);
+        ..setImageSampler(0, programs.moon, filterQuality: FilterQuality.low);
+      // The sky no longer samples the shared noise, so the compiler may
+      // drop it. Bind it where it survives.
+      try {
+        _skyShader!.setImageSampler(
+          1,
+          programs.noise,
+          filterQuality: FilterQuality.low,
+        );
+      } catch (_) {}
       _cloudShader = programs.clouds.fragmentShader()
         ..setImageSampler(0, programs.noise, filterQuality: FilterQuality.low);
       _heightShader = programs.height.fragmentShader()
@@ -266,7 +290,12 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
     }
   }
 
-  bool get _animate => widget.active && !_reducedMotion;
+  bool get _animate => widget.active && !_reducedMotion && !_paused;
+
+  /// Tickers off (under the native voice overlay, which shows a still of
+  /// the screensaver): nothing renders, not even the one frame reduced
+  /// motion draws, and the scene carries on from where it stopped.
+  bool _paused = false;
 
   void _timings(List<FrameTiming> timings) {
     if (!_animate || !_ready || _failed) return;
@@ -287,9 +316,17 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
       _pixelRatio = pixelRatio;
       _request();
     }
-    final reduced =
-        MediaQuery.disableAnimationsOf(context) ||
-        !TickerMode.valuesOf(context).enabled;
+    final paused = !TickerMode.valuesOf(context).enabled;
+    if (paused != _paused) {
+      _paused = paused;
+      _lastTime = null;
+      if (paused) {
+        _cancelLoop();
+      } else {
+        _request();
+      }
+    }
+    final reduced = MediaQuery.disableAnimationsOf(context);
     if (reduced != _reducedMotion) {
       _reducedMotion = reduced;
       _lastTime = null;
@@ -331,7 +368,9 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
   void _request() {
     _cancelLoop();
     _requested = true;
-    if (!_ready || _busy || _failed || !mounted || _size.isEmpty) return;
+    if (!_ready || _busy || _failed || !mounted || _size.isEmpty || _paused) {
+      return;
+    }
     // A paused renderer can paint changed settings once without running a loop.
     _timer = Timer(Duration.zero, _render);
   }
@@ -352,14 +391,16 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
     _frameCallback = null;
     final last = _lastFrame;
     _lastFrame = _animate ? timeStamp : null;
-    if (!mounted || _failed || !(_animate || _requested)) return;
+    if (!mounted || _failed || _paused || !(_animate || _requested)) return;
     if (_animate && last != null) _quality.recordTick(timeStamp - last);
     final wait = _quality.period * _quality.vsyncs - _quality.period ~/ 2;
     _timer = Timer(_requested ? Duration.zero : wait, _render);
   }
 
   void _render() {
-    if (_busy || !mounted || !_ready || _size.isEmpty || _failed) return;
+    if (_busy || !mounted || !_ready || _size.isEmpty || _failed || _paused) {
+      return;
+    }
     _requested = false;
     _busy = true;
     final size = _size;
@@ -984,6 +1025,7 @@ class _WeatherPainter extends CustomPainter {
       size,
       frame.values[1] * (1 - frame.twilight),
       frame.time,
+      twilight: frame.twilight,
     );
     final blend = owner._blendShader;
     if (cloud != null && blend != null) {

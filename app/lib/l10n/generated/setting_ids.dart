@@ -296,6 +296,10 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingScreensaverModeTitle",
     "description": "settingScreensaverModeDescription",
   },
+  "screensaver.dashboard_view": {
+    "title": "settingScreensaverDashboardViewTitle",
+    "description": "settingScreensaverDashboardViewDescription",
+  },
   "screensaver.black_hide_extras": {
     "title": "settingScreensaverBlackHideExtrasTitle",
     "description": "settingScreensaverBlackHideExtrasDescription",
@@ -820,6 +824,10 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingMotionStartDelayTitle",
     "description": "settingMotionStartDelayDescription",
   },
+  "person.sensor": {
+    "title": "settingPersonSensorTitle",
+    "description": "settingPersonSensorDescription",
+  },
   "motion.sensitivity": {
     "title": "settingMotionSensitivityTitle",
     "description": "settingMotionSensitivityDescription",
@@ -951,6 +959,10 @@ const settingMessageIds = <String, Map<String, String>>{
   "sendspin.duck_percent": {
     "title": "settingSendspinDuckPercentTitle",
     "description": "settingSendspinDuckPercentDescription",
+  },
+  "sendspin.esphome_entities": {
+    "title": "settingSendspinEsphomeEntitiesTitle",
+    "description": "settingSendspinEsphomeEntitiesDescription",
   },
   "sendspin.volume_keys": {
     "title": "settingSendspinVolumeKeysTitle",
@@ -1472,6 +1484,10 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingScreensaverClock24hTitle",
     "description": "settingScreensaverClock24hDescription",
   },
+  "screensaver.weather_clock_seconds": {
+    "title": "settingScreensaverClockSecondsTitle",
+    "description": "settingScreensaverClockSecondsDescription",
+  },
   "screensaver.weather_clock_show_date": {
     "title": "settingScreensaverClockDateTitle",
     "description": "settingScreensaverClockDateDescription",
@@ -1507,6 +1523,10 @@ const settingMessageIds = <String, Map<String, String>>{
   "screensaver.weather_bar_shadow": {
     "title": "settingScreensaverWidgetTextShadowTitle",
     "description": "screensaverWeatherTextShadowDescription",
+  },
+  "screensaver.weather_bar_titles": {
+    "title": "settingScreensaverWeatherBarTitlesTitle",
+    "description": "settingScreensaverWeatherBarTitlesDescription",
   },
   "screensaver.weather_bar_location": {
     "title": "screensaverOverlayLocationName",
@@ -1551,5 +1571,133 @@ const settingMessageIds = <String, Map<String, String>>{
   "intercom.tls": {
     "title": "settingIntercomTlsTitle",
     "description": "settingIntercomTlsDescription",
+  },
+  "wake_word.diagnostics": {
+    "title": "voiceDiagnosticsTitle",
+    "description": "voiceDiagnosticsDescription",
+  },
+  "voice.enabled": {
+    "title": "settingVoiceEnabledTitle",
+    "description": "settingVoiceEnabledDescription",
+  },
+  "voice.mute": {
+    "title": "settingVoiceMuteTitle",
+    "description": "settingVoiceMuteDescription",
+  },
+  "voice.seamless_wake": {
+    "title": "settingVoiceSeamlessWakeTitle",
+    "description": "settingVoiceSeamlessWakeDescription",
+  },
+  "voice.followup_delay_ms": {
+    "title": "settingVoiceFollowupDelayTitle",
+    "description": "settingVoiceFollowupDelayDescription",
+  },
+  "voice.followup_chime": {
+    "title": "settingVoiceFollowupChimeTitle",
+    "description": "settingVoiceFollowupChimeDescription",
+  },
+  "voice.tts_output": {
+    "title": "settingVoiceTtsOutputTitle",
+    "description": "settingVoiceTtsOutputDescription",
+  },
+  "voice.tts_output_mode": {
+    "title": "settingVoiceTtsOutputModeTitle",
+    "description": "settingVoiceTtsOutputModeDescription",
+  },
+  "voice.wake_word_engine": {
+    "title": "voiceWakeEngine",
+    "description": "settingVoiceWakeWordEngineDescription",
+  },
+  "voice.wake_word_sensitivity": {
+    "title": "settingVoiceWakeWordSensitivityTitle",
+    "description": "settingVoiceWakeWordSensitivityDescription",
+  },
+  "voice.noise_gate": {
+    "title": "settingVoiceNoiseGateTitle",
+    "description": "settingVoiceNoiseGateDescription",
+  },
+  "voice.stop_word": {
+    "title": "settingVoiceStopWordTitle",
+    "description": "settingVoiceStopWordDescription",
+  },
+  "voice.skin": {
+    "title": "voiceSkin",
+    "description": "voiceSkinHelp",
+  },
+  "voice.theme": {
+    "title": "settingVoiceThemeTitle",
+    "description": "settingVoiceThemeDescription",
+  },
+  "voice.background_opacity": {
+    "title": "voiceBackground",
+    "description": "settingVoiceBackgroundDescription",
+  },
+  "voice.text_scale": {
+    "title": "settingVoiceTextScaleTitle",
+    "description": "voiceScaleHelp",
+  },
+  "voice.reactive_bar": {
+    "title": "settingVoiceReactiveBarTitle",
+    "description": "settingVoiceReactiveBarDescription",
+  },
+  "voice.show_command": {
+    "title": "settingVoiceShowCommandTitle",
+    "description": "settingVoiceShowCommandDescription",
+  },
+  "voice.show_answer": {
+    "title": "settingVoiceShowAnswerTitle",
+    "description": "settingVoiceShowAnswerDescription",
+  },
+  "voice.show_tools": {
+    "title": "settingVoiceShowToolsTitle",
+    "description": "settingVoiceShowToolsDescription",
+  },
+  "voice.hide_sentiment_tags": {
+    "title": "settingVoiceHideSentimentTagsTitle",
+    "description": "settingVoiceHideSentimentTagsDescription",
+  },
+  "voice.answer_linger": {
+    "title": "settingVoiceAnswerLingerTitle",
+    "description": "settingVoiceAnswerLingerDescription",
+  },
+  "voice.results_linger": {
+    "title": "settingVoiceResultsLingerTitle",
+    "description": "settingVoiceResultsLingerDescription",
+  },
+  "voice.announcement_linger": {
+    "title": "settingVoiceAnnouncementLingerTitle",
+    "description": "settingVoiceAnnouncementLingerDescription",
+  },
+  "voice.timer_pills": {
+    "title": "settingVoiceTimerPillsTitle",
+    "description": "settingVoiceTimerPillsDescription",
+  },
+  "voice.timer_name_in_pill": {
+    "title": "settingVoiceTimerNameInPillTitle",
+    "description": "settingVoiceTimerNameInPillDescription",
+  },
+  "voice.timer_pill_scale": {
+    "title": "settingVoiceTimerPillScaleTitle",
+    "description": "settingVoiceTimerPillScaleDescription",
+  },
+  "voice.mute_timers": {
+    "title": "settingVoiceMuteTimersTitle",
+    "description": "settingVoiceMuteTimersDescription",
+  },
+  "voice.timer_name_on_alert": {
+    "title": "settingVoiceTimerNameOnAlertTitle",
+    "description": "settingVoiceTimerNameOnAlertDescription",
+  },
+  "voice.timer_speak": {
+    "title": "settingVoiceTimerSpeakTitle",
+    "description": "settingVoiceTimerSpeakDescription",
+  },
+  "voice.timer_phrase": {
+    "title": "settingVoiceTimerPhraseTitle",
+    "description": "settingVoiceTimerPhraseDescription",
+  },
+  "voice.wake_sound": {
+    "title": "settingVoiceWakeSoundTitle",
+    "description": "settingVoiceWakeSoundDescription",
   },
 };

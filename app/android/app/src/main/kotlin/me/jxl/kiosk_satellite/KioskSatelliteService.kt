@@ -21,6 +21,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.IconCompat
 
 /**
  * The one foreground service that keeps the app alive, whatever it is
@@ -528,15 +529,27 @@ class KioskSatelliteService : Service() {
                 },
             PendingIntent.FLAG_IMMUTABLE,
         )
-        return NotificationCompat.Builder(this, CHANNEL_ID)
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle(localized.getString(R.string.ks_service_title))
             .setContentText(summary(reasons, localized))
-            .setSmallIcon(R.drawable.ic_stat_service)
             .setContentIntent(open)
+        // The icon travels as pixels (see StatusBarIcon); the resource id
+        // is the fallback when the drawable cannot be rendered here.
+        val icon = smallIcon()
+        if (icon != null) builder.setSmallIcon(icon) else builder.setSmallIcon(R.drawable.ic_stat_service)
+        return builder
             .setOngoing(true)
             .setShowWhen(false)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setCategory(NotificationCompat.CATEGORY_SERVICE)
             .build()
+    }
+
+    private var smallIconBitmap: IconCompat? = null
+
+    private fun smallIcon(): IconCompat? {
+        smallIconBitmap?.let { return it }
+        val bitmap = StatusBarIcon.bitmap(this) ?: return null
+        return IconCompat.createWithBitmap(bitmap).also { smallIconBitmap = it }
     }
 }

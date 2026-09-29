@@ -248,6 +248,18 @@
                 android:name="android.accessibilityservice"
                 android:resource="@xml/kiosk_accessibility"/>
         </service>
+        <!-- The Media Session player source: Android lists other apps'
+             media sessions only to an app holding "Notification access",
+             which names a listener service. This one reads no
+             notifications; see MediaSessionListener. -->
+        <service
+            android:name=".MediaSessionListener"
+            android:exported="false"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService"/>
+            </intent-filter>
+        </service>
         <receiver
             android:name=".CrashHeartbeatReceiver"
             android:exported="false"/>
@@ -329,6 +341,11 @@
         <intent>
             <action android:name="android.intent.action.MAIN"/>
             <category android:name="android.intent.category.LAUNCHER"/>
+        </intent>
+        <!-- Naming the apps whose media sessions the Media Session player
+             source lists, including players without a launcher entry. -->
+        <intent>
+            <action android:name="android.media.browse.MediaBrowserService"/>
         </intent>
         <!-- Resolving the CURRENT default home app (HomeRole): who to hand
              the screen back to when the home-launcher feature is turned

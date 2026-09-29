@@ -14,5 +14,7 @@
   "voiceChimeTimerTitle": "Son du minuteur",
   "voiceChimeTimerDescription": "Répété à la fin d'un minuteur jusqu'à ce que vous le fermiez.",
   "voiceChimeAnnounceTitle": "Son d'annonce",
-  "voiceChimeAnnounceDescription": "Joué avant une annonce de Voice Satellite, sauf si l'annonce fournit son propre son."
+  "voiceChimeAnnounceDescription": "Joué avant une annonce de Voice Satellite, sauf si l'annonce fournit son propre son.",
+  "settingVoiceWakeSoundTitle": "Jouer les sons",
+  "settingVoiceWakeSoundDescription": "Les sons de réveil, de fin et d'erreur."
 }

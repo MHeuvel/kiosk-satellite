@@ -12,5 +12,14 @@
   "setupNativeWakeWord": "Вбудоване розпізнавання слова активації",
   "setupPullRefresh": "Потягніть для оновлення",
   "setupAutoplay": "Автовідтворення аудіо та відео",
-  "setupVoiceSkipped": "Не встановлено, пропущено"
+  "setupVoiceSkipped": "Не встановлено, пропущено",
+  "setupVoiceLead": "Перетворіть цей кіоск на голосового асистента для Home Assistant. Усе можна змінити пізніше.",
+  "setupVoiceAddHint": "Після налаштування додайте цей кіоск у Home Assistant у розділі Налаштування, Пристрої та служби, де він відображається як виявлений.",
+  "setupRecommendedWall": "Налаштування, які пасують настінному кіоску.",
+  "setupVoiceFound": "Знайдено інтеграцію Voice Satellite",
+  "setupVoiceFoundHelp": "Voice Satellite тепер працює всередині Kiosk Satellite. Перенесіть налаштування, щоб зберегти слова активації, асистента й вигляд одного із сателітів інтеграції замість того, щоб починати з нуля.",
+  "setupVoiceMigrated": "Перенесено з інтеграції Voice Satellite",
+  "setupVoiceMigratedHelp": "Цей кіоск переймає налаштування свого сателіта.",
+  "setupVoicePipelineHelp": "Голосовий конвеєр, який відповідає на слово активації.",
+  "setupVoiceEngineHelp": "Рушій, який слухає слово активації."
 }

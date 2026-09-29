@@ -238,17 +238,19 @@ object VolumeController {
         if (muted() || percent() == 0) return 0f
         if (Build.VERSION.SDK_INT >= 28) {
             try {
-                val mediaDb = audioManager.getStreamVolumeDb(
-                    AudioManager.STREAM_MUSIC,
-                    audioManager.getStreamVolume(AudioManager.STREAM_MUSIC), deviceType,
-                )
-                val voiceDb = audioManager.getStreamVolumeDb(
-                    AudioManager.STREAM_VOICE_CALL,
-                    audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL), deviceType,
-                )
+                fun db(stream: Int, index: Int) =
+                    audioManager.getStreamVolumeDb(stream, index, deviceType)
+                val music = AudioManager.STREAM_MUSIC
+                val call = AudioManager.STREAM_VOICE_CALL
+                val mediaDb = db(music, audioManager.getStreamVolume(music))
                 if (mediaDb == Float.NEGATIVE_INFINITY) return 0f
-                if (mediaDb.isFinite() && voiceDb.isFinite()) {
-                    return PlaybackVolume.compensation(mediaDb, voiceDb)
+                val mediaMaxDb = db(music, audioManager.getStreamMaxVolume(music))
+                val voiceDb = db(call, audioManager.getStreamVolume(call))
+                val voiceMaxDb = db(call, audioManager.getStreamMaxVolume(call))
+                if (mediaDb.isFinite() && mediaMaxDb.isFinite() &&
+                    voiceDb.isFinite() && voiceMaxDb.isFinite()
+                ) {
+                    return PlaybackVolume.compensation(mediaDb, mediaMaxDb, voiceDb, voiceMaxDb)
                 }
             } catch (_: IllegalArgumentException) {}
         }

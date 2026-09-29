@@ -46,9 +46,28 @@ void main() {
     expect(find.text('Second'), findsNothing);
   });
 
-  testWidgets('toast without an action lets taps pass through', (
-    tester,
-  ) async {
+  testWidgets('a tagged dismiss takes down only its own toast', (tester) async {
+    await tester.pumpWidget(host());
+    final context = tester.element(find.byType(Scaffold));
+    showToast(context, title: 'Lost connection', sticky: true, tag: 'mine');
+    await tester.pump(const Duration(milliseconds: 250));
+    expect(currentToastTag, 'mine');
+    // Someone else's toast replaced it: clearing mine leaves theirs up.
+    showToast(context, title: 'Saved', sticky: true);
+    await tester.pump(const Duration(milliseconds: 250));
+    expect(currentToastTag, isNull);
+    dismissToast(tag: 'mine');
+    await tester.pump(const Duration(milliseconds: 250));
+    expect(find.text('Saved'), findsOneWidget);
+    showToast(context, title: 'Lost connection', sticky: true, tag: 'mine');
+    await tester.pump(const Duration(milliseconds: 250));
+    dismissToast(tag: 'mine');
+    await tester.pump(const Duration(milliseconds: 250));
+    expect(find.text('Lost connection'), findsNothing);
+    expect(currentToastTag, isNull);
+  });
+
+  testWidgets('toast without an action lets taps pass through', (tester) async {
     await tester.pumpWidget(host());
     showToast(
       tester.element(find.byType(Scaffold)),
@@ -67,9 +86,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 1500));
   });
 
-  testWidgets('action button fires the callback and dismisses', (
-    tester,
-  ) async {
+  testWidgets('action button fires the callback and dismisses', (tester) async {
     await tester.pumpWidget(host());
     var opened = false;
     showToast(

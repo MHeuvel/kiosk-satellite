@@ -8,6 +8,8 @@ import '../l10n/generated/ui_strings.dart';
 import '../managers/glance/glance_manager.dart';
 import '../managers/settings/definitions.dart' as defs;
 import 'clock_faces.dart';
+import 'glass_chip.dart';
+import 'text_snapshot.dart';
 import 'mdi_icon.dart';
 
 /// The screensaver's At a Glance row: a few entity states (issue #37).
@@ -40,9 +42,20 @@ class GlanceRow extends StatelessWidget {
     this.tint,
     this.night,
     this.narrow = false,
+    this.glass,
+    this.shadows = const [],
   });
 
   final AppContainer container;
+
+  /// A drop shadow under the chips' text and icons, as Weather Mood gives
+  /// its own chips. Chips style only.
+  final List<Shadow> shadows;
+
+  /// Weather Mood's glass, so the chips match its weather chips: the scene
+  /// bends at their edges under the same rim and tint. Null keeps the dark
+  /// pill every other mode shows. Chips style only.
+  final GlassPalette? glass;
 
   /// Shrinks the whole row on small panels, where the clock above it has
   /// already taken what space there is.
@@ -119,7 +132,7 @@ class GlanceRow extends StatelessWidget {
           this.scale *
           (container.settings.get(defs.screensaverGlanceScale).toDouble() /
               100);
-      return LayoutBuilder(
+      final row = LayoutBuilder(
         builder: (context, constraints) {
           if (cards) {
             // Narrow caps the line width so the chips break clear of a
@@ -161,6 +174,8 @@ class GlanceRow extends StatelessWidget {
                         hideName: hideNames,
                         night: night,
                         font: font,
+                        glass: glass,
+                        shadows: shadows,
                       ),
                     ],
                   ],
@@ -198,6 +213,8 @@ class GlanceRow extends StatelessWidget {
                             hideName: hideNames,
                             night: night,
                             font: font,
+                            glass: glass,
+                            shadows: shadows,
                           ),
                         ),
                       ],
@@ -268,6 +285,8 @@ class GlanceRow extends StatelessWidget {
           );
         },
       );
+      // One read of the scene behind serves every glass chip in the row.
+      return glass != null && cards ? BackdropGroup(child: row) : row;
     },
   );
 }
@@ -406,14 +425,22 @@ class _GlanceCard extends StatelessWidget {
     required this.hideName,
     required this.font,
     this.night,
+    this.glass,
+    this.shadows = const [],
   });
 
   final GlanceEntity entity;
   final double scale;
   final GlanceFont font;
 
+  /// A drop shadow under the text and icon, as [GlanceRow.shadows].
+  final List<Shadow> shadows;
+
   /// The Clock screensaver's night color while its Night mode holds.
   final Color? night;
+
+  /// Glass instead of the dark pill, as [GlanceRow.glass].
+  final GlassPalette? glass;
 
   /// Monochromatic icons: keep the circle in the neutral grey even for an
   /// active entity.
@@ -457,75 +484,115 @@ class _GlanceCard extends StatelessWidget {
     final accent = bw || night != null ? null : glanceIconAccent(entity);
     final background = night?.withValues(alpha: 0.16) ?? _background;
     final border = night?.withValues(alpha: 0.4) ?? _border;
-    final circle = night?.withValues(alpha: 0.28) ?? _circleNeutral;
-    return Container(
+    final glass = night == null ? this.glass : null;
+    final circle =
+        night?.withValues(alpha: 0.28) ?? glass?.circle ?? _circleNeutral;
+    Widget pill(Decoration? decoration, Widget child) => Container(
       // Capped so one long name cannot stretch its pill across the
       // screen; the name inside truncates instead.
       constraints: BoxConstraints(maxWidth: 250 * scale),
       padding: EdgeInsets.fromLTRB(6 * scale, 6 * scale, 18 * scale, 6 * scale),
-      // A StadiumBorder, not a BoxDecoration with a large corner radius:
-      // the stadium's radius is always half the pill's own height. A
-      // radius bigger than the box (40 * scale on a ~52px pill) is an
-      // over-sized RRect the engine must renormalize, and re-rasterizing
-      // that shape at a new size froze Impeller's raster thread on the
-      // Tab S8 — the whole app kept running behind a stuck last frame.
-      decoration: ShapeDecoration(
-        color: background,
-        shape: StadiumBorder(side: BorderSide(color: border)),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 40 * scale,
-            height: 40 * scale,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: accent ?? circle,
-              shape: BoxShape.circle,
-            ),
-            // Full white on the neutral circle; the dark glyph only on a
-            // pastel, where white would wash out. The night color on its
-            // own wash at night.
-            child: GlanceIcon(
-              entity: entity,
-              size: 22 * scale,
-              color: accent != null ? _iconOnAccent : value,
-            ),
+      decoration: decoration,
+      child: child,
+    );
+    final content = Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 40 * scale,
+          height: 40 * scale,
+          alignment: Alignment.center,
+          // Glass keeps the disc clear and lights the glyph in the
+          // accent instead, with the chip glowing in the same color.
+          decoration:
+              glass?.disc(scale) ??
+              BoxDecoration(color: accent ?? circle, shape: BoxShape.circle),
+          // Full white on the neutral circle; the dark glyph only on a
+          // pastel, where white would wash out. The night color on its
+          // own wash at night.
+          child: GlanceIcon(
+            entity: entity,
+            size: 22 * scale,
+            shadows: shadows,
+            color: glass != null
+                ? accent ?? value
+                : accent != null
+                ? _iconOnAccent
+                : value,
           ),
-          SizedBox(width: 10 * scale),
-          Flexible(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (!hideName)
-                  Text(
-                    entity.displayName,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: font.style(
-                      color: label,
-                      fontSize: 13 * scale,
-                      height: 1.15,
-                    ),
-                  ),
+        ),
+        SizedBox(width: 10 * scale),
+        Flexible(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (!hideName)
                 Text(
-                  glanceStateText(entity, strings: l10n(context)),
+                  entity.displayName,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: font.style(
-                    color: value,
-                    fontSize: (hideName ? valueAloneSize : 17) * scale,
-                    height: 1.2,
-                    weight: FontWeight.w600,
+                    color: label,
+                    fontSize: 13 * scale,
+                    height: 1.15,
+                    shadows: shadows,
                   ),
                 ),
-              ],
-            ),
+              Text(
+                glanceStateText(entity, strings: l10n(context)),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: font.style(
+                  color: value,
+                  fontSize: (hideName ? valueAloneSize : 17) * scale,
+                  height: 1.2,
+                  weight: FontWeight.w600,
+                  shadows: shadows,
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
+      ],
+    );
+    // Blurred shadows redraw every frame on Impeller unless the pill's
+    // content is kept as an image until what it shows changes.
+    final body = shadows.isEmpty
+        ? content
+        : TextSnapshot(
+            content: (
+              entity.displayName,
+              glanceStateText(entity, strings: l10n(context)),
+              entity.icon,
+              accent,
+              hideName,
+              scale,
+              font.family,
+              font.weight,
+            ),
+            bleed: 20 * scale,
+            child: content,
+          );
+    if (glass != null) {
+      return GlassChip(
+        palette: glass,
+        fallback: pill(glass.decoration, body),
+        child: pill(null, body),
+      );
+    }
+    // A StadiumBorder, not a BoxDecoration with a large corner radius: the
+    // stadium's radius is always half the pill's own height. A radius
+    // bigger than the box (40 * scale on a ~52px pill) is an over-sized
+    // RRect the engine must renormalize, and re-rasterizing that shape at
+    // a new size froze Impeller's raster thread on the Tab S8, the whole
+    // app kept running behind a stuck last frame.
+    return pill(
+      ShapeDecoration(
+        color: background,
+        shape: StadiumBorder(side: BorderSide(color: border)),
       ),
+      body,
     );
   }
 }
@@ -666,20 +733,28 @@ class GlanceIcon extends StatelessWidget {
     required this.entity,
     required this.size,
     required this.color,
+    this.shadows = const [],
   });
 
   final GlanceEntity entity;
   final double size;
   final Color color;
+  final List<Shadow> shadows;
 
   @override
   Widget build(BuildContext context) {
     final own = entity.icon;
     final fallback = glanceIcon(entity);
     if (own == null || !MdiIcons.looksLikeIcon(own)) {
-      return Icon(fallback, size: size, color: color);
+      return Icon(fallback, size: size, color: color, shadows: shadows);
     }
-    return MdiIcon(name: own, size: size, color: color, fallback: fallback);
+    return MdiIcon(
+      name: own,
+      size: size,
+      color: color,
+      fallback: fallback,
+      shadows: shadows,
+    );
   }
 }
 
@@ -760,12 +835,14 @@ class GlanceFont {
     required double fontSize,
     double? height,
     FontWeight? weight,
+    List<Shadow>? shadows,
   }) {
     final w = this.weight ?? weight ?? FontWeight.w400;
     return TextStyle(
       color: color,
       fontSize: fontSize,
       height: height,
+      shadows: shadows,
       fontWeight: w,
       fontFamily: family,
       fontVariations: clockFontVariations(opticalSize, w),

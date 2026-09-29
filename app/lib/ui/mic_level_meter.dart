@@ -3,8 +3,8 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-import '../app_container.dart';
 import '../l10n/messages.dart';
+import '../managers/audio/mic_level_monitor.dart';
 
 /// RMS (0..1) to a meter fraction on a dB scale, -60 dBFS to -6 dBFS.
 ///
@@ -34,22 +34,19 @@ const micMeterSegments = 24;
 const _greenUpTo = 15; // fraction 0.625 ~= -26 dBFS ~= 0.05 RMS
 const _amberUpTo = 20; // fraction 0.833 ~= -15 dBFS
 
-/// Live microphone level row for the Microphone settings card. Rides the
-/// engine's telemetry feed in meter mode (reference counted, so it
-/// coexists with an open tester), which also means it only moves while the
-/// engine is listening - exactly when the gain above it matters. Meter
-/// mode, never tester mode: detections keep firing while it is visible.
+/// Live microphone level row for the Microphone settings card. Reads the
+/// shared capture through [MicLevelMonitor], so it moves whether or not a
+/// wake word engine is running, and detections keep firing while it is
+/// visible.
 class MicLevelTile extends StatefulWidget {
-  const MicLevelTile({super.key, required this.container});
-
-  final AppContainer container;
+  const MicLevelTile({super.key});
 
   @override
   State<MicLevelTile> createState() => _MicLevelTileState();
 }
 
 class _MicLevelTileState extends State<MicLevelTile> {
-  StreamSubscription<Map<String, Object?>>? _sub;
+  StreamSubscription<double>? _sub;
   Timer? _staleness;
   final _rms = ValueNotifier<double>(0);
   int _lastSampleMs = 0;
@@ -57,13 +54,15 @@ class _MicLevelTileState extends State<MicLevelTile> {
   @override
   void initState() {
     super.initState();
-    widget.container.wakeWord.startMeter();
-    _sub = widget.container.wakeWord.telemetry.listen((m) {
+    final monitor = MicLevelMonitor.instance;
+    _sub = monitor.levels.listen((rms) {
       _lastSampleMs = DateTime.now().millisecondsSinceEpoch;
-      _rms.value = (m['rms'] as num?)?.toDouble() ?? 0;
+      _rms.value = rms;
     });
-    // Telemetry stops when detection pauses (a voice turn) or the engine
-    // drops; decay to dark instead of freezing on the last value.
+    monitor.start();
+    // Levels stop when the capture closes (the page takes the microphone,
+    // a setting change reopens it); decay to dark instead of freezing on
+    // the last value.
     _staleness = Timer.periodic(const Duration(milliseconds: 250), (_) {
       if (_rms.value > 0 &&
           DateTime.now().millisecondsSinceEpoch - _lastSampleMs > 500) {
@@ -76,7 +75,7 @@ class _MicLevelTileState extends State<MicLevelTile> {
   void dispose() {
     _staleness?.cancel();
     _sub?.cancel();
-    widget.container.wakeWord.stopMeter();
+    MicLevelMonitor.instance.stop();
     _rms.dispose();
     super.dispose();
   }

@@ -11,9 +11,8 @@ import '../managers/settings/definitions.dart' as defs;
 import '../managers/voice_timers/voice_timer_manager.dart';
 import 'toast.dart';
 
-const _pillScale = 1.2;
-const _pillGap = 10.0 * _pillScale;
-const _pillWidth = 250.0 * _pillScale;
+/// The pills' size at a Timer pill scale of 100%.
+const _baseScale = 1.2;
 
 /// Timer pills live above the screensaver, Now Playing and camera views.
 class VoiceTimerOverlay extends StatefulWidget {
@@ -29,17 +28,21 @@ class _VoiceTimerOverlayState extends State<VoiceTimerOverlay> {
   Timer? _tick;
   StreamSubscription<SettingChanged>? _settings;
   double _x = .5, _y = .08;
+  double _scale = _baseScale;
 
   @override
   void initState() {
     super.initState();
     _readPosition();
+    _readScale();
     c.voiceTimers.timers.addListener(_changed);
     c.voiceTimers.alerts.addListener(_changed);
     c.voiceTimers.error.addListener(_error);
     _settings = c.bus.on<SettingChanged>().listen((e) {
       if (e.key == defs.voiceTimerPosition.key) {
         setState(_readPosition);
+      } else if (e.key == defs.voiceTimerPillScale.key) {
+        setState(_readScale);
       }
     });
     _changed();
@@ -55,6 +58,11 @@ class _VoiceTimerOverlayState extends State<VoiceTimerOverlay> {
     _x = part(0, .5);
     _y = part(1, .08);
   }
+
+  void _readScale() => _scale =
+      _baseScale *
+      c.settings.get(defs.voiceTimerPillScale).clamp(50, 300) /
+      100;
 
   void _changed() {
     _tick?.cancel();
@@ -99,6 +107,9 @@ class _VoiceTimerOverlayState extends State<VoiceTimerOverlay> {
     if (timers.isEmpty) return const SizedBox.shrink();
     final strings = l10n(context);
     final now = DateTime.now();
+    final scale = _scale;
+    final gap = 10.0 * scale;
+    final naturalWidth = 250.0 * scale;
     return SafeArea(
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -109,22 +120,22 @@ class _VoiceTimerOverlayState extends State<VoiceTimerOverlay> {
           }
           final columns = min(
             timers.length,
-            availableWidth >= 2 * _pillWidth + _pillGap ? 2 : 1,
+            availableWidth >= 2 * naturalWidth + gap ? 2 : 1,
           );
           final width = min(
             availableWidth,
-            columns * _pillWidth + (columns - 1) * _pillGap,
+            columns * naturalWidth + (columns - 1) * gap,
           );
-          final pillWidth = (width - (columns - 1) * _pillGap) / columns;
+          final pillWidth = (width - (columns - 1) * gap) / columns;
           final rows = (timers.length / columns).ceil();
           final textScale = MediaQuery.textScalerOf(context);
           final pillHeight = max(
-            56.0 * _pillScale,
-            textScale.scale(13 * _pillScale) * 1.15 +
-                textScale.scale(21 * _pillScale) * 1.15 +
-                16 * _pillScale,
+            56.0 * scale,
+            textScale.scale(13 * scale) * 1.15 +
+                textScale.scale(21 * scale) * 1.15 +
+                16 * scale,
           );
-          final naturalHeight = rows * (pillHeight + _pillGap) - _pillGap + 20;
+          final naturalHeight = rows * (pillHeight + gap) - gap + 20;
           final height = min(availableHeight, naturalHeight);
           final overflow = naturalHeight > height;
           final freeX = availableWidth - width;
@@ -173,8 +184,8 @@ class _VoiceTimerOverlayState extends State<VoiceTimerOverlay> {
                               ? null
                               : const NeverScrollableScrollPhysics(),
                           child: Wrap(
-                            spacing: _pillGap,
-                            runSpacing: _pillGap,
+                            spacing: gap,
+                            runSpacing: gap,
                             alignment: WrapAlignment.center,
                             children: [
                               for (final timer in timers)
@@ -210,6 +221,7 @@ class _VoiceTimerOverlayState extends State<VoiceTimerOverlay> {
                                         timer: timer,
                                         width: pillWidth,
                                         height: pillHeight,
+                                        scale: scale,
                                         now: now,
                                       ),
                                     ),
@@ -236,11 +248,13 @@ class _TimerPill extends StatelessWidget {
     required this.timer,
     required this.width,
     required this.height,
+    required this.scale,
     required this.now,
   });
   final VoiceTimer timer;
   final double width;
   final double height;
+  final double scale;
   final DateTime now;
 
   @override
@@ -254,22 +268,17 @@ class _TimerPill extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      padding: const EdgeInsets.fromLTRB(
-        6 * _pillScale,
-        6 * _pillScale,
-        18 * _pillScale,
-        6 * _pillScale,
-      ),
-      decoration: const ShapeDecoration(
-        color: Color(0xB31C1C1E),
+      padding: EdgeInsets.fromLTRB(6 * scale, 6 * scale, 18 * scale, 6 * scale),
+      decoration: ShapeDecoration(
+        color: const Color(0xB31C1C1E),
         shape: StadiumBorder(
-          side: BorderSide(color: Color(0x30FFFFFF), width: _pillScale),
+          side: BorderSide(color: const Color(0x30FFFFFF), width: scale),
         ),
       ),
       child: Row(
         children: [
           SizedBox.square(
-            dimension: 40 * _pillScale,
+            dimension: 40 * scale,
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -280,12 +289,12 @@ class _TimerPill extends StatelessWidget {
                   ),
                 ),
                 SizedBox.square(
-                  dimension: 38 * _pillScale,
+                  dimension: 38 * scale,
                   child: CircularProgressIndicator(
                     value: timer.totalSeconds > 0
                         ? remaining / timer.totalSeconds
                         : 0,
-                    strokeWidth: 2 * _pillScale,
+                    strokeWidth: 2 * scale,
                     color: accent,
                     backgroundColor: const Color(0x24FFFFFF),
                   ),
@@ -296,13 +305,13 @@ class _TimerPill extends StatelessWidget {
                       : timer.active
                       ? Icons.timer_outlined
                       : Icons.pause_rounded,
-                  size: 22 * _pillScale,
+                  size: 22 * scale,
                   color: accent,
                 ),
               ],
             ),
           ),
-          const SizedBox(width: _pillGap),
+          SizedBox(width: 10 * scale),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -314,9 +323,9 @@ class _TimerPill extends StatelessWidget {
                       : timer.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
-                    fontSize: 13 * _pillScale,
+                    fontSize: 13 * scale,
                     height: 1.15,
                   ),
                 ),
@@ -325,12 +334,12 @@ class _TimerPill extends StatelessWidget {
                       ? l10n(context).voiceTimerFinished
                       : voiceTimerTime(remaining),
                   maxLines: 1,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
-                    fontSize: 21 * _pillScale,
+                    fontSize: 21 * scale,
                     height: 1.15,
                     fontWeight: FontWeight.w600,
-                    fontFeatures: [FontFeature.tabularFigures()],
+                    fontFeatures: const [FontFeature.tabularFigures()],
                   ),
                 ),
               ],

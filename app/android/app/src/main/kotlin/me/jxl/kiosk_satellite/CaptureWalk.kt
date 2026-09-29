@@ -39,7 +39,9 @@ internal class CaptureWalk(private val rungs: Int, start: Int) {
     var audibleStep = -1
         private set
 
-    private var nextWalkNs = 0L
+    /** When the next walk may start, as armed by the last [exhausted]. */
+    var nextWalkNs = 0L
+        private set
     private var backoffNs = BACKOFF_FIRST_NS
 
     /** Seconds until the next walk may start, as armed by the last [exhausted]. */

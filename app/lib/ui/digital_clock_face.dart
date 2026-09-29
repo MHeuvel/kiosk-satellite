@@ -15,6 +15,8 @@ class DigitalClockFace extends StatelessWidget {
     required this.weight,
     this.opticalSize,
     this.shadows = const [],
+    this.dateShadows,
+    this.dateWeight = FontWeight.w400,
     this.dateGapFactor = .1,
     this.dateOpacity = .65,
   });
@@ -27,6 +29,13 @@ class DigitalClockFace extends StatelessWidget {
   final FontWeight weight;
   final double? opticalSize;
   final List<Shadow> shadows;
+
+  /// The date's own shadows, for a shadow sized to its text. Null uses
+  /// [shadows].
+  final List<Shadow>? dateShadows;
+
+  /// The date's weight, regular unless a backdrop calls for more.
+  final FontWeight dateWeight;
 
   @override
   Widget build(BuildContext context) => Column(
@@ -54,8 +63,8 @@ class DigitalClockFace extends StatelessWidget {
             fontFamily: fontFamily,
             color: color.withValues(alpha: dateOpacity),
             fontSize: dateSize,
-            fontWeight: FontWeight.w400,
-            shadows: shadows,
+            fontWeight: dateWeight,
+            shadows: dateShadows ?? shadows,
           ),
         ),
       ],

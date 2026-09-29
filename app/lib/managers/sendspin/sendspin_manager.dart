@@ -5,7 +5,7 @@ import 'dart:math' show Random, max;
 import 'dart:typed_data' show BytesBuilder;
 
 import 'package:flutter/foundation.dart'
-    show Uint8List, ValueNotifier, visibleForTesting;
+    show Uint8List, ValueNotifier, mapEquals, visibleForTesting;
 import 'package:flutter/services.dart';
 
 import '../../core/command_registry.dart';
@@ -22,6 +22,7 @@ import 'lyrics.dart';
 import 'ma_remote_player.dart';
 import 'music_assistant_api.dart';
 import 'remote_player.dart';
+import 'session_player.dart';
 import 'sonos_client.dart';
 import 'sonos_player.dart';
 import 'volume_ducker.dart';
@@ -220,12 +221,30 @@ class SendspinManager extends Manager {
   Future<Uint8List?> loadArtwork(String url) =>
       _covers.load(url, artworkFetcher);
 
+  /// The local stream's cover URL last handed to the native media session.
+  String _sessionArtUrl = '';
+
+  /// Hand the local stream's cover to the native media session, which
+  /// cannot fetch it itself: the Music Assistant image proxy is often
+  /// self-signed, and [fetchArtwork] knows which hosts to trust.
+  Future<void> _pushSessionArtwork(String url) async {
+    final bytes = await loadArtwork(url);
+    if (url != _sessionArtUrl) return;
+    try {
+      await _channel.invokeMethod('setArtwork', {'url': url, 'bytes': bytes});
+    } catch (e) {
+      log.warn(name, 'media session artwork failed: $e');
+    }
+  }
+
   Future<Uint8List?> fetchArtwork(
     String url, {
     Duration timeout = const Duration(seconds: 12),
     Future<void>? cancelled,
   }) async {
     if (url.isEmpty) return null;
+    // Another app's cover, kept by the media session bridge.
+    if (url.startsWith('mediasession:')) return SessionPlayer.artwork(url);
     HttpClient? client;
     try {
       final serverHost = Uri.parse(
@@ -306,6 +325,16 @@ class SendspinManager extends Manager {
   })
   sonosRemoteFactory = SonosPlayer.new;
 
+  /// Builds the media session follower. Swapped in tests so a manager
+  /// test never reaches the platform channel.
+  @visibleForTesting
+  RemotePlayer Function({
+    required String package,
+    required void Function(Map<String, Object?>?) onSnapshot,
+    required Logger log,
+  })
+  sessionRemoteFactory = SessionPlayer.new;
+
   /// Live while another player is followed instead of this device's own
   /// (sendspin.player): it feeds [nowPlaying] and takes the transport
   /// commands; the local player never runs in that mode.
@@ -314,16 +343,54 @@ class SendspinManager extends Manager {
   /// The followed player's display name, empty for this device's own.
   /// The Now Playing view's chip: it names the pick, whether or not the
   /// follower is connected at the moment.
-  String get followedPlayerName =>
-      _remotePicked ? _settings.get(defs.sendspinPlayerName) : '';
+  String get followedPlayerName => _remotePicked ? _pickedName : '';
+
+  /// The pick's stored name, or for a media session followed as "any
+  /// app" the app that plays right now.
+  String get _pickedName {
+    final remote = _remote;
+    if (remote is SessionPlayer &&
+        remote.package == SessionPlayer.anyApp &&
+        remote.appName.isNotEmpty) {
+      return remote.appName;
+    }
+    return _settings.get(defs.sendspinPlayerName);
+  }
 
   /// What the Now Playing chip calls the player: the followed one by
   /// name, or this device's own player by the name Music Assistant knows
   /// it under, the device's name failing that.
   String get playerChipName {
-    if (_remotePicked) return _settings.get(defs.sendspinPlayerName);
+    if (_remotePicked) return _pickedName;
     final own = _settings.get(defs.sendspinLocalPlayerName).trim();
     return own.isNotEmpty ? own : _settings.get(defs.deviceName);
+  }
+
+  /// What the ESPHome media sensors show (issue #741): the shown
+  /// player's state and track, and the player by its chip name. The
+  /// source is empty while there is no player to follow at all.
+  Map<String, String> get mediaSummary {
+    final now = nowPlaying.value;
+    return {
+      'state': now == null
+          ? 'idle'
+          : (now['playing'] == true ? 'playing' : 'paused'),
+      'title': '${now?['title'] ?? ''}',
+      'artist': '${now?['artist'] ?? ''}',
+      'source': _settings.get(defs.sendspinPlayerActive) ? playerChipName : '',
+    };
+  }
+
+  Map<String, String>? _lastMediaSummary;
+
+  /// Tells the bus when [mediaSummary] moved. Called on every snapshot
+  /// and setting change, so it drops the ones that change nothing it
+  /// shows (a position tick, an unrelated setting).
+  void _publishMediaSummary() {
+    final summary = mediaSummary;
+    if (mapEquals(summary, _lastMediaSummary)) return;
+    _lastMediaSummary = summary;
+    bus.publish(MediaSummaryChanged(summary));
   }
 
   /// Whether the chip's menu can put other players in the shown player's
@@ -432,9 +499,14 @@ class SendspinManager extends Manager {
   /// local player (the device's media volume) and for a followed player
   /// that reports volume among its commands.
   bool get volumeAvailable =>
-      _remote == null ||
+      _deviceVolume ||
       ((nowPlaying.value?['supportedCommands'] as List?)?.contains('volume') ??
           false);
+
+  /// Whether the shown player plays out of this device, so its volume is
+  /// the device's media volume: the local player, or another app's media
+  /// session.
+  bool get _deviceVolume => _remote == null || _remote is SessionPlayer;
 
   /// The volume the view's slider shows, 0 to 100: the media volume
   /// setting locally, the followed player's last report otherwise, or
@@ -442,7 +514,7 @@ class SendspinManager extends Manager {
   /// to report it back. Null while unknown.
   int? get volumeLevel =>
       _volumeTarget ??
-      (_remote == null
+      (_deviceVolume
           ? _settings.get(defs.mediaVolume).toInt()
           : (nowPlaying.value?['volume'] as num?)?.toInt());
 
@@ -452,7 +524,7 @@ class SendspinManager extends Manager {
   /// kiosk screen, which knows what is on screen, pushes the answer to
   /// the native side.
   bool volumeKeysWanted({required bool viewShown}) {
-    if (_remote == null || !volumeAvailable) return false;
+    if (_deviceVolume || !volumeAvailable) return false;
     return switch (_settings.get(defs.sendspinVolumeKeys)) {
       'now_playing' => viewShown,
       'playing' => viewShown || nowPlaying.value?['playing'] == true,
@@ -478,7 +550,7 @@ class SendspinManager extends Manager {
   /// key, which repeats many times a second, sends the player one
   /// request at a time rather than a flood.
   Future<void> nudgeVolume(int delta) async {
-    if (_remote == null || !volumeAvailable) return;
+    if (_deviceVolume || !volumeAvailable) return;
     final base = volumeLevel;
     if (base == null) return;
     _volumeTarget = (base + delta).clamp(0, 100);
@@ -512,7 +584,7 @@ class SendspinManager extends Manager {
       case 'down':
         unawaited(nudgeVolume(-_settings.get(defs.sendspinVolumeKeyStep)));
       case 'mute':
-        if (_remote == null || !volumeAvailable) return;
+        if (_deviceVolume || !volumeAvailable) return;
         volumeNudge.value++;
         unawaited(toggleMute());
     }
@@ -777,6 +849,7 @@ class SendspinManager extends Manager {
   Future<void> init() async {
     nowPlaying.addListener(_remoteMediaChanged);
     nowPlaying.addListener(_onTrackChanged);
+    nowPlaying.addListener(_publishMediaSummary);
     _channel.setMethodCallHandler((call) async {
       final args = call.arguments;
       final map = args is Map
@@ -792,6 +865,14 @@ class SendspinManager extends Manager {
             'server=${map['serverName']} synced=${map['synced']}',
           );
         case 'metadataChanged':
+          final art = map['artworkUrl'];
+          if (art is String &&
+              art.isNotEmpty &&
+              art != 'null' &&
+              art != _sessionArtUrl) {
+            _sessionArtUrl = art;
+            unawaited(_pushSessionArtwork(art));
+          }
           // Metadata arrives as deltas: a progress-only update carries no
           // title, and the server may send literal "null" strings. Absent
           // fields must not clobber what an earlier message established.
@@ -927,6 +1008,9 @@ class SendspinManager extends Manager {
     });
 
     bus.on<SettingChanged>().listen((e) {
+      // The source sensor names the player, and a rename or the player
+      // surface going away moves it without a snapshot.
+      _publishMediaSummary();
       if (e.key == defs.sendspinDuckPercent.key) _syncDucking();
       // The card-surface flag rides the settings that decide it.
       if (e.key == defs.sendspinPlayer.key ||
@@ -1213,6 +1297,16 @@ class SendspinManager extends Manager {
 
     commands.register(
       Command(
+        name: 'mediaPlayerState',
+        description:
+            'What the followed player is doing: state (playing, paused or '
+            'idle), title, artist and source, the player or app by name.',
+        handler: (_) async => CommandResult.ok(mediaSummary),
+      ),
+    );
+
+    commands.register(
+      Command(
         name: 'sendspinDiscover',
         description:
             'Scan the network for Sendspin servers (mDNS). Returns name, '
@@ -1325,8 +1419,9 @@ class SendspinManager extends Manager {
         description:
             'Follow a player: the source (device, home_assistant, '
             'music_assistant or sonos) and the player by name or id, the '
-            'way the Media Player page picks one. The device source needs '
-            'no player and puts this device back on its own.',
+            'way the Media Player page picks one. The device source puts '
+            'this device back on its own Sendspin player, or with player '
+            'media_session on whichever app plays on the device.',
         params: const {
           'source': 'device | home_assistant | music_assistant | sonos',
           'player': 'the player name, or its id',
@@ -1335,10 +1430,22 @@ class SendspinManager extends Manager {
           final source = sourceKey('${p['source'] ?? ''}');
           if (source == null) return const CommandResult.fail('unknown source');
           if (source.isEmpty) {
-            await _settings.set(defs.sendspinPlayer, '');
-            await _settings.set(defs.sendspinPlayerName, '');
+            final session = isLocalSessionName('${p['player'] ?? ''}');
             await _settings.set(defs.sendspinPlayerSource, '');
-            return CommandResult.ok({'source': 'device', 'id': '', 'name': ''});
+            await Future<void>.delayed(Duration.zero);
+            await _settings.set(
+              defs.sendspinPlayer,
+              session ? localSessionPick : '',
+            );
+            await _settings.set(
+              defs.sendspinPlayerName,
+              session ? localSessionName : '',
+            );
+            return CommandResult.ok({
+              'source': 'device',
+              'id': session ? 'media_session' : '',
+              'name': session ? localSessionName : '',
+            });
           }
           final wanted = '${p['player'] ?? ''}'.trim();
           if (wanted.isEmpty) return const CommandResult.fail('no player');
@@ -1578,6 +1685,11 @@ class SendspinManager extends Manager {
       _ => PlayerSourceKind.local,
     };
     if (picked.isLocal || picked.kind == kind) return;
+    // This device's other player: the apps playing on it.
+    if (kind == PlayerSourceKind.local &&
+        picked.kind == PlayerSourceKind.mediaSession) {
+      return;
+    }
     await _settings.set(defs.sendspinPlayer, '');
     await _settings.set(defs.sendspinPlayerName, '');
   }
@@ -1625,6 +1737,23 @@ class SendspinManager extends Manager {
     'sonos' => 'sonos',
     _ => 'device',
   };
+
+  /// The pick that follows whichever app plays on this device: the device
+  /// source's other player beside its own Sendspin one.
+  static const localSessionPick = 'session:${SessionPlayer.anyApp}';
+
+  /// What the pick is called where it is stored and shown.
+  static const localSessionName = 'Local Media Session';
+
+  /// Whether an action's player names the local media session rather
+  /// than the Sendspin player.
+  static bool isLocalSessionName(String name) {
+    final n = name.trim().toLowerCase().replaceAll(RegExp(r'[\s-]+'), '_');
+    return n == 'media_session' ||
+        n == 'local_media_session' ||
+        n == 'session' ||
+        n == localSessionPick;
+  }
 
   /// The row of [rows] (mediaPlayers answers) that [wanted] names: its id
   /// with or without the source prefix, or its name, case aside. Two
@@ -1758,6 +1887,7 @@ class SendspinManager extends Manager {
       PlayerSourceKind.homeAssistant =>
         source.id.isNotEmpty && haUrl.isNotEmpty && haToken.isNotEmpty,
       PlayerSourceKind.sonos => source.id.isNotEmpty && sonosHost.isNotEmpty,
+      PlayerSourceKind.mediaSession => source.id.isNotEmpty,
     };
     final key = want
         ? switch (source.kind) {
@@ -1767,6 +1897,7 @@ class SendspinManager extends Manager {
             PlayerSourceKind.sonos =>
               'sonos|${source.id}|$sonosHost|'
                   '${_settings.get(defs.sendspinSonosGroupVolume)}|${_settings.get(defs.sendspinSonosInputs)}',
+            PlayerSourceKind.mediaSession => 'session|${source.id}',
             _ => '',
           }
         : '';
@@ -1811,6 +1942,11 @@ class SendspinManager extends Manager {
         log: log,
         groupVolume: _settings.get(defs.sendspinSonosGroupVolume),
         showInputs: _settings.get(defs.sendspinSonosInputs),
+      ),
+      PlayerSourceKind.mediaSession => sessionRemoteFactory(
+        package: source.id,
+        onSnapshot: snapshot,
+        log: log,
       ),
       _ => remoteFactory(
         baseUrl: maUrl,
@@ -1881,6 +2017,7 @@ class SendspinManager extends Manager {
   @override
   Future<void> dispose() async {
     nowPlaying.removeListener(_remoteMediaChanged);
+    nowPlaying.removeListener(_publishMediaSummary);
     _restartDebounce?.cancel();
     _pausedHoldTimer?.cancel();
     _queuePoll?.cancel();
@@ -2426,7 +2563,7 @@ class SendspinManager extends Manager {
   /// device's media volume for the local player. A level set by hand
   /// ends a local mute.
   Future<bool> setVolume(int percent) async {
-    if (_remote case final remote?) {
+    if (_remote case final remote? when !_deviceVolume) {
       return _remoteDucker?.setVolume(
             percent.clamp(0, 100),
             remote.setVolume,
@@ -2445,14 +2582,16 @@ class SendspinManager extends Manager {
 
   /// Whether the shown player is muted: the followed player's own word or
   /// the local stand-in.
-  bool get muted => _remote == null
+  bool get muted => _deviceVolume
       ? _localMuteLevel != null
       : nowPlaying.value?['muted'] == true;
 
   /// Mute or unmute the shown player: the view's speaker button beside
   /// the volume slider.
   Future<bool> toggleMute() async {
-    if (_remote case final remote?) return remote.setMute(!muted);
+    if (_remote case final remote? when !_deviceVolume) {
+      return remote.setMute(!muted);
+    }
     final level = _localMuteLevel;
     if (level != null) {
       _localMuteLevel = null;

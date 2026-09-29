@@ -90,6 +90,9 @@ class KioskManager extends Manager with WidgetsBindingObserver {
   static const _adminChannel = MethodChannel('kiosk_satellite/admin');
   static const _backgroundChannel = MethodChannel('kiosk_satellite/background');
   static const _brightnessChannel = MethodChannel('kiosk_satellite/brightness');
+  static const _mediaSessionsChannel = MethodChannel(
+    'kiosk_satellite/media_sessions',
+  );
 
   @override
   String get name => 'kiosk';
@@ -465,7 +468,7 @@ class KioskManager extends Manager with WidgetsBindingObserver {
               'explicit list of permissions to request (microphone, camera, '
               'notifications, batteryOptimizations, overlay, location, '
               'bluetoothScan, bluetoothConnect, writeSettings, allFiles, '
-              'usageAccess, deviceAdmin); overrides full',
+              'usageAccess, notificationAccess, deviceAdmin); overrides full',
         },
         handler: (p) async {
           const known = <String, Permission>{
@@ -581,6 +584,24 @@ class KioskManager extends Manager with WidgetsBindingObserver {
               }
             } catch (_) {
               results['usageAccess'] = false;
+            }
+          }
+          // "Notification access" (the Media Session player source reading
+          // other apps' sessions) is one more settings screen.
+          final askNotificationAccess =
+              which is List && which.contains('notificationAccess');
+          if (askNotificationAccess) {
+            try {
+              if (await _mediaSessionsChannel.invokeMethod<bool>('hasAccess') ==
+                  true) {
+                results['notificationAccess'] = true;
+              } else {
+                await _mediaSessionsChannel.invokeMethod('requestAccess');
+                // Only launched: the user grants (or not) on that screen.
+                results['notificationAccess'] = false;
+              }
+            } catch (_) {
+              results['notificationAccess'] = false;
             }
           }
           // Device admin (the real "Screen off") is an Activity, not a

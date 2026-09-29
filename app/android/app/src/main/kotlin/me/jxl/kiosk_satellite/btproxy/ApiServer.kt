@@ -1,6 +1,7 @@
 package me.jxl.kiosk_satellite.btproxy
 
 import java.io.IOException
+import java.net.InetSocketAddress
 import java.net.ServerSocket
 import java.net.Socket
 import java.util.concurrent.ArrayBlockingQueue
@@ -82,7 +83,14 @@ internal class ApiServer(
      * same connection; null keeps the server a pure Bluetooth proxy.
      */
     private val entities: EntityHub? = null,
+    /**
+     * The voice assistant: null keeps the device a plain entity device with
+     * no Assist satellite in Home Assistant.
+     */
+    private val voice: VoiceBackend? = null,
 ) {
+    private val voiceFlags: Int = if (voice != null) VoiceFeature.KIOSK else 0
+
     private val featureFlags: Int = when {
         !bluetoothProxy -> 0
         gatt != null -> BtProxyFeature.WITH_CONNECTIONS
@@ -116,6 +124,14 @@ internal class ApiServer(
     private val sessions = CopyOnWriteArrayList<Session>()
     private val sessionSeq = AtomicInteger(0)
 
+    /**
+     * The Home Assistant session that subscribed to the voice assistant, the
+     * only one pipeline requests, audio and announce results go to. Home
+     * Assistant keeps one per device; a newer subscriber takes over, the
+     * same as ESPHome firmware does.
+     */
+    @Volatile private var voiceSession: Session? = null
+
     // Scanner state as last reported by the Android layer; replayed to every
     // new subscriber and broadcast on change.
     @Volatile private var scannerState: ScannerState = ScannerState.IDLE
@@ -147,7 +163,14 @@ internal class ApiServer(
 
     fun start() {
         if (!running.compareAndSet(false, true)) return
-        val socket = ServerSocket(port).apply { reuseAddress = true }
+        // Unbound first so SO_REUSEADDR is set before the bind. A restart
+        // closes Home Assistant's sessions from this side, which leaves
+        // them in TIME_WAIT on this port, and without the flag the new
+        // listener is refused with EADDRINUSE until they expire.
+        val socket = ServerSocket().apply {
+            reuseAddress = true
+            bind(InetSocketAddress(port))
+        }
         serverSocket = socket
         acceptThread = Thread({ acceptLoop(socket) }, "btproxy-accept").apply {
             isDaemon = true
@@ -186,6 +209,44 @@ internal class ApiServer(
     }
 
     val boundPort: Int get() = serverSocket?.localPort ?: port
+
+    /** Whether Home Assistant is subscribed to the voice assistant. */
+    fun voiceSubscribed(): Boolean = voiceSession != null
+
+    /**
+     * Ask Home Assistant to run a pipeline (start = true), or to stop the
+     * running one (start = false). False when no Home Assistant session is
+     * subscribed, so the caller can say so instead of waiting.
+     */
+    fun sendVoiceRequest(
+        start: Boolean,
+        conversationId: String = "",
+        flags: Int = 0,
+        wakeWordPhrase: String = "",
+    ): Boolean {
+        val session = voiceSession ?: return false
+        session.enqueue(Msg.VOICE_ASSISTANT_REQUEST,
+            VoiceCodec.request(start, conversationId, flags, wakeWordPhrase))
+        return true
+    }
+
+    /** One chunk of microphone audio (16 kHz mono PCM16) for the running pipeline. */
+    fun sendVoiceAudio(pcm: ByteArray, end: Boolean = false): Boolean {
+        val session = voiceSession ?: return false
+        session.enqueue(Msg.VOICE_ASSISTANT_AUDIO, VoiceCodec.audio(pcm, end))
+        return true
+    }
+
+    /**
+     * An announcement, or a spoken answer, finished playing. Home Assistant
+     * returns the satellite to idle on it and unblocks the announce action.
+     */
+    fun sendAnnounceFinished(success: Boolean): Boolean {
+        val session = voiceSession ?: return false
+        session.enqueue(Msg.VOICE_ASSISTANT_ANNOUNCE_FINISHED,
+            VoiceCodec.announceFinished(success))
+        return true
+    }
 
     fun hasAdvertisementSubscribers(): Boolean = sessions.any { it.wantsAdvertisements }
 
@@ -555,6 +616,10 @@ internal class ApiServer(
                 cameraTransfers.clear()
             }
             sessions.remove(this)
+            if (voiceSession === this) {
+                voiceSession = null
+                voice?.onSubscribed(false)
+            }
             if (wantsAdvertisements) {
                 wantsAdvertisements = false
                 updateScanDemand()
@@ -723,7 +788,8 @@ internal class ApiServer(
                     Msg.PING_RESPONSE -> Unit // lastInboundAt already refreshed
                     Msg.DEVICE_INFO_REQUEST ->
                         enqueue(Msg.DEVICE_INFO_RESPONSE,
-                            ApiCodec.deviceInfoResponse(identity, bluetoothMac, featureFlags))
+                            ApiCodec.deviceInfoResponse(
+                                identity, bluetoothMac, featureFlags, voiceFlags))
                     Msg.LIST_ENTITIES_REQUEST -> {
                         val hub = entities
                         if (hub != null) {
@@ -814,6 +880,11 @@ internal class ApiServer(
                         } else {
                             scannerMode = requested
                             if (hasAdvertisementSubscribers()) backend.onScanDemand(requested)
+                            // A running scanner takes the new mode without a
+                            // restart, so the engine reports nothing. Answer
+                            // like ESPHome does, or HA shows "passive" through
+                            // every Auto mode active window.
+                            reportScannerState(scannerState, requested)
                         }
                     }
                     Msg.SUBSCRIBE_STATES_REQUEST -> {
@@ -858,6 +929,51 @@ internal class ApiServer(
                             hub.requestCameraImage()
                         }
                     }
+                    Msg.SUBSCRIBE_VOICE_ASSISTANT_REQUEST -> {
+                        val backend = voice
+                        if (backend != null) {
+                            val (subscribe, _) = VoiceCodec.parseSubscribe(frame.payload)
+                            if (subscribe) {
+                                voiceSession = this
+                                log("session #$id subscribed to the voice assistant")
+                                backend.onSubscribed(true)
+                            } else if (voiceSession === this) {
+                                voiceSession = null
+                                log("session #$id unsubscribed from the voice assistant")
+                                backend.onSubscribed(false)
+                            }
+                        }
+                    }
+                    Msg.VOICE_ASSISTANT_RESPONSE -> {
+                        val (port, error) = VoiceCodec.parseResponse(frame.payload)
+                        voice?.onPipelineResponse(port, error)
+                    }
+                    Msg.VOICE_ASSISTANT_EVENT_RESPONSE -> {
+                        val (type, data) = VoiceCodec.parseEvent(frame.payload)
+                        voice?.onEvent(type, data)
+                    }
+                    // Speaker audio: never sent, the kiosk does not claim
+                    // the speaker feature and plays URLs instead.
+                    Msg.VOICE_ASSISTANT_AUDIO -> Unit
+                    Msg.VOICE_ASSISTANT_TIMER_EVENT_RESPONSE ->
+                        voice?.onTimerEvent(VoiceCodec.parseTimerEvent(frame.payload))
+                    Msg.VOICE_ASSISTANT_ANNOUNCE_REQUEST ->
+                        voice?.onAnnounce(VoiceCodec.parseAnnounce(frame.payload))
+                    Msg.VOICE_ASSISTANT_CONFIGURATION_REQUEST -> {
+                        val backend = voice
+                        if (backend != null) {
+                            val external = VoiceCodec.parseConfigurationRequest(frame.payload)
+                            // Answered whenever the Dart side is done, on the
+                            // session that asked.
+                            backend.onConfigurationRequest(external) { config ->
+                                enqueue(Msg.VOICE_ASSISTANT_CONFIGURATION_RESPONSE,
+                                    VoiceCodec.configurationResponse(config))
+                            }
+                        }
+                    }
+                    Msg.VOICE_ASSISTANT_SET_CONFIGURATION ->
+                        voice?.onSetConfiguration(
+                            VoiceCodec.parseSetConfiguration(frame.payload))
                     // Required-ack subscriptions with nothing behind them:
                     // this device streams no logs and calls nothing back on
                     // Home Assistant (its own actions are served above, in

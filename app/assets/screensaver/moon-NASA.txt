@@ -1,0 +1,10 @@
+moon.png is the near side of the Moon, projected onto a disk from the
+1K color texture of NASA's CGI Moon Kit (lroc_color_poles_1k.jpg) and
+converted to grayscale.
+
+Source: NASA's Scientific Visualization Studio, CGI Moon Kit
+https://svs.gsfc.nasa.gov/4720
+Imagery: Lunar Reconnaissance Orbiter Camera (LROC), NASA/GSFC/Arizona State University
+
+NASA imagery is not protected by copyright in the United States and may
+be used freely. Credit: NASA's Scientific Visualization Studio.

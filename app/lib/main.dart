@@ -43,6 +43,9 @@ Future<void> main() async {
     onMissingWebView: () => container.browser.markWebViewMissing(
       'the WebView creation threw MissingWebViewPackageException',
     ),
+    onBrokenWebView: () => container.browser.markWebViewBroken(
+      'the WebView provider threw InvocationTargetException while starting',
+    ),
   );
 
   // The app names itself on the wire from here on: the device manager has
@@ -89,6 +92,12 @@ Future<void> main() async {
   unawaited(applyImmersion());
   container.bus.on<SettingChanged>().listen((e) {
     if (e.key == defs.kioskEnabled.key) applyImmersion();
+  });
+  // A screensaver dismissal reveals the dashboard WebView with no focus
+  // change or resume to re-assert the mode, and on some Android 12 ROMs
+  // the gesture bar stayed up over the dashboard afterwards (issue #728).
+  container.bus.on<ScreensaverStateChanged>().listen((e) {
+    if (!e.active) applyImmersion();
   });
   SystemChrome.setSystemUIChangeCallback((systemOverlaysAreVisible) async {
     if (!systemOverlaysAreVisible) return;

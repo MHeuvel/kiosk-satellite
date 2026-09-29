@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math' as math;
-import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -13,11 +12,80 @@ import '../managers/settings/definitions.dart' as defs;
 import 'clock_faces.dart';
 import 'digital_clock_face.dart';
 import 'glance_row.dart';
+import 'glass_chip.dart';
+import 'text_snapshot.dart';
 import 'weather_readings.dart';
 
-const _textShadows = [
-  Shadow(color: Colors.black87, offset: Offset(0, 2), blurRadius: 4),
+/// A soft shadow for text over the open sky, sized to the text: a faint
+/// contact shadow that holds the edges and a wide, light one for depth. A
+/// hard shadow read as a dark copy under every glyph.
+List<Shadow> _skyShadows(double size) => [
+  Shadow(
+    color: const Color(0x40000000),
+    offset: Offset(0, size * .006),
+    blurRadius: size * .014,
+  ),
+  Shadow(
+    color: const Color(0x4D000000),
+    offset: Offset(0, size * .02),
+    blurRadius: size * .08,
+  ),
 ];
+
+/// The date's version: small, thin text needs more around it than the
+/// digits do to stay readable over bright clouds.
+List<Shadow> _dateShadows(double size) => [
+  Shadow(
+    color: const Color(0x66000000),
+    offset: Offset(0, size * .015),
+    blurRadius: size * .05,
+  ),
+  Shadow(
+    color: const Color(0x4D000000),
+    offset: Offset(0, size * .03),
+    blurRadius: size * .15,
+  ),
+  Shadow(
+    color: const Color(0x40000000),
+    offset: Offset(0, size * .05),
+    blurRadius: size * .4,
+  ),
+];
+
+/// The chips' lighter version at text scale [scale]: the glass already
+/// darkens behind their text, so the shadow only needs to hold the edges
+/// where Background opacity leaves little tint.
+List<Shadow> _chipShadows(double scale) => [
+  Shadow(
+    color: const Color(0x33000000),
+    offset: Offset(0, 1 * scale),
+    blurRadius: 2 * scale,
+  ),
+  Shadow(
+    color: const Color(0x33000000),
+    offset: Offset(0, 2 * scale),
+    blurRadius: 10 * scale,
+  ),
+];
+
+/// Whether Weather Mood runs its low-power path: devices without a 64-bit
+/// ABI, such as the Echo Show 8. Their clouds take fewer samples and their
+/// glass chips skip the backdrop blur.
+bool weatherMoodLowPower(AppContainer container) {
+  final abis = container.device.abis;
+  return abis.isNotEmpty && !abis.any((abi) => abi.contains('64'));
+}
+
+/// The glass of Weather Mood's chips, shared by the weather chips and At a
+/// Glance: tinted by Background opacity and blurring the scene behind them
+/// except on low-power devices, where a blur costs a quarter of the frames.
+GlassPalette weatherMoodGlass(AppContainer container) => GlassPalette(
+  (container.settings.get(defs.screensaverWeatherBarOpacity) / 100).clamp(
+    0.0,
+    1.0,
+  ),
+  blur: weatherMoodLowPower(container) ? 0 : 20,
+);
 
 Color _color(String value) {
   final parts = value.split(',').map(int.tryParse).toList();
@@ -89,27 +157,49 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
   @override
   void initState() {
     super.initState();
-    _tick();
+    _schedule();
   }
 
-  void _tick() {
-    _now = DateTime.now();
+  @override
+  void didUpdateWidget(WeatherMoodInformation oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // A settings change rebuilds this widget, and Show seconds changes how
+    // often the clock needs to tick.
+    _schedule();
+  }
+
+  bool get _seconds =>
+      widget.container.settings.get(defs.screensaverWeatherClock) &&
+      widget.container.settings.get(defs.screensaverWeatherClockSeconds);
+
+  /// Wakes at the next second while seconds show, the next minute
+  /// otherwise.
+  void _schedule() {
+    _timer?.cancel();
+    final now = DateTime.now();
     _timer = Timer(
-      Duration(milliseconds: 60000 - _now.second * 1000 - _now.millisecond),
+      _seconds
+          ? Duration(milliseconds: 1000 - now.millisecond)
+          : Duration(milliseconds: 60000 - now.second * 1000 - now.millisecond),
       () {
         if (!mounted) return;
+        final previous = _now;
         setState(() {
-          if (widget.container.settings.get(defs.screensaverPixelShift)) {
-            final random = math.Random();
-            _offset = Offset(
-              random.nextDouble() * 20 - 10,
-              random.nextDouble() * 20 - 10,
-            );
-          } else {
-            _offset = Offset.zero;
+          _now = DateTime.now();
+          // Pixel shift still moves once a minute, not with every second.
+          if (_now.minute != previous.minute || _now.hour != previous.hour) {
+            if (widget.container.settings.get(defs.screensaverPixelShift)) {
+              final random = math.Random();
+              _offset = Offset(
+                random.nextDouble() * 20 - 10,
+                random.nextDouble() * 20 - 10,
+              );
+            } else {
+              _offset = Offset.zero;
+            }
           }
-          _tick();
         });
+        _schedule();
       },
     );
   }
@@ -128,8 +218,11 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
         ? _now.hour
         : (_now.hour % 12 == 0 ? 12 : _now.hour % 12);
     final hours = use24h ? '$hour'.padLeft(2, '0') : '$hour';
+    final seconds = s.get(defs.screensaverWeatherClockSeconds)
+        ? ':${'${_now.second}'.padLeft(2, '0')}'
+        : '';
     final time =
-        '$hours:${'${_now.minute}'.padLeft(2, '0')}${use24h
+        '$hours:${'${_now.minute}'.padLeft(2, '0')}$seconds${use24h
             ? ''
             : _now.hour < 12
             ? ' AM'
@@ -138,6 +231,34 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
     final scale =
         (s.get(defs.screensaverWeatherClockScale) / 100).clamp(.5, 3.0) *
         (glance ? .72 : 1);
+    final clockSize = math.min(size.width * .20, size.height * .30) * scale;
+    final dateSize = math.min(size.width * .05, size.height * .07) * scale;
+    final shadow = s.get(defs.screensaverWeatherClockShadow);
+    final date = s.get(defs.screensaverWeatherClockDate)
+        ? fullDate(_now)
+        : null;
+    final color = _color(s.get(defs.screensaverWeatherClockColor));
+    final weight =
+        clockWeightOverride(s.get(defs.screensaverWeatherClockFontWeight)) ??
+        clockFontWeight(font);
+    final face = DigitalClockFace(
+      time: time,
+      dateGapFactor: .015,
+      dateOpacity: 1,
+      date: date,
+      color: color,
+      clockSize: clockSize,
+      dateSize: dateSize,
+      fontFamily: clockFontFamily(font),
+      weight: weight,
+      opticalSize: clockOpticalSize(font),
+      // Each line's shadow is sized to its own text.
+      shadows: shadow ? _skyShadows(clockSize) : const [],
+      dateShadows: shadow ? _dateShadows(dateSize) : const [],
+      // A step heavier than the Clock screensaver's, so the thin
+      // strokes hold up over white clouds.
+      dateWeight: FontWeight.w500,
+    );
     return Padding(
       padding: const EdgeInsets.all(28),
       child: Center(
@@ -145,27 +266,24 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
           offset: _offset,
           child: FittedBox(
             fit: BoxFit.scaleDown,
-            child: DigitalClockFace(
-              time: time,
-              dateGapFactor: .015,
-              dateOpacity: 1,
-              date: s.get(defs.screensaverWeatherClockDate)
-                  ? fullDate(_now)
-                  : null,
-              color: _color(s.get(defs.screensaverWeatherClockColor)),
-              clockSize: math.min(size.width * .20, size.height * .30) * scale,
-              dateSize: math.min(size.width * .05, size.height * .07) * scale,
-              fontFamily: clockFontFamily(font),
-              weight:
-                  clockWeightOverride(
-                    s.get(defs.screensaverWeatherClockFontWeight),
-                  ) ??
-                  clockFontWeight(font),
-              opticalSize: clockOpticalSize(font),
-              shadows: s.get(defs.screensaverWeatherClockShadow)
-                  ? _textShadows
-                  : const [],
-            ),
+            // Blurred shadows redraw every frame on Impeller unless the
+            // face is kept as an image until the time changes.
+            child: shadow
+                ? TextSnapshot(
+                    // The soft shadows reach this far past the text.
+                    bleed: math.max(clockSize * .16, dateSize * .8),
+                    content: (
+                      time,
+                      date,
+                      color,
+                      clockSize,
+                      dateSize,
+                      font,
+                      weight,
+                    ),
+                    child: face,
+                  )
+                : face,
           ),
         ),
       ),
@@ -199,9 +317,20 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
                             ? 24
                             : size.height * .06,
                       ),
+                      // The pills wear the weather chips' glass at the same
+                      // Background opacity, so both rows match.
                       child: GlanceRow(
                         container: c,
                         scale: math.min(1.0, size.height / 480).clamp(.75, 1.0),
+                        glass: weatherMoodGlass(c),
+                        // And the same Text drop shadow.
+                        shadows:
+                            c.settings.get(defs.screensaverWeatherBarShadow)
+                            ? _chipShadows(
+                                c.settings.get(defs.screensaverGlanceScale) /
+                                    100,
+                              )
+                            : const [],
                       ),
                     ),
                   if (c.settings.get(defs.screensaverWeatherBar) &&
@@ -246,25 +375,9 @@ class WeatherMoodBar extends StatelessWidget {
     final scale = (s.get(defs.screensaverWeatherBarScale) / 100).clamp(.5, 2.0);
     final color = _color(s.get(defs.screensaverWeatherBarColor));
     final shadows = s.get(defs.screensaverWeatherBarShadow)
-        ? _textShadows
+        ? _chipShadows(scale)
         : const <Shadow>[];
-    final opacity = (s.get(defs.screensaverWeatherBarOpacity) / 100).clamp(
-      0.0,
-      1.0,
-    );
-    // The fill follows Background opacity. The edge and icon circles fade
-    // with it, so a fully transparent chip leaves only its text.
-    final fill = const Color(0xFF1C1C1E).withValues(alpha: opacity);
-    // Light catching the top of the glass: a faint sheen that fades out
-    // toward the bottom of each chip.
-    final sheen = Color.alphaBlend(
-      Colors.white.withValues(alpha: .12 * (opacity / .5).clamp(0.0, 1.0)),
-      fill,
-    );
-    final edge = Colors.white.withValues(alpha: .16 * opacity);
-    final circle = Colors.white.withValues(
-      alpha: .14 * (opacity / .7).clamp(0.0, 1.0),
-    );
+    final glass = weatherMoodGlass(container);
     TextStyle style(
       double fontSize, {
       FontWeight weight = FontWeight.w400,
@@ -279,28 +392,24 @@ class WeatherMoodBar extends StatelessWidget {
     );
     // A StadiumBorder keeps the radius at half the chip's own height; an
     // oversized corner radius once froze Impeller's raster thread.
-    Widget chip(Widget child, EdgeInsets padding) {
-      final glass = Container(
-        padding: padding * scale,
-        decoration: ShapeDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [sheen, fill],
-            stops: const [0, .6],
-          ),
-          shape: StadiumBorder(side: BorderSide(color: edge)),
+    // [content] is everything the chip shows, so the snapshot that keeps
+    // its shadowed text from redrawing every frame refreshes when it does.
+    Widget chip(Widget child, EdgeInsets padding, Object content) {
+      final body = shadows.isEmpty
+          ? child
+          : TextSnapshot(
+              content: (content, scale, color),
+              bleed: 20 * scale,
+              child: child,
+            );
+      return GlassChip(
+        palette: glass,
+        fallback: Container(
+          padding: padding * scale,
+          decoration: glass.decoration,
+          child: body,
         ),
-        child: child,
-      );
-      if (opacity <= 0) return glass;
-      // Without backdrop shaders the tinted chip stands alone: a blurred
-      // copy of the scene behind every chip costs the legacy renderer a
-      // backdrop read and blur per chip on every frame.
-      return _GlassChip(
-        tint: opacity,
-        fallback: glass,
-        child: Padding(padding: padding * scale, child: child),
+        child: Padding(padding: padding * scale, child: body),
       );
     }
 
@@ -308,9 +417,12 @@ class WeatherMoodBar extends StatelessWidget {
       width: diameter * scale,
       height: diameter * scale,
       alignment: Alignment.center,
-      decoration: BoxDecoration(color: circle, shape: BoxShape.circle),
+      decoration: glass.disc(scale),
       child: icon,
     );
+    // Without titles a reading shows its value alone, at the size of the
+    // temperature in the main chip.
+    final titles = s.get(defs.screensaverWeatherBarTitles);
     Widget metric(String title, String value, IconData icon) => chip(
       Row(
         mainAxisSize: MainAxisSize.min,
@@ -321,28 +433,36 @@ class WeatherMoodBar extends StatelessWidget {
           ),
           SizedBox(width: 10 * scale),
           Flexible(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  screensaverText(context, title),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: style(13, alpha: .8),
-                ),
-                Text(
-                  value,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: style(17, weight: FontWeight.w600),
-                ),
-              ],
-            ),
+            child: titles
+                ? Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        screensaverText(context, title),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: style(13, alpha: .8),
+                      ),
+                      Text(
+                        value,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: style(17, weight: FontWeight.w600),
+                      ),
+                    ],
+                  )
+                : Text(
+                    value,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: style(24, weight: FontWeight.w600),
+                  ),
           ),
         ],
       ),
       const EdgeInsets.fromLTRB(6, 6, 18, 6),
+      (screensaverText(context, title), value, icon, titles),
     );
     final metrics = <Widget>[
       if (s.get(defs.screensaverWeatherBarHumidity) &&
@@ -434,6 +554,7 @@ class WeatherMoodBar extends StatelessWidget {
         ],
       ),
       const EdgeInsets.fromLTRB(6, 6, 18, 6),
+      (temperature, condition, location, forecast, readings.condition),
     );
     final gap = 12 * scale;
     // One row when the chips' real widths fit: conditions at the left and
@@ -531,131 +652,5 @@ class _RenderReportHeight extends RenderProxyBox {
       SchedulerBinding.instance.addPostFrameCallback((_) => onHeight(0));
     }
     super.detach();
-  }
-}
-
-/// The glass shader, on renderers that can run it as a backdrop filter.
-final Future<ui.FragmentProgram?> _glassProgram =
-    ui.ImageFilter.isShaderFilterSupported
-    ? ui.FragmentProgram.fromAsset(
-        'shaders/weather_mood_glass.frag',
-      ).then<ui.FragmentProgram?>((program) => program, onError: (_) => null)
-    : Future.value(null);
-
-/// A chip of clear glass over the scene: the backdrop refracts at the
-/// rounded edge under a bright rim. Renderers without backdrop shaders, and
-/// the moments before the shader loads, show [fallback] instead.
-class _GlassChip extends StatelessWidget {
-  const _GlassChip({
-    required this.tint,
-    required this.fallback,
-    required this.child,
-  });
-  final double tint;
-  final Widget fallback;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) => FutureBuilder<ui.FragmentProgram?>(
-    future: _glassProgram,
-    builder: (context, snapshot) {
-      final program = snapshot.data;
-      if (program == null) return fallback;
-      return ClipPath(
-        clipper: const ShapeBorderClipper(shape: StadiumBorder()),
-        // One read of the scene behind serves every chip in the group.
-        child: _GlassBackdrop(
-          program: program,
-          tint: tint,
-          backdropKey: BackdropGroup.of(context)?.backdropKey,
-          child: child,
-        ),
-      );
-    },
-  );
-}
-
-class _GlassBackdrop extends SingleChildRenderObjectWidget {
-  const _GlassBackdrop({
-    required this.program,
-    required this.tint,
-    required this.backdropKey,
-    super.child,
-  });
-  final ui.FragmentProgram program;
-  final double tint;
-  final BackdropKey? backdropKey;
-
-  @override
-  RenderObject createRenderObject(BuildContext context) =>
-      _RenderGlassBackdrop(program.fragmentShader(), tint, backdropKey);
-
-  @override
-  void updateRenderObject(
-    BuildContext context,
-    _RenderGlassBackdrop renderObject,
-  ) => renderObject
-    ..tint = tint
-    ..backdropKey = backdropKey;
-}
-
-/// Paints its child over the glass. The shader needs the chip's place on
-/// screen, which is only known once it paints.
-class _RenderGlassBackdrop extends RenderProxyBox {
-  _RenderGlassBackdrop(this._shader, this._tint, this._backdropKey);
-  final ui.FragmentShader _shader;
-  double _tint;
-  BackdropKey? _backdropKey;
-
-  set backdropKey(BackdropKey? value) {
-    if (value == _backdropKey) return;
-    _backdropKey = value;
-    markNeedsPaint();
-  }
-
-  set tint(double value) {
-    if (value == _tint) return;
-    _tint = value;
-    markNeedsPaint();
-  }
-
-  @override
-  bool get alwaysNeedsCompositing => true;
-
-  @override
-  void paint(PaintingContext context, Offset offset) {
-    // The backdrop is in the view's device pixels. The root view's own
-    // ratio applies here: the MediaQuery ratio below a UI scale exemption
-    // differs from it.
-    RenderObject root = this;
-    while (root.parent != null) {
-      root = root.parent!;
-    }
-    final ratio = root is RenderView
-        ? root.configuration.devicePixelRatio
-        : 1.0;
-    final rect = MatrixUtils.transformRect(
-      getTransformTo(null),
-      Offset.zero & size,
-    );
-    _shader
-      ..setFloat(2, rect.left * ratio)
-      ..setFloat(3, rect.top * ratio)
-      ..setFloat(4, rect.width * ratio)
-      ..setFloat(5, rect.height * ratio)
-      ..setFloat(6, _tint)
-      ..setFloat(7, rect.height / size.height * ratio);
-    final layer = (this.layer as BackdropFilterLayer?) ?? BackdropFilterLayer();
-    layer
-      ..filter = ui.ImageFilter.shader(_shader)
-      ..backdropKey = _backdropKey;
-    this.layer = layer;
-    context.pushLayer(layer, super.paint, offset);
-  }
-
-  @override
-  void dispose() {
-    _shader.dispose();
-    super.dispose();
   }
 }

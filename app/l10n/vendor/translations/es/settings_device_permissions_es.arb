@@ -55,5 +55,9 @@
   "deviceListeningIdle": "Necesario para la escucha en segundo plano.",
   "deviceMotionIdle": "Necesario para la detección de movimiento.",
   "deviceBatteryAdb": "Este dispositivo no tiene una pantalla de configuración para este permiso. Concédelo mediante ADB: adb shell dumpsys deviceidle whitelist +me.jxl.kiosk_satellite",
-  "deviceOverlayAdb": "Este dispositivo no tiene una pantalla de configuración para este permiso. Concédelo mediante ADB: adb shell appops set me.jxl.kiosk_satellite SYSTEM_ALERT_WINDOW allow"
+  "deviceOverlayAdb": "Este dispositivo no tiene una pantalla de configuración para este permiso. Concédelo mediante ADB: adb shell appops set me.jxl.kiosk_satellite SYSTEM_ALERT_WINDOW allow",
+  "deviceNotificationAccess": "Acceso a notificaciones",
+  "deviceNotificationAccessHeld": "Reproduciendo Ahora puede seguir las aplicaciones que reproducen contenido en este dispositivo.",
+  "deviceNotificationAccessMissing": "Sin este permiso, Android no muestra ninguna sesión multimedia, por lo que Reproduciendo Ahora no puede seguir las aplicaciones que reproducen contenido en este dispositivo.",
+  "deviceNotificationAccessIdle": "Permite que Reproduciendo Ahora siga las aplicaciones que reproducen contenido en este dispositivo."
 }

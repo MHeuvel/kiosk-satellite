@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/services.dart';
 
@@ -62,6 +60,11 @@ class LogAccess {
 /// the one grant, so this tails `logcat` filtered to the two tags and
 /// treats the heartbeat's liveness as presence: a beat within [absentAfter]
 /// is someone there, longer than that is the room empty.
+///
+/// It runs for either of two consumers: the Person Sensor switch under
+/// Camera, which exposes the state to Home Assistant with no screensaver
+/// behavior attached (issue #734), and Dismiss on person under
+/// Screensaver.
 ///
 /// Every fresh beat is published as [PersonDetected], which the
 /// screensaver consumes for Dismiss on person and Postpone on person the
@@ -175,6 +178,7 @@ class PersonSensorManager extends Manager {
   static const absentAfterBrake = Duration(seconds: 3);
 
   static const _channel = MethodChannel('kiosk_satellite/background');
+  static const _logTail = EventChannel('kiosk_satellite/log_tail');
 
   /// "Someone is there": always a beat.
   static const _positive = ['true', 'detected', 'found'];
@@ -229,12 +233,14 @@ class PersonSensorManager extends Manager {
   /// Why the page is hidden, once known.
   String? get hint => _support?.hint;
 
-  /// Whether the sensor should be read right now: Dismiss on person on,
-  /// on a device that has one. The screensaver applies its own gates on the way out
-  /// (lockdown, the postpone rule, the Now Playing gate), the same ones it
-  /// applies to proximity.
+  /// Whether the sensor should be read right now: the Person Sensor switch
+  /// or Dismiss on person on, on a device that has one. The screensaver
+  /// applies its own gates on the way out (lockdown, the postpone rule,
+  /// the Now Playing gate), the same ones it applies to proximity.
   bool get wanted =>
-      (_schedulePolicy ?? _settings.get(defs.screensaverDismissOnPerson)) &&
+      (_settings.get(defs.personSensorEnabled) ||
+          (_schedulePolicy ??
+              _settings.get(defs.screensaverDismissOnPerson))) &&
       !knownUnsupported;
 
   /// The active schedule entry's override (issue #437): true/false wins
@@ -286,6 +292,7 @@ class PersonSensorManager extends Manager {
     final support = await sensorSupport();
     if (!support.supported) {
       defs.deviceHiddenKeys
+        ..add(defs.personSensorEnabled.key)
         ..add(defs.screensaverDismissOnPerson.key)
         ..add(defs.screensaverDismissOnPersonScreenOffOnly.key)
         ..add(defs.screensaverPostponeOnPerson.key);
@@ -300,12 +307,14 @@ class PersonSensorManager extends Manager {
       _sync();
     });
     bus.on<SettingChanged>().listen((e) {
-      if (e.key != defs.screensaverDismissOnPerson.key &&
+      if (e.key != defs.personSensorEnabled.key &&
+          e.key != defs.screensaverDismissOnPerson.key &&
           e.key != defs.screensaverPostponeOnPerson.key) {
         return;
       }
       if (knownUnsupported &&
-          (_settings.get(defs.screensaverDismissOnPerson) ||
+          (_settings.get(defs.personSensorEnabled) ||
+              _settings.get(defs.screensaverDismissOnPerson) ||
               _settings.get(defs.screensaverPostponeOnPerson))) {
         unawaited(_guardSupport());
         return;
@@ -401,6 +410,7 @@ class PersonSensorManager extends Manager {
     final support = await sensorSupport();
     if (support.supported) return;
     final on = [
+      if (_settings.get(defs.personSensorEnabled)) defs.personSensorEnabled,
       if (_settings.get(defs.screensaverDismissOnPerson))
         defs.screensaverDismissOnPerson,
       if (_settings.get(defs.screensaverPostponeOnPerson))
@@ -413,7 +423,7 @@ class PersonSensorManager extends Manager {
     final why = support.hint ?? 'Not available on this device.';
     log.warn(
       name,
-      'Dismiss on person kept off: ${why[0].toLowerCase()}${why.substring(1)}',
+      'Person sensor kept off: ${why[0].toLowerCase()}${why.substring(1)}',
     );
   }
 
@@ -586,50 +596,14 @@ class PersonSensorManager extends Manager {
     return false;
   }
 
-  /// The real line source: `logcat` following the two tags, with epoch
-  /// timestamps so each line can be aged. The process is killed when the
-  /// subscription is cancelled.
-  Stream<String> _logcatLines() {
-    Process? proc;
-    late StreamController<String> controller;
-    controller = StreamController<String>(
-      onListen: () async {
-        try {
-          proc = await Process.start('logcat', [
-            '-v',
-            'epoch',
-            '-s',
-            ...logTags,
-          ]);
-        } catch (e) {
-          controller.addError(e);
-          await controller.close();
-          return;
-        }
-        proc!.stdout
-            .transform(utf8.decoder)
-            .transform(const LineSplitter())
-            .listen(
-              controller.add,
-              onError: controller.addError,
-              onDone: () async {
-                if (!controller.isClosed) await controller.close();
-              },
-            );
-        // logcat's own complaints (a missing grant reads as "Unable to
-        // open log device") end up in the app log, not lost.
-        proc!.stderr
-            .transform(utf8.decoder)
-            .transform(const LineSplitter())
-            .listen((line) => log.debug(name, 'logcat: $line'));
-      },
-      onCancel: () {
-        proc?.kill();
-        proc = null;
-      },
-    );
-    return controller.stream;
-  }
+  /// The real line source: `logcat` following the tags, with epoch
+  /// timestamps so each line can be aged. Spawned natively: a child of
+  /// Dart's Process.start inherits the app's open sockets, and one holding
+  /// the ESPHome server's listener made every later server restart fail
+  /// (issue #734). logcat is killed when the subscription is cancelled.
+  Stream<String> _logcatLines() => _logTail
+      .receiveBroadcastStream(['-v', 'epoch', '-s', ...logTags])
+      .map((line) => '$line');
 
   void _teardown() {
     _check?.cancel();

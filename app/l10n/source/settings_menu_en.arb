@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "settingsMenuHomeAssistant": "Home Assistant Setup",
+  "settingsMenuHomeAssistant": "Home Assistant",
   "@settingsMenuHomeAssistant": {
     "context": "Settings:Menu",
     "description": "Settings menu entry. Product names stay unchanged.",

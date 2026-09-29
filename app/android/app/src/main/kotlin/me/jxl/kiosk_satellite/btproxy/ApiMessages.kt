@@ -97,6 +97,21 @@ internal object Msg {
     const val BLE_RAW_ADVERTISEMENTS_RESPONSE = 93
     const val BT_SCANNER_STATE_RESPONSE = 126
     const val BT_SCANNER_SET_MODE_REQUEST = 127
+
+    // Voice assistant (see VoiceCodec). Home Assistant subscribes, answers
+    // the device's pipeline requests and streams pipeline events, timers
+    // and announcements; the device streams microphone audio up.
+    const val SUBSCRIBE_VOICE_ASSISTANT_REQUEST = 89
+    const val VOICE_ASSISTANT_REQUEST = 90
+    const val VOICE_ASSISTANT_RESPONSE = 91
+    const val VOICE_ASSISTANT_EVENT_RESPONSE = 92
+    const val VOICE_ASSISTANT_AUDIO = 106
+    const val VOICE_ASSISTANT_TIMER_EVENT_RESPONSE = 115
+    const val VOICE_ASSISTANT_ANNOUNCE_REQUEST = 119
+    const val VOICE_ASSISTANT_ANNOUNCE_FINISHED = 120
+    const val VOICE_ASSISTANT_CONFIGURATION_REQUEST = 121
+    const val VOICE_ASSISTANT_CONFIGURATION_RESPONSE = 122
+    const val VOICE_ASSISTANT_SET_CONFIGURATION = 123
 }
 
 /** BluetoothDeviceRequest.request_type values (api.proto). */
@@ -215,6 +230,8 @@ internal object ApiCodec {
         identity: ProxyIdentity,
         bluetoothMac: String,
         featureFlags: Int,
+        /** DeviceInfoResponse.voice_assistant_feature_flags; 0 = no voice. */
+        voiceFlags: Int = 0,
     ): ByteArray =
         ProtoWriter().run {
             bool(1, false) // uses_password
@@ -238,6 +255,11 @@ internal object ApiCodec {
             string(12, identity.manufacturer)
             string(13, identity.friendlyName)
             varint(15, featureFlags)
+            // Read as-is from API 1.10 on (aioesphomeapi's
+            // voice_assistant_feature_flags_compat), which is what this
+            // server speaks; proto3 zero-omission keeps a device without the
+            // voice assistant from claiming one.
+            if (voiceFlags != 0) varint(17, voiceFlags)
             string(18, bluetoothMac)
             bool(19, true) // api_encryption_supported
             toByteArray()
@@ -263,11 +285,21 @@ internal object ApiCodec {
         return ScannerMode.PASSIVE
     }
 
-    /** BluetoothScannerStateResponse: 1=state, 2=mode. */
+    /**
+     * BluetoothScannerStateResponse: 1=state, 2=mode, 3=configured_mode.
+     *
+     * configured_mode is what an ESPHome device's YAML says (`active:`).
+     * Home Assistant 2026.6+ reads it once to seed the entry's scanning
+     * mode option and saves PASSIVE for good when it is 0 or missing, which
+     * then warns whenever an integration wants active scans. The Android
+     * scanner always sends scan requests, so ACTIVE is the honest answer and
+     * lets HA keep its Auto default.
+     */
     fun scannerStateResponse(state: ScannerState, mode: ScannerMode): ByteArray =
         ProtoWriter().run {
             varint(1, state.wire)
             varint(2, mode.wire)
+            varint(3, ScannerMode.ACTIVE.wire)
             toByteArray()
         }
 

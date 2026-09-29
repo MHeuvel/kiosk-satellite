@@ -2,7 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:kiosk_satellite/core/command_registry.dart';
 import 'package:kiosk_satellite/core/event_bus.dart';
 import 'package:kiosk_satellite/core/logging.dart';
+import 'package:kiosk_satellite/managers/btproxy/bt_proxy_manager.dart';
 import 'package:kiosk_satellite/managers/device/wifi_mac.dart';
+import 'package:kiosk_satellite/managers/settings/definitions.dart' as defs;
 import 'package:kiosk_satellite/managers/settings/settings_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -44,8 +46,7 @@ void main() {
 
   // The hand-typed address (issue #300): the fallback once the platform
   // has come back empty, never adopted, never ahead of a hardware read.
-  test('a typed address stands in when the platform reveals nothing',
-      () async {
+  test('a typed address stands in when the platform reveals nothing', () async {
     final settings = await settingsWith({
       'ks.esphome.real_mac': true,
       'ks.esphome.mac_override': '80:30:49:CD:D6:5F',
@@ -74,6 +75,44 @@ void main() {
     final identity = await wifiMacIdentity(settings);
     expect(identity.mac, '1C:4D:66:4C:7E:A1');
     expect(identity.source, WifiMacSource.hardware);
+  });
+
+  // Issue #736: a ROM that first reported a placeholder (a Broadcom driver
+  // default) and later the real address left the placeholder adopted for
+  // good. Turning the switch off is the way to let go of it.
+  group('turning the switch off forgets the adoption', () {
+    Future<SettingsManager> boot(Map<String, Object> values) async {
+      SharedPreferences.setMockInitialValues(values);
+      final bus = EventBus();
+      final log = Logger();
+      final commands = CommandRegistry(log);
+      final settings = SettingsManager(bus, commands, log);
+      await settings.init();
+      final proxy = BtProxyManager(bus, commands, log, settings);
+      addTearDown(proxy.dispose);
+      await proxy.init();
+      return settings;
+    }
+
+    test('off drops the stored address', () async {
+      final settings = await boot({
+        'ks.esphome.real_mac': true,
+        'ks.internal.esphome_adopted_mac': '00:90:4C:1A:09:00',
+      });
+      await settings.set(defs.esphomeRealMac, false);
+      await Future<void>.delayed(Duration.zero);
+      expect(settings.internal('esphome_adopted_mac'), isEmpty);
+    });
+
+    test('another ESPHome setting keeps it', () async {
+      final settings = await boot({
+        'ks.esphome.real_mac': true,
+        'ks.internal.esphome_adopted_mac': '00:90:4C:1A:09:00',
+      });
+      await settings.set(defs.esphomeMacOverride, '80:30:49:CD:D6:5F');
+      await Future<void>.delayed(Duration.zero);
+      expect(settings.internal('esphome_adopted_mac'), '00:90:4C:1A:09:00');
+    });
   });
 
   test('a typed address that is not a usable one is ignored', () async {

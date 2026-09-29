@@ -228,8 +228,28 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   /// the user is mid-interaction.
   bool _voiceTurn = false;
   bool _restoreNowPlaying = false;
+
+  /// A launch on play that a voice turn or page interaction refused. Music
+  /// asked for by voice starts mid-turn, so the launch waits for the turn
+  /// to end instead of being dropped (issue #718).
+  bool _launchOnPlayPending = false;
   Future<void>? _interactionStop;
   bool _cameraViewActive = false;
+
+  /// Native Voice Satellite's overlay is on screen. It draws over the
+  /// screensaver, which stays up underneath: its backlight lifted back to
+  /// the saved level, its rendering paused and its screen-off countdown
+  /// held until the overlay goes (an answer or results can linger after
+  /// the turn itself ends). The integration's engine lives in the
+  /// dashboard, so there a turn still dismisses the screensaver.
+  bool _assistOverlay = false;
+
+  /// The screensaver's animations are paused under the voice overlay.
+  final renderPaused = ValueNotifier<bool>(false);
+
+  bool get _nativeVoice =>
+      _settings.get(defs.voiceRuntime) == 'native' &&
+      _settings.get(defs.voiceEnabled);
   double? _savedBrightness;
 
   /// Whether a notification is on screen. A dimmed screensaver lifts back
@@ -239,9 +259,16 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
 
   /// The visual overlay the UI should render, or null for none.
   ///
-  /// One of 'blank' | 'black' | 'clock' | 'media' | 'website'. Dim only
-  /// lowers the backlight, so this stays null there.
+  /// One of 'blank' | 'black' | 'clock' | 'media' | 'website' | ... Dim
+  /// only lowers the backlight, so this stays null there. 'dashboard' is
+  /// a clear layer over the dashboard itself, there to take the tap that
+  /// dismisses it and to carry the widgets.
   final ValueNotifier<String?> activeView = ValueNotifier(null);
+
+  /// The view the Home Assistant Dashboard mode put on the page this
+  /// session, so the dismissal takes it back and a reapply that changes
+  /// nothing (a notification, a schedule tick) does not navigate again.
+  String? _dashboardShown;
 
   bool get isActive => _active;
 
@@ -346,9 +373,31 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
       // still observe its playback interaction.
       if (e.source == InteractionSource.sendspin && e.reason == 'media') return;
       _paused = _interactions.update(e);
-      if (_paused) _stopForInteraction();
+      // The native satellite's overlay draws over the screensaver.
+      if (_paused && e.source != InteractionSource.native) {
+        _stopForInteraction();
+      }
       _resetIdleTimer();
       if (!_paused) unawaited(_restoreAfterInteraction());
+    });
+    bus.on<AssistOverlayVisibility>().listen((event) {
+      if (event.visible == _assistOverlay) return;
+      _assistOverlay = event.visible;
+      renderPaused.value = event.visible && _active;
+      if (event.visible) {
+        _cancelIdleTimer();
+        if (_active) {
+          _screenOffTimer?.cancel();
+          _screenOffTimer = null;
+          _armedScreenOffMinutes = null;
+          unawaited(_applyVisuals());
+        }
+      } else if (_active) {
+        if (!_screenDark) _armScreenOffTimer();
+        unawaited(_applyVisuals());
+      } else {
+        _resetIdleTimer();
+      }
     });
     bus.on<CameraViewStateChanged>().listen((event) {
       _cameraViewActive = event.active;
@@ -365,7 +414,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     // spoken reply, and the screensaver could reappear mid-conversation.
     bus.on<WakeWordDetected>().listen((_) {
       _voiceTurn = true;
-      if (_active) {
+      if (_active && !_nativeVoice) {
         log.debug(name, 'dismissed by wake word');
         _stopForInteraction();
       }
@@ -425,6 +474,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     bus.on<SendspinNowPlayingChanged>().listen((e) {
       final startedPlaying = e.playing && !_sendspinPlaying;
       _sendspinPlaying = e.playing;
+      if (!e.playing) _launchOnPlayPending = false;
       final changed = _sendspinNowPlaying != e.active;
       _sendspinNowPlaying = e.active;
       _syncNowPlayingShown();
@@ -437,12 +487,14 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
       // Launch on play (sendspin.fullscreen_on_play): playback starting
       // is the cue for the music display, not the idle clock. start()
       // keeps every refusal it has for a timed start (hold mode, a
-      // voice turn, another app in front, lockdown).
+      // voice turn, another app in front, lockdown). A voice turn or page
+      // interaction only defers it: the launch runs once they end.
       if (startedPlaying &&
           allowsNowPlaying &&
           _settings.get(defs.sendspinFullscreen) &&
           _settings.get(defs.sendspinFullscreenOnPlay)) {
         log.info(name, 'Now Playing launched by playback');
+        _launchOnPlayPending = _paused || _voiceTurn;
         unawaited(start());
       }
     });
@@ -702,7 +754,8 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
       if (_active &&
           (e.key == defs.screensaverSchedule.key ||
               e.key == defs.screensaverScheduleEnabled.key ||
-              e.key == defs.screensaverMode.key)) {
+              e.key == defs.screensaverMode.key ||
+              e.key == defs.screensaverDashboardView.key)) {
         unawaited(_applyVisuals());
       }
     });
@@ -981,7 +1034,9 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
 
   void _resetIdleTimer() {
     _idleTimer?.cancel();
-    if (_cameraViewActive || _behindAnotherApp) return _setIdleDue(null);
+    if (_cameraViewActive || _assistOverlay || _behindAnotherApp) {
+      return _setIdleDue(null);
+    }
     if (!_settings.get(defs.screensaverEnabled) || _paused || _voiceTurn) {
       return _setIdleDue(null);
     }
@@ -1009,13 +1064,18 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   }
 
   Future<void> _restoreAfterInteraction() async {
-    if (!_restoreNowPlaying) return;
+    if (!_restoreNowPlaying && !_launchOnPlayPending) return;
     // Dismissal may still be thawing the dashboard or restoring brightness.
     // Let it finish before bringing the player back over the page.
     await _interactionStop;
-    if (!_restoreNowPlaying || _paused || _voiceTurn) return;
+    if (!_restoreNowPlaying && !_launchOnPlayPending) return;
+    if (_paused || _voiceTurn) return;
+    final launch =
+        _restoreNowPlaying ||
+        (_sendspinPlaying && _settings.get(defs.sendspinFullscreenOnPlay));
     _restoreNowPlaying = false;
-    if (!_nowPlayingTakeover) return;
+    _launchOnPlayPending = false;
+    if (!launch || !_nowPlayingTakeover) return;
     _cancelIdleTimer();
     await start();
     if (!_active) _resetIdleTimer();
@@ -1203,11 +1263,12 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     // Say why a start goes nowhere: a page hold that never gets released
     // (a leaked "interaction running" from the dashboard) otherwise reads
     // as "Now Playing launched" followed by nothing at all.
-    if (_paused || _voiceTurn || _cameraViewActive) {
+    if (_paused || _voiceTurn || _cameraViewActive || _assistOverlay) {
       final why = <String>[
         if (_paused) 'interaction held (${_interactions.held.join(', ')})',
         if (_voiceTurn) 'voice turn',
         if (_cameraViewActive) 'camera view',
+        if (_assistOverlay) 'voice overlay',
       ];
       log.info(name, 'start refused: ${why.join(', ')}');
       return;
@@ -1298,7 +1359,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   /// value, the schedule edited live, or the slider moved. Never under a
   /// dark panel, and never for a reapply that leaves the value alone.
   void _syncScreenOffTimer() {
-    if (!_active || _screenDark) return;
+    if (!_active || _screenDark || _assistOverlay) return;
     if (_effectiveScreenOffMinutes == _armedScreenOffMinutes) return;
     _armScreenOffTimer();
   }
@@ -1388,21 +1449,39 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     scheduleWidgets.value = entry?['widgets'] as bool?;
     scheduleGlance.value = entry?['glance'] as bool?;
     _syncScreenOffTimer();
+    // The voice overlay over the screensaver reads at the saved level,
+    // whatever the mode dims to.
+    final liftForVoice = _assistOverlay && _savedBrightness != null;
     if (_blanked) {
       await _ensureSavedBrightness();
       if (!_active || !_blanked) return;
       _setView('blank');
-      await commands.execute('setBrightness', {'level': 0, 'ceiling': true});
+      await commands.execute('setBrightness', {
+        'level': _assistOverlay ? _savedBrightness : 0,
+        'ceiling': true,
+      });
       return;
     }
     // Modes that change brightness save their restore point first.
     if (mode == 'dim' || mode == 'black' || _contentDimEnabled(mode)) {
       await _ensureSavedBrightness();
     }
+    // The Home Assistant Dashboard mode moves the page to its view before
+    // anything decides what covers it: under the Now Playing takeover the
+    // view waits behind the player, and the dismissal undoes the move
+    // either way.
+    final dashboardView = _settings.get(defs.screensaverDashboardView);
+    if (mode == 'dashboard' && dashboardView != _dashboardShown) {
+      _dashboardShown = dashboardView;
+      await commands.execute('showScreensaverDashboard', {
+        'path': dashboardView,
+      });
+      if (!_active) return;
+    }
     if (_nowPlayingNormalBrightness) {
       // A non-null view gives the override a slot to render into ('dim'
-      // normally shows no overlay at all), at full brightness.
-      _setView((mode == 'dim') ? 'black' : mode);
+      // and 'dashboard' show the page itself), at full brightness.
+      _setView((mode == 'dim' || mode == 'dashboard') ? 'black' : mode);
       if (_savedBrightness != null) {
         await commands.execute('setBrightness', {
           'level': _savedBrightness,
@@ -1415,9 +1494,10 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     // schedule entry's: the overlay below is still the mode's own, only the
     // backlight is borrowed back until the last card goes.
     final liftForNotification =
-        _notificationShowing &&
-        _savedBrightness != null &&
-        _settings.get(defs.screensaverNotificationBrightness);
+        liftForVoice ||
+        (_notificationShowing &&
+            _savedBrightness != null &&
+            _settings.get(defs.screensaverNotificationBrightness));
     switch (mode) {
       case 'dim':
         // Backlight only — no overlay. stop() restores the saved level.
@@ -1448,8 +1528,10 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
         // clock / media / website: a lit overlay showing content, at normal
         // brightness unless the separate screensaver brightness — or the
         // active schedule entry — asks for its own level (a clock that must
-        // not glow all night).
-        _setView(mode);
+        // not glow all night). The dashboard gives way to black beside a
+        // shared player, as Dim does: its view is laid out for the whole
+        // screen.
+        _setView(mode == 'dashboard' && nowPlayingShared ? 'black' : mode);
         if (_contentDimEnabled(mode)) {
           final level =
               _scheduleBrightness ??
@@ -1507,10 +1589,13 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   }
 
   Future<void> stop() async {
-    // An explicit dismissal also cancels a player waiting to return.
+    // An explicit dismissal also cancels a player waiting to return or
+    // to launch.
     _restoreNowPlaying = false;
+    _launchOnPlayPending = false;
     if (!_active) return;
     _active = false;
+    renderPaused.value = false;
     _nowPlayingShared = false;
     _tapChainStart = null;
     _screenOffTimer?.cancel();
@@ -1523,6 +1608,12 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     // never shows a blank hole where the page is (a no-op unless the
     // rendering freeze optimization hid it).
     await commands.execute('unfreezeRendering', const {});
+    // Awaited, so a navigation commanded right after the dismissal (the
+    // ESPHome Dashboard select, haNavigate) lands after this return.
+    if (_dashboardShown != null) {
+      _dashboardShown = null;
+      await commands.execute('leaveScreensaverDashboard', const {});
+    }
     _setView(null);
     await commands.execute('screenOn', const {});
     // Release the hold; the keep-awake setting (if any) still applies.

@@ -38,6 +38,7 @@ internal class CommunicationPlayback(context: Context) {
     private var routeChanged = false
     private val leases = PlaybackLeasePool(::start, ::stop)
     private var captureActive = false
+    private var captureAec = false
     private var captureLease: AutoCloseable? = null
     private var captureOutputId: Int? = null
     private var sounds = 0
@@ -68,13 +69,23 @@ internal class CommunicationPlayback(context: Context) {
         }
     }
 
-    fun captureStarted() {
+    /**
+     * False while native capture runs with echo cancellation off. Nothing
+     * then needs the call route, and holding it would put every app's
+     * audio on the call path (#732).
+     */
+    val echoCancelling: Boolean
+        get() = !captureActive || captureAec
+
+    fun captureStarted(aec: Boolean) {
         captureActive = true
+        captureAec = aec
         refreshCaptureRoute()
     }
 
     fun captureStopped() {
         captureActive = false
+        captureAec = false
         captureOutputId = null
         val lease = captureLease
         captureLease = null
@@ -88,7 +99,8 @@ internal class CommunicationPlayback(context: Context) {
             val target = chooseOutput(selected)
             val input = AudioRouting.resolve(MicRecorder.inputSelector, source = true)
                 ?: am.activeRecordingConfigurations.firstOrNull()?.audioDevice
-            val eligible = target?.type == AudioDeviceInfo.TYPE_BUILTIN_SPEAKER &&
+            val eligible = captureAec &&
+                target?.type == AudioDeviceInfo.TYPE_BUILTIN_SPEAKER &&
                 (input == null || input.type == AudioDeviceInfo.TYPE_BUILTIN_MIC) &&
                 !AudioRouting.micHoldsCommDevice
             if (eligible && captureLease != null && captureOutputId == target?.id) return

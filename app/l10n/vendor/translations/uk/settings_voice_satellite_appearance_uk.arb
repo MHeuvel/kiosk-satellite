@@ -11,5 +11,19 @@
   "voiceRateHelp": "Як часто перемальовується смуга активності. Більше значення забезпечує плавність, але споживає більше ресурсів процесора.",
   "voiceScaleHelp": "Розмір тексту накладення.",
   "voiceUpdateIntegration": "Оновіть інтеграцію Voice Satellite у Home Assistant, щоб керувати цими налаштуваннями з кіоска.",
-  "voiceDashboardRequired": "Доступно, коли кіоск показує панель керування Home Assistant."
+  "voiceDashboardRequired": "Доступно, коли кіоск показує панель керування Home Assistant.",
+  "voiceSkinDefault": "За оформленням",
+  "voiceBackground": "Тло",
+  "voiceBackgroundHelp": "Наскільки крізь тло видно панель керування.",
+  "voicePreview": "Попередній перегляд",
+  "voicePreviewHelp": "Показати накладення на цьому екрані на п’ять секунд.",
+  "voicePreviewRemoteHelp": "Показати накладення на екрані кіоску на п’ять секунд.",
+  "settingVoiceThemeTitle": "Тема",
+  "settingVoiceThemeDescription": "Авто відповідає темі Home Assistant.",
+  "settingVoiceBackgroundDescription": "Наскільки крізь тло видно панель керування. За оформленням при -1.",
+  "settingVoiceTextScaleTitle": "Розмір тексту",
+  "settingVoiceReactiveBarTitle": "Реактивна смуга активності",
+  "settingVoiceReactiveBarDescription": "Смуга реагує на ваш голос і відповідь.",
+  "voicePreviewCommand": "Яка погода?",
+  "voicePreviewAnswer": "Зараз сонячно і 22°, легкий вітерець."
 }

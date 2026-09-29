@@ -62,6 +62,10 @@ void main() {
     const brightness = MethodChannel('kiosk_satellite/brightness');
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(brightness, (call) async => true);
+    // The Notification access read (Media Session player source).
+    const sessions = MethodChannel('kiosk_satellite/media_sessions');
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(sessions, (call) async => true);
     // device_info_plus (the Android version check behind the Bluetooth
     // rows): an unmocked channel hangs a widget test rather than throwing,
     // so answer with the failure the read already treats as "not Android".
@@ -77,6 +81,7 @@ void main() {
       messenger.setMockMethodCallHandler(channel, null);
       messenger.setMockMethodCallHandler(perms, null);
       messenger.setMockMethodCallHandler(brightness, null);
+      messenger.setMockMethodCallHandler(sessions, null);
       messenger.setMockMethodCallHandler(info, null);
     });
   }

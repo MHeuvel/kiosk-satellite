@@ -1,0 +1,9 @@
+{
+  "@@locale": "fr",
+  "voiceFinancialOpen": "Ouverture : {value}",
+  "voiceFinancialHigh": "Haut : {value}",
+  "voiceFinancialLow": "Bas : {value}",
+  "voiceFinancialHigh24h": "Haut 24 h : {value}",
+  "voiceFinancialLow24h": "Bas 24 h : {value}",
+  "voiceFinancialMarketCap": "Cap. boursière : {value}"
+}

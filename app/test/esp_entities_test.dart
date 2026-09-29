@@ -376,6 +376,38 @@ void main() {
     });
   });
 
+  group('ESPHome vs_cancel', () {
+    test('is advertised only while Voice Satellite runs natively', () async {
+      bool advertised() =>
+          surface.buildServices().any((s) => s['name'] == 'vs_cancel');
+      await settings.set(defs.voiceRuntime, 'dashboard');
+      await settings.set(defs.voiceEnabled, true);
+      expect(advertised(), isFalse);
+      await settings.set(defs.voiceRuntime, 'native');
+      expect(advertised(), isTrue);
+      final action = surface.buildServices().singleWhere(
+        (service) => service['name'] == 'vs_cancel',
+      );
+      expect(action['supportsResponse'], isTrue);
+      expect(action['args'], isEmpty);
+    });
+
+    test('runs voiceCancel', () async {
+      commands.register(
+        Command(
+          name: 'voiceCancel',
+          description: 'voiceCancel',
+          handler: (p) async {
+            executed.add(('voiceCancel', Map<String, Object?>.from(p)));
+            return const CommandResult.ok();
+          },
+        ),
+      );
+      expect(await surface.handleService('vs_cancel', const {}), isEmpty);
+      expect(executed.single.$1, 'voiceCancel');
+    });
+  });
+
   test('picker groups honor categories before the entity type', () {
     expect(
       EspEntitySurface.categoryLabel({'type': 'switch', 'category': 1}),
@@ -1655,7 +1687,135 @@ void main() {
     });
   });
 
-  group('the Person sensor (discussion #353)', () {
+  group('the followed player entities (issue #741)', () {
+    const media = [
+      'media_play',
+      'media_pause',
+      'media_next',
+      'media_previous',
+      'media_state',
+      'media_title',
+      'media_artist',
+      'media_source',
+    ];
+    List<String> ids(List<Map<String, Object?>> catalog) => [
+      for (final d in catalog) '${d['objectId']}',
+    ];
+
+    test('the switch sits in the main group under Album art cache, off', () {
+      // The cache row hangs off the duck slider on both surfaces, so the
+      // def right after it renders directly below the cache.
+      final index = defs.allSettings.indexOf(defs.sendspinDuckPercent);
+      expect(defs.allSettings[index + 1], same(defs.sendspinEsphomeEntities));
+      expect(defs.sendspinEsphomeEntities.category, 'Sendspin');
+      expect(defs.sendspinEsphomeEntities.subpage, isNull);
+      expect(defs.sendspinEsphomeEntities.section, isNull);
+      expect(defs.sendspinEsphomeEntities.defaultValue, false);
+      expect(settings.visible(defs.sendspinEsphomeEntities), isTrue);
+    });
+
+    test('exist only with Expose ESPHome entities on', () async {
+      expect(ids(await surface.build()).where(media.contains), isEmpty);
+      await settings.set(defs.sendspinEsphomeEntities, true);
+      final catalog = await surface.build();
+      expect(ids(catalog), containsAll(media));
+      // Buttons and text sensors, never a media_player: ESPHome's has no
+      // track and no skip.
+      for (final d in catalog) {
+        if (media.contains(d['objectId'])) {
+          expect(d['type'], anyOf('button', 'text_sensor'));
+        }
+      }
+    });
+
+    test('the buttons send the transport to the followed player', () async {
+      commands.register(
+        Command(
+          name: 'sendspinControl',
+          description: 'stub',
+          handler: (p) async {
+            executed.add(('sendspinControl', Map<String, Object?>.from(p)));
+            return const CommandResult.ok();
+          },
+        ),
+      );
+      await settings.set(defs.sendspinEsphomeEntities, true);
+      executed.clear();
+      for (final id in [
+        'media_play',
+        'media_pause',
+        'media_next',
+        'media_previous',
+      ]) {
+        await surface.handleCommand(id, null);
+      }
+      expect(
+        [
+          for (final e in executed)
+            if (e.$1 == 'sendspinControl') e.$2['command'],
+        ],
+        ['play', 'pause', 'next', 'previous'],
+      );
+    });
+
+    test('the sensors are seeded at attach and follow the summary', () async {
+      commands.register(
+        Command(
+          name: 'mediaPlayerState',
+          description: 'stub',
+          handler: (_) async => const CommandResult.ok({
+            'state': 'playing',
+            'title': 'Song',
+            'artist': 'Band',
+            'source': 'YouTube',
+          }),
+        ),
+      );
+      await settings.set(defs.sendspinEsphomeEntities, true);
+      await attach();
+      expect(
+        pushed,
+        containsAll([
+          ('media_state', 'playing'),
+          ('media_title', 'Song'),
+          ('media_artist', 'Band'),
+          ('media_source', 'YouTube'),
+        ]),
+      );
+      pushed.clear();
+      bus.publish(
+        const MediaSummaryChanged({
+          'state': 'idle',
+          'title': '',
+          'artist': '',
+          'source': 'YouTube',
+        }),
+      );
+      await Future<void>.delayed(Duration.zero);
+      expect(pushed, [
+        ('media_state', 'idle'),
+        ('media_title', ''),
+        ('media_artist', ''),
+        ('media_source', 'YouTube'),
+      ]);
+    });
+
+    test('nothing is pushed while the switch is off', () async {
+      await attach();
+      bus.publish(
+        const MediaSummaryChanged({
+          'state': 'playing',
+          'title': 'Song',
+          'artist': 'Band',
+          'source': 'YouTube',
+        }),
+      );
+      await Future<void>.delayed(Duration.zero);
+      expect(pushed.where((p) => media.contains(p.$1)), isEmpty);
+    });
+  });
+
+  group('the Person sensor (discussion #353, issue #734)', () {
     List<String> ids(List<Map<String, Object?>> catalog) => [
       for (final d in catalog) '${d['objectId']}',
     ];
@@ -1667,28 +1827,39 @@ void main() {
       ),
     );
 
-    test('exists only with Dismiss on person on, on a device with a '
+    test('exists only with the Person Sensor switch on, on a device with a '
         'person sensor', () async {
       stub('getPersonSensorSupport', {'supported': true});
       stub('getPersonSensor', {'running': true, 'present': false});
       expect(ids(await surface.build()), isNot(contains('person')));
-      await settings.set(defs.screensaverDismissOnPerson, true);
+      await settings.set(defs.personSensorEnabled, true);
       final catalog = await surface.build();
       final person = catalog.singleWhere((d) => d['objectId'] == 'person');
       expect(person['type'], 'binary_sensor');
       expect(person['deviceClass'], 'occupancy');
     });
 
+    test('Dismiss on person alone does not list it', () async {
+      stub('getPersonSensorSupport', {'supported': true});
+      stub('getPersonSensor', {'running': true, 'present': true});
+      await settings.set(defs.screensaverDismissOnPerson, true);
+      expect(ids(await surface.build()), isNot(contains('person')));
+      await attach();
+      bus.publish(const PersonSensorChanged(present: true));
+      await Future<void>.delayed(Duration.zero);
+      expect(pushed.where((p) => p.$1 == 'person'), isEmpty);
+    });
+
     test('a device without one lists it never, switch or no switch', () async {
       stub('getPersonSensorSupport', {'supported': false, 'hint': 'none'});
-      await settings.set(defs.screensaverDismissOnPerson, true);
+      await settings.set(defs.personSensorEnabled, true);
       expect(ids(await surface.build()), isNot(contains('person')));
     });
 
     test('reads the sensor at attach and follows its changes', () async {
       stub('getPersonSensorSupport', {'supported': true});
       stub('getPersonSensor', {'running': true, 'present': true});
-      await settings.set(defs.screensaverDismissOnPerson, true);
+      await settings.set(defs.personSensorEnabled, true);
       await surface.build();
       await attach();
       expect(pushed, contains(('person', true)));
@@ -1705,7 +1876,7 @@ void main() {
         'present': false,
         'error': 'Log access not granted.',
       });
-      await settings.set(defs.screensaverDismissOnPerson, true);
+      await settings.set(defs.personSensorEnabled, true);
       await surface.build();
       await attach();
       expect(pushed, contains(('person', null)));
@@ -1887,6 +2058,9 @@ void main() {
 
   group('the Voice Satellite switches (issue #288)', () {
     setUp(() async {
+      // The integration's engine in the dashboard: the kiosk runs no
+      // satellite of its own.
+      await settings.set(defs.voiceRuntime, 'dashboard');
       await settings.set(
         defs.haSatelliteEntity,
         'assist_satellite.office_tablet',

@@ -19,6 +19,12 @@ Before adjusting anything, measure your actual input level. Go to **Settings > V
 
 Speak at a normal volume from the distance where you typically use the device. If a standard voice recorder app sounds fine but the tester displays a very low value, the issue lies within Android's capture path rather than the physical microphone.
 
+The tester's **Play last 10 seconds** button plays back exactly what the wake word engine heard, on the kiosk's speaker. Say the wake word from your usual spot, then listen. Harsh distortion on loud syllables means the signal is clipping. A faint or muffled recording means it is too quiet or the capture mode is wrong.
+
+To review activations after they happen, turn on **Enable wake word diagnostics** on **Settings > Voice Satellite > Wake word diagnostics**. The kiosk then keeps its last 10 wake word activations and, separately, its last 10 near misses: moments when the score reached 75% of the threshold and fell back without triggering. Each entry shows its score, the threshold it had to clear, the peak and average level of the audio and a 3 second clip you can play on the device or in the remote admin. An activation clip tells you whether a trigger came from you or from the TV. A near miss clip lets you hear why a wake word you said did not register. A clip marked **Clipped** reached full scale, so lower the gain. Turning diagnostics off deletes the recordings.
+
+The **Microphone level** row at the bottom of Microphone settings shows the same level without the tester. It opens the microphone itself when no wake word engine is running, so it also works before Voice Satellite has started. A bar that never moves means no audio reaches the app and the app log says why.
+
 ## Capture Mode
 
 This setting determines which of Android's internal microphone audio paths the app records from.
@@ -40,7 +46,7 @@ Android can briefly mute other media when native capture first establishes its r
 
 On by default, and on for every capture the app has ever opened: the stop word listens while the kiosk's own speaker plays a response, and without the canceller the microphone hears that speech and scores it. The canceller only gets a playback reference on the Voice communication capture mode. On the other two modes the effect still attaches and what it does then is up to the device.
 
-Turn it off only when it does harm. On some MediaTek tablets a canceller attached to a Voice recognition or Raw microphone capture attenuates the whole signal to a whisper, a level the gain slider cannot bring back, while a recorder app on the same source sounds fine. With it off, expect the stop word to hear the kiosk's own responses.
+Turn it off only when it does harm. On some MediaTek tablets a canceller attached to a Voice recognition or Raw microphone capture attenuates the whole signal to a whisper, a level the gain slider cannot bring back, while a recorder app on the same source sounds fine. With it off, expect the stop word to hear the kiosk's own responses. With it on, the kiosk holds Android's call audio route while it listens, so on some devices other apps play through the call path at lower quality and the volume buttons set call volume. Turning it off releases that route and assistant sounds play as normal media.
 
 ## Automatic Gain Control
 
@@ -62,7 +68,9 @@ This amplification does not improve the signal to noise ratio, nor is it designe
 
 The app consumes 16 kHz mono audio and by default asks Android for exactly that, leaving the platform to convert from whatever the microphone records. Some sound cards record at 48 kHz stereo and nothing else, among them the I2S codecs used by Raspberry Pi audio HATs and most USB audio interfaces. Android normally converts in between. A custom ROM whose audio HAL hands the requested format straight to the sound card cannot, and the capture then fails in one of three ways: the open is refused, the reads return nothing, or the card's frames arrive misread as 16 kHz mono, which sounds like noise or crackle and shows on the level meter as a signal that never becomes a detection.
 
-Capture therefore walks a short ladder of formats: 16 kHz mono, then 48 kHz stereo, then 48 kHz mono. It steps to the next one when an open is refused, when the capture reads nothing but zeros or errors for two seconds, or when the delivered frame rate does not match the rate it was opened at. That last check is what catches a format lie: a capture opened at 16 kHz mono that is really fed 48 kHz stereo arrives six times too fast, and an old HAL that hands over mono under a stereo label arrives at half speed with the pitch doubled. Each step is logged with the rate it delivers, so the log says which format the device ended on and why.
+When the ROM's audio configuration itself blocks the microphone, no format helps. The [Raspberry Pi 4](raspberry-pi.md) guide covers two such cases and their fixes.
+
+Capture therefore walks a short ladder of formats: 16 kHz mono, then 48 kHz stereo, then 48 kHz mono. It steps to the next one when an open is refused, when the capture reads nothing but zeros or errors for two seconds, when a read delivers nothing at all for three seconds or when the delivered frame rate does not match the rate it was opened at. That last check is what catches a format lie: a capture opened at 16 kHz mono that is really fed 48 kHz stereo arrives six times too fast, and an old HAL that hands over mono under a stereo label arrives at half speed with the pitch doubled. Each step is logged with the rate it delivers, so the log says which format the device ended on and why.
 
 Silence alone proves little, since some microphones hand over exact zeros whenever the room is quiet. A format that has delivered audio is trusted and is only questioned after thirty seconds of silence. When every format on the ladder reads silence, capture returns to the one that delivered audio earlier, or to the first one when none did, and waits a minute before trying the ladder again, doubling that wait up to ten minutes. A microphone that really stopped is retried within minutes, while one that is merely quiet is not reopened every two seconds.
 

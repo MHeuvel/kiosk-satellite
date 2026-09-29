@@ -56,6 +56,23 @@ internal object BluetoothProxyRuntime {
          *  the reply to make once run; see EntityHub). */
         val onServiceCall: (String, Map<String, Any?>, ServiceReply) -> Unit =
             { _, _, _ -> },
+        /** Serve the voice assistant: the kiosk becomes an Assist satellite. */
+        val voice: Boolean = false,
+        /**
+         * Where voice messages from Home Assistant land: a kind ("subscribed",
+         * "response", "event", "timer", "announce", "setConfiguration") and
+         * its fields.
+         */
+        val onVoice: (String, Map<String, Any?>) -> Unit = { _, _ -> },
+        /**
+         * Home Assistant asks for the wake word configuration: the external
+         * wake words it offers as maps, and the reply to make with the
+         * device's answer ({available: [{id, wakeWord}], active, maxActive}).
+         */
+        val onVoiceConfiguration: (
+            List<Map<String, Any?>>,
+            (Map<String, Any?>) -> Unit,
+        ) -> Unit = { _, reply -> reply(emptyMap()) },
     )
 
     @Volatile var isRunning = false
@@ -129,6 +146,7 @@ internal object BluetoothProxyRuntime {
             minConnectRssi = config.minConnectRssi,
             rssiOf = nearby::lastRssi,
             entities = hub,
+            voice = if (config.voice) voiceBackend(config) else null,
         )
 
         try {
@@ -143,6 +161,7 @@ internal object BluetoothProxyRuntime {
 
         server = apiServer
         liveNodeName = identity.name
+        liveMac = identity.macAddress
         engine = scanEngine
         gattEngine = connections
         entityHub = hub
@@ -152,8 +171,83 @@ internal object BluetoothProxyRuntime {
             (if (scanEngine != null) " (bluetooth proxy)" else "") +
             (if (connections != null)
                 " (connections enabled, ${connections.connectionLimit} slots)" else "") +
-            (if (hub != null) " (${config.entities.size} entities)" else ""))
+            (if (hub != null) " (${config.entities.size} entities)" else "") +
+            (if (config.voice) " (voice assistant)" else ""))
     }
+
+    /** The voice backend: every Home Assistant message handed to the Dart side. */
+    private fun voiceBackend(config: Config) = object : VoiceBackend {
+        override fun onSubscribed(subscribed: Boolean) =
+            config.onVoice("subscribed", mapOf("subscribed" to subscribed))
+
+        override fun onPipelineResponse(port: Int, error: Boolean) =
+            config.onVoice("response", mapOf("port" to port, "error" to error))
+
+        override fun onEvent(type: Int, data: Map<String, String>) =
+            config.onVoice("event", mapOf("type" to type, "data" to data))
+
+        override fun onTimerEvent(event: VoiceTimerEvent) =
+            config.onVoice("timer", mapOf(
+                "type" to event.type,
+                "id" to event.id,
+                "name" to event.name,
+                "totalSeconds" to event.totalSeconds,
+                "secondsLeft" to event.secondsLeft,
+                "isActive" to event.isActive,
+            ))
+
+        override fun onAnnounce(announcement: VoiceAnnouncement) =
+            config.onVoice("announce", mapOf(
+                "mediaId" to announcement.mediaId,
+                "text" to announcement.text,
+                "preannounceMediaId" to announcement.preannounceMediaId,
+                "startConversation" to announcement.startConversation,
+            ))
+
+        override fun onConfigurationRequest(
+            external: List<ExternalWakeWord>,
+            reply: (VoiceConfiguration) -> Unit,
+        ) {
+            val offered = external.map {
+                mapOf(
+                    "id" to it.id,
+                    "wakeWord" to it.wakeWord,
+                    "trainedLanguages" to it.trainedLanguages,
+                    "modelType" to it.modelType,
+                    "modelSize" to it.modelSize,
+                    "modelHash" to it.modelHash,
+                    "url" to it.url,
+                )
+            }
+            config.onVoiceConfiguration(offered) { answer ->
+                @Suppress("UNCHECKED_CAST")
+                val available = (answer["available"] as? List<Map<String, Any?>>)
+                    ?.map { "${it["id"]}" to "${it["wakeWord"]}" } ?: emptyList()
+                @Suppress("UNCHECKED_CAST")
+                val active = (answer["active"] as? List<Any?>)?.map { "$it" } ?: emptyList()
+                val max = (answer["maxActive"] as? Number)?.toInt() ?: 1
+                reply(VoiceConfiguration(available, active, max))
+            }
+        }
+
+        override fun onSetConfiguration(active: List<String>) =
+            config.onVoice("setConfiguration", mapOf("active" to active))
+    }
+
+    fun voiceSubscribed(): Boolean = server?.voiceSubscribed() == true
+
+    fun sendVoiceRequest(
+        start: Boolean,
+        conversationId: String,
+        flags: Int,
+        wakeWordPhrase: String,
+    ): Boolean = server?.sendVoiceRequest(start, conversationId, flags, wakeWordPhrase) == true
+
+    fun sendVoiceAudio(pcm: ByteArray, end: Boolean): Boolean =
+        server?.sendVoiceAudio(pcm, end) == true
+
+    fun sendAnnounceFinished(success: Boolean): Boolean =
+        server?.sendAnnounceFinished(success) == true
 
     /** A new scan duty cycle for the running scanner; nothing without one. */
     fun setScanDuty(key: String?) {
@@ -200,6 +294,8 @@ internal object BluetoothProxyRuntime {
             "connections" to (s?.activeGattAddresses() ?: emptyList<String>()),
             "connectionSlots" to (gattEngine?.connectionLimit ?: 0),
             "lastAdvertisementAt" to (s?.lastReceivedAt?.get() ?: 0L),
+            "mac" to (if (isRunning) liveMac else ""),
+            "voiceSubscribed" to (s?.voiceSubscribed() ?: false),
             "log" to synchronized(logRing) { logRing.toList() },
         )
     }
@@ -264,6 +360,9 @@ internal object BluetoothProxyRuntime {
     val nodeName: String get() = if (isRunning) liveNodeName else ""
 
     @Volatile private var liveNodeName = ""
+
+    /** The MAC the running server reports: Home Assistant's device key. */
+    @Volatile private var liveMac = ""
 
     private fun stableSuffix(context: Context): String {
         val androidId = Settings.Secure.getString(

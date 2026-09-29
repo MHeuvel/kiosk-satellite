@@ -1,6 +1,6 @@
 # Screensavers
 
-After a period of inactivity, Kiosk Satellite can transition to a clock, a photo frame, a camera wall, a web page, or a black panel. The display returns to the live dashboard immediately when someone touches the screen, speaks the wake word, or approaches the kiosk.
+After a period of inactivity, Kiosk Satellite can transition to a clock, a photo frame, a camera wall, a web page, a Home Assistant dashboard view, or a black panel. The display returns to the live dashboard immediately when someone touches the screen, speaks the wake word, or approaches the kiosk.
 
 A core design principle applies to all modes: the screensaver never powers off the physical display. Even the Black mode sets the backlight to zero behind a black overlay while keeping the application fully active underneath. This ensures motion detection, wake word processing, the ESPHome server, and remote administration (including live view) remain fully functional 24/7. Controlling actual display panel power is handled separately using the Screen light entity via the [ESPHome integration](esphome.md).
 
@@ -34,11 +34,11 @@ Use **Scene blur** in the main group to soften the weather scene from 0 to 30 pi
 
 Weather Mood starts with only the animated scene. Its **Clock** and **Weather information** groups add optional information directly to the scene. All widget types and At a Glance pills remain available. Outside preview mode, if no weather entity is selected for Weather Mood, a black screen asks you to select one in its settings. The clock, weather chips, widgets and At a Glance stay hidden until an entity is selected.
 
-Turn on **Enable clock** to reveal **Font Family**, **Font weight**, **24-hour clock**, **Show date**, **Clock size**, **Clock color** and **Text drop shadow**. The clock uses the same digital face and defaults as the Clock screensaver, with a drop shadow enabled for readability. These settings belong to Weather Mood and do not change the Clock screensaver.
+Turn on **Enable clock** to reveal **Font Family**, **Font weight**, **24-hour clock**, **Show seconds**, **Show date**, **Clock size**, **Clock color** and **Text drop shadow**. The clock uses the same digital face and defaults as the Clock screensaver, with a drop shadow enabled for readability. These settings belong to Weather Mood and do not change the Clock screensaver.
 
-Weather information appears as chips over the scene. A chip at the bottom left shows the conditions icon, temperature and conditions. Each reading gets a matching chip at the bottom right with its icon, title and value. The chips default to white text with a drop shadow on glass that bends the scene behind them at its edges, so they take on the colors of every sky. Devices that do not use the Impeller renderer show tinted chips instead.
+Weather information appears as chips over the scene. A chip at the bottom left shows the conditions icon, temperature and conditions. Each reading gets a matching chip at the bottom right with its icon and value. The chips default to white text with a drop shadow on frosted glass with a thin light rim, so they take on the colors of every sky. The glass blurs the scene behind it, except on 32-bit devices, where the blur would cost too many frames. Devices that do not use the Impeller renderer show tinted chips instead.
 
-Turn on **Enable weather bar** to show the selected entity's temperature and conditions along the bottom, with humidity, wind speed and visibility when available. Set **Location name** to add a place name, enable **Feels like** or **Feels like only** for the apparent temperature and switch individual readings off as needed. **Text scale**, **Text color**, **Background opacity** and **Text drop shadow** control the chips. Background opacity sets how dark the glass is, down to text alone at 0%. On narrow screens the reading chips move above the main chip and wrap as needed. At a Glance pills and bottom corner widgets sit above the chips. Preview scenes leave the readings tied to live weather. No readings appear until the entity reports valid weather.
+Turn on **Enable weather bar** to show the selected entity's temperature and conditions along the bottom, with humidity, wind speed and visibility when available. Set **Location name** to add a place name, enable **Feels like** or **Feels like only** for the apparent temperature and switch individual readings off as needed. **Text scale**, **Text color**, **Background opacity** and **Text drop shadow** control the chips. Background opacity sets how dark the glass is, down to text alone at 0%. The reading values match the size of the temperature. Turn on **Show titles** to name each reading above its value. On narrow screens the reading chips move above the main chip and wrap as needed. At a Glance pills and bottom corner widgets sit above the chips. Over Weather Mood the At a Glance pills wear the same glass, tinted by the same Background opacity, so both rows match. They also share the Text drop shadow, and a colored icon shows in its color on a clear disc. Preview scenes leave the readings tied to live weather. No readings appear until the entity reports valid weather.
 
 The **Weather Preview** group on the device and in Remote Admin lets you try any scene. Turn on **Enable weather preview** to reveal **Weather type** and **Time of day**. The active Weather Mood screensaver changes immediately to your selection, including when no weather entity is configured. Turn preview off to follow Home Assistant again. Preview changes only the animated background, so weather widgets continue showing their own entity readings. Preview settings stay local to each kiosk.
 
@@ -119,6 +119,14 @@ Voice Satellite features do not run on screensaver web views. Because Voice Sate
 Displays one or more configured [camera views](cameras.md) as a rotating screensaver. Select the target views under **Camera views** and set the rotation interval using **Seconds per camera view**. Dwell time timing starts once video playback begins. If a single view is selected, the display remains on that grid without cycling. Transitioning between camera views completely tears down the active video grid before loading the next, creating a brief black frame and enforcing a minimum interval threshold of 5 seconds. If a view's camera streams fail to load, the rotation advances after the interval plus a 20-second timeout grace period. 
 
 Rotation can be stepped manually in either direction using the **Screensaver next slide** and **Screensaver previous slide** buttons on the [ESPHome](esphome.md) device. Landing on a view manually resets its full dwell timer. The **Mute all views** toggle (enabled by default) forces all camera views to remain silent, overriding single-camera audio settings configured in [Cameras](cameras.md). Disabling this toggle restores audio playback for single-camera views. Camera grid screensavers act as background scenery; tapping the screen dismisses the screensaver rather than focusing an individual camera tile, and corner clocks are hidden to keep video feeds clear.
+
+### Home Assistant Dashboard
+
+Shows a Home Assistant dashboard view as the screensaver. Selecting the mode reveals the **Home Assistant Dashboard screensaver** group. Pick the view with the **Select dashboard** button on its **Dashboard view** row, which opens the same view list the **Go to a dashboard view** gesture uses. The mode needs a connected Home Assistant.
+
+The view opens in the dashboard's own web view with the same in-page navigation view rotation uses, so Home Assistant does not reload and the Voice Satellite integration keeps running. When the screensaver ends, the dashboard goes back to the view it was on before. With **Return to home dashboard view** on it goes to the home view instead. If something in Home Assistant navigated the dashboard while the screensaver was up, it stays where that navigation left it.
+
+A tap anywhere dismisses the screensaver without pressing the card under the finger. Motion, face, proximity and person detection, the brightness settings, the schedule, widgets and the At a Glance row work as in the other modes. When no view is picked the screensaver keeps whatever the dashboard shows. Like Dim, this mode keeps the dashboard rendering, so **Pause dashboard during screensaver** does not apply.
 
 ## Slideshow Behavior
 
@@ -312,6 +320,8 @@ Person Detection utilizes native hardware person sensors on supported devices (s
 
 Dismiss triggers on person arrival events. If a person is already present when the screensaver launches, it remains active until they leave and return, or until a touch event occurs.
 
+To use the sensor in Home Assistant without changing the screensaver, turn on **Enable person sensor** under **Camera > Person Sensor** instead. See [Meta Portal](portal.md#person-sensor).
+
 On Meta Portal hardware, this feature utilizes the Smart Camera background tracking service, operating on an internal video feed that never illuminates the camera LED. It detects human bodies at any angle rather than requiring facing faces, and requires a one-time ADB permission grant. It operates independently alongside camera motion and face detection. Full setup details are available in the [Meta Portal](portal.md) guide.
 
 ## Starting and Dismissing
@@ -339,9 +349,9 @@ Touch interactions instantly dismiss the screensaver and reset the idle clock. T
 
 ## Around the Dashboard
 
-While a screensaver obscures the web page, the **Pause dashboard during screensaver** optimization (enabled by default) completely halts web view rendering. This produces the majority of screensaver power and thermal savings (see benchmark details in [Optimizations](optimizations.md)). Dim mode is the single exception, as the dashboard remains visible.
+While a screensaver obscures the web page, the **Pause dashboard during screensaver** optimization (enabled by default) completely halts web view rendering. This produces the majority of screensaver power and thermal savings (see benchmark details in [Optimizations](optimizations.md)). Dim and Home Assistant Dashboard are the exceptions, as the dashboard remains visible.
 
-Automated dashboard view rotation pauses while a screensaver is active, resuming from its current position when dismissed. Conversely, the **Return to home dashboard view** timer continues running quietly behind screensavers, ensuring the kiosk resets to the primary home dashboard view overnight without illuminating the display.
+Automated dashboard view rotation pauses while a screensaver is active, resuming from its current position when dismissed. Conversely, the **Return to home dashboard view** timer continues running quietly behind screensavers, ensuring the kiosk resets to the primary home dashboard view overnight without illuminating the display. Under the Home Assistant Dashboard screensaver that return happens when the screensaver ends.
 
 When using the Voice Satellite integration on the dashboard, the **Turn off the Voice Satellite screensaver** setting (enabled by default in Voice Satellite settings) automatically disables the web integration's internal screensaver to prevent software conflicts.
 

@@ -37,6 +37,8 @@ Each connection attempt temporarily pauses scanning to perform its handshake (si
 
 Turn on **Expose kiosk entities** to add all the entities listed below to the device in Home Assistant. This is off by default, meaning if you only enable ESPHome for the Bluetooth proxy, no extra entities are created. Rows marked with a requirement only appear if that hardware is present; for example, a kiosk with no camera simply will not have camera entities, rather than displaying dead ones. Because the ESPHome protocol does not use attributes, any hardware details that would normally ride on a sensor as an attribute are split into their own distinct entities.
 
+Native Voice Satellite adds its own VS entities and actions, listed in [Voice Satellite](voice-satellite.md#home-assistant-entities-and-actions).
+
 Use **Settings > ESPHome > Excluded entities** to pick entities that should stay out of Home Assistant. All available entities are exposed unless you select them here. Clear an entity's checkbox to expose it again or use **Clear** to expose all available entities. **Select all** selects every entity for exclusion, including entities outside the current search results. Saving reconnects ESPHome so Home Assistant receives the updated entity list. Each row shows its Home Assistant category before its entity type. You can search by name, category or type. The same picker is available in the remote admin.
 
 ### Controls
@@ -47,7 +49,7 @@ Use **Settings > ESPHome > Excluded entities** to pick entities that should stay
 | **Screensaver active** | switch | Manually starts and stops the screensaver. |
 | **Now Playing** | switch | Reads "on" while the full screen Now Playing view is visible. Turning it on brings the view up (paused if the music is paused); turning it off dismisses the view. Requires the setting "Now Playing" instead of the screensaver to be on. |
 | **Volume** | number | Controls the media volume percentage. |
-| **Voice Satellite** | switch | Starts and stops the voice engine on the page, identical to the Start and Stop buttons found in the kiosk's Voice Satellite settings. Requires a satellite bound to the kiosk (which is handled during the setup wizard or on the Voice Satellite settings page). Binding or unbinding a satellite will refresh the entity list on the next server start. |
+| **Voice Satellite** | switch | Voice Satellite integration on the dashboard only. Starts and stops the voice engine on the page, identical to the Start and Stop buttons found in the kiosk's Voice Satellite settings. Requires a satellite bound to the kiosk (which is handled during the setup wizard or on the Voice Satellite settings page). Binding or unbinding a satellite will refresh the entity list on the next server start. |
 | **Postpone screensaver** | button | Restarts the idle countdown timer. |
 | **Screensaver next slide**, **Screensaver previous slide** | button | Steps a Home Assistant Media, Local Media, Photo Gallery, or Immich Media slideshow forward or backward by one slide, holding the new slide for its full interval. If Camera Streams are active, it steps between camera views. Pressing this does nothing if any other mode (or no screensaver) is active. |
 | **Notifications dismiss all** | button | The button equivalent of the `notification_dismiss` action below: acknowledging a leak on one display can clear the alerts on all the rest. |
@@ -55,6 +57,8 @@ Use **Settings > ESPHome > Excluded entities** to pick entities that should stay
 | **Restart device** | button | Restarts the whole device, not just the app. Listed only where the restart can land: with Kiosk Satellite provisioned as the [device owner](kiosk.md#going-further-device-ownership), or with a granted [Shizuku](shizuku.md) connection. A Shizuku started over ADB stops at the reboot, so on such a kiosk the button is gone until Shizuku runs again. |
 | **Open app launcher** | button | Requires the App launcher setting to be enabled. |
 | **Show Music Assistant** | button | Requires a Music Assistant server address to be configured. |
+| **Media play**, **Media pause**, **Media next**, **Media previous** | button | Transport for the player the Media Player page follows: the Sendspin player, a Home Assistant, Music Assistant or Sonos player, or the [Local Media Session](sendspin.md#local-media-session). Requires **Expose ESPHome entities** on the Media Player page. |
+| **Media state**, **Media title**, **Media artist**, **Media source** | text sensor | What that player is doing: `playing`, `paused` or `idle`, the track, the artist and the player's name. For the Local Media Session the source is the app that plays, such as YouTube. Requires **Expose ESPHome entities** on the Media Player page. |
 | **Camera view** | select | Includes a "Closed" option, plus one option for every camera view containing cameras. Requires camera views to be configured. The option list is built when the server starts; if you add new views, simply toggle ESPHome off and on, or restart the app to refresh the list. |
 | **Show <view>** (one per camera view), **Close camera view** | button | Opens a specific named view or closes whichever view is currently open. |
 | **Active camera view** | text sensor | Displays the name of the view currently on screen, or reads `none` when closed. |
@@ -73,7 +77,7 @@ Use **Settings > ESPHome > Excluded entities** to pick entities that should stay
 | **Speed** | sensor | Reports speed in meters per second (Home Assistant will automatically convert this to your preferred unit system). Requires **Report location** to be on and a physical GPS receiver. |
 | **Last location fix** | timestamp | Indicates when the GPS receiver last reported. Requires **Report location** to be on and a physical GPS receiver. The value is saved across restarts. |
 | **Motion** | binary sensor | Requires physical camera hardware. Will read "unknown" while the camera is toggled off. |
-| **Person** | binary sensor | Reports occupancy derived from an on device person sensor (currently supported on Meta Portals). Requires **Dismiss on person** to be on, which triggers a device re registration. Will read "unknown" if the sensor cannot be read. See the [Meta Portal](portal.md) guide. |
+| **Person** | binary sensor | Reports occupancy derived from an on device person sensor (currently supported on Meta Portals). Requires **Enable person sensor** under **Camera > Person Sensor** to be on, which triggers a device re registration. Will read "unknown" if the sensor cannot be read. See the [Meta Portal](portal.md) guide. |
 | **Next alarm** | timestamp | Displays the next scheduled alarm on the Android device itself. |
 | **Last interaction** | timestamp | Records the timestamp of the last touch, spoken voice turn, or gesture based wake. The value is saved across restarts. |
 | **Next screensaver** | timestamp | Indicates exactly when the idle clock will trigger the screensaver. This updates on every touch, dismissal, or timeout change, allowing an automation to trigger off it directly, or a template to count down to it without the device needing to push a new value every single second. It reads "unknown" when nothing is actively counting down (e.g., if the screensaver is off, already showing, during a voice turn, in a camera view, in hold mode, or if another app is in front). Under a rapid stream of touches, it republishes at most once a minute, and always before the previously reported moment passes. |
@@ -95,7 +99,7 @@ Every item in this list corresponds directly to a kiosk setting. They are fully 
 | **RTSP Streaming** | switch | Enables or disables the RTSP server using the saved stream settings. Requires physical camera hardware. Camera enabled and Android camera permission must also be on. Changes sync with the local and remote settings pages without reconnecting ESPHome. |
 | **Screensaver proximity detection** | switch | Requires a physical proximity sensor. |
 | **Intercom enabled** | switch | The [intercom's](intercom.md) master switch. Its state sensors and the answer mode appear while it is on. |
-| **Voice Satellite auto start** | switch | Controls whether the voice engine starts automatically with the dashboard. This allows an automation to delay voice services on slower devices that need all their processing power for the initial dashboard load. Requires a bound satellite. |
+| **Voice Satellite auto start** | switch | Voice Satellite integration on the dashboard only. Controls whether the voice engine starts automatically with the dashboard. This allows an automation to delay voice services on slower devices that need all their processing power for the initial dashboard load. Requires a bound satellite. |
 | **Theme** | select | Options are Auto, Light, or Dark. Selecting Light or Dark forcibly pins the dashboard theme, overriding both the on device schedule and the app theme sync for as long as it is active. If theme sync is enabled, pinning the theme will flip the app's internal screens as well. |
 | **Screensaver mode**, **Clock style** | select | Provides the exact same options found on the device settings pages. |
 | **Default dashboard** | select | The dashboard the kiosk starts on, returns to with the Go to dashboard button and reloads after a crash or restart. Same `dashboard/view` options as the Dashboard view select. Changing it rewrites the start URL but leaves the page where it is, so an automation can make a night dashboard the one the kiosk always comes back to and use the Dashboard view select when it should show right away. |
@@ -360,6 +364,8 @@ Two actions follow a player from an automation, the way the Media Player page's 
 
 A name that two players share goes to the available one. On the [remote API](remote-api.md) the same two are the `mediaPlayers` and `mediaPlayerSet` commands.
 
+The followed player's buttons and sensors (see [Controls](#controls)) have remote API twins too: `sendspinControl` with a `command` of `play`, `pause`, `next` or `previous`, and `mediaPlayerState` for the state, title, artist and source.
+
 ## Announcements
 
 Home Assistant can speak on the kiosk. `esphome.<node name>_announce` plays a `message` through Home Assistant's text to speech, or an audio `url` (MP3, WAV, OGG or AAC), on this kiosk with a chime first. Each kiosk is addressed through its own ESPHome device, so an announcement to several kiosks is one action per kiosk, and no other kiosk is involved. The kiosk asks Home Assistant for the audio, decodes it and plays it at the media volume, or at the `volume` the action names, holding the screensaver and ducking the music the way a voice turn does, with a card that shows the spoken text while it plays. Listed with **Expose kiosk entities**.
@@ -476,7 +482,7 @@ If you prefer to merge them, enabling **Use real Wi-Fi MAC address** (located un
 | | |
 |---|---|
 | Readable | The real MAC address can only be read on Android 9 and older, or on any version where the app is provisioned as the device owner. If it cannot be read, the switch will clearly state the limitation beneath itself, and the generated identity will remain active. |
-| Kept | The very first address successfully read is permanently locked in. This ensures the identity survives major OS upgrades that might otherwise close the exploit used to read it. |
+| Kept | The very first address successfully read is locked in. This ensures the identity survives major OS upgrades that might otherwise close the exploit used to read it. Turn the switch off and back on to read the address again, for example after a ROM update starts reporting the real address in place of a placeholder. |
 | **Spoof Wi-Fi MAC address** | This option only appears below the switch if the hardware read fails. You can manually type the address (you can find it in Android under About > Status, or in your router's client list) using colons, dashes, or just twelve raw hex digits. If a successful hardware read occurs, it will always override the spoofed address. |
 
 Note: Generating a new identity (whether by flipping the switch, typing an address, or altering it in any way) will immediately cause the existing ESPHome entry to reject the kiosk with an "Unexpected device found" error. You must delete the broken entry and allow discovery to re add the kiosk cleanly. Flipping the switch back to its original state restores the old identity, but because Home Assistant stops retrying after a hard failure, you must manually reload the kiosk's entry or reboot Home Assistant entirely to restore connection.

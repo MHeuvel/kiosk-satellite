@@ -41,5 +41,10 @@
   "screensaverUnavailablePlugin": "Недоступний плагін заставки",
   "screensaverScreenOffWarning": "Коли дисплей повністю вимикається, керування переходить до системи енергозбереження планшета, і багато моделей Android можуть працювати нестабільно: Wi-Fi може відключатися, сутності Home Assistant ставати недоступними, доступ до камери може скасовуватися, а деякі пристрої можуть закривати фонові програми.\n\nНадійною альтернативою є Чорна заставка з цим параметром на 0: екран виглядає так само темно, а застосунок зберігає повний контроль.",
   "settingScreensaverScreenOffBlackTitle": "Використовувати чорний екран замість вимкнення",
-  "settingScreensaverScreenOffBlackDescription": "Показувати чорний екран при нульовій яскравості замість повного вимкнення дисплея. Приховує віджети та \"Зараз грає\". Дозвіл адміністратора пристрою не потрібен."
+  "settingScreensaverScreenOffBlackDescription": "Показувати чорний екран при нульовій яскравості замість повного вимкнення дисплея. Приховує віджети та \"Зараз грає\". Дозвіл адміністратора пристрою не потрібен.",
+  "screensaverModeDashboard": "Панель керування Home Assistant",
+  "settingScreensaverDashboardViewTitle": "Вигляд панелі керування",
+  "settingScreensaverDashboardViewDescription": "Вигляд панелі керування Home Assistant, який показує заставка.",
+  "screensaverSelectDashboard": "Вибрати панель керування",
+  "screensaverDashboardSection": "Заставка панелі керування Home Assistant"
 }

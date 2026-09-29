@@ -24,6 +24,7 @@ class SettingsSearchEntry {
     this.anchorId,
     this.subpage,
     this.englishAlias = '',
+    this.voiceRuntime,
   });
 
   /// The definitions category ('Home Assistant'), which is also the pane the
@@ -45,6 +46,11 @@ class SettingsSearchEntry {
   /// definition; null means the top of the pane. Definition-backed entries
   /// resolve their landing from [defKey] instead (see [resolveSearchAnchor]).
   final String? anchorId;
+
+  /// Set on Voice Satellite's hand-built rows: 'dashboard' for the
+  /// integration's live rows, 'native' for the kiosk's own page. Only the
+  /// runtime the kiosk is on finds them.
+  final String? voiceRuntime;
 
   /// The second-level page this row is on, for hand-built rows that moved
   /// onto one. Definition-backed entries take it from the definition
@@ -197,42 +203,49 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
         'The assist_satellite entity this kiosk identifies as in Home '
         'Assistant.',
     anchorId: 'x:assigned_satellite',
+    voiceRuntime: 'dashboard',
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
     title: 'Auto start',
     description: 'Auto start Voice Satellite on dashboard load.',
     anchorId: 'x:assigned_satellite',
+    voiceRuntime: 'dashboard',
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
     title: 'Assist pipeline 1',
     description: 'The Assist pipeline voice commands run through.',
     anchorId: 'x:assigned_satellite',
+    voiceRuntime: 'dashboard',
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
     title: 'Assist pipeline 2',
     description: 'The pipeline used when the second wake word triggers.',
     anchorId: 'x:assigned_satellite',
+    voiceRuntime: 'dashboard',
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
     title: 'Engine',
     description: 'Start or Stop the Voice Satellite engine.',
     anchorId: 'x:assigned_satellite',
+    voiceRuntime: 'dashboard',
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
     title: 'Mute',
     description: 'Stop listening for wake words.',
     anchorId: 'x:assigned_satellite',
+    voiceRuntime: 'dashboard',
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
     title: 'Finished speaking detection',
     description: 'How long a pause ends a voice command.',
     anchorId: 'x:assigned_satellite',
+    voiceRuntime: 'dashboard',
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
@@ -241,18 +254,21 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
         'Hide the muted microphone warning at startup and whenever '
         'the satellite microphone is muted.',
     anchorId: 'x:assigned_satellite',
+    voiceRuntime: 'dashboard',
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
     title: 'Debug logging',
     description: 'Show Voice Satellite debug info in the browser console.',
     anchorId: 'x:assigned_satellite',
+    voiceRuntime: 'dashboard',
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
     title: 'Voice Satellite version',
     description: 'The integration version installed in Home Assistant.',
     anchorId: 'x:assigned_satellite',
+    voiceRuntime: 'dashboard',
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
@@ -260,6 +276,7 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
     description: 'Where detection runs and which engine listens.',
     anchorId: 'x:vs_wake',
     subpage: 'Wake Word',
+    voiceRuntime: 'dashboard',
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
@@ -267,6 +284,7 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
     description: 'How easily the wake word triggers.',
     anchorId: 'x:vs_wake',
     subpage: 'Wake Word',
+    voiceRuntime: 'dashboard',
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
@@ -275,6 +293,7 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
         'Skip local wake word inference while the room is quiet, saving CPU.',
     anchorId: 'x:vs_wake',
     subpage: 'Wake Word',
+    voiceRuntime: 'dashboard',
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
@@ -282,6 +301,7 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
     description: 'Say the stop word to interrupt responses.',
     anchorId: 'x:vs_wake',
     subpage: 'Wake Word',
+    voiceRuntime: 'dashboard',
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
@@ -289,6 +309,7 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
     description: 'The word that starts a voice command.',
     anchorId: 'x:vs_wake',
     subpage: 'Wake Word',
+    voiceRuntime: 'dashboard',
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
@@ -296,6 +317,7 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
     description: 'A second wake word, answered by Assist pipeline 2.',
     anchorId: 'x:vs_wake',
     subpage: 'Wake Word',
+    voiceRuntime: 'dashboard',
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
@@ -304,6 +326,7 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
         'Re-download from Home Assistant. Use after re-publishing a model.',
     anchorId: 'x:vs_wake',
     subpage: 'Wake Word',
+    voiceRuntime: 'dashboard',
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
@@ -311,6 +334,7 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
     description: 'The look of the voice assistant overlay.',
     anchorId: 'x:vs_appearance',
     subpage: 'Appearance',
+    voiceRuntime: 'dashboard',
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
@@ -318,6 +342,7 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
     description: 'Light or dark rendering of the overlay.',
     anchorId: 'x:vs_appearance',
     subpage: 'Appearance',
+    voiceRuntime: 'dashboard',
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
@@ -326,6 +351,7 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
         'The activity bar reacts to audio. NOT RECOMMENDED for low-power devices like the Echo Show.',
     anchorId: 'x:vs_appearance',
     subpage: 'Appearance',
+    voiceRuntime: 'dashboard',
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
@@ -335,6 +361,7 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
         'more CPU.',
     anchorId: 'x:vs_appearance',
     subpage: 'Appearance',
+    voiceRuntime: 'dashboard',
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
@@ -342,6 +369,74 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
     description: 'The size of the overlay text.',
     anchorId: 'x:vs_appearance',
     subpage: 'Appearance',
+    voiceRuntime: 'dashboard',
+  ),
+  // Native Voice Satellite's hand-built rows (voice_settings.dart).
+  SettingsSearchEntry(
+    category: 'Voice Satellite',
+    title: 'Status',
+    description:
+        'Whether Voice Satellite is listening and how Home Assistant knows '
+        'this kiosk.',
+    anchorId: 'x:vs_status',
+    voiceRuntime: 'native',
+  ),
+  SettingsSearchEntry(
+    category: 'Voice Satellite',
+    title: 'Assistant 1',
+    description: 'Answers wake word 1.',
+    anchorId: 'x:vs_pipelines',
+    subpage: 'Assistant',
+    voiceRuntime: 'native',
+  ),
+  SettingsSearchEntry(
+    category: 'Voice Satellite',
+    title: 'Assistant 2',
+    description: 'Answers wake word 2.',
+    anchorId: 'x:vs_pipelines',
+    subpage: 'Assistant',
+    voiceRuntime: 'native',
+  ),
+  SettingsSearchEntry(
+    category: 'Voice Satellite',
+    title: 'Finished speaking detection',
+    description: 'How long a pause ends a voice command.',
+    anchorId: 'x:vs_pipelines',
+    subpage: 'Assistant',
+    voiceRuntime: 'native',
+  ),
+  SettingsSearchEntry(
+    category: 'Voice Satellite',
+    title: 'Wake word 1',
+    description: 'The word that starts a voice command.',
+    anchorId: 'x:vs_wake',
+    subpage: 'Wake Word',
+    voiceRuntime: 'native',
+  ),
+  SettingsSearchEntry(
+    category: 'Voice Satellite',
+    title: 'Custom Models',
+    description: 'Add your own wake word models for any engine.',
+    anchorId: 'x:vs_custom_models',
+    subpage: 'Wake Word',
+    voiceRuntime: 'native',
+  ),
+  SettingsSearchEntry(
+    category: 'Voice Satellite',
+    title: 'Wake word 2',
+    description: 'A second wake word, answered by Assistant 2.',
+    anchorId: 'x:vs_wake',
+    subpage: 'Wake Word',
+    voiceRuntime: 'native',
+  ),
+  SettingsSearchEntry(
+    category: 'Voice Satellite',
+    title: 'Run from the dashboard again',
+    description:
+        'Go back to the Voice Satellite integration. Nothing set here is '
+        'lost.',
+    anchorId: 'x:vs_rollback',
+    voiceRuntime: 'native',
   ),
   SettingsSearchEntry(
     category: 'Voice Satellite',
@@ -461,6 +556,13 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
     subpage: 'Person Detection',
   ),
   SettingsSearchEntry(
+    category: 'Camera',
+    title: 'Required system permissions',
+    description: "The Log access grant the device's person sensor needs.",
+    anchorId: 'x:person_sensor_log_access',
+    subpage: 'Person Sensor',
+  ),
+  SettingsSearchEntry(
     category: 'ESPHome',
     title: 'Nearby devices',
     description:
@@ -522,6 +624,7 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
   String Function(String)? intercomTextFor,
   String Function(String)? mediaTextFor,
   String Function(String)? cameraStreamsTextFor,
+  String Function(String)? cameraTextFor,
   String Function(SettingDef<Object>)? titleFor,
   String Function(SettingDef<Object>)? descriptionFor,
 }) {
@@ -576,7 +679,9 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
       if (categories.contains(entry.category) &&
           // The grant goes with its page (deviceHiddenKeys).
           !(entry.anchorId == 'x:person_log_access' &&
-              deviceHiddenKeys.contains(screensaverDismissOnPerson.key)))
+              deviceHiddenKeys.contains(screensaverDismissOnPerson.key)) &&
+          !(entry.anchorId == 'x:person_sensor_log_access' &&
+              deviceHiddenKeys.contains(personSensorEnabled.key)))
         entry,
   ].map((entry) {
     final translate = entry.category == 'Device'
@@ -607,6 +712,8 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
         ? mediaTextFor
         : entry.category == 'Cameras'
         ? cameraStreamsTextFor
+        : entry.category == 'Camera'
+        ? cameraTextFor
         : null;
     if (translate == null) return entry;
     return SettingsSearchEntry(
@@ -618,8 +725,18 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
       isPage: entry.isPage,
       anchorId: entry.anchorId,
       subpage: entry.subpage,
+      voiceRuntime: entry.voiceRuntime,
     );
   }).toList();
+}
+
+/// Whether [entry] belongs to the Voice Satellite page the kiosk draws:
+/// the integration's rows on the dashboard runtime, the kiosk's own
+/// settings and rows when [native].
+bool matchesVoiceRuntime(SettingsSearchEntry entry, {required bool native}) {
+  final runtime = entry.voiceRuntime;
+  if (runtime != null) return runtime == (native ? 'native' : 'dashboard');
+  return native || !(entry.defKey?.startsWith('voice.') ?? false);
 }
 
 /// Installed plugin controls use their current manifest instead of global definitions.

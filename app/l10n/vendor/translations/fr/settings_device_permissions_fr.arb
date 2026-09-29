@@ -55,5 +55,9 @@
   "deviceListeningIdle": "Nécessaire à l'écoute en arrière-plan.",
   "deviceMotionIdle": "Nécessaire à la détection de mouvement.",
   "deviceBatteryAdb": "Cet appareil n'a pas d'écran de paramètres pour cela. Accordez-la via adb : adb shell dumpsys deviceidle whitelist +me.jxl.kiosk_satellite",
-  "deviceOverlayAdb": "Cet appareil n'a pas d'écran de paramètres pour cela. Accordez-la via adb : adb shell appops set me.jxl.kiosk_satellite SYSTEM_ALERT_WINDOW allow"
+  "deviceOverlayAdb": "Cet appareil n'a pas d'écran de paramètres pour cela. Accordez-la via adb : adb shell appops set me.jxl.kiosk_satellite SYSTEM_ALERT_WINDOW allow",
+  "deviceNotificationAccess": "Accès aux notifications",
+  "deviceNotificationAccessHeld": "Lecture en cours peut suivre les applications qui diffusent sur cet appareil.",
+  "deviceNotificationAccessMissing": "Sans cela, Android ne liste aucune session multimédia, donc Lecture en cours ne peut pas suivre les applications qui diffusent sur cet appareil.",
+  "deviceNotificationAccessIdle": "Permet à Lecture en cours de suivre les applications qui diffusent sur cet appareil."
 }

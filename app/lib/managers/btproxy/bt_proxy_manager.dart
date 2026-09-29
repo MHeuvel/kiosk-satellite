@@ -114,6 +114,96 @@ class BtProxyManager extends Manager {
   @override
   String get name => 'esphome';
 
+  /// Where the voice assistant's messages from Home Assistant land (the
+  /// native voice satellite): a kind ("subscribed", "response", "event",
+  /// "timer", "announce", "setConfiguration") and its fields.
+  void Function(String kind, Map<String, Object?> fields)? onVoice;
+
+  /// Answers Home Assistant's wake word configuration request: the
+  /// external wake words it offers in, `{available, active, maxActive}` out.
+  Future<Map<String, Object?>> Function(List<Map<Object?, Object?>> external)?
+  onVoiceConfiguration;
+
+  /// Whether the running server serves the voice assistant.
+  bool get voiceServing => _running && _voiceLive;
+  bool _voiceLive = false;
+
+  /// Ask Home Assistant to run a pipeline, or stop the running one. False
+  /// with no Home Assistant session subscribed.
+  Future<bool> voiceRequest({
+    required bool start,
+    String conversationId = '',
+    int flags = 0,
+    String wakeWordPhrase = '',
+  }) async {
+    if (!voiceServing) return false;
+    try {
+      return await _channel.invokeMethod<bool>('voiceRequest', {
+            'start': start,
+            'conversationId': conversationId,
+            'flags': flags,
+            'wakeWordPhrase': wakeWordPhrase,
+          }) ==
+          true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  /// One chunk of microphone audio for the running pipeline.
+  Future<bool> voiceAudio(Uint8List pcm, {bool end = false}) async {
+    if (!voiceServing) return false;
+    try {
+      return await _channel.invokeMethod<bool>('voiceAudio', {
+            'pcm': pcm,
+            'end': end,
+          }) ==
+          true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  /// An announcement or a spoken answer finished playing.
+  Future<bool> voiceAnnounceFinished({bool success = true}) async {
+    if (!voiceServing) return false;
+    try {
+      return await _channel.invokeMethod<bool>('voiceAnnounceFinished', {
+            'success': success,
+          }) ==
+          true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  /// Whether a Home Assistant session is subscribed to the voice assistant.
+  Future<bool> voiceSubscribed() async {
+    if (!voiceServing) return false;
+    try {
+      return await _channel.invokeMethod<bool>('voiceSubscribed') == true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  /// The MAC the running server reports, Home Assistant's key for this
+  /// device; empty while stopped.
+  Future<String> identityMac() async {
+    try {
+      final status = await _channel.invokeMethod<Map>('status');
+      return '${status?['mac'] ?? ''}';
+    } catch (_) {
+      return '';
+    }
+  }
+
+  /// Whether this start should serve the voice assistant: the native
+  /// runtime with Voice Satellite enabled.
+  bool get _voiceWanted =>
+      _settings.get(defs.voiceRuntime) == 'native' &&
+      _settings.get(defs.voiceEnabled);
+
   @override
   Future<void> init() async {
     commands.register(
@@ -144,6 +234,17 @@ class BtProxyManager extends Manager {
       if (call.method == 'entityCommand' && call.arguments is Map) {
         final args = call.arguments as Map;
         await _entities.handleCommand('${args['objectId']}', args['value']);
+      }
+      if (call.method == 'voice' && call.arguments is Map) {
+        final args = (call.arguments as Map).cast<String, Object?>();
+        onVoice?.call('${args['kind']}', args);
+        return null;
+      }
+      if (call.method == 'voiceConfiguration' && call.arguments is Map) {
+        final external = ((call.arguments as Map)['external'] as List?) ?? [];
+        final answer = onVoiceConfiguration;
+        if (answer == null) return const <String, Object?>{};
+        return answer([for (final e in external) e as Map<Object?, Object?>]);
       }
       if (call.method == 'serviceCall' && call.arguments is Map) {
         final payload = call.arguments as Map;
@@ -176,11 +277,21 @@ class BtProxyManager extends Manager {
       // setup-time choice, made knowing it re-registers the device
       // (issue #363).
       'location.enabled',
-      // The Person sensor exists only while Dismiss on person is on, the
-      // same way (discussion #353).
-      'screensaver.dismiss_on_person',
+      // The Person sensor exists only while the Person Sensor switch is
+      // on, the same way (issue #734).
+      'person.sensor',
       // The intercom entities exist only while the intercom is on.
       'intercom.enabled',
+      // The followed player's buttons and sensors, opt-in from the Media
+      // Player page (issue #741).
+      'sendspin.esphome_entities',
+      // The voice assistant, and its vs_ entities and actions, exist only
+      // on the native runtime with Voice Satellite on; the engine decides
+      // which wake words Home Assistant's selects offer, which it asks for
+      // once per connection.
+      'voice.runtime',
+      'voice.enabled',
+      'voice.wake_word_engine',
     };
     // The remote admin server's settings, which decide the web page port
     // reported to Home Assistant (the device page's Visit link).
@@ -210,6 +321,14 @@ class BtProxyManager extends Manager {
       }
     });
     _settingsSub = bus.on<SettingChanged>().listen((e) {
+      // Real MAC turned off: forget the adopted address, so turning it
+      // back on reads the hardware again (issue #736). Falls through to
+      // the restart below, which runs after the debounce and so after
+      // the adoption is gone.
+      if (e.key == defs.esphomeRealMac.key &&
+          !_settings.get(defs.esphomeRealMac)) {
+        unawaited(forgetAdoptedWifiMac(_settings));
+      }
       // The switch turned on where scanning cannot work (the settings
       // page never offers it, but the remote API and a settings import
       // can): back off, and the write lands here again as false.
@@ -582,7 +701,10 @@ class BtProxyManager extends Manager {
         // The remote admin page's port, for the Visit link on the device
         // page in Home Assistant; 0 keeps the field, and the link, off.
         'webserverPort': webserverPort,
+        // The Assist satellite: Home Assistant creates it on this device.
+        'voice': _voiceWanted,
       });
+      _voiceLive = _voiceWanted;
       _running = true;
       _startError = null;
       _liveWebserverPort = webserverPort;
@@ -630,6 +752,7 @@ class BtProxyManager extends Manager {
     _startError = null;
     if (!_running) return;
     _running = false;
+    _voiceLive = false;
     _entities.detach();
     try {
       await _channel.invokeMethod('stop');

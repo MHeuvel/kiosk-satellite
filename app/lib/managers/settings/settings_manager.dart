@@ -289,6 +289,24 @@ class SettingsManager extends Manager {
   /// back to the default — so a rename in place has to be rewritten once,
   /// here, before anything reads it.
   Future<void> _migrate() async {
+    // Native Voice Satellite: a kiosk that already runs Voice Satellite in
+    // the dashboard (a satellite assigned) keeps doing so until its owner
+    // migrates; every other install starts native. Written once, the first
+    // time this version starts, so a later assignment never flips it.
+    if (_prefs.get(_prefix + voiceRuntime.key) == null) {
+      final assigned =
+          (_prefs.get(_prefix + haSatelliteEntity.key) as String? ?? '')
+              .trim()
+              .isNotEmpty;
+      await _prefs.setString(
+        _prefix + voiceRuntime.key,
+        assigned ? 'dashboard' : 'native',
+      );
+      log.info(
+        name,
+        'Voice Satellite runtime set to ${assigned ? 'dashboard' : 'native'}',
+      );
+    }
     // The preview's automatic language choice is now explicit English.
     if (_prefs.get(_prefix + uiLanguage.key) == 'system') {
       await _prefs.setString(_prefix + uiLanguage.key, 'en');
@@ -332,6 +350,22 @@ class SettingsManager extends Manager {
       await _prefs.setBool('${_prefix}esphome.enabled', true);
       log.info(name, 'migrated btproxy.enabled -> esphome.enabled');
     }
+    // The ESPHome Person sensor followed Dismiss on person and has its own
+    // switch now (issue #734). A kiosk that exposed it keeps the entity
+    // across the update. Once only, so turning Dismiss on person on later
+    // never turns the sensor on with it.
+    const personSensorMigration = 'person.sensor.migrated';
+    if (internal(personSensorMigration).isEmpty) {
+      if (_prefs.get(_prefix + personSensorEnabled.key) == null &&
+          _prefs.get(_prefix + screensaverDismissOnPerson.key) == true) {
+        await _prefs.setBool(_prefix + personSensorEnabled.key, true);
+        log.info(
+          name,
+          'migrated screensaver.dismiss_on_person -> person.sensor',
+        );
+      }
+      await setInternal(personSensorMigration, '1');
+    }
     // The HA base URL is normalized to its origin on write now, but a value
     // saved with a trailing slash by an older version keeps breaking the
     // pipeline socket ('http://ha:8123//api/websocket') until rewritten.
@@ -362,9 +396,11 @@ class SettingsManager extends Manager {
       await _prefs.remove('${_prefix}sendspin.ma_player_name');
     }
     // The pick is filtered by a source now: a pick stored before the
-    // source existed names its own.
+    // source existed names its own. The Local Media Session is this
+    // device's own pick and belongs under the empty source.
     final picked = _prefs.getString('${_prefix}sendspin.player') ?? '';
     if (picked.trim().isNotEmpty &&
+        !picked.startsWith('session:') &&
         (_prefs.getString('${_prefix}sendspin.player_source') ?? '').isEmpty) {
       final source = picked.startsWith('ha:')
           ? 'ha'

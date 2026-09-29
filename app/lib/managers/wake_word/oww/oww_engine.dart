@@ -18,7 +18,7 @@ import 'oww_model_store.dart';
 /// word finished (see WakeWordEngine.startAudioStream).
 class OwwEngine extends IsolateWakeEngine {
   OwwEngine(super.log, {OwwModelStore? store, super.mic, super.spawner})
-      : _store = store ?? OwwModelStore();
+    : _store = store ?? OwwModelStore();
 
   final OwwModelStore _store;
 
@@ -43,7 +43,7 @@ class OwwEngine extends IsolateWakeEngine {
         models.add({
           'id': ref.id,
           'wakeWord': ref.wakeWord,
-          'onnx': bytes,
+          'model': bytes,
           // The card resolved its Sensitivity setting into this absolute
           // cutoff; 0.5 only covers a card too old to send one.
           'cutoff': ref.cutoff ?? 0.5,
@@ -64,13 +64,15 @@ class OwwEngine extends IsolateWakeEngine {
         models.add({
           'id': stopRef.id,
           'wakeWord': stopRef.wakeWord,
-          'onnx': bytes,
+          'model': bytes,
           'cutoff': stopRef.cutoff ?? 0.65,
           'stop': true,
         });
         hasStop = true;
         log.info(
-            tag, 'downloaded stop model "${stopRef.id}" (${bytes.length} bytes)');
+          tag,
+          'downloaded stop model "${stopRef.id}" (${bytes.length} bytes)',
+        );
       } catch (e) {
         log.error(tag, 'download stop model "${stopRef.id}" failed: $e');
       }

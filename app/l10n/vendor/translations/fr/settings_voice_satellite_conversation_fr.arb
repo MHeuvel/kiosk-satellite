@@ -1,0 +1,17 @@
+{
+  "@@locale": "fr",
+  "settingVoiceShowCommandTitle": "Afficher ce que vous avez dit",
+  "settingVoiceShowCommandDescription": "Votre commande au-dessus de la réponse.",
+  "settingVoiceShowAnswerTitle": "Afficher la réponse",
+  "settingVoiceShowAnswerDescription": "La réponse au fur et à mesure qu'elle est prononcée.",
+  "settingVoiceShowToolsTitle": "Afficher l'utilisation des outils",
+  "settingVoiceShowToolsDescription": "Une ligne pour chaque action de l'assistant.",
+  "settingVoiceHideSentimentTagsTitle": "Masquer les balises d'émotion",
+  "settingVoiceHideSentimentTagsDescription": "Omet les balises comme [happy] que certains assistants ajoutent.",
+  "settingVoiceAnswerLingerTitle": "Garder la réponse à l'écran",
+  "settingVoiceAnswerLingerDescription": "Après que la réponse a été prononcée.",
+  "settingVoiceResultsLingerTitle": "Garder les résultats à l'écran",
+  "settingVoiceResultsLingerDescription": "Images, météo et autres résultats. 0 les garde jusqu'à ce que vous les fermiez.",
+  "settingVoiceAnnouncementLingerTitle": "Durée des annonces",
+  "settingVoiceAnnouncementLingerDescription": "Après qu'une annonce a été prononcée."
+}

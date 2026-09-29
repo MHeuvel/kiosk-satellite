@@ -1,0 +1,108 @@
+{
+  "@@locale": "en",
+  "voiceAssistant1": "Assistant 1",
+  "@voiceAssistant1": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceAssistant1Help": "Answers wake word 1.",
+  "@voiceAssistant1Help": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceAssistant2": "Assistant 2",
+  "@voiceAssistant2": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceAssistant2Help": "Answers wake word 2.",
+  "@voiceAssistant2Help": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voicePipelines": "Pipelines",
+  "@voicePipelines": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voicePreferred": "Preferred",
+  "@voicePreferred": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNone": "None",
+  "@voiceNone": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceThisKiosk": "This kiosk",
+  "@voiceThisKiosk": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceSelectFailed": "Could not change it in Home Assistant.",
+  "@voiceSelectFailed": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceSeamlessWakeTitle": "Talk right after the wake word",
+  "@settingVoiceSeamlessWakeTitle": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceSeamlessWakeDescription": "Skip the wake sound and keep what you say right after the wake word.",
+  "@settingVoiceSeamlessWakeDescription": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceFollowupDelayTitle": "Follow-up delay",
+  "@settingVoiceFollowupDelayTitle": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceFollowupDelayDescription": "A pause before listening for the answer to a question.",
+  "@settingVoiceFollowupDelayDescription": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceFollowupChimeTitle": "Chime before a follow-up",
+  "@settingVoiceFollowupChimeTitle": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceFollowupChimeDescription": "Play the wake sound when it starts listening again.",
+  "@settingVoiceFollowupChimeDescription": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTtsOutputTitle": "Play sounds on",
+  "@settingVoiceTtsOutputTitle": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTtsOutputDescription": "Chimes, answers, announcements and timer alerts play on this speaker.",
+  "@settingVoiceTtsOutputDescription": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTtsOutputModeTitle": "Play as",
+  "@settingVoiceTtsOutputModeTitle": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTtsOutputModeDescription": "An announcement lets the speaker pause its music and resume it. Normal playback starts the music again afterward, for speakers that ignore announcements.",
+  "@settingVoiceTtsOutputModeDescription": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceOptionAnnouncement": "Announcement",
+  "@voiceOptionAnnouncement": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceOptionNormalPlayback": "Normal playback",
+  "@voiceOptionNormalPlayback": {
+    "context": "Settings > Voice Satellite > Assistant",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  }
+}

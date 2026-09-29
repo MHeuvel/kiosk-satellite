@@ -2073,8 +2073,29 @@ class IntercomManager extends Manager {
     await _finish(_state == 'calling' ? 'cancelled' : reason);
   }
 
+  /// The call a [_finish] is tearing down right now. A peer hanging up
+  /// sends its end and then closes the link, and that close lands while
+  /// the first finish is still awaiting. A second finish would find the
+  /// call already ended, read that as not busy and clear it to idle,
+  /// skipping the call length screen (discussion #729).
+  IntercomCall? _finishing;
+
   Future<void> _finish(String reason, {bool notify = true}) async {
     final c = _call;
+    if (c != null && identical(_finishing, c)) return;
+    _finishing = c;
+    try {
+      await _finishCall(c, reason, notify: notify);
+    } finally {
+      if (identical(_finishing, c)) _finishing = null;
+    }
+  }
+
+  Future<void> _finishCall(
+    IntercomCall? c,
+    String reason, {
+    required bool notify,
+  }) async {
     _cancelTimers();
     _connectTimer?.cancel();
     _injectTimer?.cancel();

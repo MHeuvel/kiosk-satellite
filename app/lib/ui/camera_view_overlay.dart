@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart' show ValueListenable;
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
@@ -55,10 +56,14 @@ class ClosingCameraPlayer extends StatefulWidget {
     this.interactive = true,
     this.onDismiss,
     this.onPlaying,
+    this.paused,
   });
 
   final AppContainer container;
   final CameraViewConfig? view;
+
+  /// While true the page is paused; see [CameraPlayer.paused].
+  final ValueListenable<bool>? paused;
   final bool interactive;
   final VoidCallback? onDismiss;
 
@@ -226,6 +231,7 @@ class _ClosingCameraPlayerState extends State<ClosingCameraPlayer>
             onDismiss: widget.onDismiss,
             onPlaying: widget.onPlaying,
             closing: _closing,
+            paused: widget.paused,
           ),
         ),
       ),
@@ -248,6 +254,7 @@ class CameraPlayer extends StatefulWidget {
     this.onDismiss,
     this.onPlaying,
     this.closing = false,
+    this.paused,
   });
 
   final AppContainer container;
@@ -266,6 +273,11 @@ class CameraPlayer extends StatefulWidget {
   /// The view is on its way out: stop the streams now, while this widget is
   /// still mounted and its channel still delivers. See [ClosingCameraPlayer].
   final bool closing;
+
+  /// While true the page is paused (its own onPause, which stops its
+  /// rendering and video): the camera screensaver under the native voice
+  /// overlay, which shows a still of it.
+  final ValueListenable<bool>? paused;
 
   @override
   State<CameraPlayer> createState() => _CameraPlayerState();
@@ -294,6 +306,14 @@ class _CameraPlayerState extends State<CameraPlayer> {
     if (widget.interactive) {
       widget.container.camera.focusedCameraId.addListener(_syncFocus);
     }
+    widget.paused?.addListener(_syncPaused);
+  }
+
+  void _syncPaused() {
+    final controller = _controller;
+    if (controller == null || _tornDown) return;
+    final paused = widget.paused?.value ?? false;
+    unawaited(paused ? controller.pause() : controller.resume());
   }
 
   @override
@@ -360,6 +380,7 @@ class _CameraPlayerState extends State<CameraPlayer> {
     if (widget.interactive) {
       widget.container.camera.focusedCameraId.removeListener(_syncFocus);
     }
+    widget.paused?.removeListener(_syncPaused);
     _teardown();
     super.dispose();
   }
@@ -495,6 +516,7 @@ class _CameraPlayerState extends State<CameraPlayer> {
     ),
     onWebViewCreated: (controller) {
       _controller = controller;
+      if (widget.paused?.value ?? false) unawaited(controller.pause());
       // This player is the camera surface: Home Assistant's trickled ICE
       // candidates (issue #124) land on the manager and are pushed into
       // the page's matching peer connection from here.

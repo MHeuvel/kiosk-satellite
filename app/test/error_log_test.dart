@@ -6,6 +6,7 @@ import 'package:kiosk_satellite/core/logging.dart';
 /// Framework errors land in the app log, deduplicated and capped.
 void main() {
   missingWebViewTests();
+  brokenWebViewTests();
   test('a framework error is logged once per distinct message, capped', () {
     final log = Logger();
     final before = FlutterError.onError;
@@ -66,4 +67,39 @@ void missingWebViewTests() {
       FlutterError.onError = before;
     }
   });
+}
+
+/// A provider that is installed but cannot start surfaces as Android's
+/// runtime exception around an invocation failure; it goes to its own hook.
+void brokenWebViewTests() {
+  test(
+    'an InvocationTargetException from the provider fires the broken hook',
+    () {
+      final log = Logger();
+      final before = FlutterError.onError;
+      var missing = 0;
+      var broken = 0;
+      try {
+        FlutterError.onError = (_) {};
+        installErrorLog(
+          log,
+          onMissingWebView: () => missing++,
+          onBrokenWebView: () => broken++,
+        );
+        FlutterError.reportError(
+          FlutterErrorDetails(
+            exception: StateError(
+              'PlatformException(error, java.lang.reflect.InvocationTargetException, '
+              'null, android.util.AndroidRuntimeException: '
+              'java.lang.reflect.InvocationTargetException ...)',
+            ),
+          ),
+        );
+        expect(broken, 1);
+        expect(missing, 0);
+      } finally {
+        FlutterError.onError = before;
+      }
+    },
+  );
 }

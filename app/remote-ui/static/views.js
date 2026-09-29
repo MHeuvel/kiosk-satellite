@@ -1,5 +1,5 @@
 import { haText, t } from './localization.js';
-import { api } from './core.js';
+import { api, cmd } from './core.js';
 import { readOnlyRow } from './device.js';
 import { copyText, messageBox, modalShell } from './widgets.js';
 
@@ -32,6 +32,53 @@ export function pickView(urlPath, views, currentRoute) {
       const route = String(v.route);
       body.appendChild(radioRow(v.title || route, viewPath(urlPath, route),
         route === currentRoute, () => { back.remove(); resolve(route); }));
+    });
+    const cancel = document.createElement('button');
+    cancel.className = 'btn-text';
+    cancel.textContent = haText('Cancel');
+    cancel.addEventListener('click', () => { back.remove(); resolve(null); });
+    foot.appendChild(cancel);
+  });
+}
+
+// Every dashboard's views as { name: "Dashboard / View", value: path },
+// flattened like the rotation picker. Strategy dashboards expose no views,
+// so their root stands in as one entry. Empty when Home Assistant cannot
+// list its dashboards. The device builds the same list.
+export async function dashboardViewEntries() {
+  const entries = [];
+  const dashboards = await cmd('haListDashboards').catch(() => null);
+  if (!dashboards?.ok || !Array.isArray(dashboards.data)) return entries;
+  for (const d of dashboards.data) {
+    if (!d.url_path) continue;
+    const views = await fetchViews(d.url_path);
+    let added = false;
+    for (const v of views || []) {
+      if (!v.route) continue;
+      entries.push({
+        name: `${d.title || d.url_path} / ${v.title || v.route}`,
+        value: `${d.url_path}/${v.route}`,
+      });
+      added = true;
+    }
+    if (!added) entries.push({ name: d.title || d.url_path, value: d.url_path });
+  }
+  return entries;
+}
+
+// The dashboard view modal the Go to a dashboard view gesture and the Home
+// Assistant Dashboard screensaver share: radio rows titled "Dashboard /
+// View" over their navigation path, as the "Change view" modal lists them.
+// Resolves to the picked path, or null if cancelled.
+export function pickDashboardView(title, entries, current) {
+  return new Promise((resolve) => {
+    const { back, body, foot } = modalShell({
+      title,
+      onDismiss: () => { back.remove(); resolve(null); },
+    });
+    entries.forEach((e) => {
+      body.appendChild(radioRow(e.name, e.value, e.value === current,
+        () => { back.remove(); resolve(e.value); }));
     });
     const cancel = document.createElement('button');
     cancel.className = 'btn-text';

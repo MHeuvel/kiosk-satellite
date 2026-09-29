@@ -519,6 +519,8 @@ const screensaverTextMessageIds = <String, String>{
   "The color of the weather information.": "settingScreensaverWeatherBarColorDescription",
   "Background opacity": "settingScreensaverWeatherBarOpacityTitle",
   "Darken the bottom bar to keep weather information readable.": "settingScreensaverWeatherBarOpacityDescription",
+  "Show titles": "settingScreensaverWeatherBarTitlesTitle",
+  "Name each reading above its value. When off, values match the temperature size.": "settingScreensaverWeatherBarTitlesDescription",
   "Show humidity when the weather entity reports it.": "screensaverWeatherBarHumidityDescription",
   "Show wind speed when the weather entity reports it.": "screensaverWeatherBarWindDescription",
   "Show visibility when the weather entity reports it.": "screensaverWeatherBarVisibilityDescription",
@@ -526,5 +528,12 @@ const screensaverTextMessageIds = <String, String>{
   "Soften the animated weather scene while keeping the clock, weather bar and widgets sharp.": "settingScreensaverWeatherBlurDescription",
   "The Home Assistant weather entity that controls the animated scene. Day, dawn/dusk and night follow sun.sun, with local time as a fallback.": "settingScreensaverWeatherEntityDescription",
   "Choose the day, dawn/dusk or night version of the scene.": "settingScreensaverWeatherPreviewPeriodDescription",
-  "Dawn/Dusk": "screensaverWeatherPreviewTwilight"
+  "Dawn/Dusk": "screensaverWeatherPreviewTwilight",
+  "Dashboard view": "settingScreensaverDashboardViewTitle",
+  "The Home Assistant dashboard view the screensaver shows.": "settingScreensaverDashboardViewDescription",
+  "Home Assistant Dashboard": "screensaverModeDashboard",
+  "Select dashboard": "screensaverSelectDashboard",
+  "Could not list dashboards": "haListFailed",
+  "Is Home Assistant connected?": "gestureHaConnected",
+  "Home Assistant Dashboard screensaver": "screensaverDashboardSection"
 };

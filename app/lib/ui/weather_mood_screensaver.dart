@@ -401,11 +401,7 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
               revealed: _revealed,
               revealToken: _revealToken,
               onReady: _sceneFinished,
-              lowPower:
-                  widget.container.device.abis.isNotEmpty &&
-                  !widget.container.device.abis.any(
-                    (abi) => abi.contains('64'),
-                  ),
+              lowPower: weatherMoodLowPower(widget.container),
               onError: (error) => widget.container.log.warn(
                 'screensaver',
                 'Weather Mood renderer stopped: $error',

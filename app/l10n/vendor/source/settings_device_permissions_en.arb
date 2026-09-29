@@ -730,5 +730,57 @@
       ]
     },
     "x-notes": "Keep the ADB command exactly as written."
+  },
+  "deviceNotificationAccess": "Notification access",
+  "@deviceNotificationAccess": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceNotificationAccessHeld": "Now Playing can follow the apps playing on this device.",
+  "@deviceNotificationAccessHeld": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceNotificationAccessMissing": "Without this Android lists no media sessions, so Now Playing cannot follow the apps playing on this device.",
+  "@deviceNotificationAccessMissing": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
+  },
+  "deviceNotificationAccessIdle": "Lets Now Playing follow the apps playing on this device.",
+  "@deviceNotificationAccessIdle": {
+    "context": "Settings:Device:Permissions Manager",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Permissions Manager"
+      ],
+      "remoteAdmin": [
+        "Device > Permissions Manager"
+      ]
+    }
   }
 }

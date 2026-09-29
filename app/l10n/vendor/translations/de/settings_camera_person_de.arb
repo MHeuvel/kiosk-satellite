@@ -1,0 +1,7 @@
+{
+  "@@locale": "de",
+  "settingPersonSensorTitle": "Personensensor aktivieren",
+  "settingPersonSensorDescription": "Stellt den Personensensor des Geräts in Home Assistant als Anwesenheitssensor bereit. Erfordert die unten aufgeführte Berechtigung „Zugriff auf Protokolle“.",
+  "cameraPersonPage": "Personensensor",
+  "cameraPersonHint": "Home-Assistant-Anwesenheitssensor auf Basis des Personensensors des Geräts"
+}

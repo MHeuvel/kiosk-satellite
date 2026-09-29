@@ -117,12 +117,13 @@ class FrameWatchdog {
         _stoodDown = true;
         _container.log.warn(
           'watchdog',
-          'no WebView provider is installed; standing down',
+          'the WebView cannot be created on this device; standing down',
         );
       }
       _clear();
       return;
     }
+    _stoodDown = false;
     bool resumed;
     try {
       resumed = await _channel.invokeMethod<bool>('isActivityResumed') ?? false;

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -105,12 +106,17 @@ class MdiIcon extends StatefulWidget {
     required this.size,
     required this.color,
     required this.fallback,
+    this.shadows = const [],
     super.key,
   });
 
   final String name;
   final double size;
   final Color color;
+
+  /// Drawn as blurred copies under the glyph, since an SVG has no shadow of
+  /// its own.
+  final List<Shadow> shadows;
 
   /// What to draw instead: an unknown name must still leave something in
   /// the circle, and the kind icon is the honest answer.
@@ -153,14 +159,36 @@ class _MdiIconState extends State<MdiIcon> {
   Widget build(BuildContext context) {
     final path = _path;
     if (!_looked || path == null) {
-      return Icon(widget.fallback, size: widget.size, color: widget.color);
+      return Icon(
+        widget.fallback,
+        size: widget.size,
+        color: widget.color,
+        shadows: widget.shadows,
+      );
     }
-    return SvgPicture.string(
+    Widget glyph(Color color) => SvgPicture.string(
       '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">'
       '<path d="$path"/></svg>',
       width: widget.size,
       height: widget.size,
-      colorFilter: ColorFilter.mode(widget.color, BlendMode.srcIn),
+      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+    );
+    if (widget.shadows.isEmpty) return glyph(widget.color);
+    return Stack(
+      children: [
+        for (final shadow in widget.shadows)
+          Transform.translate(
+            offset: shadow.offset,
+            child: ImageFiltered(
+              imageFilter: ui.ImageFilter.blur(
+                sigmaX: shadow.blurSigma,
+                sigmaY: shadow.blurSigma,
+              ),
+              child: glyph(shadow.color),
+            ),
+          ),
+        glyph(widget.color),
+      ],
     );
   }
 }

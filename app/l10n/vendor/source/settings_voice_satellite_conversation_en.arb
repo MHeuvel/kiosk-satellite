@@ -1,0 +1,73 @@
+{
+  "@@locale": "en",
+  "settingVoiceShowCommandTitle": "Show what you said",
+  "@settingVoiceShowCommandTitle": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceShowCommandDescription": "Your command above the answer.",
+  "@settingVoiceShowCommandDescription": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceShowAnswerTitle": "Show the answer",
+  "@settingVoiceShowAnswerTitle": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceShowAnswerDescription": "The answer as it is spoken.",
+  "@settingVoiceShowAnswerDescription": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceShowToolsTitle": "Show tool use",
+  "@settingVoiceShowToolsTitle": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceShowToolsDescription": "A line for each action the assistant takes.",
+  "@settingVoiceShowToolsDescription": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceHideSentimentTagsTitle": "Hide sentiment tags",
+  "@settingVoiceHideSentimentTagsTitle": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceHideSentimentTagsDescription": "Leave out tags like [happy] that some assistants add.",
+  "@settingVoiceHideSentimentTagsDescription": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceAnswerLingerTitle": "Keep the answer on screen",
+  "@settingVoiceAnswerLingerTitle": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceAnswerLingerDescription": "After the answer is spoken.",
+  "@settingVoiceAnswerLingerDescription": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceResultsLingerTitle": "Keep results on screen",
+  "@settingVoiceResultsLingerTitle": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceResultsLingerDescription": "Images, weather and other results. 0 keeps them until you dismiss them.",
+  "@settingVoiceResultsLingerDescription": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceAnnouncementLingerTitle": "Announcement time",
+  "@settingVoiceAnnouncementLingerTitle": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceAnnouncementLingerDescription": "After an announcement is spoken.",
+  "@settingVoiceAnnouncementLingerDescription": {
+    "context": "Settings > Voice Satellite > Conversation",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  }
+}

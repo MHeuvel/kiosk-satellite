@@ -17,6 +17,7 @@ internal object ShizukuPermissionPlan {
             "writeSettings" -> appop("WRITE_SETTINGS")
             "allFiles" -> if (sdk >= 30) appop("MANAGE_EXTERNAL_STORAGE") else grant("READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE")
             "usageAccess" -> appop("GET_USAGE_STATS")
+            "notificationAccess" -> listOf(arrayOf("/system/bin/cmd", "notification", "allow_listener", "$packageName/.MediaSessionListener"))
             "deviceAdmin" -> listOf(arrayOf("/system/bin/dpm", "set-active-admin", "$packageName/.KioskAdminReceiver"))
             "uiGuard" -> listOf(arrayOf("/system/bin/settings", "get", "secure", "enabled_accessibility_services"))
             else -> throw IllegalArgumentException("Unsupported Shizuku permission action")

@@ -348,7 +348,9 @@ export async function renderVsControls(root, { auto = false } = {}) {
   const appearancePanel = panel('Appearance');
   if (appearancePanel) appearancePanel.appendChild(appearanceWrap);
   else root.appendChild(appearanceWrap);
-  root.prepend(generalWrap);
+  // Under the migration notice while the dashboard still runs the engine.
+  const notice = root.querySelector(':scope > .vs-migrate-notice');
+  if (notice) notice.after(generalWrap); else root.prepend(generalWrap);
 }
 
 // External changes (the HA UI, the Voice Satellite panel, a voice command)

@@ -22,8 +22,8 @@ import { clearSearchReturnTab, searchReturnTab } from './search.js';
 // tab lives in the URL, so a reload keeps you where you were, Back goes back,
 // and #settings can be bookmarked or handed to someone. Everything is served
 // from one root, so without this a reload always dumped you on the dashboard.
-export const TABS = ['dashboard', 'homeassistant', 'voicesatellite', 'browser', 'kiosk', 'lockdown', 'home', 'launcher', 'screenaudio', 'screensaver',
-  'camera', 'sendspin', 'cameras', 'dlna', 'intercom', 'esphome', 'files', 'gestures', 'device', 'fleet', 'plugins', 'about', 'logs'];
+export const TABS = ['dashboard', 'homeassistant', 'esphome', 'voicesatellite', 'browser', 'kiosk', 'lockdown', 'home', 'launcher', 'screenaudio', 'screensaver',
+  'camera', 'sendspin', 'cameras', 'dlna', 'intercom', 'files', 'gestures', 'device', 'fleet', 'plugins', 'about', 'logs'];
 // Old bookmarks from before the tabs were consolidated keep landing
 // somewhere sensible.
 export const LEGACY_TABS = { screen: 'screenaudio', audio: 'screenaudio', remote: 'device', console: 'logs', btproxy: 'esphome', mqtt: 'esphome' };
@@ -31,7 +31,7 @@ export const TAB_TITLES = {
   dashboard: 'Overview', browser: 'Web Browsing',
   kiosk: 'Kiosk Mode', lockdown: 'Lockdown Mode', launcher: 'App Launcher', home: 'Home Launcher', screenaudio: 'Screen & Audio', screensaver: 'Screensaver',
   camera: 'Camera',
-  homeassistant: 'Home Assistant Setup',
+  homeassistant: 'Home Assistant',
   voicesatellite: 'Voice Satellite',
   cameras: 'Camera Streams',
   sendspin: 'Media Player',

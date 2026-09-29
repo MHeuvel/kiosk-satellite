@@ -12,5 +12,14 @@
   "setupNativeWakeWord": "Detección nativa de palabras de activación",
   "setupPullRefresh": "Deslizar hacia abajo para actualizar",
   "setupAutoplay": "Reproducir audio y video automáticamente",
-  "setupVoiceSkipped": "No instalado, omitido"
+  "setupVoiceSkipped": "No instalado, omitido",
+  "setupVoiceLead": "Convierte este kiosko en un asistente de voz para Home Assistant. Todo se puede cambiar después.",
+  "setupVoiceAddHint": "Después de la configuración, añade este kiosko en Home Assistant en Ajustes, Dispositivos y servicios, donde aparece como descubierto.",
+  "setupRecommendedWall": "Los ajustes adecuados para un kiosko en la pared.",
+  "setupVoiceFound": "Se encontró la integración Voice Satellite",
+  "setupVoiceFoundHelp": "Voice Satellite ahora funciona dentro de Kiosk Satellite. Migra para conservar las palabras de activación, el asistente y el aspecto de uno de los satélites de la integración en lugar de empezar de cero.",
+  "setupVoiceMigrated": "Migrado desde la integración Voice Satellite",
+  "setupVoiceMigratedHelp": "Este kiosko adopta los ajustes de su satélite.",
+  "setupVoicePipelineHelp": "El canal de Assist que responde a la palabra de activación.",
+  "setupVoiceEngineHelp": "El motor que escucha la palabra de activación."
 }

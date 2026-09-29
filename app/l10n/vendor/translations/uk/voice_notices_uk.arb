@@ -1,0 +1,21 @@
+{
+  "@@locale": "uk",
+  "voiceNoticeError": "Помилка Voice Satellite",
+  "voiceNoticeWarning": "Попередження Voice Satellite",
+  "voiceNoticeNotice": "Повідомлення Voice Satellite",
+  "voiceNoticeTts": "Синтез мовлення",
+  "voiceNoticeAssistPipeline": "Голосовий конвеєр",
+  "voiceNoticePipeline": "Конвеєр «{name}»",
+  "voiceNoticeMicUnavailable": "Мікрофон недоступний.",
+  "voiceNoticeNotConnected": "Home Assistant не підключено до цього кіоску.",
+  "voiceNoticeConnectionLost": "Втрачено з’єднання з Home Assistant. Автоматичне повторне підключення.",
+  "voiceNoticePlayback": "Не вдалося відтворити аудіо на пристрої.",
+  "voiceNoticeWatchdog": "Home Assistant не відповів після того, як ви закінчили говорити. Можливо, конвеєр завис.",
+  "voiceNoticeRefused": "Home Assistant не вдалося запустити асистента.",
+  "voiceNoticeUnexpected": "У конвеєрі сталася неочікувана помилка.",
+  "voiceNoticeMicBlocked": "Доступ до мікрофона заблоковано. Дозвольте його для Kiosk Satellite у налаштуваннях Android.",
+  "voiceNoticeMicDeclined": "Доступ до мікрофона відхилено, тому слово активації не може бути почуте.",
+  "voiceNoticeMicLost": "Мікрофон перестав працювати.",
+  "voiceNoticeModels": "Не вдалося завантажити моделі слова активації.",
+  "voiceNoticeCrashed": "Детектор слова активації постійно аварійно завершувався на цьому пристрої, тому його зупинено."
+}

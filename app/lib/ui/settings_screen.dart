@@ -32,10 +32,13 @@ import '../managers/device/wifi_mac.dart'
     show WifiMacIdentity, WifiMacSource, wifiMacIdentity;
 import '../managers/settings/definitions.dart';
 import '../managers/person/person_sensor_manager.dart' show LogAccess;
+import '../managers/sendspin/session_player.dart' show SessionPlayer;
+import '../managers/sendspin/sendspin_manager.dart' show SendspinManager;
 import '../managers/service/service_manager.dart'
     show batteryAdbHint, overlayAdbHint;
 import '../managers/settings/export_filename.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'brightness_curve_editor.dart';
 
 import '../core/permissions.dart';
 import '../managers/wake_word/background_listening.dart';
@@ -51,19 +54,23 @@ import 'camera_settings.dart';
 import 'tls_settings.dart';
 import 'fleet_settings.dart';
 import 'camera_views_picker.dart';
+import 'dashboard_view_picker.dart';
 import 'import_options_dialog.dart';
 import 'intercom_settings.dart';
+import 'custom_wake_models.dart';
 import 'kit.dart';
 import 'time_picker.dart';
 import 'media_picker.dart';
 import 'theme.dart';
 import 'toast.dart';
+import 'voice_settings.dart';
 import 'mic_level_meter.dart';
 import 'settings_search.dart';
 import 'subpage_icons.dart';
 import 'shizuku_settings.dart';
 import '../managers/wake_word/permission_descriptions.dart';
 import 'wake_word_tester.dart';
+import 'wake_activations.dart';
 import 'update_helper_settings.dart';
 import 'plugin_settings.dart';
 import 'package:kiosk_satellite/core/lifecycle.dart';
@@ -199,16 +206,11 @@ const _updateDocsUrl =
 const _categories = <(String, String, Object, String)>[
   (
     'Home Assistant',
-    'Home Assistant Setup',
+    'Home Assistant',
     'assets/svg/home-assistant.svg',
     'Connection, dashboard, kiosk mode',
   ),
-  (
-    'Voice Satellite',
-    'Voice Satellite',
-    Icons.graphic_eq_outlined,
-    'Wake word, background listening',
-  ),
+  // ESPHome first: native Voice Satellite runs on its device.
   (
     'ESPHome',
     'ESPHome',
@@ -216,6 +218,12 @@ const _categories = <(String, String, Object, String)>[
     // ESPHome mark, not a Material glyph.
     'assets/svg/esphome.svg',
     'Native entities and Bluetooth proxy',
+  ),
+  (
+    'Voice Satellite',
+    'Voice Satellite',
+    Icons.graphic_eq_outlined,
+    'Wake word, background listening',
   ),
   (
     'Screen & Audio',
@@ -470,6 +478,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         intercomTextFor: (text) => intercomText(context, text),
         mediaTextFor: (text) => mediaText(context, text),
         cameraStreamsTextFor: (text) => cameraStreamsText(context, text),
+        cameraTextFor: (text) => cameraText(context, text),
         titleFor: (def) => def.localizedTitle(context),
         descriptionFor: (def) => def.localizedDescription(context),
       );
@@ -478,7 +487,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   List<SettingsSearchEntry> get _searchIndex => [
-    ..._staticSearchIndex,
+    for (final entry in _staticSearchIndex)
+      if (matchesVoiceRuntime(
+        entry,
+        native: widget.container.voice.nativeRuntime,
+      ))
+        entry,
     ...pluginSettingsSearchEntries(
       widget.container.plugins.installed.value,
       textFor: (text) => pluginText(context, text),
@@ -1411,7 +1425,8 @@ class SubpageSettingsScreen extends StatelessWidget {
                         category == 'Device' ||
                         category == 'Home Assistant' ||
                         category == 'Screen & Audio' ||
-                        category == 'Screensaver')
+                        category == 'Screensaver' ||
+                        category == 'Camera')
                     ? _subpageDisplayTitle(
                         context,
                         container,
@@ -1558,6 +1573,11 @@ class _CategoryContentState extends State<_CategoryContent> {
     }
     if (widget.category == 'Camera') {
       unawaited(widget.container.deviceCamera.refreshStreamResolutions());
+      // The Person Sensor page is hidden where the device has no person
+      // sensor of its own (issue #734).
+      widget.container.personSensor.sensorSupport().then((_) {
+        if (mounted) setState(() {});
+      });
     }
     // The face rows read the vision runtime's answer the same way
     // (issue #331: Android 7 cannot load it).
@@ -2411,6 +2431,19 @@ class _CategoryContentState extends State<_CategoryContent> {
             ),
           ),
         ],
+        // Local Media Session's one grant, only while it is the pick:
+        // Android lists other apps' sessions to no one without it.
+        // Mirrored on the remote (panels.js, updateSessionPermissions).
+        if (widget.category == 'Sendspin' &&
+            _localSessionPicked(container)) ...[
+          SectionHeading(mediaText(context, 'Required system permissions')),
+          SearchLandingTarget(
+            id: 'x:media_session_permissions',
+            child: SettingsCard(
+              children: [_MediaSessionPermissionsTile(container: container)],
+            ),
+          ),
+        ],
         if (widget.category == 'Device') ...[
           UpdateHelperSettings(
             container: container,
@@ -2698,7 +2731,9 @@ class _CategoryContentState extends State<_CategoryContent> {
   Widget _vsDetectionCard(AppContainer container) => SettingsCard(
     children: [
       for (final def in _defsFor('Voice Satellite'))
-        if (def.subpage == 'Wake Word' && container.settings.visible(def))
+        if (def.subpage == 'Wake Word' &&
+            !def.key.startsWith('voice.') &&
+            container.settings.visible(def))
           SettingTile(
             container: container,
             def: def,
@@ -2725,6 +2760,16 @@ class _CategoryContentState extends State<_CategoryContent> {
           onChanged: () {
             if (mounted) setState(() {});
           },
+        ),
+      ),
+    // Voice Satellite's TTS output: this kiosk or a Home Assistant media
+    // player, from the live list, in the place of the text field.
+    if (widget.category == 'Voice Satellite')
+      voiceTtsOutput.key: SearchLandingTarget(
+        id: voiceTtsOutput.key,
+        child: _TtsOutputRow(
+          container: container,
+          onChanged: () => setState(() {}),
         ),
       ),
     // The player pick (issue #265): a grouped picker fed by the live
@@ -2965,6 +3010,9 @@ class _CategoryContentState extends State<_CategoryContent> {
       screensaverDismissOnPerson.key: _PersonSensorStatusRow(
         container: container,
       ),
+    // The same reading under the Person Sensor switch (issue #734).
+    if (widget.category == 'Camera' && !container.personSensor.knownUnsupported)
+      personSensorEnabled.key: _PersonSensorStatusRow(container: container),
     // The sensor's reading, live, under the switch: the curve's two light
     // levels are typed against it, and what a sensor calls a lit room is
     // anyone's guess until it is on screen. Mirrored on the remote
@@ -3074,10 +3122,13 @@ class _CategoryContentState extends State<_CategoryContent> {
     // holds it: its own player is gone from Music Assistant and the rows
     // about it are gone from this page.
     if (widget.category == 'Sendspin' &&
-        container.settings.get(sendspinPlayerSource).isNotEmpty)
+        (container.settings.get(sendspinPlayerSource).isNotEmpty ||
+            _localSessionPicked(container)))
       sendspinPlayer.key: WarnRow(
         l10n(context).mediaLocalOffline(
-          container.settings.get(sendspinPlayerName).trim().isEmpty
+          _localSessionPicked(container)
+              ? mediaText(context, SendspinManager.localSessionName)
+              : container.settings.get(sendspinPlayerName).trim().isEmpty
               ? l10n(context).mediaAnotherPlayer
               : container.settings.get(sendspinPlayerName).trim(),
         ),
@@ -3284,6 +3335,26 @@ class _CategoryContentState extends State<_CategoryContent> {
       ];
     }
 
+    if (widget.category == 'Camera' && subpage == 'Person Sensor') {
+      // The device's own person sensor as a Home Assistant occupancy
+      // sensor (issue #734): the switch with the live Occupancy row, then
+      // the Log access grant, as on the Person Detection page. Mirrored on
+      // the remote (settings.js, updatePersonSensorRows).
+      return [
+        ...sectioned([
+          for (final def in _defsFor(widget.category))
+            if (def.subpage == subpage) def,
+        ]),
+        SectionHeading(cameraText(context, 'Required system permissions')),
+        SearchLandingTarget(
+          id: 'x:person_sensor_log_access',
+          child: SettingsCard(
+            children: [_PersonSensorLogAccessTile(container: container)],
+          ),
+        ),
+      ];
+    }
+
     if (widget.category == 'Screensaver' && subpage == 'Person Detection') {
       // The device's own person sensor (discussion #353, today the Meta
       // Portal's): the two switches with the live Occupancy row, then the
@@ -3472,12 +3543,30 @@ class _CategoryContentState extends State<_CategoryContent> {
       ];
     }
 
+    // The curve's four settings draw as one editor (issue #742), in the
+    // place of the first of them; the search lands on it for any of the
+    // four. Mirrored on the remote (brightness_curve.js).
     if (widget.category == 'Screen & Audio' &&
         subpage == 'Adaptive brightness') {
-      return sectioned([
-        for (final def in _defsFor(widget.category))
-          if (def.subpage == subpage) def,
-      ]);
+      const folded = {
+        'screen.adaptive_max_brightness',
+        'screen.adaptive_dark_lux',
+        'screen.adaptive_bright_lux',
+      };
+      Widget editor = BrightnessCurveEditor(container: container);
+      for (final key in [adaptiveMinBrightness.key, ...folded]) {
+        editor = SearchLandingTarget(id: key, child: editor);
+      }
+      return sectioned(
+        [
+          for (final def in _defsFor(widget.category))
+            if (def.subpage == subpage && !folded.contains(def.key)) def,
+        ],
+        replace: {
+          ..._rowReplacements(container),
+          adaptiveMinBrightness.key: editor,
+        },
+      );
     }
 
     if (widget.category == 'Screen & Audio') {
@@ -3497,17 +3586,123 @@ class _CategoryContentState extends State<_CategoryContent> {
                 child: MicChannelTile(container: container),
               ),
             // Live capture level under the gain it verifies. Only with
-            // detection on: it reads the engine's telemetry, and with
-            // detection off this app never opens the microphone.
-            if (container.settings.get(wakeWordEnabled))
-              MicLevelTile(container: container),
+            // detection on: it opens the microphone when no engine holds
+            // it, and with detection off this app never opens it.
+            if (container.settings.get(wakeWordEnabled)) const MicLevelTile(),
           ],
         ),
       ];
     }
 
+    // The switch, then what it recorded while on: activations, near misses.
+    if (widget.category == 'Voice Satellite' &&
+        subpage == 'Wake word diagnostics') {
+      return [
+        SettingsCard(
+          children: [
+            SettingTile(
+              container: container,
+              def: wakeWordDiagnostics,
+              onChanged: changed,
+            ),
+          ],
+        ),
+        if (container.settings.get(wakeWordDiagnostics))
+          WakeDiagnosticsLists(container: container),
+      ];
+    }
+
+    if (widget.category == 'Voice Satellite' && container.voice.nativeRuntime) {
+      final pageDefs = [
+        for (final def in _defsFor(widget.category))
+          if (def.subpage == subpage) def,
+      ];
+      switch (subpage) {
+        case 'Assistant':
+          return [
+            SectionHeading(voiceText(context, 'Pipelines')),
+            SearchLandingTarget(
+              id: 'x:vs_pipelines',
+              child: SettingsCard(
+                children: [
+                  VoiceHaSelects(container: container, rows: voicePipelineRows),
+                ],
+              ),
+            ),
+            ...sectioned(pageDefs),
+          ];
+        case 'Wake Word':
+          final native = [
+            voiceWakeWordEngine,
+            voiceWakeWordSensitivity,
+            voiceNoiseGate,
+            voiceStopWord,
+          ];
+          return [
+            SearchLandingTarget(
+              id: 'x:vs_wake',
+              child: SettingsCard(
+                children: [
+                  SettingTile(
+                    container: container,
+                    def: voiceWakeWordEngine,
+                    onChanged: changed,
+                  ),
+                  VoiceHaSelects(container: container, rows: voiceWakeWordRows),
+                  for (final def in native.skip(1))
+                    SettingTile(
+                      container: container,
+                      def: def,
+                      onChanged: changed,
+                    ),
+                ],
+              ),
+            ),
+            _vsDetectionCard(container),
+            CustomWakeModelsGroup(container: container),
+          ];
+        case 'Appearance':
+          return sectioned(
+            pageDefs,
+            replace: {
+              ..._rowReplacements(container),
+              voiceSkin.key: VoiceSkinRow(
+                container: container,
+                onChanged: changed,
+              ),
+              voiceBackgroundOpacity.key: VoiceBackgroundRow(
+                container: container,
+                onChanged: changed,
+              ),
+            },
+            after: {
+              ..._rowExtras(container),
+              voiceReactiveBar.key: VoicePreviewRow(container: container),
+            },
+          );
+        case 'Chimes':
+          return [
+            ...sectioned([voiceWakeSound]),
+            ...sectioned(voiceChimeSettings.values.toList()),
+          ];
+        case 'Wake word diagnostics':
+          break;
+        default:
+          return sectioned(pageDefs);
+      }
+    }
+
     if (widget.category == 'Voice Satellite' && subpage == 'Chimes') {
       return [...sectioned(voiceChimeSettings.values.toList())];
+    }
+
+    // The dashboard runtime's Timers page holds only what the kiosk draws
+    // itself: the pills.
+    if (widget.category == 'Voice Satellite' && subpage == 'Timers') {
+      return sectioned([
+        for (final def in _defsFor(widget.category))
+          if (def.subpage == subpage) def,
+      ]);
     }
 
     // Voice Satellite's two pages are almost entirely live rows from the
@@ -3611,6 +3806,11 @@ class _CategoryContentState extends State<_CategoryContent> {
         : l10n(context).haReturnPath(path);
   }
 
+  /// For the native Voice Satellite page (an extension of this state).
+  void _rebuild() {
+    if (mounted) setState(() {});
+  }
+
   /// The Voice Satellite page: gated on the proven HA connection like the
   /// rest of the HA-derived configuration, then on the integration actually
   /// being installed.
@@ -3632,6 +3832,7 @@ class _CategoryContentState extends State<_CategoryContent> {
         ),
       ];
     }
+    if (container.voice.nativeRuntime) return _nativeVsContent(container);
     return [
       FutureBuilder<bool>(
         future: _vsDetected,
@@ -3770,6 +3971,8 @@ class _CategoryContentState extends State<_CategoryContent> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              // Still on the integration's engine: the way to native.
+              VoiceMigrationNotice(container: container),
               VsControlsSection(
                 container: container,
                 // An important switch lives with the important rows: pulled
@@ -3798,7 +4001,17 @@ class _CategoryContentState extends State<_CategoryContent> {
                 SearchLandingTarget(
                   id: 'x:wake_word_tester',
                   child: SettingsCard(
-                    children: [WakeWordTesterTile(container: container)],
+                    children: [
+                      WakeWordTesterTile(container: container),
+                      // Diagnostics answers the same question after the
+                      // fact, so its page opens from the tester's group.
+                      if (container.settings.visible(wakeWordDiagnostics))
+                        _SubpageEntryTile(
+                          container: container,
+                          category: 'Voice Satellite',
+                          subpage: 'Wake word diagnostics',
+                        ),
+                    ],
                   ),
                 ),
               ],
@@ -3821,6 +4034,80 @@ class _CategoryContentState extends State<_CategoryContent> {
             ],
           );
         },
+      ),
+    ];
+  }
+}
+
+extension on _CategoryContentState {
+  /// Native Voice Satellite's page: the switch and status, the pages, the
+  /// tester and the permissions, and the way back to the integration while
+  /// it is still installed.
+  List<Widget> _nativeVsContent(AppContainer container) {
+    final settings = container.settings;
+    final enabled = settings.get(voiceEnabled);
+    void changed() => _rebuild();
+    SettingTile tile(SettingDef<Object> def) =>
+        SettingTile(container: container, def: def, onChanged: changed);
+    return [
+      SearchLandingTarget(
+        id: 'x:vs_status',
+        child: VoiceStatusCard(
+          container: container,
+          rows: [
+            tile(voiceEnabled),
+            if (enabled) ...[
+              tile(voiceMute),
+              for (final def in [
+                wakeWordBackground,
+                wakeWordReturnToBackground,
+              ])
+                if (settings.visible(def)) tile(def),
+            ],
+          ],
+        ),
+      ),
+      if (enabled) ...[
+        for (final page in const [
+          'Assistant',
+          'Wake Word',
+          'Appearance',
+          'Conversation',
+          'Timers',
+          'Chimes',
+        ])
+          _subpageEntryCard(container, 'Voice Satellite', page),
+        SectionHeading(voiceText(context, 'Wake Word Tester')),
+        SearchLandingTarget(
+          id: 'x:wake_word_tester',
+          child: SettingsCard(
+            children: [
+              WakeWordTesterTile(container: container),
+              if (settings.visible(wakeWordDiagnostics))
+                _SubpageEntryTile(
+                  container: container,
+                  category: 'Voice Satellite',
+                  subpage: 'Wake word diagnostics',
+                ),
+            ],
+          ),
+        ),
+        SectionHeading(voiceText(context, 'Required system permissions')),
+        SearchLandingTarget(
+          id: 'x:vs_permissions',
+          child: SettingsCard(
+            children: [SystemPermissionsTile(container: container)],
+          ),
+        ),
+      ],
+      FutureBuilder<bool>(
+        future: _vsDetected,
+        builder: (context, snapshot) => snapshot.data == true
+            ? SearchLandingTarget(
+                id: 'x:vs_rollback',
+                child: VoiceRollbackCard(container: container),
+              )
+            : const SizedBox.shrink(),
       ),
     ];
   }
@@ -4253,6 +4540,89 @@ class _LauncherPermissionsTileState extends State<_LauncherPermissionsTile>
           onGrant: BackgroundListening.requestBatteryUnrestricted,
         ),
       ]),
+    );
+  }
+}
+
+/// The Local Media Session player's Required system permissions group:
+/// the Notification access grant, in the Launcher group's shape.
+class _MediaSessionPermissionsTile extends StatefulWidget {
+  const _MediaSessionPermissionsTile({required this.container});
+
+  final AppContainer container;
+
+  @override
+  State<_MediaSessionPermissionsTile> createState() =>
+      _MediaSessionPermissionsTileState();
+}
+
+class _MediaSessionPermissionsTileState
+    extends State<_MediaSessionPermissionsTile>
+    with WidgetsBindingObserver {
+  bool? _granted;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _refresh();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  final _returned = ReturnWatch();
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // The grant is given on an OS screen that reports nothing back.
+    if (_returned.returned(state)) _refresh();
+  }
+
+  Future<void> _refresh() async {
+    final granted = await SessionPlayer.hasAccess();
+    if (!mounted) return;
+    setState(() => _granted = granted);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final granted = _granted;
+    return SettingsRow(
+      leading: Icon(
+        granted == true
+            ? Icons.check_circle_outline
+            : Icons.notifications_off_outlined,
+        color: granted == true ? null : theme.colorScheme.error,
+      ),
+      title: Text(mediaText(context, 'Notification access')),
+      subtitle: Text(
+        mediaText(
+          context,
+          granted == true
+              ? 'Now Playing can follow the apps playing on this device.'
+              : 'Without this Android lists no media sessions, so Now '
+                    'Playing cannot follow the apps playing on this device.',
+        ),
+      ),
+      trailing: granted == true
+          ? null
+          : TextButton(
+              onPressed: () async {
+                await widget.container.commands.execute(
+                  'requestOsPermissions',
+                  {
+                    'which': ['notificationAccess'],
+                  },
+                );
+                await _refresh();
+              },
+              child: Text(mediaText(context, 'Grant')),
+            ),
     );
   }
 }
@@ -6372,10 +6742,17 @@ class _MaValidateRowState extends State<_MaValidateRow> {
   );
 }
 
+/// Whether this device's Local Media Session is the pick: the surfaces
+/// follow whichever other app plays on the device (issue #722).
+bool _localSessionPicked(AppContainer container) =>
+    container.settings.get(sendspinPlayerSource).isEmpty &&
+    container.settings.get(sendspinPlayer) == SendspinManager.localSessionPick;
+
 /// Which player of the picked source the Now Playing surfaces follow
 /// (issue #265): a wall tablet showing and controlling the kitchen
 /// speakers instead of itself. The list is the source's, fetched when the
-/// row is tapped.
+/// row is tapped. This device offers its own two: the Sendspin player and
+/// the Local Media Session (issue #722).
 class _PlayerRow extends StatefulWidget {
   const _PlayerRow({required this.container, required this.onChanged});
 
@@ -6399,17 +6776,36 @@ class _PlayerRowState extends State<_PlayerRow> {
         container: container,
         source: source,
         current: current,
+        title: source.isEmpty ? sendspinPlayer.localizedTitle(ctx) : null,
+        players: source.isEmpty
+            ? [
+                {'id': '', 'name': mediaText(ctx, 'Sendspin Player')},
+                {
+                  'id': SendspinManager.localSessionPick,
+                  'name': mediaText(ctx, SendspinManager.localSessionName),
+                },
+              ]
+            : null,
       ),
     );
     if (result == null) return;
     await container.settings.set(sendspinPlayer, result[0]);
-    await container.settings.set(sendspinPlayerName, result[1]);
+    // Stored in English like every other name the pick keeps; the rows
+    // translate it on the way out.
+    await container.settings.set(
+      sendspinPlayerName,
+      result[0] == SendspinManager.localSessionPick
+          ? SendspinManager.localSessionName
+          : result[1],
+    );
     // The manager maintains this flag from the same inputs, but over the
     // async bus — write it here too so the pane rebuild below already
     // sees the rows it should.
     await container.settings.set(
       sendspinPlayerActive,
-      container.settings.get(sendspinEnabled) || source.isNotEmpty,
+      container.settings.get(sendspinEnabled) ||
+          source.isNotEmpty ||
+          result[0].isNotEmpty,
     );
     if (mounted) setState(() {});
     widget.onChanged();
@@ -6418,12 +6814,14 @@ class _PlayerRowState extends State<_PlayerRow> {
   @override
   Widget build(BuildContext context) {
     final settings = widget.container.settings;
-    // This device as the source: the one player there is, nothing to
-    // pick, so the box reads its name and stays put.
+    // This device as the source: its Sendspin player unless the Local
+    // Media Session is picked.
     final local = settings.get(sendspinPlayerSource).isEmpty;
     final name = settings.get(sendspinPlayerName).trim();
     final picked = local || settings.get(sendspinPlayer).trim().isNotEmpty;
-    final label = local
+    final label = _localSessionPicked(widget.container)
+        ? mediaText(context, SendspinManager.localSessionName)
+        : local
         ? mediaText(context, 'Sendspin Player')
         : picked && name.isNotEmpty
         ? name
@@ -6432,7 +6830,7 @@ class _PlayerRowState extends State<_PlayerRow> {
       title: Text(sendspinPlayer.localizedTitle(context)),
       subtitle: Text(sendspinPlayer.localizedDescription(context)),
       trailing: ControlBox(
-        onTap: local ? null : _pick,
+        onTap: _pick,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -6453,7 +6851,99 @@ class _PlayerRowState extends State<_PlayerRow> {
           ],
         ),
       ),
-      onTap: local ? null : _pick,
+      onTap: _pick,
+    );
+  }
+}
+
+/// Where Voice Satellite speaks its answers: this kiosk, or a Home
+/// Assistant media player picked from the live list.
+class _TtsOutputRow extends StatefulWidget {
+  const _TtsOutputRow({required this.container, required this.onChanged});
+
+  final AppContainer container;
+  final VoidCallback onChanged;
+
+  @override
+  State<_TtsOutputRow> createState() => _TtsOutputRowState();
+}
+
+class _TtsOutputRowState extends State<_TtsOutputRow> {
+  /// The picked player's name, looked up once: the setting keeps the id.
+  String? _name;
+
+  @override
+  void initState() {
+    super.initState();
+    unawaited(_lookUp());
+  }
+
+  Future<void> _lookUp() async {
+    final id = widget.container.settings.get(voiceTtsOutput);
+    if (id.isEmpty) return;
+    final result = await widget.container.commands.execute('mediaPlayers', {
+      'source': 'ha',
+    });
+    final data = result.data;
+    final list = data is Map ? data['players'] : null;
+    for (final p in (list as List? ?? const [])) {
+      if (p is Map && '${p['id']}' == 'ha:$id' && mounted) {
+        setState(() => _name = '${p['name']}');
+      }
+    }
+  }
+
+  Future<void> _pick() async {
+    final container = widget.container;
+    final result = await showDialog<List<String>>(
+      context: context,
+      builder: (ctx) => _PlayerPickerDialog(
+        container: container,
+        source: 'ha',
+        current: _listed(container.settings.get(voiceTtsOutput)),
+        title: voiceTtsOutput.localizedTitle(context),
+        noneLabel: voiceText(context, 'This kiosk'),
+      ),
+    );
+    if (result == null) return;
+    // The list's ids carry their source; the setting keeps the entity.
+    await container.settings.set(
+      voiceTtsOutput,
+      result[0].replaceFirst('ha:', ''),
+    );
+    if (mounted) setState(() => _name = result[1]);
+    widget.onChanged();
+  }
+
+  /// An entity as the player list names it.
+  static String _listed(String entity) => entity.isEmpty ? '' : 'ha:$entity';
+
+  @override
+  Widget build(BuildContext context) {
+    final id = widget.container.settings.get(voiceTtsOutput);
+    final label = id.isEmpty
+        ? voiceText(context, 'This kiosk')
+        : (_name?.isNotEmpty ?? false)
+        ? _name!
+        : id;
+    return SettingsRow(
+      title: Text(voiceTtsOutput.localizedTitle(context)),
+      subtitle: Text(voiceTtsOutput.localizedDescription(context)),
+      trailing: ControlBox(
+        onTap: _pick,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 200),
+              child: Text(label, overflow: TextOverflow.ellipsis),
+            ),
+            const SizedBox(width: 6),
+            const Icon(Icons.arrow_drop_down, size: 22),
+          ],
+        ),
+      ),
+      onTap: _pick,
     );
   }
 }
@@ -6466,11 +6956,24 @@ class _PlayerPickerDialog extends StatefulWidget {
     required this.container,
     required this.source,
     required this.current,
+    this.title,
+    this.noneLabel,
+    this.players,
   });
 
   final AppContainer container;
   final String source;
   final String current;
+
+  /// A fixed list in place of the source's live one: this device's own
+  /// players.
+  final List<Map<String, Object?>>? players;
+
+  /// The dialog's title, in place of the source's.
+  final String? title;
+
+  /// A first choice that picks no player (id ''), labelled this.
+  final String? noneLabel;
 
   @override
   State<_PlayerPickerDialog> createState() => _PlayerPickerDialogState();
@@ -6490,6 +6993,10 @@ class _PlayerPickerDialogState extends State<_PlayerPickerDialog> {
   @override
   void initState() {
     super.initState();
+    if (widget.players case final fixed?) {
+      _players = fixed;
+      return;
+    }
     widget.container.commands
         .execute('mediaPlayers', {'source': widget.source})
         .then((result) {
@@ -6554,6 +7061,11 @@ class _PlayerPickerDialogState extends State<_PlayerPickerDialog> {
                       onChanged: (v) => setState(() => _query = v.trim()),
                     ),
                   ),
+                if (widget.noneLabel != null)
+                  RadioListTile<String>(
+                    value: '',
+                    title: Text(widget.noneLabel!),
+                  ),
                 if (_note != null)
                   Padding(
                     padding: const EdgeInsets.fromLTRB(24, 8, 24, 12),
@@ -6579,7 +7091,9 @@ class _PlayerPickerDialogState extends State<_PlayerPickerDialog> {
             ),
           );
     return AlertDialog(
-      title: Text(mediaText(context, _titles[widget.source] ?? 'Player')),
+      title: Text(
+        widget.title ?? mediaText(context, _titles[widget.source] ?? 'Player'),
+      ),
       contentPadding: const EdgeInsets.fromLTRB(0, 12, 0, 8),
       content: SizedBox(width: 440, child: body),
     );
@@ -8907,6 +9421,20 @@ class _DevicePermissionsTileState extends State<_DevicePermissionsTile>
               'Kiosk Satellite.',
           onGrant: () => _requestVia('usageAccess'),
         ),
+        // The Local Media Session player reads other apps' sessions
+        // through it, so it counts as missing only while it is picked.
+        _row(
+          granted: perms?.notificationAccess,
+          needed: _localSessionPicked(widget.container),
+          missingIcon: Icons.notifications_off_outlined,
+          title: devicePermissionDescriptions['notificationAccess']!.title,
+          held: devicePermissionDescriptions['notificationAccess']!.description,
+          missing:
+              'Without this Android lists no media sessions, so Now '
+              'Playing cannot follow the apps playing on this device.',
+          idle: 'Lets Now Playing follow the apps playing on this device.',
+          onGrant: () => _requestVia('notificationAccess'),
+        ),
         // Pages ask for this themselves when they need it, and Bluetooth
         // scanning cannot run without it on any Android version: the scan
         // deliberately drops neverForLocation so beacon frames survive
@@ -9940,14 +10468,16 @@ class SettingTile extends StatelessWidget {
 
   AppContainer get c => container;
 
-  /// A select's options, filtered for context. The Home Assistant Media
-  /// screensaver only makes sense with Home Assistant connected, so its option
-  /// is hidden until a URL and token are set.
+  /// A select's options, filtered for context. The Home Assistant Media,
+  /// Weather Mood and Home Assistant Dashboard screensavers only make sense
+  /// with Home Assistant connected, so their options are hidden until a URL
+  /// and token are set.
   List<String> _optionsFor(SettingDef<Object> def) {
     final options = List<String>.from(c.settings.optionsFor(def));
     if (def.key == screensaverMode.key && !c.homeAssistant.configured) {
       options.remove('media');
       options.remove('weather_mood');
+      options.remove('dashboard');
     }
     return options;
   }
@@ -10287,6 +10817,23 @@ class SettingTile extends StatelessWidget {
         if (def.key == screensaverWeatherEntity.key) {
           return WeatherMoodEntityRow(container: c);
         }
+        // The Home Assistant Dashboard screensaver's view is picked from
+        // the instance's dashboards, the same modal the Go to a dashboard
+        // view gesture uses, never typed.
+        if (def.key == screensaverDashboardView.key) {
+          return ListTile(
+            title: Text(def.localizedTitle(context)),
+            subtitle: Text(
+              display,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            trailing: TextButton(
+              onPressed: () => _pickDashboardView(context),
+              child: Text(screensaverText(context, 'Select dashboard')),
+            ),
+          );
+        }
         // The screensaver's media is picked from Home Assistant, not typed.
         if (def.key == screensaverMediaId.key) {
           return ListTile(
@@ -10492,6 +11039,29 @@ class SettingTile extends StatelessWidget {
       screensaverGlanceEntities.key,
       jsonEncode(saved),
     );
+    onChanged();
+  }
+
+  Future<void> _pickDashboardView(BuildContext context) async {
+    final entries = await listDashboardViewEntries(c);
+    if (!context.mounted) return;
+    if (entries.isEmpty) {
+      showToast(
+        context,
+        title: screensaverText(context, 'Could not list dashboards'),
+        message: screensaverText(context, 'Is Home Assistant connected?'),
+        kind: ToastKind.error,
+      );
+      return;
+    }
+    final picked = await showDashboardViewPicker(
+      context,
+      title: screensaverText(context, 'Select dashboard'),
+      entries: entries,
+      current: c.settings.get(screensaverDashboardView),
+    );
+    if (picked == null) return;
+    await c.settings.setFromJson(screensaverDashboardView.key, picked);
     onChanged();
   }
 
@@ -11477,7 +12047,7 @@ class _VsControlsSectionState extends State<VsControlsSection> {
 
   /// Entries for the Voice Satellite settings groups.
   List<Widget> _vsPageEntries() => [
-    for (final page in const ['Wake Word', 'Appearance', 'Chimes'])
+    for (final page in const ['Wake Word', 'Appearance', 'Timers', 'Chimes'])
       _subpageEntryCard(widget.container, 'Voice Satellite', page),
   ];
 }

@@ -14,6 +14,8 @@ import '../../core/manager.dart';
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
 import '../update/update_http_client.dart';
+import '../voice/wake_catalog.dart';
+import '../wake_word/engine.dart';
 import 'analytics_scrub.dart';
 import 'crash_journal.dart';
 
@@ -54,16 +56,28 @@ class AnalyticsManager extends Manager {
   static const _sentCrashesKey = 'analytics_sent_crashes';
   static const _vsSeenKey = 'analytics_vs_seen';
 
-  /// How long a Voice Satellite sighting keeps an install reading
-  /// 'installed' while the page hook is not answering.
+  /// How long a Voice Satellite sighting keeps a dashboard runtime reading
+  /// 'integration' while the page hook is not answering.
   static const vsMemory = Duration(days: 7);
 
   /// How many crashes one tick reports at most: a journal that holds a
   /// history of them trickles out rather than bursting.
   static const crashesPerTick = 3;
 
-  /// How many fingerprints to remember; the journal itself is capped.
-  static const _rememberedCrashes = 50;
+  /// How many of the journal's newest reportable entries are ever
+  /// candidates. The journal is capped in bytes and can hold more short
+  /// entries than the fingerprints remembered below: a kiosk whose journal
+  /// held 53 watchdog notes from one bad morning sent them, forgot the
+  /// oldest fingerprints as the list rolled, and sent them all again the
+  /// next day, seventy reports a day for a week. Anything older than the
+  /// newest [crashCandidates] entries is history the journal keeps for the
+  /// Logs screen, not a report.
+  static const crashCandidates = 40;
+
+  /// How many fingerprints to remember: comfortably more than the
+  /// candidates, so a remembered entry stays remembered until it has left
+  /// the candidate window.
+  static const _rememberedCrashes = 200;
   static const _background = MethodChannel('kiosk_satellite/background');
 
   final SettingsManager _settings;
@@ -225,8 +239,10 @@ class AnalyticsManager extends Manager {
     if (entries.isEmpty) return false;
     final sent = _sentCrashes();
     final pending = <(String, CrashEntry)>[];
+    var considered = 0;
     for (final e in entries.reversed) {
       if (!e.reportable) continue;
+      if (++considered > crashCandidates) break;
       final fp = sha256.convert(utf8.encode(e.text)).toString();
       if (sent.contains(fp)) continue;
       pending.add((fp, e));
@@ -440,27 +456,44 @@ class AnalyticsManager extends Manager {
 
     // What Voice Satellite is listening for and with: the wake word
     // manager's state. Names only; a model name is a catalog label, not
-    // the user's audio.
+    // the user's audio. A native runtime picks the engine itself, so its
+    // setting names it whether the engine is muted or not, and a released
+    // engine means nothing more than that. On the dashboard runtime a
+    // released engine means the page took detection to Home Assistant.
+    // Native voice that is off reports nothing: whatever the engine last
+    // loaded is not what the kiosk listens for.
+    final native = s.get(defs.voiceRuntime) == 'native';
+    final nativeOn = native && s.get(defs.voiceEnabled);
     var wakeEngine = '';
     var wakeWord = '';
     var wakeWord2 = '';
-    try {
-      final r = await commands.execute('getWakeWordState', const {});
-      final data = r.data;
-      if (data is Map) {
-        wakeEngine = data['released'] == true
-            ? 'home_assistant'
-            : '${data['engineLabel'] ?? data['engine'] ?? ''}';
-        final models = data['models'];
-        if (models is List) {
-          String word(int i) => models.length > i && models[i] is Map
-              ? '${(models[i] as Map)['wakeWord'] ?? ''}'
-              : '';
-          wakeWord = word(0);
-          wakeWord2 = word(1);
+    if (nativeOn) {
+      wakeEngine =
+          (voiceEngines[s.get(defs.voiceWakeWordEngine)] ??
+                  WakeWordEngineType.vsWakeWord)
+              .label;
+    }
+    if (!native || nativeOn) {
+      try {
+        final r = await commands.execute('getWakeWordState', const {});
+        final data = r.data;
+        if (data is Map) {
+          if (!native) {
+            wakeEngine = data['released'] == true
+                ? 'home_assistant'
+                : '${data['engineLabel'] ?? data['engine'] ?? ''}';
+          }
+          final models = data['models'];
+          if (models is List) {
+            String word(int i) => models.length > i && models[i] is Map
+                ? '${(models[i] as Map)['wakeWord'] ?? ''}'
+                : '';
+            wakeWord = word(0);
+            wakeWord2 = word(1);
+          }
         }
-      }
-    } catch (_) {}
+      } catch (_) {}
+    }
     final vs = await _voiceSatellite(configPushed: wakeEngine.isNotEmpty);
 
     // Who installs updates: Android itself for a device owner, the ADB
@@ -504,7 +537,9 @@ class AnalyticsManager extends Manager {
       'wake_on_person': s.get(defs.screensaverDismissOnPerson),
       'wake_on_proximity': s.get(defs.screensaverDismissOnProximity),
       'voice_satellite': vs.state,
-      'native_pipeline': s.get(defs.vsNativePipeline),
+      // The native satellite runs every turn itself; the switch is the
+      // dashboard runtime's.
+      'native_pipeline': native || s.get(defs.vsNativePipeline),
       'wake_word_engine': wakeEngine,
       'wake_word': wakeWord,
       'wake_word_2': wakeWord2,
@@ -562,17 +597,23 @@ class AnalyticsManager extends Manager {
     };
   }
 
-  /// Voice Satellite as the page reports it. The hook the integration
-  /// puts on every Home Assistant page answers only where it is
-  /// installed, so an answer settles both questions: 'running' or
-  /// 'stopped', by the engine. No answer, while the page is mid-load or
-  /// showing something else, says nothing on its own, so an install that
-  /// received a wake word config this session or heard the hook within
-  /// the last week reads 'installed', and anything else 'not_installed'.
-  /// The skin rides along from the same answer.
+  /// How this kiosk does voice: 'native' (the app's own satellite, turned
+  /// on), 'integration' (the Voice Satellite integration in the dashboard)
+  /// or 'off'. A native runtime answers from its own switch and skin. A
+  /// dashboard runtime asks the hook the integration puts on every Home
+  /// Assistant page, which answers only where it is installed. No answer,
+  /// while the page is mid-load or showing something else, says nothing on
+  /// its own, so an install that received a wake word config this session
+  /// or heard the hook within the last week still reads 'integration'.
   Future<({String state, String skin})> _voiceSatellite({
     required bool configPushed,
   }) async {
+    final s = _settings;
+    if (s.get(defs.voiceRuntime) == 'native') {
+      return s.get(defs.voiceEnabled)
+          ? (state: 'native', skin: s.get(defs.voiceSkin))
+          : (state: 'off', skin: '');
+    }
     Map? page;
     try {
       final r = await commands.execute('vsEngineState', const {});
@@ -583,23 +624,21 @@ class AnalyticsManager extends Manager {
     if (page != null) {
       final config = page['config'];
       if (config is Map) skin = '${config['skin'] ?? ''}';
-      await _settings.setInternal(_vsSeenKey, stamp);
-      final engine = page['engine'];
-      final running = engine is Map && engine['running'] == true;
-      return (state: running ? 'running' : 'stopped', skin: skin);
+      await s.setInternal(_vsSeenKey, stamp);
+      return (state: 'integration', skin: skin);
     }
     if (configPushed) {
-      await _settings.setInternal(_vsSeenKey, stamp);
-      return (state: 'installed', skin: skin);
+      await s.setInternal(_vsSeenKey, stamp);
+      return (state: 'integration', skin: skin);
     }
-    final seen = int.tryParse(_settings.internal(_vsSeenKey));
+    final seen = int.tryParse(s.internal(_vsSeenKey));
     if (seen != null) {
       final at = DateTime.fromMillisecondsSinceEpoch(seen, isUtc: true);
       if (_now().toUtc().difference(at) <= vsMemory) {
-        return (state: 'installed', skin: skin);
+        return (state: 'integration', skin: skin);
       }
     }
-    return (state: 'not_installed', skin: skin);
+    return (state: 'off', skin: skin);
   }
 
   /// The native journal's text, or nothing where there is no journal (a

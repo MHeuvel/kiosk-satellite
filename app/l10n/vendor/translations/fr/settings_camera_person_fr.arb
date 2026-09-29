@@ -1,0 +1,7 @@
+{
+  "@@locale": "fr",
+  "settingPersonSensorTitle": "Activer le capteur de personnes",
+  "settingPersonSensorDescription": "Exposer le capteur de présence de l'appareil à Home Assistant comme capteur d'occupation. Nécessite l'autorisation d'accès aux journaux ci-dessous.",
+  "cameraPersonPage": "Capteur de personnes",
+  "cameraPersonHint": "Capteur d'occupation Home Assistant basé sur le capteur de présence de l'appareil"
+}

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kiosk_satellite/app_container.dart';
+import 'package:kiosk_satellite/core/command_registry.dart';
+import 'package:kiosk_satellite/managers/audio/mic_level_monitor.dart';
 import 'package:kiosk_satellite/managers/settings/definitions.dart';
 import 'package:kiosk_satellite/ui/kit.dart';
 import 'package:kiosk_satellite/ui/settings_screen.dart';
@@ -18,15 +20,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// pushes a route, the wide one swaps the split view's right pane.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+  // The Microphone level row opens a capture; closing it at once leaves no
+  // linger timer behind when a test disposes the page.
+  MicLevelMonitor.instance.linger = Duration.zero;
 
   late AppContainer container;
 
-  Future<void> boot({String url = 'http://ha.local:8123'}) async {
+  Future<void> boot({
+    String url = 'http://ha.local:8123',
+    String runtime = 'dashboard',
+  }) async {
     SharedPreferences.setMockInitialValues({
       // A validated connection: the settings under test only render once the
       // Home Assistant page is unlocked.
       'ks.ha.url': url,
       'ks.ha.token': 'token',
+      // The integration's page unless a test asks for the native one.
+      'ks.voice.runtime': runtime,
     });
     container = AppContainer();
     await container.settings.init();
@@ -59,7 +69,7 @@ void main() {
     await settle(tester);
     if (size.width < 720) {
       // Narrow: the hub lists the categories, and Home Assistant pushes.
-      await tester.tap(find.text('Home Assistant Setup'));
+      await tester.tap(find.text('Home Assistant'));
       await settle(tester);
     }
   }
@@ -114,7 +124,7 @@ void main() {
         ),
       );
       await settle(tester);
-      await tester.tap(find.text('Home Assistant Setup'));
+      await tester.tap(find.text('Home Assistant'));
       await settle(tester);
       // The category page: its glyph follows the arrow's button closely.
       final bar = find.byType(AppBar);
@@ -745,6 +755,55 @@ void main() {
       await drain(tester);
     });
 
+    testWidgets('the Person Sensor page sits on the Camera page with the '
+        'camera off, with its status row and grant (issue #734)', (
+      tester,
+    ) async {
+      await boot();
+      tester.view.physicalSize = const Size(500, 2400);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+      await tester.pumpWidget(
+        MaterialApp(home: SettingsScreen(container: container)),
+      );
+      await settle(tester);
+      await tester.tap(find.text('Camera').first);
+      await settle(tester);
+
+      // No camera session of the app's, so the Camera switch does not
+      // gate it.
+      expect(container.settings.get(cameraEnabled), isFalse);
+      final entry = find.widgetWithText(ListTile, 'Person Sensor');
+      expect(entry, findsOneWidget);
+      await tester.tap(entry);
+      await settle(tester);
+
+      expect(find.widgetWithText(AppBar, 'Person Sensor'), findsOneWidget);
+      expect(find.text(personSensorEnabled.title), findsOneWidget);
+      expect(find.text('Occupancy'), findsOneWidget);
+      final grants = find.widgetWithText(
+        SectionHeading,
+        'Required system permissions',
+      );
+      expect(grants, findsOneWidget);
+      expect(find.text('Log access'), findsOneWidget);
+      expect(
+        tester.getTopLeft(grants).dy,
+        greaterThan(tester.getTopLeft(find.text(personSensorEnabled.title)).dy),
+      );
+      expect(
+        find.widgetWithText(SectionHeading, 'Person Sensor'),
+        findsNothing,
+      );
+
+      await tester.tap(find.byType(Switch).first);
+      await settle(tester);
+      expect(container.settings.get(personSensorEnabled), isTrue);
+      expect(container.settings.get(screensaverDismissOnPerson), isFalse);
+
+      await drain(tester);
+    });
+
     testWidgets('the GPS Sensor page sits under Bluetooth Proxy, with the '
         'grant at its foot', (tester) async {
       await boot();
@@ -1105,7 +1164,7 @@ void main() {
       // One level only: back on the category page, Settings still open.
       expect(entryRow(), findsOneWidget);
       expect(find.text(haHaptics.title), findsNothing);
-      expect(find.text('Home Assistant Setup'), findsWidgets);
+      expect(find.text('Home Assistant'), findsWidgets);
 
       await drain(tester);
     });
@@ -1165,6 +1224,120 @@ void main() {
       expect(find.byTooltip('Back'), findsNothing);
 
       await drain(tester);
+    });
+  });
+
+  group('native Voice Satellite', () {
+    testWidgets('the switch alone, then the pages once it is on', (
+      tester,
+    ) async {
+      await boot(runtime: 'native');
+      tester.view.physicalSize = const Size(500, 2400);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+      await tester.pumpWidget(
+        MaterialApp(home: SettingsScreen(container: container)),
+      );
+      await settle(tester);
+      await tester.tap(find.text('Voice Satellite').first);
+      await settle(tester);
+
+      expect(find.text(voiceEnabled.title), findsOneWidget);
+      expect(find.widgetWithText(ListTile, 'Assistant'), findsNothing);
+      // The integration's live rows never show on the native page.
+      expect(find.text('Assigned satellite'), findsNothing);
+
+      await container.settings.set(voiceEnabled, true);
+      await settle(tester);
+      for (final page in [
+        'Assistant',
+        'Wake Word',
+        'Appearance',
+        'Conversation',
+        'Timers',
+        'Chimes',
+      ]) {
+        expect(
+          find.widgetWithText(ListTile, page),
+          findsOneWidget,
+          reason: page,
+        );
+      }
+      expect(find.text(voiceMute.title), findsOneWidget);
+      expect(find.text('Status'), findsOneWidget);
+
+      await drain(tester);
+    });
+
+    testWidgets('the Wake Word page lists the custom models', (tester) async {
+      await boot(runtime: 'native');
+      await container.settings.set(voiceEnabled, true);
+      container.commands.register(
+        Command(
+          name: 'customWakeModels',
+          description: 'stub',
+          handler: (_) async => const CommandResult.ok({
+            'engine': 'vswakeword',
+            'managed': false,
+            'models': [
+              {
+                'engine': 'openwakeword',
+                'id': 'hey_computer',
+                'wakeWord': 'Hey Computer',
+                'files': [
+                  {'name': 'hey_computer.tflite', 'size': 1},
+                ],
+              },
+            ],
+          }),
+        ),
+      );
+      tester.view.physicalSize = const Size(500, 3200);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+      await tester.pumpWidget(
+        MaterialApp(home: SettingsScreen(container: container)),
+      );
+      await settle(tester);
+      await tester.tap(find.text('Voice Satellite').first);
+      await settle(tester);
+      await tester.tap(find.widgetWithText(ListTile, 'Wake Word'));
+      await settle(tester);
+
+      expect(find.text('Custom Models'), findsOneWidget);
+      expect(find.text('Hey Computer'), findsOneWidget);
+      expect(find.textContaining('not the engine in use'), findsOneWidget);
+      expect(find.text('Add models'), findsOneWidget);
+      expect(find.text('How to add custom models'), findsOneWidget);
+      // The dashboard runtime's self-heal has no row here.
+      expect(find.text(wakeWordResumeTimeoutSeconds.title), findsNothing);
+      // Native bundles the int8 build only: nothing to prefer.
+      expect(find.text(wakeWordPreferFp32.title), findsNothing);
+
+      await drain(tester);
+    });
+
+    test('search finds the rows of the runtime the kiosk is on', () {
+      final index = buildSettingsSearchIndex([
+        ('Voice Satellite', 'Voice Satellite', ''),
+      ]);
+      bool has(String title, {required bool native}) => index.any(
+        (e) => e.title == title && matchesVoiceRuntime(e, native: native),
+      );
+      expect(has('Assigned satellite', native: false), isTrue);
+      expect(has('Assigned satellite', native: true), isFalse);
+      expect(has('Assistant 1', native: true), isTrue);
+      expect(has('Assistant 1', native: false), isFalse);
+      expect(has(voiceSkin.title, native: true), isTrue);
+      // The integration's Skin row is the dashboard's only one.
+      expect(
+        index
+            .where(
+              (e) => e.title == 'Skin' && matchesVoiceRuntime(e, native: false),
+            )
+            .length,
+        1,
+      );
     });
   });
 }

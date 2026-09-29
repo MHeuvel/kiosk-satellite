@@ -26,6 +26,10 @@ const Map<String, Object> subpageIcons = {
   'Chimes': Icons.music_note_outlined,
   'Wake Word': Icons.hearing_outlined,
   'Appearance': Icons.brush_outlined,
+  'Assistant': Icons.forum_outlined,
+  'Conversation': Icons.chat_bubble_outline,
+  'Timers': Icons.timer_outlined,
+  'Wake word diagnostics': Icons.troubleshoot_outlined,
   // Screen & Audio.
   'Microphone settings': Icons.mic_none_outlined,
   'Adaptive brightness': Icons.brightness_auto_outlined,
@@ -44,6 +48,7 @@ const Map<String, Object> subpageIcons = {
   'RTSP & ONVIF Streaming': Icons.videocam_outlined,
   'Motion Detection': Icons.directions_walk,
   'Motion Sensor': Icons.directions_walk,
+  'Person Sensor': Icons.sensor_occupied_outlined,
   'Face Detection': Icons.face_outlined,
   'Proximity Detection': Icons.sensors,
   'Person Detection': Icons.sensor_occupied_outlined,

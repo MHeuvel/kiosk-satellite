@@ -75,6 +75,15 @@ class EspEntitySurface {
 
   static const _pollInterval = Duration(seconds: 60);
 
+  /// The media text sensors: object id, name and icon, keyed into the
+  /// media summary by the id's tail.
+  static const _mediaSensors = [
+    ('media_state', 'Media state', 'mdi:play-pause'),
+    ('media_title', 'Media title', 'mdi:music-note'),
+    ('media_artist', 'Media artist', 'mdi:account-music'),
+    ('media_source', 'Media source', 'mdi:speaker'),
+  ];
+
   /// The group used on Home Assistant's device page, before the entity type.
   static String categoryLabel(Map<String, Object?> entity) {
     if (entity['category'] == 1) return 'Configuration';
@@ -242,6 +251,30 @@ class EspEntitySurface {
           'mdi:phone-in-talk-outline',
           defs.intercomEnabled,
         ),
+        // Native Voice Satellite. Every one starts with vs_, the name too,
+        // since Home Assistant builds the entity id from the name. Listed
+        // only on the native runtime with Voice Satellite on.
+        'vs_mute': ('VS Mute', 'mdi:microphone-off', defs.voiceMute),
+        'vs_wake_sound': (
+          'VS Chimes',
+          'mdi:bell-ring-outline',
+          defs.voiceWakeSound,
+        ),
+        'vs_stop_word': (
+          'VS Stop word',
+          'mdi:hand-back-left-outline',
+          defs.voiceStopWord,
+        ),
+        'vs_noise_gate': (
+          'VS Noise gate',
+          'mdi:volume-off',
+          defs.voiceNoiseGate,
+        ),
+        'vs_mute_timers': (
+          'VS Mute timers',
+          'mdi:timer-off-outline',
+          defs.voiceMuteTimers,
+        ),
       };
 
   /// Settings-backed selects: objectId -> (name, icon, definition). The
@@ -276,6 +309,16 @@ class EspEntitySurface {
           'Intercom answer mode',
           'mdi:phone-ring-outline',
           defs.intercomAnswerMode,
+        ),
+        'vs_wake_word_engine': (
+          'VS Wake word engine',
+          'mdi:account-voice',
+          defs.voiceWakeWordEngine,
+        ),
+        'vs_wake_word_sensitivity': (
+          'VS Wake word sensitivity',
+          'mdi:ear-hearing',
+          defs.voiceWakeWordSensitivity,
         ),
       };
 
@@ -314,6 +357,30 @@ class EspEntitySurface {
       'Media volume',
       'mdi:music-note',
       defs.mediaVolume,
+    ),
+    'vs_answer_linger': (
+      name: 'VS Answer linger',
+      icon: 'mdi:timer-outline',
+      def: defs.voiceAnswerLinger,
+      fraction: false,
+      min: 0,
+      max: 15,
+      step: 1,
+      unit: 's',
+      deviceClass: 'duration',
+      mode: 2,
+    ),
+    'vs_announcement_linger': (
+      name: 'VS Announcement linger',
+      icon: 'mdi:timer-outline',
+      def: defs.voiceAnnouncementLinger,
+      fraction: false,
+      min: 1,
+      max: 60,
+      step: 1,
+      unit: 's',
+      deviceClass: 'duration',
+      mode: 2,
     ),
   };
 
@@ -363,11 +430,11 @@ class EspEntitySurface {
         loc.ok &&
         loc.data is Map &&
         (loc.data as Map)['supported'] != false;
-    // The Person sensor exists only while Dismiss on person is on, on a
-    // device whose probe has said it has a person sensor of its own
-    // (discussion #353); the switch re-registers the device, a
+    // The Person sensor exists only while the Person Sensor switch is on,
+    // on a device whose probe has said it has a person sensor of its own
+    // (discussion #353, issue #734); the switch re-registers the device, a
     // setup-time choice like Report location.
-    final person = _settings.get(defs.screensaverDismissOnPerson)
+    final person = _settings.get(defs.personSensorEnabled)
         ? await commands.execute('getPersonSensorSupport', const {})
         : null;
     final personPresent =
@@ -418,7 +485,9 @@ class EspEntitySurface {
     // a kiosk with none has no engine to start (issue #288). Reading the
     // page instead would make the catalog depend on what was on screen the
     // moment the server started.
-    _voiceSatellite = _settings.get(defs.haSatelliteEntity).trim().isNotEmpty;
+    _voiceSatellite =
+        _settings.get(defs.haSatelliteEntity).trim().isNotEmpty &&
+        _settings.get(defs.voiceRuntime) == 'dashboard';
     // The Restart device button exists only where a restart can land
     // (issue #528): device owner, or a granted Shizuku connection. Asked at
     // build like the hardware probes; the manager restarts the server when
@@ -547,6 +616,19 @@ class EspEntitySurface {
           'Show Music Assistant',
           'mdi:music-box-multiple',
         ),
+      // The followed player, opt-in from the Media Player page (issue
+      // #741): whichever player the surfaces follow, the local Sendspin
+      // player, one elsewhere or another app's media session. Buttons
+      // and sensors rather than a media_player, which in ESPHome carries
+      // no track and no skip.
+      if (_settings.get(defs.sendspinEsphomeEntities)) ...[
+        button('media_play', 'Media play', 'mdi:play'),
+        button('media_pause', 'Media pause', 'mdi:pause'),
+        button('media_next', 'Media next', 'mdi:skip-next'),
+        button('media_previous', 'Media previous', 'mdi:skip-previous'),
+        for (final (id, name, icon) in _mediaSensors)
+          {'type': 'text_sensor', 'objectId': id, 'name': name, 'icon': icon},
+      ],
       if (_cameraViews.isNotEmpty) ...[
         {
           'type': 'select',
@@ -743,19 +825,20 @@ class EspEntitySurface {
       },
       // ── Config ───────────────────────────────────────────────────────
       for (final e in _settingNumbers.entries)
-        {
-          'type': 'number',
-          'objectId': e.key,
-          'name': e.value.name,
-          'icon': e.value.icon,
-          if (e.value.deviceClass != null) 'deviceClass': e.value.deviceClass,
-          'min': e.value.min,
-          'max': e.value.max,
-          'step': e.value.step,
-          'unit': e.value.unit,
-          'mode': e.value.mode,
-          'category': 1,
-        },
+        if (!e.key.startsWith('vs_') || _voiceNative)
+          {
+            'type': 'number',
+            'objectId': e.key,
+            'name': e.value.name,
+            'icon': e.value.icon,
+            if (e.value.deviceClass != null) 'deviceClass': e.value.deviceClass,
+            'min': e.value.min,
+            'max': e.value.max,
+            'step': e.value.step,
+            'unit': e.value.unit,
+            'mode': e.value.mode,
+            'category': 1,
+          },
       {
         'type': 'text',
         'objectId': 'clock_background',
@@ -770,7 +853,8 @@ class EspEntitySurface {
                     e.key != 'screensaver_motion' &&
                     e.key != 'screensaver_face')) &&
             (proximityPresent || e.key != 'screensaver_proximity') &&
-            (lightSensorPresent || e.key != 'adaptive_brightness'))
+            (lightSensorPresent || e.key != 'adaptive_brightness') &&
+            (!e.key.startsWith('vs_') || _voiceNative))
           {
             'type': 'switch',
             'objectId': e.key,
@@ -813,7 +897,8 @@ class EspEntitySurface {
       ],
       for (final e in _settingSelects.entries)
         if ((e.key != 'camera_device' || (cameraPresent && bothFacings)) &&
-            (e.key != 'intercom_answer_mode' || intercomOn))
+            (e.key != 'intercom_answer_mode' || intercomOn) &&
+            (!e.key.startsWith('vs_') || _voiceNative))
           {
             'type': 'select',
             'objectId': e.key,
@@ -1083,7 +1168,60 @@ class EspEntitySurface {
   /// Argument names and order are permanent API, like entity object ids:
   /// values arrive positionally on the wire and land in users'
   /// automations by name.
-  List<Map<String, Object?>> buildServices() => const [
+  /// Whether the kiosk serves native Voice Satellite: its vs_ entities
+  /// and actions exist only then.
+  bool get _voiceNative =>
+      _settings.get(defs.voiceRuntime) == 'native' &&
+      _settings.get(defs.voiceEnabled);
+
+  List<Map<String, Object?>> buildServices() => [
+    ..._services,
+    if (_voiceNative) ..._voiceServices,
+  ];
+
+  /// Native Voice Satellite's actions: `esphome.<kiosk>_vs_wake` and friends.
+  static const _voiceServices = <Map<String, Object?>>[
+    // Start listening as if the wake word in that slot fired: slot 2 runs
+    // Assistant 2. 0 counts as slot 1 (an action cannot leave it out).
+    {
+      'name': 'vs_wake',
+      'supportsResponse': true,
+      'args': [
+        {'name': 'slot', 'type': 'int'},
+      ],
+    },
+    // Ends the turn on screen as a double tap does: listening, thinking or
+    // speaking, a lingering answer or a ringing timer.
+    {'name': 'vs_cancel', 'supportsResponse': true, 'args': []},
+    // Sends a prompt to the assistant and shows the answer and results on
+    // this kiosk. Actions cannot leave a field out, so speaking is opt in
+    // (false is the silent show), pipeline 0 counts as 1 and duration 0
+    // keeps the answer up until it is dismissed.
+    {
+      'name': 'vs_show',
+      'supportsResponse': true,
+      'args': [
+        {'name': 'prompt', 'type': 'string'},
+        {'name': 'speak', 'type': 'bool'},
+        {'name': 'pipeline', 'type': 'int'},
+        {'name': 'duration', 'type': 'int'},
+      ],
+    },
+    // Starts a voice timer on this kiosk through Home Assistant's timer
+    // intent, so it lives in Home Assistant like a spoken one.
+    {
+      'name': 'vs_start_timer',
+      'supportsResponse': true,
+      'args': [
+        {'name': 'name', 'type': 'string'},
+        {'name': 'hours', 'type': 'int'},
+        {'name': 'minutes', 'type': 'int'},
+        {'name': 'seconds', 'type': 'int'},
+      ],
+    },
+  ];
+
+  static const _services = <Map<String, Object?>>[
     {
       'name': 'notification',
       // Answers with the kiosk's id for the card ({"id": 7}), which an
@@ -1214,6 +1352,35 @@ class EspEntitySurface {
     Map<String, Object?> args,
   ) async {
     switch (name) {
+      case 'vs_wake':
+        final slot = (args['slot'] as num?)?.toInt() ?? 1;
+        final result = await commands.execute('voiceWake', {
+          'slot': slot < 1 ? 1 : slot,
+        });
+        if (!result.ok) throw StateError(result.error ?? 'not started');
+        return const {};
+      case 'vs_cancel':
+        final result = await commands.execute('voiceCancel', const {});
+        if (!result.ok) throw StateError(result.error ?? 'not cancelled');
+        return const {};
+      case 'vs_show':
+        final result = await commands.execute('voiceShow', {
+          'prompt': args['prompt'] ?? '',
+          'speak': args['speak'] == true,
+          'pipeline': args['pipeline'] ?? 1,
+          'duration': args['duration'] ?? 0,
+        });
+        if (!result.ok) throw StateError(result.error ?? 'not shown');
+        return const {};
+      case 'vs_start_timer':
+        final result = await commands.execute('voiceStartTimer', {
+          'name': args['name'] ?? '',
+          'hours': args['hours'] ?? 0,
+          'minutes': args['minutes'] ?? 0,
+          'seconds': args['seconds'] ?? 0,
+        });
+        if (!result.ok) throw StateError(result.error ?? 'timer not started');
+        return const {};
       case 'set_brightness':
       case 'set_screensaver_brightness':
         final brightness = args['brightness'];
@@ -1408,6 +1575,9 @@ class EspEntitySurface {
         _nowPlayingActive = e.active;
         _send('now_playing', _nowPlayingShown);
       }),
+    );
+    _subs.add(
+      bus.on<MediaSummaryChanged>().listen((e) => _sendMedia(e.summary)),
     );
     _subs.add(bus.on<ScreenStateChanged>().listen((_) => _sendScreen()));
     // Addresses change exactly at these transitions, and the minute poll
@@ -1693,6 +1863,10 @@ class EspEntitySurface {
         await commands.execute('previousScreensaverSlide', const {});
       case 'notifications_dismiss_all':
         await commands.execute('dismissNotification', const {});
+      case 'media_play' || 'media_pause' || 'media_next' || 'media_previous':
+        await commands.execute('sendspinControl', {
+          'command': objectId.substring('media_'.length),
+        });
       case 'reload':
         await commands.execute('reload', const {});
       case 'load_start_url':
@@ -1876,6 +2050,13 @@ class EspEntitySurface {
     }
   }
 
+  Future<void> _sendMedia(Map<String, String> summary) async {
+    if (!_settings.get(defs.sendspinEsphomeEntities)) return;
+    for (final (id, _, _) in _mediaSensors) {
+      await _send(id, summary[id.substring('media_'.length)] ?? '');
+    }
+  }
+
   Future<void> _send(String objectId, Object? value) async {
     if (_isExcluded(objectId)) return;
     try {
@@ -1945,6 +2126,13 @@ class EspEntitySurface {
     }
     await _send('screensaver_active', _screensaverActive);
     await _send('now_playing', _nowPlayingShown);
+    final media = await commands.execute('mediaPlayerState', const {});
+    if (media.ok && media.data is Map) {
+      await _sendMedia({
+        for (final e in (media.data as Map).entries)
+          '${e.key}': '${e.value ?? ''}',
+      });
+    }
     await _sendDeviceInfo();
     // Settings-backed entities all report their stored values.
     for (final entry in _settingSwitches.entries) {
@@ -2105,7 +2293,7 @@ class EspEntitySurface {
 
   /// The person sensor's state onto the Person binary sensor.
   Future<void> _sendPerson(bool present) async {
-    if (!_settings.get(defs.screensaverDismissOnPerson)) return;
+    if (!_settings.get(defs.personSensorEnabled)) return;
     await _send('person', present);
   }
 
@@ -2114,7 +2302,7 @@ class EspEntitySurface {
   /// is being read and nobody is there, unknown while it cannot be read
   /// (the grant missing, say).
   Future<void> _sendPersonState() async {
-    if (!_settings.get(defs.screensaverDismissOnPerson)) return;
+    if (!_settings.get(defs.personSensorEnabled)) return;
     final result = await commands.execute('getPersonSensor', const {});
     if (!result.ok || result.data is! Map) return;
     final status = result.data as Map;

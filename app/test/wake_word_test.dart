@@ -62,6 +62,28 @@ class _FakeEngine extends WakeWordEngine {
   }
 }
 
+/// An engine whose start takes a while, as a real one loading models does,
+/// counting how many starts overlap.
+class _SlowEngine extends _FakeEngine {
+  int starting = 0;
+  int overlapped = 0;
+  final started = <String>[];
+
+  @override
+  Future<void> start({
+    required WakeWordConfig config,
+    required DetectionCallback onDetection,
+    StopDetectionCallback? onStopDetection,
+    EngineFailureCallback? onFailure,
+  }) async {
+    if (++starting > 1) overlapped++;
+    await Future<void>.delayed(const Duration(milliseconds: 50));
+    starting--;
+    started.add(config.models.first.id);
+    _running = true;
+  }
+}
+
 /// The wake-word contract (docs/js-api.md): config is pushed by the Voice
 /// Satellite card (setWakeWordConfig), detection releases the mic before the
 /// event is published, and the page resumes listening via
@@ -238,6 +260,43 @@ void main() {
     },
   );
 
+  test('configs pushed back to back never start the engine twice at once, '
+      'and the last one wins', () async {
+    await wakeWord.dispose();
+    await bus.dispose();
+    bus = EventBus();
+    commands = CommandRegistry(log);
+    settings = SettingsManager(bus, commands, log);
+    await settings.init();
+    final engine = _SlowEngine();
+    wakeWord = WakeWordManager(
+      bus,
+      commands,
+      log,
+      settings,
+      engines: {WakeWordEngineType.microWakeWord: engine},
+    );
+    await wakeWord.init();
+    Map<String, Object?> config(String id) => {
+      ...vsConfig,
+      'models': [
+        {
+          'id': id,
+          'wakeWord': id,
+          'manifestUrl': 'http://ha.local:8123/$id.json',
+        },
+      ],
+    };
+    // What a migration does: several settings in a row, each a new push.
+    await Future.wait([
+      commands.execute('setWakeWordConfig', config('okay_nabu')),
+      commands.execute('setWakeWordConfig', config('hey_jarvis')),
+    ]);
+    expect(engine.overlapped, 0);
+    expect(engine.started.last, 'hey_jarvis');
+    expect(engine.running, isTrue);
+  });
+
   group('the self-heal after a handoff', () {
     // The page must call setWakeWordActive(true) when its turn ends. When it
     // never does (crash, navigation) the timer re-arms detection. It must not
@@ -264,6 +323,8 @@ void main() {
         engines: {WakeWordEngineType.microWakeWord: engine},
       );
       await wakeWord.init();
+      // The page's handoff: the dashboard runtime.
+      await settings.set(defs.voiceRuntime, 'dashboard');
       await settings.set(defs.wakeWordResumeTimeoutSeconds, 1);
       await commands.execute('setWakeWordConfig', vsConfig);
       expect(wakeWord.listening, isTrue);
@@ -306,6 +367,7 @@ void main() {
       'follow-up',
       'overlapping media',
       'timer only',
+      'native wake word',
     ]) {
       test('return to previous app: $scenario', () async {
         await settings.set(
@@ -347,7 +409,10 @@ void main() {
               VoiceInteractionChanged(
                 active: active,
                 reason: reason,
-                source: InteractionSource.page,
+                // The native satellite reports its turns as its own.
+                source: scenario == 'native wake word'
+                    ? InteractionSource.native
+                    : InteractionSource.page,
               ),
             );
             await Future<void>.delayed(Duration.zero);
@@ -358,7 +423,7 @@ void main() {
                 ? AppLifecycleState.resumed
                 : AppLifecycleState.paused,
           );
-          if (scenario == 'wake word') {
+          if (scenario == 'wake word' || scenario == 'native wake word') {
             await commands.execute('simulateWakeWord', const {});
           } else {
             await commands.execute('bringToFront', {
@@ -404,6 +469,7 @@ void main() {
           await Future<void>.delayed(const Duration(milliseconds: 350));
           final shouldReturn = const {
             'wake word',
+            'native wake word',
             'announcement',
             'ask_question',
             'start_conversation',
@@ -469,6 +535,26 @@ void main() {
         active().then((v) => isActive = v);
         async.flushMicrotasks();
         expect(isActive, isTrue, reason: 'nothing was streaming: heal');
+      });
+    });
+
+    test('the native satellite keeps only the ten minute backstop', () {
+      fakeAsync((async) {
+        settings.set(defs.voiceRuntime, 'native');
+        async.flushMicrotasks();
+        commands.execute('simulateWakeWord', const {});
+        async.flushMicrotasks();
+        // A long spoken answer, far past the page's timeout: the satellite
+        // hands the wake word back itself when it goes idle.
+        async.elapse(const Duration(seconds: 120));
+        var isActive = true;
+        active().then((v) => isActive = v);
+        async.flushMicrotasks();
+        expect(isActive, isFalse);
+        async.elapse(const Duration(seconds: 480));
+        active().then((v) => isActive = v);
+        async.flushMicrotasks();
+        expect(isActive, isTrue, reason: 'the backstop');
       });
     });
 

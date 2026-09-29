@@ -54,6 +54,10 @@ void main() {
   late List<(String, Map<String, Object?>)> executed;
   late List<Map<String, Object?>> states;
   late List<String> audioCalls;
+
+  /// How long the fake audio takes to stop a ring, zero unless a test
+  /// needs the teardown to take as long as it does on a device.
+  var stopRingDelay = Duration.zero;
   late List<Uint8List> audioWritten;
   late StreamController<Uint8List> mic;
   late List<Map<String, Object?>> peers;
@@ -105,6 +109,7 @@ void main() {
     executed = [];
     states = [];
     audioCalls = [];
+    stopRingDelay = Duration.zero;
     audioWritten = [];
     mic = StreamController<Uint8List>.broadcast();
     answers = {
@@ -177,6 +182,7 @@ void main() {
     intercom.audio = IntercomAudio()
       ..invoker = (method, [args]) async {
         audioCalls.add(method);
+        if (method == 'stopRing') await Future<void>.delayed(stopRingDelay);
         if (method == 'write') audioWritten.add(args as Uint8List);
         if (method == 'start') return true;
         if (method == 'decode') return Uint8List(32000);
@@ -1196,6 +1202,43 @@ void main() {
         await server.close(force: true);
       },
     );
+
+    test('the far side hanging up leaves the call length screen up', () async {
+      await build();
+      await settle();
+      final server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
+      final gotSocket = Completer<WebSocket>();
+      server.listen((req) async {
+        final ws = await WebSocketTransformer.upgrade(req);
+        ws.listen((_) {});
+        gotSocket.complete(ws);
+      });
+      peers[0] = {...peers[0], 'address': '127.0.0.1', 'port': server.port};
+      bus.publish(const FleetChanged(devices: []));
+      await settle();
+      answers['POST /api/intercom/call'] = (_) => {'status': 'ringing'};
+      await commands.execute('intercomCall', {'id': 'kitchen'});
+      final req = sent.lastWhere((r) => r.url.path == '/api/intercom/call');
+      final callId = '${jsonDecode(req.body)['call']}';
+      await commands.execute('intercomSignal', {
+        'call': callId,
+        'action': 'answer',
+        'token': tokenFor(callId),
+      });
+      final ws = await gotSocket.future.timeout(const Duration(seconds: 3));
+      await settle(100);
+      expect(intercom.state, 'in_call');
+      // The peer's hangup: the end frame, then the socket closes while
+      // this side is still tearing the call down.
+      ws.add(jsonEncode({'type': 'end'}));
+      await ws.close();
+      await settle(40);
+      expect(intercom.state, 'ended');
+      expect(intercom.call?.reason, 'ended');
+      await settle(150);
+      expect(intercom.state, 'idle');
+      await server.close(force: true);
+    });
 
     test('hands free sends without the button and mute stops it', () async {
       await build(prefs: {'ks.intercom.talk_mode': 'handsfree'});

@@ -14,10 +14,14 @@ import 'logging.dart';
 /// [onMissingWebView] fires when an error says the platform has no WebView
 /// provider (Android's MissingWebViewPackageException), the one failure
 /// that surfaces only as an uncaught platform-view error.
+/// [onBrokenWebView] fires when the WebView creation threw Android's
+/// AndroidRuntimeException wrapping an InvocationTargetException: a
+/// provider that is installed but cannot start, mid-update or broken.
 void installErrorLog(
   Logger log, {
   int perMinute = 20,
   void Function()? onMissingWebView,
+  void Function()? onBrokenWebView,
 }) {
   final previous = FlutterError.onError;
   var minute = -1;
@@ -27,6 +31,9 @@ void installErrorLog(
   void note(String tag, String message) {
     if (message.contains('MissingWebViewPackageException')) {
       onMissingWebView?.call();
+    } else if (message.contains('AndroidRuntimeException') &&
+        message.contains('InvocationTargetException')) {
+      onBrokenWebView?.call();
     }
     final now = DateTime.now().millisecondsSinceEpoch ~/ 60000;
     if (now != minute) {

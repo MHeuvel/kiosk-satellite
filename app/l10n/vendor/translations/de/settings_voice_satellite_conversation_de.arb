@@ -1,0 +1,17 @@
+{
+  "@@locale": "de",
+  "settingVoiceShowCommandTitle": "Zeigen, was du gesagt hast",
+  "settingVoiceShowCommandDescription": "Dein Befehl über der Antwort.",
+  "settingVoiceShowAnswerTitle": "Antwort anzeigen",
+  "settingVoiceShowAnswerDescription": "Die Antwort, während sie gesprochen wird.",
+  "settingVoiceShowToolsTitle": "Werkzeugnutzung anzeigen",
+  "settingVoiceShowToolsDescription": "Eine Zeile für jede Aktion des Assistenten.",
+  "settingVoiceHideSentimentTagsTitle": "Stimmungs-Tags ausblenden",
+  "settingVoiceHideSentimentTagsDescription": "Lässt Tags wie [happy] weg, die manche Assistenten hinzufügen.",
+  "settingVoiceAnswerLingerTitle": "Antwort auf dem Bildschirm lassen",
+  "settingVoiceAnswerLingerDescription": "Nachdem die Antwort gesprochen wurde.",
+  "settingVoiceResultsLingerTitle": "Ergebnisse auf dem Bildschirm lassen",
+  "settingVoiceResultsLingerDescription": "Bilder, Wetter und andere Ergebnisse. Bei 0 bleiben sie, bis du sie schließt.",
+  "settingVoiceAnnouncementLingerTitle": "Anzeigedauer von Durchsagen",
+  "settingVoiceAnnouncementLingerDescription": "Nachdem eine Durchsage gesprochen wurde."
+}

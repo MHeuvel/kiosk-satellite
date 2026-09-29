@@ -1,0 +1,19 @@
+{
+  "@@locale": "es",
+  "settingVoiceTimerPillsTitle": "Mostrar indicadores de temporizador",
+  "settingVoiceTimerPillsDescription": "Los temporizadores activos flotan sobre la pantalla. Arrástralos a cualquier lugar.",
+  "settingVoiceTimerNameInPillTitle": "Mostrar el nombre del temporizador",
+  "settingVoiceTimerNameInPillDescription": "El nombre junto al tiempo en un indicador.",
+  "settingVoiceTimerPillScaleTitle": "Escala de los indicadores de temporizador",
+  "settingVoiceTimerPillScaleDescription": "El tamaño de los indicadores de temporizador.",
+  "settingVoiceMuteTimersTitle": "Silenciar las alertas de temporizador",
+  "settingVoiceMuteTimersDescription": "Muestra la alerta sin sonido.",
+  "settingVoiceTimerNameOnAlertTitle": "Mostrar el nombre en la alerta",
+  "settingVoiceTimerNameOnAlertDescription": "El nombre del temporizador debajo de la alerta.",
+  "settingVoiceTimerSpeakTitle": "Hablar cuando termina un temporizador",
+  "settingVoiceTimerSpeakDescription": "Dice una frase entre los sonidos de la alerta.",
+  "settingVoiceTimerPhraseTitle": "Frase",
+  "settingVoiceTimerPhraseDescription": "Se dice para un temporizador sin nombre.",
+  "settingVoiceTimerNamedPhraseTitle": "Frase para temporizadores con nombre",
+  "settingVoiceTimerNamedPhraseDescription": "{name} se sustituye por el nombre del temporizador."
+}

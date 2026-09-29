@@ -367,7 +367,8 @@ export async function updateProximityRows() {
    disabled with the reason. With one, a live reading sits under the
    switch (the curve's two light levels are typed against it, and what a
    sensor calls a lit room is anyone's guess until it is on screen; the
-   value updates off the WebSocket's lightlevel messages). With the switch
+   value updates off the WebSocket's lightlevel messages, and the curve
+   editor below marks it on its chart). With the switch
    on, the Default brightness slider stands down with the reason, and a
    hint under each screensaver brightness slider says the slider is the
    bright-room level the room's light dims from. Idempotent, so the save
@@ -400,6 +401,8 @@ export async function updateAdaptiveBrightnessRows() {
     row.insertAdjacentElement('afterend', note(NO_LIGHT_SENSOR_NOTE));
     return;
   }
+  // The curve editor may have been built before the probe answered.
+  if (state.lightSensor) document.dispatchEvent(new CustomEvent('ks-lightlevel'));
   if (row && state.lightSensor) {
     const reading = readOnlyRow(screenAudioText('Ambient light'), screenAudioText(AMBIENT_LIGHT_NOTE),
       formatLux(state.lightLux));
@@ -461,6 +464,8 @@ export function showLightLevel(lux) {
   state.lightLive = true;
   const el = document.querySelector('.ambient-light-value');
   if (el) el.textContent = formatLux(lux);
+  // The brightness curve marks the reading too (brightness_curve.js).
+  document.dispatchEvent(new CustomEvent('ks-lightlevel'));
 }
 
 /* Until the sensor has spoken this session, the reading is the last

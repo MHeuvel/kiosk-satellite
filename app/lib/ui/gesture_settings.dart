@@ -7,6 +7,7 @@ import '../l10n/messages.dart';
 import '../l10n/gesture_messages.dart';
 import '../managers/gestures/gesture_mappings.dart';
 import '../managers/settings/definitions.dart' as defs;
+import 'dashboard_view_picker.dart';
 import 'hand_gesture_tester.dart';
 import 'kit.dart';
 import 'toast.dart';
@@ -1018,34 +1019,9 @@ class _GestureSettingsPanelState extends State<GestureSettingsPanel> {
   Future<Map<String, Object?>?> _configureNavigate(
     Map<String, Object?>? current,
   ) async {
-    // Fetch every dashboard's views up front; the radio list mirrors the
-    // rotation picker's "dashboard / view" flattening.
-    final entries = <(String, String)>[];
-    final dashboards = await c.commands.execute('haListDashboards', const {});
-    if (dashboards.ok && dashboards.data is List) {
-      for (final d in dashboards.data as List) {
-        if (d is! Map) continue;
-        final urlPath = '${d['url_path'] ?? ''}';
-        final title = '${d['title'] ?? urlPath}';
-        if (urlPath.isEmpty) continue;
-        final views = await c.commands.execute('haListDashboardViews', {
-          'url_path': urlPath,
-        });
-        var added = false;
-        if (views.ok && views.data is List) {
-          for (final v in views.data as List) {
-            if (v is! Map) continue;
-            final route = '${v['route'] ?? ''}';
-            if (route.isEmpty) continue;
-            entries.add(('$urlPath/$route', '$title / ${v['title'] ?? route}'));
-            added = true;
-          }
-        }
-        // Strategy dashboards expose no views; the dashboard root still
-        // makes a fine target.
-        if (!added) entries.add((urlPath, title));
-      }
-    }
+    // The same flattened "dashboard / view" list the Home Assistant
+    // Dashboard screensaver picks from.
+    final entries = await listDashboardViewEntries(c);
     if (!mounted) return null;
     if (entries.isEmpty) {
       showToast(
@@ -1056,26 +1032,13 @@ class _GestureSettingsPanelState extends State<GestureSettingsPanel> {
       );
       return null;
     }
-    final currentPath = '${current?['path'] ?? ''}';
-    return showDialog<Map<String, Object?>>(
-      context: context,
-      builder: (context) => SimpleDialog(
-        title: Text(gestureText(context, 'Go to a dashboard view')),
-        children: [
-          for (final (path, label) in entries)
-            ListTile(
-              leading: Icon(
-                currentPath == path
-                    ? Icons.radio_button_checked
-                    : Icons.radio_button_off,
-              ),
-              title: Text(label),
-              onTap: () =>
-                  Navigator.pop(context, {'type': 'navigate', 'path': path}),
-            ),
-        ],
-      ),
+    final path = await showDashboardViewPicker(
+      context,
+      title: gestureText(context, 'Go to a dashboard view'),
+      entries: entries,
+      current: '${current?['path'] ?? ''}',
     );
+    return path == null ? null : {'type': 'navigate', 'path': path};
   }
 
   /// The kiosk a Call a kiosk gesture rings: every kiosk the intercom

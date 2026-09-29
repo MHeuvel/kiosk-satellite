@@ -11,5 +11,19 @@
   "voiceRateHelp": "Fréquence de rafraîchissement de la barre d'activité. Une valeur plus élevée est plus fluide mais utilise davantage le CPU.",
   "voiceScaleHelp": "La taille du texte de la superposition.",
   "voiceUpdateIntegration": "Mettez à jour l'intégration Voice Satellite dans Home Assistant pour contrôler ces paramètres depuis le kiosque.",
-  "voiceDashboardRequired": "Disponible tant que le kiosque affiche votre tableau de bord Home Assistant."
+  "voiceDashboardRequired": "Disponible tant que le kiosque affiche votre tableau de bord Home Assistant.",
+  "voiceSkinDefault": "Selon l'habillage",
+  "voiceBackground": "Arrière-plan",
+  "voiceBackgroundHelp": "La part du tableau de bord visible à travers.",
+  "voicePreview": "Aperçu",
+  "voicePreviewHelp": "Affiche la superposition sur cet écran pendant cinq secondes.",
+  "voicePreviewRemoteHelp": "Affiche la superposition sur l'écran du kiosque pendant cinq secondes.",
+  "settingVoiceThemeTitle": "Thème",
+  "settingVoiceThemeDescription": "Auto suit le thème de Home Assistant.",
+  "settingVoiceBackgroundDescription": "La part du tableau de bord visible à travers. Selon l'habillage à -1.",
+  "settingVoiceTextScaleTitle": "Taille du texte",
+  "settingVoiceReactiveBarTitle": "Barre d'activité réactive",
+  "settingVoiceReactiveBarDescription": "La barre suit votre voix et la réponse.",
+  "voicePreviewCommand": "Quel temps fait-il ?",
+  "voicePreviewAnswer": "Ensoleillé et 22° en ce moment, avec une légère brise."
 }

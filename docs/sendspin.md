@@ -4,6 +4,8 @@ Kiosk Satellite displays and controls music on screen through a floating now-pla
 
 The device's native local player is [Sendspin](https://www.sendspin-audio.com/), a synchronized multi room audio protocol native to [Music Assistant](https://www.music-assistant.io/). Enabling Sendspin registers the kiosk automatically as a player in Music Assistant named after the device, allowing sample-accurate synchronized playback across all Sendspin speakers in the household. Through the Music Assistant integration, the kiosk also exposes a `media_player` entity to Home Assistant with complete metadata, artwork, and volume controls.
 
+The interface can also follow another app playing on the device itself, such as a Spotify Connect receiver, through its Android media session.
+
 Alternatively, the on screen interface can mirror a player located elsewhere: any Music Assistant player, any Home Assistant media player, or a Sonos speaker directly. This accommodates wall mounted displays intended to monitor and steer external speakers without generating local audio output.
 
 Media browsing and queue management occur in Music Assistant (or via its dashboard card), while voice control operates through Voice Satellite.
@@ -18,12 +20,13 @@ A core rule applies to all media sources: both the floating player card and the 
 
 | Setting | Default | Notes |
 | --- | --- | --- |
-| Player source | This device | Selects what the floating player and Now Playing view display and control: the native Sendspin player, or an external player from Home Assistant, Music Assistant, or a Sonos household. Selecting an external source takes the local Sendspin player offline. |
-| Player | Sendspin Player | When "This device" is selected, it defaults to the native Sendspin player. For external sources, this dropdown populates with players available from that specific provider. |
+| Player source | This device | Selects what the floating player and Now Playing view display and control: a player on this device, or an external player from Home Assistant, Music Assistant, or a Sonos household. Selecting an external source takes the local Sendspin player offline. |
+| Player | Sendspin Player | With "This device" as the source: **Sendspin Player**, the native Sendspin player, or **Local Media Session**, whichever other app plays on the device (see [Local Media Session](#local-media-session)). For external sources, this dropdown populates with players available from that specific provider. |
 | Duck volume during voice interactions | 10% | Lowers the selected player to this percentage of its current volume during voice interactions and intercom calls, then restores its previous volume. Applies to every source with volume control. Capped at 25% so the microphone still hears you. |
-| Volume buttons control the player | Off | Routes the device's hardware volume buttons to the followed player, either only while the Now Playing view is on screen or whenever the player is playing. Shown for an external player source only. With "This device" as the source the buttons keep changing the device's own volume. The mute button mutes the player. While the Now Playing view is up, a press shows its volume slider for a moment. Lockdown and "Disable volume buttons" under Kiosk still leave the buttons dead. |
+| Volume buttons control the player | Off | Routes the device's hardware volume buttons to the followed player, either only while the Now Playing view is on screen or whenever the player is playing. Shown for Home Assistant, Music Assistant and Sonos only. With "This device" as the source the buttons keep changing the device's own volume. The mute button mutes the player. While the Now Playing view is up, a press shows its volume slider for a moment. Lockdown and "Disable volume buttons" under Kiosk still leave the buttons dead. |
 | Volume button step | 5% | How far one press of a volume button moves the followed player, from 1% to 10%. Shown only while the buttons are routed to the player. A sensitive amplifier or a bedroom at night wants a smaller step. |
 | Album art cache | Automatic | Shows the disk space used by queue thumbnails and offers a Clear button. Covers are resized to at most 256 pixels and stored across app restarts, with a 100 MB limit. Older entries are evicted automatically. Clearing also removes thumbnails from memory. |
+| Expose ESPHome entities | Off | Adds **Media play**, **Media pause**, **Media next** and **Media previous** buttons and **Media state**, **Media title**, **Media artist** and **Media source** sensors to the kiosk's [ESPHome](esphome.md#controls) device. They act on whichever player the page follows: the Sendspin player, an external player or the Local Media Session. Turning it on or off re-registers the device. |
 
 ### Sendspin Player
 
@@ -136,12 +139,21 @@ Capabilities vary slightly by player source:
 | Music Assistant player | Supported | Supported | Supported |
 | Home Assistant media player | Supported | Supported | Not supported |
 | Sonos (Direct UPnP) | Supported | Supported | Supported |
+| Local Media Session | Supported | Supported | Not supported |
 
 Unsupported controls are hidden automatically. For example, if a Home Assistant player does not report position seeking, the progress bar thumb is removed.
 
 Direct Sonos tracking polls the speaker over port 1400 once per second while active, maintaining precise lyric timing, queue jumping, and group volume controls. Regrouping speakers in the official Sonos app automatically updates the target tracking. Album artwork for Spotify or Deezer tracks on Sonos is resolved using public API image lookups to prevent loading failures on isolated VLANs. A Spotify Connect or AirPlay session played through the speaker keeps next and previous, which the speaker passes on to the app, while the queue toggle and the heart leave the view since the app holds that queue and My Sonos cannot keep a session. The queue toggle leaves the same way while the speaker plays a station or an input and comes back with the queue.
 
 When configured to follow an external player, the kiosk acts purely as a remote control: its internal Sendspin player shuts down and reports as offline in Music Assistant. Selecting "This device" brings the local Sendspin player back online. Swiping away the floating card will stop the external player's music unless "Keep playing when dismissed" is explicitly enabled.
+
+## Local Media Session
+
+With **Player source** on "This device", the **Player** dropdown also offers **Local Media Session**. The floating player and Now Playing then follow whichever other app plays on the device, such as a Spotify Connect receiver or a podcast app, through its Android media session. A new app that starts playing takes over, and a paused one stays on screen until another plays. The Sendspin player goes offline while this is picked, the same as with an external player.
+
+The app offers the transport buttons its session allows, with a seek bar when it reports a track length. Volume is the device's media volume, since the app plays through the device. Shuffle, repeat, the heart and the queue are not offered: Android's media session API gives no way to read them back.
+
+Android only lists other apps' sessions to an app with **Notification access**, so the page shows a **Required system permissions** group with that grant while Local Media Session is picked. Kiosk Satellite reads no notifications with it.
 
 ## The Music Assistant Shortcut
 
@@ -235,6 +247,7 @@ External player tracking uses dedicated connections:
 * **Music Assistant**: Monitored via a persistent WebSocket connection receiving active queue state and event pushes.
 * **Home Assistant**: Monitored via a `subscribe_entities` WebSocket subscription, routing commands via `media_player` service calls.
 * **Sonos**: Polled directly via local UPnP services on port 1400.
+* **Local Media Session**: Read through Android's `MediaSessionManager`, which pushes every metadata and playback change. Commands go through the session's own transport controls.
 
 The Sendspin client implementation is adapted from [SendspinDroid](https://github.com/chrisuthe/SendspinDroid) (MIT License).
 
@@ -244,4 +257,5 @@ The Sendspin client implementation is adapted from [SendspinDroid](https://githu
 * **Audio is out of sync with other speakers**: Allow a few seconds after connection for the Kalman filter to converge. Static speaker delays can be adjusted using the **Audio sync offset** setting in app settings or Music Assistant.
 * **Audio dropouts on Wi-Fi**: Switch the **Preferred audio codec** to Opus to reduce network bandwidth consumption.
 * **Sonos speakers not discovered**: Automatic discovery uses local network multicast. If speakers reside on a separate VLAN, add them manually by IP address using **Add by address**.
+* **Local Media Session shows nothing**: Grant **Notification access** under **Required system permissions** on the Media Player page. On Android 13 and newer a sideloaded app first needs **Allow restricted settings** from its App info menu. Devices without the Notification access screen (Android TV, some Fire OS and LineageOS builds) can grant it over adb: `adb shell cmd notification allow_listener me.jxl.kiosk_satellite/.MediaSessionListener`. The app must publish a media session, which most players do once they start playing.
 * **Home Assistant player shows no metadata**: The target `media_player` entity must publish a valid `media_title` attribute. Inputs lacking title metadata (such as line-in or TV sources) will display an empty card until media with metadata is played.

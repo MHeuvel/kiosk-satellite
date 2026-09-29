@@ -150,12 +150,14 @@ export async function cmd(name, params = {}, { timeoutMs = 0 } = {}) {
 // scroll away. Route every switch through here so that cannot happen again.
 // Whether a gating setting's value satisfies a row's dependsOnValue, the
 // device's SettingDef.dependsSatisfiedBy: a list means any of them (the
-// Immich From date, which both Since and Timeframe want), a bare value
-// means equality, and an absent one the common boolean switch.
+// Immich From date, which both Since and Timeframe want), {gt} a number
+// above it, {ne} anything but it, a bare value means equality, and an
+// absent one the common boolean switch.
 export function dependsSatisfiedBy(value, want) {
   if (want && typeof want === 'object' && typeof want.gt === 'number') {
     return typeof value === 'number' && value > want.gt;
   }
+  if (want && typeof want === 'object' && 'ne' in want) return value !== want.ne;
   return Array.isArray(want) ? want.includes(value) : value === (want ?? true);
 }
 

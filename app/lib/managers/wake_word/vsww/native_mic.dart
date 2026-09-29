@@ -32,6 +32,11 @@ class NativeMic {
   /// the native side converts. Either way this stream is 16 kHz mono.
   static String captureFormat = 'auto';
 
+  /// Where the capture's warnings go (a format that failed, a read that
+  /// stalled), so they reach the app log and not only logcat. Set by
+  /// AudioRoutingManager with the other capture settings.
+  static void Function(String warning)? onWarning;
+
   Stream<Uint8List> stream() => _channel
       .receiveBroadcastStream({
         if (deviceSelector.isNotEmpty) 'device': deviceSelector,
@@ -42,6 +47,14 @@ class NativeMic {
         'noiseSuppression': noiseSuppression,
         'channel': channel,
         'format': captureFormat,
+      })
+      // Besides PCM the platform sends the capture's warnings (a format
+      // that failed, a read that stalled), so they reach the app log.
+      .where((e) {
+        if (e is! Map) return true;
+        final warning = e['warning'];
+        if (warning is String) onWarning?.call(warning);
+        return false;
       })
       .map((e) => e as Uint8List);
 }

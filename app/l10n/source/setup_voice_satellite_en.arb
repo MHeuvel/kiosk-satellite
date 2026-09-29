@@ -169,5 +169,50 @@
         "First-time setup > Voice Satellite"
       ]
     }
+  },
+  "setupVoiceLead": "Turn this kiosk into a voice assistant for Home Assistant. Everything can be changed later.",
+  "@setupVoiceLead": {
+    "context": "Setup > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "setupVoiceAddHint": "After setup, add this kiosk in Home Assistant under Settings, Devices & services, where it shows up as discovered.",
+  "@setupVoiceAddHint": {
+    "context": "Setup > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "setupRecommendedWall": "The settings that suit a kiosk on the wall.",
+  "@setupRecommendedWall": {
+    "context": "Setup > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "setupVoiceFound": "Voice Satellite integration found",
+  "@setupVoiceFound": {
+    "context": "Setup > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "setupVoiceFoundHelp": "Voice Satellite now runs inside Kiosk Satellite. Migrate to keep the wake words, assistant and look of one of the integration's satellites instead of starting fresh.",
+  "@setupVoiceFoundHelp": {
+    "context": "Setup > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "setupVoiceMigrated": "Migrated from the Voice Satellite integration",
+  "@setupVoiceMigrated": {
+    "context": "Setup > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "setupVoiceMigratedHelp": "This kiosk takes over its satellite's settings.",
+  "@setupVoiceMigratedHelp": {
+    "context": "Setup > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "setupVoicePipelineHelp": "The Assist pipeline that answers the wake word.",
+  "@setupVoicePipelineHelp": {
+    "context": "Setup > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "setupVoiceEngineHelp": "The engine that listens for the wake word.",
+  "@setupVoiceEngineHelp": {
+    "context": "Setup > Voice Satellite",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   }
 }

@@ -12,5 +12,7 @@
   "mediaSetUpSonos": "Відомих гучномовців Sonos ще немає. Знайдіть або додайте один на сторінці Sonos.",
   "mediaHaFailed": "Home Assistant не відповів: {error}",
   "mediaSaveFailed": "Не вдалося зберегти плеєр.",
-  "mediaSelectFailed": "Не вдалося вибрати плеєр"
+  "mediaSelectFailed": "Не вдалося вибрати плеєр",
+  "mediaNotificationAccessRemote": "Без цього Android не показує медіасеансів, тому «Зараз грає» не може стежити за застосунками, які відтворюють медіа на цьому пристрої. Екран надання дозволу з’явиться на планшеті.",
+  "mediaLocalMediaSession": "Локальний медіасеанс"
 }

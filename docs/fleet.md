@@ -64,11 +64,11 @@ Settings that scale the UI, control screen brightness, or manage volume often de
 | `face.preview_scale` Preview scaling | Face Detection |
 | `sendspin.player_size` Player size | Floating Player |
 | `screen.default_brightness` Default brightness | Screen & Audio |
-| `screen.adaptive_min_brightness`, `screen.adaptive_max_brightness`, `screen.adaptive_dark_lux`, `screen.adaptive_bright_lux` | Adaptive brightness |
+| `screen.adaptive_min_brightness`, `screen.adaptive_max_brightness`, `screen.adaptive_dark_lux`, `screen.adaptive_bright_lux` (the curve's two middle points travel whenever Minimum brightness does) | Adaptive brightness |
 | `screensaver.brightness_level`, `screensaver.dim_level` | Screensaver |
 | `audio.media_volume` Media volume, `audio.assistant_volume` Assistant volume | Screen & Audio |
 | `notifications.volume` Notification volume | Notifications |
-| `ha.tap_sound_volume` Tap sound volume | Home Assistant Setup, User Interface |
+| `ha.tap_sound_volume` Tap sound volume | Home Assistant, User Interface |
 | `screensaver.gallery_items` Photo Gallery selection | Photo Gallery screensaver |
 | `screensaver.local_folder` Local media folder | Local Media screensaver |
 | `screensaver.clock_background` Clock background photo | Clock screensaver |
@@ -81,6 +81,7 @@ Settings that scale the UI, control screen brightness, or manage volume often de
 | `screen.orientation` Screen orientation | Screen & Audio |
 | `intercom.volume` Intercom volume | Screen & Audio |
 | `intercom.answer_mode` Answer mode, which carries Do not disturb | Intercom |
+| `voice.mute` Mute, `voice.tts_output` Play sounds on | Voice Satellite |
 
 ## How the Sync Runs
 
@@ -114,11 +115,17 @@ Certain settings remain unique to each kiosk regardless of the profile configura
 | Followed player | `sendspin.player`, `sendspin.player_source`, `sendspin.player_name` |
 | Weather preview | `screensaver.weather_preview`, `screensaver.weather_preview_condition`, `screensaver.weather_preview_period` |
 | Voice Satellite chimes | `voice_chimes.wake`, `voice_chimes.done`, `voice_chimes.error`, `voice_chimes.alert`, `voice_chimes.announce` |
-| Local state | `voice.timer_position`, `screensaver.saved_brightness`, `screensaver.immich_validated`, `sendspin.player_active`, `sendspin.player_pos`, `sendspin.sonos_hosts` |
+| Diagnostics | `wake_word.diagnostics` |
+| Home Assistant's wake word picks | `voice.wake_words`, `voice.pending_selects` |
+| Local state | `voice.runtime`, `voice.timer_position`, `screensaver.saved_brightness`, `screensaver.immich_validated`, `sendspin.player_active`, `sendspin.player_pos`, `sendspin.sonos_hosts` |
 
 Plugin Manager stays entirely local. Runtime chart data, history and plugin entity declarations and readings are never synchronized. Plugin entity exclusions stay local even when ordinary ESPHome exclusions are synced. Fleet sync does not copy installed plugins, packages, plugin settings, per-plugin enabled states, drawer or Home Assistant action placements or the **Enable Plugins** master switch. A fleet token cannot call plugin management commands.
 
 Gestures assigned to plugin actions also stay local, even when the profile includes Gestures. The leader omits them from its payload and the follower ignores any received plugin actions while preserving its own. A local plugin gesture takes precedence if an incoming ordinary gesture has the same ID. Adding, editing or removing a local plugin gesture does not mark the follower out of sync. Other gesture mappings still follow the profile.
+
+The Voice Satellite selects Home Assistant keeps for each kiosk travel with the Voice Satellite category: Assistant 1 and 2, Wake word 1 and 2 and Finished speaking detection. A follower sets its own selects in Home Assistant to the leader's picks, so Home Assistant configures it the same way it would for a pick made by hand. A follower keeps its own pick when Home Assistant does not offer the leader's, for example a model the follower lacks. The `voice.wake_words` setting in the table above is the kiosk's copy of what Home Assistant set, so it never travels on its own.
+
+Custom wake word models are the exception: a leader passes its models to every follower whose profile syncs Voice Satellite, and those followers mirror the leader's set. See [Custom Wake Word Models](custom-wake-words.md).
 
 Files referenced by settings (like notification chimes, gallery photos, or local media folders) do not sync; only their file paths travel. If a follower lacks the corresponding file, it defaults back just as it would for a missing local file. The Voice Satellite selection lives on the page itself and also stays strictly local to the kiosk.
 
@@ -133,12 +140,13 @@ Files referenced by settings (like notification chimes, gallery photos, or local
 | `/api/fleet/apply` | POST | fleet | `{revision, version, settings}`. Held in queue if versions differ. |
 | `/api/fleet/leave` | POST | fleet | Notifies the kiosk that the leader removed it from the fleet. |
 | `/api/fleet/roster` | POST | fleet | `{devices: [{id, name, version, address, port}]}`: Replaces the saved member directory independently of settings sync. Contains no fleet tokens. |
+| `/api/fleet/export` | GET | admin | Backs up the whole fleet in one file: `{kind, version, exportedAt, devices: [{id, name, self, config}]}`. Each `config` is that kiosk's `/api/config/export`, secrets included. A follower that does not answer carries `error` in place of `config`. Restore a kiosk by posting its `config` to that kiosk's `/api/config/import`. |
 
 The status response includes `rosterRevision` on releases that support the directory. The leader sends a roster only when that revision differs from its current member list.
 
 For manual invitations, call `fleetLookup` with `{address, port}` to verify the target. It returns the kiosk identity and normalized endpoint without saving a member. Pass its `id`, `address` and `port` to `fleetInvite` with the chosen `profile`. The leader verifies the identity again before sending the invitation. Omitting `address` keeps the discovered or saved address path.
 
-A fleet token also grants access to `getUpdateStatus`, `checkUpdateNow`, `installUpdate` and `installUploadedApk` under `/api/commands/` and to `POST /api/update/upload`, but nothing else. Both pages utilize commands like: `fleetStatus`, `fleetCandidates`, `fleetInvite`, `fleetSetProfile`, `fleetDeleteProfile`, `fleetAssignProfile`, `fleetSyncable`, `fleetRemove`, `fleetSyncNow`, `fleetUpdate`, `fleetInstallUploaded`, and `fleetLeave`. Note that `fleetAccept` and `fleetDecline` are rejected if sent over the remote API. The WebSocket broadcast includes a `fleetsync` event upon any change.
+A fleet token also grants access to `getUpdateStatus`, `checkUpdateNow`, `installUpdate` and `installUploadedApk` under `/api/commands/`, to `POST /api/update/upload` and to `GET /api/config/export` for the fleet export, but nothing else. Both pages utilize commands like: `fleetStatus`, `fleetCandidates`, `fleetInvite`, `fleetSetProfile`, `fleetDeleteProfile`, `fleetAssignProfile`, `fleetSyncable`, `fleetRemove`, `fleetSyncNow`, `fleetUpdate`, `fleetInstallUploaded`, `fleetExport`, and `fleetLeave`. Note that `fleetAccept` and `fleetDecline` are rejected if sent over the remote API. The WebSocket broadcast includes a `fleetsync` event upon any change.
 
 ## Encrypted kiosk connections
 

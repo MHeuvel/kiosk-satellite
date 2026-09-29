@@ -95,7 +95,7 @@ Device ownership remains unavailable because the Portal carries Meta system acco
 
 Portal OS runs a continuous background person detection service. This powers the Smart Camera's auto-framing feature, utilizing a virtual camera feed that does not illuminate the hardware camera LED. It logs a heartbeat every 30 seconds when someone is in view and goes silent when the room is empty. The sensor detects bodies at any angle rather than strictly facing forward, meaning a person sitting with their back to the device still registers. 
 
-Kiosk Satellite exposes this hardware feature under **Settings > Screensaver > Person Detection** (a menu exclusive to Portal devices):
+Kiosk Satellite exposes this hardware feature in two places, both exclusive to Portal devices. **Settings > Camera > Person Sensor** exposes it to Home Assistant with no effect on the screensaver. **Settings > Screensaver > Person Detection** uses it to dismiss or postpone the screensaver:
 
 * **Dismiss on person**: Reads the sensor while the screensaver is active and wakes the display when a person is detected.
 * **Postpone screensaver on person**: Monitors the sensor between screensaver sessions, continuously resetting the idle timer while someone remains in front of the device. This setting requires Dismiss on person to be enabled.
@@ -115,9 +115,11 @@ Person detection operates independently of camera-based Motion Detection and Fac
 
 Person detection represents an ongoing state rather than a single event. While a person remains in view, **Postpone screensaver on person** holds the idle clock continuously, preventing the screensaver from triggering between heartbeats regardless of your idle timeout settings. Under [Lockdown Mode](kiosk.md), person detection will neither dismiss nor postpone the screensaver.
 
-The **Occupancy** indicator beneath the Dismiss on person setting displays real-time status (Detected or Clear) along with the timestamp of the last heartbeat, both on the device and within the remote admin interface. If the required permission is missing, an error notice displays and presence events will not wake the display.
+The **Occupancy** indicator beneath **Enable person sensor** and **Dismiss on person** displays real-time status (Detected or Clear) along with the timestamp of the last heartbeat, both on the device and within the remote admin interface. If the required permission is missing, an error notice displays and presence events will not wake the display.
 
-When Dismiss on person is enabled, the [ESPHome](esphome.md) integration exposes a **Person** binary occupancy sensor, allowing Home Assistant automations to utilize the Portal's built-in detector directly. Toggling this switch re-registers the ESPHome device.
+### Person Sensor
+
+Turn on **Enable person sensor** under **Settings > Camera > Person Sensor** to expose a **Person** binary occupancy sensor through the [ESPHome](esphome.md) integration. Home Assistant automations can then use the Portal's built-in detector directly, for example to keep the lights on while someone stands still at the counter, without the screensaver being dismissed whenever someone walks in. The sensor does not need the Camera switch and runs independently of the screensaver settings. Toggling it re-registers the ESPHome device. Kiosks that had Dismiss on person turned on before this setting existed have it turned on automatically on update, so their Person entity stays in place.
 
 ### The Log Access Grant
 

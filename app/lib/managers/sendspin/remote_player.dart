@@ -11,7 +11,7 @@
 /// kind of player they are looking at.
 abstract interface class RemotePlayer {
   /// The followed player's id in its own system: a Music Assistant player
-  /// id, a Home Assistant entity id.
+  /// id, a Home Assistant entity id, an app's package name.
   String get playerId;
 
   /// Whether the source's last word was that the player holds no track (a
@@ -158,6 +158,10 @@ enum PlayerSourceKind {
 
   /// A Sonos speaker followed directly, `sonos:<player id>`.
   sonos,
+
+  /// Another app's media session on this device, `session:<package>`, or
+  /// `session:*` for whichever app plays.
+  mediaSession,
 }
 
 /// A parsed `sendspin.player` value: which system the player belongs to
@@ -177,6 +181,9 @@ class PlayerSource {
     if (v.startsWith('sonos:')) {
       return PlayerSource(PlayerSourceKind.sonos, v.substring(6));
     }
+    if (v.startsWith('session:')) {
+      return PlayerSource(PlayerSourceKind.mediaSession, v.substring(8));
+    }
     if (v.startsWith('ma:')) {
       return PlayerSource(PlayerSourceKind.musicAssistant, v.substring(3));
     }
@@ -194,5 +201,6 @@ class PlayerSource {
     PlayerSourceKind.musicAssistant => 'ma:$id',
     PlayerSourceKind.homeAssistant => 'ha:$id',
     PlayerSourceKind.sonos => 'sonos:$id',
+    PlayerSourceKind.mediaSession => 'session:$id',
   };
 }

@@ -417,5 +417,434 @@
         "type": "String"
       }
     }
+  },
+  "voiceDiagnosticsPage": "Wake word diagnostics",
+  "@voiceDiagnosticsPage": {
+    "context": "Settings > Voice Satellite > Wake word diagnostics",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake word diagnostics"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake word diagnostics"
+      ]
+    }
+  },
+  "voiceDiagnosticsHint": "Recent activations and near misses with audio clips",
+  "@voiceDiagnosticsHint": {
+    "context": "Settings > Voice Satellite > Wake word diagnostics",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake word diagnostics"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake word diagnostics"
+      ]
+    }
+  },
+  "voiceDiagnosticsTitle": "Enable wake word diagnostics",
+  "@voiceDiagnosticsTitle": {
+    "context": "Settings > Voice Satellite > Wake word diagnostics",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake word diagnostics"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake word diagnostics"
+      ]
+    }
+  },
+  "voiceDiagnosticsDescription": "Records the last 10 wake word activations and near misses with their scores and a 3 second audio clip of each. Turning this off deletes them.",
+  "@voiceDiagnosticsDescription": {
+    "context": "Settings > Voice Satellite > Wake word diagnostics",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake word diagnostics"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake word diagnostics"
+      ]
+    }
+  },
+  "voiceDiagnosticsEmpty": "No wake word activations recorded yet.",
+  "@voiceDiagnosticsEmpty": {
+    "context": "Settings > Voice Satellite > Wake word diagnostics",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake word diagnostics"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake word diagnostics"
+      ]
+    }
+  },
+  "voiceDiagnosticsActivations": "Activations",
+  "@voiceDiagnosticsActivations": {
+    "context": "Settings > Voice Satellite > Wake word diagnostics",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake word diagnostics"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake word diagnostics"
+      ]
+    }
+  },
+  "voiceDiagnosticsNoNearMisses": "No near misses recorded yet.",
+  "@voiceDiagnosticsNoNearMisses": {
+    "context": "Settings > Voice Satellite > Wake word diagnostics",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake word diagnostics"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake word diagnostics"
+      ]
+    }
+  },
+  "voiceDiagnosticsPeakLevel": "Peak level",
+  "@voiceDiagnosticsPeakLevel": {
+    "context": "Settings > Voice Satellite > Wake word diagnostics",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake word diagnostics"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake word diagnostics"
+      ]
+    }
+  },
+  "voiceDiagnosticsAverageLevel": "Average level",
+  "@voiceDiagnosticsAverageLevel": {
+    "context": "Settings > Voice Satellite > Wake word diagnostics",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake word diagnostics"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake word diagnostics"
+      ]
+    }
+  },
+  "voiceDiagnosticsClipped": "Clipped",
+  "@voiceDiagnosticsClipped": {
+    "context": "Settings > Voice Satellite > Wake word diagnostics",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake word diagnostics"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake word diagnostics"
+      ]
+    }
+  },
+  "voiceDiagnosticsHeard": "Heard",
+  "@voiceDiagnosticsHeard": {
+    "context": "Settings > Voice Satellite > Wake word diagnostics",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Voice Satellite > Wake word diagnostics"
+      ],
+      "remoteAdmin": [
+        "Voice Satellite > Wake word diagnostics"
+      ]
+    }
+  },
+  "voiceWake2HelpNative": "A second wake word, answered by Assistant 2.",
+  "@voiceWake2HelpNative": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomModels": "Custom Models",
+  "@voiceCustomModels": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomNone": "No custom models yet.",
+  "@voiceCustomNone": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomManaged": "The fleet leader manages the custom models on this kiosk.",
+  "@voiceCustomManaged": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomAdd": "Add models",
+  "@voiceCustomAdd": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomAddHelp": "Pick the files of one or more models. They show up in Wake word 1 and 2 above.",
+  "@voiceCustomAddHelp": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomDocs": "How to add custom models",
+  "@voiceCustomDocs": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomDocsHelp": "The files each engine needs and where the models come from.",
+  "@voiceCustomDocsHelp": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomNotAdded": "The models were not added.",
+  "@voiceCustomNotAdded": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomSomeNotAdded": "Some files were not added.",
+  "@voiceCustomSomeNotAdded": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomAdded": "Models added.",
+  "@voiceCustomAdded": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomDeleteConfirm": "Delete this model?",
+  "@voiceCustomDeleteConfirm": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomNotDeleted": "The model was not deleted.",
+  "@voiceCustomNotDeleted": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceCustomOtherEngine": "not the engine in use",
+  "@voiceCustomOtherEngine": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceWakeWordEngineDescription": "Which engine listens. All models ship with the app.",
+  "@settingVoiceWakeWordEngineDescription": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceWakeWordSensitivityTitle": "Wake word sensitivity",
+  "@settingVoiceWakeWordSensitivityTitle": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceWakeWordSensitivityDescription": "How easily the wake word triggers.",
+  "@settingVoiceWakeWordSensitivityDescription": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceNoiseGateTitle": "Wake word noise gate",
+  "@settingVoiceNoiseGateTitle": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceNoiseGateDescription": "Skip wake word inference while the room is quiet, saving CPU.",
+  "@settingVoiceNoiseGateDescription": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceStopWordTitle": "Stop word interruption",
+  "@settingVoiceStopWordTitle": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceStopWordDescription": "Say \"stop\" to cut off an answer, a timer alert or an announcement.",
+  "@settingVoiceStopWordDescription": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceOptionSlightly": "Slightly sensitive",
+  "@voiceOptionSlightly": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceOptionModerately": "Moderately sensitive",
+  "@voiceOptionModerately": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceOptionVery": "Very sensitive",
+  "@voiceOptionVery": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceModelNotFileName": "Not a file name.",
+  "@voiceModelNotFileName": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceModelBadExtension": "Only .json, .tflite and .onnx files are models.",
+  "@voiceModelBadExtension": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceModelTooLarge": "{name} is larger than 64 MB.",
+  "@voiceModelTooLarge": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelIncomplete": "{name} arrived incomplete.",
+  "@voiceModelIncomplete": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelBadJson": "{file} is not valid JSON.",
+  "@voiceModelBadJson": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelNotManifest": "{file} is not a manifest.",
+  "@voiceModelNotManifest": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelMwwNeedsTflite": "A microWakeWord model needs {file} too.",
+  "@voiceModelMwwNeedsTflite": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelMwwBadManifest": "{file} is not a valid microWakeWord manifest.",
+  "@voiceModelMwwBadManifest": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelVswwNeedsOnnx": "A vsWakeWord model needs {file} too.",
+  "@voiceModelVswwNeedsOnnx": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelVswwBadManifest": "{file} is not a valid vsWakeWord manifest.",
+  "@voiceModelVswwBadManifest": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelUnknownManifest": "{file} is neither a microWakeWord nor a vsWakeWord manifest.",
+  "@voiceModelUnknownManifest": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelNoModelFile": "No model file for {name}.",
+  "@voiceModelNoModelFile": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelBothFormats": "Add either {onnx} or {tflite}, not both.",
+  "@voiceModelBothFormats": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "onnx": {
+        "type": "String"
+      },
+      "tflite": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelNotOwwTflite": "{file} is not an openWakeWord model. A microWakeWord model needs its {json} too.",
+  "@voiceModelNotOwwTflite": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "file": {
+        "type": "String"
+      },
+      "json": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceModelNotTflite": "Not a TFLite model.",
+  "@voiceModelNotTflite": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceModelNotOnnx": "Not an ONNX model.",
+  "@voiceModelNotOnnx": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceModelNotOww": "Not an openWakeWord model.",
+  "@voiceModelNotOww": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceModelOwwWindow": "Not an openWakeWord model: it does not take the 16 x 96 embedding window.",
+  "@voiceModelOwwWindow": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceModelNoLoad": "The model does not load: {error}",
+  "@voiceModelNoLoad": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
   }
 }

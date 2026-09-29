@@ -1,0 +1,17 @@
+{
+  "@@locale": "uk",
+  "settingVoiceShowCommandTitle": "Показувати, що ви сказали",
+  "settingVoiceShowCommandDescription": "Ваша команда над відповіддю.",
+  "settingVoiceShowAnswerTitle": "Показувати відповідь",
+  "settingVoiceShowAnswerDescription": "Відповідь під час її озвучення.",
+  "settingVoiceShowToolsTitle": "Показувати використання інструментів",
+  "settingVoiceShowToolsDescription": "Рядок для кожної дії асистента.",
+  "settingVoiceHideSentimentTagsTitle": "Приховувати теги емоцій",
+  "settingVoiceHideSentimentTagsDescription": "Пропускає теги на кшталт [happy], які додають деякі асистенти.",
+  "settingVoiceAnswerLingerTitle": "Залишати відповідь на екрані",
+  "settingVoiceAnswerLingerDescription": "Після озвучення відповіді.",
+  "settingVoiceResultsLingerTitle": "Залишати результати на екрані",
+  "settingVoiceResultsLingerDescription": "Зображення, погода та інші результати. 0 залишає їх, доки ви їх не закриєте.",
+  "settingVoiceAnnouncementLingerTitle": "Час показу оголошення",
+  "settingVoiceAnnouncementLingerDescription": "Після озвучення оголошення."
+}

@@ -1,0 +1,19 @@
+{
+  "@@locale": "uk",
+  "settingVoiceTimerPillsTitle": "Показувати індикатори таймерів",
+  "settingVoiceTimerPillsDescription": "Активні таймери плавають над екраном. Перетягуйте їх будь-куди.",
+  "settingVoiceTimerNameInPillTitle": "Показувати назву таймера",
+  "settingVoiceTimerNameInPillDescription": "Назва поруч із часом в індикаторі.",
+  "settingVoiceTimerPillScaleTitle": "Масштаб індикаторів таймерів",
+  "settingVoiceTimerPillScaleDescription": "Розмір індикаторів таймерів.",
+  "settingVoiceMuteTimersTitle": "Вимкнути звук сповіщень таймерів",
+  "settingVoiceMuteTimersDescription": "Показувати сповіщення без звуку.",
+  "settingVoiceTimerNameOnAlertTitle": "Показувати назву в сповіщенні",
+  "settingVoiceTimerNameOnAlertDescription": "Назва таймера під сповіщенням.",
+  "settingVoiceTimerSpeakTitle": "Говорити, коли таймер завершується",
+  "settingVoiceTimerSpeakDescription": "Промовляє фразу між звуками сповіщення.",
+  "settingVoiceTimerPhraseTitle": "Фраза",
+  "settingVoiceTimerPhraseDescription": "Промовляється для таймера без назви.",
+  "settingVoiceTimerNamedPhraseTitle": "Фраза для таймерів із назвою",
+  "settingVoiceTimerNamedPhraseDescription": "{name} замінюється на назву таймера."
+}

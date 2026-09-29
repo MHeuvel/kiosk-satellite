@@ -1,0 +1,19 @@
+{
+  "@@locale": "fr",
+  "settingVoiceTimerPillsTitle": "Afficher les pastilles de minuteur",
+  "settingVoiceTimerPillsDescription": "Les minuteurs en cours flottent au-dessus de l'écran. Faites-les glisser n'importe où.",
+  "settingVoiceTimerNameInPillTitle": "Afficher le nom du minuteur",
+  "settingVoiceTimerNameInPillDescription": "Le nom à côté du temps dans une pastille.",
+  "settingVoiceTimerPillScaleTitle": "Taille des pastilles de minuteur",
+  "settingVoiceTimerPillScaleDescription": "La taille des pastilles de minuteur.",
+  "settingVoiceMuteTimersTitle": "Couper les alertes de minuteur",
+  "settingVoiceMuteTimersDescription": "Affiche l'alerte sans le son.",
+  "settingVoiceTimerNameOnAlertTitle": "Afficher le nom sur l'alerte",
+  "settingVoiceTimerNameOnAlertDescription": "Le nom du minuteur sous l'alerte.",
+  "settingVoiceTimerSpeakTitle": "Parler quand un minuteur se termine",
+  "settingVoiceTimerSpeakDescription": "Dit une phrase entre les sons de l'alerte.",
+  "settingVoiceTimerPhraseTitle": "Phrase",
+  "settingVoiceTimerPhraseDescription": "Prononcée pour un minuteur sans nom.",
+  "settingVoiceTimerNamedPhraseTitle": "Phrase pour les minuteurs nommés",
+  "settingVoiceTimerNamedPhraseDescription": "{name} est remplacé par le nom du minuteur."
+}

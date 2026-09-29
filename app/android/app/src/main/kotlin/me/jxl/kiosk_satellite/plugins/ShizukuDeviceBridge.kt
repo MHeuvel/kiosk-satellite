@@ -29,7 +29,7 @@ internal class ShizukuDeviceBridge(private val context: Context, messenger: Bina
                         val action = args["action"] as? String ?: error("Missing action")
                         val permissions = if (action == "grantAll") {
                             val raw = args["permissions"] as? List<*> ?: error("Missing permissions")
-                            require(raw.size <= 12 && raw.all { it is String })
+                            require(raw.size <= 13 && raw.all { it is String })
                             raw.filterIsInstance<String>().distinct()
                         } else if (action == "identity" || action == "reboot") emptyList() else listOf(action)
                         val plan = permissions.associateWith { ShizukuPermissionPlan.commands(it, Build.VERSION.SDK_INT, context.packageName) }

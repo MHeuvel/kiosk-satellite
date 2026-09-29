@@ -3708,6 +3708,20 @@ class UiStringsUk extends UiStrings {
   String get cameraAppSettings => 'Налаштування застосунку';
 
   @override
+  String get settingPersonSensorTitle => 'Увімкнути датчик людей';
+
+  @override
+  String get settingPersonSensorDescription =>
+      'Надавати датчик присутності пристрою в Home Assistant як датчик зайнятості. Потрібен дозвіл на доступ до журналів нижче.';
+
+  @override
+  String get cameraPersonPage => 'Датчик людей';
+
+  @override
+  String get cameraPersonHint =>
+      'Датчик зайнятості Home Assistant на основі датчика присутності пристрою';
+
+  @override
   String get cameraLatest => 'Останній знімок';
 
   @override
@@ -4999,6 +5013,21 @@ class UiStringsUk extends UiStrings {
   @override
   String get deviceOverlayAdb =>
       'Цей пристрій не має відповідного екрана налаштувань. Надайте його через adb: adb shell appops set me.jxl.kiosk_satellite SYSTEM_ALERT_WINDOW allow';
+
+  @override
+  String get deviceNotificationAccess => 'Доступ до сповіщень';
+
+  @override
+  String get deviceNotificationAccessHeld =>
+      '«Зараз грає» може стежити за застосунками, які відтворюють медіа на цьому пристрої.';
+
+  @override
+  String get deviceNotificationAccessMissing =>
+      'Без цього Android не показує медіасеансів, тому «Зараз грає» не може стежити за застосунками, які відтворюють медіа на цьому пристрої.';
+
+  @override
+  String get deviceNotificationAccessIdle =>
+      'Дає змогу «Зараз грає» стежити за застосунками, які відтворюють медіа на цьому пристрої.';
 
   @override
   String get settingRemoteEnabledTitle => 'Віддалене керування';
@@ -7487,6 +7516,14 @@ class UiStringsUk extends UiStrings {
       'Музика знижується до цієї частки своєї гучності під час голосових взаємодій і викликів інтеркому, а потім повертається.';
 
   @override
+  String get settingSendspinEsphomeEntitiesTitle =>
+      'Експортувати сутності ESPHome';
+
+  @override
+  String get settingSendspinEsphomeEntitiesDescription =>
+      'Кнопки відтворення, паузи, наступного й попереднього треку для плеєра, за яким слідують, у Home Assistant, а також його стан, назва, виконавець і джерело як датчики.';
+
+  @override
   String get settingSendspinVolumeKeysTitle =>
       'Кнопки гучності керують плеєром';
 
@@ -7827,6 +7864,13 @@ class UiStringsUk extends UiStrings {
 
   @override
   String get mediaSelectFailed => 'Не вдалося вибрати плеєр';
+
+  @override
+  String get mediaNotificationAccessRemote =>
+      'Без цього Android не показує медіасеансів, тому «Зараз грає» не може стежити за застосунками, які відтворюють медіа на цьому пристрої. Екран надання дозволу з’явиться на планшеті.';
+
+  @override
+  String get mediaLocalMediaSession => 'Локальний медіасеанс';
 
   @override
   String get settingSendspinEnabledTitle => 'Увімкнути плеєр Sendspin';
@@ -8220,6 +8264,34 @@ class UiStringsUk extends UiStrings {
   @override
   String get screenAudioSetsDefault =>
       'Встановлює яскравість за замовчуванням.';
+
+  @override
+  String get screenAudioBrightnessCurve => 'Крива яскравості';
+
+  @override
+  String get screenAudioCurveHint =>
+      'Перетягніть точку або торкніться її, щоб ввести точні значення. Світло Screen у Home Assistant переміщує верхню точку, і крива слідує за нею.';
+
+  @override
+  String screenAudioCurvePoint(String number) {
+    return 'Точка $number';
+  }
+
+  @override
+  String get screenAudioCurveLightLevel => 'Рівень освітлення (лк)';
+
+  @override
+  String get screenAudioCurveBrightness => 'Яскравість (%)';
+
+  @override
+  String screenAudioCurveLuxRange(String low, String high) {
+    return 'Введіть рівень освітлення від $low до $high лк';
+  }
+
+  @override
+  String screenAudioCurveLevelRange(String low, String high) {
+    return 'Введіть яскравість від $low% до $high%';
+  }
 
   @override
   String get settingAudioMicDeviceTitle => 'Мікрофон';
@@ -8976,6 +9048,23 @@ class UiStringsUk extends UiStrings {
   @override
   String get settingScreensaverScreenOffBlackDescription =>
       'Показувати чорний екран при нульовій яскравості замість повного вимкнення дисплея. Приховує віджети та \"Зараз грає\". Дозвіл адміністратора пристрою не потрібен.';
+
+  @override
+  String get screensaverModeDashboard => 'Панель керування Home Assistant';
+
+  @override
+  String get settingScreensaverDashboardViewTitle => 'Вигляд панелі керування';
+
+  @override
+  String get settingScreensaverDashboardViewDescription =>
+      'Вигляд панелі керування Home Assistant, який показує заставка.';
+
+  @override
+  String get screensaverSelectDashboard => 'Вибрати панель керування';
+
+  @override
+  String get screensaverDashboardSection =>
+      'Заставка панелі керування Home Assistant';
 
   @override
   String get settingScreensaverGlanceScaleTitle => 'Масштаб рядка';
@@ -10302,6 +10391,13 @@ class UiStringsUk extends UiStrings {
       'Затемнювати нижню панель, щоб погодна інформація залишалася розбірливою.';
 
   @override
+  String get settingScreensaverWeatherBarTitlesTitle => 'Показувати заголовки';
+
+  @override
+  String get settingScreensaverWeatherBarTitlesDescription =>
+      'Підписувати кожен показник над його значенням. Без заголовків значення мають розмір температури.';
+
+  @override
   String get screensaverWeatherBarHumidityDescription =>
       'Показувати вологість, коли погодний об\'єкт повідомляє її.';
 
@@ -10688,6 +10784,123 @@ class UiStringsUk extends UiStrings {
       'Доступно, коли кіоск показує панель керування Home Assistant.';
 
   @override
+  String get voiceSkinDefault => 'За оформленням';
+
+  @override
+  String get voiceBackground => 'Тло';
+
+  @override
+  String get voiceBackgroundHelp =>
+      'Наскільки крізь тло видно панель керування.';
+
+  @override
+  String get voicePreview => 'Попередній перегляд';
+
+  @override
+  String get voicePreviewHelp =>
+      'Показати накладення на цьому екрані на п’ять секунд.';
+
+  @override
+  String get voicePreviewRemoteHelp =>
+      'Показати накладення на екрані кіоску на п’ять секунд.';
+
+  @override
+  String get settingVoiceThemeTitle => 'Тема';
+
+  @override
+  String get settingVoiceThemeDescription =>
+      'Авто відповідає темі Home Assistant.';
+
+  @override
+  String get settingVoiceBackgroundDescription =>
+      'Наскільки крізь тло видно панель керування. За оформленням при -1.';
+
+  @override
+  String get settingVoiceTextScaleTitle => 'Розмір тексту';
+
+  @override
+  String get settingVoiceReactiveBarTitle => 'Реактивна смуга активності';
+
+  @override
+  String get settingVoiceReactiveBarDescription =>
+      'Смуга реагує на ваш голос і відповідь.';
+
+  @override
+  String get voicePreviewCommand => 'Яка погода?';
+
+  @override
+  String get voicePreviewAnswer => 'Зараз сонячно і 22°, легкий вітерець.';
+
+  @override
+  String get voiceAssistant1 => 'Асистент 1';
+
+  @override
+  String get voiceAssistant1Help => 'Відповідає на слово активації 1.';
+
+  @override
+  String get voiceAssistant2 => 'Асистент 2';
+
+  @override
+  String get voiceAssistant2Help => 'Відповідає на слово активації 2.';
+
+  @override
+  String get voicePipelines => 'Голосові конвеєри';
+
+  @override
+  String get voicePreferred => 'Бажаний';
+
+  @override
+  String get voiceNone => 'Немає';
+
+  @override
+  String get voiceThisKiosk => 'Цей кіоск';
+
+  @override
+  String get voiceSelectFailed => 'Не вдалося змінити це в Home Assistant.';
+
+  @override
+  String get settingVoiceSeamlessWakeTitle =>
+      'Говорити одразу після слова активації';
+
+  @override
+  String get settingVoiceSeamlessWakeDescription =>
+      'Пропускає звук активації та зберігає те, що ви кажете одразу після слова активації.';
+
+  @override
+  String get settingVoiceFollowupDelayTitle => 'Затримка перед уточненням';
+
+  @override
+  String get settingVoiceFollowupDelayDescription =>
+      'Пауза перед тим, як слухати відповідь на запитання.';
+
+  @override
+  String get settingVoiceFollowupChimeTitle => 'Звук перед уточненням';
+
+  @override
+  String get settingVoiceFollowupChimeDescription =>
+      'Відтворює звук активації, коли прослуховування починається знову.';
+
+  @override
+  String get settingVoiceTtsOutputTitle => 'Відтворювати звуки на';
+
+  @override
+  String get settingVoiceTtsOutputDescription =>
+      'Звуки, відповіді, оголошення та сповіщення таймерів відтворюються на цьому динаміку.';
+
+  @override
+  String get settingVoiceTtsOutputModeTitle => 'Відтворювати як';
+
+  @override
+  String get settingVoiceTtsOutputModeDescription =>
+      'Оголошення дає динаміку змогу призупинити музику й відновити її. Звичайне відтворення потім запускає музику знову, для динаміків, які ігнорують оголошення.';
+
+  @override
+  String get voiceOptionAnnouncement => 'Оголошення';
+
+  @override
+  String get voiceOptionNormalPlayback => 'Звичайне відтворення';
+
+  @override
   String get voiceChimesPage => 'Звукові сигнали';
 
   @override
@@ -10738,6 +10951,63 @@ class UiStringsUk extends UiStrings {
   @override
   String get voiceChimeAnnounceDescription =>
       'Відтворюється перед оголошенням Voice Satellite, якщо воно не містить власного звуку.';
+
+  @override
+  String get settingVoiceWakeSoundTitle => 'Відтворювати звуки';
+
+  @override
+  String get settingVoiceWakeSoundDescription =>
+      'Звуки активації, завершення та помилки.';
+
+  @override
+  String get settingVoiceShowCommandTitle => 'Показувати, що ви сказали';
+
+  @override
+  String get settingVoiceShowCommandDescription =>
+      'Ваша команда над відповіддю.';
+
+  @override
+  String get settingVoiceShowAnswerTitle => 'Показувати відповідь';
+
+  @override
+  String get settingVoiceShowAnswerDescription =>
+      'Відповідь під час її озвучення.';
+
+  @override
+  String get settingVoiceShowToolsTitle =>
+      'Показувати використання інструментів';
+
+  @override
+  String get settingVoiceShowToolsDescription =>
+      'Рядок для кожної дії асистента.';
+
+  @override
+  String get settingVoiceHideSentimentTagsTitle => 'Приховувати теги емоцій';
+
+  @override
+  String get settingVoiceHideSentimentTagsDescription =>
+      'Пропускає теги на кшталт [happy], які додають деякі асистенти.';
+
+  @override
+  String get settingVoiceAnswerLingerTitle => 'Залишати відповідь на екрані';
+
+  @override
+  String get settingVoiceAnswerLingerDescription =>
+      'Після озвучення відповіді.';
+
+  @override
+  String get settingVoiceResultsLingerTitle => 'Залишати результати на екрані';
+
+  @override
+  String get settingVoiceResultsLingerDescription =>
+      'Зображення, погода та інші результати. 0 залишає їх, доки ви їх не закриєте.';
+
+  @override
+  String get settingVoiceAnnouncementLingerTitle => 'Час показу оголошення';
+
+  @override
+  String get settingVoiceAnnouncementLingerDescription =>
+      'Після озвучення оголошення.';
 
   @override
   String get voiceEngine => 'Рушій';
@@ -10847,6 +11117,306 @@ class UiStringsUk extends UiStrings {
   @override
   String get settingWakeWordReturnToBackgroundDescription =>
       'Повертатися до попередньої програми або головного екрана після того, як голосова взаємодія вивела Kiosk Satellite на передній план і завершилася.';
+
+  @override
+  String get voiceAssistant => 'Асистент';
+
+  @override
+  String get voiceConversation => 'Розмова';
+
+  @override
+  String get voiceTimers => 'Таймери';
+
+  @override
+  String get voiceAssistantHint => 'Голосові конвеєри, уточнення';
+
+  @override
+  String get voiceConversationHint => 'Що показує накладення і як довго';
+
+  @override
+  String get voiceTimersHint => 'Індикатори, сповіщення, голосові нагадування';
+
+  @override
+  String get voiceSectionFollowUp => 'Уточнення';
+
+  @override
+  String get voiceSectionLinger => 'Як довго залишається';
+
+  @override
+  String get voiceSectionOnScreen => 'На екрані';
+
+  @override
+  String get voiceSectionPills => 'Індикатори';
+
+  @override
+  String get voiceSectionSpeaker => 'Динамік';
+
+  @override
+  String get voiceSectionWakeCommand => 'Слово активації та команда';
+
+  @override
+  String get voiceSectionTimerEnds => 'Коли таймер завершується';
+
+  @override
+  String get voiceStatusEsphomeOff => 'Сервер ESPHome вимкнено.';
+
+  @override
+  String get voiceStatusNotAdded => 'Цей кіоск ще не додано до Home Assistant.';
+
+  @override
+  String get voiceStatusMuted => 'Мікрофон вимкнено.';
+
+  @override
+  String get voiceStatusNotListening => 'Слово активації не прослуховується.';
+
+  @override
+  String get voiceStatusListening => 'Очікування слова активації.';
+
+  @override
+  String get voiceWordNotAdded => 'Не додано';
+
+  @override
+  String get voiceWordMuted => 'Вимкнено';
+
+  @override
+  String get voiceWordBusy => 'Зайнято';
+
+  @override
+  String get voiceWordListening => 'Слухає';
+
+  @override
+  String get voiceWordNotListening => 'Не слухає';
+
+  @override
+  String get voiceWordAdded => 'Додано';
+
+  @override
+  String get voiceHaAddHint =>
+      'Додайте цей кіоск у Home Assistant у розділі Налаштування, Пристрої та служби, де він відображається як виявлений.';
+
+  @override
+  String get voiceHaEsphomeOff =>
+      'Увімкніть сервер ESPHome, щоб Home Assistant міг додати цей кіоск як сателіт.';
+
+  @override
+  String get voiceWordReloadNeeded => 'Потрібне перезавантаження';
+
+  @override
+  String get voiceHaSelectsReloadHint =>
+      'Home Assistant не завантажив вибори Асистент і Слово активації. Перезавантажте запис ESPHome цього кіоску в розділі Налаштування, Пристрої та служби. Перезапуск Home Assistant теж допоможе.';
+
+  @override
+  String get voiceTurnOn => 'Увімкнути';
+
+  @override
+  String get voiceRollbackTitle => 'Знову запускати з панелі керування';
+
+  @override
+  String get voiceRollbackDescription =>
+      'Повернутися до інтеграції Voice Satellite. Нічого з налаштованого тут не буде втрачено.';
+
+  @override
+  String get voiceRollbackConfirm => 'Знову запускати з панелі керування?';
+
+  @override
+  String get voiceRollbackBody =>
+      'Панель керування знову запускає Voice Satellite через інтеграцію з попередніми налаштуваннями. Те, що ви налаштуєте тут, збережеться на наступний раз.';
+
+  @override
+  String get voiceRollbackSwitch => 'Повернутися';
+
+  @override
+  String get voiceMigrateNotice =>
+      'Voice Satellite зараз встановлено як інтеграцію в Home Assistant. Перейдіть на вбудоване рішення в Kiosk Satellite.';
+
+  @override
+  String get voiceMigrate => 'Перенести';
+
+  @override
+  String get settingVoiceEnabledTitle => 'Увімкнути Voice Satellite';
+
+  @override
+  String get settingVoiceEnabledDescription =>
+      'Перетворює цей кіоск на голосового асистента для Home Assistant через його сервер ESPHome.';
+
+  @override
+  String get settingVoiceMuteTitle => 'Вимкнути мікрофон';
+
+  @override
+  String get settingVoiceMuteDescription =>
+      'Припинити прослуховування слова активації.';
+
+  @override
+  String get voiceMigrationTitle => 'Перенесення Voice Satellite';
+
+  @override
+  String get voiceMigrationPick =>
+      'Виберіть сателіт інтеграції Voice Satellite, який замінює цей кіоск. Його налаштування буде перенесено на цей кіоск.';
+
+  @override
+  String get voiceMigrationNoSatellites =>
+      'Інтеграція Voice Satellite не має сателітів.';
+
+  @override
+  String get voiceMigrationIntro =>
+      'Цей кіоск сам стає голосовим сателітом. Після цього інтеграція Voice Satellite не потрібна.';
+
+  @override
+  String get voiceMigrationCheckAgain => 'Перевірити ще раз';
+
+  @override
+  String get voiceCheckHaBad =>
+      'Немає підключення. Перевірте налаштування Home Assistant.';
+
+  @override
+  String get voiceCheckEsphome => 'Цей кіоск у Home Assistant';
+
+  @override
+  String get voiceCheckEsphomeOk => 'Додано через ESPHome.';
+
+  @override
+  String get voiceCheckEsphomeBad =>
+      'Ще не додано. Home Assistant показує цей кіоск як виявлений у розділі Налаштування, Пристрої та служби. Додайте його там і поверніться.';
+
+  @override
+  String get voiceCheckEsphomeOff =>
+      'Сервер ESPHome вимкнено. Увімкніть його, а потім додайте цей кіоск у Home Assistant.';
+
+  @override
+  String get voiceCheckAdmin => 'Токен адміністратора';
+
+  @override
+  String get voiceCheckAdminOk =>
+      'Використання інструментів і результати відображатимуться.';
+
+  @override
+  String get voiceCheckAdminBad =>
+      'Це токен звичайного користувача. Voice Satellite працює, але використання інструментів і результати не відображатимуться.';
+
+  @override
+  String get voiceCheckAdminUnknown =>
+      'Не вдалося перевірити токен. Для використання інструментів і результатів потрібен токен адміністратора.';
+
+  @override
+  String get voiceCheckMicOk => 'Дозволено.';
+
+  @override
+  String get voiceCheckMicBad =>
+      'Не дозволено. Надайте дозвіл у розділі Необхідні системні дозволи.';
+
+  @override
+  String get voiceTurnOnEsphome => 'Увімкнути ESPHome';
+
+  @override
+  String get voiceMigrationPlan => 'Налаштування для перенесення';
+
+  @override
+  String get voiceGroupVoice => 'Голос';
+
+  @override
+  String get voiceMigrationNotCarried =>
+      'Не переноситься: власний CSS, обробка мікрофона в браузері та тривалість пам’яті розмови. Власні моделі microWakeWord працюють із config/custom_wake_words у Home Assistant.';
+
+  @override
+  String get voiceMigrationAutomations => 'Автоматизації та скрипти';
+
+  @override
+  String get voiceMigrationNoAutomations =>
+      'Ніщо в Home Assistant не посилається на старий сателіт.';
+
+  @override
+  String get voiceKindAutomation => 'Автоматизація';
+
+  @override
+  String get voiceKindScript => 'Скрипт';
+
+  @override
+  String get voiceMigrationReady => 'Готово до перемикання';
+
+  @override
+  String get voiceMigrationReady1 =>
+      'Цей кіоск слухає, відповідає та показує накладення.';
+
+  @override
+  String get voiceMigrationReadyOnboarding =>
+      'Його Асистент і слова активації буде налаштовано, щойно Home Assistant додасть цей кіоск.';
+
+  @override
+  String get voiceMigrationReady2 =>
+      'Панель керування більше не запускає Voice Satellite на цьому кіоску.';
+
+  @override
+  String get voiceMigrationReady3 =>
+      'Старий сателіт залишається в Home Assistant, але не використовується.';
+
+  @override
+  String get voiceMigrationSwitch => 'Перемкнути зараз';
+
+  @override
+  String get voiceMigrationSwitching => 'Перемикання…';
+
+  @override
+  String get voiceMigrationDone => 'Voice Satellite тепер працює тут';
+
+  @override
+  String get voiceCouldNotSwitch => 'Не вдалося перемкнути';
+
+  @override
+  String get voiceMigrationDoneOnboarding =>
+      'Завершіть налаштування, а потім додайте цей кіоск у Home Assistant. Коли жоден інший пристрій не використовуватиме інтеграцію Voice Satellite, видаліть її через HACS.';
+
+  @override
+  String get voiceMigrationDoneHelp =>
+      'Скажіть слово активації, щоб спробувати. Коли жоден інший пристрій не використовуватиме інтеграцію Voice Satellite, видаліть її через HACS.';
+
+  @override
+  String get voiceMigrationRolledBack =>
+      'Voice Satellite знову працює з панелі керування.';
+
+  @override
+  String get voiceDone => 'Готово';
+
+  @override
+  String get voiceTryAgain => 'Спробувати ще раз';
+
+  @override
+  String get voiceStepSave => 'Зберегти налаштування';
+
+  @override
+  String get voiceStepStop => 'Зупинити рушій на панелі керування';
+
+  @override
+  String get voiceStepStart => 'Почати слухати тут';
+
+  @override
+  String get voiceStepTurnOn => 'Увімкнути Voice Satellite на цьому кіоску';
+
+  @override
+  String get voiceStepEntities =>
+      'Налаштувати сутності кіоску в Home Assistant';
+
+  @override
+  String get voiceStepCheck => 'Перевірити сателіт у Home Assistant';
+
+  @override
+  String voiceMigrationStep(String n, String total) {
+    return 'Крок $n з $total';
+  }
+
+  @override
+  String voiceMigrationStillPoint(String satellite) {
+    return 'Вони досі посилаються на $satellite. Відредагуйте їх у Home Assistant, щоб використовувати сателіт цього кіоску. Майстер їх не змінює.';
+  }
+
+  @override
+  String get voiceMigrationNotUp => 'Сателіт не запустився вчасно.';
+
+  @override
+  String get voiceMigrationNotReported =>
+      'Home Assistant не повідомив про сателіт.';
+
+  @override
+  String get voiceMigrationBusy => 'Перенесення вже виконується.';
 
   @override
   String get voiceMicHeld => 'Виявлення слова активації може чути вас.';
@@ -10987,6 +11557,69 @@ class UiStringsUk extends UiStrings {
   String get voiceLogConfidence => 'впевненість';
 
   @override
+  String get voiceTesterPlayRecent => 'Відтворити останні 10 секунд';
+
+  @override
+  String get settingVoiceTimerPillsTitle => 'Показувати індикатори таймерів';
+
+  @override
+  String get settingVoiceTimerPillsDescription =>
+      'Активні таймери плавають над екраном. Перетягуйте їх будь-куди.';
+
+  @override
+  String get settingVoiceTimerNameInPillTitle => 'Показувати назву таймера';
+
+  @override
+  String get settingVoiceTimerNameInPillDescription =>
+      'Назва поруч із часом в індикаторі.';
+
+  @override
+  String get settingVoiceTimerPillScaleTitle => 'Масштаб індикаторів таймерів';
+
+  @override
+  String get settingVoiceTimerPillScaleDescription =>
+      'Розмір індикаторів таймерів.';
+
+  @override
+  String get settingVoiceMuteTimersTitle => 'Вимкнути звук сповіщень таймерів';
+
+  @override
+  String get settingVoiceMuteTimersDescription =>
+      'Показувати сповіщення без звуку.';
+
+  @override
+  String get settingVoiceTimerNameOnAlertTitle =>
+      'Показувати назву в сповіщенні';
+
+  @override
+  String get settingVoiceTimerNameOnAlertDescription =>
+      'Назва таймера під сповіщенням.';
+
+  @override
+  String get settingVoiceTimerSpeakTitle =>
+      'Говорити, коли таймер завершується';
+
+  @override
+  String get settingVoiceTimerSpeakDescription =>
+      'Промовляє фразу між звуками сповіщення.';
+
+  @override
+  String get settingVoiceTimerPhraseTitle => 'Фраза';
+
+  @override
+  String get settingVoiceTimerPhraseDescription =>
+      'Промовляється для таймера без назви.';
+
+  @override
+  String get settingVoiceTimerNamedPhraseTitle =>
+      'Фраза для таймерів із назвою';
+
+  @override
+  String settingVoiceTimerNamedPhraseDescription(String name) {
+    return '$name замінюється на назву таймера.';
+  }
+
+  @override
   String get voiceWakePage => 'Слово активації';
 
   @override
@@ -11095,6 +11728,208 @@ class UiStringsUk extends UiStrings {
   @override
   String voiceOnDeviceEngine(String engine) {
     return 'На пристрої ($engine)';
+  }
+
+  @override
+  String get voiceDiagnosticsPage => 'Діагностика слова активації';
+
+  @override
+  String get voiceDiagnosticsHint =>
+      'Останні активації та близькі збіги з аудіокліпами';
+
+  @override
+  String get voiceDiagnosticsTitle => 'Увімкнути діагностику слова активації';
+
+  @override
+  String get voiceDiagnosticsDescription =>
+      'Записує останні 10 активацій і близьких збігів слова активації з їхніми оцінками та 3-секундним аудіокліпом кожного. Вимкнення видаляє їх.';
+
+  @override
+  String get voiceDiagnosticsEmpty =>
+      'Активацій слова активації ще не записано.';
+
+  @override
+  String get voiceDiagnosticsActivations => 'Активації';
+
+  @override
+  String get voiceDiagnosticsNoNearMisses => 'Близьких збігів ще не записано.';
+
+  @override
+  String get voiceDiagnosticsPeakLevel => 'Піковий рівень';
+
+  @override
+  String get voiceDiagnosticsAverageLevel => 'Середній рівень';
+
+  @override
+  String get voiceDiagnosticsClipped => 'Перевантаження';
+
+  @override
+  String get voiceDiagnosticsHeard => 'Почуто';
+
+  @override
+  String get voiceWake2HelpNative =>
+      'Друге слово активації, на яке відповідає Асистент 2.';
+
+  @override
+  String get voiceCustomModels => 'Власні моделі';
+
+  @override
+  String get voiceCustomNone => 'Власних моделей ще немає.';
+
+  @override
+  String get voiceCustomManaged =>
+      'Власними моделями на цьому кіоску керує лідер флоту.';
+
+  @override
+  String get voiceCustomAdd => 'Додати моделі';
+
+  @override
+  String get voiceCustomAddHelp =>
+      'Виберіть файли однієї або кількох моделей. Вони з’являться вище у Слово активації 1 і 2.';
+
+  @override
+  String get voiceCustomDocs => 'Як додати власні моделі';
+
+  @override
+  String get voiceCustomDocsHelp =>
+      'Які файли потрібні кожному рушію і звідки беруться моделі.';
+
+  @override
+  String get voiceCustomNotAdded => 'Моделі не додано.';
+
+  @override
+  String get voiceCustomSomeNotAdded => 'Деякі файли не додано.';
+
+  @override
+  String get voiceCustomAdded => 'Моделі додано.';
+
+  @override
+  String get voiceCustomDeleteConfirm => 'Видалити цю модель?';
+
+  @override
+  String get voiceCustomNotDeleted => 'Модель не видалено.';
+
+  @override
+  String get voiceCustomOtherEngine => 'не той рушій, що використовується';
+
+  @override
+  String get settingVoiceWakeWordEngineDescription =>
+      'Який рушій слухає. Усі моделі постачаються разом із застосунком.';
+
+  @override
+  String get settingVoiceWakeWordSensitivityTitle =>
+      'Чутливість слова активації';
+
+  @override
+  String get settingVoiceWakeWordSensitivityDescription =>
+      'Наскільки легко спрацьовує слово активації.';
+
+  @override
+  String get settingVoiceNoiseGateTitle => 'Шумовий поріг слова активації';
+
+  @override
+  String get settingVoiceNoiseGateDescription =>
+      'Пропускає розпізнавання слова активації, поки в кімнаті тихо, заощаджуючи процесор.';
+
+  @override
+  String get settingVoiceStopWordTitle => 'Переривання стоп-словом';
+
+  @override
+  String get settingVoiceStopWordDescription =>
+      'Скажіть «stop», щоб перервати відповідь, сповіщення таймера або оголошення.';
+
+  @override
+  String get voiceOptionSlightly => 'Низька чутливість';
+
+  @override
+  String get voiceOptionModerately => 'Середня чутливість';
+
+  @override
+  String get voiceOptionVery => 'Висока чутливість';
+
+  @override
+  String get voiceModelNotFileName => 'Це не назва файлу.';
+
+  @override
+  String get voiceModelBadExtension =>
+      'Моделями є лише файли .json, .tflite та .onnx.';
+
+  @override
+  String voiceModelTooLarge(String name) {
+    return '$name більший за 64 МБ.';
+  }
+
+  @override
+  String voiceModelIncomplete(String name) {
+    return '$name надійшов не повністю.';
+  }
+
+  @override
+  String voiceModelBadJson(String file) {
+    return '$file не є коректним JSON.';
+  }
+
+  @override
+  String voiceModelNotManifest(String file) {
+    return '$file не є маніфестом.';
+  }
+
+  @override
+  String voiceModelMwwNeedsTflite(String file) {
+    return 'Моделі microWakeWord також потрібен $file.';
+  }
+
+  @override
+  String voiceModelMwwBadManifest(String file) {
+    return '$file не є коректним маніфестом microWakeWord.';
+  }
+
+  @override
+  String voiceModelVswwNeedsOnnx(String file) {
+    return 'Моделі vsWakeWord також потрібен $file.';
+  }
+
+  @override
+  String voiceModelVswwBadManifest(String file) {
+    return '$file не є коректним маніфестом vsWakeWord.';
+  }
+
+  @override
+  String voiceModelUnknownManifest(String file) {
+    return '$file не є ні маніфестом microWakeWord, ні маніфестом vsWakeWord.';
+  }
+
+  @override
+  String voiceModelNoModelFile(String name) {
+    return 'Немає файлу моделі для $name.';
+  }
+
+  @override
+  String voiceModelBothFormats(String onnx, String tflite) {
+    return 'Додайте або $onnx, або $tflite, але не обидва.';
+  }
+
+  @override
+  String voiceModelNotOwwTflite(String file, String json) {
+    return '$file не є моделлю openWakeWord. Моделі microWakeWord також потрібен її $json.';
+  }
+
+  @override
+  String get voiceModelNotTflite => 'Це не модель TFLite.';
+
+  @override
+  String get voiceModelNotOnnx => 'Це не модель ONNX.';
+
+  @override
+  String get voiceModelNotOww => 'Це не модель openWakeWord.';
+
+  @override
+  String get voiceModelOwwWindow =>
+      'Це не модель openWakeWord: вона не приймає вікно вбудовувань 16 x 96.';
+
+  @override
+  String voiceModelNoLoad(String error) {
+    return 'Модель не завантажується: $error';
   }
 
   @override
@@ -11510,6 +12345,39 @@ class UiStringsUk extends UiStrings {
   String get setupVoiceSkipped => 'Не встановлено, пропущено';
 
   @override
+  String get setupVoiceLead =>
+      'Перетворіть цей кіоск на голосового асистента для Home Assistant. Усе можна змінити пізніше.';
+
+  @override
+  String get setupVoiceAddHint =>
+      'Після налаштування додайте цей кіоск у Home Assistant у розділі Налаштування, Пристрої та служби, де він відображається як виявлений.';
+
+  @override
+  String get setupRecommendedWall =>
+      'Налаштування, які пасують настінному кіоску.';
+
+  @override
+  String get setupVoiceFound => 'Знайдено інтеграцію Voice Satellite';
+
+  @override
+  String get setupVoiceFoundHelp =>
+      'Voice Satellite тепер працює всередині Kiosk Satellite. Перенесіть налаштування, щоб зберегти слова активації, асистента й вигляд одного із сателітів інтеграції замість того, щоб починати з нуля.';
+
+  @override
+  String get setupVoiceMigrated => 'Перенесено з інтеграції Voice Satellite';
+
+  @override
+  String get setupVoiceMigratedHelp =>
+      'Цей кіоск переймає налаштування свого сателіта.';
+
+  @override
+  String get setupVoicePipelineHelp =>
+      'Голосовий конвеєр, який відповідає на слово активації.';
+
+  @override
+  String get setupVoiceEngineHelp => 'Рушій, який слухає слово активації.';
+
+  @override
   String get setupRemoteHeading => 'Віддалене адміністрування';
 
   @override
@@ -11632,6 +12500,100 @@ class UiStringsUk extends UiStrings {
   @override
   String get intercomSoundFormats =>
       'Виберіть файл MP3, OGG, WAV, FLAC, M4A або AAC.';
+
+  @override
+  String get voiceNoticeError => 'Помилка Voice Satellite';
+
+  @override
+  String get voiceNoticeWarning => 'Попередження Voice Satellite';
+
+  @override
+  String get voiceNoticeNotice => 'Повідомлення Voice Satellite';
+
+  @override
+  String get voiceNoticeTts => 'Синтез мовлення';
+
+  @override
+  String get voiceNoticeAssistPipeline => 'Голосовий конвеєр';
+
+  @override
+  String voiceNoticePipeline(String name) {
+    return 'Конвеєр «$name»';
+  }
+
+  @override
+  String get voiceNoticeMicUnavailable => 'Мікрофон недоступний.';
+
+  @override
+  String get voiceNoticeNotConnected =>
+      'Home Assistant не підключено до цього кіоску.';
+
+  @override
+  String get voiceNoticeConnectionLost =>
+      'Втрачено з’єднання з Home Assistant. Автоматичне повторне підключення.';
+
+  @override
+  String get voiceNoticePlayback => 'Не вдалося відтворити аудіо на пристрої.';
+
+  @override
+  String get voiceNoticeWatchdog =>
+      'Home Assistant не відповів після того, як ви закінчили говорити. Можливо, конвеєр завис.';
+
+  @override
+  String get voiceNoticeRefused =>
+      'Home Assistant не вдалося запустити асистента.';
+
+  @override
+  String get voiceNoticeUnexpected => 'У конвеєрі сталася неочікувана помилка.';
+
+  @override
+  String get voiceNoticeMicBlocked =>
+      'Доступ до мікрофона заблоковано. Дозвольте його для Kiosk Satellite у налаштуваннях Android.';
+
+  @override
+  String get voiceNoticeMicDeclined =>
+      'Доступ до мікрофона відхилено, тому слово активації не може бути почуте.';
+
+  @override
+  String get voiceNoticeMicLost => 'Мікрофон перестав працювати.';
+
+  @override
+  String get voiceNoticeModels =>
+      'Не вдалося завантажити моделі слова активації.';
+
+  @override
+  String get voiceNoticeCrashed =>
+      'Детектор слова активації постійно аварійно завершувався на цьому пристрої, тому його зупинено.';
+
+  @override
+  String voiceFinancialOpen(String value) {
+    return 'Відкриття: $value';
+  }
+
+  @override
+  String voiceFinancialHigh(String value) {
+    return 'Максимум: $value';
+  }
+
+  @override
+  String voiceFinancialLow(String value) {
+    return 'Мінімум: $value';
+  }
+
+  @override
+  String voiceFinancialHigh24h(String value) {
+    return 'Максимум за 24 год: $value';
+  }
+
+  @override
+  String voiceFinancialLow24h(String value) {
+    return 'Мінімум за 24 год: $value';
+  }
+
+  @override
+  String voiceFinancialMarketCap(String value) {
+    return 'Капіталізація: $value';
+  }
 
   @override
   String get voiceTimerDefaultName => 'Таймер';

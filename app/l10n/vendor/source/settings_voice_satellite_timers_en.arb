@@ -1,0 +1,88 @@
+{
+  "@@locale": "en",
+  "settingVoiceTimerPillsTitle": "Show timer pills",
+  "@settingVoiceTimerPillsTitle": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerPillsDescription": "Running timers float over the screen. Drag them anywhere.",
+  "@settingVoiceTimerPillsDescription": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerNameInPillTitle": "Show the timer name",
+  "@settingVoiceTimerNameInPillTitle": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerNameInPillDescription": "The name beside the time in a pill.",
+  "@settingVoiceTimerNameInPillDescription": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerPillScaleTitle": "Timer pill scale",
+  "@settingVoiceTimerPillScaleTitle": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerPillScaleDescription": "The size of the timer pills.",
+  "@settingVoiceTimerPillScaleDescription": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceMuteTimersTitle": "Mute timer alerts",
+  "@settingVoiceMuteTimersTitle": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceMuteTimersDescription": "Show the alert without the sound.",
+  "@settingVoiceMuteTimersDescription": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerNameOnAlertTitle": "Show the name on the alert",
+  "@settingVoiceTimerNameOnAlertTitle": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerNameOnAlertDescription": "The timer name under the alert.",
+  "@settingVoiceTimerNameOnAlertDescription": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerSpeakTitle": "Speak when a timer ends",
+  "@settingVoiceTimerSpeakTitle": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerSpeakDescription": "Say a phrase between the alert sounds.",
+  "@settingVoiceTimerSpeakDescription": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerPhraseTitle": "Phrase",
+  "@settingVoiceTimerPhraseTitle": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerPhraseDescription": "Spoken for a timer without a name.",
+  "@settingVoiceTimerPhraseDescription": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerNamedPhraseTitle": "Phrase for named timers",
+  "@settingVoiceTimerNamedPhraseTitle": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerNamedPhraseDescription": "{name} is replaced with the timer name.",
+  "@settingVoiceTimerNamedPhraseDescription": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  }
+}

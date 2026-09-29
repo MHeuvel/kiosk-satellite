@@ -55,5 +55,9 @@
   "deviceListeningIdle": "Erforderlich für das Hintergrundabhören.",
   "deviceMotionIdle": "Erforderlich für die Bewegungserkennung.",
   "deviceBatteryAdb": "Dieses Gerät bietet keine Einstellungsseite für diese Berechtigung. Erteile sie per ADB: adb shell dumpsys deviceidle whitelist +me.jxl.kiosk_satellite",
-  "deviceOverlayAdb": "Dieses Gerät bietet keine Einstellungsseite für diese Berechtigung. Erteile sie per ADB: adb shell appops set me.jxl.kiosk_satellite SYSTEM_ALERT_WINDOW allow"
+  "deviceOverlayAdb": "Dieses Gerät bietet keine Einstellungsseite für diese Berechtigung. Erteile sie per ADB: adb shell appops set me.jxl.kiosk_satellite SYSTEM_ALERT_WINDOW allow",
+  "deviceNotificationAccess": "Zugriff auf Benachrichtigungen",
+  "deviceNotificationAccessHeld": "„Jetzt läuft“ kann den Apps folgen, die auf diesem Gerät wiedergeben.",
+  "deviceNotificationAccessMissing": "Ohne diese Berechtigung listet Android keine Mediensitzungen auf, daher kann „Jetzt läuft“ den Apps, die auf diesem Gerät wiedergeben, nicht folgen.",
+  "deviceNotificationAccessIdle": "Erlaubt „Jetzt läuft“, den Apps zu folgen, die auf diesem Gerät wiedergeben."
 }

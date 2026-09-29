@@ -49,6 +49,11 @@ const devicePermissionDescriptions = <String, ({String title, String description
     description:
         'The Foreground app sensor can name whichever app is on screen.',
   ),
+  'notificationAccess': (
+    title: 'Notification access',
+    description:
+        'Now Playing can follow the apps playing on this device.',
+  ),
   'location': (
     title: 'Location',
     description:

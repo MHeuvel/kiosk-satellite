@@ -6,6 +6,7 @@ import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
+import '../model_source.dart';
 import 'mww_manifest.dart';
 
 class MwwModel {
@@ -31,14 +32,10 @@ class MwwModelStore {
   }
 
   Future<MwwModel> fetch(String manifestUrl) async {
-    final manifestResp = await http
-        .get(Uri.parse(manifestUrl))
-        .timeout(const Duration(seconds: 30));
-    if (manifestResp.statusCode != 200) {
-      throw StateError('manifest HTTP ${manifestResp.statusCode}: $manifestUrl');
-    }
+    final manifestJson = await readModelText(manifestUrl);
     final manifest = MwwManifest.fromJson(
-        jsonDecode(manifestResp.body) as Map<String, Object?>);
+      jsonDecode(manifestJson) as Map<String, Object?>,
+    );
     if (manifest == null) {
       throw StateError('not a microWakeWord manifest: $manifestUrl');
     }
@@ -60,14 +57,16 @@ class MwwModelStore {
   }
 
   Future<Uint8List> _fetchTfliteCached(String url) async {
+    if (isStoredModel(url)) return readModelBytes(url);
     final dir = await _cacheDir();
     final key = sha256.convert(utf8.encode(url)).toString().substring(0, 24);
     final file = File('${dir.path}/$key.tflite');
     if (await file.exists() && await file.length() > 0) {
       return file.readAsBytes();
     }
-    final resp =
-        await http.get(Uri.parse(url)).timeout(const Duration(seconds: 60));
+    final resp = await http
+        .get(Uri.parse(url))
+        .timeout(const Duration(seconds: 60));
     if (resp.statusCode != 200) {
       throw StateError('tflite HTTP ${resp.statusCode}: $url');
     }

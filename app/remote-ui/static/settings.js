@@ -54,6 +54,8 @@ import {
   viewPath,
 } from './views.js';
 import { loadVsPermissions, renderVsControls } from './vs.js';
+import { renderNativeVs, vsMigrationNotice } from './vs_native.js';
+import { mountWakeActivations } from './wake_activations.js';
 import { banner, copyBox, messageBox, showToast } from './widgets.js';
 
 // A sound setting's row as a dropdown over the device's sounds folder,
@@ -193,12 +195,19 @@ const layoutSettings = new Set([
   'ui.language',
   'audio.mic_agc', 'launcher.auto_return', 'home.enabled',
   'browser.auto_reload_on_error', 'screensaver.dismiss_on_motion',
-  'screensaver.dismiss_on_face', 'screensaver.dismiss_on_person',
+  'screensaver.dismiss_on_face', 'screensaver.dismiss_on_person', 'person.sensor',
   'screen.adaptive_brightness', 'screensaver.clock_night',
   'camera.rtsp.enabled', 'camera.rtsp.protocol', 'camera.onvif.port',
   'camera.rtsp.port', 'btproxy.nearby_sort', 'esphome.real_mac',
   'esphome.mac_override', 'ha.rotation_enabled', 'esphome.node_name',
   'btproxy.connections', 'home.keep_pinning', 'browser.start_url',
+]);
+// Runtime state the device keeps in settings and no page draws. A wake word
+// that wakes the screensaver writes the saved brightness; rebuilding the
+// settings pages for that re-rendered whatever page was open, on every
+// trigger.
+const runtimeStateSettings = new Set([
+  'screensaver.saved_brightness', 'voice.timer_position', 'sendspin.player_pos',
 ]);
 let liveSettingsTimer = null;
 let liveSettingsRendering = false;
@@ -237,6 +246,7 @@ async function flushSettingsUpdates() {
     const rows = [...document.querySelectorAll(`[data-key="${setting.key}"]`)];
     const previous = JSON.parse(renderedSettings.get(setting.key) || '{}');
     renderedSettings.set(setting.key, JSON.stringify(setting));
+    if (runtimeStateSettings.has(setting.key)) continue;
     const shapeChanged = JSON.stringify({ ...previous, value: null })
       !== JSON.stringify({ ...setting, value: null });
     const hasDependants = state.settings.some(s => s.dependsOn === setting.key || s.alsoDependsOn === setting.key);
@@ -1463,7 +1473,7 @@ kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
     const root = document.getElementById('device-permissions');
     root.innerHTML = '';
     const on = (k) => byKey[k]?.value === true;
-    const ROWS = permissionSpecs(on);
+    const ROWS = permissionSpecs(on, (k) => byKey[k]?.value);
 
     const readAll = async () => {
       const out = {};
@@ -1560,11 +1570,56 @@ kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
   }
 
   // ── Voice Satellite ───────────────────────────────────────────────────
-  // Its own page under Home Assistant Setup, gated the same way;
+  // Its own page under Home Assistant, gated the same way;
   // loadVsPermissions() appends the permissions card.
   {
     const root = document.getElementById('tab-voicesatellite');
     root.innerHTML = '';
+    // The chime rows' sound pickers, uploads and previews, on either
+    // runtime's Chimes page.
+    const mountChimeRows = () => {
+      const soundSelectors = [];
+      for (const kind of ['wake', 'done', 'error', 'alert', 'announce']) {
+        const key = `voice_chimes.${kind}`;
+        const row = document.querySelector(`[data-key="${key}"]`);
+        if (!row || !byKey[key]) continue;
+        row.classList.add('chime-row');
+        const sound = attachSoundSelect(row, byKey[key]);
+        soundSelectors.push(sound);
+        const controls = document.createElement('div');
+        controls.className = 'chime-controls';
+        const preview = document.createElement('button');
+        preview.className = 'btn-ghost chime-icon';
+        paintChimePreview(preview, false);
+        preview.addEventListener('click', async () => {
+          if (chimePreviewBusy) return;
+          chimePreviewBusy = true;
+          preview.disabled = true;
+          const stop = chimePreview === preview;
+          try {
+            await cmd('stopSound', {id: 'voice-preview'});
+            resetChimePreview();
+            if (stop || !preview.isConnected) return;
+            chimePreview = preview;
+            paintChimePreview(preview, true);
+            const result = await cmd('previewVoiceChime', {kind});
+            if (!result.ok) throw new Error();
+          } catch (_) {
+            resetChimePreview();
+            alert(voiceText('Could not play the sound.'));
+          } finally {
+            preview.disabled = false;
+            chimePreviewBusy = false;
+          }
+        });
+        controls.append(sound.sel, preview);
+        row.appendChild(controls);
+        attachSoundUpload(row, {
+          write: sound.write,
+          refresh: () => Promise.all(soundSelectors.map((selector) => selector.refresh())),
+        }, {inline: true});
+      }
+    };
     let status = {};
     try {
       status = (await (await api('/api/commands/haStatus', { method: 'POST', body: '{}' })).json()).data || {};
@@ -1575,6 +1630,13 @@ kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
       card.appendChild(readOnlyRow(voiceText('Home Assistant not connected'),
         voiceText('Validate the connection under Home Assistant Setup first.'), ''));
       root.appendChild(card);
+    } else if (byKey['voice.runtime']?.value === 'native') {
+      // Native: the kiosk is the satellite. The page is the settings plus
+      // what renderNativeVs adds, the integration's live rows never show.
+      render(root, ['Voice Satellite'].filter((c) => (byCat[c] || []).length));
+      mountChimeRows();
+      mountWakeActivations(root);
+      renderNativeVs(root, byKey).catch((error) => console.warn('Voice Satellite page failed', error));
     } else if (!(byCat['Voice Satellite'] || []).length || !(await (async () => {
       try {
         const vs = await (await api('/api/commands/haDetectVoiceSatellite', { method: 'POST', body: '{}' })).json();
@@ -1618,58 +1680,24 @@ kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
       // renderVsControls then puts into both panels.
       render(root, ['Voice Satellite'].filter((c) => (byCat[c] || []).length),
         { extra: ['Appearance'] });
-      // Match the kiosk's page order: Wake Word, Appearance, Chimes.
+      // Match the kiosk's page order: Wake Word, Appearance, Timers, Chimes.
       const appearanceEntry = root.querySelector('[data-subpage-entry="Appearance"]')?.closest('.card');
+      const timersEntry = root.querySelector('[data-subpage-entry="Timers"]')?.closest('.card');
       const chimesEntry = root.querySelector('[data-subpage-entry="Chimes"]')?.closest('.card');
       if (appearanceEntry && chimesEntry) appearanceEntry.after(chimesEntry);
-      // Page-local controls can be unavailable while the dashboard recovers.
-      // Keep the rest of Remote Admin accessible during that wait.
-      const soundSelectors = [];
-      for (const kind of ['wake', 'done', 'error', 'alert', 'announce']) {
-        const key = `voice_chimes.${kind}`;
-        const row = document.querySelector(`[data-key="${key}"]`);
-        if (!row || !byKey[key]) continue;
-        row.classList.add('chime-row');
-        const sound = attachSoundSelect(row, byKey[key]);
-        soundSelectors.push(sound);
-        const controls = document.createElement('div');
-        controls.className = 'chime-controls';
-        const preview = document.createElement('button');
-        preview.className = 'btn-ghost chime-icon';
-        paintChimePreview(preview, false);
-        preview.addEventListener('click', async () => {
-          if (chimePreviewBusy) return;
-          chimePreviewBusy = true;
-          preview.disabled = true;
-          const stop = chimePreview === preview;
-          try {
-            await cmd('stopSound', {id: 'voice-preview'});
-            resetChimePreview();
-            if (stop || !preview.isConnected) return;
-            chimePreview = preview;
-            paintChimePreview(preview, true);
-            const result = await cmd('previewVoiceChime', {kind});
-            if (!result.ok) throw new Error();
-          } catch (_) {
-            resetChimePreview();
-            alert(voiceText('Could not play the sound.'));
-          } finally {
-            preview.disabled = false;
-            chimePreviewBusy = false;
-          }
-        });
-        controls.append(sound.sel, preview);
-        row.appendChild(controls);
-        attachSoundUpload(row, {
-          write: sound.write,
-          refresh: () => Promise.all(soundSelectors.map((selector) => selector.refresh())),
-        }, {inline: true});
-      }
+      if (appearanceEntry && timersEntry) appearanceEntry.after(timersEntry);
+      // Wake word diagnostics stays where render() puts it, right under Wake
+      // Word: its setting follows the Wake Word ones in the schema. (The
+      // kiosk opens it from the tester's group, which is kiosk-only.)
+      mountChimeRows();
+      mountWakeActivations(root);
+      // Still on the integration's engine: the way to native, on top.
+      root.prepend(vsMigrationNotice());
       renderVsControls(root).catch((error) => console.warn('Voice Satellite controls failed', error));
     }
   }
 
-  // ── Home Assistant Setup ──────────────────────────────────────
+  // ── Home Assistant ────────────────────────────────────────────
   // The connection card is the gate: base URL, token, a Validate row.
   // Everything else (the dashboard picker, kiosk mode, theme, Voice
   // Satellite) appears only after this run's connection check passed,
@@ -2471,15 +2499,24 @@ export async function refreshRealMacNote() {
    grant, so the row shows the adb line with a copy box while it is
    missing, and a Restart button while it is granted but not in effect.
    The page's definitions are hidden where the device has no such
-   sensor, so the page is simply absent there. Idempotent: the switch's save path re-runs
-   it. */
+   sensor, so the page is simply absent there. Camera > Person Sensor
+   (issue #734) carries the same rows under its own switch. Idempotent:
+   either switch's save path re-runs it. */
+const PERSON_SENSOR_PAGES = [
+  { tab: 'tab-screensaver', subpage: 'Person Detection', key: 'screensaver.dismiss_on_person' },
+  { tab: 'tab-camera', subpage: 'Person Sensor', key: 'person.sensor' },
+];
+
 export function updatePersonSensorRows() {
-  const root = document.getElementById('tab-screensaver');
-  const panel = root?.querySelector('.subpage[data-subpage="Person Detection"]');
+  PERSON_SENSOR_PAGES.forEach(personSensorPage);
+}
+
+function personSensorPage({ tab, subpage, key }) {
+  const root = document.getElementById(tab);
+  const panel = root?.querySelector(`.subpage[data-subpage="${subpage}"]`);
   if (!panel) return;
   for (const stale of panel.querySelectorAll('.person-status, .person-grant')) stale.remove();
-  if (window.__personSensorTimer) { clearInterval(window.__personSensorTimer); window.__personSensorTimer = 0; }
-  const row = panel.querySelector('[data-key="screensaver.dismiss_on_person"]');
+  const row = panel.querySelector(`[data-key="${key}"]`);
   if (!row) return;
   const readStatus = () => cmd('getPersonSensor').then((r) => r.data || null)
     .catch(() => null);
@@ -2560,14 +2597,13 @@ export function updatePersonSensorRows() {
     }
   };
   const paint = async () => {
-    if (!status.isConnected) { clearInterval(window.__personSensorTimer); return; }
+    if (!status.isConnected) return;
     const st = await readStatus();
     const [desc, value] = statusText(st);
     status.querySelector('.desc').textContent = desc;
     status.lastElementChild.textContent = value;
     paintPerm(st);
   };
-  if (window.__personSensorTimer) clearInterval(window.__personSensorTimer);
   watchUpdates(['person', 'service'], paint, { owner: status });
   paint();
 }

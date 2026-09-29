@@ -151,17 +151,54 @@ void main() {
       // a seed for another token gives way (discussion #426).
       expect(
         script,
-        contains('seed = !s.refresh_token && s.access_token !== "llat";'),
+        contains(': !s.refresh_token && s.access_token !== "llat";'),
       );
+      // Without a replace marker nothing is revoked or replaced.
+      expect(script, contains('var replace = null !== null'));
       // A stored value that cannot be parsed is no session: seed over it.
       expect(script, contains('catch (e) { seed = true; }'));
       expect(script, contains('if (seed) {'));
       expect(script, isNot(contains('if (!localStorage.getItem')));
     });
 
+    test('turning auto-login on replaces a hand login once', () {
+      final script = buildHaAutoLoginScript(token: 'llat', replace: '42')!;
+      // Any session but this token's seed gives way, and a hand login's
+      // refresh token is revoked as Home Assistant's Log out would.
+      expect(
+        script,
+        contains('? !!s.refresh_token || s.access_token !== "llat"'),
+      );
+      expect(script, contains('/auth/revoke'));
+      // The marker makes it one-shot: a later hand login stays.
+      expect(
+        script,
+        contains('localStorage.getItem("ks-auto-login-replaced") !== "42"'),
+      );
+      expect(
+        script,
+        contains('localStorage.setItem("ks-auto-login-replaced", "42")'),
+      );
+    });
+
     test('no token, nothing injected', () {
       expect(buildHaAutoLoginScript(token: null), isNull);
       expect(buildHaAutoLoginScript(token: '   '), isNull);
+    });
+  });
+
+  group('haAutoLoginClearScript', () {
+    test('removes a seed, never a hand login', () {
+      // A seed has no refresh token and Home Assistant's Log out cannot end
+      // it; a login done by hand carries one and stays.
+      expect(
+        haAutoLoginClearScript,
+        contains(
+          'if (!s || !s.refresh_token) '
+          'localStorage.removeItem("hassTokens");',
+        ),
+      );
+      expect(haAutoLoginClearScript, isNot(contains('setItem')));
     });
   });
 }

@@ -39,10 +39,15 @@ export const SUBPAGE_ICONS = {
   'Wake Word': svg('<path d="M6 8.5a6 6 0 0 1 12 0c0 3-1.5 4-2.5 5.5S14 17 14 18.5'
     + 'a2.5 2.5 0 0 1-5 0"/><path d="M10 8.5a2 2 0 0 1 4 0c0 1.2-.7 1.8-1.3 2.6'
     + '-.4.5-.7 1-.7 1.9"/>'),
+  'Wake word diagnostics': svg('<circle cx="10" cy="10" r="7"/>'
+    + '<path d="m21 21-6-6"/><path d="M5.5 10.5h2l1.5-3 2.5 5 1.5-2h1.5"/>'),
   'Appearance': svg('<path d="m20 3-9.5 9.5"/>'
     + '<path d="M13 10.5 15.5 13 19.5 9 21 3z"/>'
     + '<path d="M9 14c-2.5 0-4 1.6-4 3.5 0 1.2-1 2-2 2.5 1.2.7 2.6 1 3.9 1'
     + ' 2.6 0 4.6-1.6 4.6-3.7 0-1.8-1.1-3.3-2.5-3.3z"/>'),
+  'Assistant': svg('<path d="M4 5h11v8H8l-4 3z"/><path d="M9 16v1h7l4 3V9h-5"/>'),
+  'Conversation': svg('<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>'),
+  'Timers': svg('<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9.5 2h5M12 2v3"/>'),
   // Screen & Audio.
   'Microphone settings': svg('<rect x="9" y="3" width="6" height="11" rx="3"/>'
     + '<path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3M9 21h6"/>'),
@@ -90,6 +95,9 @@ export const SUBPAGE_ICONS = {
     + '<path d="M8.5 14.5s1.2 1.5 3.5 1.5 3.5-1.5 3.5-1.5"/>'
     + '<path d="M9 9.5h.01M15 9.5h.01"/>'),
   'Person Detection': svg('<circle cx="12" cy="7" r="3"/>'
+    + '<path d="M6 21v-2a6 6 0 0 1 12 0v2"/>'
+    + '<path d="M3 10a9 9 0 0 1 0 5m18-5a9 9 0 0 1 0 5"/>'),
+  'Person Sensor': svg('<circle cx="12" cy="7" r="3"/>'
     + '<path d="M6 21v-2a6 6 0 0 1 12 0v2"/>'
     + '<path d="M3 10a9 9 0 0 1 0 5m18-5a9 9 0 0 1 0 5"/>'),
   'Proximity Detection': svg('<circle cx="12" cy="12" r="1.5"/>'

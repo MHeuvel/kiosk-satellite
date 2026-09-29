@@ -1,4 +1,8 @@
 #version 460 core
+// The Moon's near side as seen from Earth, brightness only. Declared first
+// so it stays the first sampler whether or not the shared noise survives
+// compilation.
+uniform sampler2D moonMap;
 #include "weather_mood_common.glsl"
     void main() {
       vec2 pixel=FlutterFragCoord().xy+tileOffset;
@@ -39,18 +43,19 @@
       float bloom=exp(-max(sunDistance-.016,0.)/.013)*sunVisibility*warmth;
       sky+=mix(vec3(1.,.95,.84),vec3(1.,.84,.6),twilight)*bloom*1.1;
       float sun=(1.-smoothstep(.009,.021,sunDistance))*sunVisibility;
-      vec2 moonP=(screen-lightCenter)/.032;
+      vec2 moonP=(screen-lightCenter)/.044;
       float moonDistance=length(moonP);
       float moonMask=1.-smoothstep(.97,1.02,moonDistance);
       vec3 moonColor=vec3(0.);
       if(night>.001 && moonMask>.001) {
-      float crater=fbm(vec3(moonP*4.,8.));
+      float albedo=texture(moonMap,clamp(moonP*vec2(.5,-.5)+.5,0.,1.)).r;
       vec3 normal=vec3(moonP,sqrt(max(0.,1.-dot(moonP,moonP))));
       float moonLight=clamp(dot(normal,normalize(vec3(-.55,.15,1.))),0.,1.);
-      moonColor=vec3(.98,.99,1.)*(.83+crater*.17)*(.78+moonLight*.22);
+      moonColor=vec3(.98,.99,1.)*(.45+albedo*.6)*(.78+moonLight*.22);
       }
-      float moonBloom=exp(-sunDistance*sunDistance/.009)*.28
-        +exp(-sunDistance*sunDistance/.055)*.065;
+      // Sized with the disk, and kept faint so the photo stays crisp.
+      float moonBloom=exp(-sunDistance*sunDistance/.017)*.16
+        +exp(-sunDistance*sunDistance/.104)*.04;
       sky+=vec3(.96,.97,1.)*moonBloom*night;
       // The disk is never dimmer than the bloom it sits in, which already clips
       // to white near a low sun.

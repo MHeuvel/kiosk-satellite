@@ -15,6 +15,7 @@ import android.os.Looper
 import android.util.Log
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.EventChannel
+import java.util.concurrent.atomic.AtomicLong
 import kotlin.concurrent.thread
 import kotlin.math.max
 
@@ -67,8 +68,10 @@ import kotlin.math.max
  * open, reads nothing but errors or delivers the card's frames misread as
  * 16 kHz mono. Capture therefore walks a ladder of shapes ([captureLadder])
  * and steps down it when an open is refused, when reads return only errors
- * or zeros, or when the delivered frame rate does not match the rate opened
- * (the format under the label is not the one asked for). Silence is weak
+ * or zeros, when a read blocks for good (the HAL could not read the card, so
+ * AudioFlinger has nothing to hand over), or when the delivered frame rate
+ * does not match the rate opened (the format under the label is not the one
+ * asked for). Silence is weak
  * evidence, so [CaptureWalk] decides how much of it a rung gets, where
  * capture lands when the whole ladder has been tried and when it may walk
  * again. Anything but 16 kHz mono is converted here ([CaptureConvert]). A
@@ -118,6 +121,18 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         private const val RATE_BLOCKED_READ_NS = 20_000_000L
         private const val RATE_WINDOW_AFTER_READS = 8
 
+        /**
+         * Read-stall guard. When the audio HAL cannot read the card (a USB
+         * microphone opened in a format it does not record, a card that
+         * went away) AudioFlinger has nothing to hand over and a blocking
+         * read waits forever: no zeros and no errors, so none of the checks
+         * in the read loop ever run. A healthy read returns within one
+         * 80 ms chunk, so three seconds is a stall on any device.
+         */
+        private const val READ_STALL_NS = 3_000_000_000L
+        private const val STALL_POLL_MS = 500L
+        private const val STALLED = -1L
+
     }
 
     private val appContext = context.applicationContext
@@ -125,7 +140,8 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
     private val mainHandler = Handler(Looper.getMainLooper())
 
     @Volatile private var recording = false
-    private var record: AudioRecord? = null
+    // Volatile: the stall guard stops it from its own thread.
+    @Volatile private var record: AudioRecord? = null
     private var worker: Thread? = null
     private var delivery: PcmDelivery? = null
     private var aec: AcousticEchoCanceler? = null
@@ -209,7 +225,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         delivery = frames
         recording = true
         opened.startRecording()
-        CommunicationPlayback.get(appContext).captureStarted()
+        CommunicationPlayback.get(appContext).captureStarted(wantAec)
         val channelIdx = wantChannel - 1
         worker = thread(name = "vsww-mic") {
             var cur = opened
@@ -234,6 +250,13 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
             var reads = 0
             var rateChecked = false
             var buf = ByteArray(shape.chunkBytes)
+
+            // The walk's verdicts also go to the app log, the one people
+            // send: logcat alone left a deaf capture looking healthy there.
+            fun warn(message: String) {
+                Log.w(TAG, message)
+                mainHandler.post { if (frames.isOpen) sink.success(mapOf("warning" to message)) }
+            }
 
             fun tryOpen(rung: Int): AudioRecord? = try {
                 openRecord(source, ladder[rung], indexed)
@@ -282,7 +305,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
                 while (frames.isOpen && next == null && rung + 1 < ladder.size) {
                     rung++
                     next = tryOpen(rung)
-                    if (next == null) Log.w(TAG, "$why; ${ladder[rung]} refused")
+                    if (next == null) warn("$why; ${ladder[rung]} refused")
                 }
                 if (!frames.isOpen) {
                     next?.release()
@@ -293,17 +316,16 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
                     val wait = "next check in ${walk.waitSeconds}s"
                     next = tryOpen(rung)
                     if (next == null) {
-                        Log.w(TAG, "$why and no other capture format is left; keeping $shape, $wait")
+                        warn("$why and no other capture format is left; keeping $shape, $wait")
                         return true
                     }
-                    Log.w(
-                        TAG,
+                    warn(
                         "$why and no other capture format is left; back to ${ladder[rung]}" +
                             (if (walk.audibleStep == rung) ", which delivered audio earlier" else "") +
                             ", $wait",
                     )
                 } else {
-                    Log.w(TAG, "$why - reopening at ${ladder[rung]}")
+                    warn("$why - reopening at ${ladder[rung]}")
                 }
                 if (!frames.isOpen) {
                     next.release()
@@ -313,10 +335,44 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
                 return true
             }
 
+            // When the read in progress began (0 between reads, STALLED once
+            // the guard has claimed it) and when the guard may act again: it
+            // holds off while the walk backs off, so a capture that stays
+            // dead is not reopened every few seconds.
+            val readSince = AtomicLong(0L)
+            val stallHoldUntil = AtomicLong(0L)
+            thread(name = "vsww-mic-stall", isDaemon = true) {
+                while (frames.isOpen) {
+                    try { Thread.sleep(STALL_POLL_MS) } catch (_: InterruptedException) { break }
+                    val since = readSince.get()
+                    val now = System.nanoTime()
+                    if (since <= 0L || now - since < READ_STALL_NS || now < stallHoldUntil.get()) continue
+                    // Stopping the record is what frees a blocked read. Taken
+                    // before the claim, so a record the loop swapped out in
+                    // between is the one stopped (it throws, released).
+                    val stalled = record
+                    if (readSince.compareAndSet(since, STALLED)) {
+                        try { stalled?.stop() } catch (_: IllegalStateException) {}
+                    }
+                }
+            }
+
             while (frames.isOpen) {
                 val readStartNs = System.nanoTime()
+                readSince.set(readStartNs)
                 val read = cur.read(buf, 0, buf.size)
+                val stalled = readSince.getAndSet(0L) == STALLED
                 if (!frames.isOpen) break
+                if (stalled) {
+                    advance("capture delivered nothing for ${READ_STALL_NS / 1_000_000_000L}s" + stallHint(cur))
+                    stallHoldUntil.set(walk.nextWalkNs)
+                    // Held off, or no format would reopen: the guard stopped
+                    // this record and it has to run again to recover.
+                    if (cur.recordingState != AudioRecord.RECORDSTATE_RECORDING) {
+                        try { cur.startRecording() } catch (_: IllegalStateException) {}
+                    }
+                    continue
+                }
                 if (read == 0) continue
                 if (read < 0) {
                     // ERROR_DEAD_OBJECT and friends come back on every call:
@@ -348,7 +404,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
                         if (ratio < RATE_RATIO_MIN || ratio > RATE_RATIO_MAX) {
                             val why = "capture delivers ${(ratio * 100).toInt()}% of the " +
                                 "${shape.rateHz} Hz it was opened at (wrong format under the label)"
-                            if (!advance(why)) Log.w(TAG, "$why; keeping $shape until the next check")
+                            if (!advance(why)) warn("$why; keeping $shape until the next check")
                             continue
                         }
                     }
@@ -479,6 +535,25 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
      * [channelIdx] beyond the frame (stale selection, fallback-narrowed
      * capture) clamps to the last channel rather than reading past the frame.
      */
+    /**
+     * What a stalled read on [rec] points at, for the log line: the device
+     * it was reading and, for a USB microphone, the usual cause. Custom
+     * ROMs for boards like the Raspberry Pi pin the USB input to one format
+     * in their audio policy, and a microphone that cannot record it is
+     * opened anyway and never delivers a frame.
+     */
+    private fun stallHint(rec: AudioRecord): String {
+        val device = rec.routedDevice ?: rec.preferredDevice ?: return ""
+        val usb = device.type == AudioDeviceInfo.TYPE_USB_DEVICE ||
+            device.type == AudioDeviceInfo.TYPE_USB_HEADSET
+        return " from ${device.productName}" + if (usb) {
+            " (a USB microphone that never delivers usually means the ROM's USB audio " +
+                "configuration opens it in a format it cannot record)"
+        } else {
+            ""
+        }
+    }
+
     private fun extractChannel(
         buf: ByteArray,
         length: Int,

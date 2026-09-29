@@ -173,9 +173,15 @@ export function localizeSetting(setting) {
     placeholder: setting.placeholderMessageId ? t(setting.placeholderMessageId, {}, setting.englishPlaceholder ?? setting.placeholder) : setting.placeholder,
     englishTitle,
     englishDescription,
-    title: setting.titleMessageId ? t(setting.titleMessageId, {}, englishTitle) : setting.title,
-    description: setting.descriptionMessageId
-      ? t(setting.descriptionMessageId, {}, englishDescription) : setting.description,
+    title: setting.key === 'voice.timer_named_phrase'
+      ? t('settingVoiceTimerNamedPhraseTitle', {}, englishTitle)
+      : setting.titleMessageId ? t(setting.titleMessageId, {}, englishTitle) : setting.title,
+    // Its description shows the {name} token itself, which a settings
+    // message cannot carry: the token goes in as the placeholder's value.
+    description: setting.key === 'voice.timer_named_phrase'
+      ? t('settingVoiceTimerNamedPhraseDescription', { name: '{name}' }, englishDescription)
+      : setting.descriptionMessageId
+        ? t(setting.descriptionMessageId, {}, englishDescription) : setting.description,
   };
 }
 

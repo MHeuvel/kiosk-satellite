@@ -889,7 +889,7 @@ void main() {
             'categories': [],
             'credentials': ['ha.token', 'bogus'],
           })!.describe(),
-          'Categories: 0 of 17. Credentials: 1 of 4. Excluded: 32.',
+          'Categories: 0 of 17. Credentials: 1 of 4. Excluded: 34.',
         );
         expect(
           withCreds['browser.start_url'],
@@ -1748,11 +1748,185 @@ void main() {
       );
     });
 
+    test('followers mirror the leader\'s custom wake word models', () async {
+      await build(
+        prefs: {
+          'ks.fleet.leader': true,
+          'ks.fleet.followers': jsonEncode([
+            {
+              'id': 'bed',
+              'name': 'Bedroom',
+              'address': '192.168.1.71',
+              'port': 2324,
+              'token': 't',
+            },
+          ]),
+        },
+      );
+      // The first tick runs on its own before the stubs below exist: a
+      // leader that cannot read its models must not touch the followers'.
+      await settle();
+      expect(
+        sent.where((q) => q.url.path == '/api/fleet/wake-models'),
+        isEmpty,
+      );
+      sent.clear();
+      final dir = await Directory.systemTemp.createTemp('ks_wake_models');
+      addTearDown(() => dir.delete(recursive: true));
+      final onnx = await File('${dir.path}/my_word.onnx').writeAsBytes([1, 2]);
+      final json = await File('${dir.path}/luna.json').writeAsString('{}');
+      final mine = {
+        'openwakeword/my_word.onnx': 'aaa',
+        'microwakeword/luna.json': 'bbb',
+      };
+      commands
+        ..register(
+          Command(
+            name: 'customWakeModelsManifest',
+            description: 'stub',
+            handler: (_) async => CommandResult.ok({'files': mine}),
+          ),
+        )
+        ..register(
+          Command(
+            name: 'customWakeModelPath',
+            description: 'stub',
+            handler: (p) async => CommandResult.ok({
+              'path': p['path'] == 'openwakeword/my_word.onnx'
+                  ? onnx.path
+                  : json.path,
+            }),
+          ),
+        );
+      answers['GET /api/fleet/status'] = (_) => {
+        'id': 'bed',
+        'version': '2026.9.19',
+        'leaderId': 'me',
+      };
+      answers['POST /api/fleet/apply'] = (_) => {
+        'ok': true,
+        'data': {'applied': 0},
+      };
+      // The follower has an old copy of one file and one the leader dropped.
+      answers['GET /api/fleet/wake-models'] = (_) => {
+        'ok': true,
+        'data': {
+          'files': {
+            'openwakeword/my_word.onnx': 'old',
+            'vswakeword/gone.onnx': 'ccc',
+          },
+        },
+      };
+      answers['PUT /api/fleet/wake-models'] = (_) => {'ok': true};
+      answers['DELETE /api/fleet/wake-models'] = (_) => {'ok': true};
+      await commands.execute('fleetSyncNow', const {});
+      await settle();
+      final puts = sent.where((q) => q.method == 'PUT').toList();
+      expect(
+        [for (final q in puts) q.url.queryParameters['path']],
+        unorderedEquals([
+          'openwakeword/my_word.onnx',
+          'microwakeword/luna.json',
+        ]),
+      );
+      expect(
+        puts
+            .firstWhere(
+              (q) =>
+                  q.url.queryParameters['path'] == 'openwakeword/my_word.onnx',
+            )
+            .bodyBytes,
+        [1, 2],
+      );
+      expect(
+        [
+          for (final q in sent)
+            if (q.method == 'DELETE') q.url.queryParameters['path'],
+        ],
+        ['vswakeword/gone.onnx'],
+      );
+      // In step: the next sync compares nothing until the leader's change.
+      sent.clear();
+      await commands.execute('fleetSyncNow', const {});
+      await settle();
+      expect(
+        sent.where((q) => q.url.path == '/api/fleet/wake-models'),
+        isEmpty,
+      );
+    });
+
     test('with nothing uploaded the fleet install says so', () async {
       await build(prefs: {'ks.fleet.leader': true});
       final r = await commands.execute('fleetInstallUploaded', const {});
       expect(r.ok, isFalse);
       expect(r.error, contains('No uploaded APK'));
+    });
+
+    test('the fleet export carries this kiosk and each follower, and names '
+        'the ones that did not answer', () async {
+      await build(
+        prefs: {
+          'ks.fleet.leader': true,
+          'ks.fleet.followers': jsonEncode([
+            {
+              'id': 'bed',
+              'name': 'Bedroom',
+              'address': '192.168.1.71',
+              'port': 2324,
+              'token': 't',
+            },
+            {
+              'id': 'kit',
+              'name': 'Kitchen',
+              'address': '192.168.1.70',
+              'port': 2324,
+              'token': 'k',
+            },
+            // Invited, not accepted: no token, nothing to ask.
+            {
+              'id': 'hall',
+              'name': 'Hall',
+              'address': '192.168.1.72',
+              'port': 2324,
+              'invite': 'n',
+            },
+          ]),
+        },
+      );
+      answers['GET /api/config/export'] = (req) =>
+          req.url.host == '192.168.1.71'
+          ? {
+              'kind': 'kiosk-satellite-config',
+              'version': 1,
+              'deviceName': 'Bedroom',
+              'settings': {'device.name': 'Bedroom'},
+            }
+          : http.Response(jsonEncode({'error': 'fleet token'}), 403);
+      final r = await commands.execute('fleetExport', const {});
+      expect(r.ok, isTrue, reason: r.error);
+      final out = r.data as Map;
+      expect(out['kind'], 'kiosk-satellite-fleet-config');
+      final devices = (out['devices'] as List).cast<Map>();
+      expect(devices.map((d) => d['id']), ['me', 'bed', 'kit']);
+      expect(devices[0]['self'], isTrue);
+      expect(devices[0]['name'], 'Living Room');
+      expect((devices[0]['config'] as Map)['kind'], 'kiosk-satellite-config');
+      expect((devices[1]['config'] as Map)['deviceName'], 'Bedroom');
+      expect(devices[2]['config'], isNull);
+      expect(devices[2]['error'], contains('Update this kiosk'));
+      final asked = sent.where((q) => q.url.path == '/api/config/export');
+      expect(asked.map((q) => q.headers['Authorization']).toSet(), {
+        'Bearer t',
+        'Bearer k',
+      });
+    });
+
+    test('a kiosk that leads nobody exports only itself', () async {
+      await build();
+      final r = await commands.execute('fleetExport', const {});
+      final devices = ((r.data as Map)['devices'] as List).cast<Map>();
+      expect(devices.single['self'], isTrue);
+      expect(sent.where((q) => q.url.path == '/api/config/export'), isEmpty);
     });
 
     test(
@@ -1844,6 +2018,34 @@ void main() {
     );
   });
 
+  test('the brightness curve travels as one: its middle points go where '
+      'Minimum brightness goes', () {
+    final mids = [
+      defs.adaptivePoint2Position,
+      defs.adaptivePoint2Level,
+      defs.adaptivePoint3Position,
+      defs.adaptivePoint3Level,
+    ];
+    // Screen & Audio with the default exclusions: the ends stay per room,
+    // and so do the middle points.
+    const kept = SyncProfile(categories: {'Screen & Audio'});
+    expect(FleetSyncManager.syncs(defs.adaptiveMinBrightness, kept), isFalse);
+    for (final def in mids) {
+      expect(FleetSyncManager.syncs(def, kept), isFalse, reason: def.key);
+    }
+    // Brought back into the profile, the whole curve travels.
+    const shared = SyncProfile(categories: {'Screen & Audio'}, excluded: {});
+    expect(FleetSyncManager.syncs(defs.adaptiveMinBrightness, shared), isTrue);
+    for (final def in mids) {
+      expect(FleetSyncManager.syncs(def, shared), isTrue, reason: def.key);
+    }
+    // Hidden, so a profile never lists them among its exclusions.
+    for (final def in mids) {
+      expect(def.hidden, isTrue);
+      expect(defs.fleetDefaultExcluded, isNot(contains(def.key)));
+    }
+  });
+
   test('the recorded former default exclusions lead to the current one', () {
     // Each former list is a real past default: a strict subset of the
     // current one, never equal to it (or every fresh profile would be
@@ -1855,11 +2057,11 @@ void main() {
       expect(former.containsAll(previous), isTrue);
       previous = former;
     }
-    // The intercom answer mode joined last: the newest former list is the
-    // current one without it.
+    // Voice Satellite's mute and speaker joined last: the newest former
+    // list is the current one without them.
     expect(
       defs.fleetFormerDefaultExcluded.last,
-      defs.fleetDefaultExcluded.difference({'intercom.answer_mode'}),
+      defs.fleetDefaultExcluded.difference({'voice.mute', 'voice.tts_output'}),
     );
   });
 

@@ -181,7 +181,7 @@ void main() {
   test(
     'the defaults send one snapshot with both parts, and then wait',
     () async {
-      await build({});
+      await build({'ks.voice.runtime': 'dashboard'});
       await pump();
       expect(sent, hasLength(1));
       final body = bodyOf(sent.single);
@@ -212,8 +212,8 @@ void main() {
       expect(usage['intercom_answer_mode'], 'ring');
       expect(usage['intercom_talk_mode'], 'ptt');
       expect(usage['announcements'], true);
-      // The hook answered with a stopped engine: installed, not running.
-      expect(usage['voice_satellite'], 'stopped');
+      // The hook answered: the integration runs voice on this kiosk.
+      expect(usage['voice_satellite'], 'integration');
       expect(usage['widgets'], isEmpty);
       expect(usage['widget_count'], 0);
       expect(usage['gesture_triggers'], isEmpty);
@@ -232,49 +232,100 @@ void main() {
   );
 
   test(
-    'Voice Satellite reads by the page hook, then by memory of it',
+    'a dashboard runtime reads by the page hook, then by memory of it',
     () async {
-      await build({}, firstDelay: const Duration(days: 1));
+      await build({
+        'ks.voice.runtime': 'dashboard',
+      }, firstDelay: const Duration(days: 1));
       Future<Map> usage() async {
         sent.clear();
         expect(await analytics.sendSnapshot(force: true), isTrue);
         return bodyOf(sent.single)['usage'] as Map;
       }
 
-      // The hook answers: the engine decides.
-      expect((await usage())['voice_satellite'], 'stopped');
+      // The hook answers: the integration is there, whatever its engine
+      // is doing right now.
+      expect((await usage())['voice_satellite'], 'integration');
       vsPage = {
         'config': {'skin': 'waveform'},
         'engine': {'running': true},
       };
       var u = await usage();
-      expect(u['voice_satellite'], 'running');
+      expect(u['voice_satellite'], 'integration');
       expect(u['vs_skin'], 'waveform');
       // No hook (the page is elsewhere), but Voice Satellite pushed the
       // wake word config this session.
       vsPage = null;
       u = await usage();
-      expect(u['voice_satellite'], 'installed');
+      expect(u['voice_satellite'], 'integration');
       expect(u['vs_skin'], '');
       // No hook and no config either: the sighting holds for a week.
       wakeState = {'released': false, 'models': <Object?>[]};
       now = now.add(const Duration(days: 6));
-      expect((await usage())['voice_satellite'], 'installed');
+      expect((await usage())['voice_satellite'], 'integration');
       now = now.add(const Duration(days: 2));
-      expect((await usage())['voice_satellite'], 'not_installed');
+      expect((await usage())['voice_satellite'], 'off');
     },
   );
 
-  test('a kiosk that never met Voice Satellite reads not_installed', () async {
-    await build({}, firstDelay: const Duration(days: 1));
-    vsPage = null;
-    wakeState = {'released': false, 'models': <Object?>[]};
-    expect(await analytics.sendSnapshot(force: true), isTrue);
-    final usage = bodyOf(sent.single)['usage'] as Map;
-    expect(usage['voice_satellite'], 'not_installed');
-    expect(usage['wake_word_engine'], '');
-    expect(usage['wake_word'], '');
-  });
+  test(
+    'a dashboard runtime that never met Voice Satellite reads off',
+    () async {
+      await build({
+        'ks.voice.runtime': 'dashboard',
+      }, firstDelay: const Duration(days: 1));
+      vsPage = null;
+      wakeState = {'released': false, 'models': <Object?>[]};
+      expect(await analytics.sendSnapshot(force: true), isTrue);
+      final usage = bodyOf(sent.single)['usage'] as Map;
+      expect(usage['voice_satellite'], 'off');
+      expect(usage['wake_word_engine'], '');
+      expect(usage['wake_word'], '');
+    },
+  );
+
+  test(
+    'a native runtime reads by its own switch and skin, never the page',
+    () async {
+      await build({
+        'ks.voice.runtime': 'native',
+        'ks.voice.skin': 'lens-flares',
+      }, firstDelay: const Duration(days: 1));
+      Future<Map> usage() async {
+        sent.clear();
+        expect(await analytics.sendSnapshot(force: true), isTrue);
+        return bodyOf(sent.single)['usage'] as Map;
+      }
+
+      // The page hook still answers (the integration is installed in Home
+      // Assistant) but this kiosk does not run voice through it. Off, the
+      // engine's last loaded models are not what the kiosk listens for.
+      var u = await usage();
+      expect(u['voice_satellite'], 'off');
+      expect(u['vs_skin'], '');
+      expect(u['wake_word_engine'], '');
+      expect(u['wake_word'], '');
+      expect(u['native_pipeline'], isTrue);
+      await settings.set(defs.voiceEnabled, true);
+      await settings.set(defs.voiceWakeWordEngine, 'microwakeword');
+      u = await usage();
+      expect(u['voice_satellite'], 'native');
+      expect(u['vs_skin'], 'lens-flares');
+      // The engine is the kiosk's own pick, the words what it loaded.
+      expect(u['wake_word_engine'], 'microWakeWord');
+      expect(u['wake_word'], 'Ok Nova');
+      expect(u['wake_word_2'], '');
+      // Muted, the engine is released but still the kiosk's engine.
+      wakeState = {...wakeState, 'released': true};
+      u = await usage();
+      expect(u['voice_satellite'], 'native');
+      expect(u['wake_word_engine'], 'microWakeWord');
+      expect(u['wake_word'], 'Ok Nova');
+      // A fresh install never seeds the runtime: it is native by default.
+      await build({}, firstDelay: const Duration(days: 1));
+      expect((await usage())['voice_satellite'], 'off');
+    },
+  );
 
   test('widgets, gestures, cameras and the installer read as kinds and '
       'counts, never as what they point at', () async {
@@ -524,6 +575,39 @@ java.lang.IllegalStateException: WebView gone
     // The same journal at the next tick: nothing new.
     expect(await analytics.sendCrashIfAny(), isFalse);
     expect(sent, hasLength(3));
+  });
+
+  test('a journal holding more entries than the memory of sent ones does '
+      'not lap: the newest window goes once and nothing repeats', () async {
+    // 60 distinct crashes, more than the old fifty-fingerprint memory.
+    final buf = StringBuffer();
+    for (var i = 0; i < 60; i++) {
+      final minute = i.toString().padLeft(2, '0');
+      buf.write(
+        '=== crash at 2026-09-02 08:$minute:00 (app 2026.9.2, thread main) ===\n'
+        'java.lang.RuntimeException: process restarted deliberately: the frame '
+        'watchdog found the UI wedged (no frames for 30s) run $i\n'
+        '\tat a7.jc.a(r8-map-id:23)\n\n',
+      );
+    }
+    crash = buf.toString();
+    await build({'ks.analytics.basic': false, 'ks.analytics.usage': false});
+    // Tick until the sender says there is nothing left, well past the
+    // point where a lap would have started.
+    var ticks = 0;
+    while (await analytics.sendCrashIfAny() && ticks < 100) {
+      ticks++;
+    }
+    final crashes = sent.map((r) => bodyOf(r)['crash'] as String).toList();
+    expect(crashes, hasLength(AnalyticsManager.crashCandidates));
+    expect(crashes.toSet(), hasLength(AnalyticsManager.crashCandidates));
+    // The newest entries went, the oldest stayed home.
+    expect(crashes.first, contains('run 59'));
+    expect(crashes.any((c) => c.contains('run 0\n')), isFalse);
+    for (var i = 0; i < 5; i++) {
+      expect(await analytics.sendCrashIfAny(), isFalse);
+    }
+    expect(sent, hasLength(AnalyticsManager.crashCandidates));
   });
 
   test('Diagnostics off keeps a recorded crash on the device', () async {

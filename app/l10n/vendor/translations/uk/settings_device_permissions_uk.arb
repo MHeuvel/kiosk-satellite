@@ -55,5 +55,9 @@
   "deviceListeningIdle": "Потрібно для фонового прослуховування.",
   "deviceMotionIdle": "Потрібно для виявлення руху.",
   "deviceBatteryAdb": "Цей пристрій не має відповідного екрана налаштувань. Надайте його через adb: adb shell dumpsys deviceidle whitelist +me.jxl.kiosk_satellite",
-  "deviceOverlayAdb": "Цей пристрій не має відповідного екрана налаштувань. Надайте його через adb: adb shell appops set me.jxl.kiosk_satellite SYSTEM_ALERT_WINDOW allow"
+  "deviceOverlayAdb": "Цей пристрій не має відповідного екрана налаштувань. Надайте його через adb: adb shell appops set me.jxl.kiosk_satellite SYSTEM_ALERT_WINDOW allow",
+  "deviceNotificationAccess": "Доступ до сповіщень",
+  "deviceNotificationAccessHeld": "«Зараз грає» може стежити за застосунками, які відтворюють медіа на цьому пристрої.",
+  "deviceNotificationAccessMissing": "Без цього Android не показує медіасеансів, тому «Зараз грає» не може стежити за застосунками, які відтворюють медіа на цьому пристрої.",
+  "deviceNotificationAccessIdle": "Дає змогу «Зараз грає» стежити за застосунками, які відтворюють медіа на цьому пристрої."
 }

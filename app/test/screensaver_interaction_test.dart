@@ -221,6 +221,50 @@ void main() {
     });
   }
 
+  Future<void> playDuringVoiceTurn() async {
+    await build(nowPlaying: true);
+    await settings.set(defs.sendspinFullscreenOnPlay, true);
+    bus.publish(const WakeWordDetected(model: 'test', phrase: 'test'));
+    await page(true, 'voice');
+    bus.publish(const SendspinNowPlayingChanged(active: true, playing: true));
+    await pumpEventQueue();
+    expect(saver.isActive, isFalse);
+  }
+
+  Future<void> endVoiceTurn() async {
+    bus.publish(const WakeWordStateChanged(active: true, listening: true));
+    await pumpEventQueue();
+    await page(false, 'voice');
+  }
+
+  test('music started by voice launches Now Playing after the turn', () async {
+    await playDuringVoiceTurn();
+    bus.publish(const WakeWordStateChanged(active: true, listening: true));
+    await pumpEventQueue();
+    // The page still holds its voice interaction.
+    expect(saver.isActive, isFalse);
+    await page(false, 'voice');
+    expect(saver.isActive, isTrue);
+    expect(saver.activeView.value, isNotNull);
+  });
+
+  for (final change in ['music stopped', 'launch disabled', 'dismissed']) {
+    test('a deferred launch is dropped after $change', () async {
+      await playDuringVoiceTurn();
+      switch (change) {
+        case 'music stopped':
+          bus.publish(const SendspinNowPlayingChanged(active: false));
+          await pumpEventQueue();
+        case 'launch disabled':
+          await settings.set(defs.sendspinFullscreenOnPlay, false);
+        case 'dismissed':
+          await commands.execute('stopScreensaver', const {});
+      }
+      await endVoiceTurn();
+      expect(saver.isActive, isFalse);
+    });
+  }
+
   test(
     'voice completion leaves a previously dismissed player closed',
     () async {

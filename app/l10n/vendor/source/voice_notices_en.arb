@@ -1,0 +1,98 @@
+{
+  "@@locale": "en",
+  "voiceNoticeError": "Voice Satellite error",
+  "@voiceNoticeError": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeWarning": "Voice Satellite warning",
+  "@voiceNoticeWarning": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeNotice": "Voice Satellite notice",
+  "@voiceNoticeNotice": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeTts": "Text-to-speech",
+  "@voiceNoticeTts": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeAssistPipeline": "Assist pipeline",
+  "@voiceNoticeAssistPipeline": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticePipeline": "Pipeline \"{name}\"",
+  "@voiceNoticePipeline": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceNoticeMicUnavailable": "The microphone is not available.",
+  "@voiceNoticeMicUnavailable": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeNotConnected": "Home Assistant is not connected to this kiosk.",
+  "@voiceNoticeNotConnected": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeConnectionLost": "Lost connection to Home Assistant. Reconnecting automatically.",
+  "@voiceNoticeConnectionLost": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticePlayback": "Audio could not be played on the device.",
+  "@voiceNoticePlayback": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeWatchdog": "No response from Home Assistant after you finished speaking. The pipeline may be stuck.",
+  "@voiceNoticeWatchdog": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeRefused": "Home Assistant could not start the assistant.",
+  "@voiceNoticeRefused": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeUnexpected": "An unexpected pipeline error occurred.",
+  "@voiceNoticeUnexpected": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeMicBlocked": "Microphone access is blocked. Allow it for Kiosk Satellite in the Android settings.",
+  "@voiceNoticeMicBlocked": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeMicDeclined": "Microphone access was declined, so the wake word cannot be heard.",
+  "@voiceNoticeMicDeclined": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeMicLost": "The microphone stopped working.",
+  "@voiceNoticeMicLost": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeModels": "The wake word models could not be loaded.",
+  "@voiceNoticeModels": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceNoticeCrashed": "The wake word detector kept crashing on this device, so it was stopped.",
+  "@voiceNoticeCrashed": {
+    "context": "Voice Satellite notices on the kiosk screen",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  }
+}
