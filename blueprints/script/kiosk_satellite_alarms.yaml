@@ -1,0 +1,106 @@
+blueprint:
+  name: Kiosk Satellite alarms
+  author: Kiosk Satellite
+  description: >-
+    Lets an LLM conversation agent set, list, delete and switch alarms on a
+    Kiosk Satellite kiosk, in any language the agent speaks. Create a script
+    from this blueprint and expose it to Assist. The kiosk that heard the
+    request answers, or the kiosk named in it. The kiosk needs its Home
+    Assistant address and a token from an administrator.
+  domain: script
+  homeassistant:
+    min_version: "2024.10.0"
+  source_url: https://github.com/jxlarrea/kiosk-satellite/blob/main/blueprints/script/kiosk_satellite_alarms.yaml
+
+mode: parallel
+max: 10
+
+description: >-
+  Manages the alarms of the Kiosk Satellite tablet the user is talking to.
+  Use it for any request about alarms (wake me up at, set an alarm, what
+  alarms do I have, cancel or turn off an alarm), never for timers. Times
+  are in 24 hour HH:MM format, local time: turn relative requests like "in
+  8 hours" into a clock time using the current time. The response says what
+  happened. Tell the user in their language, using next_ring for when it
+  rings. When the response says several alarms match, ask which one.
+
+fields:
+  action:
+    name: Action
+    description: >-
+      set adds an alarm (or turns on the one that already exists at that
+      time and days). list returns every alarm. delete removes one. turn_on
+      and turn_off switch one without removing it.
+    required: true
+    selector:
+      select:
+        options:
+          - set
+          - list
+          - delete
+          - turn_on
+          - turn_off
+  time:
+    name: Time
+    description: >-
+      The alarm time in 24 hour HH:MM, like 06:30 or 18:00. Required for
+      set. For delete, turn_on and turn_off it picks the alarm.
+    selector:
+      text:
+  days:
+    name: Days
+    description: >-
+      The days the alarm repeats on. Leave empty for an alarm that rings
+      once, at the next time the clock reads its time.
+    selector:
+      select:
+        multiple: true
+        options:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
+          - sat
+          - sun
+  label:
+    name: Label
+    description: >-
+      A short name for the alarm, like Gym, only when the user gives one.
+      For delete, turn_on and turn_off it picks the alarm by name.
+    selector:
+      text:
+  kiosk:
+    name: Kiosk
+    description: >-
+      Leave empty. Only when the user names another kiosk, its name, like
+      Bedroom.
+    selector:
+      text:
+
+sequence:
+  - variables:
+      request: "{{ now().timestamp() }}-{{ range(10000) | random }}"
+  - event: kiosk_satellite_alarm
+    event_data:
+      id: "{{ request }}"
+      action: "{{ action | default('') }}"
+      time: "{{ time | default('') }}"
+      days: "{{ days | default([]) }}"
+      label: "{{ label | default('') }}"
+      kiosk: "{{ kiosk | default('') }}"
+  - wait_for_trigger:
+      - trigger: event
+        event_type: kiosk_satellite_alarm_result
+        event_data:
+          id: "{{ request }}"
+    timeout: 8
+  - variables:
+      result: >-
+        {{ wait.trigger.event.data if wait.trigger else {
+          'ok': false,
+          'error': 'No kiosk answered. None is in a voice turn or has that
+          name, or the kiosk cannot reach Home Assistant.'
+        } }}
+  - stop: Done
+    response_variable: result

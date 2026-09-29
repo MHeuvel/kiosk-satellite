@@ -76,6 +76,25 @@ The screensaver waits while the alarm list is open, so it never cuts off an alar
 
 **Next alarm** is a [screensaver widget](screensavers.md#widgets) that shows the next alarm when it rings within 24 hours, and the snooze while one runs. The corner stays empty the rest of the time. A tap on the widget opens the alarm list, the one spot on a screensaver that does more than dismiss it.
 
+## Setting alarms by voice
+
+Home Assistant has no alarm intent, so voice alarms go through an LLM conversation agent (OpenAI, Google Gemini, Anthropic, Ollama or any other agent that can control Home Assistant). The agent understands the request in any language it speaks and calls a script that Kiosk Satellite ships as a blueprint.
+
+1. Import the blueprint:
+
+    [![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fjxlarrea%2Fkiosk-satellite%2Fblob%2Fmain%2Fblueprints%2Fscript%2Fkiosk_satellite_alarms.yaml)
+
+2. Create a script from it. It has no settings.
+3. Expose the script to Assist under **Settings, Voice assistants, Expose**.
+
+Then ask the kiosk: "wake me up at 6:30 on weekdays", "set an alarm called Gym for 7 tomorrow", "what alarms do I have?", "turn off the Gym alarm" or "delete my 6:30 alarm". The agent confirms what the kiosk did and when the alarm rings next.
+
+The alarm goes to the kiosk you are talking to. A request typed into Home Assistant's own chat reaches no kiosk until it names one, as in "set an alarm on the bedroom kiosk", which matches the kiosk's device name or ESPHome name.
+
+The kiosk listens for the script over its own Home Assistant connection, so it needs the Home Assistant address and token under **Settings, Home Assistant**, and the token has to belong to an administrator. Nothing new appears in ESPHome.
+
+Stopping and snoozing a ringing alarm still works with the stop word, the screen and the **Stop alarm** and **Snooze alarm** buttons.
+
 ## Remote admin
 
 The **Alarms** page lists every alarm with a switch, an edit button and a delete button. **Set an alarm** and the edit button open one dialog with the time, repeat days, label, tone, sunrise, ease in, the speak switch and the phrase. The same defaults as the device follow the list, including an **Upload** button for sounds from your computer. While an alarm rings, sits in its sunrise or is snoozed, the Overview shows a banner with Snooze and Stop.

@@ -17,6 +17,7 @@ import '../screensaver/screensaver_manager.dart'
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
 import 'alarm_model.dart';
+import 'alarm_requests.dart';
 
 /// Saving would make a second alarm with the same time and repeat days.
 class DuplicateAlarm implements Exception {
@@ -145,6 +146,9 @@ class AlarmManager extends Manager {
   final status = ValueNotifier<AlarmStatus>(const AlarmStatus());
 
   final _subs = <StreamSubscription<Object?>>[];
+
+  /// Alarms asked for by voice through Home Assistant.
+  late final requests = AlarmRequests(bus, log, _settings, this, clock: _clock);
   Timer? _tick;
   Timer? _precise;
   Timer? _ramp;
@@ -238,11 +242,13 @@ class AlarmManager extends Manager {
         }),
       );
     _tick = Timer.periodic(const Duration(seconds: 15), (_) => _check());
+    requests.start();
     await _check();
   }
 
   @override
   Future<void> dispose() async {
+    await requests.dispose();
     _tick?.cancel();
     _precise?.cancel();
     _ramp?.cancel();
