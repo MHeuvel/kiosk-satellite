@@ -18,9 +18,9 @@ max: 10
 description: >-
   Manages the alarms of the Kiosk Satellite tablet the user is talking to.
   Use it for any request about alarms (wake me up at, set an alarm, what
-  alarms do I have, cancel or turn off an alarm), never for timers. Times
-  are in 24 hour HH:MM format, local time: turn relative requests like "in
-  8 hours" into a clock time using the current time. The response says what
+  alarms do I have, turn off an alarm, delete an alarm), never for
+  timers. Times are in 24 hour HH:MM format, local time: turn relative
+  requests like "in 8 hours" into a clock time using the current time. The response says what
   happened. Tell the user in their language, using next_ring for when it
   rings. When the response says several alarms match, ask which one.
 
@@ -29,17 +29,20 @@ fields:
     name: Action
     description: >-
       set adds an alarm (or turns on the one that already exists at that
-      time and days). list returns every alarm. delete removes one. turn_on
-      and turn_off switch one without removing it.
+      time and days). list returns every alarm. turn_off switches an alarm
+      off and keeps it in the list: use it when the user says turn off,
+      switch off, disable, cancel or skip. turn_on switches one back on.
+      delete removes an alarm for good: use it only when the user says
+      delete or remove.
     required: true
     selector:
       select:
         options:
           - set
           - list
-          - delete
-          - turn_on
           - turn_off
+          - turn_on
+          - delete
   time:
     name: Time
     description: >-
