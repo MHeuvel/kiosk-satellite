@@ -30,3 +30,23 @@ for (const [file, loader, wipe] of pages) {
       `${loader} calls applyManagedBanners() right after clearing the tab`);
   });
 }
+
+// The settings render clears the Voice Satellite and Home Assistant tab
+// roots after renderFleetPage() has applied the banners, so it applies
+// them again once every section is in place.
+test('settings.js applies the fleet banners after its last tab rebuild', () => {
+  const source = read('settings.js');
+  assert.match(source, /^import \{ applyManagedBanners, renderFleetPage \} from '\.\/fleetsync\.js';$/m,
+    'settings.js imports applyManagedBanners');
+  const start = source.indexOf('async function renderSettings(');
+  assert.ok(start >= 0, 'settings.js defines renderSettings');
+  const end = source.indexOf('\n}\n', start);
+  const body = source.slice(start, end);
+  const applied = body.lastIndexOf('applyManagedBanners();');
+  assert.ok(applied >= 0, 'renderSettings calls applyManagedBanners()');
+  for (const tab of ['tab-voicesatellite', 'tab-homeassistant']) {
+    const wiped = body.indexOf(`document.getElementById('${tab}');\n    root.innerHTML = '';`);
+    assert.ok(wiped >= 0, `renderSettings clears #${tab}`);
+    assert.ok(applied > wiped, `the banners go back on after #${tab} is cleared`);
+  }
+});

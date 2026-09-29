@@ -9,6 +9,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 - **Alarms can speak when they ring (#750).** Turn on **Speak when it rings** on an alarm and Home Assistant says a phrase between every second pass of the tone, the way timers speak. The Defaults group picks the **Text to speech engine**, as Announcements does, and the default **Phrase**, `It's {time}. {label}`. Each alarm can say its own phrase, with `{label}`, `{time}` and `{day}` filled in, and a blank label leaves no stray punctuation. The tone rings from the first second either way, so a slow or unreachable Home Assistant only costs the words. The remote admin's alarm dialog has the same switches and phrase. Translated into Spanish, German, French and Ukrainian.
 
 ### Fixed
+- **The follower banner stays on the Voice Satellite and Home Assistant pages of the remote admin.** On a fleet follower, the "leads these settings" banner went on these two pages and was then cleared again when their content was rebuilt, so it was missing even though Fleet lists them as synced (#752). The remote admin now adds the banners after every page is built.
 - **An alarm dialog no longer outlives the alarm screens.** When the remote admin, Home Assistant, the screensaver or a ring closed the alarm list, an open Label, Phrase or Alarm tone dialog stayed on screen by itself. It now closes with them.
 
 ### Changed

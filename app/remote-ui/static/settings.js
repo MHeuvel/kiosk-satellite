@@ -40,7 +40,7 @@ import {
   updateSonosPage,
   updateMaValidateRow,
 } from './panels.js';
-import { renderFleetPage } from './fleetsync.js';
+import { applyManagedBanners, renderFleetPage } from './fleetsync.js';
 import { decorateAnnouncementsPage, renderIntercomPage } from './intercom.js';
 import { renderAlarmsPage } from './alarms.js';
 import { askImportOptions } from './pickers.js';
@@ -1413,8 +1413,7 @@ kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
   updateMaValidateRow();
   updatePlayerRow();
   updateSonosPage();
-  // The Fleet Management tab, hand-built from the fleetStatus command, and
-  // the banner a follower's synced categories wear.
+  // The Fleet Management tab, hand-built from the fleetStatus command.
   await renderFleetPage();
   // The Intercom tab: the definition rows the generic renderer drew,
   // decorated from the intercomStatus command (the key box, the ring
@@ -2433,6 +2432,11 @@ kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
   // The permissions card lands last on the Voice Satellite tab, same as the
   // on-device settings screen.
   await loadVsPermissions();
+
+  // The banner a follower's synced categories wear. Last, because the Voice
+  // Satellite and Home Assistant sections above clear their tab roots after
+  // renderFleetPage() has already put it there.
+  applyManagedBanners();
 
   // Counterpart to the capture at the top: put the view back where the
   // person was. One extra frame so late async renders have laid out.
