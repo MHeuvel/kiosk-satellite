@@ -81,6 +81,179 @@ class UiStringsEn extends UiStrings {
       'The download runs on the tablet; the installation must be confirmed on the tablet screen.';
 
   @override
+  String get alarmsTitle => 'Alarms';
+
+  @override
+  String get alarmsSetAnAlarm => 'Set an alarm';
+
+  @override
+  String get alarmsNone => 'No alarms';
+
+  @override
+  String get alarmsDone => 'Done';
+
+  @override
+  String get alarmsRepeat => 'Repeat';
+
+  @override
+  String get alarmsLabel => 'Label';
+
+  @override
+  String get alarmsAddLabel => 'Add label';
+
+  @override
+  String get alarmsTone => 'Alarm tone';
+
+  @override
+  String get alarmsSunrise => 'Sunrise';
+
+  @override
+  String get alarmsDefaultTone => 'Default';
+
+  @override
+  String get alarmsBuiltInTone => 'Built-in alarm';
+
+  @override
+  String get alarmsSoundsFolder => 'Sounds folder';
+
+  @override
+  String get alarmsToday => 'Today';
+
+  @override
+  String get alarmsTomorrow => 'Tomorrow';
+
+  @override
+  String get alarmsOnce => 'Once';
+
+  @override
+  String get alarmsEveryDay => 'Every day';
+
+  @override
+  String get alarmsWeekdays => 'Weekdays';
+
+  @override
+  String get alarmsWeekends => 'Weekends';
+
+  @override
+  String alarmsSnoozedUntil(String time) {
+    return 'Snoozed until $time';
+  }
+
+  @override
+  String get alarmsSnooze => 'Snooze';
+
+  @override
+  String get alarmsStop => 'Stop';
+
+  @override
+  String get alarmsDefaultLabel => 'Alarm';
+
+  @override
+  String get alarmsSetToast => 'Alarm set';
+
+  @override
+  String alarmsRingsIn(String duration) {
+    return 'Rings in $duration';
+  }
+
+  @override
+  String alarmsDurationHoursMinutes(String hours, String minutes) {
+    return '$hours h $minutes min';
+  }
+
+  @override
+  String alarmsDurationHours(String hours) {
+    return '$hours h';
+  }
+
+  @override
+  String alarmsDurationMinutes(String minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String alarmsAt(String time) {
+    return 'Alarm at $time';
+  }
+
+  @override
+  String get alarmsNextWidget => 'Next alarm';
+
+  @override
+  String get alarmsManage => 'Manage alarms';
+
+  @override
+  String alarmsNextAt(String day, String time) {
+    return 'Next: $day at $time';
+  }
+
+  @override
+  String get alarmsNoneSet => 'No alarms set';
+
+  @override
+  String get alarmsDefaultsSection => 'Defaults';
+
+  @override
+  String get alarmsTtsSection => 'Text to Speech';
+
+  @override
+  String get alarmsEditAlarm => 'Edit alarm';
+
+  @override
+  String get alarmsTime => 'Time';
+
+  @override
+  String get alarmsRinging => 'Alarm ringing';
+
+  @override
+  String get alarmsSnoozed => 'Alarm snoozed';
+
+  @override
+  String get alarmsSunriseRunning => 'Sunrise before an alarm';
+
+  @override
+  String alarmsSunriseHint(String minutes) {
+    return 'The screen brightens over $minutes minutes before it rings.';
+  }
+
+  @override
+  String get alarmsDeleteFailed => 'Could not delete the alarm.';
+
+  @override
+  String alarmsDuplicate(String time) {
+    return 'You already have an alarm at $time';
+  }
+
+  @override
+  String get alarmsEaseIn => 'Ease in the volume';
+
+  @override
+  String alarmsEaseHint(String seconds) {
+    return 'Grows to the alarm volume over $seconds seconds.';
+  }
+
+  @override
+  String get alarmsSpeak => 'Speak when it rings';
+
+  @override
+  String get alarmsPhrase => 'Phrase';
+
+  @override
+  String alarmsPhraseHint(String label, String time, String day) {
+    return '$label, $time and $day become the alarm\'s label, time and day.';
+  }
+
+  @override
+  String get alarmsVoiceSection => 'Voice Alarms';
+
+  @override
+  String get alarmsVoiceManage => 'Manage alarms using Voice Satellite';
+
+  @override
+  String get alarmsVoiceHint =>
+      'Needs the Kiosk Satellite alarms blueprint and an LLM conversation agent in Home Assistant.';
+
+  @override
   String get androidAccessibilityHelp =>
       'Closes the notification shade and the recents screen whenever they open while Kiosk Mode or Lockdown Mode is protecting the screen. Kiosk Satellite does not read any screen content.';
 
@@ -1250,6 +1423,9 @@ class UiStringsEn extends UiStrings {
   @override
   String get fleetTheKeyUnlessSyncedAsACredential =>
       'the key, unless synced as a credential';
+
+  @override
+  String get fleetTheAlarmsThemselves => 'the alarms themselves';
 
   @override
   String get fleetNameRemoteAdministrationRendererWorkaroundsScale =>
@@ -3506,6 +3682,129 @@ class UiStringsEn extends UiStrings {
   @override
   String get screensaverVideosTooLarge =>
       'Every video in this playlist is too large for this device to play.';
+
+  @override
+  String get settingKioskAllowAlarmsTitle => 'Alarms';
+
+  @override
+  String get settingKioskAllowAlarmsDescription =>
+      'Set and manage alarms from the kiosk menu.';
+
+  @override
+  String get settingScreensaverClockAlarmTakeoverTitle =>
+      'Let alarms take over';
+
+  @override
+  String get settingScreensaverClockAlarmTakeoverDescription =>
+      'A ringing alarm shows on this screensaver, in its style, instead of on its own screen.';
+
+  @override
+  String get settingScreensaverWeatherAlarmTakeoverTitle =>
+      'Let alarms take over';
+
+  @override
+  String get settingScreensaverWeatherAlarmTakeoverDescription =>
+      'A ringing alarm shows on this screensaver, in its style, instead of on its own screen.';
+
+  @override
+  String get settingAlarmsMenuTitle => 'Show in the kiosk menu';
+
+  @override
+  String get settingAlarmsMenuDescription =>
+      'Add an Alarms entry to the kiosk menu.';
+
+  @override
+  String get settingAlarmsVolumeTitle => 'Alarm volume';
+
+  @override
+  String get settingAlarmsVolumeDescription =>
+      'How loud alarms ring, apart from the media volume.';
+
+  @override
+  String get settingAlarmsToneTitle => 'Alarm tone';
+
+  @override
+  String get settingAlarmsToneDescription => 'Plays at the alarm volume.';
+
+  @override
+  String get settingAlarmsSnoozeMinutesTitle => 'Snooze length';
+
+  @override
+  String get settingAlarmsSnoozeMinutesDescription =>
+      'How long Snooze holds an alarm off.';
+
+  @override
+  String get settingAlarmsSilenceAfterMinutesTitle => 'Silence after';
+
+  @override
+  String get settingAlarmsSilenceAfterMinutesDescription =>
+      'An alarm nobody stops goes quiet after this long.';
+
+  @override
+  String get settingAlarmsSunriseMinutesTitle => 'Sunrise length';
+
+  @override
+  String get settingAlarmsSunriseMinutesDescription =>
+      'How long the screen takes to brighten before a sunrise alarm.';
+
+  @override
+  String get alarmsOption5Minutes => '5 minutes';
+
+  @override
+  String get alarmsOption10Minutes => '10 minutes';
+
+  @override
+  String get alarmsOption15Minutes => '15 minutes';
+
+  @override
+  String get alarmsOption20Minutes => '20 minutes';
+
+  @override
+  String get alarmsOption25Minutes => '25 minutes';
+
+  @override
+  String get alarmsOption30Minutes => '30 minutes';
+
+  @override
+  String get settingsMenuAlarms => 'Alarms';
+
+  @override
+  String get settingsMenuAlarmsSummary => 'Set alarms, tone, snooze, sunrise';
+
+  @override
+  String get settingAlarmsEaseInTitle => 'Ease in the volume';
+
+  @override
+  String get settingAlarmsEaseInDescription =>
+      'Start quiet and grow to the alarm volume.';
+
+  @override
+  String get settingAlarmsEaseInSecondsTitle => 'Ease in over';
+
+  @override
+  String get settingAlarmsEaseInSecondsDescription =>
+      'How long an alarm takes to reach its full volume.';
+
+  @override
+  String get settingAlarmsTtsEngineTitle => 'Text to speech engine';
+
+  @override
+  String get settingAlarmsTtsEngineDescription =>
+      'The Home Assistant text to speech entity that speaks alarms.';
+
+  @override
+  String get settingAlarmsTtsLanguageTitle => 'Language';
+
+  @override
+  String get settingAlarmsTtsLanguageDescription =>
+      'The language alarms are spoken in.';
+
+  @override
+  String get settingAlarmsTtsVoiceTitle => 'Voice';
+
+  @override
+  String get settingAlarmsTtsVoiceDescription =>
+      'The voice that speaks alarms.';
 
   @override
   String get settingLauncherEnabledTitle => 'Enable App Launcher';
@@ -5865,6 +6164,9 @@ class UiStringsEn extends UiStrings {
       'Play the announcements Home Assistant sends with the announce action.';
 
   @override
+  String get esphomeTtsSection => 'Text to Speech';
+
+  @override
   String get settingAnnouncementsTtsEngineTitle => 'Text to speech engine';
 
   @override
@@ -5872,7 +6174,24 @@ class UiStringsEn extends UiStrings {
       'The Home Assistant text to speech entity that speaks announcements.';
 
   @override
+  String get settingAnnouncementsTtsLanguageTitle => 'Language';
+
+  @override
+  String get settingAnnouncementsTtsLanguageDescription =>
+      'The language announcements are spoken in.';
+
+  @override
+  String get settingAnnouncementsTtsVoiceTitle => 'Voice';
+
+  @override
+  String get settingAnnouncementsTtsVoiceDescription =>
+      'The voice that speaks announcements.';
+
+  @override
   String get esphomeTtsFirst => 'First available';
+
+  @override
+  String get esphomeTtsDefault => 'Default';
 
   @override
   String get settingAnnouncementsChimeTitle => 'Chime first';
@@ -5886,7 +6205,7 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get settingAnnouncementsChimeFileDescription =>
-      'Plays at the notification volume.';
+      'Plays as loud as the announcement.';
 
   @override
   String get esphomeAnnouncements => 'Announcements';
@@ -5900,6 +6219,9 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get esphomeTtsUnavailable => 'Could not reach Home Assistant';
+
+  @override
+  String get esphomeTtsNoVoices => 'No voices to pick';
 
   @override
   String get settingBtproxyEnabledTitle => 'Enable Bluetooth proxy';

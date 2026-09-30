@@ -22,6 +22,45 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'aboutOverlayHelp' => strings.aboutOverlayHelp,
       'aboutAlreadyCurrent' => strings.aboutAlreadyCurrent,
       'aboutInstallHelp' => strings.aboutInstallHelp,
+      'alarmsTitle' => strings.alarmsTitle,
+      'alarmsSetAnAlarm' => strings.alarmsSetAnAlarm,
+      'alarmsNone' => strings.alarmsNone,
+      'alarmsDone' => strings.alarmsDone,
+      'alarmsRepeat' => strings.alarmsRepeat,
+      'alarmsLabel' => strings.alarmsLabel,
+      'alarmsAddLabel' => strings.alarmsAddLabel,
+      'alarmsTone' => strings.alarmsTone,
+      'alarmsSunrise' => strings.alarmsSunrise,
+      'alarmsDefaultTone' => strings.alarmsDefaultTone,
+      'alarmsBuiltInTone' => strings.alarmsBuiltInTone,
+      'alarmsSoundsFolder' => strings.alarmsSoundsFolder,
+      'alarmsToday' => strings.alarmsToday,
+      'alarmsTomorrow' => strings.alarmsTomorrow,
+      'alarmsOnce' => strings.alarmsOnce,
+      'alarmsEveryDay' => strings.alarmsEveryDay,
+      'alarmsWeekdays' => strings.alarmsWeekdays,
+      'alarmsWeekends' => strings.alarmsWeekends,
+      'alarmsSnooze' => strings.alarmsSnooze,
+      'alarmsStop' => strings.alarmsStop,
+      'alarmsDefaultLabel' => strings.alarmsDefaultLabel,
+      'alarmsSetToast' => strings.alarmsSetToast,
+      'alarmsNextWidget' => strings.alarmsNextWidget,
+      'alarmsManage' => strings.alarmsManage,
+      'alarmsNoneSet' => strings.alarmsNoneSet,
+      'alarmsDefaultsSection' => strings.alarmsDefaultsSection,
+      'alarmsTtsSection' => strings.alarmsTtsSection,
+      'alarmsEditAlarm' => strings.alarmsEditAlarm,
+      'alarmsTime' => strings.alarmsTime,
+      'alarmsRinging' => strings.alarmsRinging,
+      'alarmsSnoozed' => strings.alarmsSnoozed,
+      'alarmsSunriseRunning' => strings.alarmsSunriseRunning,
+      'alarmsDeleteFailed' => strings.alarmsDeleteFailed,
+      'alarmsEaseIn' => strings.alarmsEaseIn,
+      'alarmsSpeak' => strings.alarmsSpeak,
+      'alarmsPhrase' => strings.alarmsPhrase,
+      'alarmsVoiceSection' => strings.alarmsVoiceSection,
+      'alarmsVoiceManage' => strings.alarmsVoiceManage,
+      'alarmsVoiceHint' => strings.alarmsVoiceHint,
       'androidAccessibilityHelp' => strings.androidAccessibilityHelp,
       'androidServiceChannelHelp' => strings.androidServiceChannelHelp,
       'androidServiceListening' => strings.androidServiceListening,
@@ -355,6 +394,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'fleetThePinIsAlsoSynced' => strings.fleetThePinIsAlsoSynced,
       'fleetTheKeyUnlessSyncedAsACredential' =>
         strings.fleetTheKeyUnlessSyncedAsACredential,
+      'fleetTheAlarmsThemselves' => strings.fleetTheAlarmsThemselves,
       'fleetNameRemoteAdministrationRendererWorkaroundsScale' =>
         strings.fleetNameRemoteAdministrationRendererWorkaroundsScale,
       'fleetHomeAssistantToken' => strings.fleetHomeAssistantToken,
@@ -934,6 +974,60 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'screensaverNoMediaSource' => strings.screensaverNoMediaSource,
       'screensaverImmichUnreachable' => strings.screensaverImmichUnreachable,
       'screensaverVideosTooLarge' => strings.screensaverVideosTooLarge,
+      'settingKioskAllowAlarmsTitle' => strings.settingKioskAllowAlarmsTitle,
+      'settingKioskAllowAlarmsDescription' =>
+        strings.settingKioskAllowAlarmsDescription,
+      'settingScreensaverClockAlarmTakeoverTitle' =>
+        strings.settingScreensaverClockAlarmTakeoverTitle,
+      'settingScreensaverClockAlarmTakeoverDescription' =>
+        strings.settingScreensaverClockAlarmTakeoverDescription,
+      'settingScreensaverWeatherAlarmTakeoverTitle' =>
+        strings.settingScreensaverWeatherAlarmTakeoverTitle,
+      'settingScreensaverWeatherAlarmTakeoverDescription' =>
+        strings.settingScreensaverWeatherAlarmTakeoverDescription,
+      'settingAlarmsMenuTitle' => strings.settingAlarmsMenuTitle,
+      'settingAlarmsMenuDescription' => strings.settingAlarmsMenuDescription,
+      'settingAlarmsVolumeTitle' => strings.settingAlarmsVolumeTitle,
+      'settingAlarmsVolumeDescription' =>
+        strings.settingAlarmsVolumeDescription,
+      'settingAlarmsToneTitle' => strings.settingAlarmsToneTitle,
+      'settingAlarmsToneDescription' => strings.settingAlarmsToneDescription,
+      'settingAlarmsSnoozeMinutesTitle' =>
+        strings.settingAlarmsSnoozeMinutesTitle,
+      'settingAlarmsSnoozeMinutesDescription' =>
+        strings.settingAlarmsSnoozeMinutesDescription,
+      'settingAlarmsSilenceAfterMinutesTitle' =>
+        strings.settingAlarmsSilenceAfterMinutesTitle,
+      'settingAlarmsSilenceAfterMinutesDescription' =>
+        strings.settingAlarmsSilenceAfterMinutesDescription,
+      'settingAlarmsSunriseMinutesTitle' =>
+        strings.settingAlarmsSunriseMinutesTitle,
+      'settingAlarmsSunriseMinutesDescription' =>
+        strings.settingAlarmsSunriseMinutesDescription,
+      'alarmsOption5Minutes' => strings.alarmsOption5Minutes,
+      'alarmsOption10Minutes' => strings.alarmsOption10Minutes,
+      'alarmsOption15Minutes' => strings.alarmsOption15Minutes,
+      'alarmsOption20Minutes' => strings.alarmsOption20Minutes,
+      'alarmsOption25Minutes' => strings.alarmsOption25Minutes,
+      'alarmsOption30Minutes' => strings.alarmsOption30Minutes,
+      'settingsMenuAlarms' => strings.settingsMenuAlarms,
+      'settingsMenuAlarmsSummary' => strings.settingsMenuAlarmsSummary,
+      'settingAlarmsEaseInTitle' => strings.settingAlarmsEaseInTitle,
+      'settingAlarmsEaseInDescription' =>
+        strings.settingAlarmsEaseInDescription,
+      'settingAlarmsEaseInSecondsTitle' =>
+        strings.settingAlarmsEaseInSecondsTitle,
+      'settingAlarmsEaseInSecondsDescription' =>
+        strings.settingAlarmsEaseInSecondsDescription,
+      'settingAlarmsTtsEngineTitle' => strings.settingAlarmsTtsEngineTitle,
+      'settingAlarmsTtsEngineDescription' =>
+        strings.settingAlarmsTtsEngineDescription,
+      'settingAlarmsTtsLanguageTitle' => strings.settingAlarmsTtsLanguageTitle,
+      'settingAlarmsTtsLanguageDescription' =>
+        strings.settingAlarmsTtsLanguageDescription,
+      'settingAlarmsTtsVoiceTitle' => strings.settingAlarmsTtsVoiceTitle,
+      'settingAlarmsTtsVoiceDescription' =>
+        strings.settingAlarmsTtsVoiceDescription,
       'settingLauncherEnabledTitle' => strings.settingLauncherEnabledTitle,
       'settingLauncherEnabledDescription' =>
         strings.settingLauncherEnabledDescription,
@@ -1644,11 +1738,21 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingAnnouncementsEnabledTitle,
       'settingAnnouncementsEnabledDescription' =>
         strings.settingAnnouncementsEnabledDescription,
+      'esphomeTtsSection' => strings.esphomeTtsSection,
       'settingAnnouncementsTtsEngineTitle' =>
         strings.settingAnnouncementsTtsEngineTitle,
       'settingAnnouncementsTtsEngineDescription' =>
         strings.settingAnnouncementsTtsEngineDescription,
+      'settingAnnouncementsTtsLanguageTitle' =>
+        strings.settingAnnouncementsTtsLanguageTitle,
+      'settingAnnouncementsTtsLanguageDescription' =>
+        strings.settingAnnouncementsTtsLanguageDescription,
+      'settingAnnouncementsTtsVoiceTitle' =>
+        strings.settingAnnouncementsTtsVoiceTitle,
+      'settingAnnouncementsTtsVoiceDescription' =>
+        strings.settingAnnouncementsTtsVoiceDescription,
       'esphomeTtsFirst' => strings.esphomeTtsFirst,
+      'esphomeTtsDefault' => strings.esphomeTtsDefault,
       'settingAnnouncementsChimeTitle' =>
         strings.settingAnnouncementsChimeTitle,
       'settingAnnouncementsChimeDescription' =>
@@ -1661,6 +1765,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'esphomeAnnouncementsHelp' => strings.esphomeAnnouncementsHelp,
       'esphomeChime' => strings.esphomeChime,
       'esphomeTtsUnavailable' => strings.esphomeTtsUnavailable,
+      'esphomeTtsNoVoices' => strings.esphomeTtsNoVoices,
       'settingBtproxyEnabledTitle' => strings.settingBtproxyEnabledTitle,
       'settingBtproxyEnabledDescription' =>
         strings.settingBtproxyEnabledDescription,

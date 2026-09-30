@@ -78,7 +78,10 @@ Use **Settings > ESPHome > Excluded entities** to pick entities that should stay
 | **Last location fix** | timestamp | Indicates when the GPS receiver last reported. Requires **Report location** to be on and a physical GPS receiver. The value is saved across restarts. |
 | **Motion** | binary sensor | Requires physical camera hardware. Will read "unknown" while the camera is toggled off. |
 | **Person** | binary sensor | Reports occupancy derived from an on device person sensor (currently supported on Meta Portals). Requires **Enable person sensor** under **Camera > Person Sensor** to be on, which triggers a device re registration. Will read "unknown" if the sensor cannot be read. See the [Meta Portal](portal.md) guide. |
-| **Next alarm** | timestamp | Displays the next scheduled alarm on the Android device itself. |
+| **Next alarm** | timestamp | Displays the next scheduled alarm on the Android device itself, the kiosk's own [alarms](alarms.md) included. |
+| **Alarm ringing** | binary sensor | On while one of the kiosk's [alarms](alarms.md) rings. |
+| **Alarm snoozed until** | timestamp | When a snoozed alarm rings again. Reads unknown when nothing is snoozed. |
+| **Stop alarm**, **Snooze alarm** | button | Stop the ringing, snoozed or sunrise alarm, or snooze a ringing one. |
 | **Last interaction** | timestamp | Records the timestamp of the last touch, spoken voice turn, or gesture based wake. The value is saved across restarts. |
 | **Next screensaver** | timestamp | Indicates exactly when the idle clock will trigger the screensaver. This updates on every touch, dismissal, or timeout change, allowing an automation to trigger off it directly, or a template to count down to it without the device needing to push a new value every single second. It reads "unknown" when nothing is actively counting down (e.g., if the screensaver is off, already showing, during a voice turn, in a camera view, in hold mode, or if another app is in front). Under a rapid stream of touches, it republishes at most once a minute, and always before the previously reported moment passes. |
 
@@ -375,9 +378,11 @@ The **Announcements** page under Settings, ESPHome holds:
 | Setting | What it does |
 | --- | --- |
 | Enable announcements | On by default. Off, the action is refused. |
-| Text to speech engine | Picked from the text to speech entities Home Assistant has. First available, the default, uses the first one. |
+| Text to speech engine | Under **Text to Speech**, picked from the text to speech entities Home Assistant has. First available, the default, uses the first one. |
+| Language | The language the engine speaks, picked from the ones it lists. Default leaves it to the engine. Shown once an engine is picked by name. |
+| Voice | The voice the engine speaks with, picked from the ones it lists for the language, or for the Home Assistant language when Language is Default. Default leaves it to the engine. Engines with no voices to pick, like Google Translate, only offer Default. |
 | Chime first | Plays a chime before the words, on by default. |
-| Chime sound | The built-in two note chime, or a file from the sounds folder like the [notification sound](#sounds), put there with the Add a sound row. Plays at the notification volume. |
+| Chime sound | The built-in two note chime, or a file from the sounds folder like the [notification sound](#sounds), put there with the Add a sound row. Plays as loud as the announcement: at the media volume, or at the `volume` the action names. |
 
 ```yaml
 - action: esphome.kitchen_tablet_announce
@@ -390,6 +395,8 @@ The **Announcements** page under Settings, ESPHome holds:
     chime: true
     chime_file: ""
     tts_engine: ""
+    tts_language: ""
+    tts_voice: ""
     audio_only: false
 ```
 
@@ -402,6 +409,8 @@ Each announcement can override these options without changing the kiosk's settin
 | `chime` | `true` plays a chime before the first play. `false` skips it. Overrides **Chime first** for this announcement. If omitted through the remote API, the setting applies. |
 | `chime_file` | A file name in the kiosk's sounds folder, such as `dinner.mp3`. Empty uses **Chime sound**. A missing or invalid file falls back to that sound, then to the built-in chime. Ignored when `chime` is `false`. |
 | `tts_engine` | A Home Assistant text to speech entity, such as `tts.piper`. Empty uses **Text to speech engine** from the UI. Ignored when playing a `url`. |
+| `tts_language` | A language the engine speaks, spelled exactly as the engine lists it, such as `en_US` for Piper or `en-US` for Home Assistant Cloud. The **Language** picker shows each one under its name. Empty uses **Language** from the UI when the announcement uses that engine, or the engine's default otherwise. Ignored when playing a `url`. |
+| `tts_voice` | The ID of a voice the engine has, such as `en_US-amy-medium` for Piper, not its name. The **Voice** picker shows each ID under the voice's name. Empty uses **Voice** from the UI when the announcement uses that engine, or the engine's default otherwise. When Home Assistant cannot speak with the language or voice, the kiosk speaks the message with the engine's defaults instead. Ignored when playing a `url`. |
 | `audio_only` | `true` plays the audio without the on-device announcement modal or bringing the kiosk to the front. `false` shows the modal as usual. The chime still follows `chime`, so set it to `false` to hear only the speech. |
 
 ## Intercom actions

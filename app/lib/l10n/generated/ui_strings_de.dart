@@ -82,6 +82,179 @@ class UiStringsDe extends UiStrings {
       'Der Download erfolgt auf dem Tablet. Die Installation muss auf dem Tablet bestätigt werden.';
 
   @override
+  String get alarmsTitle => 'Wecker';
+
+  @override
+  String get alarmsSetAnAlarm => 'Wecker stellen';
+
+  @override
+  String get alarmsNone => 'Keine Wecker';
+
+  @override
+  String get alarmsDone => 'Fertig';
+
+  @override
+  String get alarmsRepeat => 'Wiederholen';
+
+  @override
+  String get alarmsLabel => 'Bezeichnung';
+
+  @override
+  String get alarmsAddLabel => 'Bezeichnung hinzufügen';
+
+  @override
+  String get alarmsTone => 'Weckton';
+
+  @override
+  String get alarmsSunrise => 'Sonnenaufgang';
+
+  @override
+  String get alarmsDefaultTone => 'Standard';
+
+  @override
+  String get alarmsBuiltInTone => 'Integrierter Weckton';
+
+  @override
+  String get alarmsSoundsFolder => 'Tonordner';
+
+  @override
+  String get alarmsToday => 'Heute';
+
+  @override
+  String get alarmsTomorrow => 'Morgen';
+
+  @override
+  String get alarmsOnce => 'Einmalig';
+
+  @override
+  String get alarmsEveryDay => 'Täglich';
+
+  @override
+  String get alarmsWeekdays => 'Werktags';
+
+  @override
+  String get alarmsWeekends => 'Am Wochenende';
+
+  @override
+  String alarmsSnoozedUntil(String time) {
+    return 'Schlummern bis $time';
+  }
+
+  @override
+  String get alarmsSnooze => 'Schlummern';
+
+  @override
+  String get alarmsStop => 'Stopp';
+
+  @override
+  String get alarmsDefaultLabel => 'Wecker';
+
+  @override
+  String get alarmsSetToast => 'Wecker gestellt';
+
+  @override
+  String alarmsRingsIn(String duration) {
+    return 'Klingelt in $duration';
+  }
+
+  @override
+  String alarmsDurationHoursMinutes(String hours, String minutes) {
+    return '$hours Std. $minutes Min.';
+  }
+
+  @override
+  String alarmsDurationHours(String hours) {
+    return '$hours Std.';
+  }
+
+  @override
+  String alarmsDurationMinutes(String minutes) {
+    return '$minutes Min.';
+  }
+
+  @override
+  String alarmsAt(String time) {
+    return 'Wecker um $time';
+  }
+
+  @override
+  String get alarmsNextWidget => 'Nächster Wecker';
+
+  @override
+  String get alarmsManage => 'Wecker verwalten';
+
+  @override
+  String alarmsNextAt(String day, String time) {
+    return 'Nächster: $day um $time';
+  }
+
+  @override
+  String get alarmsNoneSet => 'Kein Wecker gestellt';
+
+  @override
+  String get alarmsDefaultsSection => 'Standardwerte';
+
+  @override
+  String get alarmsTtsSection => 'Text-zu-Sprache';
+
+  @override
+  String get alarmsEditAlarm => 'Wecker bearbeiten';
+
+  @override
+  String get alarmsTime => 'Uhrzeit';
+
+  @override
+  String get alarmsRinging => 'Wecker klingelt';
+
+  @override
+  String get alarmsSnoozed => 'Wecker schlummert';
+
+  @override
+  String get alarmsSunriseRunning => 'Sonnenaufgang vor einem Wecker';
+
+  @override
+  String alarmsSunriseHint(String minutes) {
+    return 'Der Bildschirm wird $minutes Minuten lang heller, bevor er klingelt.';
+  }
+
+  @override
+  String get alarmsDeleteFailed => 'Der Wecker konnte nicht gelöscht werden.';
+
+  @override
+  String alarmsDuplicate(String time) {
+    return 'Es gibt bereits einen Wecker um $time';
+  }
+
+  @override
+  String get alarmsEaseIn => 'Lautstärke langsam steigern';
+
+  @override
+  String alarmsEaseHint(String seconds) {
+    return 'Erreicht die Weckerlautstärke in $seconds Sekunden.';
+  }
+
+  @override
+  String get alarmsSpeak => 'Beim Klingeln sprechen';
+
+  @override
+  String get alarmsPhrase => 'Satz';
+
+  @override
+  String alarmsPhraseHint(String label, String time, String day) {
+    return '$label, $time und $day werden durch Bezeichnung, Uhrzeit und Tag des Weckers ersetzt.';
+  }
+
+  @override
+  String get alarmsVoiceSection => 'Wecker per Sprache';
+
+  @override
+  String get alarmsVoiceManage => 'Wecker mit Voice Satellite verwalten';
+
+  @override
+  String get alarmsVoiceHint =>
+      'Benötigt den Kiosk Satellite Wecker-Blueprint und einen LLM-Konversationsagenten in Home Assistant.';
+
+  @override
   String get androidAccessibilityHelp =>
       'Schließt das Benachrichtigungsfeld und den Bildschirm der zuletzt verwendeten Apps, wenn diese geöffnet werden, während der Kioskmodus oder der Sperrmodus den Bildschirm schützt. Kiosk Satellite liest den Inhalt des Bildschirms nicht.';
 
@@ -1272,6 +1445,9 @@ class UiStringsDe extends UiStrings {
   @override
   String get fleetTheKeyUnlessSyncedAsACredential =>
       'der Schlüssel, sofern er nicht als Anmeldedaten synchronisiert wird';
+
+  @override
+  String get fleetTheAlarmsThemselves => 'die Wecker selbst';
 
   @override
   String get fleetNameRemoteAdministrationRendererWorkaroundsScale =>
@@ -3591,6 +3767,131 @@ class UiStringsDe extends UiStrings {
   @override
   String get screensaverVideosTooLarge =>
       'Alle Videos in dieser Liste sind zu groß, um auf diesem Gerät wiedergegeben zu werden.';
+
+  @override
+  String get settingKioskAllowAlarmsTitle => 'Wecker';
+
+  @override
+  String get settingKioskAllowAlarmsDescription =>
+      'Wecker über das Kiosk-Menü stellen und verwalten.';
+
+  @override
+  String get settingScreensaverClockAlarmTakeoverTitle =>
+      'Wecker übernehmen lassen';
+
+  @override
+  String get settingScreensaverClockAlarmTakeoverDescription =>
+      'Ein klingelnder Wecker erscheint in seinem Stil auf diesem Bildschirmschoner statt auf einem eigenen Bildschirm.';
+
+  @override
+  String get settingScreensaverWeatherAlarmTakeoverTitle =>
+      'Wecker übernehmen lassen';
+
+  @override
+  String get settingScreensaverWeatherAlarmTakeoverDescription =>
+      'Ein klingelnder Wecker erscheint in seinem Stil auf diesem Bildschirmschoner statt auf einem eigenen Bildschirm.';
+
+  @override
+  String get settingAlarmsMenuTitle => 'Im Kiosk-Menü anzeigen';
+
+  @override
+  String get settingAlarmsMenuDescription =>
+      'Fügt dem Kiosk-Menü den Eintrag „Wecker“ hinzu.';
+
+  @override
+  String get settingAlarmsVolumeTitle => 'Weckerlautstärke';
+
+  @override
+  String get settingAlarmsVolumeDescription =>
+      'Wie laut Wecker klingeln, unabhängig von der Medienlautstärke.';
+
+  @override
+  String get settingAlarmsToneTitle => 'Weckton';
+
+  @override
+  String get settingAlarmsToneDescription =>
+      'Wird mit der Weckerlautstärke abgespielt.';
+
+  @override
+  String get settingAlarmsSnoozeMinutesTitle => 'Schlummerdauer';
+
+  @override
+  String get settingAlarmsSnoozeMinutesDescription =>
+      'Wie lange Schlummern einen Wecker aufschiebt.';
+
+  @override
+  String get settingAlarmsSilenceAfterMinutesTitle => 'Stumm nach';
+
+  @override
+  String get settingAlarmsSilenceAfterMinutesDescription =>
+      'Ein Wecker, den niemand stoppt, verstummt nach dieser Zeit.';
+
+  @override
+  String get settingAlarmsSunriseMinutesTitle => 'Sonnenaufgangsdauer';
+
+  @override
+  String get settingAlarmsSunriseMinutesDescription =>
+      'Wie lange der Bildschirm vor einem Sonnenaufgangswecker heller wird.';
+
+  @override
+  String get alarmsOption5Minutes => '5 Minuten';
+
+  @override
+  String get alarmsOption10Minutes => '10 Minuten';
+
+  @override
+  String get alarmsOption15Minutes => '15 Minuten';
+
+  @override
+  String get alarmsOption20Minutes => '20 Minuten';
+
+  @override
+  String get alarmsOption25Minutes => '25 Minuten';
+
+  @override
+  String get alarmsOption30Minutes => '30 Minuten';
+
+  @override
+  String get settingsMenuAlarms => 'Wecker';
+
+  @override
+  String get settingsMenuAlarmsSummary =>
+      'Wecker, Weckton, Schlummern, Sonnenaufgang';
+
+  @override
+  String get settingAlarmsEaseInTitle => 'Lautstärke langsam steigern';
+
+  @override
+  String get settingAlarmsEaseInDescription =>
+      'Leise beginnen und bis zur Weckerlautstärke steigern.';
+
+  @override
+  String get settingAlarmsEaseInSecondsTitle => 'Steigern über';
+
+  @override
+  String get settingAlarmsEaseInSecondsDescription =>
+      'Wie lange ein Wecker braucht, bis er seine volle Lautstärke erreicht.';
+
+  @override
+  String get settingAlarmsTtsEngineTitle => 'Text-zu-Sprache-Engine';
+
+  @override
+  String get settingAlarmsTtsEngineDescription =>
+      'Die Text-zu-Sprache-Entität von Home Assistant, die die Wecker vorliest.';
+
+  @override
+  String get settingAlarmsTtsLanguageTitle => 'Sprache';
+
+  @override
+  String get settingAlarmsTtsLanguageDescription =>
+      'Die Sprache, in der die Wecker gesprochen werden.';
+
+  @override
+  String get settingAlarmsTtsVoiceTitle => 'Stimme';
+
+  @override
+  String get settingAlarmsTtsVoiceDescription =>
+      'Die Stimme, die die Wecker vorliest.';
 
   @override
   String get settingLauncherEnabledTitle => 'App-Launcher aktivieren';
@@ -6021,6 +6322,9 @@ class UiStringsDe extends UiStrings {
       'Gibt Durchsagen wieder, die Home Assistant über die Aktion „announce“ sendet.';
 
   @override
+  String get esphomeTtsSection => 'Text-zu-Sprache';
+
+  @override
   String get settingAnnouncementsTtsEngineTitle => 'Text-zu-Sprache-Engine';
 
   @override
@@ -6028,7 +6332,24 @@ class UiStringsDe extends UiStrings {
       'Die Text-zu-Sprache-Entität von Home Assistant, die die Durchsagen vorliest.';
 
   @override
+  String get settingAnnouncementsTtsLanguageTitle => 'Sprache';
+
+  @override
+  String get settingAnnouncementsTtsLanguageDescription =>
+      'Die Sprache, in der die Durchsagen gesprochen werden.';
+
+  @override
+  String get settingAnnouncementsTtsVoiceTitle => 'Stimme';
+
+  @override
+  String get settingAnnouncementsTtsVoiceDescription =>
+      'Die Stimme, die die Durchsagen vorliest.';
+
+  @override
   String get esphomeTtsFirst => 'Erste verfügbare';
+
+  @override
+  String get esphomeTtsDefault => 'Standard';
 
   @override
   String get settingAnnouncementsChimeTitle =>
@@ -6043,7 +6364,7 @@ class UiStringsDe extends UiStrings {
 
   @override
   String get settingAnnouncementsChimeFileDescription =>
-      'Wird mit der Benachrichtigungslautstärke wiedergegeben.';
+      'Wird so laut wie die Durchsage abgespielt.';
 
   @override
   String get esphomeAnnouncements => 'Durchsagen';
@@ -6057,6 +6378,9 @@ class UiStringsDe extends UiStrings {
   @override
   String get esphomeTtsUnavailable =>
       'Verbindung zu Home Assistant konnte nicht hergestellt werden';
+
+  @override
+  String get esphomeTtsNoVoices => 'Keine Stimmen zur Auswahl';
 
   @override
   String get settingBtproxyEnabledTitle => 'Bluetooth-Proxy aktivieren';

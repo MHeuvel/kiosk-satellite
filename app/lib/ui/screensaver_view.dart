@@ -13,6 +13,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:video_player/video_player.dart';
 
+import 'alarms_overlay.dart' show alarmTimeText;
+import '../managers/alarms/alarm_manager.dart';
+import 'alarm_ring_overlay.dart';
 import '../app_container.dart';
 import '../l10n/messages.dart';
 import '../core/events.dart';
@@ -438,6 +441,11 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
                                           spec: spec,
                                           nightColor: _widgetNightColor(view),
                                         ),
+                                        'alarm' => AlarmWidgetOverlay(
+                                          container: container,
+                                          spec: spec,
+                                          nightColor: _widgetNightColor(view),
+                                        ),
                                         _ => const SizedBox.shrink(),
                                       },
                               ],
@@ -649,16 +657,31 @@ class _Dismissable extends StatelessWidget {
   );
 }
 
-/// A timeout cover above widgets, timers and notifications.
+/// A timeout cover above widgets, timers and notifications. A voice turn
+/// draws over it: while the voice overlay is up the kiosk places the cover
+/// right under it instead ([underVoice]), so the turn shows on black.
 class ScreensaverBlankOverlay extends StatelessWidget {
-  const ScreensaverBlankOverlay({super.key, required this.container});
+  const ScreensaverBlankOverlay({
+    super.key,
+    required this.container,
+    this.underVoice = false,
+  });
 
   final AppContainer container;
 
+  /// This copy is the one under the voice overlay, shown only during a
+  /// turn; the other is shown only outside one.
+  final bool underVoice;
+
   @override
-  Widget build(BuildContext context) => ValueListenableBuilder<String?>(
-    valueListenable: container.screensaver.activeView,
-    builder: (context, view, _) => view == 'blank'
+  Widget build(BuildContext context) => ListenableBuilder(
+    listenable: Listenable.merge([
+      container.screensaver.activeView,
+      container.screensaver.renderPaused,
+    ]),
+    builder: (context, _) =>
+        container.screensaver.activeView.value == 'blank' &&
+            container.screensaver.renderPaused.value == underVoice
         ? Positioned.fill(
             child: _Dismissable(
               container: container,
@@ -777,6 +800,11 @@ class _ClockScreensaverState extends State<ClockScreensaver>
       if (_liveKeys.contains(e.key)) setState(() {});
     });
     _armBackgroundRefresh();
+    widget.container.screensaver.alarmTakeover.addListener(_onTakeover);
+  }
+
+  void _onTakeover() {
+    if (mounted) setState(() {});
   }
 
   /// Fetch a URL background again every Refresh URL background minutes
@@ -869,6 +897,7 @@ class _ClockScreensaverState extends State<ClockScreensaver>
 
   @override
   void dispose() {
+    widget.container.screensaver.alarmTakeover.removeListener(_onTakeover);
     _tick?.cancel();
     _shift?.cancel();
     _bgSub?.cancel();
@@ -1123,10 +1152,16 @@ class _ClockScreensaverState extends State<ClockScreensaver>
         clockFontWeight(fontValue);
     final opticalSize = clockOpticalSize(fontValue);
     final size = MediaQuery.of(context).size;
+    // A ringing alarm takes the face over: the label on the date line and
+    // Snooze and Stop under it, in the face's own colors. The glance row
+    // steps aside for them.
+    final ringing =
+        widget.container.screensaver.alarmTakeover.value == 'ringing';
     // The At a Glance row sits under the clock and needs room for itself,
     // so the clock gives some back rather than pushing the row off a short
     // panel. Only when the row actually has something to show.
-    final glance = widget.container.glance.entities.value.isNotEmpty;
+    final glance =
+        !ringing && widget.container.glance.entities.value.isNotEmpty;
     final glanceScale = min(1.0, size.height / 480).clamp(0.75, 1.0);
     final clockShrink = glance ? 0.72 : 1.0;
     // min(20vw, 30vh), the same basis Voice Satellite uses, then scaled.
@@ -1134,15 +1169,41 @@ class _ClockScreensaverState extends State<ClockScreensaver>
         min(size.width * 0.20, size.height * 0.30) * scale * clockShrink;
     final dateSize =
         min(size.width * 0.05, size.height * 0.07) * scale * clockShrink;
+    final backdrop =
+        nightBg ??
+        switch (style) {
+          'roller' => _rgb(defs.screensaverRollerBgColor, Colors.black),
+          'flip' => _rgb(defs.screensaverFlipBackdropColor, Colors.black),
+          _ => _rgb(defs.screensaverClockBgColor, Colors.black),
+        };
+    final Widget face = style != 'digital'
+        ? _styledFace(style, scale * clockShrink, font)
+        : DigitalClockFace(
+            time: _time(),
+            date: !ringing && s.get(defs.screensaverClockDate) ? _date() : null,
+            fontFamily: font,
+            color: color,
+            clockSize: clockSize,
+            dateSize: dateSize,
+            weight: timeWeight,
+            opticalSize: opticalSize,
+          );
+    final digitColor =
+        _nightColor() ??
+        switch (style) {
+          'flip' => _rgb(
+            defs.screensaverFlipDigitColor,
+            const Color(0xFFFAFAFA),
+          ),
+          'roller' => _rgb(
+            defs.screensaverRollerDigitColor,
+            const Color(0xFFFAFAFA),
+          ),
+          _ => color,
+        };
 
     return ColoredBox(
-      color:
-          nightBg ??
-          switch (style) {
-            'roller' => _rgb(defs.screensaverRollerBgColor, Colors.black),
-            'flip' => _rgb(defs.screensaverFlipBackdropColor, Colors.black),
-            _ => _rgb(defs.screensaverClockBgColor, Colors.black),
-          },
+      color: backdrop,
       // Expand: both children are pinned to the display, so the stack must
       // be the display rather than sized to whatever the clock happens to
       // measure.
@@ -1193,17 +1254,34 @@ class _ClockScreensaverState extends State<ClockScreensaver>
             alignment: Alignment(0, glance ? _clockAnchorWithGlance : 0),
             child: Transform.translate(
               offset: _offset,
-              child: style != 'digital'
-                  ? _styledFace(style, scale * clockShrink, font)
-                  : DigitalClockFace(
-                      time: _time(),
-                      date: s.get(defs.screensaverClockDate) ? _date() : null,
-                      fontFamily: font,
-                      color: color,
-                      clockSize: clockSize,
-                      dateSize: dateSize,
-                      weight: timeWeight,
-                      opticalSize: opticalSize,
+              child: !ringing
+                  ? face
+                  // The face gives way to the label and the buttons, which
+                  // keep their full size: a flip or roller face fills the
+                  // screen on its own and would otherwise squeeze them.
+                  : Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Flexible(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: face,
+                            ),
+                          ),
+                          SizedBox(height: clockSize * .1),
+                          AlarmTakeoverControls(
+                            container: widget.container,
+                            color: digitColor,
+                            ink: backdrop,
+                            glass: digitColor.withValues(alpha: .1),
+                            edge: digitColor.withValues(alpha: .22),
+                            labelSize: dateSize,
+                            fontFamily: font,
+                          ),
+                        ],
+                      ),
                     ),
             ),
           ),
@@ -1640,6 +1718,144 @@ class _BatteryWidgetOverlayState extends State<BatteryWidgetOverlay> {
       ),
     );
   }
+}
+
+/// The next alarm in a corner: its time within the next 24 hours, or when
+/// a snooze runs out. Empty the rest of the time, so the corner stays
+/// clear. A tap opens the alarm list, the one spot on the screensaver that
+/// does more than dismiss it.
+class AlarmWidgetOverlay extends StatefulWidget {
+  const AlarmWidgetOverlay({
+    super.key,
+    required this.container,
+    required this.spec,
+    this.nightColor,
+  });
+
+  final AppContainer container;
+  final ScreensaverWidget spec;
+  final Color? nightColor;
+
+  @override
+  State<AlarmWidgetOverlay> createState() => _AlarmWidgetOverlayState();
+}
+
+class _AlarmWidgetOverlayState extends State<AlarmWidgetOverlay> {
+  Timer? _shift;
+  Offset _offset = Offset.zero;
+
+  @override
+  void initState() {
+    super.initState();
+    _shift = Timer.periodic(const Duration(minutes: 1), (_) {
+      if (!widget.container.settings.get(defs.screensaverPixelShift)) {
+        // Still rebuild: the 24 hour window moves with the clock.
+        setState(() {});
+        return;
+      }
+      final r = Random();
+      const max = 10.0;
+      setState(() {
+        _offset = Offset(
+          (r.nextDouble() * 2 - 1) * max,
+          (r.nextDouble() * 2 - 1) * max,
+        );
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _shift?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => ValueListenableBuilder<AlarmStatus>(
+    valueListenable: widget.container.alarms.status,
+    builder: (context, status, _) {
+      final now = DateTime.now();
+      final snoozed = status.phase == AlarmPhase.snoozed
+          ? status.snoozedUntil
+          : null;
+      final next = status.next?.at;
+      final String text;
+      final IconData icon;
+      if (snoozed != null) {
+        text = l10n(
+          context,
+        ).alarmsSnoozedUntil(alarmTimeText(context, snoozed));
+        icon = Icons.snooze;
+      } else if (next != null &&
+          next.difference(now) <= const Duration(hours: 24)) {
+        text = alarmTimeText(context, next);
+        icon = Icons.alarm;
+      } else {
+        return const SizedBox.shrink();
+      }
+      final corner = _cornerAlignment(widget.spec.position);
+      final color =
+          widget.nightColor ?? _widgetRgb(widget.spec.config['color']);
+      final size = MediaQuery.of(context).size;
+      final scale = _widgetScale(widget.container, widget.spec);
+      final textSize = max(min(size.width, size.height) * 0.042, 30.0) * scale;
+      final font = _widgetFont(widget.container, widget.spec);
+      final shadows = _overlayTextShadows(widget.container);
+      final glyph = Icon(
+        icon,
+        size: textSize * 1.1,
+        color: color,
+        shadows: shadows,
+      );
+      final label = Text(
+        text,
+        style: TextStyle(
+          fontFamily: font.family,
+          color: color,
+          fontSize: textSize,
+          fontWeight: font.weight ?? FontWeight.w400,
+          fontVariations: clockFontVariations(
+            font.opticalSize,
+            font.weight ?? FontWeight.w400,
+          ),
+          height: 1.0,
+          shadows: shadows,
+        ),
+      );
+      final right = corner.x > 0;
+      final gap = SizedBox(width: 10 * scale);
+      return Stack(
+        fit: StackFit.expand,
+        children: [
+          IgnorePointer(
+            child: _cornerVignette(corner, widget.container, radius: 0.5),
+          ),
+          Align(
+            alignment: corner,
+            child: Padding(
+              padding: const EdgeInsets.all(28),
+              child: Transform.translate(
+                offset: _offset,
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () =>
+                      widget.container.commands.execute('openAlarms', const {}),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (right) ...[label, gap],
+                      glyph,
+                      if (!right) ...[gap, label],
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    },
+  );
 }
 
 /// At or below this the charge counts as low: the "only when low" widget

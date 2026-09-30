@@ -782,6 +782,33 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     commands
       ..register(
         Command(
+          name: 'alarmTakeover',
+          description:
+              'An alarm shows on this screensaver: phase sunrise or ringing '
+              'starts it past every idle gate and keeps the panel lit; null '
+              'lets go and leaves the screensaver as it is. Fails when the '
+              'screensaver could not start.',
+          params: const {'phase': 'sunrise, ringing or null'},
+          handler: (p) async {
+            final phase = p['phase'] as String?;
+            if (phase == null) {
+              if (alarmTakeover.value == null) return const CommandResult.ok();
+              alarmTakeover.value = null;
+              if (_active) {
+                _armScreenOffTimer();
+                // Back down to the screensaver's own level.
+                await _applyVisuals();
+              }
+              return const CommandResult.ok();
+            }
+            return await _takeOverForAlarm(phase)
+                ? const CommandResult.ok()
+                : const CommandResult.fail('the screensaver did not start');
+          },
+        ),
+      )
+      ..register(
+        Command(
           name: 'startScreensaver',
           description: 'Start the screensaver now',
           handler: (_) async {
@@ -860,6 +887,28 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
       )
       ..register(
         Command(
+          name: 'holdScreensaver',
+          description:
+              'Keep the screensaver from starting on its idle timer while a '
+              'screen is up, by holder name. Releasing restarts the '
+              'countdown.',
+          params: const {
+            'holder': 'who holds it',
+            'held': 'true to hold, false to let go',
+          },
+          handler: (p) async {
+            final holder = '${p['holder'] ?? ''}';
+            if (holder.isEmpty) {
+              return const CommandResult.fail('holder is required');
+            }
+            p['held'] == true ? _holders.add(holder) : _holders.remove(holder);
+            _resetIdleTimer();
+            return const CommandResult.ok();
+          },
+        ),
+      )
+      ..register(
+        Command(
           name: 'isScreensaverActive',
           description: 'Whether the screensaver is showing right now',
           quiet: true,
@@ -916,6 +965,10 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   }
 
   void notifyActivity(String source) {
+    // A ringing alarm on this screensaver ends through its Snooze and Stop
+    // buttons only: a brush of the hand, motion or a face never dismisses
+    // it.
+    if (alarmTakeover.value == 'ringing') return;
     // Overlay controls consume their touch without dismissing the view.
     if (_touchOnControl &&
         (source == 'touch' || source == 'touch_page' || source == 'tap')) {
@@ -1032,8 +1085,15 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     _resetIdleTimer();
   }
 
+  /// Screens that keep the screensaver away while they are up, by name
+  /// (the alarm list while an alarm is being set). Only the idle clock
+  /// stands still: unlike an interaction hold, music, the wake word and
+  /// the dashboard rotation carry on.
+  final _holders = <String>{};
+
   void _resetIdleTimer() {
     _idleTimer?.cancel();
+    if (_holders.isNotEmpty) return _setIdleDue(null);
     if (_cameraViewActive || _assistOverlay || _behindAnotherApp) {
       return _setIdleDue(null);
     }
@@ -1258,12 +1318,38 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     unawaited(_applyVisuals());
   }
 
-  Future<void> start() async {
+  /// An alarm showing on this screensaver: `sunrise` while its glow
+  /// window runs, `ringing` while it rings, null otherwise. The Clock and
+  /// Weather Mood faces draw the label and the buttons off it, and while it
+  /// rings nothing but those buttons ends the session.
+  final alarmTakeover = ValueNotifier<String?>(null);
+
+  /// Start (or keep) the session for an alarm, past every gate an idle
+  /// start respects: the alarm decided this screensaver shows it.
+  Future<bool> _takeOverForAlarm(String phase) async {
+    if (!_active) await start(force: true);
+    if (!_active) return false;
+    alarmTakeover.value = phase;
+    _screenOffTimer?.cancel();
+    _screenOffTimer = null;
+    _armedScreenOffMinutes = null;
+    if (_screenDark) {
+      _panelDark = false;
+      _blanked = false;
+      await commands.execute('screenOn', const {});
+    }
+    // A ring lifts the screensaver's own dimming back to normal.
+    await _applyVisuals();
+    return true;
+  }
+
+  Future<void> start({bool force = false}) async {
     if (_active) return;
     // Say why a start goes nowhere: a page hold that never gets released
     // (a leaked "interaction running" from the dashboard) otherwise reads
     // as "Now Playing launched" followed by nothing at all.
-    if (_paused || _voiceTurn || _cameraViewActive || _assistOverlay) {
+    if (!force &&
+        (_paused || _voiceTurn || _cameraViewActive || _assistOverlay)) {
       final why = <String>[
         if (_paused) 'interaction held (${_interactions.held.join(', ')})',
         if (_voiceTurn) 'voice turn',
@@ -1275,19 +1361,20 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     }
     // Another app owns the screen; a dim now would dim it (the brightness
     // is the device's), and the idle clock is on hold for the same reason.
-    if (_behindAnotherApp) {
+    if (_behindAnotherApp && !force) {
       log.debug(name, 'start refused: another app is in front');
       return;
     }
     // Hold mode refuses every start, commanded ones included: "keep this
     // view on screen" beats a startScreensaver arriving over ESPHome or a
     // gesture (issue #266).
-    if (_settings.get(defs.haHoldMode)) return;
+    if (_settings.get(defs.haHoldMode) && !force) return;
     // No screensaver under Lockdown Mode unless the owner opted in: by
     // default the locked dashboard stays glanceable. Opted in, it renders
     // under the screen-level shield — visible, but untouchable like
     // everything else, and the exit gesture still counts natively.
-    if (_settings.get(defs.lockdownEnabled) &&
+    if (!force &&
+        _settings.get(defs.lockdownEnabled) &&
         !_settings.get(defs.lockdownAllowScreensaver)) {
       return;
     }
@@ -1323,6 +1410,11 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   void _armScreenOffTimer() {
     _screenOffTimer?.cancel();
     _screenOffTimer = null;
+    // An alarm on this screensaver keeps the panel lit until it lets go.
+    if (alarmTakeover.value != null) {
+      _armedScreenOffMinutes = null;
+      return;
+    }
     final minutes = _effectiveScreenOffMinutes;
     _armedScreenOffMinutes = minutes;
     if (minutes <= 0) return;
@@ -1450,14 +1542,16 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     scheduleGlance.value = entry?['glance'] as bool?;
     _syncScreenOffTimer();
     // The voice overlay over the screensaver reads at the saved level,
-    // whatever the mode dims to.
-    final liftForVoice = _assistOverlay && _savedBrightness != null;
+    // whatever the mode dims to, and so does an alarm ringing on it: a
+    // screensaver at 0% must not ring in the dark.
+    final lift = _assistOverlay || alarmTakeover.value == 'ringing';
+    final liftForVoice = lift && _savedBrightness != null;
     if (_blanked) {
       await _ensureSavedBrightness();
       if (!_active || !_blanked) return;
       _setView('blank');
       await commands.execute('setBrightness', {
-        'level': _assistOverlay ? _savedBrightness : 0,
+        'level': lift ? _savedBrightness : 0,
         'ceiling': true,
       });
       return;
@@ -1595,6 +1689,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     _launchOnPlayPending = false;
     if (!_active) return;
     _active = false;
+    alarmTakeover.value = null;
     renderPaused.value = false;
     _nowPlayingShared = false;
     _tapChainStart = null;

@@ -1,3 +1,4 @@
+import 'alarms_overlay.dart' show AlarmsManageCard;
 import '../l10n/fleet_messages.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -191,6 +192,8 @@ const _analyticsIntro =
     'Kiosk Satellite better and guide which devices and features get '
     'attention.';
 const _analyticsDocsUrl = 'https://kiosksatellite.com/docs/analytics/';
+const _voiceAlarmsDocsUrl =
+    'https://kiosksatellite.com/docs/alarms/#setting-alarms-by-voice';
 
 // The Updates page closes with a link to the custom repository guide: the
 // folder layout, the releases file and the APK names live in the docs, not
@@ -251,6 +254,7 @@ const _categories = <(String, String, Object, String)>[
     'Play images, videos and audio remotely',
   ),
   ('Intercom', 'Intercom', Icons.speaker_phone_outlined, 'Talk between kiosks'),
+  ('Alarms', 'Alarms', Icons.alarm, 'Set alarms, tone, snooze, sunrise'),
   (
     'Camera',
     'Camera',
@@ -476,6 +480,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         fleetTextFor: (text) => fleetText(context, text),
         pluginTextFor: (text) => pluginText(context, text),
         intercomTextFor: (text) => intercomText(context, text),
+        alarmsTextFor: (text) => settingsPageText(context, 'Alarms', text),
         mediaTextFor: (text) => mediaText(context, text),
         cameraStreamsTextFor: (text) => cameraStreamsText(context, text),
         cameraTextFor: (text) => cameraText(context, text),
@@ -2292,7 +2297,57 @@ class _CategoryContentState extends State<_CategoryContent> {
               after: _rowExtras(container),
             ),
           )
-        else if (widget.category == 'Screen & Audio') ...[
+        else if (widget.category == 'Alarms') ...[
+          // Show in the kiosk menu on its own untitled card, then the list
+          // itself (the full screen overlay, opened from here), then the
+          // defaults, then Voice Alarms. Mirrored on the remote's Alarms
+          // page.
+          ..._sectionedCards(
+            container,
+            [
+              for (final def in _inlineDefsFor('Alarms'))
+                if (def.section == null) def,
+            ],
+            () => setState(() {}),
+            replace: _rowReplacements(container),
+            after: _rowExtras(container),
+          ),
+          SectionHeading(l10n(context).alarmsTitle),
+          AlarmsManageCard(container: container),
+          ..._sectionedCards(
+            container,
+            [
+              for (final def in _inlineDefsFor('Alarms'))
+                if (def.section != null) def,
+            ],
+            () => setState(() {}),
+            replace: _rowReplacements(container),
+            after: _rowExtras(container),
+          ),
+          // Voice alarms live in Home Assistant (the blueprint), so this
+          // group only points at the guide. Last on the page, mirrored in
+          // alarms.js.
+          SectionHeading(l10n(context).alarmsVoiceSection),
+          SettingsCard(
+            children: [
+              SearchLandingTarget(
+                id: 'x:alarms_voice',
+                child: SettingsRow(
+                  leading: const Icon(Icons.record_voice_over_outlined),
+                  title: Text(l10n(context).alarmsVoiceManage),
+                  subtitle: Text(l10n(context).alarmsVoiceHint),
+                  trailing: const Icon(Icons.open_in_new),
+                  onTap: () {
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    container.commands.execute('showLinkPage', {
+                      'url': _voiceAlarmsDocsUrl,
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+        ] else if (widget.category == 'Screen & Audio') ...[
           // Through the generic renderer, heading included, so the row
           // replacements and extras reach this card like any other: the
           // Default brightness row standing down under adaptive brightness
@@ -2918,12 +2973,38 @@ class _CategoryContentState extends State<_CategoryContent> {
           onChanged: null,
         ),
       ),
-    // The announcements' text to speech engine is picked from Home
-    // Assistant's list, not typed. Mirrored on the remote (intercom.js).
-    if (widget.category == 'ESPHome')
+    // The announcements' text to speech engine, language and voice are
+    // picked from Home Assistant's lists, not typed. Mirrored on the
+    // remote (intercom.js).
+    if (widget.category == 'ESPHome') ...{
       announcementsTtsEngine.key: AnnouncementTtsEngineRow(
         container: container,
       ),
+      for (final def in [announcementsTtsLanguage, announcementsTtsVoice])
+        def.key: TtsVoiceRow(
+          container: container,
+          def: def,
+          engineDef: announcementsTtsEngine,
+          languageDef: announcementsTtsLanguage,
+          voiceDef: announcementsTtsVoice,
+        ),
+    },
+    if (widget.category == 'Alarms') ...{
+      alarmsTtsEngine.key: AnnouncementTtsEngineRow(
+        container: container,
+        def: alarmsTtsEngine,
+        languageDef: alarmsTtsLanguage,
+        voiceDef: alarmsTtsVoice,
+      ),
+      for (final def in [alarmsTtsLanguage, alarmsTtsVoice])
+        def.key: TtsVoiceRow(
+          container: container,
+          def: def,
+          engineDef: alarmsTtsEngine,
+          languageDef: alarmsTtsLanguage,
+          voiceDef: alarmsTtsVoice,
+        ),
+    },
     // The Clock screensaver's Night mode (issue #391) has nothing to
     // watch without the sensor either: same disabled switch, same reason.
     // Mirrored on the remote (notices.js, updateClockNightRows).
@@ -5414,6 +5495,7 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
     'weather' => Icons.cloud_outlined,
     'battery' => Icons.battery_full,
     'entity' => Icons.sensors,
+    'alarm' => Icons.alarm,
     _ => Icons.widgets_outlined,
   };
 
@@ -5432,7 +5514,7 @@ class _WidgetsEditorState extends State<_WidgetsEditor> {
       context,
       'Hidden in the Camera Streams screensaver mode.',
     ),
-    'entity' => screensaverText(
+    'entity' || 'alarm' => screensaverText(
       context,
       'Hidden in the Camera Streams screensaver mode.',
     ),
@@ -6367,6 +6449,8 @@ class _NotificationSoundTileState extends State<_NotificationSoundTile> {
         '',
         def.key == intercomRingSound.key
             ? intercomText(context, "Built-in ring")
+            : def.key == alarmsTone.key
+            ? l10n(context).alarmsBuiltInTone
             : intercomText(context, "Built-in chime"),
       ),
       for (final sound in _sounds) (sound, sound),
@@ -10760,7 +10844,8 @@ class SettingTile extends StatelessWidget {
         if (voiceChimeSettings.values.any((sound) => sound.key == def.key) ||
             def.key == notificationsChimeFile.key ||
             def.key == intercomRingSound.key ||
-            def.key == announcementsChimeFile.key) {
+            def.key == announcementsChimeFile.key ||
+            def.key == alarmsTone.key) {
           return _NotificationSoundTile(
             key: ValueKey('sound-${def.key}'),
             container: c,

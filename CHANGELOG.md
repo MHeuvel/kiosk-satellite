@@ -2,6 +2,66 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## v2026.9.98 - 2026-09-30
+
+### Added
+- **BREAKING CHANGE: Announcements and alarms can pick the text to speech language and voice.** New **Language** and **Voice** settings join the text to speech engine in a **Text to Speech** group, on the Announcements page under ESPHome and in Settings, Alarms, and list what Home Assistant has for the picked engine, on the device and the remote admin. Voices come for the picked language, or the Home Assistant language when Language is Default. Both pickers show each language and voice ID under its name, the value the announce action takes. Picking another engine resets both. The ESPHome announce action takes `tts_language` and `tts_voice`, so existing automations that call it need the two new fields, left empty to use the settings. When Home Assistant cannot speak with the language or voice, the kiosk speaks with the engine's defaults instead. Translated into Spanish, German, French and Ukrainian.
+
+### Changed
+- **The announcement chime plays as loud as the announcement.** It played on its own at the notification volume while the words played at the media volume, often on the call audio route, which some devices play much louder. The built-in chime was also generated at about half the level of the speech. The chime now plays ahead of the words on the same audio track, at the same volume, and the built-in chime peaks as high as text to speech audio. A chime from the sounds folder is decoded the same way as the words.
+- **Picking a text to speech engine, language or voice in the remote admin no longer redraws every settings page.** The rows update in place, and the Language and Voice rows come and go under the engine without a rebuild.
+
+## v2026.9.97 - 2026-09-29
+
+### Fixed
+- **Kiosks with a non-admin Home Assistant token no longer flood the Home Assistant log.** Voice alarms listen for a custom event, which Home Assistant only lets administrators follow. With any other token the kiosk asked every 30 seconds and Home Assistant logged each refusal (#761). The kiosk now checks once whether the token belongs to an administrator and, when it does not, leaves voice alarms off until the Home Assistant address or token changes.
+- **Voice alarms and native Voice Satellite reconnect after a Wi-Fi drop that left a dead connection.** When Wi-Fi came back without the kiosk losing its address, Home Assistant could have closed its end while the kiosk still counted the connection as open, so voice alarm requests stopped arriving until a restart. The connection now pings Home Assistant every 20 seconds and closes once a ping goes unanswered, so the kiosk connects again on its next try. A refused token no longer leaves the connection counted as open, and a kiosk that cannot reach Home Assistant no longer logs an error every 30 seconds.
+
+## v2026.9.96 - 2026-09-29
+
+### Added
+- **Alarms can be set by voice.** A new Kiosk Satellite alarms script blueprint lets any LLM conversation agent set, list, delete and switch the kiosk's alarms, in any language the agent speaks, with no sentences to set up per language. The alarm goes to the kiosk that heard the request, or to a kiosk named in it. Turning an alarm off keeps it in the list, and only asking to delete or remove one deletes it. The built-in Home Assistant agent cannot fill in the script, so this needs an LLM agent, which can still prefer handling other commands locally. A new **Voice Alarms** group at the end of **Settings, Alarms**, on the device and the remote admin, opens the setup guide. Translated into Spanish, German, French and Ukrainian. The kiosk listens over its own Home Assistant connection, so no ESPHome entities are added and nothing needs the LLM Tools integration.
+
+## v2026.9.95 - 2026-09-29
+
+### Fixed
+- **A kiosk still set to run Voice Satellite from the dashboard switches to native once the integration is uninstalled.** Kiosks that had a satellite assigned when native Voice Satellite arrived kept the integration until migrated, and only the integration's migration could move them. With the integration removed from Home Assistant that way was gone, and the Voice Satellite page only offered to install it again (#753). When Home Assistant answers that the integration is not installed, the kiosk now switches to native Voice Satellite, which stays off until turned on.
+
+## v2026.9.94 - 2026-09-29
+
+### Changed
+- **Weather Mood's clock stands out more on overcast days.** In the Cloudy scene by day and at dawn and dusk, bright cloud fills the whole sky and the white clock washed into it. The clock and date shadows are darker there, with a broad halo that dims the cloud around the digits. Every other scene keeps its lighter shadow.
+
+### Fixed
+- **Home Assistant's Voice Satellite picks can be excluded from a fleet profile.** A leader passes its Assistant, Wake word and Finished speaking detection picks to its followers, but the exclusion list left them out, so a profile could not keep them per kiosk. They now show in the list under Voice Satellite, Assistant and Wake Word, on the device and in the remote admin.
+
+## v2026.9.93 - 2026-09-29
+
+### Added
+- **Alarms can ease in their volume.** A new **Ease in the volume** switch under **Settings, Alarms, Defaults** starts the tone quiet and grows it to the alarm volume over **Ease in over**, 5 to 120 seconds. Each alarm has its own switch on its details page, which follows the default until it is flipped.
+- **Alarms can speak when they ring (#750).** Turn on **Speak when it rings** on an alarm and Home Assistant says a phrase between every second pass of the tone, the way timers speak. The Defaults group picks the **Text to speech engine**, as Announcements does, and the default **Phrase**, `It's {time}. {label}`. Each alarm can say its own phrase, with `{label}`, `{time}` and `{day}` filled in, and a blank label leaves no stray punctuation. The tone rings from the first second either way, so a slow or unreachable Home Assistant only costs the words. The remote admin's alarm dialog has the same switches and phrase. Translated into Spanish, German, French and Ukrainian.
+
+### Fixed
+- **The follower banner stays on the Voice Satellite and Home Assistant pages of the remote admin.** On a fleet follower, the "leads these settings" banner went on these two pages and was then cleared again when their content was rebuilt, so it was missing even though Fleet lists them as synced (#752). The remote admin now adds the banners after every page is built.
+- **An alarm dialog no longer outlives the alarm screens.** When the remote admin, Home Assistant, the screensaver or a ring closed the alarm list, an open Label, Phrase or Alarm tone dialog stayed on screen by itself. It now closes with them.
+
+### Changed
+- **The README lists Alarms.** A new Alarms entry follows Intercom, the Kiosk setup docs line links the Alarms guide and the guide now opens with a plain description of its screens.
+- **Usage analytics cover alarms and the native satellite's settings.** Alarms report as counts (how many, switched on, repeating, sunrise) with the tone as built in or custom and the snooze, silence and sunrise picks. The native Voice Satellite adds its picks and switches: custom wake word model count, sensitivity, mute, noise gate, stop word, seamless wake, follow-up, finished speaking detection, whether a second assistant is set, whether answers play on the device or a speaker and how, wake sound, custom chime count, theme, reactive bar, the show command, answer and tools switches, timer pills and spoken timer names. Alarm times and labels, tone files, speaker entity ids and assistant names never leave the kiosk.
+
+## v2026.9.92 - 2026-09-29
+
+### Added
+- **Alarms.** The kiosk has alarms of its own, modeled on the Nest Hub's, that ring without Home Assistant or a network. **Alarms** in the kiosk menu opens a full screen list with a switch per alarm. **Set an alarm** picks the time on a scroll wheel, then a details page sets the repeat days, a label, the tone and Sunrise. A time that already has an alarm on the same days opens that alarm instead of adding a second one. A ringing alarm wakes the screen, comes over the dashboard or another app and plays on the Android alarm stream until Stop, Snooze, the stop word or Silence after. A sunrise alarm brightens the screen with a rising glow before it rings. On the Clock and Weather Mood screensavers a new **Let alarms take over** switch, on by default, has the alarm ring on the screensaver in its own font and colors. **Settings, Alarms** holds a Show in the kiosk menu switch, the alarm volume, the tone (a new built-in alarm sound or one from the sounds folder), the snooze, Silence after and sunrise lengths. A **Next alarm** screensaver widget shows the next alarm and opens the list when tapped. Fleet Management gets an Alarms category for these defaults, while the alarms themselves stay on each kiosk. The remote admin gets an Alarms page and an Overview banner while one rings. Home Assistant gets Alarm ringing and Alarm snoozed until sensors and Stop alarm and Snooze alarm buttons over ESPHome, and the Next alarm sensor now includes the kiosk's alarms. Translated into Spanish, German, French and Ukrainian.
+
+### Changed
+- **D-pad left reaches the dashboard.** Left on a remote or keyboard now goes to the dashboard like the other arrows, so a card built for remotes can move focus left along a row (#745). Back opens the kiosk menu instead, with its first entry focused, and a second Back within 3 seconds goes back as before.
+
+### Fixed
+- **Moving around the dashboard with a remote holds off the screensaver.** D-pad presses handed to the dashboard never counted as activity, so the screensaver started in the middle of navigating. They now reset the idle timer like a touch does.
+- **Back from a remote opens the kiosk menu on Android 16.** With kiosk mode on or Kiosk Satellite as the home screen, one Back key press ran twice on Android 16, so the menu opened and closed again at once and the page went back a step. A press now runs once.
+- **A voice turn shows on the black screen.** With Use a black screen instead under Turn screen off after, a wake word lit the screen but the black cover stayed over the voice overlay, so the turn played with nothing on screen (#746). The cover now sits under the overlay while a turn shows and goes back on top when it ends.
+
 ## v2026.9.91 - 2026-09-28
 
 ### Added

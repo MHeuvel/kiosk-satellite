@@ -891,7 +891,8 @@ export function settingRow(s) {
     const CORNERS = [['top_left', screensaverText('Top left')], ['top_right', screensaverText('Top right')],
       ['bottom_left', screensaverText('Bottom left')], ['bottom_right', screensaverText('Bottom right')]];
     const TYPES = [['clock', screensaverText('Small clock')], ['weather', screensaverText('Weather')],
-      ['battery', screensaverText('Battery')], ['entity', screensaverText('Entity')]];
+      ['battery', screensaverText('Battery')], ['entity', screensaverText('Entity')],
+      ['alarm', t('alarmsNextWidget')]];
     const DEFAULTS = {
       clock: { color: '250,250,250', scale: 0, font: 'default',
         font_weight: 'default', h24: false, date: false },
@@ -903,6 +904,8 @@ export function settingRow(s) {
         font_weight: 'default', percent: true, low: false },
       entity: { entity: '', name: '', label: '', attribute: '',
         show_name: true, color: '250,250,250', scale: 0, font: 'default',
+        font_weight: 'default' },
+      alarm: { color: '250,250,250', scale: 0, font: 'default',
         font_weight: 'default' },
     };
     // The typeface and weight pickers, the clock screensaver's vocabulary
@@ -1053,6 +1056,12 @@ export function settingRow(s) {
             screensaverText('Stay hidden until the charge drops to 20 percent.'));
           typeBlock.append(refs.color.wrap, refs.scale.wrap, refs.font.wrap,
             refs.weight.wrap, refs.percent.wrap, refs.low.wrap);
+          return;
+        }
+        // The next alarm: nothing of its own, the look every widget has.
+        if (type === 'alarm') {
+          typeBlock.append(refs.color.wrap, refs.scale.wrap, refs.font.wrap,
+            refs.weight.wrap);
           return;
         }
         if (type === 'entity') {
@@ -1245,6 +1254,8 @@ export function settingRow(s) {
             entryConfig = { color, scale, font, font_weight,
               percent: refs.percent.input.checked,
               low: refs.low.input.checked };
+          } else if (type === 'alarm') {
+            entryConfig = { color, scale, font, font_weight };
           } else if (type === 'entity') {
             if (!config.entity) return { ok: false, error: screensaverText('Pick an entity.') };
             entryConfig = { entity: config.entity,
@@ -1288,7 +1299,7 @@ export function settingRow(s) {
         }, false, 'delete'),
       ],
       {
-        icon: ['weather', 'battery', 'entity'].includes(e.type)
+        icon: ['weather', 'battery', 'entity', 'alarm'].includes(e.type)
           ? e.type : 'clock',
         onClick: () => editWidget(e),
       },

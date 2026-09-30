@@ -96,6 +96,14 @@ const List<SettingsSearchEntry> handBuiltSearchEntries = [
     anchorId: "x:plugins:create",
   ),
   SettingsSearchEntry(
+    category: "Alarms",
+    title: "Manage alarms using Voice Satellite",
+    description:
+        "Needs the Kiosk Satellite alarms blueprint and an LLM conversation "
+        "agent in Home Assistant.",
+    anchorId: "x:alarms_voice",
+  ),
+  SettingsSearchEntry(
     category: "Device",
     title: "Learn how we process your data",
     description:
@@ -622,6 +630,7 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
   String Function(String)? fleetTextFor,
   String Function(String)? pluginTextFor,
   String Function(String)? intercomTextFor,
+  String Function(String)? alarmsTextFor,
   String Function(String)? mediaTextFor,
   String Function(String)? cameraStreamsTextFor,
   String Function(String)? cameraTextFor,
@@ -708,6 +717,8 @@ List<SettingsSearchEntry> buildSettingsSearchIndex(
         ? pluginTextFor
         : entry.category == 'Intercom'
         ? intercomTextFor
+        : entry.category == 'Alarms'
+        ? alarmsTextFor
         : entry.category == 'Sendspin'
         ? mediaTextFor
         : entry.category == 'Cameras'

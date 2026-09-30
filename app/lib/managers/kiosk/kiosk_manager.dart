@@ -724,6 +724,10 @@ class KioskManager extends Manager with WidgetsBindingObserver {
           onHomePressed();
         case 'volumeKey':
           bus.publish(VolumeKeyPressed(direction: '${call.arguments}'));
+        // A dpad press MainActivity handed to the dashboard: activity,
+        // like the keys and touches Flutter sees itself.
+        case 'pageKey':
+          bus.publish(const ActivityDetected(source: 'key'));
       }
       return null;
     });

@@ -81,13 +81,20 @@ class ScreensaverWidget {
 }
 
 /// Every widget type, in the order the pickers offer them.
-const screensaverWidgetTypes = ['clock', 'weather', 'battery', 'entity'];
+const screensaverWidgetTypes = [
+  'clock',
+  'weather',
+  'battery',
+  'entity',
+  'alarm',
+];
 
 String describeScreensaverWidgetType(String type) => switch (type) {
   'clock' => 'Small clock',
   'weather' => 'Weather',
   'battery' => 'Battery',
   'entity' => 'Entity',
+  'alarm' => 'Next alarm',
   _ => type,
 };
 
@@ -124,6 +131,12 @@ Map<String, Object?> screensaverWidgetDefaults(String type) => switch (type) {
     'font_weight': screensaverWidgetFontDefault,
     'percent': true,
     'low': false,
+  },
+  'alarm' => {
+    'color': '250,250,250',
+    'scale': screensaverWidgetScaleDefault,
+    'font': screensaverWidgetFontDefault,
+    'font_weight': screensaverWidgetFontDefault,
   },
   'entity' => {
     'entity': '',

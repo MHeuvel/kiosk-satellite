@@ -16,6 +16,7 @@
   "fleetNodeNameMacEncryptionKey": "nom du nœud, MAC, clé de chiffrement",
   "fleetThePinIsAlsoSynced": "le code PIN est également synchronisé",
   "fleetTheKeyUnlessSyncedAsACredential": "la clé, sauf si synchronisée comme identifiant",
+  "fleetTheAlarmsThemselves": "les alarmes elles-mêmes",
   "fleetNameRemoteAdministrationRendererWorkaroundsScale": "nom, administration à distance, contournements de rendu, échelle",
   "fleetHomeAssistantToken": "Jeton Home Assistant",
   "fleetMusicAssistantToken": "Jeton Music Assistant",

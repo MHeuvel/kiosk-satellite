@@ -40,8 +40,9 @@ import {
   updateSonosPage,
   updateMaValidateRow,
 } from './panels.js';
-import { renderFleetPage } from './fleetsync.js';
+import { applyManagedBanners, renderFleetPage } from './fleetsync.js';
 import { decorateAnnouncementsPage, renderIntercomPage } from './intercom.js';
+import { renderAlarmsPage } from './alarms.js';
 import { askImportOptions } from './pickers.js';
 import { settingRow, syncGatedRows } from './rows.js';
 import { applySubpageView, currentPath, setCurrentPath, subpageEntry, refreshNavigationText } from './tabs.js';
@@ -129,7 +130,9 @@ export function attachSoundSelect(row, setting) {
     const current = `${setting.value || ''}`;
     const names = [...sounds];
     if (current && !names.includes(current)) names.push(current);
-    [['', setting.key === 'intercom.ring_sound' ? intercomText("Built-in ring") : intercomText("Built-in chime")], ...names.map((n) => [n, n === current && !sounds.includes(n) ? t('intercomMissingFile', {file:n}) : n])]
+    const builtIn = setting.key === 'intercom.ring_sound' ? intercomText("Built-in ring")
+      : setting.key === 'alarms.tone' ? t('alarmsBuiltInTone') : intercomText("Built-in chime");
+    [['', builtIn], ...names.map((n) => [n, n === current && !sounds.includes(n) ? t('intercomMissingFile', {file:n}) : n])]
       .forEach(([value, label]) => {
         const opt = document.createElement('option');
         opt.value = value; opt.textContent = label;
@@ -208,7 +211,14 @@ const layoutSettings = new Set([
 // trigger.
 const runtimeStateSettings = new Set([
   'screensaver.saved_brightness', 'voice.timer_position', 'sendspin.player_pos',
+  // The alarms and their ring state: the Alarms page redraws from the
+  // alarms event, not from a settings rebuild.
+  'alarms.list', 'alarms.runtime',
 ]);
+// The Announcements and Alarms text to speech rows, each a picker that
+// repaints itself (intercom.js).
+const ttsPickerSettings = new Set(['announcements', 'alarms']
+  .flatMap(prefix => ['engine', 'language', 'voice'].map(k => `${prefix}.tts_${k}`)));
 let liveSettingsTimer = null;
 let liveSettingsRendering = false;
 let settingsRenders = 0;
@@ -263,6 +273,16 @@ async function flushSettingsUpdates() {
       if ((!rows.length && !depSatisfied(setting, byKey)) || (rows.length
           && rows.every(row => row.updateSetting?.() && syncGatedRows(setting.key, row)))) {
         syncScreenOffAdminNotice();
+        continue;
+      }
+    }
+    // The text to speech pickers repaint themselves, and the engine's
+    // Language and Voice rows come and go in place (intercom.js), so a pick
+    // echoed back from the device does not rebuild every page.
+    if (!shapeChanged && ttsPickerSettings.has(setting.key)) {
+      const byKey = Object.fromEntries(state.settings.map(s => [s.key, s]));
+      if ((!rows.length && !depSatisfied(setting, byKey)) || (rows.length
+          && rows.every(row => row.updateSetting?.() && syncGatedRows(setting.key, row)))) {
         continue;
       }
     }
@@ -1407,14 +1427,16 @@ kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
   updateMaValidateRow();
   updatePlayerRow();
   updateSonosPage();
-  // The Fleet Management tab, hand-built from the fleetStatus command, and
-  // the banner a follower's synced categories wear.
+  // The Fleet Management tab, hand-built from the fleetStatus command.
   await renderFleetPage();
   // The Intercom tab: the definition rows the generic renderer drew,
   // decorated from the intercomStatus command (the key box, the ring
   // sound picker, the live call and the roster).
   await renderIntercomPage();
   decorateAnnouncementsPage();
+  // The Alarms tab: the list and the Set an alarm button over the
+  // Defaults rows, from the alarmsStatus command, and the tone picker.
+  await renderAlarmsPage();
 
   const tlsPanel = document.querySelector('#tab-device .subpage[data-subpage="TLS"]');
   if (tlsPanel) renderTlsSettings(tlsPanel);
@@ -2424,6 +2446,11 @@ kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
   // The permissions card lands last on the Voice Satellite tab, same as the
   // on-device settings screen.
   await loadVsPermissions();
+
+  // The banner a follower's synced categories wear. Last, because the Voice
+  // Satellite and Home Assistant sections above clear their tab roots after
+  // renderFleetPage() has already put it there.
+  applyManagedBanners();
 
   // Counterpart to the capture at the top: put the view back where the
   // person was. One extra frame so late async renders have laid out.

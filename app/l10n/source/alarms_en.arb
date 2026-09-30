@@ -1,0 +1,684 @@
+{
+  "@@locale": "en",
+  "alarmsTitle": "Alarms",
+  "@alarmsTitle": {
+    "context": "Alarms",
+    "description": "Name of the alarms feature: the kiosk menu entry, the alarm list eyebrow and section headings.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms",
+        "Settings > Screensaver > Clock screensaver > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsSetAnAlarm": "Set an alarm",
+  "@alarmsSetAnAlarm": {
+    "context": "Alarm list",
+    "description": "Button that starts a new alarm, and the name of the time picking step.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsNone": "No alarms",
+  "@alarmsNone": {
+    "context": "Alarm list",
+    "description": "Shown when no alarm exists yet.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms"
+      ]
+    }
+  },
+  "alarmsDone": "Done",
+  "@alarmsDone": {
+    "context": "Alarm details",
+    "description": "Button that saves the alarm and returns to the list.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm"
+      ]
+    }
+  },
+  "alarmsRepeat": "Repeat",
+  "@alarmsRepeat": {
+    "context": "Alarm details",
+    "description": "Row that picks the days an alarm repeats on.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    }
+  },
+  "alarmsLabel": "Label",
+  "@alarmsLabel": {
+    "context": "Alarm details",
+    "description": "Row and dialog for the alarm name.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    }
+  },
+  "alarmsAddLabel": "Add label",
+  "@alarmsAddLabel": {
+    "context": "Alarm details",
+    "description": "Value shown when the alarm has no label yet.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm"
+      ]
+    }
+  },
+  "alarmsTone": "Alarm tone",
+  "@alarmsTone": {
+    "context": "Alarm details",
+    "description": "Row and dialog that pick the sound an alarm rings with.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    }
+  },
+  "alarmsSunrise": "Sunrise",
+  "@alarmsSunrise": {
+    "context": "Alarm details",
+    "description": "Switch that brightens the screen gradually before the alarm rings.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    }
+  },
+  "alarmsDefaultTone": "Default",
+  "@alarmsDefaultTone": {
+    "context": "Alarm tone",
+    "description": "Tone choice that follows the Alarm tone setting.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm > Alarm tone"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    }
+  },
+  "alarmsBuiltInTone": "Built-in alarm",
+  "@alarmsBuiltInTone": {
+    "context": "Alarm tone",
+    "description": "The alarm sound bundled with the app.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm > Alarm tone",
+        "Settings > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsSoundsFolder": "Sounds folder",
+  "@alarmsSoundsFolder": {
+    "context": "Alarm tone",
+    "description": "Heading over the sound files the user added.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm > Alarm tone"
+      ]
+    }
+  },
+  "alarmsToday": "Today",
+  "@alarmsToday": {
+    "context": "Alarm list",
+    "description": "When a one time alarm rings.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsTomorrow": "Tomorrow",
+  "@alarmsTomorrow": {
+    "context": "Alarm list",
+    "description": "When a one time alarm rings.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsOnce": "Once",
+  "@alarmsOnce": {
+    "context": "Alarm list",
+    "description": "A one time alarm that is off.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsEveryDay": "Every day",
+  "@alarmsEveryDay": {
+    "context": "Alarm list",
+    "description": "Repeat summary for all seven days.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsWeekdays": "Weekdays",
+  "@alarmsWeekdays": {
+    "context": "Alarm list",
+    "description": "Repeat summary for Monday to Friday.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsWeekends": "Weekends",
+  "@alarmsWeekends": {
+    "context": "Alarm list",
+    "description": "Repeat summary for Saturday and Sunday.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsSnoozedUntil": "Snoozed until {time}",
+  "@alarmsSnoozedUntil": {
+    "context": "Snoozed alarm",
+    "description": "Shown on a snoozed alarm. {time} is a clock time like 6:40 AM.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms",
+        "Screensaver > Next alarm widget"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    },
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "description": "A clock time like 6:30 AM."
+      }
+    }
+  },
+  "alarmsSnooze": "Snooze",
+  "@alarmsSnooze": {
+    "context": "Ringing alarm",
+    "description": "Button that snoozes the ringing alarm.",
+    "x-locations": {
+      "device": [
+        "Ringing alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms",
+        "Overview"
+      ]
+    }
+  },
+  "alarmsStop": "Stop",
+  "@alarmsStop": {
+    "context": "Ringing alarm",
+    "description": "Button that stops the ringing or snoozed alarm.",
+    "x-locations": {
+      "device": [
+        "Ringing alarm",
+        "Kiosk menu > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms",
+        "Overview"
+      ]
+    }
+  },
+  "alarmsDefaultLabel": "Alarm",
+  "@alarmsDefaultLabel": {
+    "context": "Ringing alarm",
+    "description": "Shown on a ringing alarm that has no label.",
+    "x-locations": {
+      "device": [
+        "Ringing alarm"
+      ]
+    }
+  },
+  "alarmsSetToast": "Alarm set",
+  "@alarmsSetToast": {
+    "context": "Alarm list",
+    "description": "Title of the confirmation after setting an alarm.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms"
+      ]
+    }
+  },
+  "alarmsRingsIn": "Rings in {duration}",
+  "@alarmsRingsIn": {
+    "context": "Alarm list",
+    "description": "Confirmation after setting an alarm. {duration} reads like 9 h 12 min.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms"
+      ]
+    },
+    "placeholders": {
+      "duration": {
+        "type": "String",
+        "description": "A span like 9 h 12 min."
+      }
+    }
+  },
+  "alarmsDurationHoursMinutes": "{hours} h {minutes} min",
+  "@alarmsDurationHoursMinutes": {
+    "context": "Alarm list",
+    "description": "A span of hours and minutes.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms"
+      ]
+    },
+    "placeholders": {
+      "hours": {
+        "type": "String",
+        "description": "A whole number of hours."
+      },
+      "minutes": {
+        "type": "String",
+        "description": "A whole number of minutes."
+      }
+    }
+  },
+  "alarmsDurationHours": "{hours} h",
+  "@alarmsDurationHours": {
+    "context": "Alarm list",
+    "description": "A span of whole hours.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms"
+      ]
+    },
+    "placeholders": {
+      "hours": {
+        "type": "String",
+        "description": "A whole number of hours."
+      }
+    }
+  },
+  "alarmsDurationMinutes": "{minutes} min",
+  "@alarmsDurationMinutes": {
+    "context": "Alarm list",
+    "description": "A span of minutes.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms"
+      ]
+    },
+    "placeholders": {
+      "minutes": {
+        "type": "String",
+        "description": "A whole number of minutes."
+      }
+    }
+  },
+  "alarmsAt": "Alarm at {time}",
+  "@alarmsAt": {
+    "context": "Sunrise",
+    "description": "Shown under the clock while the screen brightens before an alarm. {time} is a clock time.",
+    "x-locations": {
+      "device": [
+        "Sunrise before an alarm"
+      ]
+    },
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "description": "A clock time like 6:30 AM."
+      }
+    }
+  },
+  "alarmsNextWidget": "Next alarm",
+  "@alarmsNextWidget": {
+    "context": "Screensaver widgets",
+    "description": "Screensaver corner widget that shows the next alarm.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Widgets"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Widgets"
+      ]
+    }
+  },
+  "alarmsManage": "Manage alarms",
+  "@alarmsManage": {
+    "context": "Settings > Alarms",
+    "description": "Row that opens the alarm list.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms"
+      ]
+    }
+  },
+  "alarmsNextAt": "Next: {day} at {time}",
+  "@alarmsNextAt": {
+    "context": "Settings > Alarms",
+    "description": "When the next alarm rings. {day} is Today, Tomorrow or a weekday, {time} a clock time.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    },
+    "placeholders": {
+      "day": {
+        "type": "String",
+        "description": "Today, Tomorrow or a weekday name."
+      },
+      "time": {
+        "type": "String",
+        "description": "A clock time like 6:30 AM."
+      }
+    }
+  },
+  "alarmsNoneSet": "No alarms set",
+  "@alarmsNoneSet": {
+    "context": "Settings > Alarms",
+    "description": "Shown when no alarm is on.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsDefaultsSection": "Defaults",
+  "@alarmsDefaultsSection": {
+    "context": "Settings > Alarms",
+    "description": "Heading over the default alarm settings.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsTtsSection": "Text to Speech",
+  "@alarmsTtsSection": {
+    "context": "Settings > Alarms",
+    "description": "Heading over the text to speech engine, language and voice settings.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsEditAlarm": "Edit alarm",
+  "@alarmsEditAlarm": {
+    "context": "Remote admin alarms",
+    "description": "Title of the dialog that changes an alarm.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsTime": "Time",
+  "@alarmsTime": {
+    "context": "Remote admin alarms",
+    "description": "Label of the alarm time field.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    }
+  },
+  "alarmsRinging": "Alarm ringing",
+  "@alarmsRinging": {
+    "context": "Remote admin alarms",
+    "description": "Banner shown while an alarm rings.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Overview",
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsSnoozed": "Alarm snoozed",
+  "@alarmsSnoozed": {
+    "context": "Remote admin alarms",
+    "description": "Banner shown while an alarm is snoozed.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Overview",
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsSunriseRunning": "Sunrise before an alarm",
+  "@alarmsSunriseRunning": {
+    "context": "Remote admin alarms",
+    "description": "Banner shown while the screen brightens before an alarm.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Overview",
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsSunriseHint": "The screen brightens over {minutes} minutes before it rings.",
+  "@alarmsSunriseHint": {
+    "context": "Remote admin alarms",
+    "description": "Description of the Sunrise switch. {minutes} is a number.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    },
+    "placeholders": {
+      "minutes": {
+        "type": "String",
+        "description": "A whole number of minutes."
+      }
+    }
+  },
+  "alarmsDeleteFailed": "Could not delete the alarm.",
+  "@alarmsDeleteFailed": {
+    "context": "Remote admin alarms",
+    "description": "Error toast.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsDuplicate": "You already have an alarm at {time}",
+  "@alarmsDuplicate": {
+    "context": "Alarm list",
+    "description": "Shown instead of setting a second alarm with the same time and repeat days. {time} is a clock time.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > Set an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    },
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "description": "A clock time like 6:30 AM."
+      }
+    }
+  },
+  "alarmsEaseIn": "Ease in the volume",
+  "@alarmsEaseIn": {
+    "context": "Alarm details",
+    "description": "Switch that starts the alarm quiet and grows it to the alarm volume.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    }
+  },
+  "alarmsEaseHint": "Grows to the alarm volume over {seconds} seconds.",
+  "@alarmsEaseHint": {
+    "context": "Remote admin alarms",
+    "description": "Description of the Ease in the volume switch. {seconds} is a number.",
+    "x-locations": {
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    },
+    "placeholders": {
+      "seconds": {
+        "type": "String",
+        "description": "A whole number of seconds."
+      }
+    }
+  },
+  "alarmsSpeak": "Speak when it rings",
+  "@alarmsSpeak": {
+    "context": "Alarm details",
+    "description": "Switch that has Home Assistant speak a phrase between the rings of the alarm tone.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    }
+  },
+  "alarmsPhrase": "Phrase",
+  "@alarmsPhrase": {
+    "context": "Alarm details",
+    "description": "The words spoken between the rings. Opens a text box.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    }
+  },
+  "alarmsPhraseHint": "{label}, {time} and {day} become the alarm's label, time and day.",
+  "@alarmsPhraseHint": {
+    "context": "Alarm details",
+    "description": "Hint under the phrase text box. The three placeholders are shown to the user literally, in braces, and must not be translated.",
+    "x-locations": {
+      "device": [
+        "Kiosk menu > Alarms > an alarm"
+      ],
+      "remoteAdmin": [
+        "Alarms > Set an alarm"
+      ]
+    },
+    "placeholders": {
+      "label": {
+        "type": "String",
+        "description": "The literal text {label}."
+      },
+      "time": {
+        "type": "String",
+        "description": "The literal text {time}."
+      },
+      "day": {
+        "type": "String",
+        "description": "The literal text {day}."
+      }
+    }
+  },
+  "alarmsVoiceSection": "Voice Alarms",
+  "@alarmsVoiceSection": {
+    "context": "Settings > Alarms",
+    "description": "Heading of the group about setting alarms by voice.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsVoiceManage": "Manage alarms using Voice Satellite",
+  "@alarmsVoiceManage": {
+    "context": "Settings > Alarms",
+    "description": "Row that opens the guide to setting alarms by voice. Keep Voice Satellite unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
+  "alarmsVoiceHint": "Needs the Kiosk Satellite alarms blueprint and an LLM conversation agent in Home Assistant.",
+  "@alarmsVoiceHint": {
+    "context": "Settings > Alarms",
+    "description": "Description under that row. Keep Kiosk Satellite and Home Assistant unchanged. A blueprint is a Home Assistant template for a script.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  }
+}

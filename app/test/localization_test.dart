@@ -60,7 +60,9 @@ void main() {
       if (def.titleMessageId == null) continue;
       // The MAC override is rendered by both interfaces after a failed
       // hardware read, although it is hidden from the generic settings list.
-      if (def.key != esphomeMacOverride.key) {
+      // Home Assistant's mirrored selects show in the fleet exclusion list.
+      if (def.key != esphomeMacOverride.key &&
+          !voiceHaSelectSettings.values.contains(def)) {
         expect(
           def.hidden,
           isFalse,

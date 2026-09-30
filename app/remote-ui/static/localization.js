@@ -112,7 +112,23 @@ export function settingsPageText(category, english) {
     : ['Plugins', 'plugins'].includes(category) ? pluginText(english)
     : ['Kiosk', 'kiosk', 'Home', 'home', 'Lockdown', 'lockdown'].includes(category) ? kioskText(english)
     : category === 'Intercom' || category === 'intercom' ? (english === 'Answer' ? t('intercomAnswerSection') : english === 'Talk' ? t('intercomTalkSection') : intercomText(english))
+    : category === 'Alarms' || category === 'alarms' ? alarmsPageText(english)
     : category === 'Sendspin' || category === 'sendspin' ? mediaText(english) : english;
+}
+
+// The Alarms page's own headings and hand-built rows, Settings > Alarms
+// on the device (settingsPageText in messages.dart).
+const ALARMS_PAGE_TEXT = {
+  'Defaults': 'alarmsDefaultsSection',
+  'Text to Speech': 'alarmsTtsSection',
+  'Voice Alarms': 'alarmsVoiceSection',
+  'Manage alarms using Voice Satellite': 'alarmsVoiceManage',
+  'Needs the Kiosk Satellite alarms blueprint and an LLM conversation agent in Home Assistant.': 'alarmsVoiceHint',
+};
+
+function alarmsPageText(english) {
+  const id = ALARMS_PAGE_TEXT[english];
+  return id ? t(id, {}, english) : english;
 }
 
 export function haConnectionError(error) {
@@ -175,11 +191,14 @@ export function localizeSetting(setting) {
     englishDescription,
     title: setting.key === 'voice.timer_named_phrase'
       ? t('settingVoiceTimerNamedPhraseTitle', {}, englishTitle)
+      : setting.key === 'alarms.phrase' ? t('alarmsPhrase', {}, englishTitle)
       : setting.titleMessageId ? t(setting.titleMessageId, {}, englishTitle) : setting.title,
     // Its description shows the {name} token itself, which a settings
     // message cannot carry: the token goes in as the placeholder's value.
     description: setting.key === 'voice.timer_named_phrase'
       ? t('settingVoiceTimerNamedPhraseDescription', { name: '{name}' }, englishDescription)
+      : setting.key === 'alarms.phrase'
+        ? t('alarmsPhraseHint', { label: '{label}', time: '{time}', day: '{day}' }, englishDescription)
       : setting.descriptionMessageId
         ? t(setting.descriptionMessageId, {}, englishDescription) : setting.description,
   };

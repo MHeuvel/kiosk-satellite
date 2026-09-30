@@ -595,6 +595,13 @@ class KioskLock(private val activity: Activity, messenger: BinaryMessenger) {
         main.post { channel.invokeMethod("homePressed", null) }
     }
 
+    /** A navigation key MainActivity handed to the dashboard's WebView.
+     *  It never passes through Flutter, so Dart counts it as activity
+     *  from here. */
+    fun notifyPageKey() {
+        main.post { channel.invokeMethod("pageKey", null) }
+    }
+
     fun dispose() {
         cancelExitHold()
         gestures.reset()

@@ -94,6 +94,19 @@ class ScreenManager extends Manager with WidgetsBindingObserver {
   /// into Meta's home screen dream during a call nobody touched).
   bool _intercomHold = false;
 
+  /// A sunrise or a ringing alarm holds the screen on the same way.
+  bool _alarmHold = false;
+
+  /// The panel level from before a sunrise took it, for when no other
+  /// write came in meanwhile.
+  double? _lastWrittenBeforeAlarm;
+
+  /// The level an alarm's sunrise has put on the panel, or null. While
+  /// set, every other write is remembered in [_heldLevel] instead of
+  /// landing, and that level comes back when the alarm lets go.
+  double? _alarmLevel;
+  double? _heldLevel;
+
   @override
   Future<void> init() async {
     await _applyWakelock();
@@ -195,6 +208,10 @@ class ScreenManager extends Manager with WidgetsBindingObserver {
     bus.on<LightLevelChanged>().listen((e) => _onLux(e.lux));
     bus.on<ScreensaverStateChanged>().listen((e) => _onScreensaver(e.active));
     bus.on<FullscreenViewChanged>().listen((e) async {
+      if (e.view == 'alarm' && e.shown != _alarmHold) {
+        _alarmHold = e.shown;
+        await _applyWakelock();
+      }
       if (e.view != 'intercom' || e.shown == _intercomHold) return;
       _intercomHold = e.shown;
       await _applyWakelock();
@@ -361,6 +378,33 @@ class ScreenManager extends Manager with WidgetsBindingObserver {
       )
       ..register(
         Command(
+          name: 'alarmBrightness',
+          description:
+              "An alarm's sunrise takes the panel: a level 0..1 to show, "
+              'or null to hand it back to whatever set it last.',
+          params: const {'level': '0..1, or null to let go'},
+          handler: (p) async {
+            final level = (p['level'] as num?)?.toDouble();
+            if (level == null) {
+              if (_alarmLevel == null) return const CommandResult.ok();
+              _alarmLevel = null;
+              final back = _heldLevel ?? _lastWrittenBeforeAlarm;
+              _heldLevel = null;
+              _lastWrittenBeforeAlarm = null;
+              if (back != null) await _write(back);
+              return const CommandResult.ok();
+            }
+            if (_alarmLevel == null) {
+              _lastWrittenBeforeAlarm = _lastWritten ?? await _readPanel();
+            }
+            _alarmLevel = level.clamp(0.0, 1.0);
+            await _write(_alarmLevel!, alarm: true);
+            return const CommandResult.ok();
+          },
+        ),
+      )
+      ..register(
+        Command(
           name: 'keepScreenAwake',
           description:
               'Hold the panel on regardless of the keep-awake setting. '
@@ -407,6 +451,7 @@ class ScreenManager extends Manager with WidgetsBindingObserver {
         _settings.get(defs.keepScreenOn) ||
         _screensaverHold ||
         _intercomHold ||
+        _alarmHold ||
         _settings.get(defs.haHoldMode);
     try {
       want ? await WakelockPlus.enable() : await WakelockPlus.disable();
@@ -805,7 +850,12 @@ class ScreenManager extends Manager with WidgetsBindingObserver {
     return true;
   }
 
-  Future<bool> _write(double level) async {
+  Future<bool> _write(double level, {bool alarm = false}) async {
+    if (_alarmLevel != null && !alarm) {
+      // The sunrise owns the panel; this is what comes back after it.
+      _heldLevel = level.clamp(0.0, 1.0);
+      return true;
+    }
     final clamped = level.clamp(0.0, 1.0);
     _lastWritten = clamped;
     _lastWriteAt = DateTime.now();

@@ -50,5 +50,7 @@ export const navigationMessageIds = {
   "Media & Cameras": "settingsGroupMediaCameras",
   "Kiosk": "settingsGroupKiosk",
   "System": "settingsGroupSystem",
-  "Overlays": "cameraOverlaysHeading"
+  "Overlays": "cameraOverlaysHeading",
+  "Alarms": "settingsMenuAlarms",
+  "Set alarms, tone, snooze, sunrise": "settingsMenuAlarmsSummary"
 };

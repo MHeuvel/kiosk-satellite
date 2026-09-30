@@ -244,6 +244,23 @@ class DeviceDetails(
                 // sample buffers count against, so the screensaver can
                 // tell which videos it can afford to play.
                 "javaHeapMax" -> result.success(Runtime.getRuntime().maxMemory())
+                // Language tags as names in the app's language, for the text
+                // to speech Language pickers. Engines write en_US as often as
+                // en-US, so both parse.
+                "languageNames" -> {
+                    val tags = call.argument<List<String>>("tags") ?: emptyList()
+                    val display = java.util.Locale.forLanguageTag(
+                        call.argument<String>("display") ?: "en",
+                    )
+                    result.success(
+                        tags.associateWith { tag ->
+                            val name = java.util.Locale.forLanguageTag(tag.replace('_', '-'))
+                                .getDisplayName(display)
+                            if (name.isBlank() || name == tag) tag
+                            else name.replaceFirstChar { it.titlecase(display) }
+                        },
+                    )
+                }
                 // Dozens of sysfs reads, polled every few seconds while an
                 // admin tab is open — off the main thread, so a stats tick
                 // can never cost the UI a frame.

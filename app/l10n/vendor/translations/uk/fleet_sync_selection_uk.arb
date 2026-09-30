@@ -16,6 +16,7 @@
   "fleetNodeNameMacEncryptionKey": "назва вузла, MAC, ключ шифрування",
   "fleetThePinIsAlsoSynced": "PIN-код також синхронізується",
   "fleetTheKeyUnlessSyncedAsACredential": "ключ, якщо він не синхронізується як облікові дані",
+  "fleetTheAlarmsThemselves": "самі будильники",
   "fleetNameRemoteAdministrationRendererWorkaroundsScale": "ім'я, віддалене керування, виправлення рендерера, масштаб",
   "fleetHomeAssistantToken": "Токен Home Assistant",
   "fleetMusicAssistantToken": "Токен Music Assistant",

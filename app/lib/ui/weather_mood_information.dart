@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 
+import 'alarm_ring_overlay.dart';
 import '../app_container.dart';
 import '../core/locale_dates.dart';
 import '../l10n/messages.dart';
@@ -19,34 +20,44 @@ import 'weather_readings.dart';
 /// A soft shadow for text over the open sky, sized to the text: a faint
 /// contact shadow that holds the edges and a wide, light one for depth. A
 /// hard shadow read as a dark copy under every glyph.
-List<Shadow> _skyShadows(double size) => [
+///
+/// [bright] is for a sky of bright cloud from edge to edge, where the light
+/// version leaves white text with nothing to stand on: darker layers and a
+/// broad halo that dims the cloud around the text.
+List<Shadow> _skyShadows(double size, {bool bright = false}) => [
   Shadow(
-    color: const Color(0x40000000),
+    color: Color(bright ? 0x73000000 : 0x40000000),
     offset: Offset(0, size * .006),
-    blurRadius: size * .014,
+    blurRadius: size * (bright ? .02 : .014),
   ),
   Shadow(
-    color: const Color(0x4D000000),
+    color: Color(bright ? 0x73000000 : 0x4D000000),
     offset: Offset(0, size * .02),
     blurRadius: size * .08,
   ),
+  if (bright)
+    Shadow(
+      color: const Color(0x80000000),
+      offset: Offset(0, size * .03),
+      blurRadius: size * .3,
+    ),
 ];
 
 /// The date's version: small, thin text needs more around it than the
 /// digits do to stay readable over bright clouds.
-List<Shadow> _dateShadows(double size) => [
+List<Shadow> _dateShadows(double size, {bool bright = false}) => [
   Shadow(
-    color: const Color(0x66000000),
+    color: Color(bright ? 0x8C000000 : 0x66000000),
     offset: Offset(0, size * .015),
     blurRadius: size * .05,
   ),
   Shadow(
-    color: const Color(0x4D000000),
+    color: Color(bright ? 0x66000000 : 0x4D000000),
     offset: Offset(0, size * .03),
     blurRadius: size * .15,
   ),
   Shadow(
-    color: const Color(0x40000000),
+    color: Color(bright ? 0x59000000 : 0x40000000),
     offset: Offset(0, size * .05),
     blurRadius: size * .4,
   ),
@@ -140,10 +151,15 @@ class WeatherMoodInformation extends StatefulWidget {
     required this.container,
     required this.readings,
     this.translations = const {},
+    this.brightSky = false,
   });
   final AppContainer container;
   final WeatherMoodReadings readings;
   final Map<String, String> translations;
+
+  /// Bright cloud fills the sky behind the clock, so its shadow needs to
+  /// be heavier.
+  final bool brightSky;
 
   @override
   State<WeatherMoodInformation> createState() => _WeatherMoodInformationState();
@@ -158,7 +174,15 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
   void initState() {
     super.initState();
     _schedule();
+    widget.container.screensaver.alarmTakeover.addListener(_onTakeover);
   }
+
+  void _onTakeover() {
+    if (mounted) setState(() {});
+  }
+
+  bool get _ringing =>
+      widget.container.screensaver.alarmTakeover.value == 'ringing';
 
   @override
   void didUpdateWidget(WeatherMoodInformation oldWidget) {
@@ -206,13 +230,43 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
 
   @override
   void dispose() {
+    widget.container.screensaver.alarmTakeover.removeListener(_onTakeover);
     _timer?.cancel();
     super.dispose();
   }
 
+  /// Snooze and Stop in the weather chips' glass and text shadow, the
+  /// label on the date line: a ringing alarm taking the scene over.
+  Widget _alarmControls(double dateSize, Color color, String? fontFamily) {
+    final s = widget.container.settings;
+    final glass = weatherMoodGlass(widget.container);
+    final shadow = s.get(defs.screensaverWeatherBarShadow);
+    return AlarmTakeoverControls(
+      container: widget.container,
+      color: color,
+      ink: const Color(0xFF1C1C1E),
+      glass: glass.fill,
+      edge: Colors.white.withValues(alpha: math.max(.18, glass.edge.a)),
+      labelSize: dateSize,
+      labelColor: color,
+      labelWeight: FontWeight.w500,
+      fontFamily: fontFamily,
+      shadows: shadow ? _chipShadows(1) : const [],
+    );
+  }
+
   Widget _clock(Size size, bool glance) {
     final s = widget.container.settings;
-    if (!s.get(defs.screensaverWeatherClock)) return const SizedBox.expand();
+    if (!s.get(defs.screensaverWeatherClock)) {
+      if (!_ringing) return const SizedBox.expand();
+      return Center(
+        child: _alarmControls(
+          math.min(size.width * .05, size.height * .07),
+          _color(s.get(defs.screensaverWeatherClockColor)),
+          null,
+        ),
+      );
+    }
     final use24h = s.get(defs.screensaverWeatherClock24h);
     final hour = use24h
         ? _now.hour
@@ -234,7 +288,9 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
     final clockSize = math.min(size.width * .20, size.height * .30) * scale;
     final dateSize = math.min(size.width * .05, size.height * .07) * scale;
     final shadow = s.get(defs.screensaverWeatherClockShadow);
-    final date = s.get(defs.screensaverWeatherClockDate)
+    final bright = widget.brightSky;
+    final ringing = _ringing;
+    final date = !ringing && s.get(defs.screensaverWeatherClockDate)
         ? fullDate(_now)
         : null;
     final color = _color(s.get(defs.screensaverWeatherClockColor));
@@ -253,8 +309,8 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
       weight: weight,
       opticalSize: clockOpticalSize(font),
       // Each line's shadow is sized to its own text.
-      shadows: shadow ? _skyShadows(clockSize) : const [],
-      dateShadows: shadow ? _dateShadows(dateSize) : const [],
+      shadows: shadow ? _skyShadows(clockSize, bright: bright) : const [],
+      dateShadows: shadow ? _dateShadows(dateSize, bright: bright) : const [],
       // A step heavier than the Clock screensaver's, so the thin
       // strokes hold up over white clouds.
       dateWeight: FontWeight.w500,
@@ -268,11 +324,24 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
             fit: BoxFit.scaleDown,
             // Blurred shadows redraw every frame on Impeller unless the
             // face is kept as an image until the time changes.
-            child: shadow
+            child: ringing
+                ? Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      face,
+                      SizedBox(height: clockSize * .08),
+                      _alarmControls(dateSize, color, clockFontFamily(font)),
+                    ],
+                  )
+                : shadow
                 ? TextSnapshot(
                     // The soft shadows reach this far past the text.
-                    bleed: math.max(clockSize * .16, dateSize * .8),
+                    bleed: math.max(
+                      clockSize * (bright ? .55 : .16),
+                      dateSize * .8,
+                    ),
                     content: (
+                      bright,
                       time,
                       date,
                       color,
@@ -294,7 +363,10 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
   Widget build(BuildContext context) {
     final c = widget.container;
     final size = MediaQuery.sizeOf(context);
+    final ringing = _ringing;
     return IgnorePointer(
+      // A ringing alarm's Snooze and Stop are the one thing here to touch.
+      ignoring: !ringing,
       child: RepaintBoundary(
         child: ValueListenableBuilder<bool?>(
           valueListenable: c.screensaver.scheduleGlance,
@@ -302,6 +374,7 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
             valueListenable: c.glance.entities,
             builder: (context, entities, _) {
               final glance =
+                  !ringing &&
                   (scheduled ??
                       c.settings.get(defs.screensaverGlanceEnabled)) &&
                   entities.isNotEmpty;
@@ -312,7 +385,8 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
                     Padding(
                       padding: EdgeInsets.only(
                         bottom:
-                            c.settings.get(defs.screensaverWeatherBar) &&
+                            !ringing &&
+                                c.settings.get(defs.screensaverWeatherBar) &&
                                 widget.readings.available
                             ? 24
                             : size.height * .06,
@@ -333,7 +407,8 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
                             : const [],
                       ),
                     ),
-                  if (c.settings.get(defs.screensaverWeatherBar) &&
+                  if (!ringing &&
+                      c.settings.get(defs.screensaverWeatherBar) &&
                       widget.readings.available)
                     WeatherMoodBar(
                       container: c,

@@ -8,9 +8,16 @@
   "settingAnnouncementsChimeTitle": "Carillon en premier",
   "settingAnnouncementsChimeDescription": "Jouer un carillon avant l'annonce.",
   "settingAnnouncementsChimeFileTitle": "Son du carillon",
-  "settingAnnouncementsChimeFileDescription": "Joué au volume des notifications.",
+  "settingAnnouncementsChimeFileDescription": "Joué aussi fort que l'annonce.",
   "esphomeAnnouncements": "Annonces",
   "esphomeAnnouncementsHelp": "Annonces vocales depuis Home Assistant",
   "esphomeChime": "Carillon",
-  "esphomeTtsUnavailable": "Impossible de joindre Home Assistant"
+  "esphomeTtsUnavailable": "Impossible de joindre Home Assistant",
+  "settingAnnouncementsTtsLanguageTitle": "Langue",
+  "settingAnnouncementsTtsLanguageDescription": "La langue dans laquelle les annonces sont prononcées.",
+  "settingAnnouncementsTtsVoiceTitle": "Voix",
+  "settingAnnouncementsTtsVoiceDescription": "La voix qui prononce les annonces.",
+  "esphomeTtsDefault": "Par défaut",
+  "esphomeTtsNoVoices": "Aucune voix à choisir",
+  "esphomeTtsSection": "Synthèse vocale"
 }

@@ -30,6 +30,7 @@ export const CAMERA_ICONS = {
   battery: '<rect x="2" y="7" width="17" height="10" rx="2.5"/>'
     + '<path d="M21.5 10.5v3"/><path d="M5 10v4"/><path d="M8.5 10v4"/>',
   entity: '<path d="M3 12h4l3-7 4 14 3-7h4"/>',
+  alarm: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M5 3 2 6M19 3l3 3"/>',
   folder: '<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1'
     + ' -2 2H5a2 2 0 0 1-2-2z"/>',
   home: '<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10.5V20h13v-9.5"/>',

@@ -26,6 +26,19 @@
       ]
     }
   },
+  "esphomeTtsSection": "Text to Speech",
+  "@esphomeTtsSection": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Heading over the text to speech engine, language and voice settings.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
   "settingAnnouncementsTtsEngineTitle": "Text to speech engine",
   "@settingAnnouncementsTtsEngineTitle": {
     "context": "Settings > ESPHome > Announcements",
@@ -52,10 +65,75 @@
       ]
     }
   },
+  "settingAnnouncementsTtsLanguageTitle": "Language",
+  "@settingAnnouncementsTtsLanguageTitle": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "settingAnnouncementsTtsLanguageDescription": "The language announcements are spoken in.",
+  "@settingAnnouncementsTtsLanguageDescription": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "settingAnnouncementsTtsVoiceTitle": "Voice",
+  "@settingAnnouncementsTtsVoiceTitle": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "settingAnnouncementsTtsVoiceDescription": "The voice that speaks announcements.",
+  "@settingAnnouncementsTtsVoiceDescription": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
   "esphomeTtsFirst": "First available",
   "@esphomeTtsFirst": {
     "context": "Settings > ESPHome > Announcements",
     "description": "Default choice when no engine is selected.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "esphomeTtsDefault": "Default",
+  "@esphomeTtsDefault": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Choice that leaves the text to speech language or voice to the engine.",
     "x-locations": {
       "device": [
         "Settings > ESPHome > Announcements"
@@ -104,7 +182,7 @@
       ]
     }
   },
-  "settingAnnouncementsChimeFileDescription": "Plays at the notification volume.",
+  "settingAnnouncementsChimeFileDescription": "Plays as loud as the announcement.",
   "@settingAnnouncementsChimeFileDescription": {
     "context": "Settings > ESPHome > Announcements",
     "description": "Help below the setting.",
@@ -160,6 +238,19 @@
   "@esphomeTtsUnavailable": {
     "context": "Settings > ESPHome > Announcements",
     "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "esphomeTtsNoVoices": "No voices to pick",
+  "@esphomeTtsNoVoices": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Message when the text to speech engine lists no voices.",
     "x-locations": {
       "device": [
         "Settings > ESPHome > Announcements"

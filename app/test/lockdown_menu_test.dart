@@ -89,7 +89,11 @@ void main() {
 
         await container.settings.set(defs.lockdownMenu, true);
         await tester.pumpAndSettle();
-        await tester.sendKeyEvent(LogicalKeyboardKey.arrowLeft);
+        // Back opens the menu, as a remote's back key does (issue #745).
+        await tester.binding.handlePopRoute();
+        await tester.pumpAndSettle();
+        // Let the press-again toast run out.
+        await tester.pump(const Duration(seconds: 4));
         await tester.pumpAndSettle();
         expect(
           tester.widget<KioskDrawer>(find.byType(KioskDrawer)).restricted,

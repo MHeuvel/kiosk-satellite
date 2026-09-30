@@ -1360,6 +1360,14 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingAnnouncementsTtsEngineTitle",
     "description": "settingAnnouncementsTtsEngineDescription",
   },
+  "announcements.tts_language": {
+    "title": "settingAnnouncementsTtsLanguageTitle",
+    "description": "settingAnnouncementsTtsLanguageDescription",
+  },
+  "announcements.tts_voice": {
+    "title": "settingAnnouncementsTtsVoiceTitle",
+    "description": "settingAnnouncementsTtsVoiceDescription",
+  },
   "announcements.chime": {
     "title": "settingAnnouncementsChimeTitle",
     "description": "settingAnnouncementsChimeDescription",
@@ -1608,6 +1616,26 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "voiceWakeEngine",
     "description": "settingVoiceWakeWordEngineDescription",
   },
+  "voice.ha_pipeline": {
+    "title": "voiceAssistant1",
+    "description": "voiceAssistant1Help",
+  },
+  "voice.ha_pipeline_2": {
+    "title": "voiceAssistant2",
+    "description": "voiceAssistant2Help",
+  },
+  "voice.ha_vad_sensitivity": {
+    "title": "voiceVad",
+    "description": "voiceVadHelp",
+  },
+  "voice.ha_wake_word": {
+    "title": "voiceWake1",
+    "description": "voiceWake1Help",
+  },
+  "voice.ha_wake_word_2": {
+    "title": "voiceWake2",
+    "description": "voiceWake2HelpNative",
+  },
   "voice.wake_word_sensitivity": {
     "title": "settingVoiceWakeWordSensitivityTitle",
     "description": "settingVoiceWakeWordSensitivityDescription",
@@ -1699,5 +1727,61 @@ const settingMessageIds = <String, Map<String, String>>{
   "voice.wake_sound": {
     "title": "settingVoiceWakeSoundTitle",
     "description": "settingVoiceWakeSoundDescription",
+  },
+  "kiosk.allow_alarms": {
+    "title": "settingKioskAllowAlarmsTitle",
+    "description": "settingKioskAllowAlarmsDescription",
+  },
+  "screensaver.clock_alarm_takeover": {
+    "title": "settingScreensaverClockAlarmTakeoverTitle",
+    "description": "settingScreensaverClockAlarmTakeoverDescription",
+  },
+  "screensaver.weather_alarm_takeover": {
+    "title": "settingScreensaverWeatherAlarmTakeoverTitle",
+    "description": "settingScreensaverWeatherAlarmTakeoverDescription",
+  },
+  "alarms.volume": {
+    "title": "settingAlarmsVolumeTitle",
+    "description": "settingAlarmsVolumeDescription",
+  },
+  "alarms.ease_in": {
+    "title": "settingAlarmsEaseInTitle",
+    "description": "settingAlarmsEaseInDescription",
+  },
+  "alarms.ease_in_seconds": {
+    "title": "settingAlarmsEaseInSecondsTitle",
+    "description": "settingAlarmsEaseInSecondsDescription",
+  },
+  "alarms.tone": {
+    "title": "settingAlarmsToneTitle",
+    "description": "settingAlarmsToneDescription",
+  },
+  "alarms.snooze_minutes": {
+    "title": "settingAlarmsSnoozeMinutesTitle",
+    "description": "settingAlarmsSnoozeMinutesDescription",
+  },
+  "alarms.silence_after_minutes": {
+    "title": "settingAlarmsSilenceAfterMinutesTitle",
+    "description": "settingAlarmsSilenceAfterMinutesDescription",
+  },
+  "alarms.sunrise_minutes": {
+    "title": "settingAlarmsSunriseMinutesTitle",
+    "description": "settingAlarmsSunriseMinutesDescription",
+  },
+  "alarms.tts_engine": {
+    "title": "settingAlarmsTtsEngineTitle",
+    "description": "settingAlarmsTtsEngineDescription",
+  },
+  "alarms.tts_language": {
+    "title": "settingAlarmsTtsLanguageTitle",
+    "description": "settingAlarmsTtsLanguageDescription",
+  },
+  "alarms.tts_voice": {
+    "title": "settingAlarmsTtsVoiceTitle",
+    "description": "settingAlarmsTtsVoiceDescription",
+  },
+  "alarms.menu": {
+    "title": "settingAlarmsMenuTitle",
+    "description": "settingAlarmsMenuDescription",
   },
 };

@@ -297,6 +297,28 @@ const settingOptionMessageIds = <String, Map<String, String>>{
   },
   "voice.skin": {
     "default": "voiceVadDefault"
+  },
+  "alarms.snooze_minutes": {
+    "5": "alarmsOption5Minutes",
+    "10": "alarmsOption10Minutes",
+    "15": "alarmsOption15Minutes",
+    "20": "alarmsOption20Minutes",
+    "25": "alarmsOption25Minutes",
+    "30": "alarmsOption30Minutes"
+  },
+  "alarms.silence_after_minutes": {
+    "5": "alarmsOption5Minutes",
+    "10": "alarmsOption10Minutes",
+    "15": "alarmsOption15Minutes",
+    "20": "alarmsOption20Minutes",
+    "30": "alarmsOption30Minutes"
+  },
+  "alarms.sunrise_minutes": {
+    "10": "alarmsOption10Minutes",
+    "15": "alarmsOption15Minutes",
+    "20": "alarmsOption20Minutes",
+    "25": "alarmsOption25Minutes",
+    "30": "alarmsOption30Minutes"
   }
 };
 const settingPlaceholderMessageIds = <String, String>{
@@ -310,5 +332,10 @@ const settingPlaceholderMessageIds = <String, String>{
   "intercom.key": "settingIntercomKeyPlaceholder",
   "esphome.node_name": "settingEsphomeNodeNamePlaceholder",
   "btproxy.key": "settingBtproxyKeyPlaceholder",
-  "announcements.tts_engine": "esphomeTtsFirst"
+  "announcements.tts_engine": "esphomeTtsFirst",
+  "announcements.tts_language": "esphomeTtsDefault",
+  "announcements.tts_voice": "esphomeTtsDefault",
+  "alarms.tts_engine": "esphomeTtsFirst",
+  "alarms.tts_language": "esphomeTtsDefault",
+  "alarms.tts_voice": "esphomeTtsDefault"
 };

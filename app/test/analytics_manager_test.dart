@@ -124,6 +124,19 @@ void main() {
     );
     commands.register(
       Command(
+        name: 'customWakeModels',
+        description: 'stub',
+        handler: (_) async => const CommandResult.ok({
+          'models': [
+            {'id': 'custom_1', 'wakeWord': 'Hey Custom'},
+          ],
+          'engine': 'vswakeword',
+          'managed': false,
+        }),
+      ),
+    );
+    commands.register(
+      Command(
         name: 'vsEngineState',
         description: 'stub',
         handler: (_) async {
@@ -326,6 +339,90 @@ void main() {
       expect((await usage())['voice_satellite'], 'off');
     },
   );
+
+  test('the native satellite reports its settings as picks and counts, only '
+      'while it is on', () async {
+    await build({
+      'ks.voice.runtime': 'native',
+      'ks.voice.tts_output': 'media_player.kitchen',
+      'ks.voice.tts_output_mode': 'normal_playback',
+      'ks.voice.ha_pipeline_2': 'Second brain',
+      'ks.voice_chimes.wake': 'ding.mp3',
+      'ks.voice.followup_delay_ms': 1500,
+    }, firstDelay: const Duration(days: 1));
+    Future<Map> usage() async {
+      sent.clear();
+      expect(await analytics.sendSnapshot(force: true), isTrue);
+      return bodyOf(sent.single)['usage'] as Map;
+    }
+
+    // Off: none of it is in use, so none of it goes out.
+    var u = await usage();
+    expect(u.containsKey('vs_theme'), isFalse);
+    expect(u.containsKey('wake_word_custom'), isFalse);
+    await settings.set(defs.voiceEnabled, true);
+    u = await usage();
+    expect(u['vs_muted'], isFalse);
+    expect(u['vs_theme'], 'auto');
+    expect(u['vs_wake_word_sensitivity'], 'moderately');
+    expect(u['wake_word_custom'], 1);
+    expect(u['vs_stop_word'], isFalse);
+    expect(u['vs_followup'], isTrue);
+    // The speaker's entity id and the assistant's name never leave.
+    expect(u['vs_tts_output'], 'normal_playback');
+    expect(u['vs_second_assistant'], isTrue);
+    expect(u['vs_custom_chimes'], 1);
+    expect(u['vs_reactive_bar'], isTrue);
+    expect(u['vs_timer_pills'], isTrue);
+    expect(jsonEncode(u), isNot(contains('kitchen')));
+    expect(jsonEncode(u), isNot(contains('Second brain')));
+    expect(jsonEncode(u), isNot(contains('ding')));
+  });
+
+  test('alarms read as counts and picks, never as times or labels', () async {
+    await build({
+      'ks.alarms.list': jsonEncode([
+        {
+          'id': 'a',
+          'time': '06:30',
+          'days': [1, 2, 3, 4, 5],
+          'label': 'Work',
+          'tone': '',
+          'sunrise': true,
+          'on': true,
+        },
+        {
+          'id': 'b',
+          'time': '09:00',
+          'days': <int>[],
+          'date': '2026-10-01',
+          'label': 'Dentist',
+          'tone': 'rooster.mp3',
+          'sunrise': false,
+          'on': false,
+        },
+      ]),
+      'ks.alarms.tone': 'gentle.mp3',
+      'ks.alarms.snooze_minutes': '5',
+    }, firstDelay: const Duration(days: 1));
+    expect(await analytics.sendSnapshot(force: true), isTrue);
+    final u = bodyOf(sent.single)['usage'] as Map;
+    expect(u['alarms'], 2);
+    expect(u['alarms_on'], 1);
+    expect(u['alarms_repeating'], 1);
+    expect(u['alarms_sunrise'], 1);
+    expect(u['alarms_menu'], isTrue);
+    expect(u['alarms_tone'], 'custom');
+    expect(u['alarms_snooze_minutes'], '5');
+    expect(u['alarms_silence_after_minutes'], '10');
+    expect(u['alarms_sunrise_minutes'], '30');
+    final text = jsonEncode(u);
+    expect(text, isNot(contains('Work')));
+    expect(text, isNot(contains('Dentist')));
+    expect(text, isNot(contains('06:30')));
+    expect(text, isNot(contains('rooster')));
+    expect(text, isNot(contains('gentle')));
+  });
 
   test('widgets, gestures, cameras and the installer read as kinds and '
       'counts, never as what they point at', () async {

@@ -67,6 +67,7 @@ extension LocalizedSetting on SettingDef<Object> {
     'voice.timer_named_phrase' => l10n(
       context,
     ).settingVoiceTimerNamedPhraseTitle,
+    'alarms.phrase' => l10n(context).alarmsPhrase,
     _ => messageById(l10n(context), titleMessageId, title),
   };
 
@@ -76,6 +77,9 @@ extension LocalizedSetting on SettingDef<Object> {
     'voice.timer_named_phrase' => l10n(
       context,
     ).settingVoiceTimerNamedPhraseDescription('{name}'),
+    'alarms.phrase' => l10n(
+      context,
+    ).alarmsPhraseHint('{label}', '{time}', '{day}'),
     _ => messageById(l10n(context), descriptionMessageId, description),
   };
 }
@@ -438,6 +442,16 @@ String settingsPageText(
   'Launcher' => launcherText(context, english),
   'Gestures' => gestureText(context, english),
   'Kiosk' || 'Home' || 'Lockdown' => kioskText(context, english),
+  'Alarms' => switch (english) {
+    'Defaults' => l10n(context).alarmsDefaultsSection,
+    'Text to Speech' => l10n(context).alarmsTtsSection,
+    'Voice Alarms' => l10n(context).alarmsVoiceSection,
+    'Manage alarms using Voice Satellite' => l10n(context).alarmsVoiceManage,
+    'Needs the Kiosk Satellite alarms blueprint and an LLM conversation '
+        'agent in Home Assistant.' =>
+      l10n(context).alarmsVoiceHint,
+    _ => english,
+  },
   'Intercom' => switch (english) {
     'Answer' => l10n(context).intercomAnswerSection,
     'Talk' => l10n(context).intercomTalkSection,

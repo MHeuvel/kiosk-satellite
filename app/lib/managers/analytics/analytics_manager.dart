@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 import '../../core/command_registry.dart';
 import '../../core/events.dart';
 import '../../core/manager.dart';
+import '../alarms/alarm_model.dart';
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
 import '../update/update_http_client.dart';
@@ -496,6 +497,56 @@ class AnalyticsManager extends Manager {
     }
     final vs = await _voiceSatellite(configPushed: wakeEngine.isNotEmpty);
 
+    // The native satellite's own settings: switches and picks, and how
+    // many custom wake word models the kiosk holds. The speaker the
+    // answers play on and Home Assistant's Assistant picks are names, so
+    // they read as kinds and a yes or no.
+    var customWakeWords = 0;
+    if (nativeOn) {
+      try {
+        final r = await commands.execute('customWakeModels', const {});
+        final data = r.data;
+        if (data is Map && data['models'] is List) {
+          customWakeWords = (data['models'] as List).length;
+        }
+      } catch (_) {}
+    }
+    final nativeVoice = <String, Object?>{
+      if (nativeOn) ...{
+        'vs_muted': s.get(defs.voiceMute),
+        'vs_theme': s.get(defs.voiceTheme),
+        'vs_wake_word_sensitivity': s.get(defs.voiceWakeWordSensitivity),
+        'wake_word_custom': customWakeWords,
+        'vs_noise_gate': s.get(defs.voiceNoiseGate),
+        'vs_stop_word': s.get(defs.voiceStopWord),
+        'vs_seamless_wake': s.get(defs.voiceSeamlessWake),
+        'vs_followup': s.get(defs.voiceFollowupDelayMs) > 0,
+        'vs_finished_speaking': s.get(defs.voiceHaVadSensitivity),
+        'vs_second_assistant': s.get(defs.voiceHaPipeline2).trim().isNotEmpty,
+        'vs_tts_output': s.get(defs.voiceTtsOutput).trim().isEmpty
+            ? 'device'
+            : s.get(defs.voiceTtsOutputMode),
+        'vs_wake_sound': s.get(defs.voiceWakeSound),
+        'vs_custom_chimes': [
+          s.get(defs.voiceChimeWake),
+          s.get(defs.voiceChimeDone),
+          s.get(defs.voiceChimeError),
+          s.get(defs.voiceChimeTimer),
+          s.get(defs.voiceChimeAnnounce),
+        ].where((c) => c.trim().isNotEmpty).length,
+        'vs_reactive_bar': s.get(defs.voiceReactiveBar),
+        'vs_show_command': s.get(defs.voiceShowCommand),
+        'vs_show_answer': s.get(defs.voiceShowAnswer),
+        'vs_show_tools': s.get(defs.voiceShowTools),
+        'vs_timer_pills': s.get(defs.voiceTimerPills),
+        'vs_timer_speak': s.get(defs.voiceTimerSpeak),
+      },
+    };
+
+    // Alarms: how many the kiosk holds and of what kind, as counts. The
+    // times, labels and tone files stay on the kiosk.
+    final alarms = decodeAlarms(s.get(defs.alarmsList));
+
     // Who installs updates: Android itself for a device owner, the ADB
     // update helper, Shizuku, or the on-screen confirmation. Shizuku's own
     // state comes along: installed and authorized, installed and waiting,
@@ -544,6 +595,18 @@ class AnalyticsManager extends Manager {
       'wake_word': wakeWord,
       'wake_word_2': wakeWord2,
       'vs_skin': vs.skin,
+      ...nativeVoice,
+      'alarms': alarms.length,
+      'alarms_on': alarms.where((a) => a.on).length,
+      'alarms_repeating': alarms.where((a) => a.repeats).length,
+      'alarms_sunrise': alarms.where((a) => a.sunrise).length,
+      'alarms_menu': s.get(defs.alarmsMenu),
+      'alarms_tone': s.get(defs.alarmsTone).trim().isEmpty
+          ? 'built_in'
+          : 'custom',
+      'alarms_snooze_minutes': s.get(defs.alarmsSnoozeMinutes),
+      'alarms_silence_after_minutes': s.get(defs.alarmsSilenceAfterMinutes),
+      'alarms_sunrise_minutes': s.get(defs.alarmsSunriseMinutes),
       'esphome': s.get(defs.esphomeEnabled),
       'bluetooth_proxy': s.get(defs.btproxyEnabled),
       'gps_sensor': s.get(defs.locationEnabled),

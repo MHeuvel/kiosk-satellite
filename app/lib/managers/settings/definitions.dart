@@ -1003,6 +1003,18 @@ const kioskAllowIntercom = SettingDef<bool>(
   dependsOn: 'kiosk.allow_drawer',
 );
 
+const kioskAllowAlarms = SettingDef<bool>(
+  key: 'kiosk.allow_alarms',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Alarms',
+  description: 'Set and manage alarms from the kiosk menu.',
+  category: 'Kiosk',
+  section: 'Allowed Actions',
+  subpage: 'Allowed Actions',
+  dependsOn: 'kiosk.allow_drawer',
+);
+
 const kioskAllowMusic = SettingDef<bool>(
   key: 'kiosk.allow_music',
   type: SettingType.boolean,
@@ -2309,6 +2321,23 @@ const screensaverWeatherPreviewPeriod = SettingDef<String>(
   optionLabels: {'day': 'Day', 'twilight': 'Dawn/Dusk', 'night': 'Night'},
 );
 
+/// The Weather Mood twin of [screensaverClockAlarmTakeover]: the weather
+/// bar makes way for Snooze and Stop in its glass.
+const screensaverWeatherAlarmTakeover = SettingDef<bool>(
+  key: 'screensaver.weather_alarm_takeover',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Let alarms take over',
+  description:
+      'A ringing alarm shows on this screensaver, in its style, instead '
+      'of on its own screen.',
+  category: 'Screensaver',
+  section: 'Weather Mood screensaver',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.mode',
+  dependsOnValue: 'weather_mood',
+);
+
 // ── Black (mode: black) ──
 
 // The Black panel's one control (issue #151): people schedule Black
@@ -2790,6 +2819,24 @@ const screensaverClockNightCardColor = SettingDef<String>(
   dependsOn: 'screensaver.clock_night',
   alsoDependsOn: 'screensaver.clock_style',
   alsoDependsOnValue: 'flip',
+);
+
+/// A ringing alarm shows on the Clock screensaver in its own style (the
+/// date line becomes the label, Snooze and Stop come in under the face)
+/// instead of on the alarm's own full screen view.
+const screensaverClockAlarmTakeover = SettingDef<bool>(
+  key: 'screensaver.clock_alarm_takeover',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Let alarms take over',
+  description:
+      'A ringing alarm shows on this screensaver, in its style, instead '
+      'of on its own screen.',
+  category: 'Screensaver',
+  section: 'Clock screensaver',
+  subpage: 'Clock screensaver',
+  dependsOn: 'screensaver.mode',
+  dependsOnValue: 'clock',
 );
 
 // ── Media (mode: media) ──
@@ -7803,9 +7850,44 @@ const announcementsTtsEngine = SettingDef<String>(
   description:
       'The Home Assistant text to speech entity that speaks announcements.',
   category: 'ESPHome',
+  section: 'Text to Speech',
   subpage: 'Announcements',
   dependsOn: 'announcements.enabled',
   placeholder: 'First available',
+);
+
+/// The language the announcements' engine speaks, from those it lists;
+/// empty leaves it to the engine. Also picks which voices the Voice row
+/// offers. Only under an engine picked by name: First available has no
+/// languages to list.
+const announcementsTtsLanguage = SettingDef<String>(
+  key: 'announcements.tts_language',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Language',
+  description: 'The language announcements are spoken in.',
+  category: 'ESPHome',
+  section: 'Text to Speech',
+  subpage: 'Announcements',
+  dependsOn: 'announcements.tts_engine',
+  dependsOnValue: {'ne': ''},
+  placeholder: 'Default',
+);
+
+/// The voice the announcements' engine speaks with, from those it lists
+/// for the language; empty leaves it to the engine.
+const announcementsTtsVoice = SettingDef<String>(
+  key: 'announcements.tts_voice',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Voice',
+  description: 'The voice that speaks announcements.',
+  category: 'ESPHome',
+  section: 'Text to Speech',
+  subpage: 'Announcements',
+  dependsOn: 'announcements.tts_engine',
+  dependsOnValue: {'ne': ''},
+  placeholder: 'Default',
 );
 
 const announcementsChime = SettingDef<bool>(
@@ -7827,7 +7909,7 @@ const announcementsChimeFile = SettingDef<String>(
   type: SettingType.string,
   defaultValue: '',
   title: 'Chime sound',
-  description: 'Plays at the notification volume.',
+  description: 'Plays as loud as the announcement.',
   category: 'ESPHome',
   section: 'Chime',
   subpage: 'Announcements',
@@ -8390,6 +8472,240 @@ const intercomVolume = SettingDef<num>(
   dependsOn: 'intercom.enabled',
 );
 
+// ── Alarms ─────────────────────────────────────────────────────────────
+// The kiosk's own alarms: they live here and ring without Home Assistant.
+// The list and the ringing state are hand-edited on both surfaces (the
+// full screen alarm list on the device, the Alarms page on the remote);
+// the defaults below render from these definitions.
+
+/// Every alarm, a JSON array of
+/// `{id, time: "HH:mm", days: [0..6, 0 = Sunday], date: "yyyy-MM-dd"?,
+/// label, tone, sunrise, on}`. `days` empty rings once, on `date`.
+const alarmsList = SettingDef<String>(
+  key: 'alarms.list',
+  type: SettingType.string,
+  defaultValue: '[]',
+  title: 'Alarms',
+  description: 'Every alarm set on this kiosk.',
+  category: 'Alarms',
+  hidden: true,
+  // A bedroom's wake up alarm is not the kitchen's: the defaults travel
+  // with the Alarms category, the alarms themselves never do.
+  perDevice: true,
+  validator: validateAlarmsList,
+);
+
+/// What the alarm manager keeps across a restart: the occurrence each
+/// alarm last rang for, and a ring or a snooze in progress.
+const alarmsRuntime = SettingDef<String>(
+  key: 'alarms.runtime',
+  type: SettingType.string,
+  defaultValue: '{}',
+  title: 'Alarm state',
+  description: 'Rings and snoozes in progress.',
+  category: 'Alarms',
+  hidden: true,
+  perDevice: true,
+);
+
+/// The Alarms entry in the kiosk menu. The restricted menu also needs
+/// Alarms under Kiosk Mode's Allowed Actions.
+const alarmsMenu = SettingDef<bool>(
+  key: 'alarms.menu',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Show in the kiosk menu',
+  description: 'Add an Alarms entry to the kiosk menu.',
+  category: 'Alarms',
+);
+
+/// The alarm stream is set to this share of its range while an alarm
+/// rings, apart from the media and assistant volumes.
+const alarmsVolume = SettingDef<num>(
+  key: 'alarms.volume',
+  type: SettingType.number,
+  defaultValue: 0.7,
+  title: 'Alarm volume',
+  description: 'How loud alarms ring, apart from the media volume.',
+  category: 'Alarms',
+  section: 'Defaults',
+  min: 0.05,
+  max: 1,
+  step: 0.05,
+  unit: '%',
+);
+
+/// Alarms start quiet and grow to the alarm volume over
+/// [alarmsEaseInSeconds]. Each alarm follows this unless it was switched
+/// on or off by itself.
+const alarmsEaseIn = SettingDef<bool>(
+  key: 'alarms.ease_in',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Ease in the volume',
+  description: 'Start quiet and grow to the alarm volume.',
+  category: 'Alarms',
+  section: 'Defaults',
+);
+
+const alarmsEaseInSeconds = SettingDef<num>(
+  key: 'alarms.ease_in_seconds',
+  type: SettingType.number,
+  defaultValue: 30,
+  title: 'Ease in over',
+  description: 'How long an alarm takes to reach its full volume.',
+  category: 'Alarms',
+  section: 'Defaults',
+  min: 5,
+  max: 120,
+  step: 5,
+  unit: 's',
+  dependsOn: 'alarms.ease_in',
+);
+
+/// A file in the sounds folder, or empty for the built-in alarm. An alarm
+/// set to Default rings this.
+const alarmsTone = SettingDef<String>(
+  key: 'alarms.tone',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Alarm tone',
+  description: 'Plays at the alarm volume.',
+  category: 'Alarms',
+  section: 'Defaults',
+  validator: validateNotificationSound,
+);
+
+const alarmsSnoozeMinutes = SettingDef<String>(
+  key: 'alarms.snooze_minutes',
+  type: SettingType.select,
+  defaultValue: '10',
+  title: 'Snooze length',
+  description: 'How long Snooze holds an alarm off.',
+  category: 'Alarms',
+  section: 'Defaults',
+  options: ['5', '10', '15', '20', '25', '30'],
+  optionLabels: {
+    '5': '5 minutes',
+    '10': '10 minutes',
+    '15': '15 minutes',
+    '20': '20 minutes',
+    '25': '25 minutes',
+    '30': '30 minutes',
+  },
+);
+
+const alarmsSilenceAfterMinutes = SettingDef<String>(
+  key: 'alarms.silence_after_minutes',
+  type: SettingType.select,
+  defaultValue: '10',
+  title: 'Silence after',
+  description: 'An alarm nobody stops goes quiet after this long.',
+  category: 'Alarms',
+  section: 'Defaults',
+  options: ['5', '10', '15', '20', '30'],
+  optionLabels: {
+    '5': '5 minutes',
+    '10': '10 minutes',
+    '15': '15 minutes',
+    '20': '20 minutes',
+    '30': '30 minutes',
+  },
+);
+
+const alarmsSunriseMinutes = SettingDef<String>(
+  key: 'alarms.sunrise_minutes',
+  type: SettingType.select,
+  defaultValue: '30',
+  title: 'Sunrise length',
+  description: 'How long the screen takes to brighten before a sunrise alarm.',
+  category: 'Alarms',
+  section: 'Defaults',
+  options: ['10', '15', '20', '25', '30'],
+  optionLabels: {
+    '10': '10 minutes',
+    '15': '15 minutes',
+    '20': '20 minutes',
+    '25': '25 minutes',
+    '30': '30 minutes',
+  },
+);
+
+/// The Home Assistant text to speech entity an alarm speaks its phrase
+/// with; empty picks the first one Home Assistant has. Picked from the
+/// list, never typed, like the Announcements engine.
+const alarmsTtsEngine = SettingDef<String>(
+  key: 'alarms.tts_engine',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Text to speech engine',
+  description: 'The Home Assistant text to speech entity that speaks alarms.',
+  category: 'Alarms',
+  section: 'Text to Speech',
+  placeholder: 'First available',
+);
+
+/// The language alarms are spoken in, the Announcements language's twin.
+const alarmsTtsLanguage = SettingDef<String>(
+  key: 'alarms.tts_language',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Language',
+  description: 'The language alarms are spoken in.',
+  category: 'Alarms',
+  section: 'Text to Speech',
+  dependsOn: 'alarms.tts_engine',
+  dependsOnValue: {'ne': ''},
+  placeholder: 'Default',
+);
+
+/// The voice alarms are spoken with, the Announcements voice's twin.
+const alarmsTtsVoice = SettingDef<String>(
+  key: 'alarms.tts_voice',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Voice',
+  description: 'The voice that speaks alarms.',
+  category: 'Alarms',
+  section: 'Text to Speech',
+  dependsOn: 'alarms.tts_engine',
+  dependsOnValue: {'ne': ''},
+  placeholder: 'Default',
+);
+
+/// What an alarm set to speak says between its rings, unless it has a
+/// phrase of its own. {label}, {time} and {day} are filled in.
+const alarmsPhrase = SettingDef<String>(
+  key: 'alarms.phrase',
+  type: SettingType.string,
+  defaultValue: "It's {time}. {label}",
+  title: 'Phrase',
+  description:
+      "{label}, {time} and {day} become the alarm's label, time and day.",
+  category: 'Alarms',
+  section: 'Defaults',
+);
+
+/// The list must decode to alarms, or it is refused rather than stored:
+/// a bad write over the API would otherwise silently drop every alarm.
+String? validateAlarmsList(Object? value) {
+  if (value is! String) return 'Alarms must be a JSON array.';
+  try {
+    final raw = jsonDecode(value);
+    if (raw is! List) return 'Alarms must be a JSON array.';
+    for (final item in raw) {
+      if (item is! Map) return 'Each alarm must be an object.';
+      final time = '${item['time'] ?? ''}';
+      if (!RegExp(r'^([01]\d|2[0-3]):[0-5]\d$').hasMatch(time)) {
+        return 'Each alarm needs a time as HH:mm.';
+      }
+    }
+    return null;
+  } catch (_) {
+    return 'Alarms must be a JSON array.';
+  }
+}
+
 /// The categories a fleet leader can push, in the sidebar's order: the
 /// definitions category, the name both UIs show for it and what stays per
 /// kiosk inside it (the [SettingDef.perDevice] keys it holds, in words).
@@ -8420,6 +8736,7 @@ const fleetSyncCategories = <(String, String, String)>[
   ('Launcher', 'App Launcher', ''),
   ('Gestures', 'Gestures', ''),
   ('Intercom', 'Intercom', 'the key, unless synced as a credential'),
+  ('Alarms', 'Alarms', 'the alarms themselves'),
   (
     'Device',
     'Device',
@@ -9044,6 +9361,7 @@ const List<SettingDef<Object>> allSettings = [
   kioskAllowHaKiosk,
   kioskAllowCamera,
   kioskAllowIntercom,
+  kioskAllowAlarms,
   kioskAllowMusic,
   kioskAllowSendspinPlayer,
   kioskAllowScreensaver,
@@ -9121,6 +9439,7 @@ const List<SettingDef<Object>> allSettings = [
   screensaverWeatherEntity,
   screensaverWeatherLightning,
   screensaverWeatherBlur,
+  screensaverWeatherAlarmTakeover,
   screensaverWeatherClock,
   screensaverWeatherClockFont,
   screensaverWeatherClockFontWeight,
@@ -9167,6 +9486,7 @@ const List<SettingDef<Object>> allSettings = [
   screensaverFlipBackdropColor,
   screensaverRollerDigitColor,
   screensaverRollerBgColor,
+  screensaverClockAlarmTakeover,
   screensaverClockNight,
   screensaverClockNightLux,
   screensaverClockNightColor,
@@ -9467,6 +9787,8 @@ const List<SettingDef<Object>> allSettings = [
   notificationsVolume,
   announcementsEnabled,
   announcementsTtsEngine,
+  announcementsTtsLanguage,
+  announcementsTtsVoice,
   announcementsChime,
   announcementsChimeFile,
   btproxyEnabled,
@@ -9523,4 +9845,18 @@ const List<SettingDef<Object>> allSettings = [
   intercomAcceptAnnouncements,
   intercomTalkMode,
   intercomTls,
+  alarmsList,
+  alarmsRuntime,
+  alarmsMenu,
+  alarmsVolume,
+  alarmsEaseIn,
+  alarmsEaseInSeconds,
+  alarmsTone,
+  alarmsSnoozeMinutes,
+  alarmsSilenceAfterMinutes,
+  alarmsSunriseMinutes,
+  alarmsPhrase,
+  alarmsTtsEngine,
+  alarmsTtsLanguage,
+  alarmsTtsVoice,
 ];
