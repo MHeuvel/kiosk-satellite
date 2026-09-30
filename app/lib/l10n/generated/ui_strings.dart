@@ -20512,6 +20512,12 @@ abstract class UiStrings {
   /// **'Connection validated'**
   String get voiceRealtimeValidated;
 
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Realtime requires a device with good echo cancellation. Without it, the assistant hears its own answers and interrupts itself. Turn off \"Talk over answers\" as a workaround.'**
+  String get voiceRealtimeEchoNotice;
+
   /// Label or help shown on the Voice Satellite main page.
   ///
   /// In en, this message translates to:

@@ -12031,6 +12031,10 @@ class UiStringsFr extends UiStrings {
   String get voiceRealtimeValidated => 'Connexion validée';
 
   @override
+  String get voiceRealtimeEchoNotice =>
+      'Le temps réel nécessite un appareil doté d\'une bonne annulation d\'écho. Sans elle, l\'assistant entend ses propres réponses et s\'interrompt lui-même. Désactivez « Parler pendant les réponses » pour contourner le problème.';
+
+  @override
   String get voiceDisconnected => 'Home Assistant non connecté';
 
   @override

@@ -11795,6 +11795,10 @@ class UiStringsEn extends UiStrings {
   String get voiceRealtimeValidated => 'Connection validated';
 
   @override
+  String get voiceRealtimeEchoNotice =>
+      'Realtime requires a device with good echo cancellation. Without it, the assistant hears its own answers and interrupts itself. Turn off \"Talk over answers\" as a workaround.';
+
+  @override
   String get voiceDisconnected => 'Home Assistant not connected';
 
   @override

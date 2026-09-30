@@ -34,5 +34,6 @@
   "voiceRealtimeConfigure": "Налаштувати",
   "voiceRealtimeSaveValidate": "Зберегти й перевірити",
   "voiceRealtimeNotConfigured": "Не налаштовано",
-  "voiceRealtimeValidated": "З'єднання перевірено"
+  "voiceRealtimeValidated": "З'єднання перевірено",
+  "voiceRealtimeEchoNotice": "Режим реального часу потребує пристрою з якісним придушенням луни. Без нього асистент чує власні відповіді й перебиває сам себе. Як тимчасове рішення вимкніть «Перебивати відповіді»."
 }

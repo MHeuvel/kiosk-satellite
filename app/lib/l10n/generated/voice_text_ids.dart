@@ -315,5 +315,6 @@ const voiceTextMessageIds = <String, String>{
   "Save & Validate": "voiceRealtimeSaveValidate",
   "Not configured": "voiceRealtimeNotConfigured",
   "Not validated": "voiceRealtimeNotValidated",
-  "Connection validated": "voiceRealtimeValidated"
+  "Connection validated": "voiceRealtimeValidated",
+  "Realtime requires a device with good echo cancellation. Without it, the assistant hears its own answers and interrupts itself. Turn off \"Talk over answers\" as a workaround.": "voiceRealtimeEchoNotice"
 };

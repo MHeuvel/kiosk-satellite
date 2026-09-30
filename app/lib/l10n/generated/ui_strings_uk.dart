@@ -11924,6 +11924,10 @@ class UiStringsUk extends UiStrings {
   String get voiceRealtimeValidated => 'З\'єднання перевірено';
 
   @override
+  String get voiceRealtimeEchoNotice =>
+      'Режим реального часу потребує пристрою з якісним придушенням луни. Без нього асистент чує власні відповіді й перебиває сам себе. Як тимчасове рішення вимкніть «Перебивати відповіді».';
+
+  @override
   String get voiceDisconnected => 'Home Assistant не підключено';
 
   @override

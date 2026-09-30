@@ -3362,26 +3362,30 @@ class _CategoryContentState extends State<_CategoryContent> {
         for (final list in realtimeProviderSettings.values)
           for (final def in list.skip(1)) def.key,
       };
-      return sectioned(
-        [
-          for (final def in _defsFor(widget.category))
-            if (def.subpage == subpage && !inDialog.contains(def.key)) def,
-        ],
-        replace: {
-          ..._rowReplacements(container),
-          for (final provider in RealtimeProvider.values)
-            realtimeProviderSettings[provider.id]!.first.key:
-                SearchLandingTarget(
-                  id: realtimeProviderSettings[provider.id]!.first.key,
-                  child: RealtimeProviderRow(
-                    key: ValueKey('realtime-provider-${provider.id}'),
-                    container: container,
-                    provider: provider,
-                    onChanged: changed,
+      return [
+        // Mirrored on the remote (renderNativeVs in vs_native.js).
+        NoticeBanner(text: voiceText(context, realtimeEchoNotice)),
+        ...sectioned(
+          [
+            for (final def in _defsFor(widget.category))
+              if (def.subpage == subpage && !inDialog.contains(def.key)) def,
+          ],
+          replace: {
+            ..._rowReplacements(container),
+            for (final provider in RealtimeProvider.values)
+              realtimeProviderSettings[provider.id]!.first.key:
+                  SearchLandingTarget(
+                    id: realtimeProviderSettings[provider.id]!.first.key,
+                    child: RealtimeProviderRow(
+                      key: ValueKey('realtime-provider-${provider.id}'),
+                      container: container,
+                      provider: provider,
+                      onChanged: changed,
+                    ),
                   ),
-                ),
-        },
-      );
+          },
+        ),
+      ];
     }
 
     if (widget.category == 'ESPHome' && subpage == 'Bluetooth Proxy') {

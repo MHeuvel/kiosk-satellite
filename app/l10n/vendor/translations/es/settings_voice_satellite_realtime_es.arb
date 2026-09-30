@@ -34,5 +34,6 @@
   "voiceRealtimeConfigure": "Configurar",
   "voiceRealtimeSaveValidate": "Guardar y validar",
   "voiceRealtimeNotConfigured": "Sin configurar",
-  "voiceRealtimeValidated": "Conexión validada"
+  "voiceRealtimeValidated": "Conexión validada",
+  "voiceRealtimeEchoNotice": "El modo en tiempo real requiere un dispositivo con buena cancelación de eco. Sin ella, el asistente oye sus propias respuestas y se interrumpe a sí mismo. Desactiva \"Hablar sobre las respuestas\" como solución alternativa."
 }

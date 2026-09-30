@@ -22412,5 +22412,11 @@
     "translation": "20f628df8c70c19a1188bb350c466d8e16653c4a0ba042c8e8f81cbbed0022e2",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "voiceRealtimeEchoNotice": {
+    "source": "17008d3e066bdbca5eada52736a896aee78c10f53c1192056b0a185250f303bf",
+    "translation": "e3e9b4631bdb33ee40dab61cd7da4819ec28fa84ffffc0d990c7999a3222c826",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

@@ -12080,6 +12080,10 @@ class UiStringsDe extends UiStrings {
   String get voiceRealtimeValidated => 'Verbindung geprüft';
 
   @override
+  String get voiceRealtimeEchoNotice =>
+      'Echtzeit erfordert ein Gerät mit guter Echounterdrückung. Ohne sie hört der Assistent seine eigenen Antworten und unterbricht sich selbst. Schalte als Behelf „In Antworten hineinsprechen“ aus.';
+
+  @override
   String get voiceDisconnected => 'Home Assistant ist nicht verbunden';
 
   @override
