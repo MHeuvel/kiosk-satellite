@@ -31,5 +31,9 @@
   "settingAlarmsEaseInSecondsTitle": "Durée de la montée",
   "settingAlarmsEaseInSecondsDescription": "Le temps que met une alarme pour atteindre son plein volume.",
   "settingAlarmsTtsEngineTitle": "Moteur de synthèse vocale",
-  "settingAlarmsTtsEngineDescription": "L'entité de synthèse vocale de Home Assistant qui prononce les alarmes."
+  "settingAlarmsTtsEngineDescription": "L'entité de synthèse vocale de Home Assistant qui prononce les alarmes.",
+  "settingAlarmsTtsLanguageTitle": "Langue",
+  "settingAlarmsTtsLanguageDescription": "La langue dans laquelle les alarmes sont prononcées.",
+  "settingAlarmsTtsVoiceTitle": "Voix",
+  "settingAlarmsTtsVoiceDescription": "La voix qui prononce les alarmes."
 }

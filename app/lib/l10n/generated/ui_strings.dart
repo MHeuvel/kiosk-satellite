@@ -427,6 +427,12 @@ abstract class UiStrings {
   /// **'Defaults'**
   String get alarmsDefaultsSection;
 
+  /// Heading over the text to speech engine, language and voice settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Text to Speech'**
+  String get alarmsTtsSection;
+
   /// Title of the dialog that changes an alarm.
   ///
   /// In en, this message translates to:
@@ -6648,6 +6654,30 @@ abstract class UiStrings {
   /// Setting label.
   ///
   /// In en, this message translates to:
+  /// **'Language'**
+  String get settingAlarmsTtsLanguageTitle;
+
+  /// Setting description.
+  ///
+  /// In en, this message translates to:
+  /// **'The language alarms are spoken in.'**
+  String get settingAlarmsTtsLanguageDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice'**
+  String get settingAlarmsTtsVoiceTitle;
+
+  /// Setting description.
+  ///
+  /// In en, this message translates to:
+  /// **'The voice that speaks alarms.'**
+  String get settingAlarmsTtsVoiceDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
   /// **'Enable App Launcher'**
   String get settingLauncherEnabledTitle;
 
@@ -10708,6 +10738,12 @@ abstract class UiStrings {
   /// **'Play the announcements Home Assistant sends with the announce action.'**
   String get settingAnnouncementsEnabledDescription;
 
+  /// Heading over the text to speech engine, language and voice settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Text to Speech'**
+  String get esphomeTtsSection;
+
   /// Setting label.
   ///
   /// In en, this message translates to:
@@ -10720,11 +10756,41 @@ abstract class UiStrings {
   /// **'The Home Assistant text to speech entity that speaks announcements.'**
   String get settingAnnouncementsTtsEngineDescription;
 
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get settingAnnouncementsTtsLanguageTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The language announcements are spoken in.'**
+  String get settingAnnouncementsTtsLanguageDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice'**
+  String get settingAnnouncementsTtsVoiceTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The voice that speaks announcements.'**
+  String get settingAnnouncementsTtsVoiceDescription;
+
   /// Default choice when no engine is selected.
   ///
   /// In en, this message translates to:
   /// **'First available'**
   String get esphomeTtsFirst;
+
+  /// Choice that leaves the text to speech language or voice to the engine.
+  ///
+  /// In en, this message translates to:
+  /// **'Default'**
+  String get esphomeTtsDefault;
 
   /// Setting label.
   ///
@@ -10747,7 +10813,7 @@ abstract class UiStrings {
   /// Help below the setting.
   ///
   /// In en, this message translates to:
-  /// **'Plays at the notification volume.'**
+  /// **'Plays as loud as the announcement.'**
   String get settingAnnouncementsChimeFileDescription;
 
   /// Interface label or status message.
@@ -10773,6 +10839,12 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Could not reach Home Assistant'**
   String get esphomeTtsUnavailable;
+
+  /// Message when the text to speech engine lists no voices.
+  ///
+  /// In en, this message translates to:
+  /// **'No voices to pick'**
+  String get esphomeTtsNoVoices;
 
   /// Setting label.
   ///

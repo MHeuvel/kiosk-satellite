@@ -31,5 +31,9 @@
   "settingAlarmsEaseInSecondsTitle": "Steigern über",
   "settingAlarmsEaseInSecondsDescription": "Wie lange ein Wecker braucht, bis er seine volle Lautstärke erreicht.",
   "settingAlarmsTtsEngineTitle": "Text-zu-Sprache-Engine",
-  "settingAlarmsTtsEngineDescription": "Die Text-zu-Sprache-Entität von Home Assistant, die die Wecker vorliest."
+  "settingAlarmsTtsEngineDescription": "Die Text-zu-Sprache-Entität von Home Assistant, die die Wecker vorliest.",
+  "settingAlarmsTtsLanguageTitle": "Sprache",
+  "settingAlarmsTtsLanguageDescription": "Die Sprache, in der die Wecker gesprochen werden.",
+  "settingAlarmsTtsVoiceTitle": "Stimme",
+  "settingAlarmsTtsVoiceDescription": "Die Stimme, die die Wecker vorliest."
 }

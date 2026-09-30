@@ -195,6 +195,9 @@ class UiStringsDe extends UiStrings {
   String get alarmsDefaultsSection => 'Standardwerte';
 
   @override
+  String get alarmsTtsSection => 'Text-zu-Sprache';
+
+  @override
   String get alarmsEditAlarm => 'Wecker bearbeiten';
 
   @override
@@ -3877,6 +3880,20 @@ class UiStringsDe extends UiStrings {
       'Die Text-zu-Sprache-Entität von Home Assistant, die die Wecker vorliest.';
 
   @override
+  String get settingAlarmsTtsLanguageTitle => 'Sprache';
+
+  @override
+  String get settingAlarmsTtsLanguageDescription =>
+      'Die Sprache, in der die Wecker gesprochen werden.';
+
+  @override
+  String get settingAlarmsTtsVoiceTitle => 'Stimme';
+
+  @override
+  String get settingAlarmsTtsVoiceDescription =>
+      'Die Stimme, die die Wecker vorliest.';
+
+  @override
   String get settingLauncherEnabledTitle => 'App-Launcher aktivieren';
 
   @override
@@ -6305,6 +6322,9 @@ class UiStringsDe extends UiStrings {
       'Gibt Durchsagen wieder, die Home Assistant über die Aktion „announce“ sendet.';
 
   @override
+  String get esphomeTtsSection => 'Text-zu-Sprache';
+
+  @override
   String get settingAnnouncementsTtsEngineTitle => 'Text-zu-Sprache-Engine';
 
   @override
@@ -6312,7 +6332,24 @@ class UiStringsDe extends UiStrings {
       'Die Text-zu-Sprache-Entität von Home Assistant, die die Durchsagen vorliest.';
 
   @override
+  String get settingAnnouncementsTtsLanguageTitle => 'Sprache';
+
+  @override
+  String get settingAnnouncementsTtsLanguageDescription =>
+      'Die Sprache, in der die Durchsagen gesprochen werden.';
+
+  @override
+  String get settingAnnouncementsTtsVoiceTitle => 'Stimme';
+
+  @override
+  String get settingAnnouncementsTtsVoiceDescription =>
+      'Die Stimme, die die Durchsagen vorliest.';
+
+  @override
   String get esphomeTtsFirst => 'Erste verfügbare';
+
+  @override
+  String get esphomeTtsDefault => 'Standard';
 
   @override
   String get settingAnnouncementsChimeTitle =>
@@ -6327,7 +6364,7 @@ class UiStringsDe extends UiStrings {
 
   @override
   String get settingAnnouncementsChimeFileDescription =>
-      'Wird mit der Benachrichtigungslautstärke wiedergegeben.';
+      'Wird so laut wie die Durchsage abgespielt.';
 
   @override
   String get esphomeAnnouncements => 'Durchsagen';
@@ -6341,6 +6378,9 @@ class UiStringsDe extends UiStrings {
   @override
   String get esphomeTtsUnavailable =>
       'Verbindung zu Home Assistant konnte nicht hergestellt werden';
+
+  @override
+  String get esphomeTtsNoVoices => 'Keine Stimmen zur Auswahl';
 
   @override
   String get settingBtproxyEnabledTitle => 'Bluetooth-Proxy aktivieren';

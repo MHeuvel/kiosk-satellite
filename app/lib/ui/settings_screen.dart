@@ -2973,17 +2973,38 @@ class _CategoryContentState extends State<_CategoryContent> {
           onChanged: null,
         ),
       ),
-    // The announcements' text to speech engine is picked from Home
-    // Assistant's list, not typed. Mirrored on the remote (intercom.js).
-    if (widget.category == 'ESPHome')
+    // The announcements' text to speech engine, language and voice are
+    // picked from Home Assistant's lists, not typed. Mirrored on the
+    // remote (intercom.js).
+    if (widget.category == 'ESPHome') ...{
       announcementsTtsEngine.key: AnnouncementTtsEngineRow(
         container: container,
       ),
-    if (widget.category == 'Alarms')
+      for (final def in [announcementsTtsLanguage, announcementsTtsVoice])
+        def.key: TtsVoiceRow(
+          container: container,
+          def: def,
+          engineDef: announcementsTtsEngine,
+          languageDef: announcementsTtsLanguage,
+          voiceDef: announcementsTtsVoice,
+        ),
+    },
+    if (widget.category == 'Alarms') ...{
       alarmsTtsEngine.key: AnnouncementTtsEngineRow(
         container: container,
         def: alarmsTtsEngine,
+        languageDef: alarmsTtsLanguage,
+        voiceDef: alarmsTtsVoice,
       ),
+      for (final def in [alarmsTtsLanguage, alarmsTtsVoice])
+        def.key: TtsVoiceRow(
+          container: container,
+          def: def,
+          engineDef: alarmsTtsEngine,
+          languageDef: alarmsTtsLanguage,
+          voiceDef: alarmsTtsVoice,
+        ),
+    },
     // The Clock screensaver's Night mode (issue #391) has nothing to
     // watch without the sensor either: same disabled switch, same reason.
     // Mirrored on the remote (notices.js, updateClockNightRows).

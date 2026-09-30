@@ -8,9 +8,16 @@
   "settingAnnouncementsChimeTitle": "Reproducir un tono primero",
   "settingAnnouncementsChimeDescription": "Reproduce un tono antes del anuncio.",
   "settingAnnouncementsChimeFileTitle": "Sonido del tono",
-  "settingAnnouncementsChimeFileDescription": "Se reproduce al volumen de notificaciones.",
+  "settingAnnouncementsChimeFileDescription": "Suena tan alto como el anuncio.",
   "esphomeAnnouncements": "Anuncios",
   "esphomeAnnouncementsHelp": "Anuncios de voz de Home Assistant",
   "esphomeChime": "Tono",
-  "esphomeTtsUnavailable": "No se pudo conectar con Home Assistant"
+  "esphomeTtsUnavailable": "No se pudo conectar con Home Assistant",
+  "settingAnnouncementsTtsLanguageTitle": "Idioma",
+  "settingAnnouncementsTtsLanguageDescription": "El idioma en el que se leen los anuncios.",
+  "settingAnnouncementsTtsVoiceTitle": "Voz",
+  "settingAnnouncementsTtsVoiceDescription": "La voz que lee los anuncios.",
+  "esphomeTtsDefault": "Predeterminado",
+  "esphomeTtsNoVoices": "No hay voces para elegir",
+  "esphomeTtsSection": "Texto a voz"
 }

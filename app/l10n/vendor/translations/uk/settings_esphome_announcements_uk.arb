@@ -8,9 +8,16 @@
   "settingAnnouncementsChimeTitle": "Звуковий сигнал перед оголошенням",
   "settingAnnouncementsChimeDescription": "Відтворювати звуковий сигнал перед оголошенням.",
   "settingAnnouncementsChimeFileTitle": "Звук сигналу",
-  "settingAnnouncementsChimeFileDescription": "Відтворюється з гучністю сповіщень.",
+  "settingAnnouncementsChimeFileDescription": "Звучить так само гучно, як оголошення.",
   "esphomeAnnouncements": "Оголошення",
   "esphomeAnnouncementsHelp": "Голосові оголошення від Home Assistant",
   "esphomeChime": "Звуковий сигнал",
-  "esphomeTtsUnavailable": "Не вдалося зв'язатися з Home Assistant"
+  "esphomeTtsUnavailable": "Не вдалося зв'язатися з Home Assistant",
+  "settingAnnouncementsTtsLanguageTitle": "Мова",
+  "settingAnnouncementsTtsLanguageDescription": "Мова, якою озвучуються оголошення.",
+  "settingAnnouncementsTtsVoiceTitle": "Голос",
+  "settingAnnouncementsTtsVoiceDescription": "Голос, який озвучує оголошення.",
+  "esphomeTtsDefault": "За замовчуванням",
+  "esphomeTtsNoVoices": "Немає голосів для вибору",
+  "esphomeTtsSection": "Синтез мовлення"
 }

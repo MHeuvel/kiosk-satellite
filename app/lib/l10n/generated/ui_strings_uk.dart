@@ -194,6 +194,9 @@ class UiStringsUk extends UiStrings {
   String get alarmsDefaultsSection => 'Типові значення';
 
   @override
+  String get alarmsTtsSection => 'Синтез мовлення';
+
+  @override
   String get alarmsEditAlarm => 'Редагувати будильник';
 
   @override
@@ -3821,6 +3824,20 @@ class UiStringsUk extends UiStrings {
       'Сутність синтезу мовлення Home Assistant, яка озвучує будильники.';
 
   @override
+  String get settingAlarmsTtsLanguageTitle => 'Мова';
+
+  @override
+  String get settingAlarmsTtsLanguageDescription =>
+      'Мова, якою озвучуються будильники.';
+
+  @override
+  String get settingAlarmsTtsVoiceTitle => 'Голос';
+
+  @override
+  String get settingAlarmsTtsVoiceDescription =>
+      'Голос, який озвучує будильники.';
+
+  @override
   String get settingLauncherEnabledTitle => 'Увімкнути запуск застосунків';
 
   @override
@@ -6202,6 +6219,9 @@ class UiStringsUk extends UiStrings {
       'Відтворювати оголошення, які Home Assistant надсилає дією announce.';
 
   @override
+  String get esphomeTtsSection => 'Синтез мовлення';
+
+  @override
   String get settingAnnouncementsTtsEngineTitle => 'Рушій синтезу мовлення';
 
   @override
@@ -6209,7 +6229,24 @@ class UiStringsUk extends UiStrings {
       'Сутність синтезу мовлення Home Assistant, яка озвучує оголошення.';
 
   @override
+  String get settingAnnouncementsTtsLanguageTitle => 'Мова';
+
+  @override
+  String get settingAnnouncementsTtsLanguageDescription =>
+      'Мова, якою озвучуються оголошення.';
+
+  @override
+  String get settingAnnouncementsTtsVoiceTitle => 'Голос';
+
+  @override
+  String get settingAnnouncementsTtsVoiceDescription =>
+      'Голос, який озвучує оголошення.';
+
+  @override
   String get esphomeTtsFirst => 'Перший доступний';
+
+  @override
+  String get esphomeTtsDefault => 'За замовчуванням';
 
   @override
   String get settingAnnouncementsChimeTitle =>
@@ -6224,7 +6261,7 @@ class UiStringsUk extends UiStrings {
 
   @override
   String get settingAnnouncementsChimeFileDescription =>
-      'Відтворюється з гучністю сповіщень.';
+      'Звучить так само гучно, як оголошення.';
 
   @override
   String get esphomeAnnouncements => 'Оголошення';
@@ -6238,6 +6275,9 @@ class UiStringsUk extends UiStrings {
 
   @override
   String get esphomeTtsUnavailable => 'Не вдалося зв\'язатися з Home Assistant';
+
+  @override
+  String get esphomeTtsNoVoices => 'Немає голосів для вибору';
 
   @override
   String get settingBtproxyEnabledTitle => 'Увімкнути проксі Bluetooth';

@@ -31,5 +31,9 @@
   "settingAlarmsEaseInSecondsTitle": "Subir durante",
   "settingAlarmsEaseInSecondsDescription": "Cuánto tarda una alarma en llegar a su volumen completo.",
   "settingAlarmsTtsEngineTitle": "Motor de texto a voz",
-  "settingAlarmsTtsEngineDescription": "La entidad de texto a voz de Home Assistant que lee las alarmas."
+  "settingAlarmsTtsEngineDescription": "La entidad de texto a voz de Home Assistant que lee las alarmas.",
+  "settingAlarmsTtsLanguageTitle": "Idioma",
+  "settingAlarmsTtsLanguageDescription": "El idioma en el que se leen las alarmas.",
+  "settingAlarmsTtsVoiceTitle": "Voz",
+  "settingAlarmsTtsVoiceDescription": "La voz que lee las alarmas."
 }

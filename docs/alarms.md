@@ -48,7 +48,7 @@ On a Clock or Weather Mood screensaver that lets alarms take over, the screensav
 
 An alarm with **Speak when it rings** on plays its tone twice, says its phrase, then plays the tone twice again, the way a timer speaks. `{label}`, `{time}` and `{day}` in the phrase become the alarm's label, its time and the day of the week, in the kiosk's language. The default is `It's {time}. {label}`. An alarm without a label drops the placeholder and the punctuation around it, so the default says "It's 7:00 AM."
 
-Home Assistant makes the speech with the **Text to speech engine** setting, the same way announcements are spoken, so the kiosk needs its Home Assistant address and token. The tone rings from the first second either way. When Home Assistant is slow or out of reach, the alarm rings without the words.
+Home Assistant makes the speech with the **Text to speech engine**, **Language** and **Voice** settings, the same way announcements are spoken, so the kiosk needs its Home Assistant address and token. The tone rings from the first second either way. When Home Assistant is slow or out of reach, the alarm rings without the words.
 
 ## Settings, Alarms
 
@@ -63,8 +63,10 @@ Home Assistant makes the speech with the **Text to speech engine** setting, the 
 | Snooze length | 5 to 30 minutes. |
 | Silence after | How long an alarm rings when nobody stops it, 5 to 30 minutes. |
 | Sunrise length | How long the screen takes to brighten before a sunrise alarm, 10 to 30 minutes. |
-| Text to speech engine | The Home Assistant text to speech entity that speaks alarms. **First available** takes the first one Home Assistant has. |
 | Phrase | The default phrase for alarms that speak. |
+| Text to speech engine | Under **Text to Speech**, the Home Assistant text to speech entity that speaks alarms. **First available** takes the first one Home Assistant has. |
+| Language | The language alarms are spoken in, picked from the ones the engine lists. **Default** leaves it to the engine. Shown once an engine is picked by name. |
+| Voice | The voice that speaks alarms, picked from the ones the engine lists for the language. **Default** leaves it to the engine. |
 
 **Alarms** under **Kiosk Mode, Allowed Actions** decides whether the restricted kiosk menu offers the list too.
 

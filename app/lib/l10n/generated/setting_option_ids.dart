@@ -333,5 +333,9 @@ const settingPlaceholderMessageIds = <String, String>{
   "esphome.node_name": "settingEsphomeNodeNamePlaceholder",
   "btproxy.key": "settingBtproxyKeyPlaceholder",
   "announcements.tts_engine": "esphomeTtsFirst",
-  "alarms.tts_engine": "esphomeTtsFirst"
+  "announcements.tts_language": "esphomeTtsDefault",
+  "announcements.tts_voice": "esphomeTtsDefault",
+  "alarms.tts_engine": "esphomeTtsFirst",
+  "alarms.tts_language": "esphomeTtsDefault",
+  "alarms.tts_voice": "esphomeTtsDefault"
 };

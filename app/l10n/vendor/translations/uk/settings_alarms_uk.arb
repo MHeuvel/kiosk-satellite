@@ -31,5 +31,9 @@
   "settingAlarmsEaseInSecondsTitle": "Тривалість наростання",
   "settingAlarmsEaseInSecondsDescription": "Скільки часу будильник набирає повну гучність.",
   "settingAlarmsTtsEngineTitle": "Рушій синтезу мовлення",
-  "settingAlarmsTtsEngineDescription": "Сутність синтезу мовлення Home Assistant, яка озвучує будильники."
+  "settingAlarmsTtsEngineDescription": "Сутність синтезу мовлення Home Assistant, яка озвучує будильники.",
+  "settingAlarmsTtsLanguageTitle": "Мова",
+  "settingAlarmsTtsLanguageDescription": "Мова, якою озвучуються будильники.",
+  "settingAlarmsTtsVoiceTitle": "Голос",
+  "settingAlarmsTtsVoiceDescription": "Голос, який озвучує будильники."
 }

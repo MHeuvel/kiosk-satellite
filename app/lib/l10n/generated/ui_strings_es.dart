@@ -194,6 +194,9 @@ class UiStringsEs extends UiStrings {
   String get alarmsDefaultsSection => 'Valores predeterminados';
 
   @override
+  String get alarmsTtsSection => 'Texto a voz';
+
+  @override
   String get alarmsEditAlarm => 'Editar alarma';
 
   @override
@@ -3845,6 +3848,19 @@ class UiStringsEs extends UiStrings {
       'La entidad de texto a voz de Home Assistant que lee las alarmas.';
 
   @override
+  String get settingAlarmsTtsLanguageTitle => 'Idioma';
+
+  @override
+  String get settingAlarmsTtsLanguageDescription =>
+      'El idioma en el que se leen las alarmas.';
+
+  @override
+  String get settingAlarmsTtsVoiceTitle => 'Voz';
+
+  @override
+  String get settingAlarmsTtsVoiceDescription => 'La voz que lee las alarmas.';
+
+  @override
   String get settingLauncherEnabledTitle => 'Activar lanzador de aplicaciones';
 
   @override
@@ -6264,6 +6280,9 @@ class UiStringsEs extends UiStrings {
       'Reproduce los anuncios que Home Assistant envía con la acción announce.';
 
   @override
+  String get esphomeTtsSection => 'Texto a voz';
+
+  @override
   String get settingAnnouncementsTtsEngineTitle => 'Motor de texto a voz';
 
   @override
@@ -6271,7 +6290,24 @@ class UiStringsEs extends UiStrings {
       'La entidad de texto a voz de Home Assistant que lee los anuncios.';
 
   @override
+  String get settingAnnouncementsTtsLanguageTitle => 'Idioma';
+
+  @override
+  String get settingAnnouncementsTtsLanguageDescription =>
+      'El idioma en el que se leen los anuncios.';
+
+  @override
+  String get settingAnnouncementsTtsVoiceTitle => 'Voz';
+
+  @override
+  String get settingAnnouncementsTtsVoiceDescription =>
+      'La voz que lee los anuncios.';
+
+  @override
   String get esphomeTtsFirst => 'Primero disponible';
+
+  @override
+  String get esphomeTtsDefault => 'Predeterminado';
 
   @override
   String get settingAnnouncementsChimeTitle => 'Reproducir un tono primero';
@@ -6285,7 +6321,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get settingAnnouncementsChimeFileDescription =>
-      'Se reproduce al volumen de notificaciones.';
+      'Suena tan alto como el anuncio.';
 
   @override
   String get esphomeAnnouncements => 'Anuncios';
@@ -6298,6 +6334,9 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get esphomeTtsUnavailable => 'No se pudo conectar con Home Assistant';
+
+  @override
+  String get esphomeTtsNoVoices => 'No hay voces para elegir';
 
   @override
   String get settingBtproxyEnabledTitle => 'Activar proxy Bluetooth';

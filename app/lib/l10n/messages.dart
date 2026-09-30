@@ -444,6 +444,7 @@ String settingsPageText(
   'Kiosk' || 'Home' || 'Lockdown' => kioskText(context, english),
   'Alarms' => switch (english) {
     'Defaults' => l10n(context).alarmsDefaultsSection,
+    'Text to Speech' => l10n(context).alarmsTtsSection,
     'Voice Alarms' => l10n(context).alarmsVoiceSection,
     'Manage alarms using Voice Satellite' => l10n(context).alarmsVoiceManage,
     'Needs the Kiosk Satellite alarms blueprint and an LLM conversation '

@@ -48,5 +48,6 @@
   "alarmsPhraseHint": "{label}, {time} und {day} werden durch Bezeichnung, Uhrzeit und Tag des Weckers ersetzt.",
   "alarmsVoiceSection": "Wecker per Sprache",
   "alarmsVoiceManage": "Wecker mit Voice Satellite verwalten",
-  "alarmsVoiceHint": "Benötigt den Kiosk Satellite Wecker-Blueprint und einen LLM-Konversationsagenten in Home Assistant."
+  "alarmsVoiceHint": "Benötigt den Kiosk Satellite Wecker-Blueprint und einen LLM-Konversationsagenten in Home Assistant.",
+  "alarmsTtsSection": "Text-zu-Sprache"
 }

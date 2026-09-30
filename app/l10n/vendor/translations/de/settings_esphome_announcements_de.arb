@@ -8,9 +8,16 @@
   "settingAnnouncementsChimeTitle": "Vorher einen Signalton abspielen",
   "settingAnnouncementsChimeDescription": "Spielt vor der Durchsage einen Signalton ab.",
   "settingAnnouncementsChimeFileTitle": "Signalton",
-  "settingAnnouncementsChimeFileDescription": "Wird mit der Benachrichtigungslautstärke wiedergegeben.",
+  "settingAnnouncementsChimeFileDescription": "Wird so laut wie die Durchsage abgespielt.",
   "esphomeAnnouncements": "Durchsagen",
   "esphomeAnnouncementsHelp": "Sprachdurchsagen von Home Assistant",
   "esphomeChime": "Signalton",
-  "esphomeTtsUnavailable": "Verbindung zu Home Assistant konnte nicht hergestellt werden"
+  "esphomeTtsUnavailable": "Verbindung zu Home Assistant konnte nicht hergestellt werden",
+  "settingAnnouncementsTtsLanguageTitle": "Sprache",
+  "settingAnnouncementsTtsLanguageDescription": "Die Sprache, in der die Durchsagen gesprochen werden.",
+  "settingAnnouncementsTtsVoiceTitle": "Stimme",
+  "settingAnnouncementsTtsVoiceDescription": "Die Stimme, die die Durchsagen vorliest.",
+  "esphomeTtsDefault": "Standard",
+  "esphomeTtsNoVoices": "Keine Stimmen zur Auswahl",
+  "esphomeTtsSection": "Text-zu-Sprache"
 }

@@ -378,9 +378,11 @@ The **Announcements** page under Settings, ESPHome holds:
 | Setting | What it does |
 | --- | --- |
 | Enable announcements | On by default. Off, the action is refused. |
-| Text to speech engine | Picked from the text to speech entities Home Assistant has. First available, the default, uses the first one. |
+| Text to speech engine | Under **Text to Speech**, picked from the text to speech entities Home Assistant has. First available, the default, uses the first one. |
+| Language | The language the engine speaks, picked from the ones it lists. Default leaves it to the engine. Shown once an engine is picked by name. |
+| Voice | The voice the engine speaks with, picked from the ones it lists for the language, or for the Home Assistant language when Language is Default. Default leaves it to the engine. Engines with no voices to pick, like Google Translate, only offer Default. |
 | Chime first | Plays a chime before the words, on by default. |
-| Chime sound | The built-in two note chime, or a file from the sounds folder like the [notification sound](#sounds), put there with the Add a sound row. Plays at the notification volume. |
+| Chime sound | The built-in two note chime, or a file from the sounds folder like the [notification sound](#sounds), put there with the Add a sound row. Plays as loud as the announcement: at the media volume, or at the `volume` the action names. |
 
 ```yaml
 - action: esphome.kitchen_tablet_announce
@@ -393,6 +395,8 @@ The **Announcements** page under Settings, ESPHome holds:
     chime: true
     chime_file: ""
     tts_engine: ""
+    tts_language: ""
+    tts_voice: ""
     audio_only: false
 ```
 
@@ -405,6 +409,8 @@ Each announcement can override these options without changing the kiosk's settin
 | `chime` | `true` plays a chime before the first play. `false` skips it. Overrides **Chime first** for this announcement. If omitted through the remote API, the setting applies. |
 | `chime_file` | A file name in the kiosk's sounds folder, such as `dinner.mp3`. Empty uses **Chime sound**. A missing or invalid file falls back to that sound, then to the built-in chime. Ignored when `chime` is `false`. |
 | `tts_engine` | A Home Assistant text to speech entity, such as `tts.piper`. Empty uses **Text to speech engine** from the UI. Ignored when playing a `url`. |
+| `tts_language` | A language the engine speaks, spelled exactly as the engine lists it, such as `en_US` for Piper or `en-US` for Home Assistant Cloud. The **Language** picker shows each one under its name. Empty uses **Language** from the UI when the announcement uses that engine, or the engine's default otherwise. Ignored when playing a `url`. |
+| `tts_voice` | The ID of a voice the engine has, such as `en_US-amy-medium` for Piper, not its name. The **Voice** picker shows each ID under the voice's name. Empty uses **Voice** from the UI when the announcement uses that engine, or the engine's default otherwise. When Home Assistant cannot speak with the language or voice, the kiosk speaks the message with the engine's defaults instead. Ignored when playing a `url`. |
 | `audio_only` | `true` plays the audio without the on-device announcement modal or bringing the kiosk to the front. `false` shows the modal as usual. The chime still follows `chime`, so set it to `false` to hear only the speech. |
 
 ## Intercom actions

@@ -48,6 +48,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'alarmsManage' => strings.alarmsManage,
       'alarmsNoneSet' => strings.alarmsNoneSet,
       'alarmsDefaultsSection' => strings.alarmsDefaultsSection,
+      'alarmsTtsSection' => strings.alarmsTtsSection,
       'alarmsEditAlarm' => strings.alarmsEditAlarm,
       'alarmsTime' => strings.alarmsTime,
       'alarmsRinging' => strings.alarmsRinging,
@@ -1021,6 +1022,12 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'settingAlarmsTtsEngineTitle' => strings.settingAlarmsTtsEngineTitle,
       'settingAlarmsTtsEngineDescription' =>
         strings.settingAlarmsTtsEngineDescription,
+      'settingAlarmsTtsLanguageTitle' => strings.settingAlarmsTtsLanguageTitle,
+      'settingAlarmsTtsLanguageDescription' =>
+        strings.settingAlarmsTtsLanguageDescription,
+      'settingAlarmsTtsVoiceTitle' => strings.settingAlarmsTtsVoiceTitle,
+      'settingAlarmsTtsVoiceDescription' =>
+        strings.settingAlarmsTtsVoiceDescription,
       'settingLauncherEnabledTitle' => strings.settingLauncherEnabledTitle,
       'settingLauncherEnabledDescription' =>
         strings.settingLauncherEnabledDescription,
@@ -1731,11 +1738,21 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingAnnouncementsEnabledTitle,
       'settingAnnouncementsEnabledDescription' =>
         strings.settingAnnouncementsEnabledDescription,
+      'esphomeTtsSection' => strings.esphomeTtsSection,
       'settingAnnouncementsTtsEngineTitle' =>
         strings.settingAnnouncementsTtsEngineTitle,
       'settingAnnouncementsTtsEngineDescription' =>
         strings.settingAnnouncementsTtsEngineDescription,
+      'settingAnnouncementsTtsLanguageTitle' =>
+        strings.settingAnnouncementsTtsLanguageTitle,
+      'settingAnnouncementsTtsLanguageDescription' =>
+        strings.settingAnnouncementsTtsLanguageDescription,
+      'settingAnnouncementsTtsVoiceTitle' =>
+        strings.settingAnnouncementsTtsVoiceTitle,
+      'settingAnnouncementsTtsVoiceDescription' =>
+        strings.settingAnnouncementsTtsVoiceDescription,
       'esphomeTtsFirst' => strings.esphomeTtsFirst,
+      'esphomeTtsDefault' => strings.esphomeTtsDefault,
       'settingAnnouncementsChimeTitle' =>
         strings.settingAnnouncementsChimeTitle,
       'settingAnnouncementsChimeDescription' =>
@@ -1748,6 +1765,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'esphomeAnnouncementsHelp' => strings.esphomeAnnouncementsHelp,
       'esphomeChime' => strings.esphomeChime,
       'esphomeTtsUnavailable' => strings.esphomeTtsUnavailable,
+      'esphomeTtsNoVoices' => strings.esphomeTtsNoVoices,
       'settingBtproxyEnabledTitle' => strings.settingBtproxyEnabledTitle,
       'settingBtproxyEnabledDescription' =>
         strings.settingBtproxyEnabledDescription,

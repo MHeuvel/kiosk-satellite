@@ -120,6 +120,7 @@ export function settingsPageText(category, english) {
 // on the device (settingsPageText in messages.dart).
 const ALARMS_PAGE_TEXT = {
   'Defaults': 'alarmsDefaultsSection',
+  'Text to Speech': 'alarmsTtsSection',
   'Voice Alarms': 'alarmsVoiceSection',
   'Manage alarms using Voice Satellite': 'alarmsVoiceManage',
   'Needs the Kiosk Satellite alarms blueprint and an LLM conversation agent in Home Assistant.': 'alarmsVoiceHint',

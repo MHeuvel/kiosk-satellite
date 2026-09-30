@@ -412,5 +412,57 @@
         "Alarms > Text to speech engine"
       ]
     }
+  },
+  "settingAlarmsTtsLanguageTitle": "Language",
+  "@settingAlarmsTtsLanguageTitle": {
+    "context": "Settings > Alarms",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Language"
+      ],
+      "remoteAdmin": [
+        "Alarms > Language"
+      ]
+    }
+  },
+  "settingAlarmsTtsLanguageDescription": "The language alarms are spoken in.",
+  "@settingAlarmsTtsLanguageDescription": {
+    "context": "Settings > Alarms",
+    "description": "Setting description.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Language"
+      ],
+      "remoteAdmin": [
+        "Alarms > Language"
+      ]
+    }
+  },
+  "settingAlarmsTtsVoiceTitle": "Voice",
+  "@settingAlarmsTtsVoiceTitle": {
+    "context": "Settings > Alarms",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Voice"
+      ],
+      "remoteAdmin": [
+        "Alarms > Voice"
+      ]
+    }
+  },
+  "settingAlarmsTtsVoiceDescription": "The voice that speaks alarms.",
+  "@settingAlarmsTtsVoiceDescription": {
+    "context": "Settings > Alarms",
+    "description": "Setting description.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Voice"
+      ],
+      "remoteAdmin": [
+        "Alarms > Voice"
+      ]
+    }
   }
 }

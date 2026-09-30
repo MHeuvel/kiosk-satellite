@@ -711,6 +711,19 @@
       ]
     }
   },
+  "alarmsTtsSection": "Синтез мовлення",
+  "@alarmsTtsSection": {
+    "context": "Settings > Alarms",
+    "description": "Heading over the text to speech engine, language and voice settings.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
   "alarmsEditAlarm": "Редагувати будильник",
   "@alarmsEditAlarm": {
     "context": "Remote admin alarms",
@@ -13910,6 +13923,58 @@
       ]
     }
   },
+  "settingAlarmsTtsLanguageTitle": "Мова",
+  "@settingAlarmsTtsLanguageTitle": {
+    "context": "Settings > Alarms",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Language"
+      ],
+      "remoteAdmin": [
+        "Alarms > Language"
+      ]
+    }
+  },
+  "settingAlarmsTtsLanguageDescription": "Мова, якою озвучуються будильники.",
+  "@settingAlarmsTtsLanguageDescription": {
+    "context": "Settings > Alarms",
+    "description": "Setting description.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Language"
+      ],
+      "remoteAdmin": [
+        "Alarms > Language"
+      ]
+    }
+  },
+  "settingAlarmsTtsVoiceTitle": "Голос",
+  "@settingAlarmsTtsVoiceTitle": {
+    "context": "Settings > Alarms",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Voice"
+      ],
+      "remoteAdmin": [
+        "Alarms > Voice"
+      ]
+    }
+  },
+  "settingAlarmsTtsVoiceDescription": "Голос, який озвучує будильники.",
+  "@settingAlarmsTtsVoiceDescription": {
+    "context": "Settings > Alarms",
+    "description": "Setting description.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms > Voice"
+      ],
+      "remoteAdmin": [
+        "Alarms > Voice"
+      ]
+    }
+  },
   "settingLauncherEnabledTitle": "Увімкнути запуск застосунків",
   "@settingLauncherEnabledTitle": {
     "context": "Settings > App Launcher",
@@ -22888,6 +22953,19 @@
       ]
     }
   },
+  "esphomeTtsSection": "Синтез мовлення",
+  "@esphomeTtsSection": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Heading over the text to speech engine, language and voice settings.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
   "settingAnnouncementsTtsEngineTitle": "Рушій синтезу мовлення",
   "@settingAnnouncementsTtsEngineTitle": {
     "context": "Settings > ESPHome > Announcements",
@@ -22914,10 +22992,75 @@
       ]
     }
   },
+  "settingAnnouncementsTtsLanguageTitle": "Мова",
+  "@settingAnnouncementsTtsLanguageTitle": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "settingAnnouncementsTtsLanguageDescription": "Мова, якою озвучуються оголошення.",
+  "@settingAnnouncementsTtsLanguageDescription": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "settingAnnouncementsTtsVoiceTitle": "Голос",
+  "@settingAnnouncementsTtsVoiceTitle": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "settingAnnouncementsTtsVoiceDescription": "Голос, який озвучує оголошення.",
+  "@settingAnnouncementsTtsVoiceDescription": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
   "esphomeTtsFirst": "Перший доступний",
   "@esphomeTtsFirst": {
     "context": "Settings > ESPHome > Announcements",
     "description": "Default choice when no engine is selected.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "esphomeTtsDefault": "За замовчуванням",
+  "@esphomeTtsDefault": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Choice that leaves the text to speech language or voice to the engine.",
     "x-locations": {
       "device": [
         "Settings > ESPHome > Announcements"
@@ -22966,7 +23109,7 @@
       ]
     }
   },
-  "settingAnnouncementsChimeFileDescription": "Відтворюється з гучністю сповіщень.",
+  "settingAnnouncementsChimeFileDescription": "Звучить так само гучно, як оголошення.",
   "@settingAnnouncementsChimeFileDescription": {
     "context": "Settings > ESPHome > Announcements",
     "description": "Help below the setting.",
@@ -23022,6 +23165,19 @@
   "@esphomeTtsUnavailable": {
     "context": "Settings > ESPHome > Announcements",
     "description": "Interface label or status message.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Announcements"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Announcements"
+      ]
+    }
+  },
+  "esphomeTtsNoVoices": "Немає голосів для вибору",
+  "@esphomeTtsNoVoices": {
+    "context": "Settings > ESPHome > Announcements",
+    "description": "Message when the text to speech engine lists no voices.",
     "x-locations": {
       "device": [
         "Settings > ESPHome > Announcements"

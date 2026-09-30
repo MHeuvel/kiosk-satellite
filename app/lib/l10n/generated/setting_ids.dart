@@ -1360,6 +1360,14 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingAnnouncementsTtsEngineTitle",
     "description": "settingAnnouncementsTtsEngineDescription",
   },
+  "announcements.tts_language": {
+    "title": "settingAnnouncementsTtsLanguageTitle",
+    "description": "settingAnnouncementsTtsLanguageDescription",
+  },
+  "announcements.tts_voice": {
+    "title": "settingAnnouncementsTtsVoiceTitle",
+    "description": "settingAnnouncementsTtsVoiceDescription",
+  },
   "announcements.chime": {
     "title": "settingAnnouncementsChimeTitle",
     "description": "settingAnnouncementsChimeDescription",
@@ -1763,6 +1771,14 @@ const settingMessageIds = <String, Map<String, String>>{
   "alarms.tts_engine": {
     "title": "settingAlarmsTtsEngineTitle",
     "description": "settingAlarmsTtsEngineDescription",
+  },
+  "alarms.tts_language": {
+    "title": "settingAlarmsTtsLanguageTitle",
+    "description": "settingAlarmsTtsLanguageDescription",
+  },
+  "alarms.tts_voice": {
+    "title": "settingAlarmsTtsVoiceTitle",
+    "description": "settingAlarmsTtsVoiceDescription",
   },
   "alarms.menu": {
     "title": "settingAlarmsMenuTitle",

@@ -75,10 +75,15 @@ class IntercomAudio {
 
   /// The built-in announcement chime, two soft bell notes, synthesized
   /// natively. [volume] as for the ring.
-  Future<void> chime({required double volume}) async {
+  /// The built-in announcement chime as 16 kHz mono PCM16, played ahead
+  /// of the words on the same track. Null when the platform could not.
+  Future<Uint8List?> chimePcm() async {
     try {
-      await invoker('chime', {'volume': volume});
-    } catch (_) {}
+      final out = await invoker('chimePcm');
+      return out is Uint8List ? out : null;
+    } catch (_) {
+      return null;
+    }
   }
 
   Future<void> stopRing() async {

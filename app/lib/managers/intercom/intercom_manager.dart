@@ -17,10 +17,12 @@ import '../../core/events.dart';
 import '../../core/kiosk_http_client.dart';
 import '../../core/manager.dart';
 import '../audio/mic_hub.dart';
+import '../home_assistant/ha_tts.dart';
 import '../notifications/notification_sounds.dart';
 import '../remote/auth.dart';
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
+import '../voice/ha_socket.dart';
 import 'intercom_audio.dart';
 import 'intercom_routes.dart';
 
@@ -295,6 +297,10 @@ class IntercomManager extends Manager {
   http.Client Function()? _clientFactory;
   http.Client Function() get clientFactory => _clientFactory ?? http.Client.new;
   set clientFactory(http.Client Function() factory) => _clientFactory = factory;
+
+  /// The Home Assistant websocket the voice pickers list voices over; a
+  /// test hands in its own.
+  HaSocket Function(String base, String token)? haSocketFactory;
   http.Client _peerClient() => _clientFactory?.call() ?? kioskPeerClient();
   late WebSocketChannel Function(Uri uri) socketFactory = (uri) {
     final client = kioskPeerHttpClient(requireTls: uri.scheme == 'wss');
@@ -1015,6 +1021,32 @@ class IntercomManager extends Manager {
       )
       ..register(
         Command(
+          name: 'ttsVoices',
+          description:
+              "A Home Assistant text to speech engine's languages and its "
+              'voices for one of them, for the Language and Voice pickers.',
+          params: const {
+            'engine': 'A Home Assistant tts entity',
+            'language':
+                "The language to list voices for, empty for Home Assistant's",
+          },
+          quiet: true,
+          handler: (p) async {
+            final voices = await haTtsVoices(
+              base: _haBase,
+              token: _settings.get(defs.haToken),
+              engine: '${p['engine'] ?? ''}',
+              language: '${p['language'] ?? ''}',
+              socket: haSocketFactory,
+            );
+            return voices == null
+                ? const CommandResult.fail('could not reach Home Assistant')
+                : CommandResult.ok(voices.toJson());
+          },
+        ),
+      )
+      ..register(
+        Command(
           name: 'announce',
           description:
               'Play an announcement on this kiosk: a message Home Assistant '
@@ -1026,6 +1058,9 @@ class IntercomManager extends Manager {
             'chime_file':
                 'A file name in the sounds folder, empty uses the setting',
             'tts_engine': 'A Home Assistant tts entity, empty uses the setting',
+            'tts_language':
+                'A language the engine speaks, empty uses the setting',
+            'tts_voice': 'A voice the engine has, empty uses the setting',
             'audio_only': 'Play without showing the announcement modal',
             'volume':
                 'A share of the master volume, 0..1, instead of the media '
@@ -1352,14 +1387,23 @@ class IntercomManager extends Manager {
     if (message.isEmpty && url.isEmpty) {
       return const CommandResult.fail('message or url required');
     }
-    final source = url.isNotEmpty
-        ? url
-        : await _ttsUrl(message, engine: '${p['tts_engine'] ?? ''}'.trim());
-    if (source == null) {
-      return const CommandResult.fail('Home Assistant could not speak it');
+    final Uint8List bytes;
+    if (url.isNotEmpty) {
+      final fetched = await _fetchAudio(url);
+      if (fetched == null) return CommandResult.fail('could not fetch $url');
+      bytes = fetched;
+    } else {
+      final spoken = await _ttsAudio(
+        message,
+        engine: '${p['tts_engine'] ?? ''}'.trim(),
+        language: '${p['tts_language'] ?? ''}'.trim(),
+        voice: '${p['tts_voice'] ?? ''}'.trim(),
+      );
+      if (spoken == null) {
+        return const CommandResult.fail('Home Assistant could not speak it');
+      }
+      bytes = spoken;
     }
-    final bytes = await _fetchAudio(source);
-    if (bytes == null) return CommandResult.fail('could not fetch $source');
     final decoded = await audio.decode(bytes);
     if (decoded == null || decoded.isEmpty) {
       return const CommandResult.fail('could not decode the audio');
@@ -1378,6 +1422,17 @@ class IntercomManager extends Manager {
         ? (pauseAsked.clamp(0, 30) * 1000).round()
         : 600;
     final pcm = repeat == 1 ? decoded : _repeated(decoded, repeat, pauseMs);
+    // The chime rides the same track as the words, ahead of them: one
+    // route, one gain and one pass through the platform's processing, so
+    // the two play equally loud however Android routes the words (the
+    // communication route plays them louder than media on some devices).
+    final chime = p['chime'] is bool
+        ? p['chime'] as bool
+        : _settings.get(defs.announcementsChime);
+    final chimePcm = chime
+        ? await _announcementChime('${p['chime_file'] ?? ''}'.trim())
+        : null;
+    final clip = chimePcm == null ? pcm : _joined(chimePcm, pcm, 200);
     if (_busy) return const CommandResult.fail('in a call');
     _holdTimer?.cancel();
     _missedTimer?.cancel();
@@ -1394,12 +1449,6 @@ class IntercomManager extends Manager {
     _call = c;
     if (!c.audioOnly) await _comeForward();
     _setState('listening');
-    final chime = p['chime'] is bool
-        ? p['chime'] as bool
-        : _settings.get(defs.announcementsChime);
-    if (chime) {
-      await _announcementChime('${p['chime_file'] ?? ''}'.trim());
-    }
     // The media fader, unless the action names a volume of its own: a
     // share of the master, 0..1, on the same squared taper the faders
     // use. 0 or less (the action cannot leave a number out) means the
@@ -1415,7 +1464,7 @@ class IntercomManager extends Manager {
     c.since = DateTime.now();
     log.info(name, 'announcement from Home Assistant, ${pcm.length ~/ 32} ms');
     unawaited(
-      _streamClip(c, pcm, local: true).then((_) {
+      _streamClip(c, clip, local: true).then((_) {
         if (_call == c && _state == 'listening') _finish('broadcast_over');
       }),
     );
@@ -1434,14 +1483,20 @@ class IntercomManager extends Manager {
     return out;
   }
 
-  /// The chime before an announcement: the picked sound file through the
-  /// chime player, else the built-in two note chime the native sink
-  /// synthesizes. Waits for it, so the words start after it.
-  Future<void> _announcementChime(String asked) async {
-    final volume = _settings
-        .get(defs.notificationsVolume)
-        .toDouble()
-        .clamp(0.0, 1.0);
+  /// [first], [gapMs] of silence, then [second]: the chime and the words.
+  static Uint8List _joined(Uint8List first, Uint8List second, int gapMs) {
+    final gap = (16000 * 2 * gapMs ~/ 1000) & ~1;
+    final head = first.length & ~1;
+    return Uint8List(head + gap + second.length)
+      ..setRange(0, head, first)
+      ..setRange(head + gap, head + gap + second.length, second);
+  }
+
+  /// The chime before an announcement as 16 kHz PCM for the words' track:
+  /// the picked sound file decoded like the words, else the built-in two
+  /// note chime the native sink synthesizes. Null when neither could be
+  /// had; the words play without it.
+  Future<Uint8List?> _announcementChime(String asked) async {
     var path = asked.isEmpty ? null : await NotificationSounds.resolve(asked);
     if (asked.isNotEmpty && path == null) {
       log.warn(
@@ -1455,12 +1510,16 @@ class IntercomManager extends Manager {
       path = sound.isEmpty ? null : await NotificationSounds.resolve(sound);
     }
     if (path != null) {
-      await commands.execute('playChime', {'source': path, 'volume': volume});
-      await Future<void>.delayed(const Duration(milliseconds: 900));
-      return;
+      Uint8List? decoded;
+      try {
+        decoded = await audio.decode(await File(path).readAsBytes());
+      } catch (e) {
+        log.debug(name, 'read $path: $e');
+      }
+      if (decoded != null && decoded.isNotEmpty) return decoded;
+      log.warn(name, 'could not decode $path, playing the built-in chime');
     }
-    await audio.chime(volume: volume);
-    await Future<void>.delayed(const Duration(milliseconds: 1100));
+    return audio.chimePcm();
   }
 
   /// Home Assistant's `tts.*` entities as `{entity_id, name}`, or null
@@ -1493,8 +1552,50 @@ class IntercomManager extends Manager {
     return out;
   }
 
+  /// Home Assistant speaking [message] as audio bytes. An action's engine,
+  /// language and voice win over the settings. The settings' language and
+  /// voice only go with the settings' engine: another engine's voices are
+  /// not these. A language or voice Home Assistant fails with is tried once
+  /// more without them, so a stale pick costs the voice, not the words.
+  Future<Uint8List?> _ttsAudio(
+    String message, {
+    String engine = '',
+    String language = '',
+    String voice = '',
+  }) async {
+    final picked = _settings.get(defs.announcementsTtsEngine).trim();
+    if (picked.isNotEmpty && (engine.isEmpty || engine == picked)) {
+      if (language.isEmpty) {
+        language = _settings.get(defs.announcementsTtsLanguage).trim();
+      }
+      if (voice.isEmpty) {
+        voice = _settings.get(defs.announcementsTtsVoice).trim();
+      }
+    }
+    final url = await _ttsUrl(
+      message,
+      engine: engine,
+      language: language,
+      voice: voice,
+    );
+    final bytes = url == null ? null : await _fetchAudio(url);
+    if (bytes != null || (language.isEmpty && voice.isEmpty)) return bytes;
+    log.warn(
+      name,
+      'Home Assistant could not speak with language "$language" and voice '
+      '"$voice"; trying the engine default',
+    );
+    final plain = await _ttsUrl(message, engine: engine);
+    return plain == null ? null : _fetchAudio(plain);
+  }
+
   /// Asks Home Assistant to speak [message] and answers the audio URL.
-  Future<String?> _ttsUrl(String message, {String engine = ''}) async {
+  Future<String?> _ttsUrl(
+    String message, {
+    String engine = '',
+    String language = '',
+    String voice = '',
+  }) async {
     final base = _haBase;
     final token = _settings.get(defs.haToken);
     if (base.isEmpty || token.isEmpty) return null;
@@ -1513,7 +1614,12 @@ class IntercomManager extends Manager {
     }
     final res = await _post(
       '$base/api/tts_get_url',
-      {'engine_id': engine, 'message': message},
+      ttsRequestBody(
+        engine: engine,
+        message: message,
+        language: language,
+        voice: voice,
+      ),
       token: token,
       external: true,
     );

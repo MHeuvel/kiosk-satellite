@@ -86,10 +86,7 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
                     result.success(null)
                 }
                 "stopRing" -> { stopRing(); result.success(null) }
-                "chime" -> {
-                    chime((call.argument<Double>("volume") ?: 1.0).toFloat().coerceIn(0f, 1f))
-                    result.success(null)
-                }
+                "chimePcm" -> result.success(chimePcm())
                 "decode" -> {
                     val bytes = call.arguments as? ByteArray
                     if (bytes == null) { result.success(null) }
@@ -306,7 +303,7 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
      * The built-in ring, made here rather than shipped: the classic
      * telephone ring, 440 and 480 Hz together, as two bursts of 0.4 s with
      * a 0.2 s gap, or one burst of 0.35 s for the short form. Played on the
-     * media route at the notification volume, like the chime.
+     * media route at the notification volume.
      */
     private fun ring(volume: Float, short: Boolean) {
         stopRing()
@@ -381,13 +378,15 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
     /**
      * The built-in announcement chime: two soft bell notes, E6 then C6,
      * each a sine with a quick attack and an exponential decay, the
-     * second starting under the first's tail. About a second.
+     * second starting under the first's tail. About a second, as 16 kHz
+     * mono PCM16 peaking near full scale like the text to speech audio.
+     * Dart plays it ahead of the words on the same track, so the two
+     * share one route, one gain and the platform's processing.
      */
-    private fun chime(volume: Float) {
-        stopRing()
-        val sr = 16000
+    private fun chimePcm(): ByteArray {
+        val sr = SAMPLE_RATE
         val total = (sr * 1.1).toInt()
-        val pcm = ShortArray(total)
+        val wave = DoubleArray(total)
         fun note(freq: Double, start: Int, length: Int, gain: Double) {
             for (i in 0 until length) {
                 val idx = start + i
@@ -395,59 +394,16 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
                 val t = i.toDouble() / sr
                 val attack = (i / (sr * 0.008)).coerceAtMost(1.0)
                 val env = attack * Math.exp(-t * 4.5)
-                val a = (Math.sin(2 * Math.PI * freq * t) + 0.25 * Math.sin(2 * Math.PI * freq * 2 * t)) * env * gain
-                val v = pcm[idx] + (a * Short.MAX_VALUE * 0.45).toInt()
-                pcm[idx] = v.coerceIn(-32768, 32767).toShort()
+                wave[idx] += (Math.sin(2 * Math.PI * freq * t) + 0.25 * Math.sin(2 * Math.PI * freq * 2 * t)) * env * gain
             }
         }
         note(1318.5, 0, (sr * 0.9).toInt(), 1.0)
         note(1046.5, (sr * 0.22).toInt(), (sr * 0.88).toInt(), 0.9)
-        playStatic(pcm, sr, volume, "chime")
-    }
-
-    /** Plays a synthesized clip on the media route at [volume], releasing it when done. */
-    private fun playStatic(pcm: ShortArray, sr: Int, volume: Float, what: String) {
-        val track = try {
-            AudioTrack.Builder()
-                .setAudioAttributes(
-                    AudioAttributes.Builder()
-                        .setUsage(AudioAttributes.USAGE_MEDIA)
-                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                        .build(),
-                )
-                .setAudioFormat(
-                    AudioFormat.Builder()
-                        .setSampleRate(sr)
-                        .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
-                        .setChannelMask(AudioFormat.CHANNEL_OUT_MONO)
-                        .build(),
-                )
-                .setTransferMode(AudioTrack.MODE_STATIC)
-                .setBufferSizeInBytes(pcm.size * 2)
-                .build()
-        } catch (e: Exception) {
-            Log.w(TAG, "$what track failed: ${e.message}")
-            return
-        }
-        if (track.state == AudioTrack.STATE_UNINITIALIZED) {
-            Log.w(TAG, "$what track init failed")
-            runCatching { track.release() }
-            return
-        }
-        val out = AudioRouting.currentOutput()
-        if (Build.VERSION.SDK_INT >= 28 && out != null) runCatching { track.preferredDevice = out }
-        val written = track.write(pcm, 0, pcm.size)
-        if (written != pcm.size || track.state != AudioTrack.STATE_INITIALIZED) {
-            Log.w(TAG, "$what track took $written of ${pcm.size} samples (state=${track.state})")
-            runCatching { track.release() }
-            return
-        }
-        Log.i(TAG, "$what at ${"%.2f".format(volume)}")
-        runCatching { track.setVolume(volume) }
-        ringTrack = track
-        track.play()
-        val ms = pcm.size * 1000L / sr + 200
-        workerHandler.postDelayed({ if (ringTrack === track) stopRing() }, ms)
+        val peak = wave.maxOf { Math.abs(it) }.coerceAtLeast(1e-9)
+        val scale = Short.MAX_VALUE * 0.9 / peak
+        val out = java.nio.ByteBuffer.allocate(total * 2).order(java.nio.ByteOrder.LITTLE_ENDIAN)
+        for (v in wave) out.putShort((v * scale).toInt().coerceIn(-32768, 32767).toShort())
+        return out.array()
     }
 
     private fun stopRing() {

@@ -7850,9 +7850,44 @@ const announcementsTtsEngine = SettingDef<String>(
   description:
       'The Home Assistant text to speech entity that speaks announcements.',
   category: 'ESPHome',
+  section: 'Text to Speech',
   subpage: 'Announcements',
   dependsOn: 'announcements.enabled',
   placeholder: 'First available',
+);
+
+/// The language the announcements' engine speaks, from those it lists;
+/// empty leaves it to the engine. Also picks which voices the Voice row
+/// offers. Only under an engine picked by name: First available has no
+/// languages to list.
+const announcementsTtsLanguage = SettingDef<String>(
+  key: 'announcements.tts_language',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Language',
+  description: 'The language announcements are spoken in.',
+  category: 'ESPHome',
+  section: 'Text to Speech',
+  subpage: 'Announcements',
+  dependsOn: 'announcements.tts_engine',
+  dependsOnValue: {'ne': ''},
+  placeholder: 'Default',
+);
+
+/// The voice the announcements' engine speaks with, from those it lists
+/// for the language; empty leaves it to the engine.
+const announcementsTtsVoice = SettingDef<String>(
+  key: 'announcements.tts_voice',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Voice',
+  description: 'The voice that speaks announcements.',
+  category: 'ESPHome',
+  section: 'Text to Speech',
+  subpage: 'Announcements',
+  dependsOn: 'announcements.tts_engine',
+  dependsOnValue: {'ne': ''},
+  placeholder: 'Default',
 );
 
 const announcementsChime = SettingDef<bool>(
@@ -7874,7 +7909,7 @@ const announcementsChimeFile = SettingDef<String>(
   type: SettingType.string,
   defaultValue: '',
   title: 'Chime sound',
-  description: 'Plays at the notification volume.',
+  description: 'Plays as loud as the announcement.',
   category: 'ESPHome',
   section: 'Chime',
   subpage: 'Announcements',
@@ -8606,8 +8641,36 @@ const alarmsTtsEngine = SettingDef<String>(
   title: 'Text to speech engine',
   description: 'The Home Assistant text to speech entity that speaks alarms.',
   category: 'Alarms',
-  section: 'Defaults',
+  section: 'Text to Speech',
   placeholder: 'First available',
+);
+
+/// The language alarms are spoken in, the Announcements language's twin.
+const alarmsTtsLanguage = SettingDef<String>(
+  key: 'alarms.tts_language',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Language',
+  description: 'The language alarms are spoken in.',
+  category: 'Alarms',
+  section: 'Text to Speech',
+  dependsOn: 'alarms.tts_engine',
+  dependsOnValue: {'ne': ''},
+  placeholder: 'Default',
+);
+
+/// The voice alarms are spoken with, the Announcements voice's twin.
+const alarmsTtsVoice = SettingDef<String>(
+  key: 'alarms.tts_voice',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Voice',
+  description: 'The voice that speaks alarms.',
+  category: 'Alarms',
+  section: 'Text to Speech',
+  dependsOn: 'alarms.tts_engine',
+  dependsOnValue: {'ne': ''},
+  placeholder: 'Default',
 );
 
 /// What an alarm set to speak says between its rings, unless it has a
@@ -9724,6 +9787,8 @@ const List<SettingDef<Object>> allSettings = [
   notificationsVolume,
   announcementsEnabled,
   announcementsTtsEngine,
+  announcementsTtsLanguage,
+  announcementsTtsVoice,
   announcementsChime,
   announcementsChimeFile,
   btproxyEnabled,
@@ -9790,6 +9855,8 @@ const List<SettingDef<Object>> allSettings = [
   alarmsSnoozeMinutes,
   alarmsSilenceAfterMinutes,
   alarmsSunriseMinutes,
-  alarmsTtsEngine,
   alarmsPhrase,
+  alarmsTtsEngine,
+  alarmsTtsLanguage,
+  alarmsTtsVoice,
 ];

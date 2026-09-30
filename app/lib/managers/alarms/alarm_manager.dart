@@ -670,8 +670,8 @@ class AlarmManager extends Manager {
   /// from Home Assistant after Stop or Snooze is dropped.
   int _ringGen = 0;
 
-  /// Made phrases on disk by their words, so a snooze's second ring does
-  /// not ask Home Assistant again.
+  /// Made phrases on disk by their words and voice, so a snooze's second
+  /// ring does not ask Home Assistant again.
   final _phrases = <String, String>{};
 
   /// Whether [alarm] starts quiet and grows to the alarm volume.
@@ -708,12 +708,24 @@ class AlarmManager extends Manager {
   Future<void> _speakRing(Alarm alarm, DateTime at, int gen) async {
     final text = phraseFor(alarm, at);
     if (text.isEmpty) return;
-    var path = _phrases[text];
+    final engine = _settings.get(defs.alarmsTtsEngine).trim();
+    // A language or voice only goes with an engine picked by name.
+    final language = engine.isEmpty
+        ? ''
+        : _settings.get(defs.alarmsTtsLanguage).trim();
+    final voice = engine.isEmpty
+        ? ''
+        : _settings.get(defs.alarmsTtsVoice).trim();
+    // Kept per voice too: a new voice must not ring with the old one.
+    final key = '$engine|$language|$voice|$text';
+    var path = _phrases[key];
     if (path == null || !File(path).existsSync()) {
       final audio = await haSpeak(
         base: _settings.get(defs.haUrl),
         token: _settings.get(defs.haToken),
-        engine: _settings.get(defs.alarmsTtsEngine),
+        engine: engine,
+        language: language,
+        voice: voice,
         message: text,
       );
       if (audio == null) {
@@ -723,11 +735,11 @@ class AlarmManager extends Manager {
       try {
         final dir = await getTemporaryDirectory();
         final file = File(
-          '${dir.path}/ks_alarm_phrase_${text.hashCode.toUnsigned(32)}',
+          '${dir.path}/ks_alarm_phrase_${key.hashCode.toUnsigned(32)}',
         );
         await file.writeAsBytes(audio, flush: true);
         path = file.path;
-        _phrases[text] = path;
+        _phrases[key] = path;
       } catch (e) {
         log.warn(name, 'could not keep the phrase: $e');
         return;

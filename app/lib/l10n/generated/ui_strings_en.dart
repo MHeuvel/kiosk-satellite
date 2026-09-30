@@ -194,6 +194,9 @@ class UiStringsEn extends UiStrings {
   String get alarmsDefaultsSection => 'Defaults';
 
   @override
+  String get alarmsTtsSection => 'Text to Speech';
+
+  @override
   String get alarmsEditAlarm => 'Edit alarm';
 
   @override
@@ -3790,6 +3793,20 @@ class UiStringsEn extends UiStrings {
       'The Home Assistant text to speech entity that speaks alarms.';
 
   @override
+  String get settingAlarmsTtsLanguageTitle => 'Language';
+
+  @override
+  String get settingAlarmsTtsLanguageDescription =>
+      'The language alarms are spoken in.';
+
+  @override
+  String get settingAlarmsTtsVoiceTitle => 'Voice';
+
+  @override
+  String get settingAlarmsTtsVoiceDescription =>
+      'The voice that speaks alarms.';
+
+  @override
   String get settingLauncherEnabledTitle => 'Enable App Launcher';
 
   @override
@@ -6147,6 +6164,9 @@ class UiStringsEn extends UiStrings {
       'Play the announcements Home Assistant sends with the announce action.';
 
   @override
+  String get esphomeTtsSection => 'Text to Speech';
+
+  @override
   String get settingAnnouncementsTtsEngineTitle => 'Text to speech engine';
 
   @override
@@ -6154,7 +6174,24 @@ class UiStringsEn extends UiStrings {
       'The Home Assistant text to speech entity that speaks announcements.';
 
   @override
+  String get settingAnnouncementsTtsLanguageTitle => 'Language';
+
+  @override
+  String get settingAnnouncementsTtsLanguageDescription =>
+      'The language announcements are spoken in.';
+
+  @override
+  String get settingAnnouncementsTtsVoiceTitle => 'Voice';
+
+  @override
+  String get settingAnnouncementsTtsVoiceDescription =>
+      'The voice that speaks announcements.';
+
+  @override
   String get esphomeTtsFirst => 'First available';
+
+  @override
+  String get esphomeTtsDefault => 'Default';
 
   @override
   String get settingAnnouncementsChimeTitle => 'Chime first';
@@ -6168,7 +6205,7 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get settingAnnouncementsChimeFileDescription =>
-      'Plays at the notification volume.';
+      'Plays as loud as the announcement.';
 
   @override
   String get esphomeAnnouncements => 'Announcements';
@@ -6182,6 +6219,9 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get esphomeTtsUnavailable => 'Could not reach Home Assistant';
+
+  @override
+  String get esphomeTtsNoVoices => 'No voices to pick';
 
   @override
   String get settingBtproxyEnabledTitle => 'Enable Bluetooth proxy';

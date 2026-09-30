@@ -2,6 +2,14 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Added
+- **BREAKING CHANGE: Announcements and alarms can pick the text to speech language and voice.** New **Language** and **Voice** settings join the text to speech engine in a **Text to Speech** group, on the Announcements page under ESPHome and in Settings, Alarms, and list what Home Assistant has for the picked engine, on the device and the remote admin. Voices come for the picked language, or the Home Assistant language when Language is Default. Both pickers show each language and voice ID under its name, the value the announce action takes. Picking another engine resets both. The ESPHome announce action takes `tts_language` and `tts_voice`, so existing automations that call it need the two new fields, left empty to use the settings. When Home Assistant cannot speak with the language or voice, the kiosk speaks with the engine's defaults instead. Translated into Spanish, German, French and Ukrainian.
+
+### Changed
+- **The announcement chime plays as loud as the announcement.** It played on its own at the notification volume while the words played at the media volume, often on the call audio route, which some devices play much louder. The built-in chime was also generated at about half the level of the speech. The chime now plays ahead of the words on the same audio track, at the same volume, and the built-in chime peaks as high as text to speech audio. A chime from the sounds folder is decoded the same way as the words.
+
 ## v2026.9.97 - 2026-09-29
 
 ### Fixed

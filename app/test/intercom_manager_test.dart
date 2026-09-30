@@ -54,6 +54,7 @@ void main() {
   late List<(String, Map<String, Object?>)> executed;
   late List<Map<String, Object?>> states;
   late List<String> audioCalls;
+  late List<(String, Object?)> audioArgs;
 
   /// How long the fake audio takes to stop a ring, zero unless a test
   /// needs the teardown to take as long as it does on a device.
@@ -82,11 +83,16 @@ void main() {
     ],
   };
 
+  // A fresh nonce per token, the way a kiosk mints them: two tokens made
+  // in the same millisecond would otherwise be the same token, and the
+  // second would be refused as a replay.
+  var nonce = 0;
+
   /// A token another kiosk would sign for a call with the shared key.
   String tokenFor(String callId, {String withKey = key}) =>
       AuthStore('intercom:$withKey').issueToken(
         ttl: const Duration(seconds: 60),
-        claims: {'intercom': callId, 'from': 'kitchen', 'n': 'x'},
+        claims: {'intercom': callId, 'from': 'kitchen', 'n': '${nonce++}'},
       );
 
   Future<void> build({
@@ -109,6 +115,7 @@ void main() {
     executed = [];
     states = [];
     audioCalls = [];
+    audioArgs = [];
     stopRingDelay = Duration.zero;
     audioWritten = [];
     mic = StreamController<Uint8List>.broadcast();
@@ -182,10 +189,12 @@ void main() {
     intercom.audio = IntercomAudio()
       ..invoker = (method, [args]) async {
         audioCalls.add(method);
+        audioArgs.add((method, args));
         if (method == 'stopRing') await Future<void>.delayed(stopRingDelay);
         if (method == 'write') audioWritten.add(args as Uint8List);
         if (method == 'start') return true;
         if (method == 'decode') return Uint8List(32000);
+        if (method == 'chimePcm') return Uint8List(16000);
         return null;
       };
     await intercom.init();
@@ -1376,7 +1385,7 @@ void main() {
       expect(intercom.state, 'listening');
       expect(intercom.call?.peer['name'], 'Home Assistant');
       expect(intercom.call?.automated, isTrue);
-      expect(audioCalls, containsAll(['decode', 'chime', 'start']));
+      expect(audioCalls, containsAll(['decode', 'chimePcm', 'start']));
       expect(executed.map((e) => e.$1), contains('screenOn'));
       // The chime, then the second of clip, then the card closes.
       await settle(2600);
@@ -1407,7 +1416,7 @@ void main() {
         'url': 'http://sounds.local/a.mp3',
       });
       expect(r.ok, isTrue, reason: r.error);
-      expect(audioCalls, isNot(contains('chime')));
+      expect(audioCalls, isNot(contains('chimePcm')));
       await settle(1400);
       expect(states.any((s) => s['state'] == 'ended'), isTrue);
     });
@@ -1432,6 +1441,8 @@ void main() {
             {'name': 'chime', 'type': 'bool'},
             {'name': 'chime_file', 'type': 'string'},
             {'name': 'tts_engine', 'type': 'string'},
+            {'name': 'tts_language', 'type': 'string'},
+            {'name': 'tts_voice', 'type': 'string'},
             {'name': 'audio_only', 'type': 'bool'},
           ]),
         );
@@ -1457,7 +1468,7 @@ void main() {
         expect(intercom.state, 'listening');
         expect(intercom.call?.toJson()['audioOnly'], isTrue);
         expect(executed, isEmpty);
-        expect(audioCalls, isNot(contains('chime')));
+        expect(audioCalls, isNot(contains('chimePcm')));
         expect(settings.get(defs.announcementsTtsEngine), 'tts.piper');
         expect(settings.get(defs.announcementsChime), isTrue);
         await settle(1500);
@@ -1503,6 +1514,123 @@ void main() {
       );
     }
 
+    test('the picked language and voice go with the picked engine', () async {
+      await build(
+        prefs: {
+          'ks.ha.url': 'http://ha.local:8123',
+          'ks.ha.token': 'tkn',
+          'ks.announcements.tts_engine': 'tts.piper',
+          'ks.announcements.tts_language': 'en_GB',
+          'ks.announcements.tts_voice': 'en_GB-alan-low',
+          'ks.announcements.chime': false,
+        },
+      );
+      final bodies = <Object?>[];
+      answers['POST /api/tts_get_url'] = (req) {
+        bodies.add(jsonDecode(req.body));
+        return {'url': 'http://ha.local:8123/a.mp3'};
+      };
+      answers['GET /a.mp3'] = (_) => http.Response.bytes([9], 200);
+      final surface = EspEntitySurface(bus, commands, log, settings);
+      // The settings, then an action's own voice, then another engine,
+      // which takes none of the settings' picks.
+      for (final args in [
+        {'tts_engine': '', 'tts_language': '', 'tts_voice': ''},
+        {'tts_engine': 'tts.piper', 'tts_language': '', 'tts_voice': 'x'},
+        {'tts_engine': 'tts.cloud', 'tts_language': '', 'tts_voice': ''},
+      ]) {
+        await surface.handleService('announce', {
+          'message': 'Hi',
+          'chime': false,
+          'audio_only': true,
+          ...args,
+        });
+        await settle(1500);
+      }
+      expect(bodies, [
+        {
+          'engine_id': 'tts.piper',
+          'message': 'Hi',
+          'language': 'en_GB',
+          'options': {'voice': 'en_GB-alan-low'},
+        },
+        {
+          'engine_id': 'tts.piper',
+          'message': 'Hi',
+          'language': 'en_GB',
+          'options': {'voice': 'x'},
+        },
+        {'engine_id': 'tts.cloud', 'message': 'Hi'},
+      ]);
+    });
+
+    test('the chime plays ahead of the words on their own track', () async {
+      await build(
+        prefs: {
+          'ks.ha.url': 'http://ha.local:8123',
+          'ks.ha.token': 'tkn',
+          'ks.audio.media_volume': 50,
+          'ks.notifications.volume': 0.9,
+        },
+      );
+      answers['GET /a.mp3'] = (_) => http.Response.bytes([9], 200);
+      // The media fader, then the action's own volume: never the
+      // notification volume, and one track for the chime and the words.
+      for (final (volume, gain) in [(0.0, 0.25), (0.6, 0.36)]) {
+        audioWritten.clear();
+        final r = await commands.execute('announce', {
+          'url': 'http://sounds.local/a.mp3',
+          'volume': volume,
+          'chime': true,
+        });
+        expect(r.ok, isTrue, reason: r.error);
+        // The words alone, as before the chime joined their track.
+        expect((r.data as Map)['ms'], 1000);
+        final start = audioArgs.lastWhere((a) => a.$1 == 'start').$2 as Map;
+        expect((start['volume'] as num).toDouble(), closeTo(gain, 1e-9));
+        expect(executed.map((e) => e.$1), isNot(contains('playChime')));
+        await settle(2200);
+        // 1 s of chime, 0.2 s of silence, 1 s of words.
+        expect(
+          audioWritten.fold<int>(0, (n, b) => n + b.length),
+          16000 + 6400 + 32000,
+        );
+        await commands.execute('intercomHangup', const {});
+        await commands.execute('intercomDismiss', const {});
+      }
+    });
+
+    test(
+      'a voice Home Assistant cannot speak falls back to the engine',
+      () async {
+        await build(
+          prefs: {
+            'ks.ha.url': 'http://ha.local:8123',
+            'ks.ha.token': 'tkn',
+            'ks.announcements.tts_engine': 'tts.piper',
+            'ks.announcements.tts_voice': 'gone',
+            'ks.announcements.chime': false,
+          },
+        );
+        final bodies = <Map<String, Object?>>[];
+        answers['POST /api/tts_get_url'] = (req) {
+          final body = jsonDecode(req.body) as Map<String, Object?>;
+          bodies.add(body);
+          return {
+            'url': body.containsKey('options')
+                ? 'http://ha.local:8123/bad.mp3'
+                : 'http://ha.local:8123/good.mp3',
+          };
+        };
+        answers['GET /bad.mp3'] = (_) => http.Response('', 500);
+        answers['GET /good.mp3'] = (_) => http.Response.bytes([9], 200);
+        final r = await commands.execute('announce', {'message': 'Hi'});
+        expect(r.ok, isTrue, reason: r.error);
+        expect(bodies.last, {'engine_id': 'tts.piper', 'message': 'Hi'});
+        expect(bodies, hasLength(2));
+      },
+    );
+
     test(
       'ESPHome chime overrides use local files and fall back to the UI sound',
       () async {
@@ -1514,9 +1642,9 @@ void main() {
         );
         final root = await Directory.systemTemp.createTemp('announce-sounds-');
         final sounds = await Directory('${root.path}/sounds').create();
-        for (final name in ['default.mp3', 'custom.wav']) {
-          await File('${sounds.path}/$name').writeAsBytes([1]);
-        }
+        // Told apart by their bytes: the chime is decoded like the words.
+        await File('${sounds.path}/default.mp3').writeAsBytes([1]);
+        await File('${sounds.path}/custom.wav').writeAsBytes([2]);
         final originalPaths = PathProviderPlatform.instance;
         PathProviderPlatform.instance = _AnnouncementPaths(root.path);
         addTearDown(() async {
@@ -1536,12 +1664,9 @@ void main() {
             'chime': true,
             'chime_file': sound,
           });
-          final chime = executed.lastWhere((e) => e.$1 == 'playChime').$2;
-          expect(
-            chime['source'],
-            '${sounds.path}/${sound.trim() == 'custom.wav' ? 'custom.wav' : 'default.mp3'}',
-          );
-          expect(audioCalls, isNot(contains('chime')));
+          final chime = audioArgs.lastWhere((a) => a.$1 == 'decode').$2;
+          expect(chime, [sound.trim() == 'custom.wav' ? 2 : 1]);
+          expect(audioCalls, isNot(contains('chimePcm')));
           await commands.execute('intercomHangup', const {});
           await commands.execute('intercomDismiss', const {});
         }
@@ -1551,7 +1676,7 @@ void main() {
           'chime': true,
           'chime_file': '',
         });
-        expect(audioCalls, contains('chime'));
+        expect(audioCalls, contains('chimePcm'));
         expect(settings.get(defs.announcementsChime), isFalse);
       },
     );

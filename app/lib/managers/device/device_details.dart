@@ -50,6 +50,24 @@ class DeviceDetails {
     }
   }
 
+  /// [tags] as language names in [display]'s language, for the text to
+  /// speech Language pickers: en-US reads English (United States). A tag
+  /// the platform cannot name, or no platform at all (tests), keeps the tag.
+  static Future<Map<String, String>> languageNames(
+    List<String> tags,
+    String display,
+  ) async {
+    try {
+      final raw = await _channel.invokeMapMethod<String, String>(
+        'languageNames',
+        {'tags': tags, 'display': display},
+      );
+      return {for (final t in tags) t: raw?[t] ?? t};
+    } catch (_) {
+      return {for (final t in tags) t: t};
+    }
+  }
+
   static Future<String?> wifiMac() async {
     try {
       return await _channel.invokeMethod<String>('wifiMac');

@@ -449,6 +449,19 @@
       ]
     }
   },
+  "alarmsTtsSection": "Text to Speech",
+  "@alarmsTtsSection": {
+    "context": "Settings > Alarms",
+    "description": "Heading over the text to speech engine, language and voice settings.",
+    "x-locations": {
+      "device": [
+        "Settings > Alarms"
+      ],
+      "remoteAdmin": [
+        "Alarms"
+      ]
+    }
+  },
   "alarmsEditAlarm": "Edit alarm",
   "@alarmsEditAlarm": {
     "context": "Remote admin alarms",

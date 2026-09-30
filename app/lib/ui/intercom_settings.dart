@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../app_container.dart';
 import '../l10n/messages.dart';
 import '../core/events.dart';
+import '../managers/device/device_details.dart';
 import '../managers/intercom/intercom_manager.dart' show IntercomManager;
 import '../managers/settings/definitions.dart' as defs;
 import 'kit.dart';
@@ -389,10 +390,17 @@ class AnnouncementTtsEngineRow extends StatefulWidget {
     super.key,
     required this.container,
     this.def = defs.announcementsTtsEngine,
+    this.languageDef = defs.announcementsTtsLanguage,
+    this.voiceDef = defs.announcementsTtsVoice,
   });
 
   final AppContainer container;
   final defs.SettingDef<String> def;
+
+  /// Cleared with a new engine: another engine's languages and voices
+  /// are not these.
+  final defs.SettingDef<String> languageDef;
+  final defs.SettingDef<String> voiceDef;
 
   @override
   State<AnnouncementTtsEngineRow> createState() =>
@@ -480,13 +488,212 @@ class _AnnouncementTtsEngineRowState extends State<AnnouncementTtsEngineRow> {
         ],
       ),
     );
-    if (picked == null) return;
+    if (picked == null || picked == current) return;
     await c.settings.set(widget.def, picked);
+    await c.settings.set(widget.languageDef, '');
+    await c.settings.set(widget.voiceDef, '');
   }
 
   @override
   Widget build(BuildContext context) {
     final current = c.settings.get(widget.def).trim();
+    return SearchLandingTarget(
+      id: widget.def.key,
+      child: SettingsRow(
+        stack: true,
+        title: Text(widget.def.localizedTitle(context)),
+        subtitle: Text(widget.def.localizedDescription(context)),
+        trailing: ControlBox(
+          onTap: _pick,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 220),
+                child: Text(
+                  _labelOf(current),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              const SizedBox(width: 6),
+              const Icon(Icons.expand_more, size: 20),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// A text to speech Language or Voice row under an engine row: the pick's
+/// name in a control box, and a tap opens the list Home Assistant has for
+/// the engine, Default on top. Voices come for the Language row's pick,
+/// or Home Assistant's own language when that is Default. Mirrored on the
+/// remote (intercom.js, attachTtsVoicePicker).
+class TtsVoiceRow extends StatefulWidget {
+  const TtsVoiceRow({
+    super.key,
+    required this.container,
+    required this.def,
+    required this.engineDef,
+    required this.languageDef,
+    required this.voiceDef,
+  });
+
+  final AppContainer container;
+
+  /// [languageDef] or [voiceDef]: which of the two this row picks.
+  final defs.SettingDef<String> def;
+  final defs.SettingDef<String> engineDef;
+  final defs.SettingDef<String> languageDef;
+  final defs.SettingDef<String> voiceDef;
+
+  @override
+  State<TtsVoiceRow> createState() => _TtsVoiceRowState();
+}
+
+class _TtsVoiceRowState extends State<TtsVoiceRow> {
+  StreamSubscription<SettingChanged>? _sub;
+  List<String> _languages = const [];
+  Map<String, String> _languageNames = const {};
+  List<Map<String, String>> _voices = const [];
+
+  AppContainer get c => widget.container;
+  bool get _isLanguage => widget.def.key == widget.languageDef.key;
+  String _get(defs.SettingDef<String> def) => c.settings.get(def).trim();
+
+  @override
+  void initState() {
+    super.initState();
+    final keys = {
+      widget.engineDef.key,
+      widget.languageDef.key,
+      widget.voiceDef.key,
+    };
+    _sub = c.bus.on<SettingChanged>().listen((e) {
+      if (!keys.contains(e.key) || !mounted) return;
+      setState(() {});
+      if (e.key != widget.voiceDef.key && _get(widget.def).isNotEmpty) {
+        unawaited(_load());
+      }
+    });
+    // Only a pick needs a name from Home Assistant; Default has its own.
+    if (_get(widget.def).isNotEmpty) unawaited(_load());
+  }
+
+  @override
+  void dispose() {
+    _sub?.cancel();
+    super.dispose();
+  }
+
+  /// The engine's languages and the voices for [language], or the Language
+  /// row's pick. False when Home Assistant did not answer.
+  Future<bool> _load({String? language}) async {
+    final engine = _get(widget.engineDef);
+    if (engine.isEmpty) return false;
+    final r = await c.commands.execute('ttsVoices', {
+      'engine': engine,
+      'language': language ?? _get(widget.languageDef),
+    });
+    if (!mounted || !r.ok || r.data is! Map) return false;
+    final data = r.data as Map;
+    final languages = [
+      for (final l in (data['languages'] as List?) ?? const []) '$l',
+    ];
+    final voices = [
+      for (final v in (data['voices'] as List?) ?? const [])
+        if (v is Map) {'voice_id': '${v['voice_id']}', 'name': '${v['name']}'},
+    ];
+    final names = _isLanguage
+        ? await DeviceDetails.languageNames(
+            languages,
+            Localizations.localeOf(context).toLanguageTag(),
+          )
+        : const <String, String>{};
+    if (!mounted) return false;
+    setState(() {
+      _languages = languages;
+      _languageNames = names;
+      _voices = voices;
+    });
+    return true;
+  }
+
+  String _labelOf(String id) {
+    if (id.isEmpty) return esphomeText(context, 'Default');
+    if (_isLanguage) return _languageNames[id] ?? id;
+    for (final v in _voices) {
+      if (v['voice_id'] == id) return v['name']!;
+    }
+    return id;
+  }
+
+  Future<void> _pick() async {
+    final ok = await _load();
+    if (!mounted) return;
+    if (!ok) {
+      showToast(
+        context,
+        title: esphomeText(context, 'Could not reach Home Assistant'),
+        kind: ToastKind.error,
+      );
+      return;
+    }
+    final choices = _isLanguage
+        ? ([for (final l in _languages) (l, _languageNames[l] ?? l)]
+            ..sort((a, b) => a.$2.toLowerCase().compareTo(b.$2.toLowerCase())))
+        : [for (final v in _voices) (v['voice_id']!, v['name']!)];
+    if (choices.isEmpty) {
+      showToast(context, title: esphomeText(context, 'No voices to pick'));
+      return;
+    }
+    final current = _get(widget.def);
+    final picked = await showDialog<String>(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: Text(widget.def.localizedTitle(context)),
+        children: [
+          RadioGroup<String>(
+            groupValue: current,
+            onChanged: (value) => Navigator.of(context).pop(value),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                RadioListTile<String>(
+                  value: '',
+                  title: Text(esphomeText(context, 'Default')),
+                ),
+                // The id under the name, the way the engine picker shows
+                // entity ids: it is what the announce action takes.
+                for (final (id, name) in choices)
+                  RadioListTile<String>(
+                    value: id,
+                    title: Text(name),
+                    subtitle: id == name ? null : Text(id),
+                  ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+    if (picked == null || picked == current) return;
+    await c.settings.set(widget.def, picked);
+    if (!_isLanguage) return;
+    // A voice the new language lists too stays, Kokoro's and OpenAI's
+    // case; a voice it does not is dropped for the engine's own.
+    final voice = _get(widget.voiceDef);
+    if (voice.isEmpty || !await _load(language: picked)) return;
+    if (!_voices.any((v) => v['voice_id'] == voice)) {
+      await c.settings.set(widget.voiceDef, '');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final current = _get(widget.def);
     return SearchLandingTarget(
       id: widget.def.key,
       child: SettingsRow(

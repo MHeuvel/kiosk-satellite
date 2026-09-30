@@ -1313,6 +1313,8 @@ class EspEntitySurface {
         {'name': 'chime', 'type': 'bool'},
         {'name': 'chime_file', 'type': 'string'},
         {'name': 'tts_engine', 'type': 'string'},
+        {'name': 'tts_language', 'type': 'string'},
+        {'name': 'tts_voice', 'type': 'string'},
         {'name': 'audio_only', 'type': 'bool'},
       ],
     },
@@ -1501,6 +1503,8 @@ class EspEntitySurface {
           if (args['chime'] != null) 'chime': args['chime'],
           'chime_file': '${args['chime_file'] ?? ''}',
           'tts_engine': '${args['tts_engine'] ?? ''}',
+          'tts_language': '${args['tts_language'] ?? ''}',
+          'tts_voice': '${args['tts_voice'] ?? ''}',
           'audio_only': args['audio_only'] ?? false,
         });
         if (!result.ok) throw StateError(result.error ?? 'refused');

@@ -1,7 +1,7 @@
 import { deviceText, messageLanguage, overviewText, t } from './localization.js';
 import { cmd, state } from './core.js';
 import { cameraAction, cameraListRow, cameraToggle } from './cameras.js';
-import { attachTtsPicker } from './intercom.js';
+import { attachTtsPickers } from './intercom.js';
 import { attachSoundSelect, attachSoundUpload } from './settings.js';
 import { hintRow, modalShell, showToast, timeBox } from './widgets.js';
 
@@ -374,10 +374,10 @@ function alarmRow(alarm) {
 
 // The Alarm tone row as a dropdown over the sounds folder with the Add a
 // sound row under it, the Announcements chime's pair, and the text to
-// speech engine as Announcements picks it. Done once per render of the
+// speech engine, language and voice as Announcements picks them. Done once per render of the
 // definition rows and left alone on a list redraw.
 function decorateRows(tab) {
-  attachTtsPicker('alarms.tts_engine');
+  attachTtsPickers('alarms');
   const toneRow = tab.querySelector('[data-key="alarms.tone"]');
   const toneDef = byKey('alarms.tone');
   if (toneRow && toneDef && !toneRow.querySelector('select')) {

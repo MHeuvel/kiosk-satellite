@@ -10068,10 +10068,15 @@
     "provenance": "46fa6328ce5f92c4d1875a765a15713fb19dae857f4fdbdc7af8818fa64498a3"
   },
   "settingAnnouncementsChimeFileDescription": {
-    "source": "67ca08280d70e2638fd492a25b9ad96125e46109915c102884288e98a3e60020",
-    "translation": "62898db03ed5ab48e4e5b81067b9aff7d5758e5cc53830b21c3c5e8a866584a5",
+    "source": "d3dce699c1cd631f8a81045539789b48e6e1c280f037251518b07012b34ec965",
+    "translation": "f5d5e9610f4c67687440768578ad4b1b0e073663bcd1b2286f30dc8d654877e4",
     "author": "kdinya",
-    "provenance": "46fa6328ce5f92c4d1875a765a15713fb19dae857f4fdbdc7af8818fa64498a3"
+    "provenance": "46fa6328ce5f92c4d1875a765a15713fb19dae857f4fdbdc7af8818fa64498a3",
+    "maintainerCorrection": {
+      "reviewer": "Xavier Larrea",
+      "originalTranslation": "62898db03ed5ab48e4e5b81067b9aff7d5758e5cc53830b21c3c5e8a866584a5",
+      "reason": "The chime now plays at the announcement volume, so the English hint changed"
+    }
   },
   "esphomeAnnouncements": {
     "source": "b5f9dcf008e428825af40e5af6b2f8a9d7382f1945a3b625e720015552c94a0e",
@@ -22087,6 +22092,78 @@
   "alarmsVoiceManage": {
     "source": "2d389f3a58f99627ce365d569c45ad2a8a4d4de8396099853e6a9eef6bde44b3",
     "translation": "3936c0db3a0bd75bd712defec58116ffdeaaa75b92bc86b4f8e3cceaffd4e205",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingAlarmsTtsVoiceTitle": {
+    "source": "a4055a624a258bdca29ae22b26ceb08cf62e5a60143f84ce5583bfbbbc030b96",
+    "translation": "24a0d703afd496ea2c7af8b9f97dcb10425b1e3a919bfb21cc131965535f1f49",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingAnnouncementsTtsVoiceDescription": {
+    "source": "968fc8683cc48c2e178fc11a3f52b3a2ca34dffbb735727ba32fd35ad071f5b2",
+    "translation": "262e3c276527cce2f916708f187f8c1de062b7f7cd4fcb22b15f61bba79a6d18",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingAnnouncementsTtsVoiceTitle": {
+    "source": "0d176f67a1db78271b4696f515e473507890a7fe4bc056befd602f4cafbe3407",
+    "translation": "24a0d703afd496ea2c7af8b9f97dcb10425b1e3a919bfb21cc131965535f1f49",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingAlarmsTtsLanguageDescription": {
+    "source": "93006fec2e2faa5e87eade04a1b5b133246e8bd92192f6f09b4e1867665b439b",
+    "translation": "6a01ab313af92bae4a9ab7b237ee30ee639c6b63ef3eab002b29026c59636a4e",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "esphomeTtsDefault": {
+    "source": "339048f244a543ca4f0cbbee15d00fd9c6f129f3d5c055698eadb58dcb92cb76",
+    "translation": "672c94e94efe94d1f4db9447d8dedcebc76b8b26f380f5ee3acc710dfffa6243",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingAnnouncementsTtsLanguageTitle": {
+    "source": "4a49b848bcdeaa7c71ecbaef5aeca701fad5501eeda2e6565b1e07b2a1043490",
+    "translation": "5c2fbc335f7ce66542182087b8b9ed36e0099013adc12c555bc13b21c020a19d",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingAlarmsTtsVoiceDescription": {
+    "source": "09d7da5c32d83a72d933478f7fd9198e09748f75d06d4718c81e888ea568726e",
+    "translation": "218920101cafd80761827526b342a3792d4541ccdcc1eb4ad15d3950b0732461",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "esphomeTtsNoVoices": {
+    "source": "409c93a72dcf6b04462f4730be781740c071943fa9461d241bc636eeb85904e8",
+    "translation": "6a4bb3d0f250e24acda4de26f963a7e8b114711ee28f990a94169b4d5b77fa4f",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingAlarmsTtsLanguageTitle": {
+    "source": "89a340f7d18a2bb91fb4cf608afa6ef0e6a5404b038eb4dc2f892c812ff3843d",
+    "translation": "5c2fbc335f7ce66542182087b8b9ed36e0099013adc12c555bc13b21c020a19d",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingAnnouncementsTtsLanguageDescription": {
+    "source": "05abd1de4bde07750845cedbf781cd6ca029d51f4f94444ddf5a702970f8b63e",
+    "translation": "85f6c1bafdbd60f902261c56388ddacadea34e58d661c5904c39ef090f318d6f",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "alarmsTtsSection": {
+    "source": "295c6650419aef1953395f82de30ad9790b3d556f33b6f5fb909c1f1a287c0c2",
+    "translation": "c6c657c5ab509d233769cc863989241de3f1ae6e85be939fa3729df63ce6a6d0",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "esphomeTtsSection": {
+    "source": "517d5fc4a037f9c9a387f72508f85ae10bde43f08cc03891b8b99a703a3db682",
+    "translation": "c6c657c5ab509d233769cc863989241de3f1ae6e85be939fa3729df63ce6a6d0",
     "author": "Xavier Larrea",
     "ownerAuthored": true
   }

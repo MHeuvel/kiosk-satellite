@@ -215,6 +215,10 @@ const runtimeStateSettings = new Set([
   // alarms event, not from a settings rebuild.
   'alarms.list', 'alarms.runtime',
 ]);
+// The Announcements and Alarms text to speech rows, each a picker that
+// repaints itself (intercom.js).
+const ttsPickerSettings = new Set(['announcements', 'alarms']
+  .flatMap(prefix => ['engine', 'language', 'voice'].map(k => `${prefix}.tts_${k}`)));
 let liveSettingsTimer = null;
 let liveSettingsRendering = false;
 let settingsRenders = 0;
@@ -269,6 +273,16 @@ async function flushSettingsUpdates() {
       if ((!rows.length && !depSatisfied(setting, byKey)) || (rows.length
           && rows.every(row => row.updateSetting?.() && syncGatedRows(setting.key, row)))) {
         syncScreenOffAdminNotice();
+        continue;
+      }
+    }
+    // The text to speech pickers repaint themselves, and the engine's
+    // Language and Voice rows come and go in place (intercom.js), so a pick
+    // echoed back from the device does not rebuild every page.
+    if (!shapeChanged && ttsPickerSettings.has(setting.key)) {
+      const byKey = Object.fromEntries(state.settings.map(s => [s.key, s]));
+      if ((!rows.length && !depSatisfied(setting, byKey)) || (rows.length
+          && rows.every(row => row.updateSetting?.() && syncGatedRows(setting.key, row)))) {
         continue;
       }
     }
