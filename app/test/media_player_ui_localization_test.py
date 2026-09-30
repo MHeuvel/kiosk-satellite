@@ -27,7 +27,7 @@ setting('sendspin.player_source','ma','select', options=['','ha','ma','sonos'],
 setting('sendspin.player','')
 setting('sendspin.player_name','',hidden=True)
 setting('sendspin.player_active',True,'boolean',hidden=True)
-setting('sendspin.duck_percent',10,'number',min=0,max=25,step=5,unit='%')
+setting('sendspin.duck_percent',10,'number',min=0,max=10,step=5,unit='%')
 setting('sendspin.ma_url','https://ma.example:8095',subpage='Music Assistant',section='Music Assistant')
 setting('sendspin.ma_token','__set__','password',subpage='Music Assistant',section='Music Assistant')
 setting('sendspin.enabled',False,'boolean',subpage='Sendspin Player',section='Sendspin Player')

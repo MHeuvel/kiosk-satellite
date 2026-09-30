@@ -66,6 +66,9 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
     @Volatile private var lease: AutoCloseable? = null
     @Volatile private var output: AudioDeviceInfo? = null
     @Volatile private var writer: Thread? = null
+
+    /** What the track plays, for the software echo canceller. */
+    @Volatile private var tap: TrackTap? = null
     private var rate = 24000
 
     private val queue = LinkedBlockingQueue<ByteArray>()
@@ -135,8 +138,12 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
                 .setAudioAttributes(
                     AudioAttributes.Builder()
                         .setUsage(
+                            // Off the call route it is media, like the chimes
+                            // and text to speech: Android puts the master on
+                            // it, where the assistant stream has a volume of
+                            // its own.
                             if (comm) AudioAttributes.USAGE_VOICE_COMMUNICATION
-                            else AudioAttributes.USAGE_ASSISTANT,
+                            else AudioAttributes.USAGE_MEDIA,
                         )
                         .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
                         .build(),
@@ -176,6 +183,7 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
         track = newTrack
         lease = acquired
         output = target
+        tap = TrackTap(newTrack, sampleRate, 1)
         applyVolume()
         newTrack.play()
         synchronized(lock) { headOffset = head(newTrack) }
@@ -242,6 +250,7 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
                         if (epoch == at) {
                             pieces.addLast(longArrayOf(start, n / 2L))
                             streamWritten += n / 2
+                            tap?.wrote(chunk, offset, n)
                         }
                     }
                     if (epoch != at) break
@@ -280,6 +289,7 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
             answerWritten = heard
             runCatching { t.play() }
             headOffset = head(t)
+            tap?.flushed()
             return heard
         }
     }
@@ -293,12 +303,15 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
         }
         val level = PlaybackVolume.level(1f, VolumeController.assistGain, master)
         runCatching { t.setVolume(level) }
+        tap?.gain = level
     }
 
     private fun stop() {
         val t = track ?: return
         synchronized(lock) { epoch++ }
         track = null
+        tap?.close()
+        tap = null
         queue.clear()
         val thread = writer
         writer = null

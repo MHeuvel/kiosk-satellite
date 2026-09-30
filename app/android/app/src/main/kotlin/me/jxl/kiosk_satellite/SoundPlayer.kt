@@ -176,6 +176,16 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
     /** Live clip playbacks by sound id, alongside [players]. */
     private val tracks = mutableMapOf<String, AudioTrack>()
 
+    /** What each clip and stream plays, for the software echo canceller. */
+    private val clipTaps = java.util.concurrent.ConcurrentHashMap<String, TrackTap>()
+    private val streamTaps = java.util.concurrent.ConcurrentHashMap<String, SinkTap>()
+
+    private fun tapGain(id: String) {
+        val e = effectiveVolume(id)
+        clipTaps[id]?.gain = e
+        streamTaps[id]?.gain = e
+    }
+
     init {
         channel.setMethodCallHandler { call, result ->
             when (call.method) {
@@ -228,6 +238,7 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
                         baseVolumes[id] = v
                         try { it.setVolume(effectiveVolume(id)) } catch (_: Exception) {}
                     }
+                    tapGain(id)
                     result.success(true)
                 }
                 else -> result.notImplemented()
@@ -248,6 +259,7 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
             for ((id, track) in live) {
                 try { track.setVolume(effectiveVolume(id)) } catch (_: Exception) {}
             }
+            for (id in clipTaps.keys + streamTaps.keys) tapGain(id)
         }
     }
 
@@ -263,7 +275,7 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
         // Same id twice = replace: the page re-firing a chime wants the new
         // one, not two overlapped copies.
         val selected = AudioRouting.currentOutput()
-        val lease = if (communication.echoCancelling) communication.acquire(selected) else null
+        val lease = communication.acquire(selected)
         val target = if (lease != null) communication.output else selected
         finish(id, null)
         val request = PlaybackRequest(lease, target)
@@ -401,6 +413,11 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
         try {
             track.write(clip.pcm, 0, clip.pcm.size)
             track.setVolume(effectiveVolume(id))
+            clipTaps.remove(id)?.close()
+            clipTaps[id] = TrackTap(track, clip.sampleRate, if (clip.channels >= 2) 2 else 1).also {
+                it.gain = effectiveVolume(id)
+                it.wrote(clip.pcm, 0, clip.pcm.size)
+            }
             if (Build.VERSION.SDK_INT >= 28) {
                 target?.let {
                     track.preferredDevice = it
@@ -702,8 +719,12 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
         softwareDecoders: Boolean,
         diagnosticReplay: Boolean,
         diagnostics: ExoDiagnostics,
-    ): DefaultRenderersFactory =
-        object : DefaultRenderersFactory(appContext) {
+    ): DefaultRenderersFactory {
+        val echoTap = SinkTap().also {
+            it.gain = effectiveVolume(id)
+            streamTaps.put(id, it)?.close()
+        }
+        return object : DefaultRenderersFactory(appContext) {
             override fun buildAudioSink(
                 context: Context,
                 enableFloatOutput: Boolean,
@@ -716,9 +737,27 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
                             diagnostic(id, "discarded incomplete final PCM frame bytes=$bytes")
                         },
                         levelTap(id),
+                        TeeAudioProcessor(echoTap),
                     ))
                     .build(),
             ) {
+                // The echo canceller's reference is timed by the sink's own
+                // clock: its first buffer's time and its position as it plays.
+                override fun handleBuffer(
+                    buffer: ByteBuffer,
+                    presentationTimeUs: Long,
+                    encodedAccessUnitCount: Int,
+                ): Boolean {
+                    echoTap.started(presentationTimeUs)
+                    return super.handleBuffer(buffer, presentationTimeUs, encodedAccessUnitCount)
+                }
+
+                override fun getCurrentPositionUs(sourceEnded: Boolean): Long {
+                    val position = super.getCurrentPositionUs(sourceEnded)
+                    if (position != AudioSink.CURRENT_POSITION_NOT_SET) echoTap.position(position)
+                    return position
+                }
+
                 override fun playToEndOfStream() {
                     if (!diagnostics.sinkEosRequested) {
                         diagnostics.sinkEosRequested = true
@@ -745,6 +784,7 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
                 } else softwareCodecSelector,
             )
         }
+    }
 
     private class ExoDiagnostics {
         var decoder = "unknown"
@@ -1037,6 +1077,8 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
         val beganNs = System.nanoTime()
         val request = synchronized(tracks) { requests.remove(id) } ?: return
         val track = synchronized(tracks) { tracks.remove(id) }
+        clipTaps.remove(id)?.close()
+        streamTaps.remove(id)?.close()
         visualizers.remove(id)?.let {
             try {
                 it.enabled = false

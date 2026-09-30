@@ -52,6 +52,32 @@
       ]
     }
   },
+  "settingMicSoftwareEchoCancellationTitle": "Software echo cancellation",
+  "@settingMicSoftwareEchoCancellationTitle": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
+  "settingMicSoftwareEchoCancellationDescription": "Removes the kiosk's own sounds from the microphone. Turn it on if the assistant interrupts itself.",
+  "@settingMicSoftwareEchoCancellationDescription": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
   "settingMicChannelTitle": "Microphone channel",
   "@settingMicChannelTitle": {
     "context": "Settings:Screen & Audio:Microphone settings",

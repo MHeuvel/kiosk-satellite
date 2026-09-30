@@ -8729,6 +8729,14 @@ class UiStringsFr extends UiStrings {
       'Empêche le microphone de capter le haut-parleur du kiosque afin que le mot d\'arrêt fonctionne pendant la lecture. Ne la désactivez que si le microphone semble bien plus faible ici que dans une application d\'enregistrement.';
 
   @override
+  String get settingMicSoftwareEchoCancellationTitle =>
+      'Annulation d\'écho logicielle';
+
+  @override
+  String get settingMicSoftwareEchoCancellationDescription =>
+      'Retire du microphone les sons émis par le kiosque. Activez-la si l\'assistant s\'interrompt lui-même.';
+
+  @override
   String get settingMicChannelTitle => 'Canal du microphone';
 
   @override

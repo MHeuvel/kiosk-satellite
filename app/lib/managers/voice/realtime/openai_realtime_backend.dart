@@ -140,6 +140,7 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
 
   final RealtimeConfig config;
   final RealtimeToolbox toolbox;
+
   final RealtimeConnector _connector;
   final void Function(String line)? log;
   final Duration readyTimeout;
@@ -176,8 +177,20 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
   final _answer = StringBuffer();
 
   @override
-  RealtimeCapabilities get capabilities =>
-      const RealtimeCapabilities(inputRate: rate, outputRate: rate);
+  RealtimeCapabilities get capabilities => RealtimeCapabilities(
+    inputRate: rate,
+    outputRate: rate,
+    clientTurns: _clientTurns,
+  );
+
+  /// OpenAI lets the client take the turns over; xAI's session has no such
+  /// switches, so its server keeps them.
+  bool get _clientTurns => config.provider == RealtimeProvider.openai;
+
+  /// The user item the last speech went into, and those dropped as not the
+  /// user, whose transcripts are not shown.
+  String _lastSpeechItem = '';
+  final _dropped = <String>{};
 
   @override
   Stream<RealtimeEvent> get events => _events.stream;
@@ -278,8 +291,9 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
             },
             'turn_detection': {
               ...turnDetection,
-              'create_response': true,
-              'interrupt_response': true,
+              // The session decides whether speech is the user (userTurn).
+              'create_response': false,
+              'interrupt_response': false,
             },
           },
           'output': {'format': format, 'voice': config.effectiveVoice},
@@ -320,6 +334,19 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
   }
 
   @override
+  void userTurn({required bool keep}) {
+    if (!_clientTurns) return;
+    if (keep) {
+      _send({'type': 'response.create'});
+      return;
+    }
+    final item = _lastSpeechItem;
+    if (item.isEmpty) return;
+    _dropped.add(item);
+    _send({'type': 'conversation.item.delete', 'item_id': item});
+  }
+
+  @override
   void interrupted(String itemId, int playedMs) {
     if (_responding && !_serverInterrupted) _send({'type': 'response.cancel'});
     if (itemId.isEmpty) return;
@@ -352,11 +379,13 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
       case 'error':
         _onError(msg['error']);
       case 'input_audio_buffer.speech_started':
-        _serverInterrupted = _responding;
+        _serverInterrupted = _responding && !_clientTurns;
         _emit(const RealtimeSpeechStarted());
       case 'input_audio_buffer.speech_stopped':
+        _lastSpeechItem = '${msg['item_id'] ?? ''}';
         _emit(const RealtimeSpeechStopped());
-      case 'conversation.item.input_audio_transcription.delta':
+      case 'conversation.item.input_audio_transcription.delta'
+          when !_dropped.contains('${msg['item_id'] ?? ''}'):
         final id = '${msg['item_id'] ?? ''}';
         final text = '${_userText[id] ?? ''}${msg['delta'] ?? ''}';
         _userText[id] = text;
@@ -364,7 +393,8 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
       case 'conversation.item.input_audio_transcription.updated':
         final text = '${msg['transcript'] ?? msg['text'] ?? ''}';
         if (text.isNotEmpty) _emit(RealtimeUserText(text, complete: false));
-      case 'conversation.item.input_audio_transcription.completed':
+      case 'conversation.item.input_audio_transcription.completed'
+          when !_dropped.contains('${msg['item_id'] ?? ''}'):
         final id = '${msg['item_id'] ?? ''}';
         _userText.remove(id);
         final text = '${msg['transcript'] ?? ''}'.trim();

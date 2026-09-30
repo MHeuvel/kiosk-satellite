@@ -8657,6 +8657,14 @@ class UiStringsUk extends UiStrings {
       'Запобігає потраплянню звуку власного динаміка кіоска в мікрофон, щоб команда зупинки працювала під час відтворення. Вимикайте лише якщо мікрофон тут звучить набагато тихіше, ніж у диктофоні.';
 
   @override
+  String get settingMicSoftwareEchoCancellationTitle =>
+      'Програмне ехопоглинання';
+
+  @override
+  String get settingMicSoftwareEchoCancellationDescription =>
+      'Прибирає з мікрофона власні звуки кіоска. Увімкніть, якщо асистент перебиває сам себе.';
+
+  @override
   String get settingMicChannelTitle => 'Канал мікрофона';
 
   @override

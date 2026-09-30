@@ -37,6 +37,7 @@ import kotlin.math.roundToInt
  * its bottom fifth.
  */
 object VolumeController {
+
     private const val PREFS = "volume_controller"
     private const val KEY_PERCENT = "software_volume"
     private const val KEY_MUTED = "software_muted"
@@ -232,16 +233,25 @@ object VolumeController {
     val masterGain: Float
         get() = masterSoftGain()
 
-    /** Keep communication sounds under the same master as media playback. */
+    /**
+     * Keep communication sounds under the same master as media playback:
+     * as far below full as the master puts media, less what the call
+     * stream's own volume already takes off.
+     */
     fun communicationGain(deviceType: Int): Float {
         if (isFixed) return 1f // assistGain already includes the software master.
         if (muted() || percent() == 0) return 0f
+        val music = AudioManager.STREAM_MUSIC
+        val call = AudioManager.STREAM_VOICE_CALL
+        // The app's own taper for both: the master's position, less the
+        // call stream's.
+        val callMax = audioManager.getStreamMaxVolume(call).coerceAtLeast(1)
+        val callPct = (audioManager.getStreamVolume(call) * 100.0 / callMax).roundToInt()
+        val taper = curve(percent()) / curve(callPct).coerceAtLeast(0.01f)
         if (Build.VERSION.SDK_INT >= 28) {
             try {
                 fun db(stream: Int, index: Int) =
                     audioManager.getStreamVolumeDb(stream, index, deviceType)
-                val music = AudioManager.STREAM_MUSIC
-                val call = AudioManager.STREAM_VOICE_CALL
                 val mediaDb = db(music, audioManager.getStreamVolume(music))
                 if (mediaDb == Float.NEGATIVE_INFINITY) return 0f
                 val mediaMaxDb = db(music, audioManager.getStreamMaxVolume(music))
@@ -250,11 +260,19 @@ object VolumeController {
                 if (mediaDb.isFinite() && mediaMaxDb.isFinite() &&
                     voiceDb.isFinite() && voiceMaxDb.isFinite()
                 ) {
-                    return PlaybackVolume.compensation(mediaDb, mediaMaxDb, voiceDb, voiceMaxDb)
+                    // Whichever takes more off. Some vendors report less
+                    // than their mixer applies: a Galaxy Tab S8 calls a 27%
+                    // media volume 13 dB down and plays it 27 dB down, so
+                    // call route sounds came out far over the master. Where
+                    // the figures are right they are the steeper curve.
+                    return minOf(
+                        PlaybackVolume.compensation(mediaDb, mediaMaxDb, voiceDb, voiceMaxDb),
+                        taper,
+                    )
                 }
             } catch (_: IllegalArgumentException) {}
         }
-        return curve(percent())
+        return taper
     }
 
     /** Master and call-volume changes affect communication playback gain. */

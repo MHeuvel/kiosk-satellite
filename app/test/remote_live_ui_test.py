@@ -137,10 +137,10 @@ with sync_playwright() as playwright:
     duck = duck_row.locator('input[type="range"]')
     expect(duck).to_have_value('10')
     duck_row.evaluate('row => row.dataset.preserved = "yes"')
-    change('sendspin.duck_percent', 20)
-    expect(duck).to_have_value('20')
-    expect(duck_row.locator('.slider-value')).to_have_text('20%')
-    expect(duck).to_have_css('--pct', '80.00%')
+    change('sendspin.duck_percent', 0)
+    expect(duck).to_have_value('0')
+    expect(duck_row.locator('.slider-value')).to_have_text('0%')
+    expect(duck).to_have_css('--pct', '0.00%')
     expect(duck_row).to_have_attribute('data-preserved', 'yes')
     page.locator('#tabs button[data-tab="cameras"]').click()
     expect(page.locator('#tab-cameras').get_by_text('Import cameras from Home Assistant', exact=True)).to_be_visible()
@@ -149,7 +149,7 @@ with sync_playwright() as playwright:
     change('sendspin.duck_percent', 5)
     expect(duck).to_have_value('5')
     expect(duck_row.locator('.slider-value')).to_have_text('5%')
-    expect(duck).to_have_css('--pct', '20.00%')
+    expect(duck).to_have_css('--pct', '50.00%')
     expect(duck_row).to_have_attribute('data-preserved', 'yes')
     assert not [frame for frame in frames if frame.get('type') == 'settings'], frames
 

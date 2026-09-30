@@ -32075,6 +32075,32 @@
       ]
     }
   },
+  "settingMicSoftwareEchoCancellationTitle": "Cancelación de eco por software",
+  "@settingMicSoftwareEchoCancellationTitle": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
+  "settingMicSoftwareEchoCancellationDescription": "Elimina del micrófono los sonidos del propio kiosko. Actívala si el asistente se interrumpe a sí mismo.",
+  "@settingMicSoftwareEchoCancellationDescription": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
   "settingMicChannelTitle": "Canal del micrófono",
   "@settingMicChannelTitle": {
     "context": "Settings:Screen & Audio:Microphone settings",

@@ -180,7 +180,7 @@ void main() {
       await boot('session:*');
       // A settings write elsewhere runs the reconcile; the pick is one of
       // this device's own, so it stays.
-      await settings.set(defs.sendspinDuckPercent, 15);
+      await settings.set(defs.sendspinDuckPercent, 5);
       await pumpEventQueue();
       expect(settings.get(defs.sendspinPlayer), 'session:*');
       // Another source takes it away.

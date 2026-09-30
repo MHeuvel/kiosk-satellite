@@ -32075,6 +32075,32 @@
       ]
     }
   },
+  "settingMicSoftwareEchoCancellationTitle": "Software-Echounterdrückung",
+  "@settingMicSoftwareEchoCancellationTitle": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
+  "settingMicSoftwareEchoCancellationDescription": "Entfernt die eigenen Töne des Kiosks aus dem Mikrofon. Aktiviere sie, wenn sich der Assistent selbst unterbricht.",
+  "@settingMicSoftwareEchoCancellationDescription": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
   "settingMicChannelTitle": "Mikrofonkanal",
   "@settingMicChannelTitle": {
     "context": "Settings:Screen & Audio:Microphone settings",

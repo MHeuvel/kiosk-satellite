@@ -8563,6 +8563,14 @@ class UiStringsEn extends UiStrings {
       'Keeps the kiosk\'s own speaker out of the microphone so the stop word works during playback. Turn it off only if the microphone reads far quieter here than in a recorder app.';
 
   @override
+  String get settingMicSoftwareEchoCancellationTitle =>
+      'Software echo cancellation';
+
+  @override
+  String get settingMicSoftwareEchoCancellationDescription =>
+      'Removes the kiosk\'s own sounds from the microphone. Turn it on if the assistant interrupts itself.';
+
+  @override
   String get settingMicChannelTitle => 'Microphone channel';
 
   @override

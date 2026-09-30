@@ -8779,6 +8779,14 @@ class UiStringsDe extends UiStrings {
       'Verhindert, dass das Mikrofon den Lautsprecher des Kiosks aufnimmt, damit das Stoppwort auch während der Wiedergabe erkannt werden kann. Deaktiviere diese Funktion nur, wenn das Mikrofon hier deutlich leiser aufnimmt als in einer Aufnahme-App.';
 
   @override
+  String get settingMicSoftwareEchoCancellationTitle =>
+      'Software-Echounterdrückung';
+
+  @override
+  String get settingMicSoftwareEchoCancellationDescription =>
+      'Entfernt die eigenen Töne des Kiosks aus dem Mikrofon. Aktiviere sie, wenn sich der Assistent selbst unterbricht.';
+
+  @override
   String get settingMicChannelTitle => 'Mikrofonkanal';
 
   @override

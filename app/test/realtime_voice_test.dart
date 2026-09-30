@@ -105,11 +105,17 @@ class _Backend implements RealtimeBackend {
   final _events = StreamController<RealtimeEvent>();
   final audio = <Uint8List>[];
   final interruptions = <(String, int)>[];
+  final turns = <bool>[];
   RealtimeStart? started;
   bool closed = false;
+  bool clientTurns = false;
 
   @override
-  RealtimeCapabilities get capabilities => const RealtimeCapabilities();
+  RealtimeCapabilities get capabilities =>
+      RealtimeCapabilities(clientTurns: clientTurns);
+
+  @override
+  void userTurn({required bool keep}) => turns.add(keep);
 
   @override
   Stream<RealtimeEvent> get events => _events.stream;
@@ -224,6 +230,7 @@ class _Harness {
       onStopArmed: stopArmed.add,
       onError: (code, _) => errors.add(code),
       onIdle: () => idles++,
+      onTrace: (step, {text}) => traces.add(step),
       now: () => DateTime(2026).add(time.elapsed),
     );
   }
@@ -240,6 +247,7 @@ class _Harness {
   final busy_ = <bool>[];
   final stopArmed = <bool>[];
   final errors = <String>[];
+  final traces = <String>[];
   int idles = 0;
 
   AssistView get view => views.last;
@@ -448,7 +456,10 @@ void main() {
       expect((audio['output'] as Map)['voice'], 'marin');
       final input = audio['input'] as Map;
       expect((input['format'] as Map)['rate'], 24000);
-      expect((input['turn_detection'] as Map)['interrupt_response'], true);
+      // The session takes the turns: speech neither stops nor gets a reply
+      // on its own.
+      expect((input['turn_detection'] as Map)['interrupt_response'], false);
+      expect((input['turn_detection'] as Map)['create_response'], false);
       expect((input['transcription'] as Map)['language'], 'es');
       expect((session['tools'] as List).length, 2);
       await backend.close();
@@ -605,9 +616,9 @@ void main() {
       await backend.close();
     });
 
-    test('talking over it leaves the cancel to the server', () async {
+    test('xAI: talking over it leaves the cancel to the server', () async {
       final backend = make(
-        const RealtimeConfig(provider: RealtimeProvider.openai),
+        const RealtimeConfig(provider: RealtimeProvider.xai),
       );
       await backend.start(const RealtimeStart());
       socket
@@ -618,6 +629,39 @@ void main() {
       backend.interrupted('a1', 800);
       expect(socket.types, isNot(contains('response.cancel')));
       expect(socket.types.last, 'conversation.item.truncate');
+      await backend.close();
+    });
+
+    test('OpenAI: the session stops the answer and takes the turns', () async {
+      final backend = make(
+        const RealtimeConfig(provider: RealtimeProvider.openai),
+      );
+      expect(backend.capabilities.clientTurns, isTrue);
+      await backend.start(const RealtimeStart());
+      socket
+        ..server({'type': 'session.updated'})
+        ..server({'type': 'response.created'})
+        ..server({'type': 'input_audio_buffer.speech_started'})
+        ..server({
+          'type': 'input_audio_buffer.speech_stopped',
+          'item_id': 'u1',
+        });
+      await pumpEventQueue();
+      // Not the user: the item goes, and its transcript is not shown.
+      backend.userTurn(keep: false);
+      expect(socket.types.last, 'conversation.item.delete');
+      socket.server({
+        'type': 'conversation.item.input_audio_transcription.completed',
+        'item_id': 'u1',
+        'transcript': 'Stop.',
+      });
+      await pumpEventQueue();
+      expect(events.whereType<RealtimeUserText>(), isEmpty);
+      // The user: the answer is cancelled and a reply asked for.
+      backend.interrupted('a1', 800);
+      expect(socket.types, contains('response.cancel'));
+      backend.userTurn(keep: true);
+      expect(socket.types.last, 'response.create');
       await backend.close();
     });
 
@@ -720,12 +764,171 @@ void main() {
         h.backend.audio.clear();
         h.mic.speak(value: 2000);
         expect(h.backend.audio.single.every((b) => b == 0), isTrue);
+        // A microphone that never quiets down under the voice waits the
+        // whole settling out.
         time.elapse(const Duration(milliseconds: 2100));
+        h.backend.audio.clear();
+        h.mic.speak(value: 2000);
+        expect(h.backend.audio.single.every((b) => b == 0), isTrue);
+        time.elapse(const Duration(milliseconds: 2000));
         h.backend.audio.clear();
         h.mic.speak(value: 2000);
         expect(h.backend.audio.single.any((b) => b != 0), isTrue);
         h.session.cancel();
         time.flushMicrotasks();
+      });
+    });
+
+    test('the settling ends once the canceller keeps the voice out', () {
+      fakeAsync((time) {
+        final h = _Harness(time);
+        h.wakeAndConnect();
+        h.answer('a1', seconds: 5);
+        // Quiet chunks while the voice speaks, past the least it waits:
+        // the echo is out.
+        time.elapse(RealtimeSession.settleAtLeast);
+        for (var i = 0; i < RealtimeSession.settledAfter; i++) {
+          time.elapse(const Duration(milliseconds: 80));
+          h.mic.speak(value: 10);
+        }
+        h.backend.audio.clear();
+        h.mic.speak(value: 2000);
+        expect(
+          RealtimeSession.meanAbs(h.backend.audio.single),
+          closeTo(2000, 2),
+        );
+        expect(h.traces, contains(startsWith('echo settled after')));
+        h.session.cancel();
+        time.flushMicrotasks();
+      });
+    });
+
+    test('the room\'s noise stands in while the canceller mutes it', () {
+      fakeAsync((time) {
+        // A noise floor (an air conditioner) that comes back all at once
+        // when the canceller lets go reads as someone talking.
+        final h = _Harness(time);
+        h.wakeAndConnect();
+        for (var i = 0; i < 20; i++) {
+          h.mic.speak(value: 50);
+        }
+        int level(Uint8List pcm) => RealtimeSession.meanAbs(pcm);
+        h.answer('a1', seconds: 5);
+        h.backend.audio.clear();
+        h.mic.speak(value: 2000);
+        expect(level(h.backend.audio.single), closeTo(50, 2));
+        time.elapse(RealtimeSession.echoSettle);
+        h.backend.audio.clear();
+        h.mic.speak(value: 0);
+        expect(level(h.backend.audio.single), closeTo(50, 2));
+        h.backend.audio.clear();
+        h.mic.speak(value: 2000);
+        expect(level(h.backend.audio.single), closeTo(2000, 2));
+        h.session.cancel();
+        time.flushMicrotasks();
+      });
+    });
+
+    test('a quiet room goes as it is', () {
+      fakeAsync((time) {
+        final h = _Harness(time);
+        h.wakeAndConnect();
+        for (var i = 0; i < 20; i++) {
+          h.mic.speak(value: 2);
+        }
+        h.answer('a1', seconds: 5);
+        time.elapse(const Duration(milliseconds: 2100));
+        h.backend.audio.clear();
+        h.mic.speak(value: 0);
+        expect(RealtimeSession.meanAbs(h.backend.audio.single), 0);
+        h.session.cancel();
+        time.flushMicrotasks();
+      });
+    });
+
+    group('with the turns in the session', () {
+      test('quiet speech over an answer is dropped, the answer goes on', () {
+        fakeAsync((time) {
+          final h = _Harness(time);
+          h.backend.clientTurns = true;
+          h.wakeAndConnect();
+          h.answer('a1', seconds: 8);
+          time.elapse(RealtimeSession.echoSettle);
+          h.backend.emit(const RealtimeSpeechStarted());
+          time.flushMicrotasks();
+          for (var i = 0; i < 5; i++) {
+            time.elapse(const Duration(milliseconds: 80));
+            h.mic.speak(value: 300);
+          }
+          h.backend.emit(const RealtimeSpeechStopped());
+          time.flushMicrotasks();
+          expect(h.player.flushes, 0);
+          expect(h.backend.interruptions, isEmpty);
+          expect(h.backend.turns, [false]);
+          h.session.cancel();
+          time.flushMicrotasks();
+        });
+      });
+
+      test('loud speech over an answer stops it and gets a reply', () {
+        fakeAsync((time) {
+          final h = _Harness(time);
+          h.backend.clientTurns = true;
+          h.wakeAndConnect();
+          h.answer('a1', seconds: 8);
+          time.elapse(RealtimeSession.echoSettle);
+          h.backend.emit(const RealtimeSpeechStarted());
+          time.flushMicrotasks();
+          for (var i = 0; i < RealtimeSession.bargeInChunks; i++) {
+            time.elapse(const Duration(milliseconds: 80));
+            h.mic.speak(value: 3000);
+          }
+          time.flushMicrotasks();
+          expect(h.player.flushes, 1);
+          expect(h.backend.interruptions.single.$1, 'a1');
+          h.backend.emit(const RealtimeSpeechStopped());
+          time.flushMicrotasks();
+          expect(h.backend.turns, [true]);
+          h.session.cancel();
+          time.flushMicrotasks();
+        });
+      });
+
+      test('the loud speech it already heard counts', () {
+        fakeAsync((time) {
+          final h = _Harness(time);
+          h.backend.clientTurns = true;
+          h.wakeAndConnect();
+          h.answer('a1', seconds: 8);
+          time.elapse(RealtimeSession.echoSettle);
+          // The user speaks; the provider says so half a second later.
+          for (var i = 0; i < RealtimeSession.bargeInChunks; i++) {
+            time.elapse(const Duration(milliseconds: 80));
+            h.mic.speak(value: 3000);
+          }
+          h.backend.emit(const RealtimeSpeechStarted());
+          time.flushMicrotasks();
+          expect(h.player.flushes, 1);
+          h.session.cancel();
+          time.flushMicrotasks();
+        });
+      });
+
+      test('speech with nothing playing gets a reply', () {
+        fakeAsync((time) {
+          final h = _Harness(time);
+          h.backend.clientTurns = true;
+          h.wakeAndConnect();
+          h.backend.emit(const RealtimeSpeechStarted());
+          time.flushMicrotasks();
+          h.mic.speak(value: 2000);
+          h.backend.emit(const RealtimeSpeechStopped());
+          time.flushMicrotasks();
+          expect(h.backend.turns, [true]);
+          expect(h.player.flushes, 0);
+          h.session.cancel();
+          time.flushMicrotasks();
+        });
       });
     });
 

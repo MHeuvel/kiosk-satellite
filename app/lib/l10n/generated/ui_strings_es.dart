@@ -8731,6 +8731,14 @@ class UiStringsEs extends UiStrings {
       'Evita que el micrófono capte el altavoz del kiosko para que la palabra de parada funcione durante la reproducción. Desactívala solo si el micrófono capta un volumen mucho más bajo aquí que en una aplicación de grabación.';
 
   @override
+  String get settingMicSoftwareEchoCancellationTitle =>
+      'Cancelación de eco por software';
+
+  @override
+  String get settingMicSoftwareEchoCancellationDescription =>
+      'Elimina del micrófono los sonidos del propio kiosko. Actívala si el asistente se interrumpe a sí mismo.';
+
+  @override
   String get settingMicChannelTitle => 'Canal del micrófono';
 
   @override

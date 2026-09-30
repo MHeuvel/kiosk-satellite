@@ -19,6 +19,7 @@ class RealtimeCapabilities {
     this.inputRate = 24000,
     this.outputRate = 24000,
     this.serverBargeIn = true,
+    this.clientTurns = false,
   });
 
   /// The microphone audio it takes, PCM16 mono at this rate.
@@ -30,6 +31,12 @@ class RealtimeCapabilities {
   /// The backend hears the user start talking over an answer and says so
   /// ([RealtimeSpeechStarted]). False leaves barge-in to the stop word.
   final bool serverBargeIn;
+
+  /// Speech heard neither stops an answer nor gets a reply on its own: the
+  /// session decides each turn ([RealtimeBackend.userTurn]) and stops the
+  /// answer itself ([RealtimeBackend.interrupted]). A faint echo of the
+  /// answer the provider takes for speech then does nothing.
+  final bool clientTurns;
 }
 
 /// Why and how the session started.
@@ -140,6 +147,11 @@ abstract class RealtimeBackend {
   /// Playback of [itemId] was cut after [playedMs]: the user talked over
   /// it, or it was stopped. The model forgets what was not heard.
   void interrupted(String itemId, int playedMs);
+
+  /// With [RealtimeCapabilities.clientTurns]: the speech that just ended
+  /// was the user ([keep], and it gets a reply) or not (it is dropped from
+  /// the conversation, unanswered).
+  void userTurn({required bool keep});
 
   /// Closes the connection. No events follow.
   Future<void> close();

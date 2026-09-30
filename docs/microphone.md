@@ -48,6 +48,12 @@ On by default, and on for every capture the app has ever opened: the stop word l
 
 Turn it off only when it does harm. On some MediaTek tablets a canceller attached to a Voice recognition or Raw microphone capture attenuates the whole signal to a whisper, a level the gain slider cannot bring back, while a recorder app on the same source sounds fine. With it off, expect the stop word to hear the kiosk's own responses. With it on, the kiosk holds Android's call audio route while it listens, so on some devices other apps play through the call path at lower quality and the volume buttons set call volume. Turning it off releases that route and assistant sounds play as normal media.
 
+## Software Echo Cancellation
+
+Off by default. It removes the kiosk's own sounds from the microphone with WebRTC's echo canceller, the one video calling apps use, alongside the device's own. Turn it on when a realtime conversation keeps interrupting itself (the assistant hears its own answer, takes it for you talking and starts over) or when the wake word struggles to hear you over music.
+
+It covers everything the kiosk plays itself: chimes, text to speech, the realtime assistant's voice, intercom calls and the Sendspin player. Every feature that listens gets the cleaned microphone, so the wake word, Assist, realtime conversations, the intercom and the RTSP stream all benefit. Sound from web pages, DLNA and alarms is not covered. The canceller only runs while something plays and for a moment after, so an idle microphone passes through untouched.
+
 ## Automatic Gain Control
 
 Enabling Automatic Gain Control delegates volume levelling to Android rather than applying a fixed gain boost, ensuring both quiet and loud speech arrive at a usable level.

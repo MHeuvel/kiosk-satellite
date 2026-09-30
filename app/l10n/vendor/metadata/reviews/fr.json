@@ -22378,5 +22378,17 @@
     "translation": "c6b22197a90a4f5f28991df324255855791226599ffa463ca4f79d91d0e45c46",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "settingMicSoftwareEchoCancellationDescription": {
+    "source": "31ffc8fa50b9783d386ff2647ef20fdee1fe85a8eb0006523c85e81f5d666475",
+    "translation": "53bec7607d238a3b69d8d969896d3e8e49ec0bb4e497b22b889baebffcada060",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingMicSoftwareEchoCancellationTitle": {
+    "source": "7f4feaafc157fec4484208452e95ef06780275145d52046f4317e3a692f04ac2",
+    "translation": "7228be6ddbef4e84d18c284a56c0b0f6345dc3666a721979888910e0738c057e",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

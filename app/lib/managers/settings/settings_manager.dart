@@ -379,6 +379,20 @@ class SettingsManager extends Manager {
       }
       await setInternal(noiseSuppressionMigration, '1');
     }
+    // The music duck used to go up to 25%, more than the software echo
+    // canceller keeps out of the microphone. Bring existing installs down
+    // to the new ceiling once.
+    const duckCapMigration = 'sendspin.duck_percent_10.migrated';
+    if (internal(duckCapMigration).isEmpty) {
+      if (get(sendspinDuckPercent) > sendspinDuckMax) {
+        await _prefs.setInt(_prefix + sendspinDuckPercent.key, sendspinDuckMax);
+        log.info(
+          name,
+          'lowered the music duck to $sendspinDuckMax% on upgrade',
+        );
+      }
+      await setInternal(duckCapMigration, '1');
+    }
     // HA kiosk mode was a strategy choice (off/auto/plugin/css) while the
     // hiding could be handed to the kiosk-mode resource. It does the hiding
     // itself now, so the setting is a plain switch: anything that was not

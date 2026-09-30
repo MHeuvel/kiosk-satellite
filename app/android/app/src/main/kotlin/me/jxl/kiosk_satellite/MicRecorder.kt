@@ -95,6 +95,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         private const val SAMPLE_RATE = 16000
         private const val CHUNK_BYTES = 1280 * 2 // 80 ms of 16-bit mono
 
+
         /**
          * The sound card's own format on the devices that cannot do 16 kHz
          * mono: 48 kHz, two channels. Also the deafness guard's second try:
@@ -171,6 +172,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         val wantAec = args?.get("aec") != false
         val wantAgc = args?.get("agc") == true
         val wantNs = args?.get("noiseSuppression") == true
+        val wantSoftwareAec = args?.get("softwareAec") == true
         // A gain of 0 dB is the overwhelmingly common case, and a factor of
         // exactly 1 lets the read loop skip the sample walk entirely.
         val gain = gainFactor((args?.get("gainDb") as? Number)?.toDouble() ?: 0.0)
@@ -223,13 +225,14 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
             TAG,
             "capture opening (device=${selector ?: "automatic"} " +
                 "source=${sourceName(source)} gain=${"%.1f".format(gainDbOf(gain))}dB " +
-                "aec=$wantAec agc=$wantAgc ns=$wantNs" +
+                "aec=$wantAec software-aec=$wantSoftwareAec agc=$wantAgc ns=$wantNs" +
                 (if (wantChannel >= 1) " channel=$wantChannel/${ladder[step].channels}" else "") +
                 " format=${ladder[step]}" +
                 (if (hardwareFormat) " hardware-format" else "") + ")",
         )
         applyPreferredDevice(opened, selector)
         applyDsp(opened.audioSessionId, wantAec, wantAgc, wantNs)
+        SoftwareEcho.setEnabled(wantSoftwareAec)
         // Four 80 ms chunks cover ordinary scheduling jitter. A stalled
         // platform thread must not retain an unlimited history of audio.
         val frames = PcmDelivery(
@@ -263,6 +266,10 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
             var reads = 0
             var rateChecked = false
             var buf = ByteArray(shape.chunkBytes)
+            // Frames read from this record: when each chunk was heard, for
+            // pairing it with what the speaker played then (SoftwareEcho).
+            var capturedFrames = 0L
+            val captureClock = CaptureClock()
 
             // The walk's verdicts also go to the app log, the one people
             // send: logcat alone left a deaf capture looking healthy there.
@@ -301,6 +308,8 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
                 reads = 0
                 rateChecked = false
                 announcedAudio = false
+                capturedFrames = 0
+                captureClock.reset()
                 buf = ByteArray(shape.chunkBytes)
             }
 
@@ -401,6 +410,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
                     continue
                 }
                 errorRun = 0
+                capturedFrames += read / (2 * shape.channels)
                 if (windowNs == 0L) {
                     reads++
                     val blocked = System.nanoTime() - readStartNs >= RATE_BLOCKED_READ_NS
@@ -459,6 +469,14 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
                 }
                 if (chunk.isEmpty()) continue
                 if (gain != 1.0) amplify(chunk, chunk.size, gain)
+                // A realtime conversation cancelling its own voice in
+                // software: everything downstream hears the cleaned audio.
+                if (SoftwareEcho.enabled) {
+                    SoftwareEcho.process(
+                        chunk,
+                        captureClock.heard(capturedFrames, shape.rateHz, System.nanoTime()),
+                    )
+                }
                 rtspAudioTap?.invoke(chunk, System.nanoTime() / 1000 - chunk.size * 1_000_000L / 32000)
                 frames.offer(chunk)
             }
@@ -781,6 +799,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
             it.release()
         }
         record = null
+        SoftwareEcho.setEnabled(false)
         CommunicationPlayback.get(appContext).captureStopped()
         // Only tear down Bluetooth routing this recorder brought up; a stop
         // with automatic routing must not disturb whatever else holds it.
@@ -797,5 +816,59 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
             scoStarted = false
             AudioRouting.micHoldsCommDevice = false
         }
+    }
+}
+
+/**
+ * When the last frame read was captured, by counting frames: the count is
+ * exact, where a read's return time wanders by milliseconds and Android's
+ * own capture timestamps cannot be relied on (an Echo Show 8 reports frame
+ * positions that are not this record's). The count is anchored to the
+ * system clock at the first read and kept as close behind it as the reads
+ * allow: pulled back at once when a read returns before the count says its
+ * last frame was captured, eased forward when every read in a while came
+ * well after, which follows any drift between the two clocks.
+ */
+internal class CaptureClock {
+    private var anchorNs = 0L
+    private var anchorFrames = 0L
+    private var anchored = false
+    private var windowStartNs = 0L
+    private var minSlackNs = Long.MAX_VALUE
+
+    fun reset() {
+        anchored = false
+    }
+
+    fun heard(frames: Long, rate: Int, nowNs: Long): Long {
+        if (!anchored) {
+            anchorNs = nowNs
+            anchorFrames = frames
+            anchored = true
+            windowStartNs = nowNs
+            minSlackNs = Long.MAX_VALUE
+            return nowNs
+        }
+        var heardNs = anchorNs + (frames - anchorFrames) * 1_000_000_000L / rate
+        val slackNs = nowNs - heardNs
+        if (slackNs < 0 || slackNs > RESET_NS) {
+            // Captured after it was read cannot be, and a count this far
+            // behind means reads were lost: start again from this read.
+            anchorNs += slackNs
+            heardNs = anchorNs + (frames - anchorFrames) * 1_000_000_000L / rate
+        }
+        minSlackNs = minOf(minSlackNs, nowNs - heardNs)
+        if (nowNs - windowStartNs >= WINDOW_NS) {
+            if (minSlackNs > EASE_NS) anchorNs += minSlackNs - EASE_NS
+            windowStartNs = nowNs
+            minSlackNs = Long.MAX_VALUE
+        }
+        return heardNs
+    }
+
+    private companion object {
+        const val RESET_NS = 500_000_000L
+        const val WINDOW_NS = 10_000_000_000L
+        const val EASE_NS = 2_000_000L
     }
 }

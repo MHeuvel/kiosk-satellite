@@ -2614,6 +2614,10 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingMicEchoCancellationTitle,
       'settingMicEchoCancellationDescription' =>
         strings.settingMicEchoCancellationDescription,
+      'settingMicSoftwareEchoCancellationTitle' =>
+        strings.settingMicSoftwareEchoCancellationTitle,
+      'settingMicSoftwareEchoCancellationDescription' =>
+        strings.settingMicSoftwareEchoCancellationDescription,
       'settingMicChannelTitle' => strings.settingMicChannelTitle,
       'settingMicChannelDescription' => strings.settingMicChannelDescription,
       'settingMicAgcTitle' => strings.settingMicAgcTitle,

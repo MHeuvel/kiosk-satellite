@@ -26,5 +26,7 @@
   "screenAudioChannel": "Canal {channel}",
   "screenAudioChannelMissing": "Canal {channel} (absent sur ce microphone)",
   "screenAudioMicrophoneLevel": "Niveau du microphone",
-  "screenAudioMicrophoneLevelHelp": "Parlez depuis l'endroit où vous utilisez l'appareil ; ajustez le gain jusqu'à ce qu'une voix normale culmine vers la fin de la zone verte."
+  "screenAudioMicrophoneLevelHelp": "Parlez depuis l'endroit où vous utilisez l'appareil ; ajustez le gain jusqu'à ce qu'une voix normale culmine vers la fin de la zone verte.",
+  "settingMicSoftwareEchoCancellationTitle": "Annulation d'écho logicielle",
+  "settingMicSoftwareEchoCancellationDescription": "Retire du microphone les sons émis par le kiosque. Activez-la si l'assistant s'interrompt lui-même."
 }

@@ -14899,6 +14899,18 @@ abstract class UiStrings {
   /// Setting label.
   ///
   /// In en, this message translates to:
+  /// **'Software echo cancellation'**
+  String get settingMicSoftwareEchoCancellationTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Removes the kiosk\'s own sounds from the microphone. Turn it on if the assistant interrupts itself.'**
+  String get settingMicSoftwareEchoCancellationDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
   /// **'Microphone channel'**
   String get settingMicChannelTitle;
 

@@ -46,7 +46,15 @@ internal class CommunicationPlayback(context: Context) {
     var output: AudioDeviceInfo? = null
         private set
 
+    /**
+     * The call route for one sound, or null to play it as normal media.
+     * Every player asks here, so the assistant's chimes, text to speech,
+     * realtime voice and intercom audio always share one route and one
+     * level: none of them takes the call route while capture runs with echo
+     * cancellation off ([echoCancelling]).
+     */
     fun acquire(selected: AudioDeviceInfo?): AutoCloseable? {
+        if (!echoCancelling) return null
         return try {
             refreshCaptureRoute()
             val lease = acquireAvailable(selected) ?: return null

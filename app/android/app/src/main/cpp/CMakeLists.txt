@@ -3,7 +3,7 @@
 # dependencies (ArduinoJson, micro-flac, micro-opus, IXWebSocket) are fetched
 # transitively by its build.
 cmake_minimum_required(VERSION 3.22)
-project(kiosk_satellite_native LANGUAGES CXX)
+project(kiosk_satellite_native LANGUAGES C CXX ASM)
 
 include(FetchContent)
 
@@ -36,3 +36,12 @@ add_library(kiosk_wake_fft SHARED
 target_compile_features(kiosk_wake_fft PRIVATE cxx_std_17)
 target_compile_options(kiosk_wake_fft PRIVATE
     -Wall -Wextra -fno-fast-math -ffp-contract=off)
+
+# Software echo cancellation for realtime conversations (SoftwareEcho.kt):
+# WebRTC's audio processing module and a JNI bridge.
+include(webrtc_apm.cmake)
+
+add_library(kiosk_echo SHARED echo_jni.cpp)
+target_compile_features(kiosk_echo PRIVATE cxx_std_17)
+target_compile_options(kiosk_echo PRIVATE -Wall -Wextra)
+target_link_libraries(kiosk_echo PRIVATE webrtc_apm ${log-lib})

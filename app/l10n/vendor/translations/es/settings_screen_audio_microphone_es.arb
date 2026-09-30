@@ -26,5 +26,7 @@
   "screenAudioChannel": "Canal {channel}",
   "screenAudioChannelMissing": "Canal {channel} (no disponible en este micrófono)",
   "screenAudioMicrophoneLevel": "Nivel del micrófono",
-  "screenAudioMicrophoneLevelHelp": "Habla desde donde usas el dispositivo. Ajusta la ganancia hasta que la voz normal alcance aproximadamente el final de la zona verde."
+  "screenAudioMicrophoneLevelHelp": "Habla desde donde usas el dispositivo. Ajusta la ganancia hasta que la voz normal alcance aproximadamente el final de la zona verde.",
+  "settingMicSoftwareEchoCancellationTitle": "Cancelación de eco por software",
+  "settingMicSoftwareEchoCancellationDescription": "Elimina del micrófono los sonidos del propio kiosko. Actívala si el asistente se interrumpe a sí mismo."
 }

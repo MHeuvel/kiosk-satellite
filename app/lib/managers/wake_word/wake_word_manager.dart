@@ -756,6 +756,7 @@ class WakeWordManager extends Manager
         _restartForMicChange('microphone selection changed');
       } else if (e.key == defs.micAudioSource.key ||
           e.key == defs.micEchoCancellation.key ||
+          e.key == defs.micSoftwareEchoCancellation.key ||
           e.key == defs.micGainDb.key ||
           e.key == defs.micAgc.key ||
           e.key == defs.micNoiseSuppression.key ||

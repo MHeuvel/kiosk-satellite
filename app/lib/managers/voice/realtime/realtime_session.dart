@@ -140,6 +140,10 @@ class RealtimeSession {
 
   /// Output levels, one per slice from [_levelBase] on.
   final _outLevels = <double>[];
+
+  /// The raw loudness of the same slices, 0..1 of full scale: whether the
+  /// voice is speaking at a moment, which the bar's levels do not say.
+  final _outRaw = <double>[];
   int _levelBase = 0;
   static const _sliceMs = 20;
 
@@ -266,16 +270,32 @@ class RealtimeSession {
       _deafUntil = null;
     }
     final playing = _playing;
-    if (playing) _echo.add(meanAbs(pcm));
+    final level = meanAbs(pcm);
+    if (playing) _echo.add(level);
     // The bar follows the voice playing, else the microphone.
     if (!playing) _micLevel(_levels.mic(pcm));
-    if (!opts.talkOver && (playing || _inEchoTail)) return;
-    final converted = _resampler?.convert(pcm) ?? pcm;
+    final echo = playing || _inEchoTail;
+    if (!opts.talkOver && echo) return;
+    if (!echo) _room.hear(pcm, level);
+    if (playing) _watchSettling(level);
+    _recent.add(echo && _settling ? 0 : level);
+    if (_recent.length > _recentChunks) _recent.removeAt(0);
+    if (_suspect) _weighSuspect(gen, level);
     if (playing && _settling) {
-      // The canceller has not caught up with this answer yet: silence.
-      if (_ready) _backend?.sendAudio(Uint8List(converted.length));
+      // The canceller has not caught up with this answer yet: the room's
+      // own noise instead.
+      final comfort = _room.comfort(pcm.length);
+      if (_ready) _backend?.sendAudio(_resampler?.convert(comfort) ?? comfort);
       return;
     }
+    // The canceller mutes the microphone outright while it cancels, and a
+    // room with a noise floor (an air conditioner) then comes back all at
+    // once when it lets go. The provider takes that step for someone
+    // starting to talk and answers nothing, so the muted stretch goes as
+    // the room's noise. Someone talking over the answer is louder than the
+    // room and goes as it is.
+    if (echo && _room.muted(level)) pcm = _room.comfort(pcm.length);
+    final converted = _resampler?.convert(pcm) ?? pcm;
     if (!_ready) {
       _held.add(converted);
       _heldBytes += converted.length;
@@ -320,6 +340,9 @@ class RealtimeSession {
     return sum ~/ n;
   }
 
+  /// The room's noise, heard between answers.
+  final _room = RoomNoise();
+
   double _lastMicLevel = 0;
   void _micLevel(double level) => _lastMicLevel = level;
 
@@ -330,13 +353,103 @@ class RealtimeSession {
   /// and until it does the answer comes back into the microphone as loud
   /// as the user (measured on a Galaxy Tab S8). The provider takes that for
   /// the user talking over it, stops the answer and starts another, which
-  /// leaks again. With talk over on, the microphone goes as silence for this
-  /// long into each answer; after it, the user can interrupt.
-  static const echoSettle = Duration(seconds: 2);
+  /// leaks again. With talk over on, the microphone goes as the room's
+  /// noise from the start of each answer until the canceller has it: the
+  /// cleaned microphone stays near the room's own level for [settledAfter]
+  /// chunks in a row while the voice is speaking. Usually well under a
+  /// second, and never longer than this: after it, the user can interrupt.
+  static const echoSettle = Duration(seconds: 4);
+
+  /// Quiet chunks under a speaking voice that show the echo is out.
+  static const settledAfter = 6;
+
+  /// The settling never ends sooner: the echo of an answer's first words
+  /// reaches the microphone a moment after they play, and a microphone
+  /// still waiting for it is quiet for the wrong reason.
+  static const settleAtLeast = Duration(seconds: 1);
+
+  /// How far back the voice counts as speaking for a quiet chunk: its echo
+  /// comes back this much later.
+  static const echoReach = Duration(milliseconds: 300);
+
+  /// Playback this loud (of full scale) is the voice speaking.
+  static const voiced = 0.02;
+
+  /// A chunk this quiet, or near the room's own level, holds no echo.
+  static const quietLevel = 150;
+
+  bool _settled = false;
+  int _quietVoiced = 0;
+
+  /// With the turns in the session's hands: speech was heard over the
+  /// answer, and the microphone decides whether it was the user.
+  bool get _clientTurns => _backend?.capabilities.clientTurns ?? false;
+  bool _suspect = false;
+  int _suspectLoud = 0;
+
+  /// Chunks this loud, [bargeInChunks] of them, make speech over an answer
+  /// the user: a voice at the kiosk reads in the thousands, what is left
+  /// of the answer's own echo a few hundred.
+  static const bargeInLevel = 1200;
+  static const bargeInChunks = 3;
+
+  /// The microphone's last second, chunk by chunk: the provider says
+  /// speech started half a second after it did (the audio's trip there
+  /// and the word back), by when a short "stop" is mostly over.
+  final _recent = <int>[];
+  static const _recentChunks = 12;
+
+  bool _loud(int level) => level >= math.max(bargeInLevel, _room.level * 10);
+
+  void _weighSuspect(int gen, int level) {
+    if (!_loud(level)) return;
+    if (++_suspectLoud < bargeInChunks) return;
+    _suspect = false;
+    unawaited(_confirmBargeIn(gen));
+  }
+
+  Future<void> _confirmBargeIn(int gen) async {
+    _recent.clear();
+    await _bargeIn(gen);
+    if (gen != _gen) return;
+    _newExchange = true;
+    _show(
+      _docked(phase: AssistPhase.listening, streaming: false, reactive: true),
+    );
+  }
 
   bool get _settling {
     final from = _answerFrom;
-    return from != null && _now().difference(from) < echoSettle;
+    return from != null && !_settled && _now().difference(from) < echoSettle;
+  }
+
+  /// How loud the voice was at its loudest over the last [echoReach].
+  double get _playingRaw {
+    final per = _outRate * _sliceMs ~/ 1000;
+    final slice = (_playedEstimate - _levelBase) ~/ per;
+    final from = slice - echoReach.inMilliseconds ~/ _sliceMs;
+    var loudest = 0.0;
+    for (var i = math.max(0, from); i <= slice && i < _outRaw.length; i++) {
+      loudest = math.max(loudest, _outRaw[i]);
+    }
+    return loudest;
+  }
+
+  /// Counts the cleaned microphone's quiet chunks under the speaking voice,
+  /// and ends the settling once there are enough in a row.
+  void _watchSettling(int level) {
+    if (_settled || _playingRaw < voiced) return;
+    final quiet = level <= math.max(quietLevel, _room.level * 3);
+    _quietVoiced = quiet ? _quietVoiced + 1 : 0;
+    final from = _answerFrom;
+    if (_quietVoiced >= settledAfter &&
+        from != null &&
+        _now().difference(from) >= settleAtLeast) {
+      _settled = true;
+      onTrace?.call(
+        'echo settled after ${_now().difference(from).inMilliseconds}ms',
+      );
+    }
   }
 
   bool get _inEchoTail {
@@ -354,6 +467,17 @@ class RealtimeSession {
       case RealtimeSpeechStarted():
         _userSpeaking = true;
         _touch();
+        if (_clientTurns && (_playing || _responding)) {
+          // Maybe the user, maybe a trace of the answer's own voice: the
+          // microphone shows which, starting with what it already heard.
+          _suspectLoud = _recent.where(_loud).length;
+          if (_suspectLoud >= bargeInChunks) {
+            await _confirmBargeIn(gen);
+            return;
+          }
+          _suspect = true;
+          return;
+        }
         if (_playing || _responding) await _bargeIn(gen);
         if (gen != _gen) return;
         // A new exchange. The last one stays in the bubble until the new
@@ -368,6 +492,16 @@ class RealtimeSession {
         );
       case RealtimeSpeechStopped():
         _userSpeaking = false;
+        if (_suspect) {
+          // It never got loud: not the user. The answer carries on and the
+          // model never hears it.
+          _suspect = false;
+          onTrace?.call('ignored speech too quiet to be the user');
+          _backend?.userTurn(keep: false);
+          _touch();
+          return;
+        }
+        if (_clientTurns) _backend?.userTurn(keep: true);
         _awaiting = true;
         _awaitingSince = _now();
         _touch();
@@ -498,6 +632,8 @@ class RealtimeSession {
       _playedKnown = _written;
       _playedAt = _now();
       _answerFrom = _now();
+      _settled = false;
+      _quietVoiced = 0;
     }
     _addLevels(pcm);
     player.write(pcm);
@@ -518,6 +654,7 @@ class RealtimeSession {
     final expected = (_written - _levelBase) ~/ per;
     while (_outLevels.length < expected) {
       _outLevels.add(0);
+      _outRaw.add(0);
     }
     for (var start = 0; start < samples; start += per) {
       final end = math.min(samples, start + per);
@@ -525,7 +662,9 @@ class RealtimeSession {
       for (var i = start; i < end; i++) {
         sum += data.getInt16(i * 2, Endian.little).abs() / 32768.0;
       }
-      _outLevels.add(_levels.playback(sum / math.max(1, end - start)));
+      final raw = sum / math.max(1, end - start);
+      _outLevels.add(_levels.playback(raw));
+      _outRaw.add(raw);
     }
   }
 
@@ -556,6 +695,7 @@ class RealtimeSession {
     _playedKnown = heard;
     _playedAt = _now();
     _outLevels.clear();
+    _outRaw.clear();
     _levelBase = heard;
     _responding = false;
     _backend?.interrupted(item, math.max(0, ms));
@@ -598,6 +738,7 @@ class RealtimeSession {
       if (slice > 200) {
         // Keep the list short: drop what has played.
         _outLevels.removeRange(0, slice - 50);
+        _outRaw.removeRange(0, slice - 50);
         _levelBase += (slice - 50) * per;
       }
     } else {
@@ -718,6 +859,9 @@ class RealtimeSession {
   }
 
   void _reset() {
+    _recent.clear();
+    _suspect = false;
+    _suspectLoud = 0;
     _ready = false;
     _held.clear();
     _heldBytes = 0;
@@ -732,6 +876,7 @@ class RealtimeSession {
     _wasPlaying = false;
     _playEnded = null;
     _outLevels.clear();
+    _outRaw.clear();
     _levelBase = 0;
     _staged.clear();
     _stagedFrames = 0;
@@ -744,9 +889,69 @@ class RealtimeSession {
     _newExchange = false;
     _lastMicLevel = 0;
     _answerFrom = null;
+    _room.clear();
   }
 
   Future<void> dispose() async {
     if (_busy) await _end(_gen);
+  }
+}
+
+/// Comfort noise: the room's own background, recorded between answers and
+/// played to the provider in place of the stretches the echo canceller
+/// mutes, so the noise floor it hears never steps from nothing to
+/// something. Telephone networks do the same for the same reason.
+class RoomNoise {
+  /// Chunks of the room kept, about five seconds of the microphone.
+  static const keep = 60;
+
+  /// A room quieter than this has no floor to step back up to.
+  static const audible = 10;
+
+  final _chunks = <(Uint8List, int)>[];
+  int _next = 0;
+
+  void hear(Uint8List pcm, int level) {
+    _chunks.add((pcm, level));
+    if (_chunks.length > keep) _chunks.removeAt(0);
+  }
+
+  /// The room's floor: a low percentile, so talking does not count.
+  int get level {
+    if (_chunks.isEmpty) return 0;
+    final levels = [for (final (_, l) in _chunks) l]..sort();
+    return levels[levels.length ~/ 5];
+  }
+
+  /// Whether a chunk at [level] is the canceller muting a room that has a
+  /// floor, rather than the room or someone in it.
+  bool muted(int level) {
+    final floor = this.level;
+    return floor >= audible && level < floor ~/ 2;
+  }
+
+  /// [length] bytes of the room's quiet stretches, in the order heard.
+  /// Silence while there is nothing to go on.
+  Uint8List comfort(int length) {
+    final floor = level;
+    final quiet = [
+      for (final (pcm, l) in _chunks)
+        if (floor >= audible && l <= floor * 2 + audible) pcm,
+    ];
+    final out = Uint8List(length);
+    if (quiet.isEmpty) return out;
+    var at = 0;
+    while (at < length) {
+      final chunk = quiet[_next++ % quiet.length];
+      final n = math.min(chunk.length, length - at);
+      out.setRange(at, at + n, chunk);
+      at += n;
+    }
+    return out;
+  }
+
+  void clear() {
+    _chunks.clear();
+    _next = 0;
   }
 }

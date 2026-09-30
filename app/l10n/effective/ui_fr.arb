@@ -32075,6 +32075,32 @@
       ]
     }
   },
+  "settingMicSoftwareEchoCancellationTitle": "Annulation d'écho logicielle",
+  "@settingMicSoftwareEchoCancellationTitle": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
+  "settingMicSoftwareEchoCancellationDescription": "Retire du microphone les sons émis par le kiosque. Activez-la si l'assistant s'interrompt lui-même.",
+  "@settingMicSoftwareEchoCancellationDescription": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
   "settingMicChannelTitle": "Canal du microphone",
   "@settingMicChannelTitle": {
     "context": "Settings:Screen & Audio:Microphone settings",

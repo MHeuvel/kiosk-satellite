@@ -53,6 +53,10 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
     private val mainHandler = Handler(Looper.getMainLooper())
 
     @Volatile private var track: AudioTrack? = null
+
+    /** What the track plays, for the software echo canceller. */
+
+    @Volatile private var tap: TrackTap? = null
     @Volatile private var lease: AutoCloseable? = null
     @Volatile private var output: AudioDeviceInfo? = null
     @Volatile private var baseVolume = 1f
@@ -156,11 +160,13 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
         track = newTrack
         lease = acquired
         output = target
+        tap = TrackTap(newTrack, SAMPLE_RATE, 1)
         applyVolume()
         // Prime a short silence so the first chunk lands on a running
         // track without an underrun at the very start.
         val silence = ByteArray(SAMPLE_RATE * 2 / 10)
         newTrack.write(silence, 0, silence.size)
+        tap?.wrote(silence, 0, silence.size)
         newTrack.play()
         Log.i(TAG, "playback started (${if (comm) "communication" else "media"} route, buffer=${bufferBytes}b)")
         return true
@@ -181,6 +187,7 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
                     while (offset < bytes.size) {
                         val n = t.write(bytes, offset, bytes.size - offset, AudioTrack.WRITE_BLOCKING)
                         if (n <= 0) break
+                        tap?.wrote(bytes, offset, n)
                         offset += n
                     }
                 }
@@ -429,11 +436,14 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
         }
         val level = PlaybackVolume.level(baseVolume, 1f, master)
         runCatching { t.setVolume(level) }
+        tap?.gain = level
     }
 
     private fun stop() {
         val t = track ?: return
         track = null
+        tap?.close()
+        tap = null
         val l = lease
         lease = null
         output = null

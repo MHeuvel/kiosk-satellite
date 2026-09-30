@@ -26,5 +26,7 @@
   "screenAudioChannel": "Kanal {channel}",
   "screenAudioChannelMissing": "Kanal {channel} (auf diesem Mikrofon nicht verfügbar)",
   "screenAudioMicrophoneLevel": "Mikrofonpegel",
-  "screenAudioMicrophoneLevelHelp": "Sprich aus der Entfernung, aus der du das Gerät normalerweise nutzt. Passe die Verstärkung so an, dass normale Sprache ungefähr das Ende des grünen Bereichs erreicht."
+  "screenAudioMicrophoneLevelHelp": "Sprich aus der Entfernung, aus der du das Gerät normalerweise nutzt. Passe die Verstärkung so an, dass normale Sprache ungefähr das Ende des grünen Bereichs erreicht.",
+  "settingMicSoftwareEchoCancellationTitle": "Software-Echounterdrückung",
+  "settingMicSoftwareEchoCancellationDescription": "Entfernt die eigenen Töne des Kiosks aus dem Mikrofon. Aktiviere sie, wenn sich der Assistent selbst unterbricht."
 }

@@ -268,6 +268,10 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingMicEchoCancellationTitle",
     "description": "settingMicEchoCancellationDescription",
   },
+  "audio.software_echo_cancellation": {
+    "title": "settingMicSoftwareEchoCancellationTitle",
+    "description": "settingMicSoftwareEchoCancellationDescription",
+  },
   "audio.mic_agc": {
     "title": "settingMicAgcTitle",
     "description": "settingMicAgcDescription",

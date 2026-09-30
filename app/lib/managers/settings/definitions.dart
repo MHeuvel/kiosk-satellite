@@ -5027,6 +5027,24 @@ const micEchoCancellation = SettingDef<bool>(
   perDevice: true,
 );
 
+/// WebRTC's echo canceller (AEC3) over the microphone, fed everything the
+/// kiosk plays itself (SoftwareEcho.kt, EchoReference.kt), alongside the
+/// device's own. For hardware whose canceller lets the sound through, so the
+/// assistant hears itself and interrupts its own answers.
+const micSoftwareEchoCancellation = SettingDef<bool>(
+  key: 'audio.software_echo_cancellation',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Software echo cancellation',
+  description:
+      'Removes the kiosk\'s own sounds from the microphone. Turn it on if '
+      'the assistant interrupts itself.',
+  category: 'Screen & Audio',
+  section: 'Microphone settings',
+  subpage: 'Microphone settings',
+  perDevice: true,
+);
+
 // Hidden: rendered as a hand-built dropdown (device settings screen and the
 // remote UI both) because its options depend on live hardware - the row only
 // exists when the selected microphone reports more than one channel, and the
@@ -6956,6 +6974,9 @@ const sendspinPlayer = SettingDef<String>(
   perDevice: true,
 );
 
+/// Music under a voice interaction. Past 10% the software echo canceller
+/// cannot keep it out of the microphone, so the range stops there, and a
+/// value from an older backup or leader is brought down to it.
 const sendspinDuckPercent = SettingDef<num>(
   key: 'sendspin.duck_percent',
   type: SettingType.number,
@@ -6966,10 +6987,16 @@ const sendspinDuckPercent = SettingDef<num>(
       'and intercom calls, then comes back.',
   category: 'Sendspin',
   min: 0,
-  max: 25,
+  max: sendspinDuckMax,
   step: 5,
   unit: '%',
+  normalizer: normalizeSendspinDuck,
 );
+
+const sendspinDuckMax = 10;
+
+Object normalizeSendspinDuck(Object value) =>
+    value is num && value.isFinite ? value.clamp(0, sendspinDuckMax) : 10;
 
 /// The followed player as ESPHome entities (issue #741): transport
 /// buttons and what is playing, for whichever player the surfaces follow.
@@ -9728,6 +9755,7 @@ const List<SettingDef<Object>> allSettings = [
   audioSpeakerDevice,
   micAudioSource,
   micEchoCancellation,
+  micSoftwareEchoCancellation,
   micAgc,
   micNoiseSuppression,
   micGainDb,
