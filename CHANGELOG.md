@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.9.97 - 2026-09-29
 
 ### Fixed
 - **Kiosks with a non-admin Home Assistant token no longer flood the Home Assistant log.** Voice alarms listen for a custom event, which Home Assistant only lets administrators follow. With any other token the kiosk asked every 30 seconds and Home Assistant logged each refusal (#761). The kiosk now checks once whether the token belongs to an administrator and, when it does not, leaves voice alarms off until the Home Assistant address or token changes.
