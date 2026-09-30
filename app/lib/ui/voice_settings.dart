@@ -6,6 +6,7 @@ import '../app_container.dart';
 import '../core/events.dart';
 import '../l10n/messages.dart';
 import '../managers/settings/definitions.dart' as defs;
+import '../managers/voice/realtime/openai_realtime_backend.dart';
 import 'assist/assist_skins.dart';
 import 'kit.dart';
 import 'theme.dart';
@@ -240,7 +241,8 @@ const _reloadHint =
     'Restarting Home Assistant also works.';
 
 /// One of Home Assistant's selects on the kiosk's device (the Assistant
-/// and Wake word pickers), as a dropdown row that writes it live.
+/// and Wake word pickers), as a dropdown row that writes it live. The
+/// Assistant selects also offer the validated realtime provider.
 class VoiceHaSelects extends StatefulWidget {
   const VoiceHaSelects({
     super.key,
@@ -299,9 +301,28 @@ class _VoiceHaSelectsState extends State<VoiceHaSelects> {
     return option;
   }
 
+  /// The realtime choice as voiceHaSelects reports it.
+  Map<String, Object?> get _realtime =>
+      (_data?['realtime'] as Map?)?.cast<String, Object?>() ?? const {};
+
   Future<void> _set(String key, String option) async {
-    final entity = (_data?[key] as Map?)?.cast<String, Object?>();
-    if (entity != null) setState(() => entity['state'] = option);
+    final realtime = _realtime;
+    final provider = [
+      for (final o in (realtime['options'] as List? ?? const []))
+        if (o is Map && o['value'] == option) option,
+    ].firstOrNull;
+    setState(() {
+      if (realtime.containsKey(key)) {
+        _data = {
+          ...?_data,
+          'realtime': {...realtime, key: provider},
+        };
+      }
+      if (provider == null) {
+        final entity = (_data?[key] as Map?)?.cast<String, Object?>();
+        if (entity != null) entity['state'] = option;
+      }
+    });
     await widget.container.commands.execute('voiceSelectOption', {
       'key': key,
       'option': option,
@@ -352,14 +373,125 @@ class _VoiceHaSelectsState extends State<VoiceHaSelects> {
       );
     }
     final state = '${entity['state'] ?? ''}';
+    // An Assistant select also offers every realtime provider whose
+    // connection is validated.
+    final realtime = _realtime;
+    final offers = realtime.containsKey(key)
+        ? [
+            for (final o in (realtime['options'] as List? ?? const []))
+              if (o is Map) ('${o['value']}', '${o['provider']}'),
+          ]
+        : const <(String, String)>[];
+    final picked = realtime[key];
+    final current = picked is String && offers.any((o) => o.$1 == picked)
+        ? picked
+        : state;
     return DropdownRow<String>(
       title: voiceText(context, title),
       description: voiceText(context, description),
-      value: options.contains(state) ? state : null,
-      options: [for (final o in options) (o, _label(key, o))],
+      value: options.contains(current) || offers.any((o) => o.$1 == current)
+          ? current
+          : null,
+      options: [
+        for (final o in options) (o, _label(key, o)),
+        for (final (value, provider) in offers)
+          (value, l10n(context).voiceRealtimeOption(provider)),
+      ],
       onChanged: (v) {
-        if (v != null && v != state) unawaited(_set(key, v));
+        if (v != null && v != current) unawaited(_set(key, v));
       },
+    );
+  }
+}
+
+/// Validate connection for the realtime provider: connects once and reads
+/// the tools. A connection that works makes the provider a choice in the
+/// Assistant selects. Sits at the end of the Connection group, like the
+/// other Validate connection rows.
+class RealtimeValidateRow extends StatefulWidget {
+  const RealtimeValidateRow({
+    super.key,
+    required this.container,
+    required this.provider,
+  });
+
+  final AppContainer container;
+  final RealtimeProvider provider;
+
+  @override
+  State<RealtimeValidateRow> createState() => _RealtimeValidateRowState();
+}
+
+class _RealtimeValidateRowState extends State<RealtimeValidateRow> {
+  bool _validating = false;
+
+  /// The last run's answer, until the settings change under it.
+  Map<String, Object?>? _result;
+  String? _resultFor;
+
+  Future<void> _validate() async {
+    setState(() => _validating = true);
+    final result = await widget.container.commands.execute(
+      'voiceRealtimeValidate',
+      {'provider': widget.provider.id},
+    );
+    if (!mounted) return;
+    setState(() {
+      _validating = false;
+      _result = result.ok && result.data is Map
+          ? (result.data as Map).cast<String, Object?>()
+          : {'connected': false, 'error': result.error ?? ''};
+      _resultFor = widget.container.voice.realtimeSignature(widget.provider);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final voice = widget.container.voice;
+    final ready = voice.realtimeReady(widget.provider);
+    final result = _resultFor == voice.realtimeSignature(widget.provider)
+        ? _result
+        : null;
+    final messages = l10n(context);
+    final String status;
+    if (_validating) {
+      status = voiceText(context, 'Checking…');
+    } else if (result != null && result['connected'] != true) {
+      status = messages.voiceRealtimeConnectFailed('${result['error'] ?? ''}');
+    } else if (result != null) {
+      final problem = '${result['toolsError'] ?? ''}';
+      status = problem.isNotEmpty
+          ? messages.voiceRealtimeToolsUnavailable(voiceText(context, problem))
+          : messages.voiceRealtimeConnectedTools(
+              '${(result['tools'] as num?)?.toInt() ?? 0}',
+            );
+    } else if (ready) {
+      status = voiceText(context, 'Connected');
+    } else {
+      status = voiceText(
+        context,
+        'Not validated yet. The provider shows up under Assistant once the '
+        'connection checks out.',
+      );
+    }
+    final failed = result != null && result['connected'] != true;
+    return ListTile(
+      title: Text(voiceText(context, 'Validate connection')),
+      subtitle: Text(status),
+      trailing: _validating
+          ? const SizedBox(
+              width: 20,
+              height: 20,
+              child: CircularProgressIndicator(strokeWidth: 2.4),
+            )
+          : Icon(
+              failed
+                  ? Icons.cloud_off_outlined
+                  : ready
+                  ? Icons.cloud_done_outlined
+                  : Icons.cloud_queue_outlined,
+            ),
+      onTap: _validating ? null : _validate,
     );
   }
 }

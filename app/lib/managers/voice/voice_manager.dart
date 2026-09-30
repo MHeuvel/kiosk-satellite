@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
 
+import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -19,6 +20,12 @@ import 'chat_log.dart';
 import 'custom_wake_models.dart';
 import 'ha_socket.dart';
 import 'migration.dart';
+import 'realtime/mcp_client.dart';
+import 'realtime/openai_realtime_backend.dart';
+import 'realtime/realtime_backend.dart';
+import 'realtime/realtime_player.dart';
+import 'realtime/realtime_session.dart';
+import 'realtime/realtime_tools.dart';
 import 'remote_speaker.dart';
 import 'voice_notice.dart';
 import 'voice_session.dart';
@@ -101,6 +108,13 @@ class VoiceManager extends Manager {
   EngineFailure? _wakeFailure;
 
   late final VoiceSession _session;
+
+  /// Realtime conversations, for the wake words routed to them.
+  late final RealtimeSession _realtime;
+
+  /// How much of a realtime conversation's closing silence is left, 0..1:
+  /// the docked bar drains with it. 1 while it is not counting down.
+  final dockCountdown = ValueNotifier<double>(1);
   late final HaSocket _ha = HaSocket(
     baseUrl: () => _settings.get(defs.haUrl),
     token: () => _settings.get(defs.haToken),
@@ -215,6 +229,9 @@ class VoiceManager extends Manager {
 
   Timer? _previewTimer;
 
+  /// The preview on screen asked for the docked bubble itself.
+  bool _previewDocked = false;
+
   /// A sample turn for Preview.
   static const _previewView = AssistView(
     phase: AssistPhase.speaking,
@@ -282,8 +299,27 @@ class VoiceManager extends Manager {
       onTrace: _trace,
       onIdle: _resumeWake,
     );
+    _realtime = RealtimeSession(
+      backend: _realtimeBackend,
+      mic: _WakeMic(_wakeWord),
+      player: NativeRealtimePlayer(),
+      chimes: _Player(commands),
+      options: _realtimeOptions,
+      onView: _onView,
+      onLevel: (value) => level.value = value,
+      onCountdown: (left) => dockCountdown.value = left,
+      onBusy: (busy, _) => _onBusy(busy, 'conversation'),
+      onStopArmed: (armed) => unawaited(_wakeWord.setStopWordArmed(armed)),
+      onError: (code, message) => unawaited(_report(code, message)),
+      onWarning: (message) => unawaited(_report('realtime-warning', message)),
+      onTrace: (step, {text}) => _trace('realtime: $step', text: text),
+      onIdle: _resumeWake,
+    );
     _esphome.onVoice = _onVoice;
     _esphome.onVoiceConfiguration = _configuration;
+    for (final provider in RealtimeProvider.values) {
+      unawaited(refreshRealtimeCatalog(provider));
+    }
     homeAssistant.addListener(_watchSelects);
     // A subscription dies with its socket and nothing says so: look again
     // now and then.
@@ -298,10 +334,25 @@ class VoiceManager extends Manager {
       ..add(
         bus.on<WakeWordDetected>().listen((e) {
           if (!enabled || _settings.get(defs.voiceMute)) return;
-          unawaited(_session.wake(e.phrase));
+          _wakeSlot(_slotForModel(e.model), e.phrase);
         }),
       )
       ..add(bus.on<StopWordDetected>().listen((_) => _onStopWord()))
+      ..add(
+        bus.on<SettingChanged>().listen((e) {
+          // A provider's key or endpoint moved: its model and voice lists
+          // may too.
+          for (final provider in RealtimeProvider.values) {
+            final d = _realtimeDefs(provider);
+            if (e.key != d.apiKey.key && e.key != d.endpoint.key) continue;
+            _catalogTimers[provider]?.cancel();
+            _catalogTimers[provider] = Timer(
+              const Duration(seconds: 1),
+              () => unawaited(refreshRealtimeCatalog(provider)),
+            );
+          }
+        }),
+      )
       ..add(
         bus.on<SoundEnded>().listen(
           (e) => _session.onSoundEnded(e.id, error: e.error),
@@ -384,7 +435,7 @@ class VoiceManager extends Manager {
               return const CommandResult.fail('Voice Satellite is off');
             }
             final slot = (p['slot'] as num?)?.toInt() ?? 1;
-            unawaited(_session.wake(_phraseForSlot(slot)));
+            _wakeSlot(slot, _phraseForSlot(slot));
             return const CommandResult.ok();
           },
         ),
@@ -401,6 +452,39 @@ class VoiceManager extends Manager {
       )
       ..register(
         Command(
+          name: 'voiceRealtimeState',
+          description:
+              'Whether a realtime provider is validated with its settings as '
+              'they are now, and its name: {ready, provider}',
+          params: const {'provider': 'openai or xai'},
+          quiet: true,
+          handler: (p) async {
+            final provider = RealtimeProvider.byId('${p['provider'] ?? ''}');
+            return CommandResult.ok({
+              'ready': realtimeReady(provider),
+              'provider': providerName(provider),
+            });
+          },
+        ),
+      )
+      ..register(
+        Command(
+          name: 'voiceRealtimeValidate',
+          description:
+              'Connect to a realtime provider once with its saved settings '
+              'and read the tools: {connected, error, tools, toolsError}. A '
+              'connection that works makes the provider a choice in the '
+              'Assistant selects',
+          params: const {'provider': 'openai or xai'},
+          handler: (p) async => CommandResult.ok(
+            await realtimeValidate(
+              RealtimeProvider.byId('${p['provider'] ?? ''}'),
+            ),
+          ),
+        ),
+      )
+      ..register(
+        Command(
           name: 'voicePreview',
           description:
               'Show the overlay with a sample answer for five seconds, in '
@@ -412,9 +496,10 @@ class VoiceManager extends Manager {
             'data': 'optional tool result for that panel',
             'seconds': 'how long it stays (default 5)',
             'level': 'the bar level it shows, 0..1 (default 0.5)',
+            'docked': 'true for the realtime conversation\'s docked bubble',
           },
           handler: (p) async {
-            if (_session.busy) {
+            if (_session.busy || _realtime.busy) {
               return const CommandResult.fail('a turn is on screen');
             }
             final kind = '${p['kind'] ?? ''}';
@@ -431,13 +516,15 @@ class VoiceManager extends Manager {
                   );
             final seconds = (p['seconds'] as num?)?.toInt() ?? 5;
             _previewTimer?.cancel();
-            _onView(shown);
+            _previewDocked = p['docked'] == true;
+            _onView(_previewDocked ? shown.copyWith(docked: true) : shown);
             level.value = ((p['level'] as num?)?.toDouble() ?? 0.5).clamp(
               0.0,
               1.0,
             );
             _previewTimer = Timer(Duration(seconds: seconds.clamp(1, 120)), () {
               if (view.value.answer == _previewView.answer) {
+                _previewDocked = false;
                 _onView(AssistView.hidden);
               }
             });
@@ -629,10 +716,27 @@ class VoiceManager extends Manager {
             'option': 'the option to set',
           },
           handler: (p) async {
-            final ok = await selectOption(
-              '${p['key'] ?? ''}',
-              '${p['option'] ?? ''}',
-            );
+            final key = '${p['key'] ?? ''}';
+            final option = '${p['option'] ?? ''}';
+            final engine = switch (key) {
+              'pipeline' => defs.voiceEngine1,
+              'pipeline_2' => defs.voiceEngine2,
+              _ => null,
+            };
+            final provider = RealtimeProvider.values
+                .where((p) => realtimeOption(p) == option)
+                .firstOrNull;
+            if (engine != null && provider != null) {
+              if (!realtimeReady(provider)) {
+                return const CommandResult.fail('realtime not validated');
+              }
+              await _settings.set(engine, provider.id);
+              return const CommandResult.ok();
+            }
+            // A pipeline picked for a wake word on Realtime takes it back
+            // to Assist.
+            if (engine != null) await _settings.set(engine, 'assist');
+            final ok = await selectOption(key, option);
             return ok
                 ? const CommandResult.ok()
                 : const CommandResult.fail('option not set');
@@ -1474,6 +1578,20 @@ class VoiceManager extends Manager {
       };
     }
     out['selectsMissing'] = homeAssistant.value.selectsMissing;
+    // Every validated realtime provider, more choices for each Assistant,
+    // and the one each wake word is on (its option, or null for Assist).
+    out['realtime'] = {
+      'options': [
+        for (final provider in RealtimeProvider.values)
+          if (realtimeReady(provider))
+            {
+              'value': realtimeOption(provider),
+              'provider': providerName(provider),
+            },
+      ],
+      'pipeline': _slotOption(1),
+      'pipeline_2': _slotOption(2),
+    };
     return out;
   }
 
@@ -1503,7 +1621,7 @@ class VoiceManager extends Manager {
 
   /// A turn or an announcement is running. False before [init] made the
   /// session: a settings page can draw first.
-  bool get busy => _sessionMade && _session.busy;
+  bool get busy => _sessionMade && (_session.busy || _realtime.busy);
   bool _sessionMade = false;
 
   Map<String, Object?> describe() => {
@@ -1514,7 +1632,8 @@ class VoiceManager extends Manager {
     'satelliteEntity': homeAssistant.value.satelliteEntity,
     'entities': homeAssistant.value.entities,
     'selectsMissing': homeAssistant.value.selectsMissing,
-    'busy': _session.busy,
+    'busy': _session.busy || _realtime.busy,
+    'conversation': _realtime.busy,
     'listening': _wakeWord.listening,
     'phase': view.value.phase.name,
     'command': view.value.command,
@@ -1549,6 +1668,304 @@ class VoiceManager extends Manager {
       voiceEngines[_settings.get(defs.voiceWakeWordEngine)] ??
       WakeWordEngineType.vsWakeWord;
 
+  /// The wake word slot (1 or 2) of the model [id], 1 when it is not one
+  /// of the configured ones.
+  int _slotForModel(String id) {
+    final models = _wakeWord.config?.models ?? const [];
+    final index = models.indexWhere((m) => m.id == id);
+    return index < 0 ? 1 : index + 1;
+  }
+
+  /// The settings of one realtime provider: each has its own connection,
+  /// model and voice.
+  static ({
+    SettingDef<String> apiKey,
+    SettingDef<String> endpoint,
+    SettingDef<String> model,
+    SettingDef<String> voice,
+    SettingDef<String> validated,
+  })
+  _realtimeDefs(RealtimeProvider provider) => switch (provider) {
+    RealtimeProvider.openai => (
+      apiKey: defs.voiceRealtimeOpenAiApiKey,
+      endpoint: defs.voiceRealtimeOpenAiEndpoint,
+      model: defs.voiceRealtimeOpenAiModel,
+      voice: defs.voiceRealtimeOpenAiVoice,
+      validated: defs.voiceRealtimeOpenAiValidated,
+    ),
+    RealtimeProvider.xai => (
+      apiKey: defs.voiceRealtimeXaiApiKey,
+      endpoint: defs.voiceRealtimeXaiEndpoint,
+      model: defs.voiceRealtimeXaiModel,
+      voice: defs.voiceRealtimeXaiVoice,
+      validated: defs.voiceRealtimeXaiValidated,
+    ),
+  };
+
+  /// The provider answering [slot]'s wake word: picked in its Assistant
+  /// select, and still validated. Null for Assist.
+  RealtimeProvider? _slotProvider(int slot) {
+    final engine = _settings.get(
+      slot == 2 ? defs.voiceEngine2 : defs.voiceEngine1,
+    );
+    final provider = RealtimeProvider.values
+        .where((p) => p.id == engine)
+        .firstOrNull;
+    return provider != null && realtimeReady(provider) ? provider : null;
+  }
+
+  /// [slot]'s Assistant select's value when a provider answers it.
+  String? _slotOption(int slot) {
+    final provider = _slotProvider(slot);
+    return provider == null ? null : realtimeOption(provider);
+  }
+
+  /// A provider's choice in the Assistant selects. No Home Assistant
+  /// pipeline is named this.
+  static String realtimeOption(RealtimeProvider provider) =>
+      '__realtime_${provider.id}__';
+
+  /// What Validate connection records: the settings it connected with.
+  String realtimeSignature(RealtimeProvider provider) {
+    final d = _realtimeDefs(provider);
+    return sha256
+        .convert(
+          utf8.encode(
+            [
+              provider.id,
+              _settings.get(d.endpoint).trim(),
+              _settings.get(d.apiKey).trim(),
+            ].join('\n'),
+          ),
+        )
+        .toString();
+  }
+
+  /// The provider connected with its settings as they are now.
+  bool realtimeReady(RealtimeProvider provider) =>
+      _settings.get(_realtimeDefs(provider).validated) ==
+      realtimeSignature(provider);
+
+  /// A provider's name, for the Assistant selects' choice.
+  static String providerName(RealtimeProvider provider) =>
+      provider == RealtimeProvider.xai ? 'xAI Grok' : 'OpenAI';
+
+  /// Who answers the realtime conversation starting now.
+  RealtimeProvider _activeProvider = RealtimeProvider.openai;
+
+  /// Starts what answers [slot]'s wake word. One conversation at a time:
+  /// a wake word during either kind is ignored, except over an
+  /// announcement, which the Assist turn takes over as it always has.
+  void _wakeSlot(int slot, String phrase) {
+    if (_realtime.busy) return;
+    final provider = _slotProvider(slot);
+    if (provider != null) {
+      if (_session.busy) return;
+      _activeProvider = provider;
+      unawaited(_realtime.wake(phrase));
+      return;
+    }
+    unawaited(_session.wake(phrase));
+  }
+
+  RealtimeOptions _realtimeOptions() => RealtimeOptions(
+    wakeSound: _settings.get(defs.voiceWakeSound),
+    seamless: _settings.get(defs.voiceSeamlessWake),
+    idleSeconds: _settings.get(defs.voiceRealtimeIdleSeconds).toInt(),
+    talkOver: _settings.get(defs.voiceRealtimeTalkOver),
+    language: _settings.get(defs.uiLanguage),
+  );
+
+  /// A provider's settings as the backend takes them.
+  RealtimeConfig realtimeConfig(RealtimeProvider provider) {
+    final d = _realtimeDefs(provider);
+    return RealtimeConfig(
+      provider: provider,
+      endpoint: _settings.get(d.endpoint),
+      apiKey: _settings.get(d.apiKey),
+      model: _settings.get(d.model),
+      voice: _settings.get(d.voice),
+      instructions: _settings.get(defs.voiceRealtimeInstructions),
+    );
+  }
+
+  /// Home Assistant answered 404 on /api/mcp. Translated where it shows.
+  static const mcpMissing =
+      'Add the MCP Server integration in Home Assistant to control your home.';
+
+  /// The tools a realtime conversation gets: Home Assistant's MCP server
+  /// (or the one set instead) and the app's own.
+  RealtimeToolbox realtimeToolbox() {
+    final boxes = <RealtimeToolbox>[];
+    switch (_settings.get(defs.voiceRealtimeTools)) {
+      case 'home_assistant':
+        final base = _settings
+            .get(defs.haUrl)
+            .trim()
+            .replaceFirst(RegExp(r'/+$'), '');
+        final token = _settings.get(defs.haToken);
+        if (base.isNotEmpty && token.isNotEmpty) {
+          boxes.add(
+            McpToolbox(
+              McpClient(url: Uri.parse('$base/api/mcp'), token: token),
+              notFound: mcpMissing,
+            ),
+          );
+        }
+      case 'custom':
+        final url = _settings.get(defs.voiceRealtimeMcpUrl).trim();
+        final parsed = Uri.tryParse(url);
+        if (url.isNotEmpty && parsed != null && parsed.hasScheme) {
+          boxes.add(
+            McpToolbox(
+              McpClient(
+                url: parsed,
+                token: _settings.get(defs.voiceRealtimeMcpToken).trim(),
+              ),
+            ),
+          );
+        }
+    }
+    boxes.add(const LocalToolbox());
+    return CombinedToolbox(boxes);
+  }
+
+  /// Connects once with the saved settings and reads the tools, for the
+  /// Validate connection row: whether the provider took the session, and
+  /// how many Home Assistant tools the model would get. A connection that
+  /// works is recorded, and makes the provider a choice for the wake words.
+  Future<Map<String, Object?>> realtimeValidate(
+    RealtimeProvider provider,
+  ) async {
+    final signature = realtimeSignature(provider);
+    final toolbox = realtimeToolbox();
+    var tools = 0;
+    var toolsError = '';
+    try {
+      final list = await toolbox.list();
+      tools = list.where((t) => t.name != LocalToolbox.endConversation).length;
+      if (toolbox case final CombinedToolbox box when box.problems.isNotEmpty) {
+        toolsError = box.problems.first;
+      }
+    } catch (e) {
+      toolsError = '$e';
+    } finally {
+      toolbox.close();
+    }
+    final backend = OpenAiRealtimeBackend(
+      config: realtimeConfig(provider),
+      toolbox: const LocalToolbox(),
+      log: (line) => log.info(name, 'realtime test: $line'),
+    );
+    final done = Completer<String?>();
+    final sub = backend.events.listen((e) {
+      if (done.isCompleted) return;
+      if (e is RealtimeReady) done.complete(null);
+      if (e is RealtimeClosed) done.complete(e.error ?? 'closed');
+    });
+    unawaited(backend.start(const RealtimeStart()));
+    final error = await done.future.timeout(
+      const Duration(seconds: 15),
+      onTimeout: () => 'no answer from the provider',
+    );
+    await sub.cancel();
+    await backend.close();
+    await _settings.set(
+      _realtimeDefs(provider).validated,
+      error == null ? signature : '',
+      source: 'voice',
+    );
+    if (error == null) unawaited(refreshRealtimeCatalog(provider));
+    return {
+      'connected': error == null,
+      'error': ?error,
+      'tools': tools,
+      if (toolsError.isNotEmpty) 'toolsError': toolsError,
+    };
+  }
+
+  // What each provider offers when it cannot be asked: xAI documents these
+  // voices by name, and OpenAI lists no voices over its API at all.
+  static const _openAiModels = ['gpt-realtime', 'gpt-realtime-mini'];
+  static const _openAiVoices = [
+    'alloy',
+    'ash',
+    'ballad',
+    'cedar',
+    'coral',
+    'echo',
+    'marin',
+    'sage',
+    'shimmer',
+    'verse',
+  ];
+  static const _xaiModels = ['grok-voice-latest', 'grok-voice-think-fast-2.0'];
+  static const _xaiVoices = ['ara', 'eve', 'rex'];
+
+  final _catalogTimers = <RealtimeProvider, Timer>{};
+
+  /// A provider's Model and Voice choices: its own lists when the kiosk
+  /// talks to it directly with a key (OpenAI's realtime models, xAI's
+  /// voices), the ones above otherwise. A relay has no such lists to ask.
+  Future<void> refreshRealtimeCatalog(RealtimeProvider provider) async {
+    final d = _realtimeDefs(provider);
+    final xai = provider == RealtimeProvider.xai;
+    var models = xai ? _xaiModels : _openAiModels;
+    var voices = xai ? _xaiVoices : _openAiVoices;
+    final key = _settings.get(d.apiKey).trim();
+    if (_settings.get(d.endpoint).trim().isEmpty && key.isNotEmpty) {
+      final headers = {'Authorization': 'Bearer $key'};
+      try {
+        if (xai) {
+          final response = await http
+              .get(
+                Uri.parse('https://api.x.ai/v1/tts/voices'),
+                headers: headers,
+              )
+              .timeout(const Duration(seconds: 10));
+          final list = (jsonDecode(response.body) as Map)['voices'];
+          final ids = [
+            for (final v in (list as List? ?? const []))
+              if (v is Map && '${v['voice_id'] ?? ''}'.isNotEmpty)
+                '${v['voice_id']}'.toLowerCase(),
+          ]..sort();
+          if (ids.isNotEmpty) voices = ids;
+        } else {
+          final response = await http
+              .get(
+                Uri.parse('https://api.openai.com/v1/models'),
+                headers: headers,
+              )
+              .timeout(const Duration(seconds: 10));
+          final list = (jsonDecode(response.body) as Map)['data'];
+          final ids = [
+            for (final m in (list as List? ?? const []))
+              // Conversation models only: not transcription, translation
+              // or speech recognition.
+              if (m is Map &&
+                  '${m['id']}'.contains('realtime') &&
+                  !RegExp('transcri|translat|whisper').hasMatch('${m['id']}'))
+                '${m['id']}',
+          ]..sort();
+          if (ids.isNotEmpty) models = ids;
+        }
+      } catch (e) {
+        log.info(name, 'realtime catalog: using the built-in lists ($e)');
+      }
+    }
+    _settings.updateRealtimeCatalog(
+      provider.id,
+      models: models,
+      voices: voices,
+    );
+  }
+
+  RealtimeBackend _realtimeBackend() => OpenAiRealtimeBackend(
+    config: realtimeConfig(_activeProvider),
+    toolbox: realtimeToolbox(),
+    log: (line) => log.info(name, 'realtime: $line'),
+  );
+
   /// The phrase of the wake word in [slot], what pipeline 1 or 2 is
   /// picked by.
   String _phraseForSlot(int slot) {
@@ -1565,6 +1982,7 @@ class VoiceManager extends Manager {
   Future<void> _sync() async {
     if (!enabled) {
       await _session.dispose();
+      await _realtime.dispose();
       if (_ownsWakeWord) {
         _ownsWakeWord = false;
         await _wakeWord.release('native-off', source: 'native satellite');
@@ -1573,6 +1991,7 @@ class VoiceManager extends Manager {
     }
     if (_settings.get(defs.voiceMute)) {
       if (_session.busy) await _session.cancel();
+      if (_realtime.busy) await _realtime.cancel();
       _ownsWakeWord = true;
       await _wakeWord.release('muted', source: 'native satellite');
       return;
@@ -1600,6 +2019,11 @@ class VoiceManager extends Manager {
       _dismissAlert();
       return;
     }
+    if (_realtime.busy) {
+      // A conversation keeps going: the stop word stops the answer.
+      unawaited(_realtime.stopAnswer());
+      return;
+    }
     if (_session.busy) {
       unawaited(_session.cancel());
     } else {
@@ -1610,14 +2034,27 @@ class VoiceManager extends Manager {
   // ── the overlay ────────────────────────────────────────────────────────
 
   void _onView(AssistView next) {
-    var shown = next;
+    // Docked or full screen, the Appearance page's pick, for Assist turns
+    // and realtime conversations alike. A preview says for itself.
+    var shown = next.visible && !_previewDocked
+        ? next.copyWith(
+            docked: _settings.get(defs.voiceOverlayMode) == 'docked',
+          )
+        : next;
     if (_settings.get(defs.voiceHideSentimentTags) && next.answer.isNotEmpty) {
-      shown = next.copyWith(answer: stripSentimentTags(next.answer));
+      shown = shown.copyWith(answer: stripSentimentTags(next.answer));
     }
-    final was = view.value.visible;
+    // Visible either way: the screensaver holds its screen off timer
+    // under both. Only full screen covers what is under it, which the
+    // browser and the screensaver then pause. Docked, both stay live.
+    final was = view.value;
     view.value = shown;
     if (!next.visible) level.value = 0;
-    if (was != next.visible) bus.publish(AssistOverlayVisibility(next.visible));
+    final wasCovering = was.visible && !was.docked;
+    final covers = shown.visible && !shown.docked;
+    if (was.visible != shown.visible || wasCovering != covers) {
+      bus.publish(AssistOverlayVisibility(shown.visible, covers: covers));
+    }
   }
 
   /// A result was opened on the overlay: keep it up until dismissed.
@@ -1631,6 +2068,10 @@ class VoiceManager extends Manager {
       _dismissAlert();
       return;
     }
+    if (_realtime.busy) {
+      unawaited(_realtime.cancel());
+      return;
+    }
     _session.dismiss();
   }
 
@@ -1639,6 +2080,7 @@ class VoiceManager extends Manager {
     // word's microphone stays open through it, so nothing else moves them.
     _announceStatus();
     if (busy) {
+      _previewDocked = false;
       if (_busyReasons.add(reason)) {
         bus.publish(
           VoiceInteractionChanged(
@@ -1748,12 +2190,14 @@ class VoiceManager extends Manager {
       case 'announce':
         if (!enabled) return;
         unawaited(
-          _session.announce(
-            VoiceAnnouncement(
-              mediaId: '${fields['mediaId'] ?? ''}',
-              text: '${fields['text'] ?? ''}',
-              preannounceMediaId: '${fields['preannounceMediaId'] ?? ''}',
-              startConversation: fields['startConversation'] == true,
+          _announceOverConversation().then(
+            (_) => _session.announce(
+              VoiceAnnouncement(
+                mediaId: '${fields['mediaId'] ?? ''}',
+                text: '${fields['text'] ?? ''}',
+                preannounceMediaId: '${fields['preannounceMediaId'] ?? ''}',
+                startConversation: fields['startConversation'] == true,
+              ),
             ),
           ),
         );
@@ -1770,6 +2214,12 @@ class VoiceManager extends Manager {
           ),
         );
     }
+  }
+
+  /// An announcement ends a realtime conversation first: the two would
+  /// share the speaker and the microphone.
+  Future<void> _announceOverConversation() async {
+    if (_realtime.busy) await _realtime.cancel();
   }
 
   /// The wake words Home Assistant's selects offer: the engine's bundled
@@ -2298,6 +2748,18 @@ class VoiceManager extends Manager {
         message:
             'Lost connection to Home Assistant. Reconnecting automatically.',
       ),
+      'realtime' => VoiceNotice(
+        id: code,
+        severity: VoiceSeverity.error,
+        category: 'Realtime',
+        message: message,
+      ),
+      'realtime-warning' => VoiceNotice(
+        id: code,
+        severity: VoiceSeverity.warning,
+        category: 'Realtime',
+        message: message,
+      ),
       'playback' => VoiceNotice(
         id: code,
         severity: VoiceSeverity.warning,
@@ -2416,6 +2878,9 @@ class VoiceManager extends Manager {
     homeAssistant.removeListener(_announceStatus);
     homeAssistant.removeListener(_watchSelects);
     _watchTimer?.cancel();
+    for (final timer in _catalogTimers.values) {
+      timer.cancel();
+    }
     await _unwatchSelects?.call();
     _speaker.dispose();
     _custom.dispose();
@@ -2427,6 +2892,7 @@ class VoiceManager extends Manager {
     _esphome.onVoice = null;
     _esphome.onVoiceConfiguration = null;
     await _session.dispose();
+    await _realtime.dispose();
     await _ha.close();
     await notices.close();
     await clearedNotices.close();

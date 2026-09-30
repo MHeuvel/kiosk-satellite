@@ -11035,6 +11035,22 @@ class UiStringsEn extends UiStrings {
       'Sunny and 72° right now, with a light breeze.';
 
   @override
+  String get settingVoiceOverlayModeTitle => 'Overlay mode';
+
+  @override
+  String get settingVoiceOverlayModeDescription =>
+      'Docked shows a small bubble over the dashboard. It does not show rich results such as images, weather or videos.';
+
+  @override
+  String get voiceOverlayFullScreen => 'Full screen';
+
+  @override
+  String get voiceOverlayDocked => 'Docked';
+
+  @override
+  String get voiceListeningEllipsis => 'Listening…';
+
+  @override
   String get voiceAssistant1 => 'Assistant 1';
 
   @override
@@ -11655,6 +11671,119 @@ class UiStringsEn extends UiStrings {
   @override
   String get voicePermissionsSearch =>
       'Microphone and the other grants wake word detection needs.';
+
+  @override
+  String get voiceRealtime => 'Realtime';
+
+  @override
+  String get voiceRealtimeHint => 'OpenAI, xAI Grok, tools, talk over answers';
+
+  @override
+  String get voiceRealtimeToolsSection => 'Home Assistant tools';
+
+  @override
+  String get voiceRealtimeProviderDefault => 'Provider default';
+
+  @override
+  String get voiceRealtimeToolsCustom => 'Custom MCP server';
+
+  @override
+  String get settingVoiceRealtimeEndpointTitle => 'Endpoint';
+
+  @override
+  String get settingVoiceRealtimeEndpointDescription =>
+      'Leave empty to use the provider. Use a relay on your network to keep this kiosk offline.';
+
+  @override
+  String get settingVoiceRealtimeApiKeyTitle => 'API key';
+
+  @override
+  String get settingVoiceRealtimeApiKeyDescription =>
+      'Leave empty when a relay adds it.';
+
+  @override
+  String get settingVoiceRealtimeModelTitle => 'Model';
+
+  @override
+  String get settingVoiceRealtimeVoiceTitle => 'Voice';
+
+  @override
+  String get settingVoiceRealtimeInstructionsTitle => 'Instructions';
+
+  @override
+  String get settingVoiceRealtimeInstructionsDescription =>
+      'How the assistant behaves. Leave empty for a short default.';
+
+  @override
+  String get settingVoiceRealtimeIdleSecondsTitle => 'End after silence';
+
+  @override
+  String get settingVoiceRealtimeIdleSecondsDescription =>
+      'The conversation ends after this long with nobody talking.';
+
+  @override
+  String get settingVoiceRealtimeTalkOverTitle => 'Talk over answers';
+
+  @override
+  String get settingVoiceRealtimeTalkOverDescription =>
+      'Interrupt an answer by speaking. Turn off if it interrupts itself.';
+
+  @override
+  String get settingVoiceRealtimeToolsTitle => 'Tools';
+
+  @override
+  String get settingVoiceRealtimeToolsDescription =>
+      'What the assistant can control. Home Assistant uses its MCP Server integration and the entities exposed to Assist.';
+
+  @override
+  String get settingVoiceRealtimeMcpUrlTitle => 'MCP server URL';
+
+  @override
+  String get settingVoiceRealtimeMcpUrlDescription =>
+      'The server\'s Streamable HTTP address.';
+
+  @override
+  String get settingVoiceRealtimeMcpTokenTitle => 'MCP token';
+
+  @override
+  String get settingVoiceRealtimeMcpTokenDescription =>
+      'Sent as a bearer token. Leave empty when the server needs none.';
+
+  @override
+  String get voiceRealtimeMcpMissing =>
+      'Add the MCP Server integration in Home Assistant to control your home.';
+
+  @override
+  String get voiceRealtimeNotValidated =>
+      'Not validated yet. The provider shows up under Assistant once the connection checks out.';
+
+  @override
+  String voiceRealtimeOption(String provider) {
+    return '$provider Realtime';
+  }
+
+  @override
+  String voiceRealtimeConnectFailed(String error) {
+    return 'Could not connect: $error';
+  }
+
+  @override
+  String voiceRealtimeToolsUnavailable(String problem) {
+    return 'Connected, but the Home Assistant tools are unavailable: $problem';
+  }
+
+  @override
+  String voiceRealtimeConnectedTools(String count) {
+    return 'Connected. Home Assistant tools: $count';
+  }
+
+  @override
+  String get settingVoiceRealtimeModelDescription =>
+      'The speech to speech model that answers.';
+
+  @override
+  String get settingVoiceRealtimeVoiceDescription =>
+      'How the assistant sounds.';
 
   @override
   String get voiceDisconnected => 'Home Assistant not connected';

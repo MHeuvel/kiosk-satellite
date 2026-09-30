@@ -25,5 +25,10 @@
   "settingVoiceReactiveBarTitle": "Reaktive Aktivitätsleiste",
   "settingVoiceReactiveBarDescription": "Die Leiste folgt deiner Stimme und der Antwort.",
   "voicePreviewCommand": "Wie ist das Wetter?",
-  "voicePreviewAnswer": "Gerade sonnig und 22°, mit einer leichten Brise."
+  "voicePreviewAnswer": "Gerade sonnig und 22°, mit einer leichten Brise.",
+  "settingVoiceOverlayModeTitle": "Overlay-Modus",
+  "settingVoiceOverlayModeDescription": "Angedockt zeigt eine kleine Blase über dem Dashboard. Umfangreiche Ergebnisse wie Bilder, Wetter oder Videos werden nicht angezeigt.",
+  "voiceOverlayFullScreen": "Vollbild",
+  "voiceOverlayDocked": "Angedockt",
+  "voiceListeningEllipsis": "Hört zu…"
 }

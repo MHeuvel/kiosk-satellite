@@ -1623,27 +1623,35 @@ export function settingRow(s) {
     bindUpdate(cb, () => { cb.checked = !!s.value; });
   } else if (s.type === 'select') {
     const sel = document.createElement('select');
-    let opts = s.options || [];
-    if (s.key === 'camera.rtsp.resolution' && !opts.length) {
-      const opt = document.createElement('option');
-      opt.textContent = cameraText('No supported sizes available');
-      sel.appendChild(opt);
-      sel.disabled = true;
-    }
-    if (s.key === 'screensaver.mode' && !state.haConfigured)
-      opts = opts.filter((o) => o !== 'media' && o !== 'weather_mood' && o !== 'dashboard');
-    opts.forEach((o) => {
-      const opt = document.createElement('option');
-      opt.value = o;
-      // The declared label ('media' → "Home Assistant Media"), or
-      // Capitalised as a fallback, stored values are lowercase identifiers.
-      opt.textContent = (s.optionLabels && s.optionLabels[o]) ||
-        (o ? o[0].toUpperCase() + o.slice(1) : o);
-      opt.selected = o === s.value; sel.appendChild(opt);
-    });
+    const fill = () => {
+      sel.replaceChildren();
+      sel.disabled = false;
+      let opts = s.options || [];
+      if (s.key === 'camera.rtsp.resolution' && !opts.length) {
+        const opt = document.createElement('option');
+        opt.textContent = cameraText('No supported sizes available');
+        sel.appendChild(opt);
+        sel.disabled = true;
+      }
+      if (s.key === 'screensaver.mode' && !state.haConfigured)
+        opts = opts.filter((o) => o !== 'media' && o !== 'weather_mood' && o !== 'dashboard');
+      opts.forEach((o) => {
+        const opt = document.createElement('option');
+        opt.value = o;
+        // The declared label ('media' → "Home Assistant Media"), or
+        // Capitalised as a fallback, stored values are lowercase identifiers.
+        opt.textContent = (s.optionLabels && s.optionLabels[o]) ||
+          (o ? o[0].toUpperCase() + o.slice(1) : o);
+        opt.selected = o === s.value; sel.appendChild(opt);
+      });
+    };
+    fill();
     sel.addEventListener('change', () => save(sel.value));
     row.appendChild(sel);
     bindUpdate(sel, () => { sel.value = s.value ?? ''; });
+    // New choices from the device (a provider's models, a camera's sizes)
+    // land in place: the page is not rebuilt under whatever is being typed.
+    row.updateOptions = () => { if (!row.contains(sel)) return false; fill(); return true; };
   } else if (s.multiline) {
     // Pasted code gets a real editor, not a one-line field.
     const ta = document.createElement('textarea');

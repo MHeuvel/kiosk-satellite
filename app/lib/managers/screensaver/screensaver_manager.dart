@@ -373,7 +373,8 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
       // still observe its playback interaction.
       if (e.source == InteractionSource.sendspin && e.reason == 'media') return;
       _paused = _interactions.update(e);
-      // The native satellite's overlay draws over the screensaver.
+      // The native satellite's overlay draws over the screensaver, full
+      // screen or docked.
       if (_paused && e.source != InteractionSource.native) {
         _stopForInteraction();
       }
@@ -383,7 +384,9 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     bus.on<AssistOverlayVisibility>().listen((event) {
       if (event.visible == _assistOverlay) return;
       _assistOverlay = event.visible;
-      renderPaused.value = event.visible && _active;
+      // Paused only under the full screen overlay: docked, the screensaver
+      // shows around the bubble.
+      renderPaused.value = event.covers && _active;
       if (event.visible) {
         _cancelIdleTimer();
         if (_active) {

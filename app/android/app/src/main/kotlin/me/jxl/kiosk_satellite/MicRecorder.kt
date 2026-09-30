@@ -80,6 +80,13 @@ import kotlin.math.max
  */
 class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.StreamHandler {
     companion object {
+        /** The input types a channel pick applies to. */
+        private val USB_INPUT_TYPES = setOf(
+            AudioDeviceInfo.TYPE_USB_DEVICE,
+            AudioDeviceInfo.TYPE_USB_HEADSET,
+            AudioDeviceInfo.TYPE_USB_ACCESSORY,
+        )
+
         const val CHANNEL = "kiosk_satellite/mic"
         private const val TAG = "MicRecorder"
         @Volatile var rtspAudioTap: ((ByteArray, Long) -> Unit)? = null
@@ -169,7 +176,13 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         val gain = gainFactor((args?.get("gainDb") as? Number)?.toDouble() ?: 0.0)
         val selector = args?.get("device") as? String
         inputSelector = selector
-        val wantChannel = (args?.get("channel") as? Number)?.toInt() ?: 0
+        // A channel pick is for a USB microphone array. A built-in mic
+        // opened with one captures raw channels past the platform echo
+        // canceller, so a pick left over from a USB array must not follow
+        // the selection back to it (it cost a Galaxy Tab S8 its echo
+        // cancellation: the assistant heard itself).
+        val usbSelected = selector?.substringBefore('|')?.toIntOrNull() in USB_INPUT_TYPES
+        val wantChannel = if (usbSelected) (args?.get("channel") as? Number)?.toInt() ?: 0 else 0
         val hardwareFormat = args?.get("format") == "hardware"
         // The mask must reach the chosen channel even when the device cannot
         // be resolved right now (it may still appear by open time), and must

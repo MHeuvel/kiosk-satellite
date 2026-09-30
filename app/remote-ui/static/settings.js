@@ -55,7 +55,7 @@ import {
   viewPath,
 } from './views.js';
 import { loadVsPermissions, renderVsControls } from './vs.js';
-import { renderNativeVs, vsMigrationNotice } from './vs_native.js';
+import { VS_SELECT_SETTINGS, renderNativeVs, vsMigrationNotice } from './vs_native.js';
 import { mountWakeActivations } from './wake_activations.js';
 import { banner, copyBox, messageBox, showToast } from './widgets.js';
 
@@ -285,6 +285,20 @@ async function flushSettingsUpdates() {
           && rows.every(row => row.updateSetting?.() && syncGatedRows(setting.key, row)))) {
         continue;
       }
+    }
+    // Voice Satellite's selects repaint themselves on the ks-settings event
+    // below (vs_native.js): Home Assistant's mirrored selects and the
+    // realtime choice have no row of their own to update.
+    if (!shapeChanged && !hasDependants && VS_SELECT_SETTINGS.has(setting.key)) continue;
+    // Only the choices of a dropdown moved (a provider's model list came
+    // in): its row refreshes them in place rather than the page rebuilding
+    // under whatever is being typed elsewhere on it.
+    const choices = (s) => ({ ...s, value: null, options: null, optionLabels: null,
+      englishOptionLabels: null });
+    if (shapeChanged && !hasDependants && !layoutSettings.has(setting.key)
+        && JSON.stringify(choices(previous)) === JSON.stringify(choices(setting))
+        && rows.length && rows.every((row) => row.updateOptions?.())) {
+      continue;
     }
     // Custom renderers own their controls and any stored picker state.
     // A replaced generic input cannot stand in for a custom picker.

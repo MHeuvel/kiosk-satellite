@@ -25,5 +25,10 @@
   "settingVoiceReactiveBarTitle": "Реактивна смуга активності",
   "settingVoiceReactiveBarDescription": "Смуга реагує на ваш голос і відповідь.",
   "voicePreviewCommand": "Яка погода?",
-  "voicePreviewAnswer": "Зараз сонячно і 22°, легкий вітерець."
+  "voicePreviewAnswer": "Зараз сонячно і 22°, легкий вітерець.",
+  "settingVoiceOverlayModeTitle": "Режим оверлею",
+  "settingVoiceOverlayModeDescription": "Закріплений показує невелику бульбашку поверх панелі керування. Розширені результати, як-от зображення, погода чи відео, не показуються.",
+  "voiceOverlayFullScreen": "На весь екран",
+  "voiceOverlayDocked": "Закріплений",
+  "voiceListeningEllipsis": "Слухає…"
 }

@@ -41467,6 +41467,31 @@
     "context": "Settings > Voice Satellite > Appearance",
     "description": "Sample text the overlay preview shows. Adapt the temperature to the units your readers use."
   },
+  "settingVoiceOverlayModeTitle": "Overlay-Modus",
+  "@settingVoiceOverlayModeTitle": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged."
+  },
+  "settingVoiceOverlayModeDescription": "Angedockt zeigt eine kleine Blase über dem Dashboard. Umfangreiche Ergebnisse wie Bilder, Wetter oder Videos werden nicht angezeigt.",
+  "@settingVoiceOverlayModeDescription": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged."
+  },
+  "voiceOverlayFullScreen": "Vollbild",
+  "@voiceOverlayFullScreen": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged."
+  },
+  "voiceOverlayDocked": "Angedockt",
+  "@voiceOverlayDocked": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged."
+  },
+  "voiceListeningEllipsis": "Hört zu…",
+  "@voiceListeningEllipsis": {
+    "context": "Settings > Voice Satellite > Appearance",
+    "description": "Translate the visible label or help. Keep model names and technical identifiers unchanged."
+  },
   "voiceAssistant1": "Assistent 1",
   "@voiceAssistant1": {
     "context": "Settings > Voice Satellite > Assistant",
@@ -42863,6 +42888,181 @@
         "Settings search"
       ]
     }
+  },
+  "voiceRealtime": "Echtzeit",
+  "@voiceRealtime": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceRealtimeHint": "OpenAI, xAI Grok, Werkzeuge, in Antworten hineinsprechen",
+  "@voiceRealtimeHint": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceRealtimeToolsSection": "Home Assistant-Werkzeuge",
+  "@voiceRealtimeToolsSection": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceRealtimeProviderDefault": "Standard des Anbieters",
+  "@voiceRealtimeProviderDefault": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceRealtimeToolsCustom": "Eigener MCP-Server",
+  "@voiceRealtimeToolsCustom": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeEndpointTitle": "Endpunkt",
+  "@settingVoiceRealtimeEndpointTitle": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeEndpointDescription": "Leer lassen, um den Anbieter zu verwenden. Nutze ein Relay in deinem Netzwerk, um diesen Kiosk offline zu halten.",
+  "@settingVoiceRealtimeEndpointDescription": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeApiKeyTitle": "API-Schlüssel",
+  "@settingVoiceRealtimeApiKeyTitle": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeApiKeyDescription": "Leer lassen, wenn ein Relay ihn hinzufügt.",
+  "@settingVoiceRealtimeApiKeyDescription": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeModelTitle": "Modell",
+  "@settingVoiceRealtimeModelTitle": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeVoiceTitle": "Stimme",
+  "@settingVoiceRealtimeVoiceTitle": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeInstructionsTitle": "Anweisungen",
+  "@settingVoiceRealtimeInstructionsTitle": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeInstructionsDescription": "Wie sich der Assistent verhält. Leer lassen für eine kurze Standardanweisung.",
+  "@settingVoiceRealtimeInstructionsDescription": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeIdleSecondsTitle": "Nach Stille beenden",
+  "@settingVoiceRealtimeIdleSecondsTitle": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeIdleSecondsDescription": "Das Gespräch endet, wenn so lange niemand spricht.",
+  "@settingVoiceRealtimeIdleSecondsDescription": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeTalkOverTitle": "In Antworten hineinsprechen",
+  "@settingVoiceRealtimeTalkOverTitle": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeTalkOverDescription": "Unterbrich eine Antwort, indem du sprichst. Schalte es aus, wenn er sich selbst unterbricht.",
+  "@settingVoiceRealtimeTalkOverDescription": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeToolsTitle": "Werkzeuge",
+  "@settingVoiceRealtimeToolsTitle": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeToolsDescription": "Was der Assistent steuern kann. Home Assistant nutzt seine MCP Server-Integration und die für Assist freigegebenen Entitäten.",
+  "@settingVoiceRealtimeToolsDescription": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeMcpUrlTitle": "MCP-Server-URL",
+  "@settingVoiceRealtimeMcpUrlTitle": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeMcpUrlDescription": "Die Streamable-HTTP-Adresse des Servers.",
+  "@settingVoiceRealtimeMcpUrlDescription": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeMcpTokenTitle": "MCP-Token",
+  "@settingVoiceRealtimeMcpTokenTitle": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeMcpTokenDescription": "Wird als Bearer-Token gesendet. Leer lassen, wenn der Server keinen braucht.",
+  "@settingVoiceRealtimeMcpTokenDescription": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceRealtimeMcpMissing": "Füge die MCP Server-Integration in Home Assistant hinzu, um dein Zuhause zu steuern.",
+  "@voiceRealtimeMcpMissing": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceRealtimeNotValidated": "Noch nicht geprüft. Der Anbieter erscheint unter Assistent, sobald die Verbindung funktioniert.",
+  "@voiceRealtimeNotValidated": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceRealtimeOption": "{provider} Echtzeit",
+  "@voiceRealtimeOption": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "provider": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceRealtimeConnectFailed": "Verbindung fehlgeschlagen: {error}",
+  "@voiceRealtimeConnectFailed": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceRealtimeToolsUnavailable": "Verbunden, aber die Home Assistant-Werkzeuge sind nicht verfügbar: {problem}",
+  "@voiceRealtimeToolsUnavailable": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "problem": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceRealtimeConnectedTools": "Verbunden. Home Assistant-Werkzeuge: {count}",
+  "@voiceRealtimeConnectedTools": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "settingVoiceRealtimeModelDescription": "Das Sprache-zu-Sprache-Modell, das antwortet.",
+  "@settingVoiceRealtimeModelDescription": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeVoiceDescription": "Wie der Assistent klingt.",
+  "@settingVoiceRealtimeVoiceDescription": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   },
   "voiceDisconnected": "Home Assistant ist nicht verbunden",
   "@voiceDisconnected": {

@@ -261,9 +261,10 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
     // through its backdrop: the page is paused (its own onPause, which
     // stops its scripts, animations and video) and keeps its last frame on
     // screen, instead of repainting under every overlay frame.
+    // Docked, it is a bubble and the page stays live under it.
     bus.on<AssistOverlayVisibility>().listen((e) {
-      if (e.visible == _underAssist) return;
-      _underAssist = e.visible;
+      if (e.covers == _underAssist) return;
+      _underAssist = e.covers;
       unawaited(_syncAssistPause());
     });
     bus.on<ScreensaverViewChanged>().listen((e) {

@@ -1,5 +1,5 @@
 import { t, voiceText, voiceVadOption } from './localization.js';
-import { api, cmd } from './core.js';
+import { api, cmd, state } from './core.js';
 import { readOnlyRow } from './device.js';
 import { messageBox, modalShell, showToast } from './widgets.js';
 import { vsSelectRow } from './vs.js';
@@ -28,7 +28,7 @@ const WAKE_ROWS = [
   ['wake_word', 'Wake word 1', 'The word that starts a voice command.'],
   ['wake_word_2', 'Wake word 2', 'A second wake word, answered by Assistant 2.'],
 ];
-const PAGES = ['Assistant', 'Wake Word', 'Appearance', 'Conversation', 'Timers', 'Chimes'];
+const PAGES = ['Wake Word', 'Assistant', 'Realtime', 'Appearance', 'Conversation', 'Timers', 'Chimes'];
 
 
 function voiceRow(name, desc, value = '') {
@@ -131,7 +131,25 @@ async function ttsOutputRow(row, current) {
       .catch(() => null);
   });
   picker.dataset.key = 'voice.tts_output';
+  // An echo of the pick, or a change from the device, lands in place.
+  picker.updateSetting = () => {
+    const value = `${settingValue('voice.tts_output') ?? ''}`;
+    const select = picker.querySelector('select');
+    if (!select) return false;
+    if (![...select.options].some((o) => o.value === value)) {
+      const option = document.createElement('option');
+      option.value = value;
+      option.textContent = value;
+      select.appendChild(option);
+    }
+    select.value = value;
+    return true;
+  };
   row.replaceWith(picker);
+}
+
+function settingValue(key) {
+  return (state.settings || []).find((s) => s.key === key)?.value;
 }
 
 /* Skin: the current skin's name, opening a grid of every skin as a
@@ -160,6 +178,11 @@ function skinRow(row, current) {
   picker.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
   });
+  picker.updateSetting = () => {
+    current = `${settingValue('voice.skin') ?? current}`;
+    picker.lastElementChild.textContent = nameOf(current);
+    return true;
+  };
   row.replaceWith(picker);
 }
 
@@ -192,8 +215,10 @@ function openSkinPicker(skins, current) {
 }
 
 /* Home Assistant's selects on the kiosk's device, as dropdowns that write
-   them live. `rows` is [key, title, description] per row. */
+   them live. `rows` is [key, title, description] per row. The Assistant
+   selects also offer the validated realtime provider. */
 async function haSelectRows(container, rows) {
+  container._vsRows = rows;
   let data = {};
   try {
     const r = await cmd('voiceHaSelects', {}, { timeoutMs: 15000 });
@@ -204,6 +229,7 @@ async function haSelectRows(container, rows) {
   const label = (key, option) => option === 'preferred' ? voiceText('Preferred')
     : option === 'no_wake_word' ? voiceText('None')
       : key === 'vad_sensitivity' ? voiceVadOption(option) : option;
+  const realtime = data.realtime || {};
   for (const [key, title, desc] of rows) {
     const entity = data[key];
     const options = Array.isArray(entity?.options) ? entity.options.map(String) : [];
@@ -212,8 +238,17 @@ async function haSelectRows(container, rows) {
         voiceText(data.selectsMissing === true ? 'Reload needed' : 'Not available')));
       continue;
     }
-    container.appendChild(vsSelectRow(voiceText(title), voiceText(desc),
-      options.map((o) => ({ value: o, label: label(key, o) })), `${entity.state ?? ''}`,
+    // Every validated realtime provider is one more choice.
+    const offers = key in realtime && Array.isArray(realtime.options) ? realtime.options : [];
+    const choices = options.map((o) => ({ value: o, label: label(key, o) }));
+    for (const o of offers) {
+      choices.push({ value: `${o.value}`,
+        label: t('voiceRealtimeOption', { provider: `${o.provider}` }, '{provider} Realtime') });
+    }
+    const picked = realtime[key];
+    const current = typeof picked === 'string' && offers.some((o) => o.value === picked)
+      ? picked : `${entity.state ?? ''}`;
+    container.appendChild(vsSelectRow(voiceText(title), voiceText(desc), choices, current,
       async (option) => {
         const r = await cmd('voiceSelectOption', { key, option }).catch(() => null);
         if (!r?.ok) showToast({ title: 'Voice Satellite', message: voiceText('Could not change it in Home Assistant.'), kind: 'error' });
@@ -222,11 +257,89 @@ async function haSelectRows(container, rows) {
   }
 }
 
+/* Settings the selects show without a row of their own: Home Assistant's
+   mirrored selects and the realtime choice. An echo of one repaints the
+   selects in place (settings.js skips its rebuild for them). */
+export const VS_SELECT_SETTINGS = new Set([
+  'voice.ha_pipeline', 'voice.ha_pipeline_2', 'voice.ha_vad_sensitivity',
+  'voice.ha_wake_word', 'voice.ha_wake_word_2', 'voice.pending_selects',
+  'voice.engine_1', 'voice.engine_2',
+  'voice.realtime_openai_validated', 'voice.realtime_xai_validated',
+]);
+
+/* Calls `paint` when one of `keys` changes, while `node` is on the page. */
+function onSettings(node, keys, paint) {
+  let timer = null;
+  const listener = (e) => {
+    if (!node.isConnected) { document.removeEventListener('ks-settings', listener); return; }
+    if (!(e.detail || []).some((k) => keys.has(k))) return;
+    clearTimeout(timer);
+    timer = setTimeout(paint, 150);
+  };
+  document.addEventListener('ks-settings', listener);
+}
+
 function selectsBlock(rows) {
   const block = document.createElement('div');
   block.className = 'vs-ha-selects';
   haSelectRows(block, rows);
+  onSettings(block, VS_SELECT_SETTINGS, () => haSelectRows(block, rows));
   return block;
+}
+
+/* What a provider's validation depends on. */
+const realtimeConnection = (provider) => new Set([
+  `voice.realtime_${provider}_endpoint`, `voice.realtime_${provider}_api_key`,
+  `voice.realtime_${provider}_validated`,
+]);
+
+/* Validate connection at the end of the Realtime page's Connection group,
+   like the other Validate connection rows: connects once and reads the
+   tools. A connection that works makes the provider a choice in the
+   Assistant selects. */
+function realtimeValidateRow(panel, provider) {
+  const anchor = panel.querySelector(`[data-key="voice.realtime_${provider}_endpoint"]`);
+  if (!anchor || panel.querySelector(`.realtime-validate-row[data-provider="${provider}"]`)) return;
+  const notYet = 'Not validated yet. The provider shows up under Assistant once the connection checks out.';
+  const row = readOnlyRow(voiceText('Validate connection'), voiceText(notYet), '');
+  row.classList.add('realtime-validate-row');
+  row.dataset.provider = provider;
+  row.lastElementChild.remove();
+  const desc = row.querySelector('.desc');
+  const btn = document.createElement('button');
+  btn.className = 'btn-ghost';
+  btn.textContent = voiceText('Validate');
+  btn.style.cssText = 'flex-shrink:0;';
+  const paint = async () => {
+    const r = await cmd('voiceRealtimeState', { provider }).catch(() => null);
+    if (!row.isConnected || btn.disabled) return;
+    desc.textContent = voiceText(r?.data?.ready === true ? 'Connected' : notYet);
+  };
+  btn.addEventListener('click', async () => {
+    btn.disabled = true;
+    btn.textContent = voiceText('Checking…');
+    const r = await cmd('voiceRealtimeValidate', { provider }, { timeoutMs: 40000 }).catch(() => null);
+    btn.disabled = false;
+    btn.textContent = voiceText('Validate');
+    const data = r?.data || {};
+    if (!r?.ok || data.connected !== true) {
+      desc.textContent = t('voiceRealtimeConnectFailed', { error: `${data.error || r?.error || ''}` },
+        'Could not connect: {error}');
+      return;
+    }
+    const problem = `${data.toolsError || ''}`;
+    desc.textContent = problem
+      ? t('voiceRealtimeToolsUnavailable', { problem: voiceText(problem) },
+        'Connected, but the Home Assistant tools are unavailable: {problem}')
+      : t('voiceRealtimeConnectedTools', { count: String(data.tools ?? 0) },
+        'Connected. Home Assistant tools: {count}');
+  });
+  row.appendChild(btn);
+  anchor.insertAdjacentElement('afterend', row);
+  paint();
+  // A changed key or endpoint needs validating again.
+  onSettings(row, new Set([...realtimeConnection(provider)]
+    .filter((k) => !k.endsWith('_validated'))), paint);
 }
 
 /* The native page, into a root render() already filled with the Voice
@@ -280,6 +393,10 @@ export async function renderNativeVs(root, byKey) {
       selects.className = 'card';
       selects.appendChild(selectsBlock(PIPELINE_ROWS));
       assistant.prepend(h, selects);
+    }
+    const realtimePanel = panel('Realtime');
+    if (realtimePanel) {
+      for (const provider of ['openai', 'xai']) realtimeValidateRow(realtimePanel, provider);
     }
     const ttsRow = assistant?.querySelector('[data-key="voice.tts_output"]');
     if (ttsRow) ttsOutputRow(ttsRow, byKey['voice.tts_output']?.value || '');

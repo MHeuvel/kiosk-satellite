@@ -42,6 +42,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'brightness_curve_editor.dart';
 
 import '../core/permissions.dart';
+import '../managers/voice/realtime/openai_realtime_backend.dart';
 import '../managers/wake_word/background_listening.dart';
 import '../managers/wake_word/system_permissions.dart';
 import 'color_picker.dart';
@@ -3199,6 +3200,19 @@ class _CategoryContentState extends State<_CategoryContent> {
     // and Immich cards put theirs.
     if (widget.category == 'Sendspin')
       sendspinMaToken.key: _MaValidateRow(container: container),
+    // The end of each provider's group on the Realtime page.
+    if (widget.category == 'Voice Satellite') ...{
+      voiceRealtimeOpenAiEndpoint.key: RealtimeValidateRow(
+        key: const ValueKey('realtime-validate-openai'),
+        container: container,
+        provider: RealtimeProvider.openai,
+      ),
+      voiceRealtimeXaiEndpoint.key: RealtimeValidateRow(
+        key: const ValueKey('realtime-validate-xai'),
+        container: container,
+        provider: RealtimeProvider.xai,
+      ),
+    },
     // Say what the pick just did to this device, under the row that
     // holds it: its own player is gone from Music Assistant and the rows
     // about it are gone from this page.
@@ -4150,8 +4164,9 @@ extension on _CategoryContentState {
       ),
       if (enabled) ...[
         for (final page in const [
-          'Assistant',
           'Wake Word',
+          'Assistant',
+          'Realtime',
           'Appearance',
           'Conversation',
           'Timers',
@@ -8783,7 +8798,8 @@ class _MicChannelTileState extends State<MicChannelTile> {
     final c = widget.container;
     final selected = c.settings.get(audioMicDevice);
     var channels = 0;
-    if (selected.isNotEmpty) {
+    // Only a USB microphone array: capture ignores a pick on any other.
+    if (isUsbInput(selected)) {
       final result = await c.commands.execute('getAudioDevices', const {});
       final data = result.data;
       final list = data is Map ? data['inputs'] : null;
@@ -8826,6 +8842,14 @@ class _MicChannelTileState extends State<MicChannelTile> {
       },
     );
   }
+}
+
+/// A microphone selector ("type|address|name") of a USB input, the only
+/// kind a channel pick applies to (MicRecorder.kt).
+bool isUsbInput(String selector) {
+  final type = int.tryParse(selector.split('|').first);
+  // AudioDeviceInfo.TYPE_USB_DEVICE, TYPE_USB_ACCESSORY, TYPE_USB_HEADSET.
+  return type == 11 || type == 12 || type == 22;
 }
 
 /// Every OS grant the app can use, in one list, on the Device page (issue

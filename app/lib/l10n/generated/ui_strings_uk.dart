@@ -11156,6 +11156,22 @@ class UiStringsUk extends UiStrings {
   String get voicePreviewAnswer => 'Зараз сонячно і 22°, легкий вітерець.';
 
   @override
+  String get settingVoiceOverlayModeTitle => 'Режим оверлею';
+
+  @override
+  String get settingVoiceOverlayModeDescription =>
+      'Закріплений показує невелику бульбашку поверх панелі керування. Розширені результати, як-от зображення, погода чи відео, не показуються.';
+
+  @override
+  String get voiceOverlayFullScreen => 'На весь екран';
+
+  @override
+  String get voiceOverlayDocked => 'Закріплений';
+
+  @override
+  String get voiceListeningEllipsis => 'Слухає…';
+
+  @override
   String get voiceAssistant1 => 'Асистент 1';
 
   @override
@@ -11784,6 +11800,119 @@ class UiStringsUk extends UiStrings {
   @override
   String get voicePermissionsSearch =>
       'Мікрофон та інші дозволи, необхідні для виявлення слова активації.';
+
+  @override
+  String get voiceRealtime => 'Реальний час';
+
+  @override
+  String get voiceRealtimeHint =>
+      'OpenAI, xAI Grok, інструменти, перебивання відповідей';
+
+  @override
+  String get voiceRealtimeToolsSection => 'Інструменти Home Assistant';
+
+  @override
+  String get voiceRealtimeProviderDefault => 'Типовий від постачальника';
+
+  @override
+  String get voiceRealtimeToolsCustom => 'Власний сервер MCP';
+
+  @override
+  String get settingVoiceRealtimeEndpointTitle => 'Кінцева точка';
+
+  @override
+  String get settingVoiceRealtimeEndpointDescription =>
+      'Залиште порожнім, щоб використовувати постачальника. Використайте ретранслятор у своїй мережі, щоб цей кіоск лишався без інтернету.';
+
+  @override
+  String get settingVoiceRealtimeApiKeyTitle => 'Ключ API';
+
+  @override
+  String get settingVoiceRealtimeApiKeyDescription =>
+      'Залиште порожнім, якщо його додає ретранслятор.';
+
+  @override
+  String get settingVoiceRealtimeModelTitle => 'Модель';
+
+  @override
+  String get settingVoiceRealtimeVoiceTitle => 'Голос';
+
+  @override
+  String get settingVoiceRealtimeInstructionsTitle => 'Інструкції';
+
+  @override
+  String get settingVoiceRealtimeInstructionsDescription =>
+      'Як поводиться асистент. Залиште порожнім для короткого типового тексту.';
+
+  @override
+  String get settingVoiceRealtimeIdleSecondsTitle => 'Завершувати після тиші';
+
+  @override
+  String get settingVoiceRealtimeIdleSecondsDescription =>
+      'Розмова завершується, якщо стільки часу ніхто не говорить.';
+
+  @override
+  String get settingVoiceRealtimeTalkOverTitle => 'Перебивати відповіді';
+
+  @override
+  String get settingVoiceRealtimeTalkOverDescription =>
+      'Перебивайте відповідь голосом. Вимкніть, якщо асистент перебиває сам себе.';
+
+  @override
+  String get settingVoiceRealtimeToolsTitle => 'Інструменти';
+
+  @override
+  String get settingVoiceRealtimeToolsDescription =>
+      'Чим асистент може керувати. Home Assistant використовує свою інтеграцію MCP Server і сутності, відкриті для Assist.';
+
+  @override
+  String get settingVoiceRealtimeMcpUrlTitle => 'URL сервера MCP';
+
+  @override
+  String get settingVoiceRealtimeMcpUrlDescription =>
+      'Адреса Streamable HTTP сервера.';
+
+  @override
+  String get settingVoiceRealtimeMcpTokenTitle => 'Токен MCP';
+
+  @override
+  String get settingVoiceRealtimeMcpTokenDescription =>
+      'Надсилається як bearer-токен. Залиште порожнім, якщо сервер його не потребує.';
+
+  @override
+  String get voiceRealtimeMcpMissing =>
+      'Додайте інтеграцію MCP Server у Home Assistant, щоб керувати домом.';
+
+  @override
+  String get voiceRealtimeNotValidated =>
+      'Ще не перевірено. Постачальник з\'явиться в розділі Асистент, щойно з\'єднання запрацює.';
+
+  @override
+  String voiceRealtimeOption(String provider) {
+    return '$provider у реальному часі';
+  }
+
+  @override
+  String voiceRealtimeConnectFailed(String error) {
+    return 'Не вдалося підключитися: $error';
+  }
+
+  @override
+  String voiceRealtimeToolsUnavailable(String problem) {
+    return 'Підключено, але інструменти Home Assistant недоступні: $problem';
+  }
+
+  @override
+  String voiceRealtimeConnectedTools(String count) {
+    return 'Підключено. Інструменти Home Assistant: $count';
+  }
+
+  @override
+  String get settingVoiceRealtimeModelDescription =>
+      'Модель «мовлення в мовлення», яка відповідає.';
+
+  @override
+  String get settingVoiceRealtimeVoiceDescription => 'Як звучить асистент.';
 
   @override
   String get voiceDisconnected => 'Home Assistant не підключено';

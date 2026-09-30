@@ -1784,4 +1784,64 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingAlarmsMenuTitle",
     "description": "settingAlarmsMenuDescription",
   },
+  "voice.realtime_instructions": {
+    "title": "settingVoiceRealtimeInstructionsTitle",
+    "description": "settingVoiceRealtimeInstructionsDescription",
+  },
+  "voice.realtime_idle_seconds": {
+    "title": "settingVoiceRealtimeIdleSecondsTitle",
+    "description": "settingVoiceRealtimeIdleSecondsDescription",
+  },
+  "voice.realtime_talk_over": {
+    "title": "settingVoiceRealtimeTalkOverTitle",
+    "description": "settingVoiceRealtimeTalkOverDescription",
+  },
+  "voice.realtime_tools": {
+    "title": "settingVoiceRealtimeToolsTitle",
+    "description": "settingVoiceRealtimeToolsDescription",
+  },
+  "voice.realtime_mcp_url": {
+    "title": "settingVoiceRealtimeMcpUrlTitle",
+    "description": "settingVoiceRealtimeMcpUrlDescription",
+  },
+  "voice.realtime_mcp_token": {
+    "title": "settingVoiceRealtimeMcpTokenTitle",
+    "description": "settingVoiceRealtimeMcpTokenDescription",
+  },
+  "voice.overlay_mode": {
+    "title": "settingVoiceOverlayModeTitle",
+    "description": "settingVoiceOverlayModeDescription",
+  },
+  "voice.realtime_openai_api_key": {
+    "title": "settingVoiceRealtimeApiKeyTitle",
+    "description": "settingVoiceRealtimeApiKeyDescription",
+  },
+  "voice.realtime_openai_endpoint": {
+    "title": "settingVoiceRealtimeEndpointTitle",
+    "description": "settingVoiceRealtimeEndpointDescription",
+  },
+  "voice.realtime_openai_model": {
+    "title": "settingVoiceRealtimeModelTitle",
+    "description": "settingVoiceRealtimeModelDescription",
+  },
+  "voice.realtime_openai_voice": {
+    "title": "settingVoiceRealtimeVoiceTitle",
+    "description": "settingVoiceRealtimeVoiceDescription",
+  },
+  "voice.realtime_xai_api_key": {
+    "title": "settingVoiceRealtimeApiKeyTitle",
+    "description": "settingVoiceRealtimeApiKeyDescription",
+  },
+  "voice.realtime_xai_endpoint": {
+    "title": "settingVoiceRealtimeEndpointTitle",
+    "description": "settingVoiceRealtimeEndpointDescription",
+  },
+  "voice.realtime_xai_model": {
+    "title": "settingVoiceRealtimeModelTitle",
+    "description": "settingVoiceRealtimeModelDescription",
+  },
+  "voice.realtime_xai_voice": {
+    "title": "settingVoiceRealtimeVoiceTitle",
+    "description": "settingVoiceRealtimeVoiceDescription",
+  },
 };

@@ -220,6 +220,7 @@ const Map<String, String> subpageHints = {
   'Appearance': 'Overlay skin, theme, activity bar, text size',
   // Native Voice Satellite's own pages.
   'Assistant': 'Pipelines, follow-ups',
+  'Realtime': 'OpenAI, xAI Grok, tools, talk over answers',
   'Conversation': 'What the overlay shows and for how long',
   'Timers': 'Pills, alerts, spoken reminders',
   // Its entry row sits under the tester, not with the three pages above.
@@ -5466,6 +5467,273 @@ const voicePendingSelects = SettingDef<String>(
   perDevice: true,
 );
 
+/// What answers each wake word: Home Assistant's Assist pipeline
+/// ('assist'), or a realtime conversation with a provider ('openai',
+/// 'xai'). Hidden: the Assistant selects offer every validated provider as
+/// one more choice and set these.
+const voiceEngine1 = SettingDef<String>(
+  key: 'voice.engine_1',
+  type: SettingType.select,
+  defaultValue: 'assist',
+  title: 'Wake word 1',
+  description: 'What answers wake word 1.',
+  category: 'Voice Satellite',
+  options: ['assist', 'openai', 'xai'],
+  hidden: true,
+);
+
+const voiceEngine2 = SettingDef<String>(
+  key: 'voice.engine_2',
+  type: SettingType.select,
+  defaultValue: 'assist',
+  title: 'Wake word 2',
+  description: 'What answers wake word 2.',
+  category: 'Voice Satellite',
+  options: ['assist', 'openai', 'xai'],
+  hidden: true,
+);
+
+// Realtime: wake words answered by a speech to speech model, full duplex.
+// OpenAI and xAI Grok side by side, each with its own connection, and the
+// conversation and the tools shared.
+
+const voiceRealtimeOpenAiApiKey = SettingDef<String>(
+  key: 'voice.realtime_openai_api_key',
+  type: SettingType.password,
+  defaultValue: '',
+  title: 'API key',
+  description: 'Leave empty when a relay adds it.',
+  category: 'Voice Satellite',
+  subpage: 'Realtime',
+  section: 'OpenAI',
+  secret: true,
+  dependsOn: 'voice.enabled',
+);
+
+/// OpenAI's models (SettingsManager's realtime catalog); '' is its default.
+const voiceRealtimeOpenAiModel = SettingDef<String>(
+  key: 'voice.realtime_openai_model',
+  type: SettingType.select,
+  defaultValue: '',
+  title: 'Model',
+  description: 'The speech to speech model that answers.',
+  category: 'Voice Satellite',
+  subpage: 'Realtime',
+  section: 'OpenAI',
+  options: [''],
+  optionLabels: {'': 'Provider default'},
+  dependsOn: 'voice.enabled',
+);
+
+/// OpenAI's voices; '' is its default.
+const voiceRealtimeOpenAiVoice = SettingDef<String>(
+  key: 'voice.realtime_openai_voice',
+  type: SettingType.select,
+  defaultValue: '',
+  title: 'Voice',
+  description: 'How the assistant sounds.',
+  category: 'Voice Satellite',
+  subpage: 'Realtime',
+  section: 'OpenAI',
+  options: [''],
+  optionLabels: {'': 'Provider default'},
+  dependsOn: 'voice.enabled',
+);
+
+const voiceRealtimeOpenAiEndpoint = SettingDef<String>(
+  key: 'voice.realtime_openai_endpoint',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Endpoint',
+  description:
+      'Leave empty to use the provider. Use a relay on your network to keep '
+      'this kiosk offline.',
+  category: 'Voice Satellite',
+  subpage: 'Realtime',
+  section: 'OpenAI',
+  placeholder: 'Provider default',
+  dependsOn: 'voice.enabled',
+);
+
+/// What OpenAI's last successful Validate connection checked: a hash of
+/// its endpoint and key. The Assistant selects offer it only while that
+/// still matches. Per device: each kiosk reaches the provider on its own.
+const voiceRealtimeOpenAiValidated = SettingDef<String>(
+  key: 'voice.realtime_openai_validated',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Realtime connection validated',
+  description: '',
+  category: 'Voice Satellite',
+  hidden: true,
+  perDevice: true,
+);
+
+const voiceRealtimeXaiApiKey = SettingDef<String>(
+  key: 'voice.realtime_xai_api_key',
+  type: SettingType.password,
+  defaultValue: '',
+  title: 'API key',
+  description: 'Leave empty when a relay adds it.',
+  category: 'Voice Satellite',
+  subpage: 'Realtime',
+  section: 'xAI Grok',
+  secret: true,
+  dependsOn: 'voice.enabled',
+);
+
+/// xAI's models (SettingsManager's realtime catalog); '' is its default.
+const voiceRealtimeXaiModel = SettingDef<String>(
+  key: 'voice.realtime_xai_model',
+  type: SettingType.select,
+  defaultValue: '',
+  title: 'Model',
+  description: 'The speech to speech model that answers.',
+  category: 'Voice Satellite',
+  subpage: 'Realtime',
+  section: 'xAI Grok',
+  options: [''],
+  optionLabels: {'': 'Provider default'},
+  dependsOn: 'voice.enabled',
+);
+
+/// xAI's voices; '' is its default.
+const voiceRealtimeXaiVoice = SettingDef<String>(
+  key: 'voice.realtime_xai_voice',
+  type: SettingType.select,
+  defaultValue: '',
+  title: 'Voice',
+  description: 'How the assistant sounds.',
+  category: 'Voice Satellite',
+  subpage: 'Realtime',
+  section: 'xAI Grok',
+  options: [''],
+  optionLabels: {'': 'Provider default'},
+  dependsOn: 'voice.enabled',
+);
+
+const voiceRealtimeXaiEndpoint = SettingDef<String>(
+  key: 'voice.realtime_xai_endpoint',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Endpoint',
+  description:
+      'Leave empty to use the provider. Use a relay on your network to keep '
+      'this kiosk offline.',
+  category: 'Voice Satellite',
+  subpage: 'Realtime',
+  section: 'xAI Grok',
+  placeholder: 'Provider default',
+  dependsOn: 'voice.enabled',
+);
+
+/// What xAI's last successful Validate connection checked: a hash of
+/// its endpoint and key. The Assistant selects offer it only while that
+/// still matches. Per device: each kiosk reaches the provider on its own.
+const voiceRealtimeXaiValidated = SettingDef<String>(
+  key: 'voice.realtime_xai_validated',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Realtime connection validated',
+  description: '',
+  category: 'Voice Satellite',
+  hidden: true,
+  perDevice: true,
+);
+
+const voiceRealtimeInstructions = SettingDef<String>(
+  key: 'voice.realtime_instructions',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Instructions',
+  description: 'How the assistant behaves. Leave empty for a short default.',
+  category: 'Voice Satellite',
+  subpage: 'Realtime',
+  section: 'Conversation',
+  multiline: true,
+  dependsOn: 'voice.enabled',
+);
+
+const voiceRealtimeIdleSeconds = SettingDef<num>(
+  key: 'voice.realtime_idle_seconds',
+  type: SettingType.number,
+  defaultValue: 10,
+  title: 'End after silence',
+  description: 'The conversation ends after this long with nobody talking.',
+  category: 'Voice Satellite',
+  subpage: 'Realtime',
+  section: 'Conversation',
+  min: 5,
+  max: 60,
+  step: 1,
+  unit: 's',
+  dependsOn: 'voice.enabled',
+);
+
+/// Needs the echo canceller: off, the microphone is shut while the answer
+/// plays and the stop word interrupts it.
+const voiceRealtimeTalkOver = SettingDef<bool>(
+  key: 'voice.realtime_talk_over',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Talk over answers',
+  description:
+      'Interrupt an answer by speaking. Turn off if it interrupts itself.',
+  category: 'Voice Satellite',
+  subpage: 'Realtime',
+  section: 'Conversation',
+  dependsOn: 'voice.enabled',
+);
+
+const voiceRealtimeTools = SettingDef<String>(
+  key: 'voice.realtime_tools',
+  type: SettingType.select,
+  defaultValue: 'home_assistant',
+  title: 'Tools',
+  description:
+      'What the assistant can control. Home Assistant uses its MCP Server '
+      'integration and the entities exposed to Assist.',
+  category: 'Voice Satellite',
+  subpage: 'Realtime',
+  section: 'Home Assistant tools',
+  options: ['home_assistant', 'custom', 'none'],
+  optionLabels: {
+    'home_assistant': 'Home Assistant',
+    'custom': 'Custom MCP server',
+    'none': 'None',
+  },
+  dependsOn: 'voice.enabled',
+);
+
+const voiceRealtimeMcpUrl = SettingDef<String>(
+  key: 'voice.realtime_mcp_url',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'MCP server URL',
+  description: 'The server\'s Streamable HTTP address.',
+  category: 'Voice Satellite',
+  subpage: 'Realtime',
+  section: 'Home Assistant tools',
+  placeholder: 'http://homeassistant.local:8123/api/mcp',
+  dependsOn: 'voice.realtime_tools',
+  dependsOnValue: 'custom',
+);
+
+const voiceRealtimeMcpToken = SettingDef<String>(
+  key: 'voice.realtime_mcp_token',
+  type: SettingType.password,
+  defaultValue: '',
+  title: 'MCP token',
+  description:
+      'Sent as a bearer token. Leave empty when the server needs none.',
+  category: 'Voice Satellite',
+  subpage: 'Realtime',
+  section: 'Home Assistant tools',
+  secret: true,
+  dependsOn: 'voice.realtime_tools',
+  dependsOnValue: 'custom',
+);
+
 /// The mirrored selects by the key the kiosk's device gives each one.
 const voiceHaSelectSettings = <String, SettingDef<String>>{
   'pipeline': voiceHaPipeline,
@@ -5561,6 +5829,37 @@ const voiceTheme = SettingDef<String>(
   options: ['auto', 'light', 'dark'],
   optionLabels: {'auto': 'Auto', 'light': 'Light', 'dark': 'Dark'},
   dependsOn: 'voice.enabled',
+);
+
+/// Where the assistant shows: the full screen overlay, or a bubble docked
+/// over the dashboard, which leaves it visible and usable. Assist turns and
+/// realtime conversations alike.
+const voiceOverlayMode = SettingDef<String>(
+  key: 'voice.overlay_mode',
+  type: SettingType.select,
+  defaultValue: 'full',
+  title: 'Overlay mode',
+  description:
+      'Docked shows a small bubble over the dashboard. It does not show '
+      'rich results such as images, weather or videos.',
+  category: 'Voice Satellite',
+  subpage: 'Appearance',
+  options: ['full', 'docked'],
+  optionLabels: {'full': 'Full screen', 'docked': 'Docked'},
+  dependsOn: 'voice.enabled',
+);
+
+/// The docked bubble's position as "x,y" fractions of the free area.
+/// Saved by dragging it and kept local to this device.
+const voiceDockPosition = SettingDef<String>(
+  key: 'voice.dock_position',
+  type: SettingType.string,
+  defaultValue: '0.5,1',
+  title: 'Docked bubble position',
+  description: 'Saved position of the docked bubble.',
+  category: 'Voice Satellite',
+  hidden: true,
+  perDevice: true,
 );
 
 /// The overlay's backdrop opacity in percent; -1 keeps the skin's own.
@@ -9646,11 +9945,31 @@ const List<SettingDef<Object>> allSettings = [
   voiceHaWakeWord,
   voiceHaWakeWord2,
   voicePendingSelects,
+  voiceEngine1,
+  voiceEngine2,
+  voiceRealtimeOpenAiApiKey,
+  voiceRealtimeOpenAiModel,
+  voiceRealtimeOpenAiVoice,
+  voiceRealtimeOpenAiEndpoint,
+  voiceRealtimeOpenAiValidated,
+  voiceRealtimeXaiApiKey,
+  voiceRealtimeXaiModel,
+  voiceRealtimeXaiVoice,
+  voiceRealtimeXaiEndpoint,
+  voiceRealtimeXaiValidated,
+  voiceRealtimeInstructions,
+  voiceRealtimeIdleSeconds,
+  voiceRealtimeTalkOver,
+  voiceRealtimeTools,
+  voiceRealtimeMcpUrl,
+  voiceRealtimeMcpToken,
   voiceWakeWordSensitivity,
   voiceNoiseGate,
   voiceStopWord,
   voiceSkin,
   voiceTheme,
+  voiceOverlayMode,
+  voiceDockPosition,
   voiceBackgroundOpacity,
   voiceTextScale,
   voiceReactiveBar,

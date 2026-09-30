@@ -3663,6 +3663,12 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingVoiceReactiveBarDescription,
       'voicePreviewCommand' => strings.voicePreviewCommand,
       'voicePreviewAnswer' => strings.voicePreviewAnswer,
+      'settingVoiceOverlayModeTitle' => strings.settingVoiceOverlayModeTitle,
+      'settingVoiceOverlayModeDescription' =>
+        strings.settingVoiceOverlayModeDescription,
+      'voiceOverlayFullScreen' => strings.voiceOverlayFullScreen,
+      'voiceOverlayDocked' => strings.voiceOverlayDocked,
+      'voiceListeningEllipsis' => strings.voiceListeningEllipsis,
       'voiceAssistant1' => strings.voiceAssistant1,
       'voiceAssistant1Help' => strings.voiceAssistant1Help,
       'voiceAssistant2' => strings.voiceAssistant2,
@@ -3869,6 +3875,53 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'voiceBatteryMissing' => strings.voiceBatteryMissing,
       'voicePermissionDirections' => strings.voicePermissionDirections,
       'voicePermissionsSearch' => strings.voicePermissionsSearch,
+      'voiceRealtime' => strings.voiceRealtime,
+      'voiceRealtimeHint' => strings.voiceRealtimeHint,
+      'voiceRealtimeToolsSection' => strings.voiceRealtimeToolsSection,
+      'voiceRealtimeProviderDefault' => strings.voiceRealtimeProviderDefault,
+      'voiceRealtimeToolsCustom' => strings.voiceRealtimeToolsCustom,
+      'settingVoiceRealtimeEndpointTitle' =>
+        strings.settingVoiceRealtimeEndpointTitle,
+      'settingVoiceRealtimeEndpointDescription' =>
+        strings.settingVoiceRealtimeEndpointDescription,
+      'settingVoiceRealtimeApiKeyTitle' =>
+        strings.settingVoiceRealtimeApiKeyTitle,
+      'settingVoiceRealtimeApiKeyDescription' =>
+        strings.settingVoiceRealtimeApiKeyDescription,
+      'settingVoiceRealtimeModelTitle' =>
+        strings.settingVoiceRealtimeModelTitle,
+      'settingVoiceRealtimeVoiceTitle' =>
+        strings.settingVoiceRealtimeVoiceTitle,
+      'settingVoiceRealtimeInstructionsTitle' =>
+        strings.settingVoiceRealtimeInstructionsTitle,
+      'settingVoiceRealtimeInstructionsDescription' =>
+        strings.settingVoiceRealtimeInstructionsDescription,
+      'settingVoiceRealtimeIdleSecondsTitle' =>
+        strings.settingVoiceRealtimeIdleSecondsTitle,
+      'settingVoiceRealtimeIdleSecondsDescription' =>
+        strings.settingVoiceRealtimeIdleSecondsDescription,
+      'settingVoiceRealtimeTalkOverTitle' =>
+        strings.settingVoiceRealtimeTalkOverTitle,
+      'settingVoiceRealtimeTalkOverDescription' =>
+        strings.settingVoiceRealtimeTalkOverDescription,
+      'settingVoiceRealtimeToolsTitle' =>
+        strings.settingVoiceRealtimeToolsTitle,
+      'settingVoiceRealtimeToolsDescription' =>
+        strings.settingVoiceRealtimeToolsDescription,
+      'settingVoiceRealtimeMcpUrlTitle' =>
+        strings.settingVoiceRealtimeMcpUrlTitle,
+      'settingVoiceRealtimeMcpUrlDescription' =>
+        strings.settingVoiceRealtimeMcpUrlDescription,
+      'settingVoiceRealtimeMcpTokenTitle' =>
+        strings.settingVoiceRealtimeMcpTokenTitle,
+      'settingVoiceRealtimeMcpTokenDescription' =>
+        strings.settingVoiceRealtimeMcpTokenDescription,
+      'voiceRealtimeMcpMissing' => strings.voiceRealtimeMcpMissing,
+      'voiceRealtimeNotValidated' => strings.voiceRealtimeNotValidated,
+      'settingVoiceRealtimeModelDescription' =>
+        strings.settingVoiceRealtimeModelDescription,
+      'settingVoiceRealtimeVoiceDescription' =>
+        strings.settingVoiceRealtimeVoiceDescription,
       'voiceDisconnected' => strings.voiceDisconnected,
       'voiceValidate' => strings.voiceValidate,
       'voiceChecking' => strings.voiceChecking,

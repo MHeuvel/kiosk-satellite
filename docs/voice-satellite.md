@@ -62,10 +62,13 @@ When Home Assistant runs the integration, onboarding offers the same migration i
 | --- | --- | --- |
 | Voice Satellite | Mute microphone | Stops listening for the wake word. |
 | | Keep listening in the background | Hears the wake word while another app is in front and comes back on a detection. **Return to the previous app** goes back when the turn ends. |
-| Assistant | Assistant 1 and 2, Finished speaking detection | Home Assistant's selects: the pipeline that answers each wake word and how long a pause ends a command. |
+| Assistant | Assistant 1 and 2, Finished speaking detection | Home Assistant's selects: the pipeline that answers each wake word and how long a pause ends a command. Every validated realtime provider is one more choice. See [Realtime conversations](#realtime-conversations). |
 | | Talk right after the wake word | Skips the wake sound and keeps what you say right after the wake word. |
 | | Follow-up delay, Chime before a follow-up | A pause and a chime before listening for the answer to a question. |
 | | Play sounds on, Play as | Where answers and chimes play. See [below](#play-sounds-on-a-media-player). |
+| Realtime | OpenAI, xAI Grok | Each provider's API key, model, voice and endpoint, with its own **Validate connection**. |
+| | Instructions, End after silence, Talk over answers | How the conversation behaves and ends, for both providers. |
+| | Tools | What the model can control. See [Realtime conversations](#realtime-conversations). |
 | Wake Word | Wake word engine | vsWakeWord (default), microWakeWord or openWakeWord. All models ship with the app. |
 | | Wake word 1 and 2 | Home Assistant's selects. Wake word 2 is answered by Assistant 2. |
 | | Wake word sensitivity, Wake word noise gate | How easily the wake word triggers. The noise gate skips inference while the room is quiet to save CPU. |
@@ -80,6 +83,26 @@ When Home Assistant runs the integration, onboarding offers the same migration i
 | Chimes | Play chimes, per-event sounds | The wake, done, error, timer and announcement sounds, built in or from the sounds folder. |
 
 The **Wake Word Tester** and **Wake word diagnostics** are covered in [Microphone settings](microphone.md).
+
+## Realtime conversations
+
+A wake word answered by a realtime provider starts a conversation with a speech to speech model instead of a Home Assistant pipeline. The model listens while it talks, so you can interrupt it, and the answers start as soon as you stop speaking. OpenAI and xAI Grok are supported.
+
+1. Under **Realtime**, paste the **API key** in the group of the provider you use. You can set up both.
+2. Tap that group's **Validate connection**. It connects once and counts the Home Assistant tools the model gets.
+3. Under **Assistant**, pick the provider (for example **OpenAI Realtime**) for **Assistant 1** or **Assistant 2**. Each wake word can use a different provider or keep its pipeline.
+
+**Model** and **Voice** list what each provider offers. With your key, the kiosk asks the provider for them (OpenAI's realtime models, xAI's voices). Through a relay it shows the ones built in. Changing a provider's endpoint or key needs another **Validate connection** for that provider. Until then its wake word answers with its Home Assistant pipeline.
+
+**Controlling your home.** With **Tools** on **Home Assistant**, the model uses Home Assistant's **Model Context Protocol Server** integration. Add it under **Settings > Devices & services** in Home Assistant. The model can use the entities exposed to Assist, and the scripts exposed to Assist become tools too. **Custom MCP server** points at another server that speaks Streamable HTTP. **None** leaves the tools to a relay that adds its own.
+
+**Kiosks without internet access.** Set a provider's **Endpoint** to a relay on your network that speaks its realtime protocol. The kiosk only talks to the relay, and the API key can live there instead of on the kiosk.
+
+**On screen.** A conversation docks at the bottom of the screen in a bubble with the current exchange and the skin's bar along its bottom edge. It stays up until the conversation ends, and the dashboard stays visible and usable underneath. The bar drains in the last seconds before **End after silence** ends the conversation. Saying goodbye ends it too, and so does the close button. "Stop" cuts off an answer and keeps the conversation going.
+
+**Talk over answers** keeps the microphone open while the model speaks, so you can interrupt it. It relies on the device's echo canceller. If the model keeps interrupting itself, turn it off: the microphone then closes while the model speaks and "stop" interrupts it when **Stop word interruption** is on.
+
+> **Note:** The model's voice always plays on the kiosk, even with **Play sounds on** set to a media player. Only the chimes follow that setting. Providers bill realtime models by the minute of audio, and a conversation ends after nine minutes at most.
 
 ## Play sounds on a media player
 

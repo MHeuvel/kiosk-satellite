@@ -19168,6 +19168,36 @@ abstract class UiStrings {
   /// **'Sunny and 72° right now, with a light breeze.'**
   String get voicePreviewAnswer;
 
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Overlay mode'**
+  String get settingVoiceOverlayModeTitle;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Docked shows a small bubble over the dashboard. It does not show rich results such as images, weather or videos.'**
+  String get settingVoiceOverlayModeDescription;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Full screen'**
+  String get voiceOverlayFullScreen;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Docked'**
+  String get voiceOverlayDocked;
+
+  /// Translate the visible label or help. Keep model names and technical identifiers unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening…'**
+  String get voiceListeningEllipsis;
+
   /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
   ///
   /// In en, this message translates to:
@@ -20271,6 +20301,192 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Microphone and the other grants wake word detection needs.'**
   String get voicePermissionsSearch;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Realtime'**
+  String get voiceRealtime;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'OpenAI, xAI Grok, tools, talk over answers'**
+  String get voiceRealtimeHint;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Assistant tools'**
+  String get voiceRealtimeToolsSection;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Provider default'**
+  String get voiceRealtimeProviderDefault;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom MCP server'**
+  String get voiceRealtimeToolsCustom;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Endpoint'**
+  String get settingVoiceRealtimeEndpointTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave empty to use the provider. Use a relay on your network to keep this kiosk offline.'**
+  String get settingVoiceRealtimeEndpointDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'API key'**
+  String get settingVoiceRealtimeApiKeyTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave empty when a relay adds it.'**
+  String get settingVoiceRealtimeApiKeyDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Model'**
+  String get settingVoiceRealtimeModelTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice'**
+  String get settingVoiceRealtimeVoiceTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructions'**
+  String get settingVoiceRealtimeInstructionsTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'How the assistant behaves. Leave empty for a short default.'**
+  String get settingVoiceRealtimeInstructionsDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'End after silence'**
+  String get settingVoiceRealtimeIdleSecondsTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The conversation ends after this long with nobody talking.'**
+  String get settingVoiceRealtimeIdleSecondsDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk over answers'**
+  String get settingVoiceRealtimeTalkOverTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Interrupt an answer by speaking. Turn off if it interrupts itself.'**
+  String get settingVoiceRealtimeTalkOverDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Tools'**
+  String get settingVoiceRealtimeToolsTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'What the assistant can control. Home Assistant uses its MCP Server integration and the entities exposed to Assist.'**
+  String get settingVoiceRealtimeToolsDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'MCP server URL'**
+  String get settingVoiceRealtimeMcpUrlTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The server\'s Streamable HTTP address.'**
+  String get settingVoiceRealtimeMcpUrlDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'MCP token'**
+  String get settingVoiceRealtimeMcpTokenTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent as a bearer token. Leave empty when the server needs none.'**
+  String get settingVoiceRealtimeMcpTokenDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Add the MCP Server integration in Home Assistant to control your home.'**
+  String get voiceRealtimeMcpMissing;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Not validated yet. The provider shows up under Assistant once the connection checks out.'**
+  String get voiceRealtimeNotValidated;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{provider} Realtime'**
+  String voiceRealtimeOption(String provider);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not connect: {error}'**
+  String voiceRealtimeConnectFailed(String error);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected, but the Home Assistant tools are unavailable: {problem}'**
+  String voiceRealtimeToolsUnavailable(String problem);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected. Home Assistant tools: {count}'**
+  String voiceRealtimeConnectedTools(String count);
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The speech to speech model that answers.'**
+  String get settingVoiceRealtimeModelDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'How the assistant sounds.'**
+  String get settingVoiceRealtimeVoiceDescription;
 
   /// Label or help shown on the Voice Satellite main page.
   ///

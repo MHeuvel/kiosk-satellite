@@ -55,6 +55,7 @@ class AssistView {
     this.tools = const [],
     this.results = const [],
     this.reactive = true,
+    this.docked = false,
   });
 
   static const hidden = AssistView();
@@ -83,6 +84,10 @@ class AssistView {
   /// chime plays and while the assistant thinks.
   final bool reactive;
 
+  /// A realtime conversation: the bar along the edge and a small caption,
+  /// with the screen under it visible and usable.
+  final bool docked;
+
   bool get visible => phase != AssistPhase.hidden;
 
   /// The turn in progress, as it would be kept once the next one starts.
@@ -98,6 +103,7 @@ class AssistView {
     List<String>? tools,
     List<AssistResult>? results,
     bool? reactive,
+    bool? docked,
   }) => AssistView(
     phase: phase ?? this.phase,
     earlier: earlier ?? this.earlier,
@@ -107,6 +113,7 @@ class AssistView {
     tools: tools ?? this.tools,
     results: results ?? this.results,
     reactive: reactive ?? this.reactive,
+    docked: docked ?? this.docked,
   );
 }
 

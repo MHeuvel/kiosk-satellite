@@ -4,8 +4,14 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ## Unreleased
 
+### Added
+- **Realtime conversations with OpenAI and xAI Grok.** A new **Realtime** page in the native Voice Satellite settings holds an OpenAI group and an xAI Grok group, each with its own API key, model, voice, endpoint and **Validate connection** row. The model and voice lists fill in from the provider. Once a provider validates, it shows up as another choice in the Assistant 1 and Assistant 2 dropdowns, so each wake word can start either an Assist pipeline or a realtime conversation. A conversation is full duplex: you can talk over an answer to interrupt it, and it ends after a set time with nobody talking or when you say goodbye. The assistant controls your home through Home Assistant's MCP Server integration and the entities exposed to Assist, or through a custom MCP server. The endpoint can point at a relay on your network so the kiosk itself stays offline. Mirrored in the remote admin and translated into Spanish, German, French and Ukrainian.
+- **Docked overlay mode.** A new **Overlay mode** setting under **Appearance**, below **Theme**, shows the assistant as a small bubble over the dashboard instead of full screen, for Assist pipelines and realtime conversations alike. The bubble holds the reactive bar, the command and the answer, and stays up for the whole conversation. Drag it anywhere and it remembers the spot. Double tap it to cancel. The dashboard stays live underneath, and the bubble draws over the screensaver without dismissing it. Docked mode does not show rich results such as images, weather or videos.
+
 ### Fixed
 - **Moving an alarm by voice no longer keeps the old one.** An agent sends "delete my 6:30 alarm and set one for 7" as two requests at once, and the second one wrote the deleted alarm back. The kiosk now applies voice requests one after the other.
+- **The microphone channel setting no longer turns off echo cancellation on built-in microphones.** The channel pick is meant for multichannel USB arrays, but on a built-in microphone it opened a stereo capture that skipped the platform echo canceller, so Voice Satellite could hear its own answers. It now applies to USB microphones only, and the channel row only shows for them.
+- **Saving a Voice Satellite setting in the remote admin no longer redraws the page.** Pasting an API key or changing an assistant rebuilt the whole tab and could drop what was just typed. Rows now update in place.
 
 ## v2026.9.98 - 2026-09-30
 

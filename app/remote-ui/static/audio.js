@@ -219,7 +219,10 @@ export async function updateMicChannelRow() {
   const selected = (state.settings || [])
     .find((o) => o.key === 'audio.mic_device')?.value || '';
   let channels = 0;
-  if (setting && selected) {
+  // Only a USB microphone array (types 11, 12 and 22): capture ignores a
+  // pick on any other.
+  const usb = [11, 12, 22].includes(Number(`${selected}`.split('|')[0]));
+  if (setting && selected && usb) {
     try {
       const r = await cmd('getAudioDevices');
       if (r.ok) {

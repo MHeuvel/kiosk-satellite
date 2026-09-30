@@ -773,8 +773,13 @@ class CameraConfigurationChanged extends AppEvent {
 /// holds its idle countdown while the overlay shows an answer or results,
 /// which linger after the turn itself has ended.
 class AssistOverlayVisibility extends AppEvent {
-  const AssistOverlayVisibility(this.visible);
+  const AssistOverlayVisibility(this.visible, {bool? covers})
+    : covers = covers ?? visible;
   final bool visible;
+
+  /// It covers the screen (full screen). Docked, it is a bubble over the
+  /// dashboard, which keeps running under it.
+  final bool covers;
 }
 
 class CameraViewStateChanged extends AppEvent {

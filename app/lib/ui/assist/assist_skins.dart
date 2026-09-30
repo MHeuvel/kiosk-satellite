@@ -161,6 +161,7 @@ class AssistSkin {
     required this.light,
     this.dark,
     required this.bar,
+    this.dockedBar,
     this.art = SkinArt.none,
     this.font = 'Rubik',
     this.blur = 6,
@@ -199,6 +200,13 @@ class AssistSkin {
   /// Null for the skins with one look, which draw [light] always.
   final SkinPalette? dark;
   final BarStyle bar;
+
+  /// The bar a docked conversation shows, for a skin whose indicator is
+  /// its full-screen art: the art does not run for the minutes a
+  /// conversation lasts. Null uses [bar].
+  final BarStyle? dockedBar;
+
+  BarStyle get barDocked => dockedBar ?? bar;
   final SkinArt art;
   final String font;
 
@@ -553,6 +561,9 @@ final assistSkins = <AssistSkin>[
       dots: [Color(0xFF783CFF), Color(0xFF1EA0FF), Color(0xFFA050FF)],
     ),
     bar: NoBar(),
+    dockedBar: GradientBar(
+      colors: [Color(0xFF783CFF), Color(0xFF1EA0FF), Color(0xFFA050FF)],
+    ),
     art: SkinArt.waveform,
     blur: 0,
     chatBottomReactive: 72,
@@ -575,6 +586,9 @@ final assistSkins = <AssistSkin>[
       answerShadows: _flareAnswerShadow,
     ),
     bar: NoBar(),
+    dockedBar: GradientBar(
+      colors: [Color(0xFF50A0FF), Color(0xFFB4D4FF), Color(0xFFFF6480)],
+    ),
     art: SkinArt.lensFlares,
     blur: 0,
     chatBottomReactive: 72,
@@ -608,6 +622,9 @@ final assistSkins = <AssistSkin>[
       answerShadows: [CssShadow(Color(0x66000000), 8, dy: 1)],
     ),
     bar: NoBar(),
+    dockedBar: GradientBar(
+      colors: [Color(0xFFFF1A1A), Color(0xFF1F66FF), Color(0xFFE0E6F0)],
+    ),
     art: SkinArt.inkBlobs,
     blur: 0,
     chatBottomReactive: 72,

@@ -60,19 +60,76 @@ class SettingsManager extends Manager {
     bus.publish(SettingOptionsChanged(cameraRtspResolution.key));
   }
 
+  /// Each realtime provider's models and voices: fetched from it when the
+  /// kiosk talks to it directly, else the ones built in (VoiceManager).
+  final _realtimeCatalog =
+      <String, ({List<String> models, List<String> voices})>{};
+
+  /// The Model and Voice settings of each provider, and which list each
+  /// takes: (provider, models).
+  static final _realtimeLists = <String, (String, bool)>{
+    voiceRealtimeOpenAiModel.key: ('openai', true),
+    voiceRealtimeOpenAiVoice.key: ('openai', false),
+    voiceRealtimeXaiModel.key: ('xai', true),
+    voiceRealtimeXaiVoice.key: ('xai', false),
+  };
+
+  void updateRealtimeCatalog(
+    String provider, {
+    required List<String> models,
+    required List<String> voices,
+  }) {
+    final before = _realtimeCatalog[provider];
+    _realtimeCatalog[provider] = (
+      models: List.unmodifiable(models),
+      voices: List.unmodifiable(voices),
+    );
+    for (final entry in _realtimeLists.entries) {
+      final (owner, isModels) = entry.value;
+      if (owner != provider) continue;
+      final was = isModels ? before?.models : before?.voices;
+      final now = isModels ? models : voices;
+      if (was?.join(',') != now.join(',')) {
+        bus.publish(SettingOptionsChanged(entry.key));
+      }
+    }
+  }
+
+  /// '' (the provider's default) first, then the catalog, and the value
+  /// set when the catalog no longer lists it. Null for any other setting.
+  List<String>? _realtimeOptions(SettingDef<Object> def) {
+    final list = _realtimeLists[def.key];
+    if (list == null) return null;
+    final (provider, isModels) = list;
+    final catalog = _realtimeCatalog[provider];
+    final entries = (isModels ? catalog?.models : catalog?.voices) ?? const [];
+    final current = get(def) as String;
+    return [
+      '',
+      ...entries,
+      if (current.isNotEmpty && !entries.contains(current)) current,
+    ];
+  }
+
   List<String> optionsFor(SettingDef<Object> def) =>
       def.key == cameraRtspResolution.key
       ? _cameraStreamResolutions ?? const []
-      : [
-          ...?def.options,
-          if (def.key == screensaverMode.key) ...{
-            ...pluginScreensavers().keys,
-            if (isPluginScreensaver(get(def))) get(def) as String,
-          },
-        ];
+      : _realtimeOptions(def) ??
+            [
+              ...?def.options,
+              if (def.key == screensaverMode.key) ...{
+                ...pluginScreensavers().keys,
+                if (isPluginScreensaver(get(def))) get(def) as String,
+              },
+            ];
   String? optionLabel(SettingDef<Object> def, String value) =>
       def.key == cameraRtspResolution.key
       ? cameraResolutionLabel(value)
+      // Model ids read as they are; voices are names.
+      : _realtimeLists[def.key] != null && value.isNotEmpty
+      ? (_realtimeLists[def.key]!.$2
+            ? value
+            : value[0].toUpperCase() + value.substring(1))
       : def.optionLabels?[value] ??
             (def.key == screensaverMode.key
                 ? pluginScreensavers()[value] ??
@@ -638,6 +695,9 @@ class SettingsManager extends Manager {
               for (final size in optionsFor(def))
                 size: cameraResolutionLabel(size),
             if (def.key == screensaverMode.key) ...pluginScreensavers(),
+            if (_realtimeLists.containsKey(def.key))
+              for (final option in optionsFor(def))
+                if (option.isNotEmpty) option: optionLabel(def, option)!,
             if (def.key == screensaverMode.key &&
                 isPluginScreensaver(get(def)) &&
                 !pluginScreensavers().containsKey(get(def)))

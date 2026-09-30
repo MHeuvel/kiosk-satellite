@@ -1,0 +1,752 @@
+import 'dart:async';
+import 'dart:math' as math;
+import 'dart:typed_data';
+
+import '../assist_view.dart';
+import '../chat_log.dart';
+import '../reactive_level.dart';
+import '../voice_session.dart';
+import 'pcm_resampler.dart';
+import 'realtime_backend.dart';
+import 'realtime_player.dart';
+
+/// The settings a realtime session reads, fresh each time.
+class RealtimeOptions {
+  const RealtimeOptions({
+    this.wakeSound = true,
+    this.seamless = false,
+    this.idleSeconds = 10,
+    this.talkOver = true,
+    this.language = '',
+  });
+
+  final bool wakeSound;
+
+  /// Keep what was said right after the wake word, with no chime.
+  final bool seamless;
+
+  /// The session ends after this long with nobody talking.
+  final int idleSeconds;
+
+  /// Full duplex: the microphone stays open while the model speaks, so
+  /// the user can talk over it. Off, the model's own voice cannot reach
+  /// it on a device whose echo canceller lets it through, and only the
+  /// stop word interrupts.
+  final bool talkOver;
+
+  /// The kiosk's language, a transcription hint.
+  final String language;
+}
+
+/// One realtime voice conversation: from the wake word until the user goes
+/// quiet, says goodbye or closes it. The device side of full duplex: the
+/// microphone streams the whole time, the model's voice plays as it
+/// arrives, and when the user talks over it the rest is dropped and the
+/// model is told how much was heard. The model side is the backend's.
+///
+/// The overlay is docked: a bubble with the current exchange and the
+/// skin's bar along its bottom, up for the whole conversation. The
+/// dashboard stays visible and usable underneath.
+///
+/// Every await re-checks a generation counter, as [VoiceSession] does.
+class RealtimeSession {
+  RealtimeSession({
+    required this.backend,
+    required this.mic,
+    required this.player,
+    required this.chimes,
+    required this.options,
+    required this.onView,
+    required this.onLevel,
+    required this.onCountdown,
+    required this.onBusy,
+    required this.onStopArmed,
+    required this.onError,
+    this.onWarning,
+    this.onIdle,
+    this.onTrace,
+    DateTime Function()? now,
+    this.tick = const Duration(milliseconds: 20),
+  }) : _now = now ?? DateTime.now;
+
+  /// A fresh backend per conversation.
+  final RealtimeBackend Function() backend;
+  final VoiceMicPort mic;
+  final RealtimePlayerPort player;
+
+  /// The wake and done chimes.
+  final VoicePlayerPort chimes;
+  final RealtimeOptions Function() options;
+  final void Function(AssistView view) onView;
+  final void Function(double level) onLevel;
+
+  /// How much of the silence before the end is left, 0..1, over its last
+  /// [countdown]; 1 the rest of the time.
+  final void Function(double left) onCountdown;
+  final void Function(bool busy, String reason) onBusy;
+  final void Function(bool armed) onStopArmed;
+  final void Function(String code, String message) onError;
+  final void Function(String message)? onWarning;
+  final void Function()? onIdle;
+  final void Function(String step, {String? text})? onTrace;
+  final DateTime Function() _now;
+  final Duration tick;
+
+  /// The stretch of the silence the bar counts down over.
+  static const countdown = Duration(seconds: 5);
+
+  /// The self-heal in the wake word manager gives a turn ten minutes.
+  static const maxLength = Duration(minutes: 9);
+
+  /// Echo lingers after the voice stops: the microphone stays shut this
+  /// long after it, without talk over.
+  static const echoTail = Duration(milliseconds: 600);
+
+  /// Audio held while the connection comes up, at most.
+  static const _holdLimit = 24000 * 2 * 6;
+
+  static const chimeDrain = Duration(milliseconds: 250);
+
+  int _gen = 0;
+  bool _busy = false;
+  RealtimeBackend? _backend;
+  StreamSubscription<RealtimeEvent>? _events;
+  Timer? _ticker;
+
+  bool get busy => _busy;
+
+  // The microphone.
+  bool _micOpen = false;
+  PcmResampler? _resampler;
+  final _held = <Uint8List>[];
+  int _heldBytes = 0;
+  bool _ready = false;
+
+  /// Mic audio is dropped until then: the wake chime.
+  DateTime? _deafUntil;
+
+  // Playback.
+  bool _playerOpen = false;
+  int _outRate = 24000;
+  int _written = 0;
+  int _playedKnown = 0;
+  DateTime _playedAt = DateTime.fromMillisecondsSinceEpoch(0);
+  bool _polling = false;
+  DateTime? _lastPoll;
+  String _item = '';
+  final _itemStart = <String, int>{};
+  bool _wasPlaying = false;
+  DateTime? _playEnded;
+
+  /// Output levels, one per slice from [_levelBase] on.
+  final _outLevels = <double>[];
+  int _levelBase = 0;
+  static const _sliceMs = 20;
+
+  // The conversation.
+  DateTime _started = DateTime.fromMillisecondsSinceEpoch(0);
+  DateTime _activity = DateTime.fromMillisecondsSinceEpoch(0);
+  bool _userSpeaking = false;
+  bool _responding = false;
+  bool _awaiting = false;
+  DateTime? _awaitingSince;
+  bool _endRequested = false;
+  bool _stopArmed = false;
+
+  AssistView _view = AssistView.hidden;
+
+  /// The user started talking: the bubble's exchange is replaced once
+  /// their words arrive, not before.
+  bool _newExchange = false;
+  final _levels = ReactiveLevel();
+
+  void _show(AssistView view) {
+    _view = view;
+    onView(view);
+  }
+
+  /// The caption is the current exchange. Nothing in it hides it.
+  AssistView _docked({
+    AssistPhase? phase,
+    String? command,
+    String? answer,
+    bool? streaming,
+    List<String>? tools,
+    bool? reactive,
+  }) => AssistView(
+    phase: phase ?? _view.phase,
+    command: command ?? _view.command,
+    answer: answer ?? _view.answer,
+    streaming: streaming ?? _view.streaming,
+    tools: tools ?? _view.tools,
+    reactive: reactive ?? _view.reactive,
+    docked: true,
+  );
+
+  // ── start ───────────────────────────────────────────────────────────────
+
+  /// The wake word fired ([phrase] names it), or a conversation was asked
+  /// for without one.
+  Future<void> wake(String phrase) async {
+    if (_busy) return;
+    final gen = ++_gen;
+    _reset();
+    _busy = true;
+    _started = _now();
+    _activity = _started;
+    final opts = options();
+    onTrace?.call('realtime conversation, wake word "$phrase"');
+    onBusy(true, 'voice');
+    _show(
+      const AssistView(
+        phase: AssistPhase.listening,
+        reactive: false,
+        docked: true,
+      ),
+    );
+    onCountdown(1);
+
+    final opened = await mic.open((pcm, preRoll) => _onMic(gen, pcm, preRoll));
+    if (gen != _gen) {
+      if (opened) await mic.close();
+      return;
+    }
+    _micOpen = opened;
+    if (!opened) {
+      onError('microphone', 'The microphone is not available.');
+      await _end(gen, sound: 'error');
+      return;
+    }
+
+    final backend = this.backend();
+    _backend = backend;
+    final caps = backend.capabilities;
+    _outRate = caps.outputRate;
+    _resampler = PcmResampler(from: 16000, to: caps.inputRate);
+    _events = backend.events.listen((e) => _onEvent(gen, e));
+    _ticker = Timer.periodic(tick, (_) => _onTick(gen));
+
+    // The chime plays while the connection comes up. What the microphone
+    // hears over it is not part of what the user says.
+    final chime = opts.wakeSound && !opts.seamless
+        ? _chime(gen, 'wake')
+        : Future<void>.value();
+    unawaited(
+      backend.start(RealtimeStart(wakeWord: phrase, language: opts.language)),
+    );
+    await chime;
+  }
+
+  Future<void> _chime(int gen, String kind) async {
+    _deafUntil = _now().add(const Duration(seconds: 5));
+    final played = await chimes.chime(kind);
+    if (gen != _gen) return;
+    if (played == null) {
+      _deafUntil = null;
+      return;
+    }
+    _deafUntil = _now().add(
+      Duration(milliseconds: (played.$2 * 1000).round()) + chimeDrain,
+    );
+  }
+
+  // ── the microphone ──────────────────────────────────────────────────────
+
+  void _onMic(int gen, Uint8List pcm, bool preRoll) {
+    if (gen != _gen || !_busy) return;
+    final opts = options();
+    if (preRoll && !opts.seamless) return;
+    final deaf = _deafUntil;
+    if (deaf != null) {
+      if (_now().isBefore(deaf)) {
+        _held.clear();
+        _heldBytes = 0;
+        return;
+      }
+      _deafUntil = null;
+    }
+    final playing = _playing;
+    if (playing) _echo.add(meanAbs(pcm));
+    // The bar follows the voice playing, else the microphone.
+    if (!playing) _micLevel(_levels.mic(pcm));
+    if (!opts.talkOver && (playing || _inEchoTail)) return;
+    final converted = _resampler?.convert(pcm) ?? pcm;
+    if (playing && _settling) {
+      // The canceller has not caught up with this answer yet: silence.
+      if (_ready) _backend?.sendAudio(Uint8List(converted.length));
+      return;
+    }
+    if (!_ready) {
+      _held.add(converted);
+      _heldBytes += converted.length;
+      while (_heldBytes > _holdLimit && _held.isNotEmpty) {
+        _heldBytes -= _held.removeAt(0).length;
+      }
+      return;
+    }
+    _backend?.sendAudio(converted);
+  }
+
+  /// The microphone's level through the answer playing now, logged when
+  /// it ends: a working echo canceller keeps it near the room's own noise
+  /// (under 100 on a Galaxy Tab S8), a failing one lets the answer back in
+  /// as loud as the user (1000 and more). One line per answer, so a
+  /// conversation that answered itself says why in the log.
+  final _echo = <int>[];
+
+  void _logEcho() {
+    if (_echo.length < 5) {
+      _echo.clear();
+      return;
+    }
+    final sorted = List.of(_echo)..sort();
+    final loud = sorted.where((v) => v > 800).length;
+    onTrace?.call(
+      'microphone while the answer played: median ${sorted[sorted.length ~/ 2]}, '
+      'peak ${sorted.last}, loud ${loud * 100 ~/ sorted.length}%',
+    );
+    _echo.clear();
+  }
+
+  /// Mean absolute sample of PCM16.
+  static int meanAbs(Uint8List pcm) {
+    final data = ByteData.sublistView(pcm);
+    final n = pcm.length ~/ 2;
+    if (n == 0) return 0;
+    var sum = 0;
+    for (var i = 0; i < n; i++) {
+      sum += data.getInt16(i * 2, Endian.little).abs();
+    }
+    return sum ~/ n;
+  }
+
+  double _lastMicLevel = 0;
+  void _micLevel(double level) => _lastMicLevel = level;
+
+  /// When the answer playing now started, from nothing playing.
+  DateTime? _answerFrom;
+
+  /// The echo canceller locks onto each answer a moment after it starts,
+  /// and until it does the answer comes back into the microphone as loud
+  /// as the user (measured on a Galaxy Tab S8). The provider takes that for
+  /// the user talking over it, stops the answer and starts another, which
+  /// leaks again. With talk over on, the microphone goes as silence for this
+  /// long into each answer; after it, the user can interrupt.
+  static const echoSettle = Duration(seconds: 2);
+
+  bool get _settling {
+    final from = _answerFrom;
+    return from != null && _now().difference(from) < echoSettle;
+  }
+
+  bool get _inEchoTail {
+    final ended = _playEnded;
+    return ended != null && _now().difference(ended) < echoTail;
+  }
+
+  // ── the model ───────────────────────────────────────────────────────────
+
+  Future<void> _onEvent(int gen, RealtimeEvent event) async {
+    if (gen != _gen) return;
+    switch (event) {
+      case RealtimeReady():
+        await _onReady(gen);
+      case RealtimeSpeechStarted():
+        _userSpeaking = true;
+        _touch();
+        if (_playing || _responding) await _bargeIn(gen);
+        if (gen != _gen) return;
+        // A new exchange. The last one stays in the bubble until the new
+        // one has words of its own.
+        _newExchange = true;
+        _show(
+          _docked(
+            phase: AssistPhase.listening,
+            streaming: false,
+            reactive: true,
+          ),
+        );
+      case RealtimeSpeechStopped():
+        _userSpeaking = false;
+        _awaiting = true;
+        _awaitingSince = _now();
+        _touch();
+        _show(_docked(phase: AssistPhase.thinking, reactive: false));
+      case RealtimeUserText(:final text, :final complete):
+        if (complete) onTrace?.call('heard', text: text);
+        if (_newExchange) {
+          _newExchange = false;
+          _show(
+            _docked(
+              command: text,
+              answer: '',
+              tools: const [],
+              streaming: false,
+            ),
+          );
+        } else {
+          _show(_docked(command: text));
+        }
+      case RealtimeResponseStarted():
+        _responding = true;
+        _awaiting = false;
+        _touch();
+      case RealtimeAudio(:final itemId, :final pcm):
+        _onAudio(itemId, pcm);
+      case RealtimeAnswerText(:final text, :final complete):
+        if (complete) onTrace?.call('answer', text: text);
+        _show(_docked(answer: text, streaming: !complete));
+      case RealtimeToolActivity(:final name, :final done):
+        _touch();
+        if (!done) {
+          onTrace?.call('tool $name');
+          final line = humanizeToolName(name);
+          if (!_view.tools.contains(line)) {
+            _show(_docked(tools: [..._view.tools, line]));
+          }
+        }
+      case RealtimeResponseDone():
+        _responding = false;
+        if (_staged.isNotEmpty) _release();
+        _touch();
+      case RealtimeEndRequested():
+        onTrace?.call('the assistant ended the conversation');
+        _endRequested = true;
+      case RealtimeWarning(:final message):
+        onWarning?.call(message);
+      case RealtimeClosed(:final error):
+        if (error != null) {
+          onError('realtime', error);
+          await _end(gen, sound: 'error');
+        } else {
+          await _end(gen, sound: 'done');
+        }
+    }
+  }
+
+  Future<void> _onReady(int gen) async {
+    _playerOpen = await player.start(_outRate);
+    if (gen != _gen) return;
+    if (!_playerOpen) {
+      onError('playback', 'Audio could not be played on the device.');
+      await _end(gen, sound: 'error');
+      return;
+    }
+    _ready = true;
+    _touch();
+    onTrace?.call('connected');
+    for (final pcm in _held) {
+      _backend?.sendAudio(pcm);
+    }
+    _held.clear();
+    _heldBytes = 0;
+    _show(_docked(reactive: true));
+  }
+
+  /// The start of an answer, held back until enough of it is here to play
+  /// without running dry: the network delivers it in bursts. Released at
+  /// [prebuffer], after [prebufferWait] or when the answer is done. The
+  /// rest of the answer goes straight to the player, whose queue covers the
+  /// bursts from there.
+  final _staged = <(String, Uint8List)>[];
+  int _stagedFrames = 0;
+  DateTime? _stagedSince;
+
+  static const prebuffer = Duration(milliseconds: 300);
+
+  /// A slow stream still plays: what is staged goes out after this long.
+  static const prebufferWait = Duration(milliseconds: 600);
+
+  void _onAudio(String itemId, Uint8List pcm) {
+    if (!_playerOpen || pcm.isEmpty) return;
+    _awaiting = false;
+    if (_view.phase != AssistPhase.speaking) {
+      _show(_docked(phase: AssistPhase.speaking, reactive: true));
+    }
+    // A new answer with nothing playing ahead of it starts staged; the
+    // one it follows would cover the wait otherwise.
+    final starting = _staged.isNotEmpty || (itemId != _item && !_playing);
+    if (!starting) {
+      _write(itemId, pcm);
+      return;
+    }
+    _staged.add((itemId, pcm));
+    _stagedFrames += pcm.length ~/ 2;
+    _stagedSince ??= _now();
+    if (_stagedFrames >= _outRate * prebuffer.inMilliseconds ~/ 1000) {
+      _release();
+    }
+  }
+
+  void _release() {
+    final staged = List.of(_staged);
+    _staged.clear();
+    _stagedFrames = 0;
+    _stagedSince = null;
+    for (final (item, pcm) in staged) {
+      _write(item, pcm);
+    }
+  }
+
+  void _write(String itemId, Uint8List pcm) {
+    if (itemId != _item) {
+      _item = itemId;
+      _itemStart[itemId] = _written;
+    }
+    if (!_playing) {
+      // Playback starts from here: the estimate runs from now.
+      _playedKnown = _written;
+      _playedAt = _now();
+      _answerFrom = _now();
+    }
+    _addLevels(pcm);
+    player.write(pcm);
+    _written += pcm.length ~/ 2;
+    _touch();
+    if (!_stopArmed) {
+      _stopArmed = true;
+      onStopArmed(true);
+    }
+  }
+
+  /// A level for every 20 ms of the voice, read when that slice plays.
+  void _addLevels(Uint8List pcm) {
+    final samples = pcm.length ~/ 2;
+    final per = _outRate * _sliceMs ~/ 1000;
+    final data = ByteData.sublistView(pcm);
+    // Slices are counted from the frame the list starts at.
+    final expected = (_written - _levelBase) ~/ per;
+    while (_outLevels.length < expected) {
+      _outLevels.add(0);
+    }
+    for (var start = 0; start < samples; start += per) {
+      final end = math.min(samples, start + per);
+      var sum = 0.0;
+      for (var i = start; i < end; i++) {
+        sum += data.getInt16(i * 2, Endian.little).abs() / 32768.0;
+      }
+      _outLevels.add(_levels.playback(sum / math.max(1, end - start)));
+    }
+  }
+
+  /// Frames played by now: the player's last count, carried forward at
+  /// the playback rate, never past what was written.
+  int get _playedEstimate {
+    final elapsed = _now().difference(_playedAt).inMicroseconds;
+    final est = _playedKnown + (elapsed * _outRate / 1e6).round();
+    return math.min(_written, est);
+  }
+
+  bool get _playing => _playerOpen && _playedEstimate < _written;
+
+  /// The user talked over the answer: drop what is left of it and tell the
+  /// model how much was heard.
+  Future<void> _bargeIn(int gen) async {
+    _logEcho();
+    _staged.clear();
+    _stagedFrames = 0;
+    _stagedSince = null;
+    final item = _item;
+    final heard = _playerOpen ? await player.flush() : _written;
+    if (gen != _gen) return;
+    final start = _itemStart[item] ?? heard;
+    final ms = ((heard - start) * 1000 / _outRate).round();
+    onTrace?.call('interrupted after ${ms}ms');
+    _written = heard;
+    _playedKnown = heard;
+    _playedAt = _now();
+    _outLevels.clear();
+    _levelBase = heard;
+    _responding = false;
+    _backend?.interrupted(item, math.max(0, ms));
+    _armStop(false);
+  }
+
+  void _armStop(bool on) {
+    if (_stopArmed == on) return;
+    _stopArmed = on;
+    onStopArmed(on);
+  }
+
+  void _touch() => _activity = _now();
+
+  // ── the clock ───────────────────────────────────────────────────────────
+
+  void _onTick(int gen) {
+    if (gen != _gen || !_busy) return;
+    final now = _now();
+    _poll(gen);
+    final since = _stagedSince;
+    if (since != null && now.difference(since) >= prebufferWait) _release();
+    final playing = _playing || _staged.isNotEmpty;
+    if (_wasPlaying && !playing) {
+      _logEcho();
+      _playEnded = now;
+      _touch();
+      _armStop(false);
+      if (!_userSpeaking && _view.phase == AssistPhase.speaking) {
+        _show(_docked(phase: AssistPhase.listening, streaming: false));
+      }
+    }
+    _wasPlaying = playing;
+
+    // The bar.
+    if (playing) {
+      final per = _outRate * _sliceMs ~/ 1000;
+      final slice = (_playedEstimate - _levelBase) ~/ per;
+      onLevel(slice >= 0 && slice < _outLevels.length ? _outLevels[slice] : 0);
+      if (slice > 200) {
+        // Keep the list short: drop what has played.
+        _outLevels.removeRange(0, slice - 50);
+        _levelBase += (slice - 50) * per;
+      }
+    } else {
+      onLevel(_ready ? _lastMicLevel : 0);
+    }
+
+    if (_awaiting &&
+        _awaitingSince != null &&
+        now.difference(_awaitingSince!) > const Duration(seconds: 15)) {
+      _awaiting = false;
+    }
+
+    // The end.
+    if (now.difference(_started) > maxLength) {
+      onTrace?.call('conversation reached its length limit');
+      unawaited(_end(gen, sound: 'done'));
+      return;
+    }
+    if (_endRequested && !_responding && !playing) {
+      unawaited(_end(gen, sound: 'done'));
+      return;
+    }
+    final quiet =
+        _ready && !_userSpeaking && !_responding && !_awaiting && !playing;
+    if (!quiet) {
+      onCountdown(1);
+      return;
+    }
+    final idle = Duration(seconds: math.max(3, options().idleSeconds));
+    final silent = now.difference(_activity);
+    final left = idle - silent;
+    if (left <= Duration.zero) {
+      onTrace?.call('quiet for ${idle.inSeconds}s');
+      unawaited(_end(gen, sound: 'done'));
+      return;
+    }
+    onCountdown(
+      left >= countdown ? 1 : left.inMilliseconds / countdown.inMilliseconds,
+    );
+  }
+
+  /// Asks the player where it is, now and then, to correct the estimate.
+  void _poll(int gen) {
+    if (!_playerOpen || _polling) return;
+    final now = _now();
+    final last = _lastPoll;
+    if (last != null &&
+        now.difference(last) < const Duration(milliseconds: 200)) {
+      return;
+    }
+    if (_playedEstimate >= _written) return;
+    _polling = true;
+    _lastPoll = now;
+    unawaited(
+      player.played().then((frames) {
+        _polling = false;
+        if (gen != _gen) return;
+        _playedKnown = math.min(frames, _written);
+        _playedAt = _now();
+      }),
+    );
+  }
+
+  // ── ending ──────────────────────────────────────────────────────────────
+
+  /// The stop word: stop the answer and keep listening.
+  Future<void> stopAnswer() async {
+    if (!_busy) return;
+    final gen = _gen;
+    if (_playing || _responding) await _bargeIn(gen);
+    if (gen != _gen) return;
+    _touch();
+    _show(_docked(phase: AssistPhase.listening, streaming: false));
+  }
+
+  /// Closed from the overlay or the voiceCancel command.
+  Future<void> cancel() async {
+    if (!_busy) return;
+    onTrace?.call('conversation closed');
+    await _end(_gen, sound: 'done');
+  }
+
+  Future<void> _end(int gen, {String? sound}) async {
+    if (gen != _gen || !_busy) return;
+    final ended = ++_gen;
+    _busy = false;
+    _logEcho();
+    _ticker?.cancel();
+    _ticker = null;
+    // Not awaited: nothing is delivered after a cancel, and the future it
+    // returns can belong to another zone.
+    unawaited(_events?.cancel());
+    _events = null;
+    final backend = _backend;
+    _backend = null;
+    unawaited(backend?.close());
+    if (_micOpen) {
+      _micOpen = false;
+      await mic.close();
+    }
+    if (_playerOpen) {
+      _playerOpen = false;
+      await player.stop();
+    }
+    _armStop(false);
+    onLevel(0);
+    onCountdown(1);
+    _show(AssistView.hidden);
+    if (sound != null && (sound == 'error' || options().wakeSound)) {
+      await chimes.chime(sound);
+    } else {
+      await chimes.settle();
+    }
+    if (ended != _gen) return;
+    onTrace?.call('conversation over');
+    onBusy(false, '');
+    onIdle?.call();
+  }
+
+  void _reset() {
+    _ready = false;
+    _held.clear();
+    _heldBytes = 0;
+    _deafUntil = null;
+    _written = 0;
+    _playedKnown = 0;
+    _playedAt = _now();
+    _lastPoll = null;
+    _polling = false;
+    _item = '';
+    _itemStart.clear();
+    _wasPlaying = false;
+    _playEnded = null;
+    _outLevels.clear();
+    _levelBase = 0;
+    _staged.clear();
+    _stagedFrames = 0;
+    _stagedSince = null;
+    _userSpeaking = false;
+    _responding = false;
+    _awaiting = false;
+    _awaitingSince = null;
+    _endRequested = false;
+    _newExchange = false;
+    _lastMicLevel = 0;
+    _answerFrom = null;
+  }
+
+  Future<void> dispose() async {
+    if (_busy) await _end(_gen);
+  }
+}
