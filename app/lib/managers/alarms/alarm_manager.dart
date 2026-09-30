@@ -16,6 +16,7 @@ import '../screensaver/screensaver_manager.dart'
     show currentScreensaverScheduleEntry;
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
+import '../voice/ha_socket.dart';
 import 'alarm_model.dart';
 import 'alarm_requests.dart';
 
@@ -130,12 +131,14 @@ class AlarmManager extends Manager {
     this._settings, {
     DateTime Function()? clock,
     MethodChannel? channel,
+    this._haSocket,
   }) : _clock = clock ?? DateTime.now,
        _channel = channel ?? const MethodChannel('kiosk_satellite/alarms');
 
   final SettingsManager _settings;
   final DateTime Function() _clock;
   final MethodChannel _channel;
+  final HaSocket? _haSocket;
 
   /// The full screen alarm list is up.
   final visible = ValueNotifier<bool>(false);
@@ -148,7 +151,14 @@ class AlarmManager extends Manager {
   final _subs = <StreamSubscription<Object?>>[];
 
   /// Alarms asked for by voice through Home Assistant.
-  late final requests = AlarmRequests(bus, log, _settings, this, clock: _clock);
+  late final requests = AlarmRequests(
+    bus,
+    log,
+    _settings,
+    this,
+    clock: _clock,
+    socket: _haSocket,
+  );
   Timer? _tick;
   Timer? _precise;
   Timer? _ramp;

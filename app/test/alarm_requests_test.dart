@@ -8,6 +8,7 @@ import 'package:kiosk_satellite/core/logging.dart';
 import 'package:kiosk_satellite/managers/alarms/alarm_manager.dart';
 import 'package:kiosk_satellite/managers/alarms/alarm_requests.dart';
 import 'package:kiosk_satellite/managers/settings/settings_manager.dart';
+import 'package:kiosk_satellite/managers/voice/ha_socket.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Alarms asked for through the Kiosk Satellite alarms script: which kiosk
@@ -20,11 +21,13 @@ void main() {
   AlarmManager? built;
   late AlarmManager alarms;
   late AlarmRequests requests;
+  late SettingsManager settings;
   var now = DateTime(2026, 10, 2, 9);
 
   Future<void> build(
     List<Map<String, Object?>> list, {
     Map<String, Object> extra = const {},
+    HaSocket? socket,
   }) async {
     SharedPreferences.setMockInitialValues({
       'ks.alarms.list': jsonEncode(list),
@@ -34,7 +37,7 @@ void main() {
     bus = EventBus();
     final log = Logger();
     final commands = CommandRegistry(log);
-    final settings = SettingsManager(bus, commands, log);
+    settings = SettingsManager(bus, commands, log);
     await settings.init();
     for (final name in [
       'bringToFront',
@@ -59,6 +62,7 @@ void main() {
       log,
       settings,
       clock: () => now,
+      haSocket: socket,
     );
     await alarms.init();
     requests = alarms.requests;
@@ -226,6 +230,29 @@ void main() {
     });
   });
 
+  group('following requests', () {
+    Future<_FakeSocket> follow({required bool admin}) async {
+      final socket = _FakeSocket(admin: admin);
+      await build(
+        [],
+        extra: {'ks.ha.url': 'http://ha.local:8123', 'ks.ha.token': 'token'},
+        socket: socket,
+      );
+      return socket;
+    }
+
+    test('a non-admin token is never refused by Home Assistant', () async {
+      final socket = await follow(admin: false);
+      expect(socket.subscribes, 0);
+      expect(socket.userChecks, 1);
+    });
+
+    test('an admin token listens for requests', () async {
+      final socket = await follow(admin: true);
+      expect(socket.subscribes, 1);
+    });
+  });
+
   group('parsing', () {
     test('times', () {
       expect(parseAlarmTime('06:30'), (hour: 6, minute: 30));
@@ -248,4 +275,41 @@ void main() {
       expect(parseAlarmDays('[]'), isEmpty);
     });
   });
+}
+
+class _FakeSocket extends HaSocket {
+  _FakeSocket({required this.admin})
+    : super(baseUrl: () => '', token: () => '');
+
+  final bool admin;
+  int userChecks = 0;
+  int subscribes = 0;
+
+  @override
+  bool get connected => true;
+
+  @override
+  Future<Object?> request(
+    Map<String, Object?> command, {
+    Duration timeout = const Duration(seconds: 10),
+  }) async {
+    if (command['type'] == 'auth/current_user') {
+      userChecks++;
+      return {'id': 'u', 'is_admin': admin};
+    }
+    return null;
+  }
+
+  @override
+  Future<Future<void> Function()> subscribe(
+    Map<String, Object?> command,
+    void Function(Map<String, Object?> event) onEvent, {
+    Duration timeout = const Duration(seconds: 10),
+  }) async {
+    subscribes++;
+    return () async {};
+  }
+
+  @override
+  Future<void> close() async {}
 }

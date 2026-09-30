@@ -69,6 +69,11 @@ class AlarmRequests {
   int _subscribedOn = -1;
   bool _subscribing = false;
 
+  /// The token's user is not an administrator. Home Assistant refuses
+  /// custom events to them and logs every refusal, so nothing is asked
+  /// again until the address or token changes.
+  bool _notAdmin = false;
+
   static const _name = 'alarms';
 
   void start() {
@@ -120,12 +125,13 @@ class AlarmRequests {
   Future<void> _resubscribe() async {
     _unsubscribe = null;
     _subscribedOn = -1;
+    _notAdmin = false;
     await _socket.close();
     await _follow();
   }
 
   Future<void> _follow() async {
-    if (_subscribing || !_configured) return;
+    if (_subscribing || _notAdmin || !_configured) return;
     if (_unsubscribe != null &&
         _socket.connected &&
         _socket.connections == _subscribedOn) {
@@ -133,6 +139,18 @@ class AlarmRequests {
     }
     _subscribing = true;
     try {
+      // Any user may ask who it is, so this check leaves no error in the
+      // Home Assistant log.
+      final user = await _socket.request({'type': 'auth/current_user'});
+      if (user is Map && user['is_admin'] != true) {
+        _notAdmin = true;
+        _log.info(
+          _name,
+          'voice alarms need an administrator token, not listening',
+        );
+        await _socket.close();
+        return;
+      }
       _unsubscribe = await _socket.subscribe({
         'type': 'subscribe_events',
         'event_type': requestEvent,
@@ -141,7 +159,6 @@ class AlarmRequests {
       _log.debug(_name, 'listening for alarm requests');
     } catch (e) {
       _unsubscribe = null;
-      // A token without admin rights cannot follow custom events.
       _log.debug(_name, 'alarm requests not followed: $e');
     } finally {
       _subscribing = false;

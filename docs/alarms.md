@@ -95,7 +95,7 @@ It works in any language your agent speaks, with no sentences to set up per lang
 
 The alarm goes to the kiosk you are talking to. A request typed into Home Assistant's own chat reaches no kiosk until it names one, as in "set an alarm on the bedroom kiosk", which matches the kiosk's device name or ESPHome name.
 
-The kiosk listens for the script over its own Home Assistant connection, so it needs the Home Assistant address and token under **Settings, Home Assistant**, and the token has to belong to an administrator. Nothing new appears in ESPHome.
+The kiosk listens for the script over its own Home Assistant connection, so it needs the Home Assistant address and token under **Settings, Home Assistant**, and the token has to belong to an administrator. With any other token the kiosk leaves voice alarms off and asks Home Assistant nothing. Nothing new appears in ESPHome.
 
 **Manage alarms using Voice Satellite** under **Settings, Alarms, Voice Alarms** and on the remote admin's **Alarms** page opens this guide.
 
