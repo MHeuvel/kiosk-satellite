@@ -207,7 +207,19 @@ class AlarmRequests {
 
   /// Applies one request and says what came of it, in the shape the script
   /// returns to the LLM.
-  Future<Map<String, Object?>> handle(Map<String, Object?> data) async {
+  ///
+  /// One at a time: an agent sends "delete my 6:30 alarm and set one for
+  /// 7" as two tool calls at once, and each reads the list before the
+  /// other has written it, so the set would bring the deleted alarm back.
+  Future<Map<String, Object?>> handle(Map<String, Object?> data) {
+    final done = _queue.then((_) => _apply(data));
+    _queue = done.then((_) {}, onError: (_) {});
+    return done;
+  }
+
+  Future<void> _queue = Future.value();
+
+  Future<Map<String, Object?>> _apply(Map<String, Object?> data) async {
     final kiosk = _settings.get(defs.deviceName);
     Map<String, Object?> fail(String error, [List<Alarm>? alarms]) => {
       'ok': false,

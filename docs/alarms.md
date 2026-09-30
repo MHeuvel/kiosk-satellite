@@ -99,6 +99,26 @@ The alarm goes to the kiosk you are talking to. A request typed into Home Assist
 
 The kiosk listens for the script over its own Home Assistant connection, so it needs the Home Assistant address and token under **Settings, Home Assistant**, and the token has to belong to an administrator. With any other token the kiosk leaves voice alarms off and asks Home Assistant nothing. Nothing new appears in ESPHome.
 
+### Good to know
+
+- **Countdowns.** "Set an alarm in 20 minutes called Pizza" works as a kitchen countdown. The agent turns it into a clock time, and the alarm rings once, full screen and on the alarm stream, with the label on screen. It is accurate to the minute. For a countdown accurate to the second that you can pause, ask for a timer instead: "set a timer for 20 minutes". [Voice Satellite](voice-satellite.md#timers-announcements-and-conversations) shows it as a pill, and timers work with the built-in Home Assistant agent too.
+- **Another room.** Name a kiosk to set its alarm from anywhere: tell the kitchen kiosk "set an alarm on the bedroom kiosk for 6:30 tomorrow" and the bedroom kiosk takes it.
+- **One specific day.** A one time alarm rings the next time the clock reads its time, so "set an alarm for Friday at 7" usually becomes an alarm that repeats every Friday. Turn it off or delete it after it rings if you only needed it once.
+- **Skipping a morning.** Turning off a repeating alarm stops it on every day until you turn it back on, with "turn my 6:30 alarm back on". There is no skip for one day only.
+- **Moving an alarm.** There is no edit, so ask for both steps in one sentence: "delete my 6:30 alarm and set one for 7".
+- **Automations.** The script works outside Assist too. Call it from an automation or a script with `kiosk` set, for example to set tomorrow's wake up from a calendar event. With a response variable, `action: list` returns the kiosk's alarms and when each rings next.
+
+    ```yaml
+    action: script.kiosk_satellite_alarms
+    data:
+      action: set
+      time: "06:30"
+      days: [mon, tue, wed, thu, fri]
+      label: Work
+      kiosk: Bedroom
+    response_variable: result
+    ```
+
 **Manage alarms using Voice Satellite** under **Settings, Alarms, Voice Alarms** and on the remote admin's **Alarms** page opens this guide.
 
 Stopping and snoozing a ringing alarm still works with the stop word, the screen and the **Stop alarm** and **Snooze alarm** buttons.

@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **Moving an alarm by voice no longer keeps the old one.** An agent sends "delete my 6:30 alarm and set one for 7" as two requests at once, and the second one wrote the deleted alarm back. The kiosk now applies voice requests one after the other.
+
 ## v2026.9.98 - 2026-09-30
 
 ### Added

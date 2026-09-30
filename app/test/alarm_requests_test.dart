@@ -213,6 +213,19 @@ void main() {
       expect(alarms.alarms.value.map((a) => a.id), ['b']);
     });
 
+    test('requests that arrive together apply one after the other', () async {
+      // An agent sends "delete my 6:30 alarm and set one for 7" as two
+      // tool calls at once: the set must not write back the deleted alarm.
+      await build([
+        {'id': 'a', 'time': '06:30', 'on': true},
+      ]);
+      await Future.wait([
+        requests.handle({'action': 'delete', 'time': '06:30'}),
+        requests.handle({'action': 'set', 'time': '07:00'}),
+      ]);
+      expect(alarms.alarms.value.map((a) => a.time), ['07:00']);
+    });
+
     test('several matches ask which one and change nothing', () async {
       await build([
         {'id': 'a', 'time': '06:30', 'on': true},
