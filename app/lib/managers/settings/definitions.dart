@@ -5495,7 +5495,10 @@ const voiceEngine2 = SettingDef<String>(
 
 // Realtime: wake words answered by a speech to speech model, full duplex.
 // OpenAI and xAI Grok side by side, each with its own connection, and the
-// conversation and the tools shared.
+// conversation and the tools shared. A provider's settings are edited in
+// its Configure dialog, which saves them only once they connect: the
+// Providers group shows one row per provider in their place
+// (realtimeProviderSettings), in both UIs.
 
 const voiceRealtimeOpenAiApiKey = SettingDef<String>(
   key: 'voice.realtime_openai_api_key',
@@ -5505,7 +5508,7 @@ const voiceRealtimeOpenAiApiKey = SettingDef<String>(
   description: 'Leave empty when a relay adds it.',
   category: 'Voice Satellite',
   subpage: 'Realtime',
-  section: 'OpenAI',
+  section: 'Providers',
   secret: true,
   dependsOn: 'voice.enabled',
 );
@@ -5519,7 +5522,7 @@ const voiceRealtimeOpenAiModel = SettingDef<String>(
   description: 'The speech to speech model that answers.',
   category: 'Voice Satellite',
   subpage: 'Realtime',
-  section: 'OpenAI',
+  section: 'Providers',
   options: [''],
   optionLabels: {'': 'Provider default'},
   dependsOn: 'voice.enabled',
@@ -5534,7 +5537,7 @@ const voiceRealtimeOpenAiVoice = SettingDef<String>(
   description: 'How the assistant sounds.',
   category: 'Voice Satellite',
   subpage: 'Realtime',
-  section: 'OpenAI',
+  section: 'Providers',
   options: [''],
   optionLabels: {'': 'Provider default'},
   dependsOn: 'voice.enabled',
@@ -5550,12 +5553,12 @@ const voiceRealtimeOpenAiEndpoint = SettingDef<String>(
       'this kiosk offline.',
   category: 'Voice Satellite',
   subpage: 'Realtime',
-  section: 'OpenAI',
+  section: 'Providers',
   placeholder: 'Provider default',
   dependsOn: 'voice.enabled',
 );
 
-/// What OpenAI's last successful Validate connection checked: a hash of
+/// What OpenAI's last successful Save & Validate checked: a hash of
 /// its endpoint and key. The Assistant selects offer it only while that
 /// still matches. Per device: each kiosk reaches the provider on its own.
 const voiceRealtimeOpenAiValidated = SettingDef<String>(
@@ -5577,7 +5580,7 @@ const voiceRealtimeXaiApiKey = SettingDef<String>(
   description: 'Leave empty when a relay adds it.',
   category: 'Voice Satellite',
   subpage: 'Realtime',
-  section: 'xAI Grok',
+  section: 'Providers',
   secret: true,
   dependsOn: 'voice.enabled',
 );
@@ -5591,7 +5594,7 @@ const voiceRealtimeXaiModel = SettingDef<String>(
   description: 'The speech to speech model that answers.',
   category: 'Voice Satellite',
   subpage: 'Realtime',
-  section: 'xAI Grok',
+  section: 'Providers',
   options: [''],
   optionLabels: {'': 'Provider default'},
   dependsOn: 'voice.enabled',
@@ -5606,7 +5609,7 @@ const voiceRealtimeXaiVoice = SettingDef<String>(
   description: 'How the assistant sounds.',
   category: 'Voice Satellite',
   subpage: 'Realtime',
-  section: 'xAI Grok',
+  section: 'Providers',
   options: [''],
   optionLabels: {'': 'Provider default'},
   dependsOn: 'voice.enabled',
@@ -5622,12 +5625,12 @@ const voiceRealtimeXaiEndpoint = SettingDef<String>(
       'this kiosk offline.',
   category: 'Voice Satellite',
   subpage: 'Realtime',
-  section: 'xAI Grok',
+  section: 'Providers',
   placeholder: 'Provider default',
   dependsOn: 'voice.enabled',
 );
 
-/// What xAI's last successful Validate connection checked: a hash of
+/// What xAI's last successful Save & Validate checked: a hash of
 /// its endpoint and key. The Assistant selects offer it only while that
 /// still matches. Per device: each kiosk reaches the provider on its own.
 const voiceRealtimeXaiValidated = SettingDef<String>(
@@ -5640,6 +5643,24 @@ const voiceRealtimeXaiValidated = SettingDef<String>(
   hidden: true,
   perDevice: true,
 );
+
+/// The settings each provider's Configure dialog holds, by provider id.
+/// Neither UI draws them as rows: the first one's place in the Providers
+/// group takes the provider's row, the others add nothing.
+const realtimeProviderSettings = <String, List<SettingDef<String>>>{
+  'openai': [
+    voiceRealtimeOpenAiApiKey,
+    voiceRealtimeOpenAiModel,
+    voiceRealtimeOpenAiVoice,
+    voiceRealtimeOpenAiEndpoint,
+  ],
+  'xai': [
+    voiceRealtimeXaiApiKey,
+    voiceRealtimeXaiModel,
+    voiceRealtimeXaiVoice,
+    voiceRealtimeXaiEndpoint,
+  ],
+};
 
 const voiceRealtimeInstructions = SettingDef<String>(
   key: 'voice.realtime_instructions',

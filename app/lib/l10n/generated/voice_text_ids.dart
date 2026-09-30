@@ -304,11 +304,16 @@ const voiceTextMessageIds = <String, String>{
   "Realtime": "voiceRealtime",
   "Home Assistant tools": "voiceRealtimeToolsSection",
   "Add the MCP Server integration in Home Assistant to control your home.": "voiceRealtimeMcpMissing",
-  "Not validated yet. The provider shows up under Assistant once the connection checks out.": "voiceRealtimeNotValidated",
   "Validate connection": "haValidateConnection",
   "Validate": "haValidate",
   "Checking…": "haChecking",
   "Connected": "haConnected",
   "Listening…": "voiceListeningEllipsis",
-  "OpenAI, xAI Grok, tools, talk over answers": "voiceRealtimeHint"
+  "OpenAI, xAI Grok, tools, talk over answers": "voiceRealtimeHint",
+  "Providers": "voiceRealtimeProviders",
+  "Configure": "voiceRealtimeConfigure",
+  "Save & Validate": "voiceRealtimeSaveValidate",
+  "Not configured": "voiceRealtimeNotConfigured",
+  "Not validated": "voiceRealtimeNotValidated",
+  "Connection validated": "voiceRealtimeValidated"
 };

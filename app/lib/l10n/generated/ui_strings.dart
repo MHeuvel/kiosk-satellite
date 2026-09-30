@@ -20449,7 +20449,7 @@ abstract class UiStrings {
   /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
   ///
   /// In en, this message translates to:
-  /// **'Not validated yet. The provider shows up under Assistant once the connection checks out.'**
+  /// **'Not validated'**
   String get voiceRealtimeNotValidated;
 
   /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
@@ -20473,12 +20473,6 @@ abstract class UiStrings {
   /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
   ///
   /// In en, this message translates to:
-  /// **'Connected. Home Assistant tools: {count}'**
-  String voiceRealtimeConnectedTools(String count);
-
-  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
-  ///
-  /// In en, this message translates to:
   /// **'The speech to speech model that answers.'**
   String get settingVoiceRealtimeModelDescription;
 
@@ -20487,6 +20481,36 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'How the assistant sounds.'**
   String get settingVoiceRealtimeVoiceDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Providers'**
+  String get voiceRealtimeProviders;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure'**
+  String get voiceRealtimeConfigure;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Save & Validate'**
+  String get voiceRealtimeSaveValidate;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Not configured'**
+  String get voiceRealtimeNotConfigured;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection validated'**
+  String get voiceRealtimeValidated;
 
   /// Label or help shown on the Voice Satellite main page.
   ///

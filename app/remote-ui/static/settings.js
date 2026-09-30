@@ -55,7 +55,7 @@ import {
   viewPath,
 } from './views.js';
 import { loadVsPermissions, renderVsControls } from './vs.js';
-import { VS_SELECT_SETTINGS, renderNativeVs, vsMigrationNotice } from './vs_native.js';
+import { REALTIME_PROVIDER_SETTINGS, VS_SELECT_SETTINGS, renderNativeVs, vsMigrationNotice } from './vs_native.js';
 import { mountWakeActivations } from './wake_activations.js';
 import { banner, copyBox, messageBox, showToast } from './widgets.js';
 
@@ -290,6 +290,10 @@ async function flushSettingsUpdates() {
     // below (vs_native.js): Home Assistant's mirrored selects and the
     // realtime choice have no row of their own to update.
     if (!shapeChanged && !hasDependants && VS_SELECT_SETTINGS.has(setting.key)) continue;
+    // A realtime provider's settings are its row on the Realtime page and
+    // its dialog, which repaint and read them themselves: a save or a new
+    // model list never rebuilds the page.
+    if (!hasDependants && REALTIME_PROVIDER_SETTINGS.has(setting.key)) continue;
     // Only the choices of a dropdown moved (a provider's model list came
     // in): its row refreshes them in place rather than the page rebuilding
     // under whatever is being typed elsewhere on it.

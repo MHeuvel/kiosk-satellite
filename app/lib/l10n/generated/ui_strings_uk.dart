@@ -11884,8 +11884,7 @@ class UiStringsUk extends UiStrings {
       'Додайте інтеграцію MCP Server у Home Assistant, щоб керувати домом.';
 
   @override
-  String get voiceRealtimeNotValidated =>
-      'Ще не перевірено. Постачальник з\'явиться в розділі Асистент, щойно з\'єднання запрацює.';
+  String get voiceRealtimeNotValidated => 'Не перевірено';
 
   @override
   String voiceRealtimeOption(String provider) {
@@ -11903,16 +11902,26 @@ class UiStringsUk extends UiStrings {
   }
 
   @override
-  String voiceRealtimeConnectedTools(String count) {
-    return 'Підключено. Інструменти Home Assistant: $count';
-  }
-
-  @override
   String get settingVoiceRealtimeModelDescription =>
       'Модель «мовлення в мовлення», яка відповідає.';
 
   @override
   String get settingVoiceRealtimeVoiceDescription => 'Як звучить асистент.';
+
+  @override
+  String get voiceRealtimeProviders => 'Постачальники';
+
+  @override
+  String get voiceRealtimeConfigure => 'Налаштувати';
+
+  @override
+  String get voiceRealtimeSaveValidate => 'Зберегти й перевірити';
+
+  @override
+  String get voiceRealtimeNotConfigured => 'Не налаштовано';
+
+  @override
+  String get voiceRealtimeValidated => 'З\'єднання перевірено';
 
   @override
   String get voiceDisconnected => 'Home Assistant не підключено';

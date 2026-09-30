@@ -7,6 +7,7 @@ import '../core/events.dart';
 import '../l10n/messages.dart';
 import '../managers/settings/definitions.dart' as defs;
 import '../managers/voice/realtime/openai_realtime_backend.dart';
+import '../managers/voice/voice_manager.dart';
 import 'assist/assist_skins.dart';
 import 'kit.dart';
 import 'theme.dart';
@@ -404,96 +405,229 @@ class _VoiceHaSelectsState extends State<VoiceHaSelects> {
   }
 }
 
-/// Validate connection for the realtime provider: connects once and reads
-/// the tools. A connection that works makes the provider a choice in the
-/// Assistant selects. Sits at the end of the Connection group, like the
-/// other Validate connection rows.
-class RealtimeValidateRow extends StatefulWidget {
-  const RealtimeValidateRow({
+/// A realtime provider's row in the Providers group: its status under its
+/// name and Configure, which opens its settings. Mirrored on the remote
+/// (realtimeProviderRow in vs_native.js).
+class RealtimeProviderRow extends StatelessWidget {
+  const RealtimeProviderRow({
     super.key,
     required this.container,
     required this.provider,
+    required this.onChanged,
   });
 
   final AppContainer container;
   final RealtimeProvider provider;
+  final VoidCallback onChanged;
 
   @override
-  State<RealtimeValidateRow> createState() => _RealtimeValidateRowState();
+  Widget build(BuildContext context) => ValueListenableBuilder<int>(
+    valueListenable: container.voice.realtimeStatusRevision,
+    builder: (context, _, _) {
+      final status = container.voice.realtimeStatus(provider);
+      final messages = l10n(context);
+      return SettingsRow(
+        title: Text(VoiceManager.providerName(provider)),
+        subtitle: Text(switch (status.status) {
+          RealtimeStatus.unconfigured => voiceText(context, 'Not configured'),
+          RealtimeStatus.unvalidated => voiceText(context, 'Not validated'),
+          RealtimeStatus.validated => voiceText(
+            context,
+            'Connection validated',
+          ),
+          RealtimeStatus.failed when status.tools =>
+            messages.voiceRealtimeToolsUnavailable(
+              voiceText(context, status.error),
+            ),
+          RealtimeStatus.failed => messages.voiceRealtimeConnectFailed(
+            status.error,
+          ),
+        }),
+        trailing: OutlinedButton(
+          onPressed: () async {
+            final saved = await showRealtimeProviderDialog(
+              context,
+              container,
+              provider,
+            );
+            if (saved) onChanged();
+          },
+          child: Text(voiceText(context, 'Configure')),
+        ),
+      );
+    },
+  );
 }
 
-class _RealtimeValidateRowState extends State<RealtimeValidateRow> {
-  bool _validating = false;
+/// A provider's settings in a dialog. Save & Validate connects with them
+/// first: a connection the provider takes saves them and closes, a refused
+/// one shows why and keeps the dialog and the stored settings as they
+/// were. Answers true when it saved.
+Future<bool> showRealtimeProviderDialog(
+  BuildContext context,
+  AppContainer container,
+  RealtimeProvider provider,
+) async {
+  final settings = container.settings;
+  final [keyDef, modelDef, voiceDef, endpointDef] =
+      defs.realtimeProviderSettings[provider.id]!;
+  final apiKey = TextEditingController(text: settings.get(keyDef));
+  final endpoint = TextEditingController(text: settings.get(endpointDef));
+  var model = settings.get(modelDef);
+  var voice = settings.get(voiceDef);
+  var saving = false;
+  String? error;
 
-  /// The last run's answer, until the settings change under it.
-  Map<String, Object?>? _result;
-  String? _resultFor;
-
-  Future<void> _validate() async {
-    setState(() => _validating = true);
-    final result = await widget.container.commands.execute(
-      'voiceRealtimeValidate',
-      {'provider': widget.provider.id},
+  Widget picker(
+    BuildContext ctx,
+    defs.SettingDef<String> def,
+    String value,
+    ValueChanged<String> onChanged,
+  ) {
+    final options = [
+      ...settings.optionsFor(def),
+      if (!settings.optionsFor(def).contains(value)) value,
+    ];
+    String label(String option) => def.localizedOption(
+      ctx,
+      option,
+      settings.optionLabel(def, option) ?? option,
     );
-    if (!mounted) return;
-    setState(() {
-      _validating = false;
-      _result = result.ok && result.data is Map
-          ? (result.data as Map).cast<String, Object?>()
-          : {'connected': false, 'error': result.error ?? ''};
-      _resultFor = widget.container.voice.realtimeSignature(widget.provider);
-    });
+    return LabeledField(
+      label: def.localizedTitle(ctx),
+      helper: def.localizedDescription(ctx),
+      child: DropdownButtonFormField<String>(
+        initialValue: value,
+        isExpanded: true,
+        decoration: const InputDecoration(),
+        items: [
+          for (final option in options)
+            DropdownMenuItem(value: option, child: Text(label(option))),
+        ],
+        onChanged: saving ? null : (v) => onChanged(v ?? ''),
+      ),
+    );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final voice = widget.container.voice;
-    final ready = voice.realtimeReady(widget.provider);
-    final result = _resultFor == voice.realtimeSignature(widget.provider)
-        ? _result
-        : null;
-    final messages = l10n(context);
-    final String status;
-    if (_validating) {
-      status = voiceText(context, 'Checking…');
-    } else if (result != null && result['connected'] != true) {
-      status = messages.voiceRealtimeConnectFailed('${result['error'] ?? ''}');
-    } else if (result != null) {
-      final problem = '${result['toolsError'] ?? ''}';
-      status = problem.isNotEmpty
-          ? messages.voiceRealtimeToolsUnavailable(voiceText(context, problem))
-          : messages.voiceRealtimeConnectedTools(
-              '${(result['tools'] as num?)?.toInt() ?? 0}',
+  final route = DialogRoute<bool>(
+    context: context,
+    barrierDismissible: false,
+    builder: (ctx) => StatefulBuilder(
+      builder: (ctx, setDialogState) {
+        final scheme = Theme.of(ctx).colorScheme;
+        Future<void> save() async {
+          setDialogState(() {
+            saving = true;
+            error = null;
+          });
+          final result = await container.commands.execute('voiceRealtimeSave', {
+            'provider': provider.id,
+            'apiKey': apiKey.text,
+            'endpoint': endpoint.text,
+            'model': model,
+            'voice': voice,
+          });
+          if (!ctx.mounted) return;
+          final data = result.data is Map
+              ? (result.data as Map).cast<String, Object?>()
+              : const <String, Object?>{};
+          if (result.ok && data['connected'] == true) {
+            Navigator.pop(ctx, true);
+            return;
+          }
+          setDialogState(() {
+            saving = false;
+            error = l10n(ctx).voiceRealtimeConnectFailed(
+              '${data['error'] ?? result.error ?? ''}',
             );
-    } else if (ready) {
-      status = voiceText(context, 'Connected');
-    } else {
-      status = voiceText(
-        context,
-        'Not validated yet. The provider shows up under Assistant once the '
-        'connection checks out.',
-      );
-    }
-    final failed = result != null && result['connected'] != true;
-    return ListTile(
-      title: Text(voiceText(context, 'Validate connection')),
-      subtitle: Text(status),
-      trailing: _validating
-          ? const SizedBox(
-              width: 20,
-              height: 20,
-              child: CircularProgressIndicator(strokeWidth: 2.4),
-            )
-          : Icon(
-              failed
-                  ? Icons.cloud_off_outlined
-                  : ready
-                  ? Icons.cloud_done_outlined
-                  : Icons.cloud_queue_outlined,
+          });
+        }
+
+        return AlertDialog(
+          title: Text(VoiceManager.providerName(provider)),
+          content: SizedBox(
+            width: 480,
+            child: EdgeFade(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  spacing: 16,
+                  children: [
+                    LabeledField(
+                      label: keyDef.localizedTitle(ctx),
+                      helper: keyDef.localizedDescription(ctx),
+                      child: TextField(
+                        controller: apiKey,
+                        enabled: !saving,
+                        obscureText: true,
+                        autocorrect: false,
+                        enableSuggestions: false,
+                        decoration: const InputDecoration(),
+                      ),
+                    ),
+                    picker(
+                      ctx,
+                      modelDef,
+                      model,
+                      (v) => setDialogState(() => model = v),
+                    ),
+                    picker(
+                      ctx,
+                      voiceDef,
+                      voice,
+                      (v) => setDialogState(() => voice = v),
+                    ),
+                    LabeledField(
+                      label: endpointDef.localizedTitle(ctx),
+                      helper: endpointDef.localizedDescription(ctx),
+                      child: TextField(
+                        controller: endpoint,
+                        enabled: !saving,
+                        keyboardType: TextInputType.url,
+                        autocorrect: false,
+                        decoration: InputDecoration(
+                          hintText: endpointDef.localizedPlaceholder(ctx),
+                        ),
+                      ),
+                    ),
+                    if (error != null)
+                      Text(
+                        error!,
+                        style: Theme.of(
+                          ctx,
+                        ).textTheme.bodyMedium?.copyWith(color: scheme.error),
+                      ),
+                  ],
+                ),
+              ),
             ),
-      onTap: _validating ? null : _validate,
-    );
-  }
+          ),
+          actions: [
+            TextButton(
+              onPressed: saving ? null : () => Navigator.pop(ctx, false),
+              child: Text(voiceText(ctx, 'Cancel')),
+            ),
+            FilledButton(
+              onPressed: saving ? null : save,
+              child: saving
+                  ? const SizedBox(
+                      width: 18,
+                      height: 18,
+                      child: CircularProgressIndicator(strokeWidth: 2.2),
+                    )
+                  : Text(voiceText(ctx, 'Save & Validate')),
+            ),
+          ],
+        );
+      },
+    ),
+  );
+  final saved = await Navigator.of(context, rootNavigator: true).push(route);
+  await route.completed;
+  apiKey.dispose();
+  endpoint.dispose();
+  return saved ?? false;
 }
 
 /// The Skin row: the current skin's name, opening the picker.

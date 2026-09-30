@@ -22,13 +22,17 @@
   "settingVoiceRealtimeVoiceDescription": "La voix de l'assistant.",
   "voiceRealtime": "Temps réel",
   "voiceRealtimeConnectFailed": "Connexion impossible : {error}",
-  "voiceRealtimeConnectedTools": "Connecté. Outils Home Assistant : {count}",
   "voiceRealtimeHint": "OpenAI, xAI Grok, outils, parler pendant les réponses",
   "voiceRealtimeMcpMissing": "Ajoutez l'intégration MCP Server dans Home Assistant pour contrôler votre maison.",
-  "voiceRealtimeNotValidated": "Pas encore validé. Le fournisseur apparaît sous Assistant une fois la connexion vérifiée.",
+  "voiceRealtimeNotValidated": "Non validé",
   "voiceRealtimeOption": "{provider} temps réel",
   "voiceRealtimeProviderDefault": "Par défaut du fournisseur",
   "voiceRealtimeToolsCustom": "Serveur MCP personnalisé",
   "voiceRealtimeToolsSection": "Outils Home Assistant",
-  "voiceRealtimeToolsUnavailable": "Connecté, mais les outils Home Assistant sont indisponibles : {problem}"
+  "voiceRealtimeToolsUnavailable": "Connecté, mais les outils Home Assistant sont indisponibles : {problem}",
+  "voiceRealtimeProviders": "Fournisseurs",
+  "voiceRealtimeConfigure": "Configurer",
+  "voiceRealtimeSaveValidate": "Enregistrer et valider",
+  "voiceRealtimeNotConfigured": "Non configuré",
+  "voiceRealtimeValidated": "Connexion validée"
 }

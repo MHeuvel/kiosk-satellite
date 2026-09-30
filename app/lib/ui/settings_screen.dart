@@ -158,7 +158,8 @@ List<Widget> _sectionedCards(
                   def.category == 'Device' ||
                   def.category == 'Home Assistant' ||
                   def.category == 'Screen & Audio' ||
-                  def.category == 'Screensaver')
+                  def.category == 'Screensaver' ||
+                  def.category == 'Voice Satellite')
               ? Builder(
                   builder: (context) => SectionHeading(
                     settingsPageText(context, def.category, heading),
@@ -3200,19 +3201,6 @@ class _CategoryContentState extends State<_CategoryContent> {
     // and Immich cards put theirs.
     if (widget.category == 'Sendspin')
       sendspinMaToken.key: _MaValidateRow(container: container),
-    // The end of each provider's group on the Realtime page.
-    if (widget.category == 'Voice Satellite') ...{
-      voiceRealtimeOpenAiEndpoint.key: RealtimeValidateRow(
-        key: const ValueKey('realtime-validate-openai'),
-        container: container,
-        provider: RealtimeProvider.openai,
-      ),
-      voiceRealtimeXaiEndpoint.key: RealtimeValidateRow(
-        key: const ValueKey('realtime-validate-xai'),
-        container: container,
-        provider: RealtimeProvider.xai,
-      ),
-    },
     // Say what the pick just did to this device, under the row that
     // holds it: its own player is gone from Music Assistant and the rows
     // about it are gone from this page.
@@ -3365,6 +3353,35 @@ class _CategoryContentState extends State<_CategoryContent> {
           ),
         ),
       ];
+    }
+
+    // Realtime: one row per provider in the Providers group, where its
+    // first setting sits. Its settings live in the dialog the row opens.
+    if (widget.category == 'Voice Satellite' && subpage == 'Realtime') {
+      final inDialog = {
+        for (final list in realtimeProviderSettings.values)
+          for (final def in list.skip(1)) def.key,
+      };
+      return sectioned(
+        [
+          for (final def in _defsFor(widget.category))
+            if (def.subpage == subpage && !inDialog.contains(def.key)) def,
+        ],
+        replace: {
+          ..._rowReplacements(container),
+          for (final provider in RealtimeProvider.values)
+            realtimeProviderSettings[provider.id]!.first.key:
+                SearchLandingTarget(
+                  id: realtimeProviderSettings[provider.id]!.first.key,
+                  child: RealtimeProviderRow(
+                    key: ValueKey('realtime-provider-${provider.id}'),
+                    container: container,
+                    provider: provider,
+                    onChanged: changed,
+                  ),
+                ),
+        },
+      );
     }
 
     if (widget.category == 'ESPHome' && subpage == 'Bluetooth Proxy') {

@@ -56,6 +56,9 @@ class VoiceHaState {
   final bool selectsMissing;
 }
 
+/// What a realtime provider's row on the Realtime page says.
+enum RealtimeStatus { unconfigured, unvalidated, validated, failed }
+
 /// Native Voice Satellite: the kiosk as an Assist satellite of its own,
 /// through its ESPHome device. Owns the wake word config, runs the turns
 /// ([VoiceSession]), plays announcements, keeps the timers and publishes
@@ -115,6 +118,15 @@ class VoiceManager extends Manager {
   /// How much of a realtime conversation's closing silence is left, 0..1:
   /// the docked bar drains with it. 1 while it is not counting down.
   final dockCountdown = ValueNotifier<double>(1);
+
+  /// The last problem each realtime provider ran into: a conversation
+  /// that could not connect, or tools that were missing when it saved.
+  /// Cleared by a conversation that connects or a save that works.
+  final _realtimeProblems =
+      <RealtimeProvider, ({bool tools, String message})>{};
+
+  /// Ticks when a provider's status may read differently, for its row.
+  final realtimeStatusRevision = ValueNotifier<int>(0);
   late final HaSocket _ha = HaSocket(
     baseUrl: () => _settings.get(defs.haUrl),
     token: () => _settings.get(defs.haToken),
@@ -310,9 +322,15 @@ class VoiceManager extends Manager {
       onCountdown: (left) => dockCountdown.value = left,
       onBusy: (busy, _) => _onBusy(busy, 'conversation'),
       onStopArmed: (armed) => unawaited(_wakeWord.setStopWordArmed(armed)),
-      onError: (code, message) => unawaited(_report(code, message)),
+      onError: (code, message) {
+        if (code == 'realtime') _realtimeProblem(_activeProvider, message);
+        unawaited(_report(code, message));
+      },
       onWarning: (message) => unawaited(_report('realtime-warning', message)),
-      onTrace: (step, {text}) => _trace('realtime: $step', text: text),
+      onTrace: (step, {text}) {
+        if (step == 'connected') _realtimeProblem(_activeProvider, null);
+        _trace('realtime: $step', text: text);
+      },
       onIdle: _resumeWake,
     );
     _esphome.onVoice = _onVoice;
@@ -454,13 +472,18 @@ class VoiceManager extends Manager {
         Command(
           name: 'voiceRealtimeState',
           description:
-              'Whether a realtime provider is validated with its settings as '
-              'they are now, and its name: {ready, provider}',
+              'A realtime provider\'s status as its row reads it: {status '
+              '(unconfigured, unvalidated, validated or failed), error, '
+              'toolsError (the error is about the tools), ready, provider}',
           params: const {'provider': 'openai or xai'},
           quiet: true,
           handler: (p) async {
             final provider = RealtimeProvider.byId('${p['provider'] ?? ''}');
+            final status = realtimeStatus(provider);
             return CommandResult.ok({
+              'status': status.status.name,
+              if (status.error.isNotEmpty) 'error': status.error,
+              if (status.tools) 'toolsError': true,
               'ready': realtimeReady(provider),
               'provider': providerName(provider),
             });
@@ -469,16 +492,26 @@ class VoiceManager extends Manager {
       )
       ..register(
         Command(
-          name: 'voiceRealtimeValidate',
+          name: 'voiceRealtimeSave',
           description:
-              'Connect to a realtime provider once with its saved settings '
-              'and read the tools: {connected, error, tools, toolsError}. A '
-              'connection that works makes the provider a choice in the '
-              'Assistant selects',
-          params: const {'provider': 'openai or xai'},
+              'Save & Validate a realtime provider: connects with the given '
+              'settings first and stores them only when the provider takes '
+              'the session: {connected, error, tools, toolsError}. A saved '
+              'provider is a choice in the Assistant selects',
+          params: const {
+            'provider': 'openai or xai',
+            'apiKey': 'optional, the key to use (left out keeps the saved one)',
+            'endpoint': 'the endpoint, empty for the provider\'s own',
+            'model': 'the model, empty for the provider\'s default',
+            'voice': 'the voice, empty for the provider\'s default',
+          },
           handler: (p) async => CommandResult.ok(
-            await realtimeValidate(
+            await realtimeSave(
               RealtimeProvider.byId('${p['provider'] ?? ''}'),
+              apiKey: p['apiKey'] == null ? null : '${p['apiKey']}',
+              endpoint: '${p['endpoint'] ?? ''}',
+              model: '${p['model'] ?? ''}',
+              voice: '${p['voice'] ?? ''}',
             ),
           ),
         ),
@@ -1725,26 +1758,69 @@ class VoiceManager extends Manager {
   static String realtimeOption(RealtimeProvider provider) =>
       '__realtime_${provider.id}__';
 
-  /// What Validate connection records: the settings it connected with.
+  /// What Save & Validate records: the settings it connected with.
   String realtimeSignature(RealtimeProvider provider) {
     final d = _realtimeDefs(provider);
-    return sha256
-        .convert(
-          utf8.encode(
-            [
-              provider.id,
-              _settings.get(d.endpoint).trim(),
-              _settings.get(d.apiKey).trim(),
-            ].join('\n'),
-          ),
-        )
-        .toString();
+    return _signature(
+      provider,
+      endpoint: _settings.get(d.endpoint),
+      apiKey: _settings.get(d.apiKey),
+    );
   }
+
+  static String _signature(
+    RealtimeProvider provider, {
+    required String endpoint,
+    required String apiKey,
+  }) => sha256
+      .convert(
+        utf8.encode([provider.id, endpoint.trim(), apiKey.trim()].join('\n')),
+      )
+      .toString();
 
   /// The provider connected with its settings as they are now.
   bool realtimeReady(RealtimeProvider provider) =>
       _settings.get(_realtimeDefs(provider).validated) ==
       realtimeSignature(provider);
+
+  /// What a provider's row says: nothing set up yet, set up but not
+  /// validated with its settings as they are now, validated, or validated
+  /// with a problem since.
+  /// [tools] tells a problem with the tools from one with the connection.
+  ({RealtimeStatus status, String error, bool tools}) realtimeStatus(
+    RealtimeProvider provider,
+  ) {
+    final d = _realtimeDefs(provider);
+    if (_settings.get(d.apiKey).trim().isEmpty &&
+        _settings.get(d.endpoint).trim().isEmpty) {
+      return (status: RealtimeStatus.unconfigured, error: '', tools: false);
+    }
+    if (!realtimeReady(provider)) {
+      return (status: RealtimeStatus.unvalidated, error: '', tools: false);
+    }
+    final problem = _realtimeProblems[provider];
+    return problem == null
+        ? (status: RealtimeStatus.validated, error: '', tools: false)
+        : (
+            status: RealtimeStatus.failed,
+            error: problem.message,
+            tools: problem.tools,
+          );
+  }
+
+  void _realtimeProblem(
+    RealtimeProvider provider,
+    String? message, {
+    bool tools = false,
+  }) {
+    final before = _realtimeProblems[provider];
+    if (message == null || message.isEmpty) {
+      _realtimeProblems.remove(provider);
+    } else {
+      _realtimeProblems[provider] = (tools: tools, message: message);
+    }
+    if (before != _realtimeProblems[provider]) realtimeStatusRevision.value++;
+  }
 
   /// A provider's name, for the Assistant selects' choice.
   static String providerName(RealtimeProvider provider) =>
@@ -1777,14 +1853,20 @@ class VoiceManager extends Manager {
   );
 
   /// A provider's settings as the backend takes them.
-  RealtimeConfig realtimeConfig(RealtimeProvider provider) {
+  RealtimeConfig realtimeConfig(
+    RealtimeProvider provider, {
+    String? endpoint,
+    String? apiKey,
+    String? model,
+    String? voice,
+  }) {
     final d = _realtimeDefs(provider);
     return RealtimeConfig(
       provider: provider,
-      endpoint: _settings.get(d.endpoint),
-      apiKey: _settings.get(d.apiKey),
-      model: _settings.get(d.model),
-      voice: _settings.get(d.voice),
+      endpoint: endpoint ?? _settings.get(d.endpoint),
+      apiKey: apiKey ?? _settings.get(d.apiKey),
+      model: model ?? _settings.get(d.model),
+      voice: voice ?? _settings.get(d.voice),
       instructions: _settings.get(defs.voiceRealtimeInstructions),
     );
   }
@@ -1830,30 +1912,50 @@ class VoiceManager extends Manager {
     return CombinedToolbox(boxes);
   }
 
-  /// Connects once with the saved settings and reads the tools, for the
-  /// Validate connection row: whether the provider took the session, and
-  /// how many Home Assistant tools the model would get. A connection that
-  /// works is recorded, and makes the provider a choice for the wake words.
-  Future<Map<String, Object?>> realtimeValidate(
-    RealtimeProvider provider,
-  ) async {
-    final signature = realtimeSignature(provider);
+  /// Save & Validate: connects once with [apiKey], [endpoint], [model]
+  /// and [voice] before anything is stored, and reads the tools. Only a
+  /// connection the provider takes stores them and marks the provider
+  /// validated, which makes it a choice for the wake words. A refused one
+  /// stores nothing. A null [apiKey] keeps the saved one (the remote admin
+  /// never sees it).
+  Future<Map<String, Object?>> realtimeSave(
+    RealtimeProvider provider, {
+    String? apiKey,
+    required String endpoint,
+    required String model,
+    required String voice,
+  }) async {
+    final d = _realtimeDefs(provider);
+    final String saved = _settings.get(d.apiKey);
+    final key = (apiKey ?? saved).trim();
+    endpoint = endpoint.trim();
     final toolbox = realtimeToolbox();
     var tools = 0;
     var toolsError = '';
-    try {
-      final list = await toolbox.list();
-      tools = list.where((t) => t.name != LocalToolbox.endConversation).length;
-      if (toolbox case final CombinedToolbox box when box.problems.isNotEmpty) {
-        toolsError = box.problems.first;
+    final listing = () async {
+      try {
+        final list = await toolbox.list();
+        tools = list
+            .where((t) => t.name != LocalToolbox.endConversation)
+            .length;
+        if (toolbox case final CombinedToolbox box
+            when box.problems.isNotEmpty) {
+          toolsError = box.problems.first;
+        }
+      } catch (e) {
+        toolsError = '$e';
+      } finally {
+        toolbox.close();
       }
-    } catch (e) {
-      toolsError = '$e';
-    } finally {
-      toolbox.close();
-    }
+    }();
     final backend = OpenAiRealtimeBackend(
-      config: realtimeConfig(provider),
+      config: realtimeConfig(
+        provider,
+        endpoint: endpoint,
+        apiKey: key,
+        model: model,
+        voice: voice,
+      ),
       toolbox: const LocalToolbox(),
       log: (line) => log.info(name, 'realtime test: $line'),
     );
@@ -1870,15 +1972,26 @@ class VoiceManager extends Manager {
     );
     await sub.cancel();
     await backend.close();
+    await listing;
+    if (error != null) return {'connected': false, 'error': error};
+    await _settings.set(d.apiKey, key, source: 'voice');
+    await _settings.set(d.endpoint, endpoint, source: 'voice');
+    await _settings.set(d.model, model, source: 'voice');
+    await _settings.set(d.voice, voice, source: 'voice');
     await _settings.set(
-      _realtimeDefs(provider).validated,
-      error == null ? signature : '',
+      d.validated,
+      _signature(provider, endpoint: endpoint, apiKey: key),
       source: 'voice',
     );
-    if (error == null) unawaited(refreshRealtimeCatalog(provider));
+    _realtimeProblem(
+      provider,
+      toolsError.isEmpty ? null : toolsError,
+      tools: true,
+    );
+    realtimeStatusRevision.value++;
+    unawaited(refreshRealtimeCatalog(provider));
     return {
-      'connected': error == null,
-      'error': ?error,
+      'connected': true,
       'tools': tools,
       if (toolsError.isNotEmpty) 'toolsError': toolsError,
     };

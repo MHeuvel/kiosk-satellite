@@ -66,7 +66,7 @@ When Home Assistant runs the integration, onboarding offers the same migration i
 | | Talk right after the wake word | Skips the wake sound and keeps what you say right after the wake word. |
 | | Follow-up delay, Chime before a follow-up | A pause and a chime before listening for the answer to a question. |
 | | Play sounds on, Play as | Where answers and chimes play. See [below](#play-sounds-on-a-media-player). |
-| Realtime | OpenAI, xAI Grok | Each provider's API key, model, voice and endpoint, with its own **Validate connection**. |
+| Realtime | Providers | A row per provider with its status. **Configure** opens its API key, model, voice and endpoint, and **Save & Validate** stores them once the provider connects. |
 | | Instructions, End after silence, Talk over answers | How the conversation behaves and ends, for both providers. |
 | | Tools | What the model can control. See [Realtime conversations](#realtime-conversations). |
 | Wake Word | Wake word engine | vsWakeWord (default), microWakeWord or openWakeWord. All models ship with the app. |
@@ -88,11 +88,11 @@ The **Wake Word Tester** and **Wake word diagnostics** are covered in [Microphon
 
 A wake word answered by a realtime provider starts a conversation with a speech to speech model instead of a Home Assistant pipeline. The model listens while it talks, so you can interrupt it, and the answers start as soon as you stop speaking. OpenAI and xAI Grok are supported.
 
-1. Under **Realtime**, paste the **API key** in the group of the provider you use. You can set up both.
-2. Tap that group's **Validate connection**. It connects once and counts the Home Assistant tools the model gets.
+1. Under **Realtime**, tap **Configure** on the provider you use and paste its **API key**. You can set up both.
+2. Tap **Save & Validate**. The kiosk connects once with those settings and saves them only if the provider accepts the connection. Otherwise the dialog stays open and shows the error. The provider's row then reads **Connection validated**, or shows what went wrong with the connection or the Home Assistant tools.
 3. Under **Assistant**, pick the provider (for example **OpenAI Realtime**) for **Assistant 1** or **Assistant 2**. Each wake word can use a different provider or keep its pipeline.
 
-**Model** and **Voice** list what each provider offers. With your key, the kiosk asks the provider for them (OpenAI's realtime models, xAI's voices). Through a relay it shows the ones built in. Changing a provider's endpoint or key needs another **Validate connection** for that provider. Until then its wake word answers with its Home Assistant pipeline.
+**Model** and **Voice** list what each provider offers. With your key, the kiosk asks the provider for them (OpenAI's realtime models, xAI's voices). Through a relay it shows the ones built in. A provider whose key or endpoint changed outside its dialog, for example through a settings import, reads **Not validated** until you save it again. Until then its wake word answers with its Home Assistant pipeline.
 
 **Controlling your home.** With **Tools** on **Home Assistant**, the model uses Home Assistant's **Model Context Protocol Server** integration. Add it under **Settings > Devices & services** in Home Assistant. The model can use the entities exposed to Assist, and the scripts exposed to Assist become tools too. **Custom MCP server** points at another server that speaks Streamable HTTP. **None** leaves the tools to a relay that adds its own.
 

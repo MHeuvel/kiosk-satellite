@@ -18480,8 +18480,8 @@
     "author": "Xavier Larrea"
   },
   "voiceRealtimeNotValidated": {
-    "source": "b6cac20ee474b5992a14705eedf0501e383a43c22a9144d60a3330e4ebb17c38",
-    "translation": "e3e09218d91691e298b87e165659b397caf5432085f841fd765035efa918c5b9",
+    "source": "bb2953441c840544de3ab42707a33a6c7758be3bb28019d9cfd0d4f469964e7a",
+    "translation": "c00548529bed80c86501108c533d08f9c66a4e09e5d96bac33a13d81bf2a63e8",
     "author": "Xavier Larrea"
   },
   "settingVoiceRealtimeMcpTokenDescription": {
@@ -18592,6 +18592,31 @@
   "voiceRealtimeConnectFailed": {
     "source": "a656840a9f3de72ddfe05e95dc035b3a979bfafe0b5043f23918404936184057",
     "translation": "d606bcc289df71024ead8efd2209cec0c7457b90ebd0e0a6b63d20929a6269cc",
+    "author": "Xavier Larrea"
+  },
+  "voiceRealtimeConfigure": {
+    "source": "66d12f2c6a511939e99c277685dd42d93f9740c5a50385d46286a74ee9ddc4f9",
+    "translation": "d685ddb9bbfadaf947bdfa47189d223b7bc17d09e25cd53cf442ed3ef8c92016",
+    "author": "Xavier Larrea"
+  },
+  "voiceRealtimeValidated": {
+    "source": "b727c90e72bfb46de947b8077211c676a8f30d7d905c58ae3cb370b4dce9937f",
+    "translation": "d03a99d6922434cfe4a1f1d582e1cd90b0cf8a57203c44659b4dd1448494a86a",
+    "author": "Xavier Larrea"
+  },
+  "voiceRealtimeProviders": {
+    "source": "3204fed93be0d4597e0b77529161fb98a9db2741db53be457bcee4912acb0c5d",
+    "translation": "bb1bb5cc7a83b6c0fa1f93e49b6f7c0456ec817ac752f406601e2a041b28c222",
+    "author": "Xavier Larrea"
+  },
+  "voiceRealtimeSaveValidate": {
+    "source": "99375221235250019055be289cdfbc433be49b6244317df46c0c30b456e70309",
+    "translation": "0089198b34150eec886f0c777b377471c09c3eb3ca69dfd64165a599a1d0f0c6",
+    "author": "Xavier Larrea"
+  },
+  "voiceRealtimeNotConfigured": {
+    "source": "6369a326e7399b47d5ab99cff5b1e8eafba5617ca013b38bbe4d837413ef5db0",
+    "translation": "8cbe82eda079e7137c48bd770ec473fafd23a3c347b6f44c032e81737e3bdb26",
     "author": "Xavier Larrea"
   }
 }

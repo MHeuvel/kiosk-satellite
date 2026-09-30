@@ -11754,8 +11754,7 @@ class UiStringsEn extends UiStrings {
       'Add the MCP Server integration in Home Assistant to control your home.';
 
   @override
-  String get voiceRealtimeNotValidated =>
-      'Not validated yet. The provider shows up under Assistant once the connection checks out.';
+  String get voiceRealtimeNotValidated => 'Not validated';
 
   @override
   String voiceRealtimeOption(String provider) {
@@ -11773,17 +11772,27 @@ class UiStringsEn extends UiStrings {
   }
 
   @override
-  String voiceRealtimeConnectedTools(String count) {
-    return 'Connected. Home Assistant tools: $count';
-  }
-
-  @override
   String get settingVoiceRealtimeModelDescription =>
       'The speech to speech model that answers.';
 
   @override
   String get settingVoiceRealtimeVoiceDescription =>
       'How the assistant sounds.';
+
+  @override
+  String get voiceRealtimeProviders => 'Providers';
+
+  @override
+  String get voiceRealtimeConfigure => 'Configure';
+
+  @override
+  String get voiceRealtimeSaveValidate => 'Save & Validate';
+
+  @override
+  String get voiceRealtimeNotConfigured => 'Not configured';
+
+  @override
+  String get voiceRealtimeValidated => 'Connection validated';
 
   @override
   String get voiceDisconnected => 'Home Assistant not connected';

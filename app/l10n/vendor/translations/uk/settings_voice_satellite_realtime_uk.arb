@@ -22,13 +22,17 @@
   "settingVoiceRealtimeVoiceDescription": "Як звучить асистент.",
   "voiceRealtime": "Реальний час",
   "voiceRealtimeConnectFailed": "Не вдалося підключитися: {error}",
-  "voiceRealtimeConnectedTools": "Підключено. Інструменти Home Assistant: {count}",
   "voiceRealtimeHint": "OpenAI, xAI Grok, інструменти, перебивання відповідей",
   "voiceRealtimeMcpMissing": "Додайте інтеграцію MCP Server у Home Assistant, щоб керувати домом.",
-  "voiceRealtimeNotValidated": "Ще не перевірено. Постачальник з'явиться в розділі Асистент, щойно з'єднання запрацює.",
+  "voiceRealtimeNotValidated": "Не перевірено",
   "voiceRealtimeOption": "{provider} у реальному часі",
   "voiceRealtimeProviderDefault": "Типовий від постачальника",
   "voiceRealtimeToolsCustom": "Власний сервер MCP",
   "voiceRealtimeToolsSection": "Інструменти Home Assistant",
-  "voiceRealtimeToolsUnavailable": "Підключено, але інструменти Home Assistant недоступні: {problem}"
+  "voiceRealtimeToolsUnavailable": "Підключено, але інструменти Home Assistant недоступні: {problem}",
+  "voiceRealtimeProviders": "Постачальники",
+  "voiceRealtimeConfigure": "Налаштувати",
+  "voiceRealtimeSaveValidate": "Зберегти й перевірити",
+  "voiceRealtimeNotConfigured": "Не налаштовано",
+  "voiceRealtimeValidated": "З'єднання перевірено"
 }

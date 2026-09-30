@@ -43009,7 +43009,7 @@
     "context": "Settings > Voice Satellite > Realtime",
     "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   },
-  "voiceRealtimeNotValidated": "Not validated yet. The provider shows up under Assistant once the connection checks out.",
+  "voiceRealtimeNotValidated": "Not validated",
   "@voiceRealtimeNotValidated": {
     "context": "Settings > Voice Satellite > Realtime",
     "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
@@ -43044,16 +43044,6 @@
       }
     }
   },
-  "voiceRealtimeConnectedTools": "Connected. Home Assistant tools: {count}",
-  "@voiceRealtimeConnectedTools": {
-    "context": "Settings > Voice Satellite > Realtime",
-    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.",
-    "placeholders": {
-      "count": {
-        "type": "String"
-      }
-    }
-  },
   "settingVoiceRealtimeModelDescription": "The speech to speech model that answers.",
   "@settingVoiceRealtimeModelDescription": {
     "context": "Settings > Voice Satellite > Realtime",
@@ -43061,6 +43051,31 @@
   },
   "settingVoiceRealtimeVoiceDescription": "How the assistant sounds.",
   "@settingVoiceRealtimeVoiceDescription": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceRealtimeProviders": "Providers",
+  "@voiceRealtimeProviders": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceRealtimeConfigure": "Configure",
+  "@voiceRealtimeConfigure": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceRealtimeSaveValidate": "Save & Validate",
+  "@voiceRealtimeSaveValidate": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceRealtimeNotConfigured": "Not configured",
+  "@voiceRealtimeNotConfigured": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceRealtimeValidated": "Connection validated",
+  "@voiceRealtimeValidated": {
     "context": "Settings > Voice Satellite > Realtime",
     "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   },

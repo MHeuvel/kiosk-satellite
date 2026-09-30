@@ -1,7 +1,7 @@
 import { t, voiceText, voiceVadOption } from './localization.js';
 import { api, cmd, state } from './core.js';
 import { readOnlyRow } from './device.js';
-import { messageBox, modalShell, showToast } from './widgets.js';
+import { banner, messageBox, modalShell, showToast } from './widgets.js';
 import { vsSelectRow } from './vs.js';
 import { watchUpdates } from './live.js';
 
@@ -287,59 +287,161 @@ function selectsBlock(rows) {
   return block;
 }
 
-/* What a provider's validation depends on. */
-const realtimeConnection = (provider) => new Set([
-  `voice.realtime_${provider}_endpoint`, `voice.realtime_${provider}_api_key`,
-  `voice.realtime_${provider}_validated`,
-]);
+/* The realtime providers, and the settings each one's Configure dialog
+   holds (the device's realtimeProviderSettings). Neither UI draws them as
+   rows: the provider's row takes the first one's place. */
+export const REALTIME_PROVIDERS = { openai: 'OpenAI', xai: 'xAI Grok' };
+export const providerKeys = (provider) => ['api_key', 'model', 'voice', 'endpoint']
+  .map((name) => `voice.realtime_${provider}_${name}`);
 
-/* Validate connection at the end of the Realtime page's Connection group,
-   like the other Validate connection rows: connects once and reads the
-   tools. A connection that works makes the provider a choice in the
-   Assistant selects. */
-function realtimeValidateRow(panel, provider) {
-  const anchor = panel.querySelector(`[data-key="voice.realtime_${provider}_endpoint"]`);
-  if (!anchor || panel.querySelector(`.realtime-validate-row[data-provider="${provider}"]`)) return;
-  const notYet = 'Not validated yet. The provider shows up under Assistant once the connection checks out.';
-  const row = readOnlyRow(voiceText('Validate connection'), voiceText(notYet), '');
-  row.classList.add('realtime-validate-row');
-  row.dataset.provider = provider;
-  row.lastElementChild.remove();
-  const desc = row.querySelector('.desc');
-  const btn = document.createElement('button');
-  btn.className = 'btn-ghost';
-  btn.textContent = voiceText('Validate');
-  btn.style.cssText = 'flex-shrink:0;';
-  const paint = async () => {
-    const r = await cmd('voiceRealtimeState', { provider }).catch(() => null);
-    if (!row.isConnected || btn.disabled) return;
-    desc.textContent = voiceText(r?.data?.ready === true ? 'Connected' : notYet);
+/* The provider settings a device echo repaints in place: their rows are
+   the provider rows, never the generic ones (settings.js skips its
+   rebuild for them). */
+export const REALTIME_PROVIDER_SETTINGS = new Set(
+  Object.keys(REALTIME_PROVIDERS).flatMap(providerKeys));
+
+/* A provider's row, as its status reads it now. */
+function realtimeStatusText(data) {
+  switch (data?.status) {
+    case 'unconfigured': return voiceText('Not configured');
+    case 'validated': return voiceText('Connection validated');
+    case 'failed': return data.toolsError
+      ? t('voiceRealtimeToolsUnavailable', { problem: voiceText(`${data.error || ''}`) },
+        'Connected, but the Home Assistant tools are unavailable: {problem}')
+      : t('voiceRealtimeConnectFailed', { error: `${data.error || ''}` }, 'Could not connect: {error}');
+    default: return voiceText('Not validated');
+  }
+}
+
+/* A labeled control in the dialog, with its hint under it. */
+function dialogField(setting, control) {
+  const wrap = document.createElement('label');
+  wrap.className = 'form-field';
+  const title = document.createElement('span');
+  title.className = 'desc';
+  title.textContent = setting?.title || '';
+  control.classList.add('field');
+  control.style.maxWidth = 'none';
+  wrap.append(title, control);
+  if (setting?.description) {
+    const hint = document.createElement('span');
+    hint.className = 'desc';
+    hint.style.fontSize = '12.5px';
+    hint.textContent = setting.description;
+    wrap.append(hint);
+  }
+  return wrap;
+}
+
+/* A provider's settings in a dialog, the device's showRealtimeProviderDialog.
+   Save & Validate connects with them first: a connection the provider
+   takes saves them and closes, a refused one shows why and leaves the
+   dialog and the stored settings as they were. The key is write-only, so
+   an empty field keeps the saved one. */
+function openRealtimeProvider(provider, onSaved) {
+  const setting = (name) => (state.settings || [])
+    .find((s) => s.key === `voice.realtime_${provider}_${name}`);
+  const [keyDef, modelDef, voiceDef, endpointDef] = ['api_key', 'model', 'voice', 'endpoint'].map(setting);
+  let saving = false;
+  const shell = modalShell({ title: REALTIME_PROVIDERS[provider], width: 480,
+    onDismiss: () => { if (!saving) shell.close(); } });
+  const form = document.createElement('form');
+  form.className = 'modal-form';
+  const key = document.createElement('input');
+  key.type = 'password';
+  key.autocomplete = 'new-password';
+  key.spellcheck = false;
+  if (keyDef?.value === '__set__') key.placeholder = '••••••••';
+  const picker = (def) => {
+    const select = document.createElement('select');
+    const options = [...(def?.options || [''])];
+    if (!options.includes(def?.value ?? '')) options.push(def?.value ?? '');
+    for (const value of options) {
+      const option = document.createElement('option');
+      option.value = value;
+      option.textContent = def?.optionLabels?.[value] ?? value;
+      option.selected = value === (def?.value ?? '');
+      select.appendChild(option);
+    }
+    return select;
   };
-  btn.addEventListener('click', async () => {
-    btn.disabled = true;
-    btn.textContent = voiceText('Checking…');
-    const r = await cmd('voiceRealtimeValidate', { provider }, { timeoutMs: 40000 }).catch(() => null);
-    btn.disabled = false;
-    btn.textContent = voiceText('Validate');
+  const model = picker(modelDef);
+  const voice = picker(voiceDef);
+  const endpoint = document.createElement('input');
+  endpoint.type = 'url';
+  endpoint.spellcheck = false;
+  endpoint.value = `${endpointDef?.value || ''}`;
+  endpoint.placeholder = endpointDef?.placeholder || '';
+  const issue = document.createElement('div');
+  issue.setAttribute('role', 'alert');
+  form.append(dialogField(keyDef, key), dialogField(modelDef, model),
+    dialogField(voiceDef, voice), dialogField(endpointDef, endpoint), issue);
+  shell.body.append(form);
+  const cancel = document.createElement('button');
+  cancel.type = 'button';
+  cancel.className = 'btn-text';
+  cancel.textContent = voiceText('Cancel');
+  cancel.addEventListener('click', () => shell.close());
+  const save = document.createElement('button');
+  save.type = 'button';
+  save.className = 'btn-primary';
+  save.textContent = voiceText('Save & Validate');
+  save.addEventListener('click', () => form.requestSubmit());
+  shell.foot.append(cancel, save);
+  const controls = [cancel, save, key, model, voice, endpoint];
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (saving) return;
+    saving = true;
+    controls.forEach((c) => { c.disabled = true; });
+    save.textContent = voiceText('Checking…');
+    issue.replaceChildren();
+    const params = { provider, endpoint: endpoint.value, model: model.value, voice: voice.value };
+    if (key.value || keyDef?.value !== '__set__') params.apiKey = key.value;
+    const r = await cmd('voiceRealtimeSave', params, { timeoutMs: 40000 }).catch((e) => ({ ok: false, error: e?.message }));
+    saving = false;
+    controls.forEach((c) => { c.disabled = false; });
+    save.textContent = voiceText('Save & Validate');
     const data = r?.data || {};
-    if (!r?.ok || data.connected !== true) {
-      desc.textContent = t('voiceRealtimeConnectFailed', { error: `${data.error || r?.error || ''}` },
-        'Could not connect: {error}');
+    if (r?.ok && data.connected === true) {
+      shell.close();
+      onSaved();
       return;
     }
-    const problem = `${data.toolsError || ''}`;
-    desc.textContent = problem
-      ? t('voiceRealtimeToolsUnavailable', { problem: voiceText(problem) },
-        'Connected, but the Home Assistant tools are unavailable: {problem}')
-      : t('voiceRealtimeConnectedTools', { count: String(data.tools ?? 0) },
-        'Connected. Home Assistant tools: {count}');
+    issue.replaceChildren(banner(t('voiceRealtimeConnectFailed', { error: `${data.error || r?.error || ''}` },
+      'Could not connect: {error}'), { error: true }));
   });
+  (keyDef?.value === '__set__' ? model : key).focus();
+}
+
+/* A provider's row in the Realtime page's Providers group, where its first
+   setting's row sat: its status under its name and Configure. The rest of
+   its setting rows go. */
+function realtimeProviderRow(panel, provider) {
+  const [first, ...rest] = providerKeys(provider);
+  const anchor = panel.querySelector(`[data-key="${first}"]`);
+  if (!anchor || anchor.classList.contains('realtime-provider-row')) return;
+  for (const key of rest) panel.querySelector(`[data-key="${key}"]`)?.remove();
+  const row = readOnlyRow(REALTIME_PROVIDERS[provider], voiceText('Not validated'), '');
+  row.classList.add('realtime-provider-row');
+  row.dataset.provider = provider;
+  // Where a search for any of its settings lands (search.js).
+  row.dataset.key = first;
+  row.lastElementChild.remove();
+  const desc = row.querySelector('.desc');
+  const paint = async () => {
+    const r = await cmd('voiceRealtimeState', { provider }).catch(() => null);
+    if (row.isConnected && r?.ok) desc.textContent = realtimeStatusText(r.data);
+  };
+  const btn = document.createElement('button');
+  btn.className = 'btn-ghost';
+  btn.textContent = voiceText('Configure');
+  btn.style.cssText = 'flex-shrink:0;';
+  btn.addEventListener('click', () => openRealtimeProvider(provider, paint));
   row.appendChild(btn);
-  anchor.insertAdjacentElement('afterend', row);
+  anchor.replaceWith(row);
   paint();
-  // A changed key or endpoint needs validating again.
-  onSettings(row, new Set([...realtimeConnection(provider)]
-    .filter((k) => !k.endsWith('_validated'))), paint);
+  onSettings(row, new Set([...providerKeys(provider), `voice.realtime_${provider}_validated`]), paint);
 }
 
 /* The native page, into a root render() already filled with the Voice
@@ -396,7 +498,7 @@ export async function renderNativeVs(root, byKey) {
     }
     const realtimePanel = panel('Realtime');
     if (realtimePanel) {
-      for (const provider of ['openai', 'xai']) realtimeValidateRow(realtimePanel, provider);
+      for (const provider of Object.keys(REALTIME_PROVIDERS)) realtimeProviderRow(realtimePanel, provider);
     }
     const ttsRow = assistant?.querySelector('[data-key="voice.tts_output"]');
     if (ttsRow) ttsOutputRow(ttsRow, byKey['voice.tts_output']?.value || '');

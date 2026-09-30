@@ -3922,6 +3922,11 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingVoiceRealtimeModelDescription,
       'settingVoiceRealtimeVoiceDescription' =>
         strings.settingVoiceRealtimeVoiceDescription,
+      'voiceRealtimeProviders' => strings.voiceRealtimeProviders,
+      'voiceRealtimeConfigure' => strings.voiceRealtimeConfigure,
+      'voiceRealtimeSaveValidate' => strings.voiceRealtimeSaveValidate,
+      'voiceRealtimeNotConfigured' => strings.voiceRealtimeNotConfigured,
+      'voiceRealtimeValidated' => strings.voiceRealtimeValidated,
       'voiceDisconnected' => strings.voiceDisconnected,
       'voiceValidate' => strings.voiceValidate,
       'voiceChecking' => strings.voiceChecking,

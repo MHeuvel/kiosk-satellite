@@ -221,7 +221,7 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
           '429' =>
             'The provider is limiting requests (HTTP 429). Check the '
                 'account\'s quota.',
-          _ => 'could not connect: ${_describe(e)}',
+          _ => _describe(e),
         },
       );
       return;
@@ -507,7 +507,8 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
   }
 
   static String _describe(Object e) {
-    final text = '$e';
+    // The socket's wrapper adds nothing a person needs to read.
+    final text = '$e'.replaceFirst('WebSocketChannelException: ', '');
     return text.length > 200 ? '${text.substring(0, 200)}...' : text;
   }
 
