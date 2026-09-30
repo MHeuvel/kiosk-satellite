@@ -295,6 +295,10 @@ class RealtimeSession {
     // the room's noise. Someone talking over the answer is louder than the
     // room and goes as it is.
     if (echo && _room.muted(level)) pcm = _room.comfort(pcm.length);
+    if (_ready && echo && !_clientTurns && !_talkingOver) {
+      _holdBack(gen, pcm);
+      return;
+    }
     final converted = _resampler?.convert(pcm) ?? pcm;
     if (!_ready) {
       _held.add(converted);
@@ -405,6 +409,34 @@ class RealtimeSession {
     if (!_loud(level)) return;
     if (++_suspectLoud < bargeInChunks) return;
     _suspect = false;
+    unawaited(_confirmBargeIn(gen));
+  }
+
+  /// With the turns in the provider's hands (xAI), whatever it hears over
+  /// an answer stops it, and it also answers every fragment it takes for
+  /// speech. Measured on 2026-09-30, it accepts OpenAI's switches for that
+  /// and ignores them. So the microphone goes as the room's noise while
+  /// an answer plays, and the provider hears it only once the microphone
+  /// shows the user talking over it by the same rule as [_clientTurns]:
+  /// then the answer stops here and the provider gets the last second,
+  /// the start of what the user said, and the live microphone after it.
+  bool _talkingOver = false;
+  final _heldBack = <Uint8List>[];
+
+  void _holdBack(int gen, Uint8List pcm) {
+    _heldBack.add(pcm);
+    if (_heldBack.length > _recentChunks) _heldBack.removeAt(0);
+    if (_recent.where(_loud).length < bargeInChunks) {
+      final comfort = _room.comfort(pcm.length);
+      _backend?.sendAudio(_resampler?.convert(comfort) ?? comfort);
+      return;
+    }
+    _talkingOver = true;
+    for (final chunk in _heldBack) {
+      _backend?.sendAudio(_resampler?.convert(chunk) ?? chunk);
+    }
+    _heldBack.clear();
+    onTrace?.call('talked over the answer');
     unawaited(_confirmBargeIn(gen));
   }
 
@@ -628,6 +660,9 @@ class RealtimeSession {
       _itemStart[itemId] = _written;
     }
     if (!_playing) {
+      // A new answer, and the microphone is held back over it again.
+      _talkingOver = false;
+      _heldBack.clear();
       // Playback starts from here: the estimate runs from now.
       _playedKnown = _written;
       _playedAt = _now();
@@ -860,6 +895,8 @@ class RealtimeSession {
 
   void _reset() {
     _recent.clear();
+    _talkingOver = false;
+    _heldBack.clear();
     _suspect = false;
     _suspectLoud = 0;
     _ready = false;

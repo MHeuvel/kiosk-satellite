@@ -759,6 +759,7 @@ void main() {
     test('the microphone goes as silence while an answer settles', () {
       fakeAsync((time) {
         final h = _Harness(time);
+        h.backend.clientTurns = true;
         h.wakeAndConnect();
         h.answer('a1', seconds: 5);
         h.backend.audio.clear();
@@ -782,6 +783,7 @@ void main() {
     test('the settling ends once the canceller keeps the voice out', () {
       fakeAsync((time) {
         final h = _Harness(time);
+        h.backend.clientTurns = true;
         h.wakeAndConnect();
         h.answer('a1', seconds: 5);
         // Quiet chunks while the voice speaks, past the least it waits:
@@ -808,6 +810,7 @@ void main() {
         // A noise floor (an air conditioner) that comes back all at once
         // when the canceller lets go reads as someone talking.
         final h = _Harness(time);
+        h.backend.clientTurns = true;
         h.wakeAndConnect();
         for (var i = 0; i < 20; i++) {
           h.mic.speak(value: 50);
@@ -926,6 +929,91 @@ void main() {
           time.flushMicrotasks();
           expect(h.backend.turns, [true]);
           expect(h.player.flushes, 0);
+          h.session.cancel();
+          time.flushMicrotasks();
+        });
+      });
+    });
+
+    group('with the turns in the provider', () {
+      test('the provider hears the room over an answer, not the echo', () {
+        fakeAsync((time) {
+          final h = _Harness(time);
+          h.wakeAndConnect();
+          for (var i = 0; i < 20; i++) {
+            h.mic.speak(value: 50);
+          }
+          h.answer('a1', seconds: 8);
+          time.elapse(RealtimeSession.echoSettle);
+          h.backend.audio.clear();
+          for (var i = 0; i < 5; i++) {
+            time.elapse(const Duration(milliseconds: 80));
+            h.mic.speak(value: 600);
+          }
+          expect(h.backend.audio, hasLength(5));
+          expect(
+            h.backend.audio.map(RealtimeSession.meanAbs),
+            everyElement(closeTo(50, 2)),
+          );
+          expect(h.player.flushes, 0);
+          expect(h.backend.interruptions, isEmpty);
+          h.session.cancel();
+          time.flushMicrotasks();
+        });
+      });
+
+      test('loud speech over an answer stops it and reaches the provider', () {
+        fakeAsync((time) {
+          final h = _Harness(time);
+          h.wakeAndConnect();
+          h.answer('a1', seconds: 8);
+          time.elapse(RealtimeSession.echoSettle);
+          h.backend.audio.clear();
+          for (var i = 0; i < RealtimeSession.bargeInChunks; i++) {
+            time.elapse(const Duration(milliseconds: 80));
+            h.mic.speak(value: 3000);
+          }
+          time.flushMicrotasks();
+          expect(h.player.flushes, 1);
+          expect(h.backend.interruptions.single.$1, 'a1');
+          // The comfort noise that went out while it weighed the first
+          // chunks, then all three as they were heard.
+          final levels = h.backend.audio.map(RealtimeSession.meanAbs).toList();
+          expect(
+            levels.skip(levels.length - RealtimeSession.bargeInChunks),
+            everyElement(closeTo(3000, 2)),
+          );
+          h.backend.audio.clear();
+          h.mic.speak(value: 3000);
+          expect(
+            RealtimeSession.meanAbs(h.backend.audio.single),
+            closeTo(3000, 2),
+          );
+          h.session.cancel();
+          time.flushMicrotasks();
+        });
+      });
+
+      test('the next answer holds the microphone back again', () {
+        fakeAsync((time) {
+          final h = _Harness(time);
+          h.wakeAndConnect();
+          h.answer('a1', seconds: 8);
+          time.elapse(RealtimeSession.echoSettle);
+          for (var i = 0; i < RealtimeSession.bargeInChunks; i++) {
+            time.elapse(const Duration(milliseconds: 80));
+            h.mic.speak(value: 3000);
+          }
+          time.flushMicrotasks();
+          time.elapse(const Duration(seconds: 3));
+          h.answer('a2', seconds: 8);
+          time.elapse(RealtimeSession.echoSettle);
+          h.backend.audio.clear();
+          h.mic.speak(value: 600);
+          expect(
+            RealtimeSession.meanAbs(h.backend.audio.single),
+            lessThan(600),
+          );
           h.session.cancel();
           time.flushMicrotasks();
         });

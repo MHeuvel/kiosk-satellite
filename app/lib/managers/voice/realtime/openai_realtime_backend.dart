@@ -183,8 +183,9 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
     clientTurns: _clientTurns,
   );
 
-  /// OpenAI lets the client take the turns over; xAI's session has no such
-  /// switches, so its server keeps them.
+  /// OpenAI lets the client take the turns over. xAI accepts the same
+  /// switches and ignores them, so its server keeps the turns and the
+  /// session holds the microphone back while an answer plays instead.
   bool get _clientTurns => config.provider == RealtimeProvider.openai;
 
   /// The user item the last speech went into, and those dropped as not the

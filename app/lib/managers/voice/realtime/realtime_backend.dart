@@ -35,7 +35,9 @@ class RealtimeCapabilities {
   /// Speech heard neither stops an answer nor gets a reply on its own: the
   /// session decides each turn ([RealtimeBackend.userTurn]) and stops the
   /// answer itself ([RealtimeBackend.interrupted]). A faint echo of the
-  /// answer the provider takes for speech then does nothing.
+  /// answer the provider takes for speech then does nothing. Without it,
+  /// the provider hears nothing over an answer until the session decides
+  /// the user is talking over it.
   final bool clientTurns;
 }
 
