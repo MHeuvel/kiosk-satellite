@@ -6,6 +6,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Fixed
 - **Kiosks with a non-admin Home Assistant token no longer flood the Home Assistant log.** Voice alarms listen for a custom event, which Home Assistant only lets administrators follow. With any other token the kiosk asked every 30 seconds and Home Assistant logged each refusal (#761). The kiosk now checks once whether the token belongs to an administrator and, when it does not, leaves voice alarms off until the Home Assistant address or token changes.
+- **Voice alarms and native Voice Satellite reconnect after a Wi-Fi drop that left a dead connection.** When Wi-Fi came back without the kiosk losing its address, Home Assistant could have closed its end while the kiosk still counted the connection as open, so voice alarm requests stopped arriving until a restart. The connection now pings Home Assistant every 20 seconds and closes once a ping goes unanswered, so the kiosk connects again on its next try. A refused token no longer leaves the connection counted as open, and a kiosk that cannot reach Home Assistant no longer logs an error every 30 seconds.
 
 ## v2026.9.96 - 2026-09-29
 

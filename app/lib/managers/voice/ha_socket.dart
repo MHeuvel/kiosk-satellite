@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 /// One authenticated Home Assistant websocket for the native voice
 /// satellite: registry lookups, the chat log, related searches, pipeline
 /// runs. Connected on first use and again after a drop; nothing reconnects
-/// on its own, the next request does.
+/// on its own, the next request does. Pings find a connection that died
+/// with the Wi-Fi, so it drops instead of looking connected forever.
 class HaSocket {
   HaSocket({required this.baseUrl, required this.token});
 
@@ -41,7 +43,13 @@ class HaSocket {
     final ws = base
         .replaceFirst('https://', 'wss://')
         .replaceFirst('http://', 'ws://');
-    final channel = WebSocketChannel.connect(Uri.parse('$ws/api/websocket'));
+    final channel = IOWebSocketChannel.connect(
+      Uri.parse('$ws/api/websocket'),
+      pingInterval: const Duration(seconds: 20),
+      connectTimeout: const Duration(seconds: 10),
+    );
+    // A connect that fails otherwise surfaces as an uncaught error.
+    await channel.ready;
     final authed = Completer<void>();
     _channel = channel;
     _sub = channel.stream.listen(
@@ -90,7 +98,13 @@ class HaSocket {
       onDone: () => _drop(StateError('Home Assistant socket closed')),
       cancelOnError: true,
     );
-    await authed.future.timeout(const Duration(seconds: 10));
+    try {
+      await authed.future.timeout(const Duration(seconds: 10));
+    } catch (e) {
+      // Not authed is not connected: the next request starts over.
+      _drop(e);
+      rethrow;
+    }
     connections++;
   }
 
