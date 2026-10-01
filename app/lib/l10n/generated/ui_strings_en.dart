@@ -8914,6 +8914,14 @@ class UiStringsEn extends UiStrings {
       'Use the night background color instead of the photo while Night mode is active.';
 
   @override
+  String get settingScreensaverClockNightHideWidgetsTitle =>
+      'Hide widgets and At a Glance';
+
+  @override
+  String get settingScreensaverClockNightHideWidgetsDescription =>
+      'Show only the clock while Night mode is active.';
+
+  @override
   String get settingScreensaverClockNightCardColorTitle => 'Night card color';
 
   @override

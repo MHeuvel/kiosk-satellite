@@ -576,6 +576,32 @@
       ]
     }
   },
+  "settingScreensaverClockNightHideWidgetsTitle": "Hide widgets and At a Glance",
+  "@settingScreensaverClockNightHideWidgetsTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockNightHideWidgetsDescription": "Show only the clock while Night mode is active.",
+  "@settingScreensaverClockNightHideWidgetsDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
   "settingScreensaverClockNightCardColorTitle": "Night card color",
   "@settingScreensaverClockNightCardColorTitle": {
     "context": "Settings:Screensaver:Clock screensaver",

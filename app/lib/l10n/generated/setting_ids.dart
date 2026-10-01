@@ -380,6 +380,10 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingScreensaverClockNightHideBackgroundTitle",
     "description": "settingScreensaverClockNightHideBackgroundDescription",
   },
+  "screensaver.clock_night_hide_widgets": {
+    "title": "settingScreensaverClockNightHideWidgetsTitle",
+    "description": "settingScreensaverClockNightHideWidgetsDescription",
+  },
   "screensaver.clock_night_card_color": {
     "title": "settingScreensaverClockNightCardColorTitle",
     "description": "settingScreensaverClockNightCardColorDescription",

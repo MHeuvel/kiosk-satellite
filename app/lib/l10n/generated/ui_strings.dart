@@ -15505,6 +15505,18 @@ abstract class UiStrings {
   /// Setting label.
   ///
   /// In en, this message translates to:
+  /// **'Hide widgets and At a Glance'**
+  String get settingScreensaverClockNightHideWidgetsTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Show only the clock while Night mode is active.'**
+  String get settingScreensaverClockNightHideWidgetsDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
   /// **'Night card color'**
   String get settingScreensaverClockNightCardColorTitle;
 

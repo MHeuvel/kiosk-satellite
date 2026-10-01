@@ -90,6 +90,7 @@ void main() {
       expect(find.text('5 lx'), findsOneWidget);
       expect(find.text('Night color'), findsOneWidget);
       expect(find.text('Hide background photo'), findsOneWidget);
+      expect(find.text('Hide widgets and At a Glance'), findsOneWidget);
     });
 
     testWidgets('off, the group is just the switch', (tester) async {
@@ -100,6 +101,7 @@ void main() {
       expect(find.text('Night color'), findsNothing);
       expect(find.text('Night card color'), findsNothing);
       expect(find.text('Hide background photo'), findsNothing);
+      expect(find.text('Hide widgets and At a Glance'), findsNothing);
     });
 
     testWidgets('the card color needs the switch AND the Flip style', (
@@ -443,11 +445,13 @@ void main() {
       WidgetTester tester, {
       required double lux,
       bool textOnly = false,
+      bool hide = false,
     }) async {
       final container = await makeContainer({
         'ks.screensaver.clock_night': true,
         'ks.screensaver.clock_show_date': false,
         'ks.screensaver.glance_text_only': textOnly,
+        'ks.screensaver.clock_night_hide_widgets': hide,
       }, lux: lux);
       container.glance.entities.value = const [
         GlanceEntity(entityId: 'light.desk', name: 'Desk', state: 'on'),
@@ -517,6 +521,28 @@ void main() {
       expect(valueColor(tester), nightRed);
       await tester.pumpWidget(const SizedBox());
     });
+
+    // Issue #784: a bare clock at night.
+    testWidgets('the hide switch drops the row at night only', (tester) async {
+      final container = await pumpChips(tester, lux: 2, hide: true);
+      expect(find.byType(GlanceRow), findsNothing);
+      container.device.lightLux = 50;
+      container.bus.publish(const LightLevelChanged(lux: 50));
+      await tester.pump();
+      await tester.pump();
+      expect(find.byType(GlanceRow), findsOneWidget);
+      await tester.pumpWidget(const SizedBox());
+    });
+
+    testWidgets('the hide switch applies live', (tester) async {
+      final container = await pumpChips(tester, lux: 2);
+      expect(find.byType(GlanceRow), findsOneWidget);
+      await container.settings.set(defs.screensaverClockNightHideWidgets, true);
+      await tester.pump();
+      await tester.pump();
+      expect(find.byType(GlanceRow), findsNothing);
+      await tester.pumpWidget(const SizedBox());
+    });
   });
 
   group('corner widgets', () {
@@ -555,10 +581,12 @@ void main() {
       WidgetTester tester, {
       required double lux,
       String view = 'clock',
+      bool hide = false,
     }) async {
       final container = await makeContainer({
         'ks.screensaver.clock_night': true,
         'ks.screensaver.clock_show_date': false,
+        'ks.screensaver.clock_night_hide_widgets': hide,
         'ks.screensaver.widgets':
             '[{"position":"top_right","type":"battery",'
             '"config":{"color":"250,250,250","percent":true}}]',
@@ -593,6 +621,28 @@ void main() {
         'its own color', (tester) async {
       await pumpWithBattery(tester, lux: 2, view: 'black');
       expect(batteryColor(tester), const Color(0xFFFAFAFA));
+      await tester.pumpWidget(const SizedBox());
+    });
+
+    // Issue #784: the switch clears the corners at night and brings the
+    // widgets back with the light.
+    testWidgets('the hide switch clears the corners at night only', (
+      tester,
+    ) async {
+      final container = await pumpWithBattery(tester, lux: 2, hide: true);
+      expect(find.byType(BatteryWidgetOverlay), findsNothing);
+      container.device.lightLux = 200;
+      container.bus.publish(const LightLevelChanged(lux: 200));
+      await tester.pump();
+      await tester.pump();
+      expect(find.byType(BatteryWidgetOverlay), findsOneWidget);
+      await tester.pumpWidget(const SizedBox());
+    });
+
+    testWidgets('the hide switch is the clock\'s: over Black the widget '
+        'stays', (tester) async {
+      await pumpWithBattery(tester, lux: 2, view: 'black', hide: true);
+      expect(find.byType(BatteryWidgetOverlay), findsOneWidget);
       await tester.pumpWidget(const SizedBox());
     });
   });

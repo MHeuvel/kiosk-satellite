@@ -2772,6 +2772,10 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingScreensaverClockNightHideBackgroundTitle,
       'settingScreensaverClockNightHideBackgroundDescription' =>
         strings.settingScreensaverClockNightHideBackgroundDescription,
+      'settingScreensaverClockNightHideWidgetsTitle' =>
+        strings.settingScreensaverClockNightHideWidgetsTitle,
+      'settingScreensaverClockNightHideWidgetsDescription' =>
+        strings.settingScreensaverClockNightHideWidgetsDescription,
       'settingScreensaverClockNightCardColorTitle' =>
         strings.settingScreensaverClockNightCardColorTitle,
       'settingScreensaverClockNightCardColorDescription' =>

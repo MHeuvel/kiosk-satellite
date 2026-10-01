@@ -33400,6 +33400,32 @@
       ]
     }
   },
+  "settingScreensaverClockNightHideWidgetsTitle": "Widgets und Auf einen Blick ausblenden",
+  "@settingScreensaverClockNightHideWidgetsTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockNightHideWidgetsDescription": "Zeigt im Nachtmodus nur die Uhr.",
+  "@settingScreensaverClockNightHideWidgetsDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
   "settingScreensaverClockNightCardColorTitle": "Nachtfarbe der Klappkarten",
   "@settingScreensaverClockNightCardColorTitle": {
     "context": "Settings:Screensaver:Clock screensaver",

@@ -9012,6 +9012,14 @@ class UiStringsUk extends UiStrings {
       'Використовувати нічний колір фону замість фотографії під час дії нічного режиму.';
 
   @override
+  String get settingScreensaverClockNightHideWidgetsTitle =>
+      'Приховати віджети та короткий огляд';
+
+  @override
+  String get settingScreensaverClockNightHideWidgetsDescription =>
+      'Показувати лише годинник під час дії нічного режиму.';
+
+  @override
   String get settingScreensaverClockNightCardColorTitle =>
       'Нічний колір карток';
 

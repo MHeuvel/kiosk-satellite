@@ -22469,5 +22469,17 @@
     "translation": "55a89914ce912768171fd80863e9c21843dc9ade9dd95e8aaadf397475762d79",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "settingScreensaverClockNightHideWidgetsDescription": {
+    "source": "f85008af0b682d1c0d4925e26a7044ae46fff7324f307e108a37d5d77f32e6bb",
+    "translation": "3443b78e082a9dfdb9d6aa4d53fd70d1188cb2384f329e08c145c7218b436f16",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingScreensaverClockNightHideWidgetsTitle": {
+    "source": "237ff9c396dc0a4b3b4bfdee6450812c8c173b4ae7195bd5101a268c94045fb2",
+    "translation": "ddf2cc08c2fa7a3e9003b20807d8b2e2a98fec914f55923b0f12c4875f2e506d",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

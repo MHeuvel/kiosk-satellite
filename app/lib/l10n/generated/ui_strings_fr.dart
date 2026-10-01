@@ -9085,6 +9085,14 @@ class UiStringsFr extends UiStrings {
       'Utiliser la couleur d\'arrière-plan de nuit au lieu de la photo tant que le mode nuit est actif.';
 
   @override
+  String get settingScreensaverClockNightHideWidgetsTitle =>
+      'Masquer les widgets et En un coup d\'œil';
+
+  @override
+  String get settingScreensaverClockNightHideWidgetsDescription =>
+      'Afficher uniquement l\'horloge tant que le mode nuit est actif.';
+
+  @override
   String get settingScreensaverClockNightCardColorTitle =>
       'Couleur des cartes de nuit';
 

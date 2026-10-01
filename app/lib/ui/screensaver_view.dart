@@ -146,6 +146,7 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
       defs.screensaverGlanceScale.key,
       defs.screensaverGlanceFont.key,
       defs.screensaverGlanceFontWeight.key,
+      defs.screensaverClockNightHideWidgets.key,
       // The Now Playing transport, read at build by the full-screen view.
       defs.sendspinFullscreenControls.key,
       defs.sendspinFullscreenSplit.key,
@@ -203,6 +204,14 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
       threshold: s.get(defs.screensaverClockNightLux).toDouble(),
     );
   }
+
+  /// Whether Night mode clears the corner widgets off the Clock
+  /// screensaver (issue #784). The face drops its own At a Glance row on
+  /// the same switch.
+  bool _widgetsNightHidden(String view) =>
+      view == 'clock' &&
+      _night &&
+      container.settings.get(defs.screensaverClockNightHideWidgets);
 
   /// The color Night mode imposes on the corner widgets over the Clock
   /// screensaver, or null: on any other view the widgets keep their own,
@@ -409,7 +418,8 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
                             child: Stack(
                               fit: StackFit.expand,
                               children: [
-                                if (scheduled ?? true)
+                                if ((scheduled ?? true) &&
+                                    !_widgetsNightHidden(view))
                                   for (final spec in decodeScreensaverWidgets(
                                     container.settings.get(
                                       defs.screensaverWidgets,
@@ -757,6 +767,7 @@ class _ClockScreensaverState extends State<ClockScreensaver>
     defs.screensaverClockBackground.key,
     defs.screensaverClockBackgroundRefresh.key,
     defs.screensaverClockNightHideBackground.key,
+    defs.screensaverClockNightHideWidgets.key,
     defs.screensaverClockFont.key,
     defs.screensaverClockFontWeight.key,
     defs.screensaverClockVertical.key,
@@ -1167,9 +1178,12 @@ class _ClockScreensaverState extends State<ClockScreensaver>
         widget.container.screensaver.alarmTakeover.value == 'ringing';
     // The At a Glance row sits under the clock and needs room for itself,
     // so the clock gives some back rather than pushing the row off a short
-    // panel. Only when the row actually has something to show.
+    // panel. Only when the row actually has something to show, and not
+    // at night when Night mode is asked to leave the clock alone.
     final glance =
-        !ringing && widget.container.glance.entities.value.isNotEmpty;
+        !ringing &&
+        !(widget.night && s.get(defs.screensaverClockNightHideWidgets)) &&
+        widget.container.glance.entities.value.isNotEmpty;
     final glanceScale = min(1.0, size.height / 480).clamp(0.75, 1.0);
     final clockShrink = glance ? 0.72 : 1.0;
     // Vertical mode (issue #767) stacks the digital and flip faces; the

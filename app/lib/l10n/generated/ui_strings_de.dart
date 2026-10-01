@@ -9132,6 +9132,14 @@ class UiStringsDe extends UiStrings {
       'Verwendet im Nachtmodus die Nachthintergrundfarbe anstelle des Hintergrundbilds.';
 
   @override
+  String get settingScreensaverClockNightHideWidgetsTitle =>
+      'Widgets und Auf einen Blick ausblenden';
+
+  @override
+  String get settingScreensaverClockNightHideWidgetsDescription =>
+      'Zeigt im Nachtmodus nur die Uhr.';
+
+  @override
   String get settingScreensaverClockNightCardColorTitle =>
       'Nachtfarbe der Klappkarten';
 

@@ -9086,6 +9086,14 @@ class UiStringsEs extends UiStrings {
       'Usa el color de fondo nocturno en lugar de la foto mientras está activo el modo nocturno.';
 
   @override
+  String get settingScreensaverClockNightHideWidgetsTitle =>
+      'Ocultar widgets y De un vistazo';
+
+  @override
+  String get settingScreensaverClockNightHideWidgetsDescription =>
+      'Muestra solo el reloj mientras está activo el modo nocturno.';
+
+  @override
   String get settingScreensaverClockNightCardColorTitle =>
       'Color nocturno de las láminas';
 

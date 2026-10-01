@@ -44,6 +44,8 @@
   "settingScreensaverClockNightBgColorDescription": "Колір фону позаду годинника в темряві.",
   "settingScreensaverClockNightHideBackgroundTitle": "Приховати фонове фото",
   "settingScreensaverClockNightHideBackgroundDescription": "Використовувати нічний колір фону замість фотографії під час дії нічного режиму.",
+  "settingScreensaverClockNightHideWidgetsTitle": "Приховати віджети та короткий огляд",
+  "settingScreensaverClockNightHideWidgetsDescription": "Показувати лише годинник під час дії нічного режиму.",
   "settingScreensaverClockNightCardColorTitle": "Нічний колір карток",
   "settingScreensaverClockNightCardColorDescription": "Колір перекидних карток у темряві.",
   "screensaverClockSection": "Годинник-заставка",

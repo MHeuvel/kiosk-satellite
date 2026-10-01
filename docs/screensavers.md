@@ -86,6 +86,7 @@ Changes apply live while the clock is running, and writing an empty value clears
 | Night color | Sets the accent color for digits, dates, At a Glance elements, and corner widgets (muted red by default). |
 | Night background | Sets the background display color in dark environments (pure black by default) to eliminate panel glow. |
 | Hide background photo | Disabled by default. Hides the photo while Night mode is active so the clock uses the Night background color. Works with every clock face and restores the photo when the room brightens. Changes apply immediately. |
+| Hide widgets and At a Glance | Disabled by default. Hides the corner widgets and the At a Glance row while Night mode is active, leaving only the clock. Both come back when the room brightens. Changes apply immediately. |
 | Night card color | Flip Clock face only. Sets the card color in the dark (near-black by default). |
 
 **Let alarms take over** (on by default) makes a ringing [alarm](alarms.md) show on the Clock screensaver in its own style: the date line becomes the alarm's label and Snooze and Stop come in under the clock in the clock's colors, Night mode included. Turn it off to ring on the alarm's own screen instead.

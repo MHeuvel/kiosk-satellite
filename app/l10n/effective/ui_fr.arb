@@ -33400,6 +33400,32 @@
       ]
     }
   },
+  "settingScreensaverClockNightHideWidgetsTitle": "Masquer les widgets et En un coup d'œil",
+  "@settingScreensaverClockNightHideWidgetsTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockNightHideWidgetsDescription": "Afficher uniquement l'horloge tant que le mode nuit est actif.",
+  "@settingScreensaverClockNightHideWidgetsDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
   "settingScreensaverClockNightCardColorTitle": "Couleur des cartes de nuit",
   "@settingScreensaverClockNightCardColorTitle": {
     "context": "Settings:Screensaver:Clock screensaver",

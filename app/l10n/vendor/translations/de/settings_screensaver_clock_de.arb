@@ -44,6 +44,8 @@
   "settingScreensaverClockNightBgColorDescription": "Hintergrundfarbe hinter der Uhr im Nachtmodus.",
   "settingScreensaverClockNightHideBackgroundTitle": "Hintergrundbild ausblenden",
   "settingScreensaverClockNightHideBackgroundDescription": "Verwendet im Nachtmodus die Nachthintergrundfarbe anstelle des Hintergrundbilds.",
+  "settingScreensaverClockNightHideWidgetsTitle": "Widgets und Auf einen Blick ausblenden",
+  "settingScreensaverClockNightHideWidgetsDescription": "Zeigt im Nachtmodus nur die Uhr.",
   "settingScreensaverClockNightCardColorTitle": "Nachtfarbe der Klappkarten",
   "settingScreensaverClockNightCardColorDescription": "Farbe der Klappkarten der Uhr im Nachtmodus.",
   "screensaverClockSection": "Bildschirmschoner: Uhr",

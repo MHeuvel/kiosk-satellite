@@ -44,6 +44,8 @@
   "settingScreensaverClockNightBgColorDescription": "La couleur derrière l'horloge dans l'obscurité.",
   "settingScreensaverClockNightHideBackgroundTitle": "Masquer la photo d'arrière-plan",
   "settingScreensaverClockNightHideBackgroundDescription": "Utiliser la couleur d'arrière-plan de nuit au lieu de la photo tant que le mode nuit est actif.",
+  "settingScreensaverClockNightHideWidgetsTitle": "Masquer les widgets et En un coup d'œil",
+  "settingScreensaverClockNightHideWidgetsDescription": "Afficher uniquement l'horloge tant que le mode nuit est actif.",
   "settingScreensaverClockNightCardColorTitle": "Couleur des cartes de nuit",
   "settingScreensaverClockNightCardColorDescription": "La couleur des cartes à bascule dans l'obscurité.",
   "screensaverClockSection": "Économiseur d'écran horloge",
