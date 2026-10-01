@@ -5,6 +5,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -41,6 +42,7 @@ import '../managers/proxy/media_rewrite_script.dart';
 import '../managers/sendspin/music_assistant_api.dart';
 import '../managers/home_assistant/kiosk_mode.dart';
 import '../managers/gestures/gesture_mappings.dart';
+import '../managers/browser/browser_manager.dart';
 import '../managers/settings/definitions.dart' as defs;
 import 'app_launcher_overlay.dart';
 import 'ui_scale.dart' show UiScaleExempt;
@@ -1455,6 +1457,14 @@ class _KioskScreenState extends State<KioskScreen>
         // Over the offline cover too: with no WebView provider there is no
         // page to wait for, and the cover would hide the only explanation.
         if (c.browser.webViewMissing) const _WebViewMissingNotice(),
+        // DuraSpeed refusing the renderer: the WebView stays mounted
+        // underneath, still retrying, and the notice says what to do.
+        ValueListenableBuilder<bool>(
+          valueListenable: c.browser.duraSpeedBlocking,
+          builder: (context, blocking, _) => blocking
+              ? const _WebViewMissingNotice(duraSpeed: true)
+              : const SizedBox.shrink(),
+        ),
         // The rotation's external pages, shown OVER the dashboard so the
         // dashboard (and the Voice Satellite session with it) never
         // unloads. A wake detection hides this instantly, revealing the
@@ -2601,11 +2611,20 @@ class _OverlayWebViewState extends State<_OverlayWebView> {
 /// What the dashboard slot shows on a device with no WebView provider:
 /// the one case where waiting, rebuilding and restarting all change
 /// nothing, so the screen says what is missing instead of staying black.
+/// With [duraSpeed], the provider is there but MediaTek's DuraSpeed keeps
+/// refusing its renderer: the notice gives the one command that turns it
+/// off and a link to the guide.
 class _WebViewMissingNotice extends StatelessWidget {
-  const _WebViewMissingNotice();
+  const _WebViewMissingNotice({this.duraSpeed = false});
+
+  final bool duraSpeed;
+
+  static const _duraSpeedDocsUrl =
+      'https://kiosksatellite.com/docs/permissions/#mediatek-duraspeed';
 
   @override
   Widget build(BuildContext context) {
+    final strings = l10n(context);
     return ColoredBox(
       color: Colors.black,
       child: Center(
@@ -2617,16 +2636,50 @@ class _WebViewMissingNotice extends StatelessWidget {
               const Icon(Icons.web_asset_off, color: Colors.white54, size: 48),
               SizedBox(height: 16),
               Text(
-                l10n(context).kioskWebViewMissing,
+                duraSpeed
+                    ? strings.kioskDuraSpeedBlocking
+                    : strings.kioskWebViewMissing,
                 textAlign: TextAlign.center,
                 style: const TextStyle(color: Colors.white, fontSize: 20),
               ),
               SizedBox(height: 8),
               Text(
-                l10n(context).kioskWebViewMissingHelp,
+                duraSpeed
+                    ? strings.kioskDuraSpeedBlockingHelp
+                    : strings.kioskWebViewMissingHelp,
                 textAlign: TextAlign.center,
                 style: const TextStyle(color: Colors.white54, fontSize: 16),
               ),
+              if (duraSpeed) ...[
+                const SizedBox(height: 16),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 10,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white10,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const SelectableText(
+                    BrowserManager.duraSpeedCommand,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'monospace',
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                TextButton.icon(
+                  onPressed: () => launchUrl(
+                    Uri.parse(_duraSpeedDocsUrl),
+                    mode: LaunchMode.externalApplication,
+                  ),
+                  icon: const Icon(Icons.open_in_new, size: 18),
+                  label: Text(strings.deviceOpenGuide),
+                ),
+              ],
             ],
           ),
         ),
@@ -2699,7 +2752,9 @@ class _PausedUnderState extends State<PausedUnder> {
       fit: StackFit.expand,
       children: [
         if (still != null)
-          IgnorePointer(child: RawImage(image: still, fit: BoxFit.fill)),
+          IgnorePointer(
+            child: RawImage(image: still, fit: BoxFit.fill),
+          ),
         Offstage(
           offstage: still != null,
           child: TickerMode(

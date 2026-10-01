@@ -159,5 +159,7 @@
   "This device has no WebView provider, so Home Assistant cannot be shown. Install Android System WebView or Chrome, then restart Kiosk Satellite.": "kioskWebViewMissingHelp",
   "The grants the kiosk and lockdown protections lean on.": "searchKioskPermissions",
   "Home screen status": "searchHomeStatus",
-  "Whether Kiosk Satellite is the device home screen, and where to finish setting it as the default.": "searchHomeHelp"
+  "Whether Kiosk Satellite is the device home screen, and where to finish setting it as the default.": "searchHomeHelp",
+  "DuraSpeed is blocking the dashboard": "kioskDuraSpeedBlocking",
+  "This tablet's DuraSpeed keeps the dashboard's renderer from starting, and some tablets give it no settings page. Turn it off once over adb, then restart Kiosk Satellite:": "kioskDuraSpeedBlockingHelp"
 }

@@ -18633,5 +18633,15 @@
     "source": "955927a49c40f59328053660770face0e154a7a1ea6850208af4ad553e413f23",
     "translation": "2a910443341db14c5b598ec8bca9be9998a8e75b36fc71b74e8d6bc53c11226c",
     "author": "Xavier Larrea"
+  },
+  "kioskDuraSpeedBlockingHelp": {
+    "source": "cd9278b0b399ac497ffedc4ee097387c9b63ac840b9b1a4a3a6e673339a6ef2b",
+    "translation": "f3d9ca1c9ab0f2c5aa755e46e0a47d0c0ea5edfcaa9d54f470fe89e895c65c7d",
+    "author": "Xavier Larrea"
+  },
+  "kioskDuraSpeedBlocking": {
+    "source": "267dc9baec38c75236512ae2292cb527f37b37a910719cb78f7e49161e33d462",
+    "translation": "ede6c2e027a8673b96df51f84db6155c69510521f996a0dfb034feed340c4a74",
+    "author": "Xavier Larrea"
   }
 }

@@ -168,4 +168,4 @@ Some tablets show DuraSpeed in **Settings > Apps** or under Battery, with a mast
 adb shell settings put global setting.duraspeed.enabled 0
 ```
 
-Then restart Kiosk Satellite. The setting survives reboots. Lenovo's Battery Manager list is a different thing and does not cause this.
+Then restart Kiosk Satellite. The setting survives reboots. When the renderer keeps failing on a tablet with DuraSpeed installed, the dashboard itself shows this command and a link here. Lenovo's Battery Manager list is a different thing and does not cause this.

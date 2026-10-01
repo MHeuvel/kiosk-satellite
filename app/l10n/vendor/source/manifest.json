@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "25a7c07f0441dc06a75d48c66c80498d0cb6a437",
+  "revision": "aaa021fecc8450717a942a5b9ee214e20c54298c",
   "workingTree": true,
   "files": {
     "about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
@@ -35,7 +35,7 @@
     "gesture_trigger_editor_en.arb": "39ca2a147b63eecc05ab3a6c8d5e9ea4a43489e69fdb478ec79cdb6178692de0",
     "intercom_calls_en.arb": "76790d5c39367e505f5c282e60a64e6370f18620a3923da6bc2b6586cb16b78c",
     "intercom_errors_en.arb": "f4f62075f5beb8bda139356df2baa08b2702b7a8990d0c9d24d253169efd936c",
-    "kiosk_notices_en.arb": "48e8a295ec0ba7bdcb0431941a0f7121a7ae594c508efb632184812a29f167a3",
+    "kiosk_notices_en.arb": "3f473e9d4e9771f1fbf8055cb13d96fbe5be188a3814e4734925c2cbe53d0358",
     "kiosk_pin_en.arb": "5490d54265cd01006e1b8bbb425aff2e8064bdddfd10d9721e7591bd862ce02c",
     "lockdown_shield_en.arb": "7613d309f86c6369ad1dbbbff4a661e1a9cbd15e99d7d973b317b4fd4988a4c2",
     "logs_console_en.arb": "02d7388e4b742757e9472d1b1a77f58adcec0ba4004ba8e0704ab5d017fdce8e",

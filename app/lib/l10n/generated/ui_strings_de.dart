@@ -2353,6 +2353,13 @@ class UiStringsDe extends UiStrings {
       'Auf diesem Gerät ist kein WebView-Anbieter installiert, daher kann Home Assistant nicht angezeigt werden. Installiere Android System WebView oder Chrome und starte Kiosk Satellite neu.';
 
   @override
+  String get kioskDuraSpeedBlocking => 'DuraSpeed blockiert das Dashboard';
+
+  @override
+  String get kioskDuraSpeedBlockingHelp =>
+      'DuraSpeed auf diesem Tablet verhindert den Start des Dashboard-Renderers, und manche Tablets bieten dafür keine Einstellungsseite. Schalte es einmalig per adb aus und starte Kiosk Satellite dann neu:';
+
+  @override
   String get kioskPinTitle => 'Kiosk-PIN';
 
   @override

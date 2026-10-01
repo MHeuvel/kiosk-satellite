@@ -2323,6 +2323,13 @@ class UiStringsUk extends UiStrings {
       'На цьому пристрої немає провайдера WebView, тому неможливо відобразити Home Assistant. Встановіть Android System WebView або Chrome, а потім перезапустіть Kiosk Satellite.';
 
   @override
+  String get kioskDuraSpeedBlocking => 'DuraSpeed блокує панель';
+
+  @override
+  String get kioskDuraSpeedBlockingHelp =>
+      'DuraSpeed на цьому планшеті не дає запуститися рендереру панелі, а на деяких планшетах для нього немає сторінки налаштувань. Вимкніть його один раз через adb, а потім перезапустіть Kiosk Satellite:';
+
+  @override
   String get kioskPinTitle => 'PIN-код кіоска';
 
   @override

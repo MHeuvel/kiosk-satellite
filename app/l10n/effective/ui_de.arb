@@ -8504,6 +8504,28 @@
       "remoteAdmin": []
     }
   },
+  "kioskDuraSpeedBlocking": "DuraSpeed blockiert das Dashboard",
+  "@kioskDuraSpeedBlocking": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Title of the dashboard notice when MediaTek DuraSpeed refuses the WebView renderer.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskDuraSpeedBlockingHelp": "DuraSpeed auf diesem Tablet verhindert den Start des Dashboard-Renderers, und manche Tablets bieten dafür keine Einstellungsseite. Schalte es einmalig per adb aus und starte Kiosk Satellite dann neu:",
+  "@kioskDuraSpeedBlockingHelp": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Help under the DuraSpeed notice, followed by the adb command and a link to the guide.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
   "kioskPinTitle": "Kiosk-PIN",
   "@kioskPinTitle": {
     "context": "Device > Kiosk exit gesture > PIN dialog",

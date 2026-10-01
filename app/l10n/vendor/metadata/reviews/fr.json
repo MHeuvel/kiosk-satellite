@@ -22395,5 +22395,17 @@
     "translation": "43599d2cb8d1623d6c60b619ab1f520f0c2e7e4a9f3541b18a42a7f5f613f8df",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "kioskDuraSpeedBlockingHelp": {
+    "source": "cd9278b0b399ac497ffedc4ee097387c9b63ac840b9b1a4a3a6e673339a6ef2b",
+    "translation": "53f7079d006ce77639ad8aca84f44288c7a91e8a62c2ad561ef5ef99b776bda6",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "kioskDuraSpeedBlocking": {
+    "source": "267dc9baec38c75236512ae2292cb527f37b37a910719cb78f7e49161e33d462",
+    "translation": "284b1937193845672c3f403644566bb4c845e5c47ca7771b8f7c82db8ff2aa7d",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

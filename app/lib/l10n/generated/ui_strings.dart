@@ -4112,6 +4112,18 @@ abstract class UiStrings {
   /// **'This device has no WebView provider, so Home Assistant cannot be shown. Install Android System WebView or Chrome, then restart Kiosk Satellite.'**
   String get kioskWebViewMissingHelp;
 
+  /// Title of the dashboard notice when MediaTek DuraSpeed refuses the WebView renderer.
+  ///
+  /// In en, this message translates to:
+  /// **'DuraSpeed is blocking the dashboard'**
+  String get kioskDuraSpeedBlocking;
+
+  /// Help under the DuraSpeed notice, followed by the adb command and a link to the guide.
+  ///
+  /// In en, this message translates to:
+  /// **'This tablet\'s DuraSpeed keeps the dashboard\'s renderer from starting, and some tablets give it no settings page. Turn it off once over adb, then restart Kiosk Satellite:'**
+  String get kioskDuraSpeedBlockingHelp;
+
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:

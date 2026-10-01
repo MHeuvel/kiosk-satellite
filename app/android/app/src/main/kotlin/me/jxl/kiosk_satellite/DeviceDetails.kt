@@ -935,9 +935,33 @@ class DeviceDetails(
             // "available" is a verdict only where the platform can give one
             // (API 26+): null below that means unknown, not missing.
             val available = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) pkg != null else null
-            mapOf("package" to pkg?.packageName, "version" to pkg?.versionName, "available" to available)
+            mapOf(
+                "package" to pkg?.packageName, "version" to pkg?.versionName, "available" to available,
+                "duraSpeed" to duraSpeed(),
+            )
         } catch (e: Exception) {
-            mapOf("package" to null, "version" to null, "available" to null)
+            mapOf("package" to null, "version" to null, "available" to null, "duraSpeed" to duraSpeed())
         }
+    }
+
+    /**
+     * MediaTek's DuraSpeed, where it is installed and switched on by the
+     * vendor: a background app control that can refuse to start the
+     * WebView's renderer service, which leaves the dashboard black with no
+     * settings page to explain it (a Lenovo Tab M8 on Android 13).
+     */
+    private fun duraSpeed(): Boolean {
+        val installed = try {
+            context.packageManager.getPackageInfo("com.mediatek.duraspeed", 0)
+            true
+        } catch (_: Exception) {
+            false
+        }
+        if (!installed) return false
+        return runCatching {
+            Class.forName("android.os.SystemProperties")
+                .getMethod("get", String::class.java, String::class.java)
+                .invoke(null, "persist.vendor.duraspeed.app.on", "1") as String
+        }.getOrDefault("1") != "0"
     }
 }

@@ -854,7 +854,32 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
     _rendererRecovery = null;
     _unresponsiveStrikes = 0;
     _rendererDeadChecks = 0;
+    _unansweredRebuilds = 0;
+    if (duraSpeedBlocking.value) {
+      duraSpeedBlocking.value = false;
+      log.info(name, 'the dashboard renderer answers again');
+    }
   }
+
+  /// MediaTek's DuraSpeed is refusing the dashboard's renderer, as far as
+  /// the kiosk can tell: a renderer that never answers, rebuilt twice, on
+  /// a device with DuraSpeed installed and on. Android logs the refusal
+  /// ("Unable to launch app ... SandboxedProcessService ... process is
+  /// bad") but the app is never told, and some tablets ship DuraSpeed with
+  /// no settings page, so the dashboard shows what to do instead.
+  final duraSpeedBlocking = ValueNotifier<bool>(false);
+  int _unansweredRebuilds = 0;
+
+  /// Whether DuraSpeed is installed and on; the device details, unless a
+  /// test says otherwise.
+  @visibleForTesting
+  Future<bool> Function() duraSpeedInstalled = () async =>
+      (await DeviceDetails.read()).duraSpeed;
+
+  /// The command the notice shows: the only way to turn DuraSpeed off on a
+  /// tablet that hides it.
+  static const duraSpeedCommand =
+      'adb shell settings put global setting.duraspeed.enabled 0';
 
   Future<void> rebuildFailedRenderer(String reason) async {
     if (_rendererRebuildPending) return;
@@ -867,6 +892,18 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
     _rendererDeadChecks = 0;
     _unresponsiveStrikes = 0;
     log.warn(name, '$reason; rebuilding the WebView');
+    _unansweredRebuilds++;
+    if (_unansweredRebuilds >= 2 &&
+        !duraSpeedBlocking.value &&
+        await duraSpeedInstalled()) {
+      duraSpeedBlocking.value = true;
+      log.error(
+        name,
+        'the dashboard renderer never answers and this device runs '
+        "MediaTek's DuraSpeed, which refuses to start it: turn DuraSpeed "
+        'off with `$duraSpeedCommand` and restart Kiosk Satellite',
+      );
+    }
     final generation = _webViewGeneration;
     if (viewId is int) await WebViewRecovery.prepare(viewId);
     if (generation != _webViewGeneration) return;

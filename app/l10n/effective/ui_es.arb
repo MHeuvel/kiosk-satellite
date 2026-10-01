@@ -8504,6 +8504,28 @@
       "remoteAdmin": []
     }
   },
+  "kioskDuraSpeedBlocking": "DuraSpeed está bloqueando el panel",
+  "@kioskDuraSpeedBlocking": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Title of the dashboard notice when MediaTek DuraSpeed refuses the WebView renderer.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
+  "kioskDuraSpeedBlockingHelp": "El DuraSpeed de esta tableta impide que arranque el renderizador del panel, y algunas tabletas no le dan ninguna página de ajustes. Desactívalo una vez por adb y luego reinicia Kiosk Satellite:",
+  "@kioskDuraSpeedBlockingHelp": {
+    "context": "Kiosk screen > navigation, downloads and status notices",
+    "description": "Help under the DuraSpeed notice, followed by the adb command and a link to the guide.",
+    "x-locations": {
+      "device": [
+        "Kiosk screen > navigation, downloads and status notices"
+      ],
+      "remoteAdmin": []
+    }
+  },
   "kioskPinTitle": "PIN del kiosko",
   "@kioskPinTitle": {
     "context": "Device > Kiosk exit gesture > PIN dialog",
