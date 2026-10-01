@@ -549,7 +549,7 @@ class _AssistOverlayState extends State<AssistOverlay>
     // Anywhere on screen, where it was last dragged: its position is a
     // fraction of the room left around it, so a bubble that grows as the
     // answer comes in keeps to the edge it was put against.
-    return Padding(
+    final placed = Padding(
       padding: EdgeInsets.fromLTRB(
         16 + padding.left,
         16 + padding.top,
@@ -589,6 +589,25 @@ class _AssistOverlayState extends State<AssistOverlay>
             ),
           ],
         ),
+      ),
+    );
+    // What is under it holds its last frame while the conversation runs.
+    // A touch there wants it back: the first one wakes it and goes no
+    // further, since a paused screensaver would let it through to the
+    // dashboard and a paused page would take it without redrawing.
+    return ValueListenableBuilder<bool>(
+      valueListenable: c.voice.underlayPaused,
+      child: placed,
+      builder: (context, paused, child) => Stack(
+        fit: StackFit.expand,
+        children: [
+          if (paused)
+            Listener(
+              behavior: HitTestBehavior.opaque,
+              onPointerDown: (_) => c.voice.wakeUnderlay(),
+            ),
+          child!,
+        ],
       ),
     );
   }

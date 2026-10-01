@@ -2158,15 +2158,49 @@ class VoiceManager extends Manager {
       shown = shown.copyWith(answer: stripSentimentTags(next.answer));
     }
     // Visible either way: the screensaver holds its screen off timer
-    // under both. Only full screen covers what is under it, which the
-    // browser and the screensaver then pause. Docked, both stay live.
+    // under both, and what is under it pauses (see [underlayPaused]).
     final was = view.value;
+    if (!shown.visible) _underlayWoken = false;
+    // Before the view: the overlay reads it as the view changes.
+    underlayPaused.value = _pausesUnder(shown);
     view.value = shown;
     if (!next.visible) level.value = 0;
+    _publishOverlay(was);
+  }
+
+  /// What is under the overlay holds its last frame: the dashboard, a
+  /// camera view and an expensive screensaver stop rendering while a
+  /// conversation runs over them, which on a slow kiosk is most of what it
+  /// draws. Docked, a touch outside the bubble wants the screen under it:
+  /// it wakes them until the overlay goes ([wakeUnderlay]).
+  final underlayPaused = ValueNotifier<bool>(false);
+  bool _underlayWoken = false;
+
+  void wakeUnderlay() {
+    if (_underlayWoken || !view.value.visible) return;
+    _underlayWoken = true;
+    underlayPaused.value = _pausesUnder(view.value);
+    _publishOverlay(view.value);
+  }
+
+  bool _pausesUnder(AssistView shown) =>
+      shown.visible && (!shown.docked || !_underlayWoken);
+
+  /// What the last [AssistOverlayVisibility] said it paused.
+  bool _publishedPauses = false;
+
+  void _publishOverlay(AssistView was) {
+    final shown = view.value;
     final wasCovering = was.visible && !was.docked;
     final covers = shown.visible && !shown.docked;
-    if (was.visible != shown.visible || wasCovering != covers) {
-      bus.publish(AssistOverlayVisibility(shown.visible, covers: covers));
+    final pauses = _pausesUnder(shown);
+    if (was.visible != shown.visible ||
+        wasCovering != covers ||
+        _publishedPauses != pauses) {
+      _publishedPauses = pauses;
+      bus.publish(
+        AssistOverlayVisibility(shown.visible, covers: covers, pauses: pauses),
+      );
     }
   }
 
