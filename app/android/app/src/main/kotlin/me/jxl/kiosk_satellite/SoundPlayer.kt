@@ -390,37 +390,59 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
                         .setChannelMask(channelMask)
                         .build(),
                 )
-                // The whole clip lives in the track: one write, then play.
-                .setTransferMode(AudioTrack.MODE_STATIC)
-                .setBufferSizeInBytes(clip.pcm.size)
+                // The whole clip lives in the track: one write, then play. A
+                // streaming track rather than a static one: a static track's
+                // playback head starts the echo canceller's reference off by
+                // a varying 60 to 140 ms until its first timestamp, where a
+                // streaming one is steady (measured on a Galaxy Tab S8).
+                .setTransferMode(AudioTrack.MODE_STREAM)
+                .setBufferSizeInBytes(clip.pcm.size + leadBytes(clip))
                 .build()
         } catch (e: Exception) {
             Log.w(TAG, "clip track failed for $id: ${e.message}")
             mainHandler.post { if (requests[id] === request) playWithExo(id, source, target) }
             return
         }
+        var leadFrames = 0
         try {
-            track.write(clip.pcm, 0, clip.pcm.size)
             track.setVolume(effectiveVolume(id))
             clipTaps.remove(id)?.close()
-            clipTaps[id] = TrackTap(track, clip.sampleRate, if (clip.channels >= 2) 2 else 1).also {
+            val tap = TrackTap(track, clip.sampleRate, if (clip.channels >= 2) 2 else 1).also {
                 it.gain = effectiveVolume(id)
-                it.wrote(clip.pcm, 0, clip.pcm.size)
             }
+            clipTaps[id] = tap
             if (Build.VERSION.SDK_INT >= 28) {
                 target?.let {
                     track.preferredDevice = it
                     enforceRouting(id, track)
                 }
             }
+            // Silence until the track's clock has settled, a step at a time,
+            // so the echo canceller's reference is placed right from the
+            // clip's first audible frame (see LeadInProcessor).
+            val step = ByteArray(clip.sampleRate / 100 * (if (clip.channels >= 2) 2 else 1) * 2)
+            var lead = 0
             synchronized(tracks) {
                 if (requests[id] !== request) {
                     track.release()
                     return
                 }
                 tracks[id] = track
+                track.write(step, 0, step.size)
+                tap.wrote(step, 0, step.size)
+                lead += step.size
                 track.play()
             }
+            while (lead < leadBytes(clip) && !tap.settled && requests[id] === request) {
+                Thread.sleep(10)
+                track.write(step, 0, step.size)
+                tap.wrote(step, 0, step.size)
+                lead += step.size
+            }
+            if (requests[id] !== request) return
+            track.write(clip.pcm, 0, clip.pcm.size)
+            tap.wrote(clip.pcm, 0, clip.pcm.size)
+            leadFrames = lead / step.size * (clip.sampleRate / 100)
         } catch (e: Exception) {
             Log.w(TAG, "clip play failed for $id: ${e.message}")
             synchronized(tracks) { if (tracks[id] === track) tracks.remove(id) }
@@ -432,13 +454,19 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
             if (requests[id] === request) channel.invokeMethod("started", mapOf("id" to id))
         }
         emitClipLevels(id, clip, request)
-        awaitClipDrain(id, track, clip, request)
+        awaitClipDrain(id, track, clip, request, leadFrames)
     }
 
-    private fun awaitClipDrain(id: String, track: AudioTrack, clip: SoundClips.Clip, request: PlaybackRequest) {
+    /** The most silence a clip plays ahead of itself, in bytes. */
+    private fun leadBytes(clip: SoundClips.Clip): Int =
+        clip.sampleRate * LeadInProcessor.MAX_MS / 1000 * (if (clip.channels >= 2) 2 else 1) * 2
+
+    /** [leadFrames] of silence played ahead of the clip count toward its end. */
+    private fun awaitClipDrain(id: String, track: AudioTrack, clip: SoundClips.Clip, request: PlaybackRequest, leadFrames: Int) {
         val beganNs = System.nanoTime()
-        val timeoutNs = beganNs + (clip.durationMs + 5000L) * 1_000_000L
-        val drain = ClipDrain(clip.frames.toLong(), clip.sampleRate)
+        val leadMs = leadFrames * 1000L / clip.sampleRate
+        val timeoutNs = beganNs + (clip.durationMs + leadMs + 5000L) * 1_000_000L
+        val drain = ClipDrain(clip.frames.toLong() + leadFrames, clip.sampleRate)
         val timestamp = AudioTimestamp()
         // The playback head precedes the speaker on buffered output paths.
         // Use the driver's latency only when presentation timestamps fail.
@@ -465,7 +493,7 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
                 } else workerHandler.postDelayed(this, 25)
             }
         }
-        workerHandler.postDelayed(poll, clip.durationMs.toLong())
+        workerHandler.postDelayed(poll, clip.durationMs.toLong() + leadMs)
     }
 
     /**

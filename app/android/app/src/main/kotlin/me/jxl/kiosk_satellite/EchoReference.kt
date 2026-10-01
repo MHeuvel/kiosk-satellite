@@ -202,6 +202,18 @@ class TrackClock(private val track: AudioTrack) {
 
     private val bufferFrames = runCatching { track.bufferSizeInFrames.toLong() }.getOrDefault(0L)
 
+    /**
+     * Whether the track has given a timestamp since [reset]. Until then the
+     * speaker's place comes from the playback head, which runs ahead of
+     * the speaker by a different amount at every track's start (27 to
+     * 133 ms measured on a Galaxy Tab S8 against 75 settled), so a sound
+     * that starts before it is placed wrong and then snaps into place,
+     * which makes the canceller relearn. Players keep the first few
+     * hundred milliseconds silent until this is true ([LeadInProcessor]).
+     */
+    @Volatile var settled = false
+        private set
+
     init {
         reset()
     }
@@ -211,6 +223,7 @@ class TrackClock(private val track: AudioTrack) {
         synchronized(lock) {
             headBase = head()
             headClock.reset()
+            settled = false
         }
     }
 
@@ -244,6 +257,7 @@ class TrackClock(private val track: AudioTrack) {
                 (now - timestamp.nanoTime) * rate / 1_000_000_000L
             if (at in 0..head && head - at < rate / 4) {
                 val lagUs = (head - at) * 1_000_000L / rate
+                settled = true
                 measuredLatencyUs = if (measuredLatencyUs < 0) lagUs else (measuredLatencyUs * 7 + lagUs) / 8
                 measuredByRate[rate] = measuredLatencyUs
                 return@synchronized at.coerceAtMost(written)
@@ -267,6 +281,9 @@ class TrackTap(
     private val clock: (() -> Long)? = null,
 ) : PresentedQueue(rate) {
     private val trackClock = TrackClock(track)
+
+    /** See [TrackClock.settled]. */
+    val settled: Boolean get() = clock != null || trackClock.settled
 
     init {
         EchoReference.add(this)
@@ -310,6 +327,9 @@ class SinkTap : PresentedQueue(48000), androidx.media3.exoplayer.audio.TeeAudioP
     private var channels = 2
     private var pcm16 = true
     @Volatile private var trackClock: TrackClock? = null
+
+    /** See [TrackClock.settled]. */
+    val settled: Boolean get() = trackClock?.settled == true
 
     init {
         EchoReference.add(this)
@@ -359,14 +379,71 @@ class SinkTap : PresentedQueue(48000), androidx.media3.exoplayer.audio.TeeAudioP
     }
 }
 
-/** A Media3 audio sink whose PCM and track both go to [tap]. */
+/**
+ * Silence ahead of a sound until its track's clock has settled
+ * ([TrackClock.settled]), at most [MAX_MS]: the echo canceller then hears
+ * every audible frame from a reference placed right, instead of
+ * relearning the echo path over the first third of a second of every
+ * answer. The sound starts 80 to 250 ms later for it.
+ */
+class LeadInProcessor(private val settled: () -> Boolean) :
+    androidx.media3.common.audio.BaseAudioProcessor() {
+    companion object {
+        const val MAX_MS = 300
+    }
+
+    private var frameBytes = 2
+    private var stepFrames = 160
+    private var leadFrames = 0
+
+    override fun onConfigure(
+        inputAudioFormat: androidx.media3.common.audio.AudioProcessor.AudioFormat,
+    ): androidx.media3.common.audio.AudioProcessor.AudioFormat {
+        if (inputAudioFormat.encoding != androidx.media3.common.C.ENCODING_PCM_16BIT) {
+            throw androidx.media3.common.audio.AudioProcessor.UnhandledAudioFormatException(inputAudioFormat)
+        }
+        frameBytes = inputAudioFormat.channelCount * 2
+        stepFrames = inputAudioFormat.sampleRate / 100
+        leadFrames = inputAudioFormat.sampleRate * MAX_MS / 1000
+        return inputAudioFormat
+    }
+
+    override fun queueInput(inputBuffer: ByteBuffer) {
+        if (leadFrames > 0 && !settled()) {
+            // A step of silence, and the input waits: the sink queues it
+            // again once this output is taken.
+            val n = minOf(leadFrames, stepFrames)
+            leadFrames -= n
+            val out = replaceOutputBuffer(n * frameBytes)
+            for (i in 0 until n * frameBytes) out.put(0)
+            out.flip()
+            return
+        }
+        leadFrames = 0
+        val remaining = inputBuffer.remaining()
+        if (remaining == 0) return
+        replaceOutputBuffer(remaining).put(inputBuffer).flip()
+    }
+
+    override fun onFlush() {
+        leadFrames = if (stepFrames > 0) stepFrames * 100 * MAX_MS / 1000 else 0
+    }
+}
+
+/** A Media3 audio sink whose PCM and track both go to [tap], after a lead-in. */
 fun tappedSink(
     context: android.content.Context,
     tap: SinkTap,
     vararg before: androidx.media3.common.audio.AudioProcessor,
 ): androidx.media3.exoplayer.audio.AudioSink =
     androidx.media3.exoplayer.audio.DefaultAudioSink.Builder(context)
-        .setAudioProcessors(arrayOf(*before, androidx.media3.exoplayer.audio.TeeAudioProcessor(tap)))
+        .setAudioProcessors(
+            arrayOf(
+                LeadInProcessor { tap.settled },
+                *before,
+                androidx.media3.exoplayer.audio.TeeAudioProcessor(tap),
+            ),
+        )
         .setAudioTrackProvider(tap.trackProvider())
         .build()
 

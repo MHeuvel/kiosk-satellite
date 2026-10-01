@@ -23,8 +23,10 @@ import java.util.concurrent.TimeUnit
  *
  * It plays only while there is an answer. Feeding it silence between
  * answers, as a call's downlink does, made the echo canceller worse on a
- * Galaxy Tab S8 (a median of 388 against 59 in the microphone while an
- * answer played): see RealtimeSession's echo settling for what helps.
+ * Galaxy Tab S8, twice: a median of 388 against 59 in the microphone
+ * while an answer played with the old reference clock, and 39 leaked
+ * frames against 2 over a story with the new one. See RealtimeSession's
+ * echo settling for what helps.
  *
  * It never drops a backlog. A realtime model sends its answer
  * faster than it plays, so the whole answer can sit in the queue, and
@@ -55,6 +57,7 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
 
         /** Answer audio goes to the track in slices, so a flush lands between them. */
         private const val SLICE_MS = 40
+
     }
 
     private val appContext = context.applicationContext
@@ -224,7 +227,10 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
                 while (offset < chunk.size && track === t) {
                     val at = epoch
                     val length = minOf(slice, chunk.size - offset)
-                    val start = synchronized(lock) { streamWritten }
+                    val start = synchronized(lock) {
+                        tap?.wrote(chunk, offset, length)
+                        streamWritten
+                    }
                     val n = try {
                         t.write(chunk, offset, length, AudioTrack.WRITE_BLOCKING)
                     } catch (e: Exception) {
@@ -233,11 +239,11 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
                     }
                     if (n <= 0) break
                     synchronized(lock) {
-                        // A flush during the write threw it away.
+                        // A flush during the write threw it away (and the
+                        // tap with it: a flush restarts the tap).
                         if (epoch == at) {
                             pieces.addLast(longArrayOf(start, n / 2L))
                             streamWritten += n / 2
-                            tap?.wrote(chunk, offset, n)
                         }
                     }
                     if (epoch != at) break
