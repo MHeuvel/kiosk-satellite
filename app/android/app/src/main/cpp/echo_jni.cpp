@@ -151,7 +151,11 @@ Java_me_jxl_kiosk_1satellite_SoftwareEcho_nativeNsCreate(JNIEnv*, jclass, jint r
     if (!apm) return 0;
     webrtc::AudioProcessing::Config config;
     config.noise_suppression.enabled = true;
-    config.noise_suppression.level = webrtc::AudioProcessing::Config::NoiseSuppression::kHigh;
+    // Moderate takes an Echo Show 8's hiss out of an intercom call and
+    // leaves the room (an air conditioner's hum) as it is. High did the
+    // same for the hiss, and Low was never needed.
+    config.noise_suppression.level =
+        webrtc::AudioProcessing::Config::NoiseSuppression::kModerate;
     config.gain_controller1.enabled = false;
     config.gain_controller2.enabled = false;
     apm->ApplyConfig(config);
