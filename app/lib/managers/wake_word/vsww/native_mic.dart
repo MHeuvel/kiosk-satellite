@@ -22,6 +22,9 @@ class NativeMic {
   /// WebRTC's echo canceller over the capture, fed what the kiosk plays.
   static bool softwareEchoCancellation = true;
 
+  /// WebRTC's noise suppressor over the capture.
+  static bool noiseSuppression = false;
+
   /// 1-based channel of a multichannel microphone to capture; 0 lets the
   /// platform downmix (which averages every channel together).
   static num channel = 0;
@@ -41,6 +44,7 @@ class NativeMic {
         if (deviceSelector.isNotEmpty) 'device': deviceSelector,
         'gainDb': gainDb,
         'softwareAec': softwareEchoCancellation,
+        'noiseSuppression': noiseSuppression,
         'channel': channel,
         'format': captureFormat,
       })

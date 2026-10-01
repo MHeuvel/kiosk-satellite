@@ -2613,6 +2613,10 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingMicSoftwareEchoCancellationTitle,
       'settingMicSoftwareEchoCancellationDescription' =>
         strings.settingMicSoftwareEchoCancellationDescription,
+      'settingMicNoiseSuppressionTitle' =>
+        strings.settingMicNoiseSuppressionTitle,
+      'settingMicNoiseSuppressionDescription' =>
+        strings.settingMicNoiseSuppressionDescription,
       'settingMicChannelTitle' => strings.settingMicChannelTitle,
       'settingMicChannelDescription' => strings.settingMicChannelDescription,
       'settingMicGainDbTitle' => strings.settingMicGainDbTitle,

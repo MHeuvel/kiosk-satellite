@@ -13980,10 +13980,15 @@
     "provenance": "e69b7988f2fca16116639e0fd6a63d4430c75f4c4c7ad86d875642d5cdf89b58"
   },
   "settingMicNoiseSuppressionDescription": {
-    "source": "0c21fbf558570e48baf728ce8d9e816795641a008458172af7387e347821ec5d",
-    "translation": "db23c08eb15155da1ba7d59b04c81482afce49774c6f9540dff49c5aee4e9d6d",
+    "source": "d47f99407d0dd6ab0412d0df160a435d782fe9f27df08adefb78e949fa7abdc1",
+    "translation": "e412fde8a689f1a0232146b7d1ac8a9798692a9fd784f27930a883439b12e9c1",
     "author": "Dee-san",
-    "provenance": "e69b7988f2fca16116639e0fd6a63d4430c75f4c4c7ad86d875642d5cdf89b58"
+    "provenance": "e69b7988f2fca16116639e0fd6a63d4430c75f4c4c7ad86d875642d5cdf89b58",
+    "maintainerCorrection": {
+      "reviewer": "Xavier Larrea",
+      "originalTranslation": "db23c08eb15155da1ba7d59b04c81482afce49774c6f9540dff49c5aee4e9d6d",
+      "reason": "Noise suppression is WebRTC's now and works on the raw microphone; the hint says what it is for."
+    }
   },
   "settingMicGainDbTitle": {
     "source": "a85416202af42424cb92da079c1802b11b755ad9c97a080fb9833f835bf5be3b",
@@ -14016,14 +14021,14 @@
     "provenance": "e69b7988f2fca16116639e0fd6a63d4430c75f4c4c7ad86d875642d5cdf89b58"
   },
   "screenAudioMicrophoneHint": {
-    "source": "596dd2116c278e8b510575a7a85659079d0e57b70bd9122972fd67d72618405a",
-    "translation": "b236cfa0d1ccfa34ba0d7c525f09d2d20dffe04cddce436b91bd6d97a828322a",
+    "source": "624599a4bc1508100c2f5866a72415acc1ffd6cc9622e2c2a31c8bd41f694e2d",
+    "translation": "1ca1b98cff07f63b0b15ebd2a0b81253d9fbbcfd381659a617cd9b28a66d5cc7",
     "author": "Dee-san",
     "provenance": "e69b7988f2fca16116639e0fd6a63d4430c75f4c4c7ad86d875642d5cdf89b58",
     "maintainerCorrection": {
       "reviewer": "Xavier Larrea",
       "originalTranslation": "79066759f82f60857504311dd8383814aeae78582af5d46cc7b2fde5d95cd201",
-      "reason": "The page lost its capture mode and gained the echo cancellation switch; the hint names what is there now."
+      "reason": "The page has a noise suppression switch again; the hint names it."
     }
   },
   "screenAudioMicrophoneNote": {

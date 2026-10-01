@@ -32071,6 +32071,32 @@
       ]
     }
   },
+  "settingMicNoiseSuppressionTitle": "Rauschunterdrückung",
+  "@settingMicNoiseSuppressionTitle": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
+  "settingMicNoiseSuppressionDescription": "Entfernt das Rauschen aus dem Mikrofon. Sie verändert, was das Aktivierungswort hört, also schalte sie bei einem rauschenden Mikrofon ein.",
+  "@settingMicNoiseSuppressionDescription": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
   "settingMicChannelTitle": "Mikrofonkanal",
   "@settingMicChannelTitle": {
     "context": "Settings:Screen & Audio:Microphone settings",
@@ -32162,7 +32188,7 @@
       ]
     }
   },
-  "screenAudioMicrophoneHint": "Echounterdrückung, Verstärkung, Format und Echtzeit-Pegel",
+  "screenAudioMicrophoneHint": "Echounterdrückung, Rauschen, Verstärkung, Format und Echtzeit-Pegel",
   "@screenAudioMicrophoneHint": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",

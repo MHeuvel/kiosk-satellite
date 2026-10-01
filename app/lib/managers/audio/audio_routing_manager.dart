@@ -74,6 +74,7 @@ class AudioRoutingManager extends Manager {
         // session; the hub reopens it with the values just pushed.
         await MicHub.instance.bounce();
       } else if (e.key == defs.micSoftwareEchoCancellation.key ||
+          e.key == defs.micNoiseSuppression.key ||
           e.key == defs.micGainDb.key ||
           e.key == defs.micChannel.key ||
           e.key == defs.micCaptureFormat.key) {
@@ -176,6 +177,7 @@ class AudioRoutingManager extends Manager {
     NativeMic.softwareEchoCancellation = _settings.get(
       defs.micSoftwareEchoCancellation,
     );
+    NativeMic.noiseSuppression = _settings.get(defs.micNoiseSuppression);
     NativeMic.gainDb = _settings.get(defs.micGainDb);
     NativeMic.channel = _settings.get(defs.micChannel);
     NativeMic.captureFormat = _settings.get(defs.micCaptureFormat);

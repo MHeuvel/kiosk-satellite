@@ -8729,6 +8729,13 @@ class UiStringsFr extends UiStrings {
       'Retire du microphone les sons émis par le kiosque pour que ni le mot de réveil ni l\'assistant ne les entendent. Laissez-la activée, sauf si un microphone qui annule lui-même son écho sonne moins bien avec elle.';
 
   @override
+  String get settingMicNoiseSuppressionTitle => 'Réduction du bruit';
+
+  @override
+  String get settingMicNoiseSuppressionDescription =>
+      'Supprime le souffle du microphone. Elle modifie ce que le mot de réveil entend, activez-la donc pour un microphone qui souffle.';
+
+  @override
   String get settingMicChannelTitle => 'Canal du microphone';
 
   @override
@@ -8754,7 +8761,7 @@ class UiStringsFr extends UiStrings {
 
   @override
   String get screenAudioMicrophoneHint =>
-      'Annulation d\'écho, gain, format, niveau en direct';
+      'Annulation d\'écho, bruit, gain, format, niveau en direct';
 
   @override
   String get screenAudioMicrophoneNote =>

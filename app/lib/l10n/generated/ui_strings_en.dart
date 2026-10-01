@@ -8563,6 +8563,13 @@ class UiStringsEn extends UiStrings {
       'Removes the kiosk\'s own sounds from the microphone so the wake word and the assistant do not hear them. Leave it on unless a microphone that cancels its own echo sounds worse with it.';
 
   @override
+  String get settingMicNoiseSuppressionTitle => 'Noise suppression';
+
+  @override
+  String get settingMicNoiseSuppressionDescription =>
+      'Takes the hiss out of the microphone. It changes what the wake word hears, so turn it on for a microphone that hisses.';
+
+  @override
   String get settingMicChannelTitle => 'Microphone channel';
 
   @override
@@ -8588,7 +8595,7 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get screenAudioMicrophoneHint =>
-      'Echo cancellation, gain, format, live level';
+      'Echo cancellation, noise, gain, format, live level';
 
   @override
   String get screenAudioMicrophoneNote =>

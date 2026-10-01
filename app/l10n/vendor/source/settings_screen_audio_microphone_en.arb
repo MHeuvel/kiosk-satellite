@@ -26,6 +26,32 @@
       ]
     }
   },
+  "settingMicNoiseSuppressionTitle": "Noise suppression",
+  "@settingMicNoiseSuppressionTitle": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
+  "settingMicNoiseSuppressionDescription": "Takes the hiss out of the microphone. It changes what the wake word hears, so turn it on for a microphone that hisses.",
+  "@settingMicNoiseSuppressionDescription": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
   "settingMicChannelTitle": "Microphone channel",
   "@settingMicChannelTitle": {
     "context": "Settings:Screen & Audio:Microphone settings",
@@ -117,7 +143,7 @@
       ]
     }
   },
-  "screenAudioMicrophoneHint": "Echo cancellation, gain, format, live level",
+  "screenAudioMicrophoneHint": "Echo cancellation, noise, gain, format, live level",
   "@screenAudioMicrophoneHint": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",

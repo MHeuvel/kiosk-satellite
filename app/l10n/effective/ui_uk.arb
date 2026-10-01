@@ -32071,6 +32071,32 @@
       ]
     }
   },
+  "settingMicNoiseSuppressionTitle": "Шумозаглушення",
+  "@settingMicNoiseSuppressionTitle": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
+  "settingMicNoiseSuppressionDescription": "Прибирає шипіння з мікрофона. Воно змінює те, що чує слово активації, тож вмикайте його для мікрофона, який шипить.",
+  "@settingMicNoiseSuppressionDescription": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
   "settingMicChannelTitle": "Канал мікрофона",
   "@settingMicChannelTitle": {
     "context": "Settings:Screen & Audio:Microphone settings",
@@ -32162,7 +32188,7 @@
       ]
     }
   },
-  "screenAudioMicrophoneHint": "Ехопоглинання, підсилення, формат, поточний рівень",
+  "screenAudioMicrophoneHint": "Ехопоглинання, шум, підсилення, формат, поточний рівень",
   "@screenAudioMicrophoneHint": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",

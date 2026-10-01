@@ -32071,6 +32071,32 @@
       ]
     }
   },
+  "settingMicNoiseSuppressionTitle": "Supresión de ruido",
+  "@settingMicNoiseSuppressionTitle": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
+  "settingMicNoiseSuppressionDescription": "Quita el siseo del micrófono. Cambia lo que oye la palabra de activación, así que actívala para un micrófono que sisea.",
+  "@settingMicNoiseSuppressionDescription": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
   "settingMicChannelTitle": "Canal del micrófono",
   "@settingMicChannelTitle": {
     "context": "Settings:Screen & Audio:Microphone settings",
@@ -32162,7 +32188,7 @@
       ]
     }
   },
-  "screenAudioMicrophoneHint": "Cancelación de eco, ganancia, formato y nivel en tiempo real",
+  "screenAudioMicrophoneHint": "Cancelación de eco, ruido, ganancia, formato y nivel en tiempo real",
   "@screenAudioMicrophoneHint": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",

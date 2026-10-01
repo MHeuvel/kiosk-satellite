@@ -155,6 +155,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         val args = arguments as? Map<*, *>
         val source = MediaRecorder.AudioSource.MIC
         val wantSoftwareAec = args?.get("softwareAec") != false
+        val wantNs = args?.get("noiseSuppression") == true
         // A gain of 0 dB is the overwhelmingly common case, and a factor of
         // exactly 1 lets the read loop skip the sample walk entirely.
         val gain = gainFactor((args?.get("gainDb") as? Number)?.toDouble() ?: 0.0)
@@ -206,13 +207,14 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         Log.i(
             TAG,
             "capture opening (device=${selector ?: "automatic"} " +
-                "gain=${"%.1f".format(gainDbOf(gain))}dB echo-cancellation=$wantSoftwareAec" +
+                "gain=${"%.1f".format(gainDbOf(gain))}dB echo-cancellation=$wantSoftwareAec ns=$wantNs" +
                 (if (wantChannel >= 1) " channel=$wantChannel/${ladder[step].channels}" else "") +
                 " format=${ladder[step]}" +
                 (if (hardwareFormat) " hardware-format" else "") + ")",
         )
         applyPreferredDevice(opened, selector)
         SoftwareEcho.setEnabled(wantSoftwareAec)
+        SoftwareEcho.setNoiseSuppression(wantNs)
         // Four 80 ms chunks cover ordinary scheduling jitter. A stalled
         // platform thread must not retain an unlimited history of audio.
         val frames = PcmDelivery(
@@ -699,6 +701,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         }
         record = null
         SoftwareEcho.setEnabled(false)
+        SoftwareEcho.setNoiseSuppression(false)
         // Only tear down Bluetooth routing this recorder brought up; a stop
         // with automatic routing must not disturb whatever else holds it.
         if (commDeviceSet || scoStarted) {

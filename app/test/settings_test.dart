@@ -167,6 +167,7 @@ void main() {
     () async {
       await build({});
       expect(settings.get(defs.micSoftwareEchoCancellation), isTrue);
+      expect(settings.get(defs.micNoiseSuppression), isFalse);
       expect(settings.get(defs.micGainDb), 0);
       expect(settings.get(defs.micCaptureFormat), 'auto');
     },

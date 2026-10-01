@@ -173,6 +173,7 @@ void main() {
     ];
     expect(moved, [
       defs.micSoftwareEchoCancellation.key,
+      defs.micNoiseSuppression.key,
       defs.micGainDb.key,
       defs.micCaptureFormat.key,
       // Hidden and hand-built (its options run to the mic's channel count),

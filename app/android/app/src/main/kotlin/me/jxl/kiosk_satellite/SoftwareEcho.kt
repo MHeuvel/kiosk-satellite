@@ -43,6 +43,35 @@ object SoftwareEcho {
     private var workingSinceNs = 0L
 
     /**
+     * WebRTC's noise suppressor over every capture chunk, after the
+     * canceller: a microphone's hiss is there whether or not anything
+     * plays, and it carried straight into intercom calls on an Echo Show
+     * 8. Its own module, so it runs while the canceller's rests.
+     */
+    private var nsHandle = 0L
+
+    /** Whether the suppressor runs. */
+    @Volatile var noiseSuppression = false
+        private set
+
+    fun setNoiseSuppression(on: Boolean) {
+        synchronized(lock) {
+            if (on == noiseSuppression) return
+            if (on) {
+                if (!loaded) return
+                val created = nativeNsCreate(RATE)
+                if (created == 0L) return
+                nsHandle = created
+                noiseSuppression = true
+            } else {
+                noiseSuppression = false
+                nativeDestroy(nsHandle)
+                nsHandle = 0L
+            }
+        }
+    }
+
+    /**
      * How far a chunk's place by the clock may stray from where the last
      * chunk ended and still follow on from it. A track's position comes in
      * mixer-sized steps a few milliseconds apart: jumping on each of them
@@ -136,8 +165,24 @@ object SoftwareEcho {
 
     /** One capture chunk of 16 kHz mono PCM16 whose last frame was heard at [heardNs], cleaned in place. */
     fun process(chunk: ByteArray, heardNs: Long) {
-        if (!enabled) return
+        if (!enabled && !noiseSuppression) return
         synchronized(lock) {
+            cancel(chunk, heardNs)
+            val ns = nsHandle
+            if (ns != 0L) {
+                var at = 0
+                while (at + FRAME_BYTES <= chunk.size) {
+                    nativeNsProcess(ns, chunk, at)
+                    at += FRAME_BYTES
+                }
+            }
+        }
+    }
+
+    /** The canceller's share of [process], under [lock]. */
+    private fun cancel(chunk: ByteArray, heardNs: Long) {
+        if (!enabled) return
+        run {
             val h = handle
             if (h == 0L) return
             val sources = EchoReference.sources()
@@ -264,4 +309,6 @@ object SoftwareEcho {
     @JvmStatic private external fun nativeCapture(handle: Long, pcm: ByteArray, offset: Int)
     @JvmStatic private external fun nativeStats(handle: Long): DoubleArray
     @JvmStatic private external fun nativeDestroy(handle: Long)
+    @JvmStatic private external fun nativeNsCreate(rate: Int): Long
+    @JvmStatic private external fun nativeNsProcess(handle: Long, pcm: ByteArray, offset: Int)
 }

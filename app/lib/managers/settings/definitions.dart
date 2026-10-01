@@ -227,7 +227,7 @@ const Map<String, String> subpageHints = {
   'Wake word diagnostics':
       'Recent activations and near misses with audio clips',
   // Screen & Audio.
-  'Microphone settings': 'Echo cancellation, gain, format, live level',
+  'Microphone settings': 'Echo cancellation, noise, gain, format, live level',
   'Adaptive brightness': 'Follow the room light with the ambient light sensor',
   // Screensaver. The six mode pages only exist while that mode is the
   // one selected, since every setting on them gates on it.
@@ -4995,6 +4995,25 @@ const micSoftwareEchoCancellation = SettingDef<bool>(
   perDevice: true,
 );
 
+/// WebRTC's noise suppressor over the capture (SoftwareEcho.kt), on any
+/// source: the raw microphone's hiss carried straight into intercom calls
+/// on an Echo Show 8. Off by default, since it changes what the wake word
+/// hears. The key is the old platform suppressor's, so a kiosk that had it
+/// on keeps it on.
+const micNoiseSuppression = SettingDef<bool>(
+  key: 'audio.mic_noise_suppression',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Noise suppression',
+  description:
+      'Takes the hiss out of the microphone. It changes what the wake '
+      'word hears, so turn it on for a microphone that hisses.',
+  category: 'Screen & Audio',
+  section: 'Microphone settings',
+  subpage: 'Microphone settings',
+  perDevice: true,
+);
+
 // Hidden: rendered as a hand-built dropdown (device settings screen and the
 // remote UI both) because its options depend on live hardware - the row only
 // exists when the selected microphone reports more than one channel, and the
@@ -9669,6 +9688,7 @@ const List<SettingDef<Object>> allSettings = [
   audioMicDevice,
   audioSpeakerDevice,
   micSoftwareEchoCancellation,
+  micNoiseSuppression,
   micGainDb,
   micCaptureFormat,
   // Hand-built row: renders after the gain in both UIs, and only when the

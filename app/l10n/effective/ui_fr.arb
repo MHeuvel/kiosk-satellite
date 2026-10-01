@@ -32071,6 +32071,32 @@
       ]
     }
   },
+  "settingMicNoiseSuppressionTitle": "Réduction du bruit",
+  "@settingMicNoiseSuppressionTitle": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
+  "settingMicNoiseSuppressionDescription": "Supprime le souffle du microphone. Elle modifie ce que le mot de réveil entend, activez-la donc pour un microphone qui souffle.",
+  "@settingMicNoiseSuppressionDescription": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
   "settingMicChannelTitle": "Canal du microphone",
   "@settingMicChannelTitle": {
     "context": "Settings:Screen & Audio:Microphone settings",
@@ -32162,7 +32188,7 @@
       ]
     }
   },
-  "screenAudioMicrophoneHint": "Annulation d'écho, gain, format, niveau en direct",
+  "screenAudioMicrophoneHint": "Annulation d'écho, bruit, gain, format, niveau en direct",
   "@screenAudioMicrophoneHint": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",

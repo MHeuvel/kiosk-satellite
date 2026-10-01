@@ -14899,6 +14899,18 @@ abstract class UiStrings {
   /// Setting label.
   ///
   /// In en, this message translates to:
+  /// **'Noise suppression'**
+  String get settingMicNoiseSuppressionTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Takes the hiss out of the microphone. It changes what the wake word hears, so turn it on for a microphone that hisses.'**
+  String get settingMicNoiseSuppressionDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
   /// **'Microphone channel'**
   String get settingMicChannelTitle;
 
@@ -14941,7 +14953,7 @@ abstract class UiStrings {
   /// Heading, choice, status or guidance shown in this group.
   ///
   /// In en, this message translates to:
-  /// **'Echo cancellation, gain, format, live level'**
+  /// **'Echo cancellation, noise, gain, format, live level'**
   String get screenAudioMicrophoneHint;
 
   /// Heading, choice, status or guidance shown in this group.

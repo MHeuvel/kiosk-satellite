@@ -8657,6 +8657,13 @@ class UiStringsUk extends UiStrings {
       'Прибирає з мікрофона власні звуки кіоска, щоб їх не чули ні слово активації, ні асистент. Залишайте увімкненим, якщо тільки мікрофон із власним ехопоглинанням не звучить гірше з ним.';
 
   @override
+  String get settingMicNoiseSuppressionTitle => 'Шумозаглушення';
+
+  @override
+  String get settingMicNoiseSuppressionDescription =>
+      'Прибирає шипіння з мікрофона. Воно змінює те, що чує слово активації, тож вмикайте його для мікрофона, який шипить.';
+
+  @override
   String get settingMicChannelTitle => 'Канал мікрофона';
 
   @override
@@ -8682,7 +8689,7 @@ class UiStringsUk extends UiStrings {
 
   @override
   String get screenAudioMicrophoneHint =>
-      'Ехопоглинання, підсилення, формат, поточний рівень';
+      'Ехопоглинання, шум, підсилення, формат, поточний рівень';
 
   @override
   String get screenAudioMicrophoneNote =>

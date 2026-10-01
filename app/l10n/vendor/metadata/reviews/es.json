@@ -11445,8 +11445,8 @@
     "author": "Xavier Larrea"
   },
   "settingMicNoiseSuppressionDescription": {
-    "source": "0c21fbf558570e48baf728ce8d9e816795641a008458172af7387e347821ec5d",
-    "translation": "0d461aaccebe70e7b35fd6d833798f2d4f38f1628ca45e9ebeea08e5938b2fd3",
+    "source": "d47f99407d0dd6ab0412d0df160a435d782fe9f27df08adefb78e949fa7abdc1",
+    "translation": "8c41cf1d9c54bff84ed8f2116d3a639e2c29108e4d3e800ff28f294781338038",
     "author": "Xavier Larrea"
   },
   "settingMicGainDbTitle": {
@@ -11475,8 +11475,8 @@
     "author": "Xavier Larrea"
   },
   "screenAudioMicrophoneHint": {
-    "source": "596dd2116c278e8b510575a7a85659079d0e57b70bd9122972fd67d72618405a",
-    "translation": "f678d7fede88f40cd295f90c1ab8b982215e2dba9be003ab470b596dce57d86d",
+    "source": "624599a4bc1508100c2f5866a72415acc1ffd6cc9622e2c2a31c8bd41f694e2d",
+    "translation": "9cdb4aff768f378dc151084815e6d9e8ecfe0c50d9aab4396f9ae470f35a9ec3",
     "author": "Xavier Larrea"
   },
   "screenAudioMicrophoneNote": {

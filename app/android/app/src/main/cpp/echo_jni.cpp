@@ -141,3 +141,39 @@ extern "C" JNIEXPORT void JNICALL
 Java_me_jxl_kiosk_1satellite_SoftwareEcho_nativeDestroy(JNIEnv*, jclass, jlong handle) {
     delete from(handle);
 }
+
+// A second module with only the noise suppressor on, over every capture
+// frame whether or not anything plays: a microphone's hiss is there all
+// the time, and the canceller's module only runs while there is an echo.
+extern "C" JNIEXPORT jlong JNICALL
+Java_me_jxl_kiosk_1satellite_SoftwareEcho_nativeNsCreate(JNIEnv*, jclass, jint rate) {
+    auto apm = webrtc::AudioProcessingBuilder().Create();
+    if (!apm) return 0;
+    webrtc::AudioProcessing::Config config;
+    config.noise_suppression.enabled = true;
+    config.noise_suppression.level = webrtc::AudioProcessing::Config::NoiseSuppression::kHigh;
+    config.gain_controller1.enabled = false;
+    config.gain_controller2.enabled = false;
+    apm->ApplyConfig(config);
+    auto* echo = new Echo{apm, webrtc::StreamConfig(rate, 1), webrtc::StreamConfig(rate, 1), {}};
+    __android_log_print(ANDROID_LOG_INFO, kTag, "noise suppression started (%d Hz)", rate);
+    return reinterpret_cast<jlong>(echo);
+}
+
+// One 10 ms frame of the microphone, PCM16, suppressed in place.
+extern "C" JNIEXPORT void JNICALL
+Java_me_jxl_kiosk_1satellite_SoftwareEcho_nativeNsProcess(
+    JNIEnv* env, jclass, jlong handle, jbyteArray pcm, jint offset) {
+    auto* echo = from(handle);
+    const size_t frames = echo->capture.num_frames();
+    int16_t block[480];
+    if (frames > sizeof(block) / sizeof(block[0])) return;
+    env->GetByteArrayRegion(pcm, offset, static_cast<jsize>(frames * 2),
+                            reinterpret_cast<jbyte*>(block));
+    {
+        std::lock_guard<std::mutex> guard(echo->lock);
+        echo->apm->ProcessStream(block, echo->capture, echo->capture, block);
+    }
+    env->SetByteArrayRegion(pcm, offset, static_cast<jsize>(frames * 2),
+                            reinterpret_cast<const jbyte*>(block));
+}

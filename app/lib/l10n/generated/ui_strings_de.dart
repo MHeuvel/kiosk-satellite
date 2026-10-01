@@ -8779,6 +8779,13 @@ class UiStringsDe extends UiStrings {
       'Entfernt die eigenen Töne des Kiosks aus dem Mikrofon, damit weder das Aktivierungswort noch der Assistent sie hören. Lass sie eingeschaltet, es sei denn, ein Mikrofon mit eigener Echounterdrückung klingt damit schlechter.';
 
   @override
+  String get settingMicNoiseSuppressionTitle => 'Rauschunterdrückung';
+
+  @override
+  String get settingMicNoiseSuppressionDescription =>
+      'Entfernt das Rauschen aus dem Mikrofon. Sie verändert, was das Aktivierungswort hört, also schalte sie bei einem rauschenden Mikrofon ein.';
+
+  @override
   String get settingMicChannelTitle => 'Mikrofonkanal';
 
   @override
@@ -8804,7 +8811,7 @@ class UiStringsDe extends UiStrings {
 
   @override
   String get screenAudioMicrophoneHint =>
-      'Echounterdrückung, Verstärkung, Format und Echtzeit-Pegel';
+      'Echounterdrückung, Rauschen, Verstärkung, Format und Echtzeit-Pegel';
 
   @override
   String get screenAudioMicrophoneNote =>

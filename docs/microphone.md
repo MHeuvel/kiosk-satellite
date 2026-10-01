@@ -35,6 +35,10 @@ The kiosk does not use Android's own echo canceller, noise suppressor or gain co
 
 Turn it off only if a microphone with its own canceller sounds worse with a second one over it. The wake word then hears the kiosk's own sounds.
 
+## Noise Suppression
+
+Off by default. It runs WebRTC's noise suppressor over the microphone, on any capture source, and takes out the steady hiss of a cheap microphone or a high gain setting. Turn it on when the other kiosk hears hiss from this one on intercom calls, or when the wake word tester shows a level that never rests. It changes what the wake word hears, so test the wake word after turning it on.
+
 ## Microphone Gain
 
 Amplifies the captured audio from 0 to 24 dB before it reaches any downstream processing. The wake word engine, the stop word classifier, and the speech to text stream sent to Home Assistant all receive this boosted signal.

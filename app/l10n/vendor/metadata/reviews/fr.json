@@ -13754,15 +13754,25 @@
   },
   "settingMicNoiseSuppressionTitle": {
     "source": "09d8d30e186e5ab384b312f780e90d1df0cf8f56c28aed75b6a45665529b55ba",
-    "translation": "ca1b77b7275eb2c3c432449b37569c936f3c54aee2ec16de8b2e4e22e45d2e1a",
+    "translation": "bb0fe87a8224e4683a60e7ea499f375e9cfd06c5abb1439e83b1c70f95b7beef",
     "author": "Limoniak",
-    "provenance": "50a40b9b0f2cc752c88ccaa455255d187c5d5a9594152fadced57a7289592afd"
+    "provenance": "50a40b9b0f2cc752c88ccaa455255d187c5d5a9594152fadced57a7289592afd",
+    "maintainerCorrection": {
+      "reviewer": "Xavier Larrea",
+      "originalTranslation": "ca1b77b7275eb2c3c432449b37569c936f3c54aee2ec16de8b2e4e22e45d2e1a",
+      "reason": "Noise suppression is WebRTC's now and works on the raw microphone; the hint says what it is for."
+    }
   },
   "settingMicNoiseSuppressionDescription": {
-    "source": "0c21fbf558570e48baf728ce8d9e816795641a008458172af7387e347821ec5d",
-    "translation": "3ba767f60a79290186923ad10e8ed926d9a51de2bc3f375cd17a3d49698bbaa8",
+    "source": "d47f99407d0dd6ab0412d0df160a435d782fe9f27df08adefb78e949fa7abdc1",
+    "translation": "a6d2c5e12f3cd1de5d4cbcd8a18ebe1e08816baa942ce8d20190b7d0cd8da294",
     "author": "Limoniak",
-    "provenance": "50a40b9b0f2cc752c88ccaa455255d187c5d5a9594152fadced57a7289592afd"
+    "provenance": "50a40b9b0f2cc752c88ccaa455255d187c5d5a9594152fadced57a7289592afd",
+    "maintainerCorrection": {
+      "reviewer": "Xavier Larrea",
+      "originalTranslation": "3ba767f60a79290186923ad10e8ed926d9a51de2bc3f375cd17a3d49698bbaa8",
+      "reason": "Noise suppression is WebRTC's now and works on the raw microphone; the hint says what it is for."
+    }
   },
   "settingMicGainDbTitle": {
     "source": "a85416202af42424cb92da079c1802b11b755ad9c97a080fb9833f835bf5be3b",
@@ -13795,14 +13805,14 @@
     "provenance": "50a40b9b0f2cc752c88ccaa455255d187c5d5a9594152fadced57a7289592afd"
   },
   "screenAudioMicrophoneHint": {
-    "source": "596dd2116c278e8b510575a7a85659079d0e57b70bd9122972fd67d72618405a",
-    "translation": "0e34b4f3bc7c922c64f5e4af7027babf5820531bc30a1ae713240874f14fa025",
+    "source": "624599a4bc1508100c2f5866a72415acc1ffd6cc9622e2c2a31c8bd41f694e2d",
+    "translation": "3a12a27bf91451c75d70ef19cbec8855e8085a34e06826d9da26fc90d11912da",
     "author": "Limoniak",
     "provenance": "50a40b9b0f2cc752c88ccaa455255d187c5d5a9594152fadced57a7289592afd",
     "maintainerCorrection": {
       "reviewer": "Xavier Larrea",
       "originalTranslation": "c622a302e4c46cbfdedb443eac3821689e90e82250b8a49328483605b234c885",
-      "reason": "The page lost its capture mode and gained the echo cancellation switch; the hint names what is there now."
+      "reason": "The page has a noise suppression switch again; the hint names it."
     }
   },
   "screenAudioMicrophoneNote": {

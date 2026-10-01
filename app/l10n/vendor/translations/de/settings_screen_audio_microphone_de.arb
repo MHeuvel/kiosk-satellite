@@ -7,7 +7,7 @@
   "settingMicCaptureFormatTitle": "Aufnahmeformat",
   "settingMicCaptureFormatDescription": "Wähle „Stereo mit 48 kHz“, wenn das Mikrofon in anderen Apps funktioniert, aber nicht hier. Einige Soundkarten unterstützen Aufnahmen nur in diesem Format, das anschließend von der App umgewandelt wird.",
   "screenAudioMicrophoneSettings": "Mikrofoneinstellungen",
-  "screenAudioMicrophoneHint": "Echounterdrückung, Verstärkung, Format und Echtzeit-Pegel",
+  "screenAudioMicrophoneHint": "Echounterdrückung, Rauschen, Verstärkung, Format und Echtzeit-Pegel",
   "screenAudioMicrophoneNote": "Passe die Aufnahme an Mikrofon und Umgebung an. Teste nach Änderungen die Aktivierungswörter und Sprachinteraktionen.",
   "screenAudioAutomaticDefault": "Automatisch (Standard)",
   "screenAudioStereo": "Stereo mit 48 kHz",
@@ -17,5 +17,7 @@
   "screenAudioMicrophoneLevel": "Mikrofonpegel",
   "screenAudioMicrophoneLevelHelp": "Sprich aus der Entfernung, aus der du das Gerät normalerweise nutzt. Passe die Verstärkung so an, dass normale Sprache ungefähr das Ende des grünen Bereichs erreicht.",
   "settingMicSoftwareEchoCancellationTitle": "Echounterdrückung",
-  "settingMicSoftwareEchoCancellationDescription": "Entfernt die eigenen Töne des Kiosks aus dem Mikrofon, damit weder das Aktivierungswort noch der Assistent sie hören. Lass sie eingeschaltet, es sei denn, ein Mikrofon mit eigener Echounterdrückung klingt damit schlechter."
+  "settingMicSoftwareEchoCancellationDescription": "Entfernt die eigenen Töne des Kiosks aus dem Mikrofon, damit weder das Aktivierungswort noch der Assistent sie hören. Lass sie eingeschaltet, es sei denn, ein Mikrofon mit eigener Echounterdrückung klingt damit schlechter.",
+  "settingMicNoiseSuppressionTitle": "Rauschunterdrückung",
+  "settingMicNoiseSuppressionDescription": "Entfernt das Rauschen aus dem Mikrofon. Sie verändert, was das Aktivierungswort hört, also schalte sie bei einem rauschenden Mikrofon ein."
 }

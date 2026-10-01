@@ -7,7 +7,7 @@
   "settingMicCaptureFormatTitle": "Format de capture",
   "settingMicCaptureFormatDescription": "Choisissez Stéréo 48 kHz si le microphone fonctionne dans d'autres applications mais pas ici : certaines cartes son n'enregistrent que dans ce format et l'application le convertit elle-même.",
   "screenAudioMicrophoneSettings": "Paramètres du microphone",
-  "screenAudioMicrophoneHint": "Annulation d'écho, gain, format, niveau en direct",
+  "screenAudioMicrophoneHint": "Annulation d'écho, bruit, gain, format, niveau en direct",
   "screenAudioMicrophoneNote": "Ajustez la capture pour votre microphone et votre pièce. Testez les mots de réveil et les interactions vocales après avoir modifié ces paramètres.",
   "screenAudioAutomaticDefault": "Automatique (par défaut)",
   "screenAudioStereo": "Stéréo 48 kHz",
@@ -17,5 +17,7 @@
   "screenAudioMicrophoneLevel": "Niveau du microphone",
   "screenAudioMicrophoneLevelHelp": "Parlez depuis l'endroit où vous utilisez l'appareil ; ajustez le gain jusqu'à ce qu'une voix normale culmine vers la fin de la zone verte.",
   "settingMicSoftwareEchoCancellationTitle": "Annulation d'écho",
-  "settingMicSoftwareEchoCancellationDescription": "Retire du microphone les sons émis par le kiosque pour que ni le mot de réveil ni l'assistant ne les entendent. Laissez-la activée, sauf si un microphone qui annule lui-même son écho sonne moins bien avec elle."
+  "settingMicSoftwareEchoCancellationDescription": "Retire du microphone les sons émis par le kiosque pour que ni le mot de réveil ni l'assistant ne les entendent. Laissez-la activée, sauf si un microphone qui annule lui-même son écho sonne moins bien avec elle.",
+  "settingMicNoiseSuppressionTitle": "Réduction du bruit",
+  "settingMicNoiseSuppressionDescription": "Supprime le souffle du microphone. Elle modifie ce que le mot de réveil entend, activez-la donc pour un microphone qui souffle."
 }

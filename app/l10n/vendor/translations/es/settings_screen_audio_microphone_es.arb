@@ -7,7 +7,7 @@
   "settingMicCaptureFormatTitle": "Formato de captura",
   "settingMicCaptureFormatDescription": "Elige Estéreo a 48 kHz cuando el micrófono funcione en otras aplicaciones pero no aquí. Algunas tarjetas de sonido solo graban en ese formato y la aplicación lo convierte por su cuenta.",
   "screenAudioMicrophoneSettings": "Configuración del micrófono",
-  "screenAudioMicrophoneHint": "Cancelación de eco, ganancia, formato y nivel en tiempo real",
+  "screenAudioMicrophoneHint": "Cancelación de eco, ruido, ganancia, formato y nivel en tiempo real",
   "screenAudioMicrophoneNote": "Ajusta la captura al micrófono y a la habitación. Prueba las palabras de activación y las interacciones de voz después de cambiar estas opciones.",
   "screenAudioAutomaticDefault": "Automático (predeterminado)",
   "screenAudioStereo": "Estéreo a 48 kHz",
@@ -17,5 +17,7 @@
   "screenAudioMicrophoneLevel": "Nivel del micrófono",
   "screenAudioMicrophoneLevelHelp": "Habla desde donde usas el dispositivo. Ajusta la ganancia hasta que la voz normal alcance aproximadamente el final de la zona verde.",
   "settingMicSoftwareEchoCancellationTitle": "Cancelación de eco",
-  "settingMicSoftwareEchoCancellationDescription": "Elimina del micrófono los sonidos del propio kiosko para que ni la palabra de activación ni el asistente los oigan. Déjala activada salvo que un micrófono que cancela su propio eco suene peor con ella."
+  "settingMicSoftwareEchoCancellationDescription": "Elimina del micrófono los sonidos del propio kiosko para que ni la palabra de activación ni el asistente los oigan. Déjala activada salvo que un micrófono que cancela su propio eco suene peor con ella.",
+  "settingMicNoiseSuppressionTitle": "Supresión de ruido",
+  "settingMicNoiseSuppressionDescription": "Quita el siseo del micrófono. Cambia lo que oye la palabra de activación, así que actívala para un micrófono que sisea."
 }

@@ -8731,6 +8731,13 @@ class UiStringsEs extends UiStrings {
       'Elimina del micrófono los sonidos del propio kiosko para que ni la palabra de activación ni el asistente los oigan. Déjala activada salvo que un micrófono que cancela su propio eco suene peor con ella.';
 
   @override
+  String get settingMicNoiseSuppressionTitle => 'Supresión de ruido';
+
+  @override
+  String get settingMicNoiseSuppressionDescription =>
+      'Quita el siseo del micrófono. Cambia lo que oye la palabra de activación, así que actívala para un micrófono que sisea.';
+
+  @override
   String get settingMicChannelTitle => 'Canal del micrófono';
 
   @override
@@ -8756,7 +8763,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get screenAudioMicrophoneHint =>
-      'Cancelación de eco, ganancia, formato y nivel en tiempo real';
+      'Cancelación de eco, ruido, ganancia, formato y nivel en tiempo real';
 
   @override
   String get screenAudioMicrophoneNote =>

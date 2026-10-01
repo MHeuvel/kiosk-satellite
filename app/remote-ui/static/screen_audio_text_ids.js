@@ -68,7 +68,7 @@ export const screenAudioTextMessageIds = {
   "Audio Devices": "screenAudioDevices",
   "Selected device": "screenAudioSelectedDevice",
   "Microphone settings": "screenAudioMicrophoneSettings",
-  "Echo cancellation, gain, format, live level": "screenAudioMicrophoneHint",
+  "Echo cancellation, noise, gain, format, live level": "screenAudioMicrophoneHint",
   "Adjust capture for your microphone and room. Test wake words and voice interactions after changing these settings.": "screenAudioMicrophoneNote",
   "Automatic (default)": "screenAudioAutomaticDefault",
   "48 kHz stereo": "screenAudioStereo",
