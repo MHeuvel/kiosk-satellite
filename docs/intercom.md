@@ -49,7 +49,7 @@ The **Ring sound** is a built-in telephone ring by default, or a file from the s
 | Push to talk | The default. One wide **Hold to talk** button and End. Held, this kiosk sends and the far kiosk hears you. Released, this kiosk listens. It never needs echo cancellation to work, so it is the safe choice on every device. |
 | Hands free | The microphone stays open for the whole call with a Mute button. It leans on the kiosk's echo canceller, the same one the wake word listens through. Sound near this kiosk can come through quieter while the other side talks, more so at a high intercom volume. If the other kiosk hears itself back, use push to talk. |
 
-Each kiosk picks its own talk mode. **Intercom volume** under Screen & Audio, beside the media and assistant volumes, is the share of the master volume the other kiosk's voice and announcements play at.
+Each kiosk picks its own talk mode. **Intercom volume** under Screen & Audio, beside the media and assistant volumes, is the share of the master volume the other kiosk's voice and announcements play at, 60% by default. Hands free calls work better at a lower intercom volume: the other side's voice leaves less echo for this kiosk to remove.
 
 During a call the kiosk holds the screensaver, the dashboard rotation and the return to home timer the way a voice turn does, ducks the music the same way and pauses wake word detection, so neither voice triggers the assistant. End on either side closes both. The screen shows the call's length for ten seconds with Call again and Close.
 

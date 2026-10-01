@@ -8736,11 +8736,14 @@ const intercomTalkMode = SettingDef<String>(
 );
 
 /// Beside the media and assistant faders: the intercom's own share of the
-/// master volume, the third voice the kiosk plays.
+/// master volume, the third voice the kiosk plays. 60 on the squared taper
+/// is 9 dB under the master: clearly heard, and every dB off the far voice
+/// is a dB less echo for the canceller and less of the distortion it cannot
+/// remove, which at 100 left a Galaxy Tab S8 half duplex.
 const intercomVolume = SettingDef<num>(
   key: 'intercom.volume',
   type: SettingType.number,
-  defaultValue: 80,
+  defaultValue: 60,
   title: 'Intercom volume',
   description:
       "The other kiosk's voice and announcements play at this share of "
