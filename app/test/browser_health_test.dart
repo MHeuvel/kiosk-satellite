@@ -134,36 +134,19 @@ void main() {
     expect(rebuilds, hasLength(1));
   });
 
-  test(
-    'two unanswered rebuilds on a DuraSpeed tablet name DuraSpeed',
-    () async {
-      await build();
-      browser.duraSpeedInstalled = () async => true;
-      final rebuilds = <WebViewRebuildRequested>[];
-      bus.on<WebViewRebuildRequested>().listen(rebuilds.add);
-      await browser.rebuildFailedRenderer('renderer never answered');
-      expect(browser.duraSpeedBlocking.value, isFalse);
-      // The rebuilt WebView attaches, and its renderer never answers either.
-      browser.attach(
-        InAppWebViewController.fromPlatform(platform: _PlatformController()),
-      );
-      await browser.rebuildFailedRenderer('renderer never answered');
-      await Future<void>.delayed(Duration.zero);
-      expect(rebuilds, hasLength(2));
-      expect(browser.duraSpeedBlocking.value, isTrue);
-      // A renderer that answers clears it.
-      browser.onRendererResponsive();
-      expect(browser.duraSpeedBlocking.value, isFalse);
-    },
-  );
+  test('an unanswered rebuild on a DuraSpeed tablet names DuraSpeed', () async {
+    await build();
+    browser.duraSpeedInstalled = () async => true;
+    await browser.rebuildFailedRenderer('renderer never answered');
+    expect(browser.duraSpeedBlocking.value, isTrue);
+    // A renderer that answers clears it.
+    browser.onRendererResponsive();
+    expect(browser.duraSpeedBlocking.value, isFalse);
+  });
 
-  test('two unanswered rebuilds elsewhere stay quiet', () async {
+  test('an unanswered rebuild elsewhere stays quiet', () async {
     await build();
     browser.duraSpeedInstalled = () async => false;
-    await browser.rebuildFailedRenderer('renderer never answered');
-    browser.attach(
-      InAppWebViewController.fromPlatform(platform: _PlatformController()),
-    );
     await browser.rebuildFailedRenderer('renderer never answered');
     expect(browser.duraSpeedBlocking.value, isFalse);
   });

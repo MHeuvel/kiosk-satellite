@@ -854,7 +854,6 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
     _rendererRecovery = null;
     _unresponsiveStrikes = 0;
     _rendererDeadChecks = 0;
-    _unansweredRebuilds = 0;
     if (duraSpeedBlocking.value) {
       duraSpeedBlocking.value = false;
       log.info(name, 'the dashboard renderer answers again');
@@ -862,13 +861,14 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
   }
 
   /// MediaTek's DuraSpeed is refusing the dashboard's renderer, as far as
-  /// the kiosk can tell: a renderer that never answers, rebuilt twice, on
-  /// a device with DuraSpeed installed and on. Android logs the refusal
-  /// ("Unable to launch app ... SandboxedProcessService ... process is
-  /// bad") but the app is never told, and some tablets ship DuraSpeed with
-  /// no settings page, so the dashboard shows what to do instead.
+  /// the kiosk can tell: a renderer that never answered, now being
+  /// rebuilt, on a device with DuraSpeed installed and on. Android logs the
+  /// refusal ("Unable to launch app ... SandboxedProcessService ... process
+  /// is bad") but the app is never told, and some tablets ship DuraSpeed
+  /// with no settings page, so the dashboard shows what to do instead. One
+  /// rebuild is enough there: it means the page never answered the health
+  /// probe twice over, and the first renderer that answers clears it.
   final duraSpeedBlocking = ValueNotifier<bool>(false);
-  int _unansweredRebuilds = 0;
 
   /// Whether DuraSpeed is installed and on; the device details, unless a
   /// test says otherwise.
@@ -892,10 +892,7 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
     _rendererDeadChecks = 0;
     _unresponsiveStrikes = 0;
     log.warn(name, '$reason; rebuilding the WebView');
-    _unansweredRebuilds++;
-    if (_unansweredRebuilds >= 2 &&
-        !duraSpeedBlocking.value &&
-        await duraSpeedInstalled()) {
+    if (!duraSpeedBlocking.value && await duraSpeedInstalled()) {
       duraSpeedBlocking.value = true;
       log.error(
         name,
