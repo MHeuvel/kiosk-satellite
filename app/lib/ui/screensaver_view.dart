@@ -59,6 +59,7 @@ import 'glance_row.dart';
 import 'sendspin_player_overlay.dart' show SendspinFullscreenView;
 import 'ui_scale.dart' show UiScaleExempt;
 import 'video_surface.dart';
+import 'webview_server_trust.dart';
 
 export 'photo_frames.dart' show photoCovers;
 
@@ -2944,18 +2945,14 @@ setInterval(function () {
         mediaPlaybackRequiresUserGesture: false,
         allowsInlineMediaPlayback: true,
       ),
-      onReceivedServerTrustAuthRequest: (controller, challenge) async {
-        // Same policy as the kiosk WebView: the media screensaver talks to
-        // the same self-signed Home Assistant.
-        if (widget.container.settings.get(defs.ignoreSslErrors)) {
-          return ServerTrustAuthResponse(
-            action: ServerTrustAuthResponseAction.PROCEED,
-          );
-        }
-        return ServerTrustAuthResponse(
-          action: ServerTrustAuthResponseAction.CANCEL,
-        );
-      },
+      // Same policy as the kiosk WebView: the media screensaver talks to
+      // the same self-signed Home Assistant.
+      onReceivedServerTrustAuthRequest: (controller, challenge) async =>
+          webViewServerTrust(
+            'screensaver',
+            widget.container.settings,
+            challenge,
+          ),
       // The user's pasted JavaScript for external pages, after every load
       // (issue #224). Only the website mode has a page of theirs to run it
       // on; the bundled screensaver is ours.

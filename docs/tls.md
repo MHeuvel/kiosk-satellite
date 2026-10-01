@@ -60,3 +60,9 @@ Generated certificates last one year. While any encryption switch is enabled, th
 Private keys are encrypted with an Android Keystore key and stored outside Android backup. They are not returned by the API, exported with configuration or copied through Fleet Management. Cloning a configuration keeps each device's own identity.
 
 Certificate changes restart encrypted listeners. If certificate loading fails, the affected encrypted listener stays stopped rather than accepting plaintext. Local device settings remain available to renew or replace the certificate.
+
+## Private certificate authorities
+
+If your Home Assistant or another server on your network uses a certificate from your own certificate authority, install that CA on the device under Android's security settings (usually **Settings > Security > Encryption & credentials > Install a certificate > CA certificate**). Kiosk Satellite trusts these user-installed CAs everywhere: the dashboard, the Home Assistant API and WebSocket, media playback and downloads. **Ignore SSL errors** can stay off.
+
+The app reads the installed CAs when it starts, so restart it after installing one. The app log lists each CA it trusts under the `tls` tag, and any certificate it refused along with the host and the issuer. GitHub downloads and analytics still verify against the system CAs only.

@@ -6,6 +6,7 @@ import 'dart:math' show Random;
 import 'package:flutter/foundation.dart';
 
 import '../../core/active_interactions.dart';
+import '../../core/certificate_log.dart';
 import '../../core/command_registry.dart';
 import '../../core/events.dart';
 import '../../core/manager.dart';
@@ -1219,7 +1220,14 @@ class CameraManager extends Manager {
         ..connectionTimeout = const Duration(seconds: 15);
       if (target.server.allowInvalidCertificate) {
         client.badCertificateCallback = (certificate, host, port) =>
-            host == target.uri.host;
+            CertificateLog.dart(
+              'camera',
+              host,
+              certificate,
+              host == target.uri.host
+                  ? 'the camera server allows invalid certificates'
+                  : null,
+            );
       }
       final server = target.server;
       upstream = await WebSocket.connect(
@@ -1282,7 +1290,14 @@ class CameraManager extends Manager {
       ..connectionTimeout = const Duration(seconds: 15);
     if (server?.allowInvalidCertificate == true) {
       client.badCertificateCallback = (certificate, host, port) =>
-          host == uri.host;
+          CertificateLog.dart(
+            'camera',
+            host,
+            certificate,
+            host == uri.host
+                ? 'the camera server allows invalid certificates'
+                : null,
+          );
     }
     try {
       final request = await client.openUrl(method, uri);

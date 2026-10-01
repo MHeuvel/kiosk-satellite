@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import '../../core/certificate_log.dart';
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
 import 'remote_player.dart';
@@ -115,7 +116,12 @@ class MusicAssistantApi {
   /// it. The user typed this address themselves, on their own network.
   static HttpClient newHttpClient() => HttpClient()
     ..connectionTimeout = const Duration(seconds: 10)
-    ..badCertificateCallback = (_, _, _) => true;
+    ..badCertificateCallback = (cert, host, _) => CertificateLog.dart(
+      'music assistant',
+      host,
+      cert,
+      'Music Assistant makes its own certificate',
+    );
 
   /// `wss://host:8095/ws` from the address as typed, however it was typed.
   Uri get socketUri {

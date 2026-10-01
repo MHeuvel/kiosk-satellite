@@ -3,6 +3,7 @@ import 'dart:io';
 import '../managers/settings/definitions.dart' as defs;
 import '../managers/settings/settings_manager.dart';
 import 'app_identity.dart';
+import 'certificate_log.dart';
 
 /// Most Home Assistant installs on a LAN run self-signed certificates, so
 /// the app must not fail TLS verification against its own configured
@@ -35,17 +36,21 @@ class HaHttpOverrides extends HttpOverrides {
     // forwarding the browser's own string.
     client.userAgent = AppIdentity.userAgent;
     client.badCertificateCallback = (cert, host, port) =>
-        allowBadCertificate(host);
+        allowBadCertificate(host, cert);
     return client;
   }
 
   /// The policy behind badCertificateCallback, separate so tests can
-  /// exercise it without staging a TLS handshake.
-  bool allowBadCertificate(String host) {
+  /// exercise it without staging a TLS handshake. Every verdict goes to the
+  /// app log.
+  bool allowBadCertificate(String host, [X509Certificate? cert]) =>
+      CertificateLog.dart('app', host, cert, _acceptReason(host));
+
+  String? _acceptReason(String host) {
     final ha = Uri.tryParse(_settings.get(defs.haUrl).trim())?.host;
     if (ha != null && ha.isNotEmpty && host == ha) {
       sawSelfSigned = true;
-      return true;
+      return 'it is the Home Assistant host';
     }
     // "Ignore SSL errors" is the browser's blanket opt-in, and these
     // clients must agree with the WebView about what connects. Wake-word
@@ -53,14 +58,16 @@ class HaHttpOverrides extends HttpOverrides {
     // name a host neither setting above knows about, e.g. an old IP the
     // dashboard still loads from while the HA URL moved to a domain
     // (issue #216).
-    if (_settings.get(defs.ignoreSslErrors)) return true;
+    if (_settings.get(defs.ignoreSslErrors)) return 'Ignore SSL errors is on';
     // The Immich screensaver server gets the same standing as HA: a LAN
     // service the user pointed the app at, likely behind a self-signed
     // certificate. Still host-scoped; everything else verifies normally.
     final immich = Uri.tryParse(
       _settings.get(defs.screensaverImmichUrl).trim(),
     )?.host;
-    if (immich != null && immich.isNotEmpty && host == immich) return true;
-    return false;
+    if (immich != null && immich.isNotEmpty && host == immich) {
+      return 'it is the Immich host';
+    }
+    return null;
   }
 }

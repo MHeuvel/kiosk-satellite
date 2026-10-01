@@ -64,6 +64,7 @@ import 'toast.dart';
 import 'settings_screen.dart';
 import 'voice_timer_overlay.dart';
 import 'web_console_panel.dart';
+import 'webview_server_trust.dart';
 
 /// Watches the navigator for the kiosk screen (issue #377): a dialog
 /// pushed over it — the exit confirm, the PIN prompt, a picker — must flip
@@ -1785,19 +1786,8 @@ class _KioskScreenState extends State<KioskScreen>
       // kiosk's page is the point of the device, not a background tab.
       allowBackgroundAudioPlaying: true,
     ),
-    onReceivedServerTrustAuthRequest: (controller, challenge) async {
-      // Accept untrusted/self-signed certs only when the user opted
-      // in (e.g. a local HA instance without proper SSL). Otherwise
-      // fall through to the platform's default validation.
-      if (c.settings.get(defs.ignoreSslErrors)) {
-        return ServerTrustAuthResponse(
-          action: ServerTrustAuthResponseAction.PROCEED,
-        );
-      }
-      return ServerTrustAuthResponse(
-        action: ServerTrustAuthResponseAction.CANCEL,
-      );
-    },
+    onReceivedServerTrustAuthRequest: (controller, challenge) async =>
+        webViewServerTrust('dashboard', c.settings, challenge),
     // A dashboard button can open another Android app by navigating to
     // app://<package> (issue #44): the clock app to set an alarm, a music
     // app, whatever is installed. ks://<action> reaches the kiosk's own
@@ -2580,16 +2570,12 @@ class _OverlayWebViewState extends State<_OverlayWebView> {
         // local servers with certificates of their own making (Music
         // Assistant's add-on generates one), and the address was typed by
         // the owner on their own network.
-        onReceivedServerTrustAuthRequest: (controller, challenge) async {
-          if (widget.container.settings.get(defs.ignoreSslErrors)) {
-            return ServerTrustAuthResponse(
-              action: ServerTrustAuthResponseAction.PROCEED,
-            );
-          }
-          return ServerTrustAuthResponse(
-            action: ServerTrustAuthResponseAction.CANCEL,
-          );
-        },
+        onReceivedServerTrustAuthRequest: (controller, challenge) async =>
+            webViewServerTrust(
+              'page overlay',
+              widget.container.settings,
+              challenge,
+            ),
         onReceivedError: (controller, request, error) {
           if (request.isForMainFrame ?? true) _scheduleRetry();
         },

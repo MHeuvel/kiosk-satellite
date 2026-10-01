@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart'
     show Uint8List, ValueNotifier, mapEquals, visibleForTesting;
 import 'package:flutter/services.dart';
 
+import '../../core/certificate_log.dart';
 import '../../core/command_registry.dart';
 import '../../core/events.dart';
 import '../../core/logging.dart';
@@ -256,8 +257,14 @@ class SendspinManager extends Manager {
           )?.host ??
           '';
       client = HttpClient()
-        ..badCertificateCallback = (cert, host, port) =>
-            host.isNotEmpty && (host == serverHost || host == maHost);
+        ..badCertificateCallback = (cert, host, port) => CertificateLog.dart(
+          'sendspin artwork',
+          host,
+          cert,
+          host.isNotEmpty && (host == serverHost || host == maHost)
+              ? 'it is the Sendspin or Music Assistant host'
+              : null,
+        );
       final http = client;
       Future<Uint8List?> download() async {
         final request = await http.getUrl(Uri.parse(url));

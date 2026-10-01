@@ -128,6 +128,7 @@
         android:icon="@mipmap/ic_launcher"
         android:banner="@drawable/tv_banner"
         android:requestLegacyExternalStorage="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:usesCleartextTraffic="true">
         <!-- Android 16 ignores an app's orientation request on any display
              of sw600dp or more once the app targets API 36, so a Screen
