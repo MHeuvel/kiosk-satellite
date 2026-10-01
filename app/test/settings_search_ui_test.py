@@ -88,7 +88,8 @@ try:
         field.fill('floating window')
         expect(results.get_by_text('Greeting', exact=True)).to_have_count(0)
         read_only = {'isScreenOn', 'evalJs', 'haStatus', 'esphomeStatus',
-                     'sendspinStatus', 'hasUiGuard', 'fleetStatus', 'fleet'}
+                     'sendspinStatus', 'hasUiGuard', 'fleetStatus', 'fleet',
+                     'voiceStatus'}
         assert all(name.startswith('get') or name in read_only for name in calls), calls
         assert errors == [], errors
         browser.close()

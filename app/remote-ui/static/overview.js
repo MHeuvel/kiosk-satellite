@@ -237,7 +237,7 @@ document.addEventListener('ks-connected', () => { if (metricsRead) readMetricHis
 
 /* ---- Plugin tiles ----
    Tiles a running plugin publishes through the SDK. They sit after the
-   built-in six and name their plugin, so a plugin's tile never reads as a
+   built-in tiles and name their plugin, so a plugin's tile never reads as a
    claim the kiosk itself is making. Each opens the plugin's page. A tile
    goes when its plugin stops, is disabled or Plugin Manager is off: the
    read simply stops listing it. */

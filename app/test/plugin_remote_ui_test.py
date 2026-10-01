@@ -176,7 +176,7 @@ try:
         page.screenshot(path='/tmp/kiosk-plugin-grouped-demo.png', full_page=True)
         expect(root.locator('.plugin-readings[data-plugin-group="Home Assistant demo"]')).not_to_contain_text('Wave reading')
         expect(root.locator('.plugin-charts[data-plugin-group="Chart demo"] .card-title')).to_have_count(0)
-        # A running plugin's status tile sits on the Overview after the built-in six, names its plugin and opens its page.
+        # A running plugin's status tile sits on the Overview after the built-in tiles, names its plugin and opens its page.
         page.evaluate("async () => { const o = await import('/static/overview.js'); await o.initOverview(); (await import('/static/tabs.js')).showTab('dashboard', {refresh:false}); }")
         tile = page.locator('#statusGrid .status.plugin')
         expect(tile).to_have_count(1)
@@ -184,7 +184,10 @@ try:
         expect(tile.locator('.s-sub')).to_have_text('smooth')
         expect(tile.locator('.s-from')).to_have_text('Hello World plugin')
         expect(tile.locator('.dot')).to_have_class('dot on')
-        assert page.locator('#statusGrid .status').count() == 7
+        # The fixture has no stats history, so the CPU, RAM and Temp tiles are built but hidden.
+        statuses = page.locator('#statusGrid .status').evaluate_all('(els) => els.map((el) => el.dataset.status)')
+        assert statuses == ['ha', 'voice', 'esphome', 'media', 'service', 'update', 'cpu', 'memory', 'temp', 'plugin:hello-world:webview'], statuses
+        expect(page.locator('#statusGrid .status:visible')).to_have_count(7)
         assert tile.bounding_box()['y'] >= page.locator('#statusGrid [data-status="update"]').bounding_box()['y']
         tile.click()
         expect(page.locator('#pageTitle')).to_contain_text('Hello World')
