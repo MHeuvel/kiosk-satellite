@@ -9,6 +9,7 @@ import 'package:video_player/video_player.dart';
 import '../app_container.dart';
 import '../l10n/messages.dart';
 import '../managers/dlna/dlna_manager.dart';
+import '../managers/dlna/dlna_playback.dart';
 import 'video_surface.dart';
 
 /// Full-screen display for media pushed over DLNA: an image, a video, or
@@ -479,7 +480,8 @@ class _DlnaImageState extends State<_DlnaImage> {
   }
 }
 
-/// Video and audio playback via the platform player. Reports progress to
+/// Video through the platform player and audio through the kiosk's own
+/// ([DlnaAudioPlayback]), which the echo canceller hears. Reports progress to
 /// the manager (GetPositionInfo answers from it), obeys pause/volume/mute/
 /// seek from the controller, and stops the whole overlay when media ends.
 class _DlnaPlayer extends StatefulWidget {
@@ -505,7 +507,7 @@ class _DlnaPlayer extends StatefulWidget {
 }
 
 class _DlnaPlayerState extends State<_DlnaPlayer> {
-  VideoPlayerController? _controller;
+  DlnaPlayback? _controller;
   Timer? _progress;
   String? _failure;
 
@@ -521,19 +523,27 @@ class _DlnaPlayerState extends State<_DlnaPlayer> {
 
   Future<void> _start() async {
     try {
-      final controller = await openVideo(
-        (viewType) => VideoPlayerController.networkUrl(
-          Uri.parse(widget.media.uri),
-          // HLS must be declared: ExoPlayer's by-extension sniffing misses
-          // signed HA camera-stream URLs and tries progressive extractors,
-          // which cannot read a playlist ("None of the available
-          // extractors could read the stream").
-          formatHint: widget.media.hls ? VideoFormat.hls : null,
-          viewType: viewType,
-        ),
-        onFallback: (e) =>
-            widget.dlna.reportDecoderFallback(widget.media.uri, '$e'),
-      );
+      final DlnaPlayback controller = widget.media.kind == 'audio'
+          ? await DlnaAudioPlayback.open(
+              widget.media.uri,
+              hls: widget.media.hls,
+            )
+          : DlnaVideoPlayback(
+              await openVideo(
+                (viewType) => VideoPlayerController.networkUrl(
+                  Uri.parse(widget.media.uri),
+                  // HLS must be declared: ExoPlayer's by-extension sniffing
+                  // misses signed HA camera-stream URLs and tries
+                  // progressive extractors, which cannot read a playlist
+                  // ("None of the available extractors could read the
+                  // stream").
+                  formatHint: widget.media.hls ? VideoFormat.hls : null,
+                  viewType: viewType,
+                ),
+                onFallback: (e) =>
+                    widget.dlna.reportDecoderFallback(widget.media.uri, '$e'),
+              ),
+            );
       if (!mounted) {
         await controller.dispose();
         return;
@@ -692,7 +702,7 @@ class _DlnaPlayerState extends State<_DlnaPlayer> {
     }
     return AspectRatio(
       aspectRatio: controller.value.aspectRatio,
-      child: VideoPlayer(controller),
+      child: VideoPlayer((controller as DlnaVideoPlayback).controller),
     );
   }
 }

@@ -55,6 +55,7 @@ class KioskApplication : Application(), CameraXConfig.Provider {
     private lateinit var micRecorder: MicRecorder
     private lateinit var background: BackgroundBridge
     private lateinit var alarms: AlarmBridge
+    private lateinit var dlnaAudio: DlnaAudio
     private lateinit var deviceDetails: DeviceDetails
     private lateinit var brightness: BrightnessBridge
     private lateinit var sendspin: SendspinBridge
@@ -132,6 +133,7 @@ class KioskApplication : Application(), CameraXConfig.Provider {
         micRecorder = MicRecorder(applicationContext, messenger)
         background = BackgroundBridge(applicationContext, messenger)
         alarms = AlarmBridge(applicationContext, messenger)
+        dlnaAudio = DlnaAudio(applicationContext, messenger)
         deviceDetails = DeviceDetails(applicationContext, messenger)
         brightness = BrightnessBridge(applicationContext, messenger)
         sendspin = SendspinBridge(applicationContext, messenger)

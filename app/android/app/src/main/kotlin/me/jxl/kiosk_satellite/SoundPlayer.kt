@@ -30,7 +30,6 @@ import androidx.media3.exoplayer.DecoderReuseEvaluation
 import androidx.media3.exoplayer.analytics.AnalyticsListener
 import androidx.media3.exoplayer.audio.AudioSink
 import androidx.media3.exoplayer.audio.DefaultAudioSink
-import androidx.media3.exoplayer.audio.ForwardingAudioSink
 import androidx.media3.exoplayer.audio.TeeAudioProcessor
 import androidx.media3.exoplayer.mediacodec.MediaCodecSelector
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
@@ -729,7 +728,7 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
                 context: Context,
                 enableFloatOutput: Boolean,
                 enableAudioTrackPlaybackParams: Boolean,
-            ): AudioSink = object : ForwardingAudioSink(
+            ): AudioSink = object : TappedAudioSink(
                 DefaultAudioSink.Builder(context)
                     .setAudioProcessors(arrayOf(
                         FrameAlignedAudioProcessor { bytes ->
@@ -740,24 +739,8 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
                         TeeAudioProcessor(echoTap),
                     ))
                     .build(),
+                echoTap,
             ) {
-                // The echo canceller's reference is timed by the sink's own
-                // clock: its first buffer's time and its position as it plays.
-                override fun handleBuffer(
-                    buffer: ByteBuffer,
-                    presentationTimeUs: Long,
-                    encodedAccessUnitCount: Int,
-                ): Boolean {
-                    echoTap.started(presentationTimeUs)
-                    return super.handleBuffer(buffer, presentationTimeUs, encodedAccessUnitCount)
-                }
-
-                override fun getCurrentPositionUs(sourceEnded: Boolean): Long {
-                    val position = super.getCurrentPositionUs(sourceEnded)
-                    if (position != AudioSink.CURRENT_POSITION_NOT_SET) echoTap.position(position)
-                    return position
-                }
-
                 override fun playToEndOfStream() {
                     if (!diagnostics.sinkEosRequested) {
                         diagnostics.sinkEosRequested = true

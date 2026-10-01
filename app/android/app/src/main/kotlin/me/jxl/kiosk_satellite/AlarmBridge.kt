@@ -5,15 +5,20 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.media.AudioAttributes
 import android.media.AudioManager
-import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Looper
 import android.os.PowerManager
 import android.os.SystemClock
 import android.util.Log
+import androidx.media3.common.AudioAttributes
+import androidx.media3.common.C
+import androidx.media3.common.MediaItem
+import androidx.media3.common.PlaybackException
+import androidx.media3.common.Player
+import androidx.media3.exoplayer.ExoPlayer
 import io.flutter.plugin.common.BinaryMessenger
+import java.io.File
 import io.flutter.plugin.common.MethodChannel
 
 /**
@@ -29,7 +34,9 @@ import io.flutter.plugin.common.MethodChannel
  *   keep-alive service, the Application builds the Flutter engine, and the
  *   alarm manager in Dart finds the due alarm on its first check;
  * - ring on the alarm stream, looping, at the alarm volume, apart from the
- *   media volume and a muted media stream.
+ *   media volume and a muted media stream. The ring plays through Media3
+ *   with a [SinkTap], so the software echo canceller hears it too and the
+ *   wake word and stop word still work while it rings.
  */
 class AlarmBridge(private val context: Context, messenger: BinaryMessenger) {
     companion object {
@@ -40,6 +47,8 @@ class AlarmBridge(private val context: Context, messenger: BinaryMessenger) {
         private const val REQUEST_SHOW = 7403
         const val ACTION_FIRE = "me.jxl.kiosk_satellite.ALARM_FIRE"
         const val EXTRA_KIND = "kind"
+        private const val TONE = "tone"
+        private const val PHRASE = "phrase"
 
         /** Set while an engine is attached, so a fire reaches Dart at once
          *  instead of waiting for its next check. */
@@ -58,14 +67,15 @@ class AlarmBridge(private val context: Context, messenger: BinaryMessenger) {
 
     private val channel = MethodChannel(messenger, CHANNEL)
     private val main = Handler(Looper.getMainLooper())
-    private var player: MediaPlayer? = null
+    private var player: ExoPlayer? = null
+    private var tap: SinkTap? = null
     private var savedAlarmVolume: Int? = null
 
-    /** The spoken phrase that plays after every second pass of the tone,
-     *  once Dart has made it; null rings the tone alone. */
+    /** The tone, and the spoken phrase that plays after every second pass
+     *  of it once Dart has made it: the player's list is then tone, tone,
+     *  phrase, repeated. */
+    private var tonePath: String? = null
     private var speechPath: String? = null
-    private var voice: MediaPlayer? = null
-    private var passes = 0
 
     /** Ease in: the ring starts silent and its gain climbs to full over
      *  [rampMs], on a square curve so the first seconds stay soft. */
@@ -86,19 +96,29 @@ class AlarmBridge(private val context: Context, messenger: BinaryMessenger) {
 
     private fun applyGain() {
         val g = gain()
-        try { player?.setVolume(g, g) } catch (_: IllegalStateException) {}
-        try { voice?.setVolume(g, g) } catch (_: IllegalStateException) {}
+        player?.volume = g
+        tap?.gain = g
     }
 
-    private fun alarmPlayer(path: String): MediaPlayer = MediaPlayer().apply {
-        setAudioAttributes(
-            AudioAttributes.Builder()
-                .setUsage(AudioAttributes.USAGE_ALARM)
-                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                .build(),
-        )
-        setDataSource(path)
+    /** A player on the alarm stream whose output also goes to [echoTap]. */
+    private fun alarmPlayer(echoTap: SinkTap): ExoPlayer {
+        return ExoPlayer.Builder(context, tappedRenderers(context, echoTap))
+            // Let a slow codec teardown finish off the main thread.
+            .setReleaseTimeoutMs(100)
+            .build()
+            .apply {
+                setAudioAttributes(
+                    AudioAttributes.Builder()
+                        .setUsage(C.USAGE_ALARM)
+                        .setContentType(C.AUDIO_CONTENT_TYPE_SONIFICATION)
+                        .build(),
+                    /* handleAudioFocus = */ false,
+                )
+            }
     }
+
+    private fun item(path: String, id: String): MediaItem =
+        MediaItem.Builder().setUri(path).setMediaId(id).build()
 
     init {
         onFire = { kind -> main.post { channel.invokeMethod("alarmFired", mapOf("kind" to kind)) } }
@@ -171,6 +191,9 @@ class AlarmBridge(private val context: Context, messenger: BinaryMessenger) {
     private fun ring(path: String, volume: Double, loop: Boolean, easeMs: Long = 0): Boolean {
         stopRing()
         if (path.isEmpty()) return false
+        // Media3 reports a bad file only once it tries it: a missing one
+        // fails here, as it always has, so Dart knows nothing rang.
+        if (!path.contains("://") && !File(path).canRead()) return false
         val audio = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
         return try {
             val max = audio.getStreamMaxVolume(AudioManager.STREAM_ALARM)
@@ -183,33 +206,45 @@ class AlarmBridge(private val context: Context, messenger: BinaryMessenger) {
                 // stream's own level rather than not at all.
                 Log.w(TAG, "alarm volume not set: $e")
             }
-            val mp = alarmPlayer(path)
-            // Gapless until a phrase joins the ring; then each pass ends
-            // here and the next one, or the phrase, starts by hand.
-            mp.isLooping = loop
-            mp.setOnCompletionListener {
-                if (!loop) {
+            val echoTap = SinkTap()
+            val exo = try {
+                alarmPlayer(echoTap)
+            } catch (e: Exception) {
+                echoTap.close()
+                throw e
+            }
+            exo.addListener(object : Player.Listener {
+                override fun onPlaybackStateChanged(state: Int) {
+                    if (state != Player.STATE_ENDED || player !== exo) return
                     // A preview plays once: let go of the player and put the
                     // alarm volume back as soon as it ends.
-                    main.post {
-                        if (player === mp) stopRing()
-                        channel.invokeMethod("ringEnded", null)
-                    }
-                } else if (player === mp) {
-                    onPass(mp)
+                    stopRing()
+                    channel.invokeMethod("ringEnded", null)
                 }
-            }
-            mp.setOnErrorListener { _, what, extra ->
-                Log.w(TAG, "ring failed: $what/$extra")
-                main.post { channel.invokeMethod("ringEnded", mapOf("error" to "$what/$extra")) }
-                true
-            }
-            mp.prepare()
+
+                override fun onPlayerError(error: PlaybackException) {
+                    if (player !== exo) return
+                    Log.w(TAG, "ring failed: ${error.errorCodeName}")
+                    if (speechPath != null && exo.currentMediaItem?.mediaId == PHRASE) {
+                        // The phrase would not play: ring the tone alone.
+                        speechPath = null
+                        playlist(exo)
+                        exo.prepare()
+                        exo.play()
+                        return
+                    }
+                    channel.invokeMethod("ringEnded", mapOf("error" to error.errorCodeName))
+                }
+            })
+            tonePath = path
+            player = exo
+            tap = echoTap
+            playlist(exo, loop)
             rampMs = if (loop) easeMs.coerceAtLeast(0) else 0
             rampStart = SystemClock.elapsedRealtime()
-            player = mp
             applyGain()
-            mp.start()
+            exo.prepare()
+            exo.play()
             if (rampMs > 0) main.postDelayed(ramp, 100)
             true
         } catch (e: Exception) {
@@ -220,53 +255,33 @@ class AlarmBridge(private val context: Context, messenger: BinaryMessenger) {
     }
 
     /** The phrase to say between the rings, or null to ring the tone
-     *  alone again. Takes effect at the end of the current pass. */
+     *  alone again. Takes effect after the pass playing now. */
     private fun speak(path: String?) {
         speechPath = path?.takeIf { it.isNotEmpty() }
-        passes = 0
-        try { player?.isLooping = speechPath == null } catch (_: IllegalStateException) {}
+        player?.let { playlist(it) }
     }
 
-    /** A pass of the tone ended: the phrase after every second one, the
-     *  tone again otherwise. */
-    private fun onPass(tone: MediaPlayer) {
-        passes++
+    /** The tone alone, looping or once, or with the phrase after every
+     *  second pass. The item playing now keeps playing and the list after
+     *  it changes, so the change lands when it ends, except that dropping
+     *  the phrase while it plays goes straight back to the tone. */
+    private fun playlist(exo: ExoPlayer, loop: Boolean = true) {
+        val tone = tonePath ?: return
         val phrase = speechPath
-        if (phrase == null || passes % 2 != 0) {
-            restart(tone)
-            return
+        if (exo.mediaItemCount == 0 || (phrase == null && exo.currentMediaItem?.mediaId == PHRASE)) {
+            exo.setMediaItem(item(tone, TONE))
+        } else {
+            val current = exo.currentMediaItemIndex
+            if (current < exo.mediaItemCount - 1) exo.removeMediaItems(current + 1, exo.mediaItemCount)
+            if (current > 0) exo.removeMediaItems(0, current)
         }
-        try {
-            val v = alarmPlayer(phrase)
-            v.setOnCompletionListener { endVoice(v, tone) }
-            v.setOnErrorListener { _, what, extra ->
-                Log.w(TAG, "phrase failed: $what/$extra")
-                endVoice(v, tone)
-                true
+        exo.repeatMode = when {
+            !loop -> Player.REPEAT_MODE_OFF
+            phrase == null -> Player.REPEAT_MODE_ONE
+            else -> {
+                exo.addMediaItems(listOf(item(tone, TONE), item(phrase, PHRASE)))
+                Player.REPEAT_MODE_ALL
             }
-            v.prepare()
-            voice = v
-            applyGain()
-            v.start()
-        } catch (e: Exception) {
-            Log.w(TAG, "phrase($phrase) failed: $e")
-            voice = null
-            restart(tone)
-        }
-    }
-
-    private fun endVoice(v: MediaPlayer, tone: MediaPlayer) {
-        if (voice === v) voice = null
-        v.release()
-        if (player === tone) restart(tone)
-    }
-
-    private fun restart(tone: MediaPlayer) {
-        try {
-            tone.seekTo(0)
-            tone.start()
-        } catch (e: IllegalStateException) {
-            Log.w(TAG, "ring restart failed: $e")
         }
     }
 
@@ -274,17 +289,11 @@ class AlarmBridge(private val context: Context, messenger: BinaryMessenger) {
         main.removeCallbacks(ramp)
         rampMs = 0
         speechPath = null
-        passes = 0
-        voice?.let {
-            try { it.stop() } catch (_: IllegalStateException) {}
-            it.release()
-        }
-        voice = null
-        player?.let {
-            try { it.stop() } catch (_: IllegalStateException) {}
-            it.release()
-        }
+        tonePath = null
+        player?.release()
         player = null
+        tap?.close()
+        tap = null
         restoreVolume()
     }
 

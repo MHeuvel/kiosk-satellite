@@ -339,6 +339,46 @@ class SinkTap : PresentedQueue(48000), androidx.media3.exoplayer.audio.TeeAudioP
 }
 
 /**
+ * A Media3 audio sink that times [tap] by the sink's own clock: its first
+ * buffer's time and its position as it plays. The tap's PCM comes from a
+ * [androidx.media3.exoplayer.audio.TeeAudioProcessor] in the sink's chain.
+ */
+open class TappedAudioSink(
+    sink: androidx.media3.exoplayer.audio.AudioSink,
+    private val tap: SinkTap,
+) : androidx.media3.exoplayer.audio.ForwardingAudioSink(sink) {
+    override fun handleBuffer(
+        buffer: ByteBuffer,
+        presentationTimeUs: Long,
+        encodedAccessUnitCount: Int,
+    ): Boolean {
+        tap.started(presentationTimeUs)
+        return super.handleBuffer(buffer, presentationTimeUs, encodedAccessUnitCount)
+    }
+
+    override fun getCurrentPositionUs(sourceEnded: Boolean): Long {
+        val position = super.getCurrentPositionUs(sourceEnded)
+        if (position != androidx.media3.exoplayer.audio.AudioSink.CURRENT_POSITION_NOT_SET) tap.position(position)
+        return position
+    }
+}
+
+/** Renderers for a Media3 player whose audio also goes to [tap]. */
+fun tappedRenderers(context: android.content.Context, tap: SinkTap) =
+    object : androidx.media3.exoplayer.DefaultRenderersFactory(context) {
+        override fun buildAudioSink(
+            context: android.content.Context,
+            enableFloatOutput: Boolean,
+            enableAudioTrackPlaybackParams: Boolean,
+        ): androidx.media3.exoplayer.audio.AudioSink = TappedAudioSink(
+            androidx.media3.exoplayer.audio.DefaultAudioSink.Builder(context)
+                .setAudioProcessors(arrayOf(androidx.media3.exoplayer.audio.TeeAudioProcessor(tap)))
+                .build(),
+            tap,
+        )
+    }.setEnableDecoderFallback(true)
+
+/**
  * Linear resampling of a mono stream, carried across calls. Going down, a
  * short moving average first keeps what lies above the new rate's range
  * from folding back into it: the microphone never hears it there.

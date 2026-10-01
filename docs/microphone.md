@@ -52,7 +52,7 @@ Turn it off only when it does harm. On some MediaTek tablets a canceller attache
 
 Off by default. It removes the kiosk's own sounds from the microphone with WebRTC's echo canceller, the one video calling apps use, alongside the device's own. Turn it on when a realtime conversation keeps interrupting itself (the assistant hears its own answer, takes it for you talking and starts over) or when the wake word struggles to hear you over music.
 
-It covers everything the kiosk plays itself: chimes, text to speech, the realtime assistant's voice, intercom calls and the Sendspin player. Every feature that listens gets the cleaned microphone, so the wake word, Assist, realtime conversations, the intercom and the RTSP stream all benefit. Sound from web pages, DLNA and alarms is not covered. The canceller only runs while something plays and for a moment after, so an idle microphone passes through untouched.
+It covers everything the kiosk plays itself: chimes, timers, text to speech, the realtime assistant's voice, intercom calls, alarms, the Sendspin player and audio sent over DLNA. Every feature that listens gets the cleaned microphone, so the wake word, Assist, realtime conversations, the intercom and the RTSP stream all benefit. Sound from web pages and the sound of DLNA videos are not covered. The canceller only runs while something plays and for a moment after, so an idle microphone passes through untouched.
 
 ## Automatic Gain Control
 
