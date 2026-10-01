@@ -11475,8 +11475,8 @@
     "author": "Xavier Larrea"
   },
   "screenAudioMicrophoneHint": {
-    "source": "f839be42f05672b8b95b3d13c3887283b5369c07591302ef308ce9f36976d8f9",
-    "translation": "930de2665f252bcbbae5212aaf723d37c5b423e4e40d4eb13bc2fcac0c2ddd28",
+    "source": "596dd2116c278e8b510575a7a85659079d0e57b70bd9122972fd67d72618405a",
+    "translation": "f678d7fede88f40cd295f90c1ab8b982215e2dba9be003ab470b596dce57d86d",
     "author": "Xavier Larrea"
   },
   "screenAudioMicrophoneNote": {
@@ -18625,13 +18625,13 @@
     "author": "Xavier Larrea"
   },
   "settingMicSoftwareEchoCancellationDescription": {
-    "source": "31ffc8fa50b9783d386ff2647ef20fdee1fe85a8eb0006523c85e81f5d666475",
-    "translation": "5a0b5b444f002e8835550f0e96caae59ed483e879676d9b28a407a0cb154fe16",
+    "source": "db40251577162e09ae61150edacf1a1a9693d9fd608166012f028dbe03c44d0a",
+    "translation": "ba5bdf040fac746430476275668c4e8e0283119fb45194fc39cc60b5161dd3bf",
     "author": "Xavier Larrea"
   },
   "settingMicSoftwareEchoCancellationTitle": {
-    "source": "7f4feaafc157fec4484208452e95ef06780275145d52046f4317e3a692f04ac2",
-    "translation": "734a52e6f53befe5485e0328e0da7ebe5d6c88f95c0e1b3f1d3efb7dd36e645b",
+    "source": "955927a49c40f59328053660770face0e154a7a1ea6850208af4ad553e413f23",
+    "translation": "2a910443341db14c5b598ec8bca9be9998a8e75b36fc71b74e8d6bc53c11226c",
     "author": "Xavier Larrea"
   }
 }

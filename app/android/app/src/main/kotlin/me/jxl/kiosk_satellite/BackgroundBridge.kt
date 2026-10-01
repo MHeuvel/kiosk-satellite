@@ -304,7 +304,6 @@ class BackgroundBridge(
                     VolumeController.setMix(
                         (call.argument<Number>("media"))?.toInt() ?: 100,
                         (call.argument<Number>("assistant"))?.toInt() ?: 100,
-                        call.argument<Boolean>("assistantFullVolumeRange") ?: true,
                     )
                     result.success(true)
                 }

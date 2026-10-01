@@ -52,32 +52,6 @@
       ]
     }
   },
-  "settingAssistantFullVolumeRangeTitle": "Full assistant volume range",
-  "@settingAssistantFullVolumeRangeTitle": {
-    "context": "Settings:Screen & Audio:Audio Volume",
-    "description": "Setting label.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Audio Volume"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Audio Volume"
-      ]
-    }
-  },
-  "settingAssistantFullVolumeRangeDescription": "Initialize the built-in speaker's call volume at 100% when assistant audio first starts. Master and assistant volume still apply. Other apps share this call volume, which is not restored afterward.",
-  "@settingAssistantFullVolumeRangeDescription": {
-    "context": "Settings:Screen & Audio:Audio Volume",
-    "description": "Help below the setting.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Audio Volume"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Audio Volume"
-      ]
-    }
-  },
   "settingIntercomVolumeTitle": "Intercom volume",
   "@settingIntercomVolumeTitle": {
     "context": "Settings:Screen & Audio:Audio Volume",

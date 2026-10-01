@@ -17,14 +17,10 @@ class NativeMic {
   /// The capture tuning from Microphone settings, set alongside
   /// [deviceSelector] and read at the same moment: the platform applies all
   /// of it when the session opens, so changing any of them needs a restart.
-  static String source = 'voice_communication';
-  static bool echoCancellation = true;
   static num gainDb = 0;
-  static bool agc = false;
-  static bool noiseSuppression = false;
 
   /// WebRTC's echo canceller over the capture, fed what the kiosk plays.
-  static bool softwareEchoCancellation = false;
+  static bool softwareEchoCancellation = true;
 
   /// 1-based channel of a multichannel microphone to capture; 0 lets the
   /// platform downmix (which averages every channel together).
@@ -43,11 +39,7 @@ class NativeMic {
   Stream<Uint8List> stream() => _channel
       .receiveBroadcastStream({
         if (deviceSelector.isNotEmpty) 'device': deviceSelector,
-        'source': source,
-        'aec': echoCancellation,
         'gainDb': gainDb,
-        'agc': agc,
-        'noiseSuppression': noiseSuppression,
         'softwareAec': softwareEchoCancellation,
         'channel': channel,
         'format': captureFormat,

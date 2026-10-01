@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "800c41d6a5c1f5448f016ac6b24c05389d69e7d9",
+  "revision": "25a7c07f0441dc06a75d48c66c80498d0cb6a437",
   "workingTree": true,
   "files": {
     "about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
@@ -136,9 +136,9 @@
     "settings_menu_en.arb": "5333cfe55cd15e576ae3526462235c7f1c7d06edb97dc84ca67a9c6ef8138184",
     "settings_screen_audio_adaptive_brightness_en.arb": "cba22d56130bb959b5a06f32b92a2f5131268cd813d1ad50eb1f5befbb8a6867",
     "settings_screen_audio_devices_en.arb": "73e8996a1e380818dc17cea250802c181298df42bf2a89ad5ec20f29e1eabf8a",
-    "settings_screen_audio_microphone_en.arb": "e5c248ad731da8eb25f90fc44ebbe671b02949854f0c679979ef53a0fbe47b59",
+    "settings_screen_audio_microphone_en.arb": "9631fa48f0427b748edd8bcf00fc8d2a979932d100791386fa9b0160fa4347eb",
     "settings_screen_audio_screen_en.arb": "e5f1c7ea5254ca955e3fedab1ad33974d65395c4a6b16f22d22d578f083638c5",
-    "settings_screen_audio_volume_en.arb": "6f039dd8f69dd73549d8fd3a866a5963797779d5ad62a70bb3943dd943189939",
+    "settings_screen_audio_volume_en.arb": "3b39e34c977410337510e7ffefe886507706cb4acc9d36eb45baad3ecae14c21",
     "settings_screensaver_black_en.arb": "ebf022d21e39061ab0dd2122ca1570abd797d059eed851cbc877499b80bcc79e",
     "settings_screensaver_clock_en.arb": "f4acf3e1ef0dc705d137e6f6ce627513baa58236b802e9080985b5257b5b8e12",
     "settings_screensaver_entity_picker_en.arb": "0691aa0bca520dce916ead490a20861eccd930958c5adb667cde11497d7b7ce5",

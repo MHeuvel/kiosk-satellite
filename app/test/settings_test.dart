@@ -162,32 +162,27 @@ void main() {
     expect(defs.dlnaPort.validator!('nonsense'), isNotNull);
   });
 
-  test('microphone capture defaults leave noise suppression off', () async {
-    await build({});
-    // Default to the call-audio source with no gain, noise suppression
-    // or platform AGC.
-    expect(settings.get(defs.micAudioSource), 'voice_communication');
-    expect(settings.get(defs.micGainDb), 0);
-    expect(settings.get(defs.micAgc), isFalse);
-    expect(settings.get(defs.micNoiseSuppression), isFalse);
-  });
+  test(
+    'the microphone defaults: the raw capture, cancelled, at unity',
+    () async {
+      await build({});
+      expect(settings.get(defs.micSoftwareEchoCancellation), isTrue);
+      expect(settings.get(defs.micGainDb), 0);
+      expect(settings.get(defs.micCaptureFormat), 'auto');
+    },
+  );
 
   for (final stored in [null, true, false]) {
-    test('noise suppression migrates off once (stored: $stored)', () async {
-      await build({'ks.audio.mic_noise_suppression': ?stored});
-      expect(settings.get(defs.micNoiseSuppression), isFalse);
-      final described = settings.describe().firstWhere(
-        (s) => s['key'] == defs.micNoiseSuppression.key,
-      );
-      expect(described['value'], isFalse);
-      expect(described['default'], isFalse);
+    test('echo cancellation migrates on once (stored: $stored)', () async {
+      await build({'ks.audio.software_echo_cancellation': ?stored});
+      expect(settings.get(defs.micSoftwareEchoCancellation), isTrue);
 
-      // A user can enable it again after upgrading or on a fresh install.
-      await settings.set(defs.micNoiseSuppression, true);
+      // A user can turn it off again after upgrading or on a fresh install.
+      await settings.set(defs.micSoftwareEchoCancellation, false);
       final bus = EventBus();
       final reopened = SettingsManager(bus, CommandRegistry(log), log);
       await reopened.init();
-      expect(reopened.get(defs.micNoiseSuppression), isTrue);
+      expect(reopened.get(defs.micSoftwareEchoCancellation), isFalse);
       await reopened.dispose();
       await bus.dispose();
     });
@@ -199,15 +194,12 @@ void main() {
     // existed: everything at the master (device) volume.
     expect(settings.get(defs.mediaVolume), 100);
     expect(settings.get(defs.assistantVolume), 100);
-    expect(settings.get(defs.assistantFullVolumeRange), isTrue);
     // Both render on the Screen & Audio page's Audio Volume card, in both
     // UIs.
     expect(defs.mediaVolume.category, 'Screen & Audio');
     expect(defs.assistantVolume.category, 'Screen & Audio');
     expect(defs.mediaVolume.section, 'Audio Volume');
     expect(defs.assistantVolume.section, 'Audio Volume');
-    expect(defs.assistantFullVolumeRange.category, 'Screen & Audio');
-    expect(defs.assistantFullVolumeRange.section, 'Audio Volume');
   });
 
   test('the dashboard optimizations are on by default', () async {
@@ -272,17 +264,6 @@ void main() {
       expect(settings.visible(defs.kioskAllowDashboard), isFalse);
     },
   );
-
-  test('the mic gain slider hides while AGC is levelling', () async {
-    await build({});
-    expect(settings.visible(defs.micGainDb), isTrue);
-    await settings.set(defs.micAgc, true);
-    // dependsOnValue: false — the inverse gate, which is the only one of its
-    // kind in the definitions.
-    expect(settings.visible(defs.micGainDb), isFalse);
-    await settings.set(defs.micAgc, false);
-    expect(settings.visible(defs.micGainDb), isTrue);
-  });
 
   group('import identity (issue #136)', () {
     late CommandRegistry commands;

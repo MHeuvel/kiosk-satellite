@@ -8643,26 +8643,11 @@ class UiStringsUk extends UiStrings {
   }
 
   @override
-  String get settingMicAudioSourceTitle => 'Режим захоплення';
-
-  @override
-  String get settingMicAudioSourceDescription =>
-      'Голосовий зв\'язок - єдиний режим із придушенням ехо, тому залиште його, якщо тільки мікрофон не звучить значно тихіше, ніж у диктофоні.';
-
-  @override
-  String get settingMicEchoCancellationTitle => 'Ехопоглинання';
-
-  @override
-  String get settingMicEchoCancellationDescription =>
-      'Запобігає потраплянню звуку власного динаміка кіоска в мікрофон, щоб команда зупинки працювала під час відтворення. Вимикайте лише якщо мікрофон тут звучить набагато тихіше, ніж у диктофоні.';
-
-  @override
-  String get settingMicSoftwareEchoCancellationTitle =>
-      'Програмне ехопоглинання';
+  String get settingMicSoftwareEchoCancellationTitle => 'Ехопоглинання';
 
   @override
   String get settingMicSoftwareEchoCancellationDescription =>
-      'Прибирає з мікрофона власні звуки кіоска. Увімкніть, якщо асистент перебиває сам себе.';
+      'Прибирає з мікрофона власні звуки кіоска, щоб їх не чули ні слово активації, ні асистент. Вимикайте лише якщо мікрофон із власним ехопоглинанням звучить гірше з увімкненим.';
 
   @override
   String get settingMicChannelTitle => 'Канал мікрофона';
@@ -8670,20 +8655,6 @@ class UiStringsUk extends UiStrings {
   @override
   String get settingMicChannelDescription =>
       'Багатоканальні мікрофони часто резервують один канал для розпізнавання мови; вибір цього каналу може покращити розпізнавання.';
-
-  @override
-  String get settingMicAgcTitle => 'Автоматичне регулювання підсилення';
-
-  @override
-  String get settingMicAgcDescription =>
-      'Дозволити Android вирівнювати рівень мікрофона замість фіксованого підсилення. Це також підсилює шум кімнати, а на деяких пристроях не діє взагалі.';
-
-  @override
-  String get settingMicNoiseSuppressionTitle => 'Шумозаглушення';
-
-  @override
-  String get settingMicNoiseSuppressionDescription =>
-      'Зменшує фоновий шум мікрофона за допомогою обробки Android. Це може як допомогти, так і завадити розпізнаванню слова активації залежно від пристрою.';
 
   @override
   String get settingMicGainDbTitle => 'Підсилення мікрофона';
@@ -8704,21 +8675,11 @@ class UiStringsUk extends UiStrings {
 
   @override
   String get screenAudioMicrophoneHint =>
-      'Режим захоплення, канал, підсилення, поточний рівень';
+      'Ехопоглинання, підсилення, формат, поточний рівень';
 
   @override
   String get screenAudioMicrophoneNote =>
       'Налаштуйте запис звуку для вашого мікрофона та кімнати. Перевірте роботу слова активації та голосової взаємодії після зміни цих налаштувань.';
-
-  @override
-  String get screenAudioVoiceCommunication =>
-      'Голосовий зв\'язок (за замовчуванням)';
-
-  @override
-  String get screenAudioVoiceRecognition => 'Розпізнавання голосу';
-
-  @override
-  String get screenAudioRawMicrophone => 'Необроблений сигнал мікрофона';
 
   @override
   String get screenAudioAutomaticDefault => 'Автоматично (за замовчуванням)';
@@ -8851,14 +8812,6 @@ class UiStringsUk extends UiStrings {
   @override
   String get settingAssistantVolumeDescription =>
       'Голосові відповіді та сигнали відтворюються на цій частці головної гучності, незалежно від гучності медіа.';
-
-  @override
-  String get settingAssistantFullVolumeRangeTitle =>
-      'Повний діапазон гучності асистента';
-
-  @override
-  String get settingAssistantFullVolumeRangeDescription =>
-      'Ініціалізувати гучність виклику вбудованого динаміка на 100%, коли аудіо асистента запускається вперше. Головна гучність та гучність асистента все одно застосовуються. Інші програми спільно використовують цю гучність виклику, і вона не відновлюється згодом.';
 
   @override
   String get settingIntercomVolumeTitle => 'Гучність домофона';

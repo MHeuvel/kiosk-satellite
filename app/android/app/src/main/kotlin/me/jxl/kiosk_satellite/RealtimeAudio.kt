@@ -16,9 +16,10 @@ import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.TimeUnit
 
 /**
- * The realtime voice session's playback sink: one streaming AudioTrack on
- * the communication route, fed the model's voice as raw mono PCM16 at the
- * provider's rate (24 kHz for OpenAI and xAI).
+ * The realtime voice session's playback sink: one streaming AudioTrack
+ * played as media, fed the model's voice as raw mono PCM16 at the
+ * provider's rate (24 kHz for OpenAI and xAI). What it plays goes to the
+ * software echo canceller through a [TrackTap].
  *
  * It plays only while there is an answer. Feeding it silence between
  * answers, as a call's downlink does, made the echo canceller worse on a
@@ -38,7 +39,7 @@ import java.util.concurrent.TimeUnit
  *  - flush: drops everything queued and buffered, returns the answer
  *    frames played so far.
  *  - status: {played, written} in answer frames.
- *  - stop: releases the track and the route.
+ *  - stop: releases the track.
  *
  * The volume is the assistant fader, like every Voice Satellite sound.
  */
@@ -58,12 +59,10 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
 
     private val appContext = context.applicationContext
     private val channel = MethodChannel(messenger, "kiosk_satellite/realtime_audio")
-    private val communication = CommunicationPlayback.get(appContext)
     private val mainHandler = Handler(Looper.getMainLooper())
     private val lock = Object()
 
     @Volatile private var track: AudioTrack? = null
-    @Volatile private var lease: AutoCloseable? = null
     @Volatile private var output: AudioDeviceInfo? = null
     @Volatile private var writer: Thread? = null
 
@@ -120,16 +119,12 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
     private fun start(sampleRate: Int): Boolean {
         stop()
         rate = sampleRate
-        val selected = AudioRouting.currentOutput()
-        val acquired = communication.acquire(selected)
-        val target = if (acquired != null) communication.output else selected
-        val comm = acquired != null
+        val target = AudioRouting.currentOutput()
         val minBuf = AudioTrack.getMinBufferSize(
             sampleRate, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT,
         )
         if (minBuf <= 0) {
             Log.e(TAG, "unsupported format at $sampleRate Hz")
-            acquired?.close()
             return false
         }
         val bufferBytes = maxOf(minBuf * 2, sampleRate * 2 * BUFFER_MS / 1000)
@@ -137,14 +132,9 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
             AudioTrack.Builder()
                 .setAudioAttributes(
                     AudioAttributes.Builder()
-                        .setUsage(
-                            // Off the call route it is media, like the chimes
-                            // and text to speech: Android puts the master on
-                            // it, where the assistant stream has a volume of
-                            // its own.
-                            if (comm) AudioAttributes.USAGE_VOICE_COMMUNICATION
-                            else AudioAttributes.USAGE_MEDIA,
-                        )
+                        // Media, like the chimes and text to speech: Android
+                        // puts the master on it.
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
                         .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
                         .build(),
                 )
@@ -160,13 +150,11 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
                 .build()
         } catch (e: Exception) {
             Log.e(TAG, "AudioTrack create failed", e)
-            acquired?.close()
             return false
         }
         if (newTrack.state != AudioTrack.STATE_INITIALIZED) {
             Log.e(TAG, "AudioTrack init failed (state=${newTrack.state})")
             runCatching { newTrack.release() }
-            acquired?.close()
             return false
         }
         if (Build.VERSION.SDK_INT >= 28 && target != null) {
@@ -181,7 +169,6 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
             pieces.clear()
         }
         track = newTrack
-        lease = acquired
         output = target
         tap = TrackTap(newTrack, sampleRate, 1)
         applyVolume()
@@ -190,7 +177,7 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
         val thread = Thread({ feed(newTrack) }, "ks-realtime")
         writer = thread
         thread.start()
-        Log.i(TAG, "playback started at $sampleRate Hz (${if (comm) "communication" else "assistant"} route, buffer=${bufferBytes}b)")
+        Log.i(TAG, "playback started at $sampleRate Hz (buffer=${bufferBytes}b)")
         return true
     }
 
@@ -296,12 +283,7 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
 
     private fun applyVolume() {
         val t = track ?: return
-        val master = if (lease != null) {
-            VolumeController.communicationGain(output?.type ?: AudioDeviceInfo.TYPE_BUILTIN_SPEAKER)
-        } else {
-            1f
-        }
-        val level = PlaybackVolume.level(1f, VolumeController.assistGain, master)
+        val level = PlaybackVolume.level(1f, VolumeController.assistGain, 1f)
         runCatching { t.setVolume(level) }
         tap?.gain = level
     }
@@ -315,8 +297,6 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
         queue.clear()
         val thread = writer
         writer = null
-        val l = lease
-        lease = null
         output = null
         runCatching { t.pause() }
         thread?.interrupt()
@@ -324,7 +304,6 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
             runCatching { thread?.join(500) }
             runCatching { t.flush() }
             runCatching { t.release() }
-            mainHandler.post { runCatching { l?.close() } }
             Log.i(TAG, "playback stopped")
         }.start()
     }

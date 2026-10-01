@@ -2607,25 +2607,12 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingAudioSpeakerDeviceDescription,
       'screenAudioDevices' => strings.screenAudioDevices,
       'screenAudioSelectedDevice' => strings.screenAudioSelectedDevice,
-      'settingMicAudioSourceTitle' => strings.settingMicAudioSourceTitle,
-      'settingMicAudioSourceDescription' =>
-        strings.settingMicAudioSourceDescription,
-      'settingMicEchoCancellationTitle' =>
-        strings.settingMicEchoCancellationTitle,
-      'settingMicEchoCancellationDescription' =>
-        strings.settingMicEchoCancellationDescription,
       'settingMicSoftwareEchoCancellationTitle' =>
         strings.settingMicSoftwareEchoCancellationTitle,
       'settingMicSoftwareEchoCancellationDescription' =>
         strings.settingMicSoftwareEchoCancellationDescription,
       'settingMicChannelTitle' => strings.settingMicChannelTitle,
       'settingMicChannelDescription' => strings.settingMicChannelDescription,
-      'settingMicAgcTitle' => strings.settingMicAgcTitle,
-      'settingMicAgcDescription' => strings.settingMicAgcDescription,
-      'settingMicNoiseSuppressionTitle' =>
-        strings.settingMicNoiseSuppressionTitle,
-      'settingMicNoiseSuppressionDescription' =>
-        strings.settingMicNoiseSuppressionDescription,
       'settingMicGainDbTitle' => strings.settingMicGainDbTitle,
       'settingMicGainDbDescription' => strings.settingMicGainDbDescription,
       'settingMicCaptureFormatTitle' => strings.settingMicCaptureFormatTitle,
@@ -2634,9 +2621,6 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'screenAudioMicrophoneSettings' => strings.screenAudioMicrophoneSettings,
       'screenAudioMicrophoneHint' => strings.screenAudioMicrophoneHint,
       'screenAudioMicrophoneNote' => strings.screenAudioMicrophoneNote,
-      'screenAudioVoiceCommunication' => strings.screenAudioVoiceCommunication,
-      'screenAudioVoiceRecognition' => strings.screenAudioVoiceRecognition,
-      'screenAudioRawMicrophone' => strings.screenAudioRawMicrophone,
       'screenAudioAutomaticDefault' => strings.screenAudioAutomaticDefault,
       'screenAudioStereo' => strings.screenAudioStereo,
       'screenAudioDownmix' => strings.screenAudioDownmix,
@@ -2683,10 +2667,6 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'settingAssistantVolumeTitle' => strings.settingAssistantVolumeTitle,
       'settingAssistantVolumeDescription' =>
         strings.settingAssistantVolumeDescription,
-      'settingAssistantFullVolumeRangeTitle' =>
-        strings.settingAssistantFullVolumeRangeTitle,
-      'settingAssistantFullVolumeRangeDescription' =>
-        strings.settingAssistantFullVolumeRangeDescription,
       'settingIntercomVolumeTitle' => strings.settingIntercomVolumeTitle,
       'settingIntercomVolumeDescription' =>
         strings.settingIntercomVolumeDescription,

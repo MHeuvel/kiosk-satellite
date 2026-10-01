@@ -227,7 +227,7 @@ const Map<String, String> subpageHints = {
   'Wake word diagnostics':
       'Recent activations and near misses with audio clips',
   // Screen & Audio.
-  'Microphone settings': 'Capture mode, channel, gain, live level',
+  'Microphone settings': 'Echo cancellation, gain, format, live level',
   'Adaptive brightness': 'Follow the room light with the ambient light sensor',
   // Screensaver. The six mode pages only exist while that mode is the
   // one selected, since every setting on them gates on it.
@@ -1644,19 +1644,6 @@ const assistantVolume = SettingDef<num>(
   description:
       'Voice responses and chimes play at this share of the master '
       'volume, independent of the media volume.',
-  category: 'Screen & Audio',
-  section: 'Audio Volume',
-);
-
-const assistantFullVolumeRange = SettingDef<bool>(
-  key: 'audio.assistant_full_volume_range',
-  type: SettingType.boolean,
-  defaultValue: true,
-  title: 'Full assistant volume range',
-  description:
-      "Initialize the built-in speaker's call volume at 100% when assistant "
-      'audio first starts. Master and assistant volume still apply. Other '
-      'apps share this call volume, which is not restored afterward.',
   category: 'Screen & Audio',
   section: 'Audio Volume',
 );
@@ -4980,65 +4967,28 @@ const screensaverSchedule = SettingDef<String>(
 
 // ── Microphone ─────────────────────────────────────────────────────────
 //
-// Escape hatches for devices whose audio stack does not behave: custom ROMs
-// and cheap tablets where the mic reads far quieter through the app than it
-// does through a recorder app. Every default here is what the app has always
-// done, so an untouched install is bit-for-bit the old behaviour.
+// The capture is the raw microphone, the path a recorder app uses, with
+// the app's own echo cancellation over it. Gain, format and channel are
+// escape hatches for devices whose audio stack does not behave: cheap
+// tablets and custom ROMs where the microphone reads far quieter through
+// the app than through a recorder app, or in a format the app has to ask
+// for by name.
 
-const micAudioSource = SettingDef<String>(
-  key: 'audio.mic_source',
-  type: SettingType.select,
-  defaultValue: 'voice_communication',
-  options: ['voice_communication', 'voice_recognition', 'mic'],
-  optionLabels: {
-    'voice_communication': 'Voice communication (default)',
-    'voice_recognition': 'Voice recognition',
-    'mic': 'Raw microphone',
-  },
-  title: 'Capture mode',
-  description:
-      'Voice communication is the only mode with echo cancellation, so '
-      'leave it unless the microphone reads far quieter here than in a '
-      'recorder app.',
-  category: 'Screen & Audio',
-  section: 'Microphone settings',
-  subpage: 'Microphone settings',
-  perDevice: true,
-);
-
-// On for every capture session the app has ever opened: the stop word
-// listens while TTS plays out of this same device, and without the
-// canceller the microphone hears that speech and scores it. Off exists for
-// devices where the effect does harm: a canceller attached to a
-// non-communication source on some MediaTek tablets attenuates the whole
-// capture to a whisper.
-const micEchoCancellation = SettingDef<bool>(
-  key: 'audio.mic_echo_cancellation',
+/// WebRTC's echo canceller (AEC3) over the microphone, fed everything the
+/// kiosk plays itself (SoftwareEcho.kt, EchoReference.kt). The platform's
+/// own canceller is gone: it needed the call capture path, which came in
+/// 20 dB quieter on some ROMs, and on most devices it let the assistant
+/// hear itself anyway. Off is the escape hatch for a microphone that does
+/// its own cancellation and sounds worse with a second one over it.
+const micSoftwareEchoCancellation = SettingDef<bool>(
+  key: 'audio.software_echo_cancellation',
   type: SettingType.boolean,
   defaultValue: true,
   title: 'Echo cancellation',
   description:
-      'Keeps the kiosk\'s own speaker out of the microphone so the stop '
-      'word works during playback. Turn it off only if the microphone '
-      'reads far quieter here than in a recorder app.',
-  category: 'Screen & Audio',
-  section: 'Microphone settings',
-  subpage: 'Microphone settings',
-  perDevice: true,
-);
-
-/// WebRTC's echo canceller (AEC3) over the microphone, fed everything the
-/// kiosk plays itself (SoftwareEcho.kt, EchoReference.kt), alongside the
-/// device's own. For hardware whose canceller lets the sound through, so the
-/// assistant hears itself and interrupts its own answers.
-const micSoftwareEchoCancellation = SettingDef<bool>(
-  key: 'audio.software_echo_cancellation',
-  type: SettingType.boolean,
-  defaultValue: false,
-  title: 'Software echo cancellation',
-  description:
-      'Removes the kiosk\'s own sounds from the microphone. Turn it on if '
-      'the assistant interrupts itself.',
+      'Removes the kiosk\'s own sounds from the microphone so the wake '
+      'word and the assistant do not hear them. Turn it off only if a '
+      'microphone with its own canceller sounds worse with it on.',
   category: 'Screen & Audio',
   section: 'Microphone settings',
   subpage: 'Microphone settings',
@@ -5069,35 +5019,6 @@ const micChannel = SettingDef<num>(
   perDevice: true,
 );
 
-const micAgc = SettingDef<bool>(
-  key: 'audio.mic_agc',
-  type: SettingType.boolean,
-  defaultValue: false,
-  title: 'Automatic gain control',
-  description:
-      'Let Android level the microphone instead of a fixed gain. It '
-      'also lifts room noise, and on some devices it does nothing at '
-      'all.',
-  category: 'Screen & Audio',
-  section: 'Microphone settings',
-  subpage: 'Microphone settings',
-  perDevice: true,
-);
-
-const micNoiseSuppression = SettingDef<bool>(
-  key: 'audio.mic_noise_suppression',
-  type: SettingType.boolean,
-  defaultValue: false,
-  title: 'Noise suppression',
-  description:
-      'Reduce microphone background noise using Android processing. '
-      'It may help or hurt wake word detection depending on the device.',
-  category: 'Screen & Audio',
-  section: 'Microphone settings',
-  subpage: 'Microphone settings',
-  perDevice: true,
-);
-
 const micGainDb = SettingDef<num>(
   key: 'audio.mic_gain_db',
   type: SettingType.number,
@@ -5114,10 +5035,6 @@ const micGainDb = SettingDef<num>(
   category: 'Screen & Audio',
   section: 'Microphone settings',
   subpage: 'Microphone settings',
-  // Hidden while Android is doing the levelling: a fixed gain under an
-  // adaptive one is two controls fighting over the same number.
-  dependsOn: 'audio.mic_agc',
-  dependsOnValue: false,
   perDevice: true,
 );
 
@@ -9750,14 +9667,9 @@ const List<SettingDef<Object>> allSettings = [
   mediaVolume,
   intercomVolume,
   assistantVolume,
-  assistantFullVolumeRange,
   audioMicDevice,
   audioSpeakerDevice,
-  micAudioSource,
-  micEchoCancellation,
   micSoftwareEchoCancellation,
-  micAgc,
-  micNoiseSuppression,
   micGainDb,
   micCaptureFormat,
   // Hand-built row: renders after the gain in both UIs, and only when the

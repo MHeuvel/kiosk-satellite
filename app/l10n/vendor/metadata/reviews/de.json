@@ -14011,10 +14011,15 @@
     "provenance": "e69b7988f2fca16116639e0fd6a63d4430c75f4c4c7ad86d875642d5cdf89b58"
   },
   "screenAudioMicrophoneHint": {
-    "source": "f839be42f05672b8b95b3d13c3887283b5369c07591302ef308ce9f36976d8f9",
-    "translation": "79066759f82f60857504311dd8383814aeae78582af5d46cc7b2fde5d95cd201",
+    "source": "596dd2116c278e8b510575a7a85659079d0e57b70bd9122972fd67d72618405a",
+    "translation": "b236cfa0d1ccfa34ba0d7c525f09d2d20dffe04cddce436b91bd6d97a828322a",
     "author": "Dee-san",
-    "provenance": "e69b7988f2fca16116639e0fd6a63d4430c75f4c4c7ad86d875642d5cdf89b58"
+    "provenance": "e69b7988f2fca16116639e0fd6a63d4430c75f4c4c7ad86d875642d5cdf89b58",
+    "maintainerCorrection": {
+      "reviewer": "Xavier Larrea",
+      "originalTranslation": "79066759f82f60857504311dd8383814aeae78582af5d46cc7b2fde5d95cd201",
+      "reason": "The page lost its capture mode and gained the echo cancellation switch; the hint names what is there now."
+    }
   },
   "screenAudioMicrophoneNote": {
     "source": "1554b680ceb62ed71058f48505369fbcf11aa92e546e44e9014c3bea72d6821d",
@@ -22565,14 +22570,14 @@
     "ownerAuthored": true
   },
   "settingMicSoftwareEchoCancellationDescription": {
-    "source": "31ffc8fa50b9783d386ff2647ef20fdee1fe85a8eb0006523c85e81f5d666475",
-    "translation": "ce80460da4380db06d98aa7c07e93473ac944b7c68850acdd27b40d75bece798",
+    "source": "db40251577162e09ae61150edacf1a1a9693d9fd608166012f028dbe03c44d0a",
+    "translation": "6a37a06a4a1fd8cb5edae8092999474d6075f6e1641eed294b0ed8351a500999",
     "author": "Xavier Larrea",
     "ownerAuthored": true
   },
   "settingMicSoftwareEchoCancellationTitle": {
-    "source": "7f4feaafc157fec4484208452e95ef06780275145d52046f4317e3a692f04ac2",
-    "translation": "6532e5784b80f13bdc53aa3d60b319cc8f362d07acbb0e33da6fdc6f830a8116",
+    "source": "955927a49c40f59328053660770face0e154a7a1ea6850208af4ad553e413f23",
+    "translation": "079adc5c0eaec1449049184a40798b95dde38e41d16b2d8499f4ed0bb9d65c4d",
     "author": "Xavier Larrea",
     "ownerAuthored": true
   }

@@ -8765,26 +8765,11 @@ class UiStringsDe extends UiStrings {
   }
 
   @override
-  String get settingMicAudioSourceTitle => 'Aufnahmemodus';
-
-  @override
-  String get settingMicAudioSourceDescription =>
-      'Sprachkommunikation ist der einzige Modus mit Echounterdrückung. Behalte diese Einstellung bei, außer das Mikrofon zeichnet hier deutlich leiser auf als in einer Aufnahme-App.';
-
-  @override
-  String get settingMicEchoCancellationTitle => 'Echounterdrückung';
-
-  @override
-  String get settingMicEchoCancellationDescription =>
-      'Verhindert, dass das Mikrofon den Lautsprecher des Kiosks aufnimmt, damit das Stoppwort auch während der Wiedergabe erkannt werden kann. Deaktiviere diese Funktion nur, wenn das Mikrofon hier deutlich leiser aufnimmt als in einer Aufnahme-App.';
-
-  @override
-  String get settingMicSoftwareEchoCancellationTitle =>
-      'Software-Echounterdrückung';
+  String get settingMicSoftwareEchoCancellationTitle => 'Echounterdrückung';
 
   @override
   String get settingMicSoftwareEchoCancellationDescription =>
-      'Entfernt die eigenen Töne des Kiosks aus dem Mikrofon. Aktiviere sie, wenn sich der Assistent selbst unterbricht.';
+      'Entfernt die eigenen Töne des Kiosks aus dem Mikrofon, damit weder das Aktivierungswort noch der Assistent sie hören. Deaktiviere sie nur, wenn ein Mikrofon mit eigener Echounterdrückung damit schlechter klingt.';
 
   @override
   String get settingMicChannelTitle => 'Mikrofonkanal';
@@ -8792,20 +8777,6 @@ class UiStringsDe extends UiStrings {
   @override
   String get settingMicChannelDescription =>
       'Mehrkanal-Mikrofone reservieren oft einen Kanal für die Spracherkennung. Die Auswahl dieses Kanals kann die Erkennung verbessern.';
-
-  @override
-  String get settingMicAgcTitle => 'Automatische Verstärkungsregelung';
-
-  @override
-  String get settingMicAgcDescription =>
-      'Erlaubt Android, den Mikrofonpegel automatisch anzupassen, anstatt eine feste Verstärkung zu verwenden. Kann auch Umgebungsgeräusche verstärken und hat auf manchen Geräten keine Wirkung.';
-
-  @override
-  String get settingMicNoiseSuppressionTitle => 'Rauschunterdrückung';
-
-  @override
-  String get settingMicNoiseSuppressionDescription =>
-      'Reduziert Hintergrundgeräusche durch die Audioverarbeitung von Android. Je nach Gerät kann dies die Aktivierungswort-Erkennung verbessern oder verschlechtern.';
 
   @override
   String get settingMicGainDbTitle => 'Mikrofonverstärkung';
@@ -8826,20 +8797,11 @@ class UiStringsDe extends UiStrings {
 
   @override
   String get screenAudioMicrophoneHint =>
-      'Aufnahmemodus, Kanal, Verstärkung und Echtzeit-Pegel';
+      'Echounterdrückung, Verstärkung, Format und Echtzeit-Pegel';
 
   @override
   String get screenAudioMicrophoneNote =>
       'Passe die Aufnahme an Mikrofon und Umgebung an. Teste nach Änderungen die Aktivierungswörter und Sprachinteraktionen.';
-
-  @override
-  String get screenAudioVoiceCommunication => 'Sprachkommunikation (Standard)';
-
-  @override
-  String get screenAudioVoiceRecognition => 'Spracherkennung';
-
-  @override
-  String get screenAudioRawMicrophone => 'Rohes Mikrofon';
 
   @override
   String get screenAudioAutomaticDefault => 'Automatisch (Standard)';
@@ -8972,14 +8934,6 @@ class UiStringsDe extends UiStrings {
   @override
   String get settingAssistantVolumeDescription =>
       'Sprachantworten und Signaltöne werden mit diesem Anteil der Hauptlautstärke wiedergegeben, unabhängig von der Medienlautstärke.';
-
-  @override
-  String get settingAssistantFullVolumeRangeTitle =>
-      'Voller Lautstärkebereich für den Assistenten';
-
-  @override
-  String get settingAssistantFullVolumeRangeDescription =>
-      'Setzt die Anruflautstärke des integrierten Lautsprechers beim ersten Start der Assistenten-Audioausgabe auf 100 %. Die Hauptlautstärke und die Assistentenlautstärke wirken weiterhin darauf. Andere Anwendungen verwenden dieselbe Anruflautstärke, die anschließend nicht wiederhergestellt wird.';
 
   @override
   String get settingIntercomVolumeTitle => 'Intercom-Lautstärke';

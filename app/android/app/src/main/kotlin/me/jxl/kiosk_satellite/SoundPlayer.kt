@@ -131,24 +131,16 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
     private fun effectiveVolume(id: String): Float {
         val base = baseVolumes[id] ?: 1f
         val gain = if (id in absoluteVolumes) 1f else VolumeController.assistGain
-        val master = if (communicationSound(id)) {
-            VolumeController.communicationGain(requests[id]?.output?.type ?: AudioDeviceInfo.TYPE_BUILTIN_SPEAKER)
-        } else 1f
-        return PlaybackVolume.level(base, gain, master)
+        return PlaybackVolume.level(base, gain, 1f)
     }
 
-    private class PlaybackRequest(
-        val lease: AutoCloseable?,
-        val output: AudioDeviceInfo?,
-    )
-    private val communication = CommunicationPlayback.get(appContext)
+    private class PlaybackRequest(val output: AudioDeviceInfo?)
     private val requests = java.util.concurrent.ConcurrentHashMap<String, PlaybackRequest>()
 
-    private fun communicationSound(id: String): Boolean = requests[id]?.lease != null
-
-    private fun attributes(id: String): AudioAttributes = AudioAttributes.Builder()
-        .setUsage(if (communicationSound(id)) AudioAttributes.USAGE_VOICE_COMMUNICATION else AudioAttributes.USAGE_MEDIA)
-        .setContentType(if (communicationSound(id)) AudioAttributes.CONTENT_TYPE_SPEECH else AudioAttributes.CONTENT_TYPE_MUSIC)
+    /** Media, like everything the kiosk plays: Android puts the master on it. */
+    private val mediaAttributes: AudioAttributes = AudioAttributes.Builder()
+        .setUsage(AudioAttributes.USAGE_MEDIA)
+        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
         .build()
 
     /** Per-sound level taps, feeding the page's reactive bar. */
@@ -273,11 +265,9 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
         if (exoDecoder != null && exoDecoder !in setOf("default", "software")) return false
         // Same id twice = replace: the page re-firing a chime wants the new
         // one, not two overlapped copies.
-        val selected = AudioRouting.currentOutput()
-        val lease = communication.acquire(selected)
-        val target = if (lease != null) communication.output else selected
+        val target = AudioRouting.currentOutput()
         finish(id, null)
-        val request = PlaybackRequest(lease, target)
+        val request = PlaybackRequest(target)
         requests[id] = request
         val callRouteWanted =
             target != null && target.type == AudioDeviceInfo.TYPE_BLUETOOTH_SCO
@@ -331,7 +321,7 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
                 if (callRoute) AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_VOICE_COMMUNICATION)
                     .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH).build()
-                else attributes(id),
+                else mediaAttributes,
             )
             if (callRoute) ensureScoLink(id, target!!)
             mp.setDataSource(source)
@@ -392,7 +382,7 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
         }
         val track = try {
             AudioTrack.Builder()
-                .setAudioAttributes(attributes(id))
+                .setAudioAttributes(mediaAttributes)
                 .setAudioFormat(
                     AudioFormat.Builder()
                         .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
@@ -532,15 +522,15 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
             exoPlayers[id] = player
             player.setAudioAttributes(
                 androidx.media3.common.AudioAttributes.Builder()
-                    .setUsage(if (communicationSound(id)) C.USAGE_VOICE_COMMUNICATION else C.USAGE_MEDIA)
-                    .setContentType(if (communicationSound(id)) C.AUDIO_CONTENT_TYPE_SPEECH else C.AUDIO_CONTENT_TYPE_MUSIC)
+                    .setUsage(C.USAGE_MEDIA)
+                    .setContentType(C.AUDIO_CONTENT_TYPE_MUSIC)
                     .build(),
                 /* handleAudioFocus = */ false,
             )
             target?.let { player.setPreferredAudioDevice(it) }
             player.volume = effectiveVolume(id)
             diagnostic(id, "ExoPlayer prepare software=$softwareDecoders replay=$diagnosticReplay " +
-                "communication=${communicationSound(id)} output=${target?.type}")
+                "output=${target?.type}")
             player.addAnalyticsListener(object : AnalyticsListener {
                 override fun onAudioDecoderInitialized(
                     eventTime: AnalyticsListener.EventTime,
@@ -632,8 +622,7 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
                         diagnostics.summary()
                     Log.w(
                         TAG,
-                        "sound $id failed: $description ($progress " +
-                            "communication=${communicationSound(id)} output=${target?.type})",
+                        "sound $id failed: $description ($progress output=${target?.type})",
                         error,
                     )
                     // A vendor codec service can be crashed outright (issue
@@ -1099,11 +1088,9 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
             workerHandler.post {
                 track?.let { releaseTrack(it) }
                 try { mp?.release() } catch (_: Exception) {}
-                mainHandler.post { request.lease?.close() }
             }
         }
         try { exo?.release() } catch (_: Exception) {}
-        if (mp == null && track == null) request.lease?.close()
         Log.d(TAG, "sound finish $id: main=${(System.nanoTime() - beganNs) / 1_000_000}ms error=$error")
     }
 }

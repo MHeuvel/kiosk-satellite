@@ -368,16 +368,18 @@ class SettingsManager extends Manager {
     if (_prefs.get(_prefix + uiLanguage.key) == 'system') {
       await _prefs.setString(_prefix + uiLanguage.key, 'en');
     }
-    // Turn noise suppression off once for existing installs. Record this
-    // on fresh installs too so later choices survive app restarts.
-    const noiseSuppressionMigration =
-        'audio.mic_noise_suppression_off.migrated';
-    if (internal(noiseSuppressionMigration).isEmpty) {
-      if (get(micNoiseSuppression)) {
-        await _prefs.setBool(_prefix + micNoiseSuppression.key, false);
-        log.info(name, 'turned microphone noise suppression off on upgrade');
+    // The platform's echo canceller, capture mode, noise suppression and
+    // gain control are gone: the capture is the raw microphone with the
+    // app's own canceller over it, which an install from the days of the
+    // switch may have turned off to try. On once for everyone.
+    const softwareEchoMigration =
+        'audio.software_echo_cancellation_on.migrated';
+    if (internal(softwareEchoMigration).isEmpty) {
+      if (!get(micSoftwareEchoCancellation)) {
+        await _prefs.setBool(_prefix + micSoftwareEchoCancellation.key, true);
+        log.info(name, 'turned echo cancellation on on upgrade');
       }
-      await setInternal(noiseSuppressionMigration, '1');
+      await setInternal(softwareEchoMigration, '1');
     }
     // The music duck used to go up to 25%, more than the software echo
     // canceller keeps out of the microphone. Bring existing installs down

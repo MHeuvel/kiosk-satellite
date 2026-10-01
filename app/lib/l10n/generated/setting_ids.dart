@@ -252,33 +252,13 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingAssistantVolumeTitle",
     "description": "settingAssistantVolumeDescription",
   },
-  "audio.assistant_full_volume_range": {
-    "title": "settingAssistantFullVolumeRangeTitle",
-    "description": "settingAssistantFullVolumeRangeDescription",
-  },
   "intercom.volume": {
     "title": "settingIntercomVolumeTitle",
     "description": "settingIntercomVolumeDescription",
   },
-  "audio.mic_source": {
-    "title": "settingMicAudioSourceTitle",
-    "description": "settingMicAudioSourceDescription",
-  },
-  "audio.mic_echo_cancellation": {
-    "title": "settingMicEchoCancellationTitle",
-    "description": "settingMicEchoCancellationDescription",
-  },
   "audio.software_echo_cancellation": {
     "title": "settingMicSoftwareEchoCancellationTitle",
     "description": "settingMicSoftwareEchoCancellationDescription",
-  },
-  "audio.mic_agc": {
-    "title": "settingMicAgcTitle",
-    "description": "settingMicAgcDescription",
-  },
-  "audio.mic_noise_suppression": {
-    "title": "settingMicNoiseSuppressionTitle",
-    "description": "settingMicNoiseSuppressionDescription",
   },
   "audio.mic_gain_db": {
     "title": "settingMicGainDbTitle",

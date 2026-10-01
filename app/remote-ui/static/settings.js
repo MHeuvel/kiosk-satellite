@@ -196,7 +196,7 @@ const liveSettings = new Map();
 const renderedSettings = new Map();
 const layoutSettings = new Set([
   'ui.language',
-  'audio.mic_agc', 'launcher.auto_return', 'home.enabled',
+  'launcher.auto_return', 'home.enabled',
   'browser.auto_reload_on_error', 'screensaver.dismiss_on_motion',
   'screensaver.dismiss_on_face', 'screensaver.dismiss_on_person', 'person.sensor',
   'screen.adaptive_brightness', 'screensaver.clock_night',
@@ -1379,7 +1379,7 @@ kioskText('Lockdown Mode makes the dashboard non-interactive, arms every ' +
     // The capture rows are on a second-level page now, so the card is found
     // inside its panel and the group's place on this page is the entry row.
     const micCard = [...root.querySelectorAll('.card')]
-      .find((c) => c.querySelector('[data-key="audio.mic_source"]'));
+      .find((c) => c.querySelector('[data-key="audio.mic_gain_db"]'));
     const micEntry = root
       .querySelector('[data-subpage-entry="Microphone settings"]')
       ?.closest('.card');

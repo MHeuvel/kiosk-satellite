@@ -14,7 +14,7 @@ import java.util.concurrent.CopyOnWriteArrayList
  * 16 kHz mono, the rate the microphone runs at.
  *
  * Players Android decodes on its own (the dashboard's web pages, the DLNA
- * video player, alarms) cannot be tapped, so their sound is not cancelled.
+ * video player) cannot be tapped, so their sound is not cancelled.
  */
 object EchoReference {
     const val RATE = 16000

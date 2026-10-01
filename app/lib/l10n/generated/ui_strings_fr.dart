@@ -8715,26 +8715,11 @@ class UiStringsFr extends UiStrings {
   }
 
   @override
-  String get settingMicAudioSourceTitle => 'Mode de capture';
-
-  @override
-  String get settingMicAudioSourceDescription =>
-      'Le mode Communication vocale est le seul à offrir l\'annulation d\'écho ; ne le changez donc que si le microphone semble bien plus faible ici que dans une application d\'enregistrement.';
-
-  @override
-  String get settingMicEchoCancellationTitle => 'Annulation d\'écho';
-
-  @override
-  String get settingMicEchoCancellationDescription =>
-      'Empêche le microphone de capter le haut-parleur du kiosque afin que le mot d\'arrêt fonctionne pendant la lecture. Ne la désactivez que si le microphone semble bien plus faible ici que dans une application d\'enregistrement.';
-
-  @override
-  String get settingMicSoftwareEchoCancellationTitle =>
-      'Annulation d\'écho logicielle';
+  String get settingMicSoftwareEchoCancellationTitle => 'Annulation d\'écho';
 
   @override
   String get settingMicSoftwareEchoCancellationDescription =>
-      'Retire du microphone les sons émis par le kiosque. Activez-la si l\'assistant s\'interrompt lui-même.';
+      'Retire du microphone les sons émis par le kiosque pour que ni le mot de réveil ni l\'assistant ne les entendent. Ne la désactivez que si un microphone doté de sa propre annulation d\'écho sonne moins bien avec elle.';
 
   @override
   String get settingMicChannelTitle => 'Canal du microphone';
@@ -8742,20 +8727,6 @@ class UiStringsFr extends UiStrings {
   @override
   String get settingMicChannelDescription =>
       'Les microphones multicanaux réservent souvent un canal à la reconnaissance vocale ; le sélectionner peut améliorer la détection.';
-
-  @override
-  String get settingMicAgcTitle => 'Contrôle automatique du gain';
-
-  @override
-  String get settingMicAgcDescription =>
-      'Laisser Android ajuster le niveau du microphone au lieu d\'un gain fixe. Cela amplifie aussi le bruit ambiant, et sur certains appareils cela n\'a aucun effet.';
-
-  @override
-  String get settingMicNoiseSuppressionTitle => 'Suppression du bruit';
-
-  @override
-  String get settingMicNoiseSuppressionDescription =>
-      'Réduire le bruit de fond du microphone via le traitement Android. Selon l\'appareil, cela peut améliorer ou nuire à la détection du mot de réveil.';
 
   @override
   String get settingMicGainDbTitle => 'Gain du microphone';
@@ -8776,21 +8747,11 @@ class UiStringsFr extends UiStrings {
 
   @override
   String get screenAudioMicrophoneHint =>
-      'Mode de capture, canal, gain, niveau en direct';
+      'Annulation d\'écho, gain, format, niveau en direct';
 
   @override
   String get screenAudioMicrophoneNote =>
       'Ajustez la capture pour votre microphone et votre pièce. Testez les mots de réveil et les interactions vocales après avoir modifié ces paramètres.';
-
-  @override
-  String get screenAudioVoiceCommunication =>
-      'Communication vocale (par défaut)';
-
-  @override
-  String get screenAudioVoiceRecognition => 'Reconnaissance vocale';
-
-  @override
-  String get screenAudioRawMicrophone => 'Microphone brut';
 
   @override
   String get screenAudioAutomaticDefault => 'Automatique (par défaut)';
@@ -8923,14 +8884,6 @@ class UiStringsFr extends UiStrings {
   @override
   String get settingAssistantVolumeDescription =>
       'Les réponses vocales et les carillons sont lus à cette proportion du volume principal, indépendamment du volume multimédia.';
-
-  @override
-  String get settingAssistantFullVolumeRangeTitle =>
-      'Plage de volume complète pour l\'assistant';
-
-  @override
-  String get settingAssistantFullVolumeRangeDescription =>
-      'Initialiser le volume d\'appel du haut-parleur intégré à 100 % au premier démarrage de l\'audio de l\'assistant. Le volume principal et le volume de l\'assistant s\'appliquent toujours. D\'autres applications partagent ce volume d\'appel, qui n\'est pas restauré ensuite.';
 
   @override
   String get settingIntercomVolumeTitle => 'Volume de l\'interphone';

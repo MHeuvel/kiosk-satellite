@@ -32023,59 +32023,7 @@
       }
     }
   },
-  "settingMicAudioSourceTitle": "Режим захоплення",
-  "@settingMicAudioSourceTitle": {
-    "context": "Settings:Screen & Audio:Microphone settings",
-    "description": "Setting label.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Microphone settings"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Microphone settings"
-      ]
-    }
-  },
-  "settingMicAudioSourceDescription": "Голосовий зв'язок - єдиний режим із придушенням ехо, тому залиште його, якщо тільки мікрофон не звучить значно тихіше, ніж у диктофоні.",
-  "@settingMicAudioSourceDescription": {
-    "context": "Settings:Screen & Audio:Microphone settings",
-    "description": "Help below the setting.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Microphone settings"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Microphone settings"
-      ]
-    }
-  },
-  "settingMicEchoCancellationTitle": "Ехопоглинання",
-  "@settingMicEchoCancellationTitle": {
-    "context": "Settings:Screen & Audio:Microphone settings",
-    "description": "Setting label.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Microphone settings"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Microphone settings"
-      ]
-    }
-  },
-  "settingMicEchoCancellationDescription": "Запобігає потраплянню звуку власного динаміка кіоска в мікрофон, щоб команда зупинки працювала під час відтворення. Вимикайте лише якщо мікрофон тут звучить набагато тихіше, ніж у диктофоні.",
-  "@settingMicEchoCancellationDescription": {
-    "context": "Settings:Screen & Audio:Microphone settings",
-    "description": "Help below the setting.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Microphone settings"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Microphone settings"
-      ]
-    }
-  },
-  "settingMicSoftwareEchoCancellationTitle": "Програмне ехопоглинання",
+  "settingMicSoftwareEchoCancellationTitle": "Ехопоглинання",
   "@settingMicSoftwareEchoCancellationTitle": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Setting label.",
@@ -32088,7 +32036,7 @@
       ]
     }
   },
-  "settingMicSoftwareEchoCancellationDescription": "Прибирає з мікрофона власні звуки кіоска. Увімкніть, якщо асистент перебиває сам себе.",
+  "settingMicSoftwareEchoCancellationDescription": "Прибирає з мікрофона власні звуки кіоска, щоб їх не чули ні слово активації, ні асистент. Вимикайте лише якщо мікрофон із власним ехопоглинанням звучить гірше з увімкненим.",
   "@settingMicSoftwareEchoCancellationDescription": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Help below the setting.",
@@ -32116,58 +32064,6 @@
   },
   "settingMicChannelDescription": "Багатоканальні мікрофони часто резервують один канал для розпізнавання мови; вибір цього каналу може покращити розпізнавання.",
   "@settingMicChannelDescription": {
-    "context": "Settings:Screen & Audio:Microphone settings",
-    "description": "Help below the setting.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Microphone settings"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Microphone settings"
-      ]
-    }
-  },
-  "settingMicAgcTitle": "Автоматичне регулювання підсилення",
-  "@settingMicAgcTitle": {
-    "context": "Settings:Screen & Audio:Microphone settings",
-    "description": "Setting label.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Microphone settings"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Microphone settings"
-      ]
-    }
-  },
-  "settingMicAgcDescription": "Дозволити Android вирівнювати рівень мікрофона замість фіксованого підсилення. Це також підсилює шум кімнати, а на деяких пристроях не діє взагалі.",
-  "@settingMicAgcDescription": {
-    "context": "Settings:Screen & Audio:Microphone settings",
-    "description": "Help below the setting.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Microphone settings"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Microphone settings"
-      ]
-    }
-  },
-  "settingMicNoiseSuppressionTitle": "Шумозаглушення",
-  "@settingMicNoiseSuppressionTitle": {
-    "context": "Settings:Screen & Audio:Microphone settings",
-    "description": "Setting label.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Microphone settings"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Microphone settings"
-      ]
-    }
-  },
-  "settingMicNoiseSuppressionDescription": "Зменшує фоновий шум мікрофона за допомогою обробки Android. Це може як допомогти, так і завадити розпізнаванню слова активації залежно від пристрою.",
-  "@settingMicNoiseSuppressionDescription": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Help below the setting.",
     "x-locations": {
@@ -32244,7 +32140,7 @@
       ]
     }
   },
-  "screenAudioMicrophoneHint": "Режим захоплення, канал, підсилення, поточний рівень",
+  "screenAudioMicrophoneHint": "Ехопоглинання, підсилення, формат, поточний рівень",
   "@screenAudioMicrophoneHint": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -32259,45 +32155,6 @@
   },
   "screenAudioMicrophoneNote": "Налаштуйте запис звуку для вашого мікрофона та кімнати. Перевірте роботу слова активації та голосової взаємодії після зміни цих налаштувань.",
   "@screenAudioMicrophoneNote": {
-    "context": "Settings:Screen & Audio:Microphone settings",
-    "description": "Heading, choice, status or guidance shown in this group.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Microphone settings"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Microphone settings"
-      ]
-    }
-  },
-  "screenAudioVoiceCommunication": "Голосовий зв'язок (за замовчуванням)",
-  "@screenAudioVoiceCommunication": {
-    "context": "Settings:Screen & Audio:Microphone settings",
-    "description": "Heading, choice, status or guidance shown in this group.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Microphone settings"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Microphone settings"
-      ]
-    }
-  },
-  "screenAudioVoiceRecognition": "Розпізнавання голосу",
-  "@screenAudioVoiceRecognition": {
-    "context": "Settings:Screen & Audio:Microphone settings",
-    "description": "Heading, choice, status or guidance shown in this group.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Microphone settings"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Microphone settings"
-      ]
-    }
-  },
-  "screenAudioRawMicrophone": "Необроблений сигнал мікрофона",
-  "@screenAudioRawMicrophone": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",
     "x-locations": {
@@ -32804,32 +32661,6 @@
   },
   "settingAssistantVolumeDescription": "Голосові відповіді та сигнали відтворюються на цій частці головної гучності, незалежно від гучності медіа.",
   "@settingAssistantVolumeDescription": {
-    "context": "Settings:Screen & Audio:Audio Volume",
-    "description": "Help below the setting.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Audio Volume"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Audio Volume"
-      ]
-    }
-  },
-  "settingAssistantFullVolumeRangeTitle": "Повний діапазон гучності асистента",
-  "@settingAssistantFullVolumeRangeTitle": {
-    "context": "Settings:Screen & Audio:Audio Volume",
-    "description": "Setting label.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Audio Volume"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Audio Volume"
-      ]
-    }
-  },
-  "settingAssistantFullVolumeRangeDescription": "Ініціалізувати гучність виклику вбудованого динаміка на 100%, коли аудіо асистента запускається вперше. Головна гучність та гучність асистента все одно застосовуються. Інші програми спільно використовують цю гучність виклику, і вона не відновлюється згодом.",
-  "@settingAssistantFullVolumeRangeDescription": {
     "context": "Settings:Screen & Audio:Audio Volume",
     "description": "Help below the setting.",
     "x-locations": {

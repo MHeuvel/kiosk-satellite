@@ -32023,59 +32023,7 @@
       }
     }
   },
-  "settingMicAudioSourceTitle": "Modo de captura",
-  "@settingMicAudioSourceTitle": {
-    "context": "Settings:Screen & Audio:Microphone settings",
-    "description": "Setting label.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Microphone settings"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Microphone settings"
-      ]
-    }
-  },
-  "settingMicAudioSourceDescription": "Comunicación de voz es el único modo con cancelación de eco. Déjalo seleccionado salvo que el micrófono capte un volumen mucho más bajo aquí que en una aplicación de grabación.",
-  "@settingMicAudioSourceDescription": {
-    "context": "Settings:Screen & Audio:Microphone settings",
-    "description": "Help below the setting.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Microphone settings"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Microphone settings"
-      ]
-    }
-  },
-  "settingMicEchoCancellationTitle": "Cancelación de eco",
-  "@settingMicEchoCancellationTitle": {
-    "context": "Settings:Screen & Audio:Microphone settings",
-    "description": "Setting label.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Microphone settings"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Microphone settings"
-      ]
-    }
-  },
-  "settingMicEchoCancellationDescription": "Evita que el micrófono capte el altavoz del kiosko para que la palabra de parada funcione durante la reproducción. Desactívala solo si el micrófono capta un volumen mucho más bajo aquí que en una aplicación de grabación.",
-  "@settingMicEchoCancellationDescription": {
-    "context": "Settings:Screen & Audio:Microphone settings",
-    "description": "Help below the setting.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Microphone settings"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Microphone settings"
-      ]
-    }
-  },
-  "settingMicSoftwareEchoCancellationTitle": "Cancelación de eco por software",
+  "settingMicSoftwareEchoCancellationTitle": "Cancelación de eco",
   "@settingMicSoftwareEchoCancellationTitle": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Setting label.",
@@ -32088,7 +32036,7 @@
       ]
     }
   },
-  "settingMicSoftwareEchoCancellationDescription": "Elimina del micrófono los sonidos del propio kiosko. Actívala si el asistente se interrumpe a sí mismo.",
+  "settingMicSoftwareEchoCancellationDescription": "Elimina del micrófono los sonidos del propio kiosko para que ni la palabra de activación ni el asistente los oigan. Desactívala solo si un micrófono con su propio cancelador de eco suena peor con ella activada.",
   "@settingMicSoftwareEchoCancellationDescription": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Help below the setting.",
@@ -32116,58 +32064,6 @@
   },
   "settingMicChannelDescription": "Los micrófonos multicanal suelen reservar un canal para el reconocimiento de voz. Elegirlo puede mejorar la detección.",
   "@settingMicChannelDescription": {
-    "context": "Settings:Screen & Audio:Microphone settings",
-    "description": "Help below the setting.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Microphone settings"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Microphone settings"
-      ]
-    }
-  },
-  "settingMicAgcTitle": "Control automático de ganancia",
-  "@settingMicAgcTitle": {
-    "context": "Settings:Screen & Audio:Microphone settings",
-    "description": "Setting label.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Microphone settings"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Microphone settings"
-      ]
-    }
-  },
-  "settingMicAgcDescription": "Permite que Android ajuste el nivel del micrófono en lugar de usar una ganancia fija. También amplifica el ruido ambiental y en algunos dispositivos no tiene ningún efecto.",
-  "@settingMicAgcDescription": {
-    "context": "Settings:Screen & Audio:Microphone settings",
-    "description": "Help below the setting.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Microphone settings"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Microphone settings"
-      ]
-    }
-  },
-  "settingMicNoiseSuppressionTitle": "Supresión de ruido",
-  "@settingMicNoiseSuppressionTitle": {
-    "context": "Settings:Screen & Audio:Microphone settings",
-    "description": "Setting label.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Microphone settings"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Microphone settings"
-      ]
-    }
-  },
-  "settingMicNoiseSuppressionDescription": "Reduce el ruido de fondo del micrófono mediante el procesamiento de Android. Puede mejorar o empeorar la detección de la palabra de activación según el dispositivo.",
-  "@settingMicNoiseSuppressionDescription": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Help below the setting.",
     "x-locations": {
@@ -32244,7 +32140,7 @@
       ]
     }
   },
-  "screenAudioMicrophoneHint": "Modo de captura, canal, ganancia y nivel en tiempo real",
+  "screenAudioMicrophoneHint": "Cancelación de eco, ganancia, formato y nivel en tiempo real",
   "@screenAudioMicrophoneHint": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",
@@ -32259,45 +32155,6 @@
   },
   "screenAudioMicrophoneNote": "Ajusta la captura al micrófono y a la habitación. Prueba las palabras de activación y las interacciones de voz después de cambiar estas opciones.",
   "@screenAudioMicrophoneNote": {
-    "context": "Settings:Screen & Audio:Microphone settings",
-    "description": "Heading, choice, status or guidance shown in this group.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Microphone settings"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Microphone settings"
-      ]
-    }
-  },
-  "screenAudioVoiceCommunication": "Comunicación de voz (predeterminado)",
-  "@screenAudioVoiceCommunication": {
-    "context": "Settings:Screen & Audio:Microphone settings",
-    "description": "Heading, choice, status or guidance shown in this group.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Microphone settings"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Microphone settings"
-      ]
-    }
-  },
-  "screenAudioVoiceRecognition": "Reconocimiento de voz",
-  "@screenAudioVoiceRecognition": {
-    "context": "Settings:Screen & Audio:Microphone settings",
-    "description": "Heading, choice, status or guidance shown in this group.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Microphone settings"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Microphone settings"
-      ]
-    }
-  },
-  "screenAudioRawMicrophone": "Micrófono sin procesar",
-  "@screenAudioRawMicrophone": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",
     "x-locations": {
@@ -32804,32 +32661,6 @@
   },
   "settingAssistantVolumeDescription": "Las respuestas de voz y los sonidos se reproducen a esta proporción del volumen principal, independientemente del volumen multimedia.",
   "@settingAssistantVolumeDescription": {
-    "context": "Settings:Screen & Audio:Audio Volume",
-    "description": "Help below the setting.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Audio Volume"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Audio Volume"
-      ]
-    }
-  },
-  "settingAssistantFullVolumeRangeTitle": "Rango completo del volumen del asistente",
-  "@settingAssistantFullVolumeRangeTitle": {
-    "context": "Settings:Screen & Audio:Audio Volume",
-    "description": "Setting label.",
-    "x-locations": {
-      "device": [
-        "Settings > Screen & Audio > Audio Volume"
-      ],
-      "remoteAdmin": [
-        "Screen & Audio > Audio Volume"
-      ]
-    }
-  },
-  "settingAssistantFullVolumeRangeDescription": "Establece el volumen de llamadas del altavoz integrado al 100 % cuando se inicia el audio del asistente por primera vez. El volumen principal y el del asistente siguen aplicándose. Otras aplicaciones comparten este volumen de llamadas, que no se restaura después.",
-  "@settingAssistantFullVolumeRangeDescription": {
     "context": "Settings:Screen & Audio:Audio Volume",
     "description": "Help below the setting.",
     "x-locations": {

@@ -754,12 +754,8 @@ class WakeWordManager extends Manager
         // updated the selector by the time this listener runs (it inits,
         // and so subscribes, before this manager).
         _restartForMicChange('microphone selection changed');
-      } else if (e.key == defs.micAudioSource.key ||
-          e.key == defs.micEchoCancellation.key ||
-          e.key == defs.micSoftwareEchoCancellation.key ||
+      } else if (e.key == defs.micSoftwareEchoCancellation.key ||
           e.key == defs.micGainDb.key ||
-          e.key == defs.micAgc.key ||
-          e.key == defs.micNoiseSuppression.key ||
           e.key == defs.micChannel.key ||
           e.key == defs.micCaptureFormat.key) {
         // Capture tuning and effects are fixed when the

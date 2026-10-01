@@ -14875,37 +14875,13 @@ abstract class UiStrings {
   /// Setting label.
   ///
   /// In en, this message translates to:
-  /// **'Capture mode'**
-  String get settingMicAudioSourceTitle;
-
-  /// Help below the setting.
-  ///
-  /// In en, this message translates to:
-  /// **'Voice communication is the only mode with echo cancellation, so leave it unless the microphone reads far quieter here than in a recorder app.'**
-  String get settingMicAudioSourceDescription;
-
-  /// Setting label.
-  ///
-  /// In en, this message translates to:
   /// **'Echo cancellation'**
-  String get settingMicEchoCancellationTitle;
-
-  /// Help below the setting.
-  ///
-  /// In en, this message translates to:
-  /// **'Keeps the kiosk\'s own speaker out of the microphone so the stop word works during playback. Turn it off only if the microphone reads far quieter here than in a recorder app.'**
-  String get settingMicEchoCancellationDescription;
-
-  /// Setting label.
-  ///
-  /// In en, this message translates to:
-  /// **'Software echo cancellation'**
   String get settingMicSoftwareEchoCancellationTitle;
 
   /// Help below the setting.
   ///
   /// In en, this message translates to:
-  /// **'Removes the kiosk\'s own sounds from the microphone. Turn it on if the assistant interrupts itself.'**
+  /// **'Removes the kiosk\'s own sounds from the microphone so the wake word and the assistant do not hear them. Turn it off only if a microphone with its own canceller sounds worse with it on.'**
   String get settingMicSoftwareEchoCancellationDescription;
 
   /// Setting label.
@@ -14919,30 +14895,6 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Multichannel microphones often reserve one channel for speech recognition; picking it can improve detection.'**
   String get settingMicChannelDescription;
-
-  /// Setting label.
-  ///
-  /// In en, this message translates to:
-  /// **'Automatic gain control'**
-  String get settingMicAgcTitle;
-
-  /// Help below the setting.
-  ///
-  /// In en, this message translates to:
-  /// **'Let Android level the microphone instead of a fixed gain. It also lifts room noise, and on some devices it does nothing at all.'**
-  String get settingMicAgcDescription;
-
-  /// Setting label.
-  ///
-  /// In en, this message translates to:
-  /// **'Noise suppression'**
-  String get settingMicNoiseSuppressionTitle;
-
-  /// Help below the setting.
-  ///
-  /// In en, this message translates to:
-  /// **'Reduce microphone background noise using Android processing. It may help or hurt wake word detection depending on the device.'**
-  String get settingMicNoiseSuppressionDescription;
 
   /// Setting label.
   ///
@@ -14977,7 +14929,7 @@ abstract class UiStrings {
   /// Heading, choice, status or guidance shown in this group.
   ///
   /// In en, this message translates to:
-  /// **'Capture mode, channel, gain, live level'**
+  /// **'Echo cancellation, gain, format, live level'**
   String get screenAudioMicrophoneHint;
 
   /// Heading, choice, status or guidance shown in this group.
@@ -14985,24 +14937,6 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Adjust capture for your microphone and room. Test wake words and voice interactions after changing these settings.'**
   String get screenAudioMicrophoneNote;
-
-  /// Heading, choice, status or guidance shown in this group.
-  ///
-  /// In en, this message translates to:
-  /// **'Voice communication (default)'**
-  String get screenAudioVoiceCommunication;
-
-  /// Heading, choice, status or guidance shown in this group.
-  ///
-  /// In en, this message translates to:
-  /// **'Voice recognition'**
-  String get screenAudioVoiceRecognition;
-
-  /// Heading, choice, status or guidance shown in this group.
-  ///
-  /// In en, this message translates to:
-  /// **'Raw microphone'**
-  String get screenAudioRawMicrophone;
 
   /// Heading, choice, status or guidance shown in this group.
   ///
@@ -15231,18 +15165,6 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Voice responses and chimes play at this share of the master volume, independent of the media volume.'**
   String get settingAssistantVolumeDescription;
-
-  /// Setting label.
-  ///
-  /// In en, this message translates to:
-  /// **'Full assistant volume range'**
-  String get settingAssistantFullVolumeRangeTitle;
-
-  /// Help below the setting.
-  ///
-  /// In en, this message translates to:
-  /// **'Initialize the built-in speaker\'s call volume at 100% when assistant audio first starts. Master and assistant volume still apply. Other apps share this call volume, which is not restored afterward.'**
-  String get settingAssistantFullVolumeRangeDescription;
 
   /// Setting label.
   ///

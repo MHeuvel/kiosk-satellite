@@ -172,11 +172,7 @@ void main() {
         if (d.subpage == 'Microphone settings') d.key,
     ];
     expect(moved, [
-      defs.micAudioSource.key,
-      defs.micEchoCancellation.key,
       defs.micSoftwareEchoCancellation.key,
-      defs.micAgc.key,
-      defs.micNoiseSuppression.key,
       defs.micGainDb.key,
       defs.micCaptureFormat.key,
       // Hidden and hand-built (its options run to the mic's channel count),

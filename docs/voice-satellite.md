@@ -88,7 +88,7 @@ The **Wake Word Tester** and **Wake word diagnostics** are covered in [Microphon
 
 A wake word answered by a realtime provider starts a conversation with a speech to speech model instead of a Home Assistant pipeline. The model listens while it talks, so you can interrupt it, and the answers start as soon as you stop speaking. OpenAI and xAI Grok are supported.
 
-> **Important:** Realtime requires a device with good echo cancellation. Without it, the assistant hears its own answers through the microphone and interrupts itself. Turn off **Talk over answers** as a workaround. The microphone then stays shut while the assistant talks.
+> **Important:** Realtime needs the kiosk to hear you over its own voice. The kiosk's echo canceller handles that on every device tested so far. If the assistant still hears its own answers and interrupts itself, turn off **Talk over answers** as a workaround. The microphone then stays shut while the assistant talks.
 
 1. Under **Realtime**, tap **Configure** on the provider you use and paste its **API key**. You can set up both.
 2. Tap **Save & Validate**. The kiosk connects once with those settings and saves them only if the provider accepts the connection. Otherwise the dialog stays open and shows the error. The provider's row then reads **Connection validated**, or shows what went wrong with the connection or the Home Assistant tools.
@@ -102,7 +102,7 @@ A wake word answered by a realtime provider starts a conversation with a speech 
 
 **On screen.** A conversation docks at the bottom of the screen in a bubble with the current exchange and the skin's bar along its bottom edge. It stays up until the conversation ends, and the dashboard stays visible and usable underneath. The bar drains in the last seconds before **End after silence** ends the conversation. Saying goodbye ends it too, and so does the close button. "Stop" cuts off an answer and keeps the conversation going.
 
-**Talk over answers** keeps the microphone open while the model speaks, so you can interrupt it. It relies on the device's echo canceller. If the model keeps interrupting itself, turn it off: the microphone then closes while the model speaks and "stop" interrupts it when **Stop word interruption** is on.
+**Talk over answers** keeps the microphone open while the model speaks, so you can interrupt it. It relies on the kiosk's echo canceller. If the model keeps interrupting itself, turn it off: the microphone then closes while the model speaks and "stop" interrupts it when **Stop word interruption** is on.
 
 > **Note:** The model's voice always plays on the kiosk, even with **Play sounds on** set to a media player. Only the chimes follow that setting. Providers bill realtime models by the minute of audio, and a conversation ends after nine minutes at most.
 

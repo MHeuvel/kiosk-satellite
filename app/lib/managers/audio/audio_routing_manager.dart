@@ -73,12 +73,8 @@ class AudioRoutingManager extends Manager {
         // engine), the engine's own restart no longer guarantees a fresh
         // session; the hub reopens it with the values just pushed.
         await MicHub.instance.bounce();
-      } else if (e.key == defs.micAudioSource.key ||
-          e.key == defs.micEchoCancellation.key ||
-          e.key == defs.micSoftwareEchoCancellation.key ||
+      } else if (e.key == defs.micSoftwareEchoCancellation.key ||
           e.key == defs.micGainDb.key ||
-          e.key == defs.micAgc.key ||
-          e.key == defs.micNoiseSuppression.key ||
           e.key == defs.micChannel.key ||
           e.key == defs.micCaptureFormat.key) {
         // Same contract as the device selector above: the values must be
@@ -177,16 +173,10 @@ class AudioRoutingManager extends Manager {
   /// until the next capture opens, which is the point: the platform fixes
   /// the source, the gain and the effect chain when the session is created.
   void _pushCaptureTuning() {
-    NativeMic.source = _settings.get(defs.micAudioSource);
-    NativeMic.echoCancellation = _settings.get(defs.micEchoCancellation);
-    NativeMic.agc = _settings.get(defs.micAgc);
-    NativeMic.noiseSuppression = _settings.get(defs.micNoiseSuppression);
     NativeMic.softwareEchoCancellation = _settings.get(
       defs.micSoftwareEchoCancellation,
     );
-    // A gain under an adaptive AGC is two controls on one number; the setting
-    // is hidden in that state, so ignore whatever value it holds.
-    NativeMic.gainDb = NativeMic.agc ? 0 : _settings.get(defs.micGainDb);
+    NativeMic.gainDb = _settings.get(defs.micGainDb);
     NativeMic.channel = _settings.get(defs.micChannel);
     NativeMic.captureFormat = _settings.get(defs.micCaptureFormat);
   }

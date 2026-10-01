@@ -8549,26 +8549,11 @@ class UiStringsEn extends UiStrings {
   }
 
   @override
-  String get settingMicAudioSourceTitle => 'Capture mode';
-
-  @override
-  String get settingMicAudioSourceDescription =>
-      'Voice communication is the only mode with echo cancellation, so leave it unless the microphone reads far quieter here than in a recorder app.';
-
-  @override
-  String get settingMicEchoCancellationTitle => 'Echo cancellation';
-
-  @override
-  String get settingMicEchoCancellationDescription =>
-      'Keeps the kiosk\'s own speaker out of the microphone so the stop word works during playback. Turn it off only if the microphone reads far quieter here than in a recorder app.';
-
-  @override
-  String get settingMicSoftwareEchoCancellationTitle =>
-      'Software echo cancellation';
+  String get settingMicSoftwareEchoCancellationTitle => 'Echo cancellation';
 
   @override
   String get settingMicSoftwareEchoCancellationDescription =>
-      'Removes the kiosk\'s own sounds from the microphone. Turn it on if the assistant interrupts itself.';
+      'Removes the kiosk\'s own sounds from the microphone so the wake word and the assistant do not hear them. Turn it off only if a microphone with its own canceller sounds worse with it on.';
 
   @override
   String get settingMicChannelTitle => 'Microphone channel';
@@ -8576,20 +8561,6 @@ class UiStringsEn extends UiStrings {
   @override
   String get settingMicChannelDescription =>
       'Multichannel microphones often reserve one channel for speech recognition; picking it can improve detection.';
-
-  @override
-  String get settingMicAgcTitle => 'Automatic gain control';
-
-  @override
-  String get settingMicAgcDescription =>
-      'Let Android level the microphone instead of a fixed gain. It also lifts room noise, and on some devices it does nothing at all.';
-
-  @override
-  String get settingMicNoiseSuppressionTitle => 'Noise suppression';
-
-  @override
-  String get settingMicNoiseSuppressionDescription =>
-      'Reduce microphone background noise using Android processing. It may help or hurt wake word detection depending on the device.';
 
   @override
   String get settingMicGainDbTitle => 'Microphone gain';
@@ -8610,20 +8581,11 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get screenAudioMicrophoneHint =>
-      'Capture mode, channel, gain, live level';
+      'Echo cancellation, gain, format, live level';
 
   @override
   String get screenAudioMicrophoneNote =>
       'Adjust capture for your microphone and room. Test wake words and voice interactions after changing these settings.';
-
-  @override
-  String get screenAudioVoiceCommunication => 'Voice communication (default)';
-
-  @override
-  String get screenAudioVoiceRecognition => 'Voice recognition';
-
-  @override
-  String get screenAudioRawMicrophone => 'Raw microphone';
 
   @override
   String get screenAudioAutomaticDefault => 'Automatic (default)';
@@ -8753,14 +8715,6 @@ class UiStringsEn extends UiStrings {
   @override
   String get settingAssistantVolumeDescription =>
       'Voice responses and chimes play at this share of the master volume, independent of the media volume.';
-
-  @override
-  String get settingAssistantFullVolumeRangeTitle =>
-      'Full assistant volume range';
-
-  @override
-  String get settingAssistantFullVolumeRangeDescription =>
-      'Initialize the built-in speaker\'s call volume at 100% when assistant audio first starts. Master and assistant volume still apply. Other apps share this call volume, which is not restored afterward.';
 
   @override
   String get settingIntercomVolumeTitle => 'Intercom volume';

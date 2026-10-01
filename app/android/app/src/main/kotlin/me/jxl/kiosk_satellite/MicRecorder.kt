@@ -6,9 +6,6 @@ import android.media.AudioFormat
 import android.media.AudioManager
 import android.media.AudioRecord
 import android.media.MediaRecorder
-import android.media.audiofx.AcousticEchoCanceler
-import android.media.audiofx.AutomaticGainControl
-import android.media.audiofx.NoiseSuppressor
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
@@ -27,31 +24,19 @@ import kotlin.math.max
  * capture; onCancel (Dart cancelling the subscription) stops it and releases
  * the mic — which is what frees it for the WebView's getUserMedia during STT.
  *
- * Capture DSP: echo cancellation on by default, with optional noise suppression and AGC.
- * We share capture settings across wake word inference, the stop word, STT
- * and RTSP audio:
+ * The capture is the raw microphone (AudioSource.MIC) with none of the
+ * platform's effects attached: echo cancellation is [SoftwareEcho]'s, fed
+ * everything the kiosk plays, and the rest of the chain is the app's own
+ * gain. The call capture path (VOICE_COMMUNICATION) and Android's own
+ * canceller, suppressor and gain control went with the move: the call
+ * path came in 20 dB quieter on some custom ROMs, the canceller degraded
+ * over a day on a Galaxy Tab S8 and let the assistant hear itself on
+ * most others, and the effects did nothing or whispered the capture on
+ * the rest. The raw microphone is the same path a recorder app uses, so
+ * what it hears is what the user can check for themselves.
  *
- *  - Echo cancellation earns its keep because the stop word listens *while*
- *    TTS plays out of this same device. Without it the mic hears our own
- *    speech and scores it.
- *  - Noise suppression and AGC default to off. Users can
- *    adjust both for their microphone. Both change the signal recognition receives.
- *
- * VOICE_COMMUNICATION rather than MIC is deliberate: it is the capture path
- * that carries the playback reference AEC needs. On a MIC session the effect
- * usually attaches and then silently does nothing. The tradeoff is that this
- * source also applies the platform's own NS/AGC by default, which is exactly
- * what [applyDsp] configures from the user's settings.
- * SoundPlayer must also use communication playback and a communication
- * session. Enabling the capture effect alone does not cancel media playback
- * on devices such as the Samsung Galaxy Tab S8.
- *
- * Capture tuning is configurable because on custom
- * ROMs they are exactly what goes wrong: VOICE_COMMUNICATION is the phone-call
- * capture path, and a ROM that never had its call audio calibrated can deliver
- * it 20 dB down while a recorder app on plain MIC sounds fine. The defaults are
- * the behaviour described above; the overrides arrive as stream arguments,
- * which is why a change of any of them reopens capture.
+ * The tuning arrives as stream arguments, which is why a change of any of
+ * it reopens capture.
  *
  * Channel selection: multichannel USB arrays put differently-processed
  * signals on each channel (the reSpeaker XVF3800 sends its comms output on
@@ -94,6 +79,9 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
             private set
         private const val SAMPLE_RATE = 16000
         private const val CHUNK_BYTES = 1280 * 2 // 80 ms of 16-bit mono
+
+        /** How long after a sound a muting microphone may still read zeros. */
+        private const val PLAYBACK_MUTE_TAIL_MS = 2000L
 
 
         /**
@@ -152,9 +140,6 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
     @Volatile private var record: AudioRecord? = null
     private var worker: Thread? = null
     private var delivery: PcmDelivery? = null
-    private var aec: AcousticEchoCanceler? = null
-    private var ns: NoiseSuppressor? = null
-    private var agc: AutomaticGainControl? = null
 
     // Bluetooth capture routing we brought up and therefore owe a teardown:
     // the communication device on Android 12+, the SCO link below it.
@@ -168,11 +153,8 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
     override fun onListen(arguments: Any?, sink: EventChannel.EventSink?) {
         if (sink == null || recording) return
         val args = arguments as? Map<*, *>
-        val source = audioSource(args?.get("source") as? String)
-        val wantAec = args?.get("aec") != false
-        val wantAgc = args?.get("agc") == true
-        val wantNs = args?.get("noiseSuppression") == true
-        val wantSoftwareAec = args?.get("softwareAec") == true
+        val source = MediaRecorder.AudioSource.MIC
+        val wantSoftwareAec = args?.get("softwareAec") != false
         // A gain of 0 dB is the overwhelmingly common case, and a factor of
         // exactly 1 lets the read loop skip the sample walk entirely.
         val gain = gainFactor((args?.get("gainDb") as? Number)?.toDouble() ?: 0.0)
@@ -224,14 +206,12 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         Log.i(
             TAG,
             "capture opening (device=${selector ?: "automatic"} " +
-                "source=${sourceName(source)} gain=${"%.1f".format(gainDbOf(gain))}dB " +
-                "aec=$wantAec software-aec=$wantSoftwareAec agc=$wantAgc ns=$wantNs" +
+                "gain=${"%.1f".format(gainDbOf(gain))}dB echo-cancellation=$wantSoftwareAec" +
                 (if (wantChannel >= 1) " channel=$wantChannel/${ladder[step].channels}" else "") +
                 " format=${ladder[step]}" +
                 (if (hardwareFormat) " hardware-format" else "") + ")",
         )
         applyPreferredDevice(opened, selector)
-        applyDsp(opened.audioSessionId, wantAec, wantAgc, wantNs)
         SoftwareEcho.setEnabled(wantSoftwareAec)
         // Four 80 ms chunks cover ordinary scheduling jitter. A stalled
         // platform thread must not retain an unlimited history of audio.
@@ -241,7 +221,6 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         delivery = frames
         recording = true
         opened.startRecording()
-        CommunicationPlayback.get(appContext).captureStarted(wantAec)
         val channelIdx = wantChannel - 1
         worker = thread(name = "vsww-mic") {
             var cur = opened
@@ -285,16 +264,9 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
             }
 
             fun swapTo(next: AudioRecord, rung: Int) {
-                aec?.release()
-                ns?.release()
-                agc?.release()
-                aec = null
-                ns = null
-                agc = null
                 try { cur.stop() } catch (_: IllegalStateException) {}
                 cur.release()
                 applyPreferredDevice(next, selector)
-                applyDsp(next.audioSessionId, wantAec, wantAgc, wantNs)
                 next.startRecording()
                 cur = next
                 record = next
@@ -442,7 +414,10 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
                 }
                 val monoLen = mono?.size ?: read
                 val silent = allZero(mono ?: buf, monoLen)
-                if (silent && !CommunicationPlayback.maySuppressCapture()) {
+                // Some hardware mutes its microphone outright while the
+                // device plays, and for a moment after: not a stalled
+                // recorder.
+                if (silent && !EchoReference.playedWithin(PLAYBACK_MUTE_TAIL_MS)) {
                     zeroRun += monoLen * SAMPLE_RATE / shape.rateHz
                     val limit = walk.zeroLimitBytes
                     if (zeroRun >= limit) {
@@ -633,19 +608,6 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         }
     }
 
-    /** Settings value to AudioSource, defaulting to the one we have always used. */
-    private fun audioSource(name: String?): Int = when (name) {
-        "mic" -> MediaRecorder.AudioSource.MIC
-        "voice_recognition" -> MediaRecorder.AudioSource.VOICE_RECOGNITION
-        else -> MediaRecorder.AudioSource.VOICE_COMMUNICATION
-    }
-
-    private fun sourceName(source: Int): String = when (source) {
-        MediaRecorder.AudioSource.MIC -> "mic"
-        MediaRecorder.AudioSource.VOICE_RECOGNITION -> "voice_recognition"
-        else -> "voice_communication"
-    }
-
     /**
      * Decibels to a linear factor, clamped to the range the settings slider
      * offers so a bad value from an import cannot blow the signal apart.
@@ -718,62 +680,6 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         }
     }
 
-    /**
-     * Echo cancellation, noise suppression and AGC as configured, on this
-     * capture session. The canceller is created even when off so the
-     * platform's own default (on for a communication source) is overridden
-     * rather than left to chance. Each effect is device-optional, so every step is best-effort:
-     * a tablet without an AEC implementation still captures fine, it just does
-     * not cancel. The resulting state is logged rather than assumed, since
-     * "created the effect" and "the effect is actually running" are different
-     * things on Android and vary by OEM.
-     */
-    private fun applyDsp(sessionId: Int, wantAec: Boolean, wantAgc: Boolean, wantNs: Boolean) {
-        if (AcousticEchoCanceler.isAvailable()) {
-            aec = try {
-                AcousticEchoCanceler.create(sessionId)?.also { it.setEnabled(wantAec) }
-            } catch (e: RuntimeException) {
-                Log.w(TAG, "AEC unavailable on this session: ${e.message}")
-                null
-            }
-        }
-        // Explicitly set the effect state because VOICE_COMMUNICATION can
-        // enable platform processing by default.
-        if (NoiseSuppressor.isAvailable()) {
-            ns = try {
-                NoiseSuppressor.create(sessionId)?.also { it.setEnabled(wantNs) }
-            } catch (e: RuntimeException) {
-                Log.w(TAG, "NS control unavailable: ${e.message}")
-                null
-            }
-        }
-        // AGC is off unless the user asked for it: it pumps the level between
-        // utterances, which is exactly what the wake models were not trained
-        // on. It exists as a setting for devices whose capture is so quiet
-        // that a shifting level beats an inaudible one.
-        if (AutomaticGainControl.isAvailable()) {
-            agc = try {
-                AutomaticGainControl.create(sessionId)?.also { it.setEnabled(wantAgc) }
-            } catch (e: RuntimeException) {
-                Log.w(TAG, "AGC control unavailable: ${e.message}")
-                null
-            }
-        }
-        Log.i(
-            TAG,
-            "capture DSP: aec=${describe(aec?.enabled, AcousticEchoCanceler.isAvailable())} " +
-                "ns=${describe(ns?.enabled, NoiseSuppressor.isAvailable())} " +
-                "agc=${describe(agc?.enabled, AutomaticGainControl.isAvailable())}",
-        )
-    }
-
-    private fun describe(enabled: Boolean?, available: Boolean): String = when {
-        enabled == true -> "on"
-        enabled == false -> "off"
-        available -> "unsupported-on-session"
-        else -> "unsupported-on-device"
-    }
-
     override fun onCancel(arguments: Any?) {
         stop()
     }
@@ -787,20 +693,12 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         recording = false
         worker?.let { try { it.join(500) } catch (_: InterruptedException) {} }
         worker = null
-        // Effects first: they are attached to the session this AudioRecord owns.
-        aec?.release()
-        ns?.release()
-        agc?.release()
-        aec = null
-        ns = null
-        agc = null
         record?.let {
             try { it.stop() } catch (_: IllegalStateException) {}
             it.release()
         }
         record = null
         SoftwareEcho.setEnabled(false)
-        CommunicationPlayback.get(appContext).captureStopped()
         // Only tear down Bluetooth routing this recorder brought up; a stop
         // with automatic routing must not disturb whatever else holds it.
         if (commDeviceSet || scoStarted) {

@@ -8717,26 +8717,11 @@ class UiStringsEs extends UiStrings {
   }
 
   @override
-  String get settingMicAudioSourceTitle => 'Modo de captura';
-
-  @override
-  String get settingMicAudioSourceDescription =>
-      'Comunicación de voz es el único modo con cancelación de eco. Déjalo seleccionado salvo que el micrófono capte un volumen mucho más bajo aquí que en una aplicación de grabación.';
-
-  @override
-  String get settingMicEchoCancellationTitle => 'Cancelación de eco';
-
-  @override
-  String get settingMicEchoCancellationDescription =>
-      'Evita que el micrófono capte el altavoz del kiosko para que la palabra de parada funcione durante la reproducción. Desactívala solo si el micrófono capta un volumen mucho más bajo aquí que en una aplicación de grabación.';
-
-  @override
-  String get settingMicSoftwareEchoCancellationTitle =>
-      'Cancelación de eco por software';
+  String get settingMicSoftwareEchoCancellationTitle => 'Cancelación de eco';
 
   @override
   String get settingMicSoftwareEchoCancellationDescription =>
-      'Elimina del micrófono los sonidos del propio kiosko. Actívala si el asistente se interrumpe a sí mismo.';
+      'Elimina del micrófono los sonidos del propio kiosko para que ni la palabra de activación ni el asistente los oigan. Desactívala solo si un micrófono con su propio cancelador de eco suena peor con ella activada.';
 
   @override
   String get settingMicChannelTitle => 'Canal del micrófono';
@@ -8744,20 +8729,6 @@ class UiStringsEs extends UiStrings {
   @override
   String get settingMicChannelDescription =>
       'Los micrófonos multicanal suelen reservar un canal para el reconocimiento de voz. Elegirlo puede mejorar la detección.';
-
-  @override
-  String get settingMicAgcTitle => 'Control automático de ganancia';
-
-  @override
-  String get settingMicAgcDescription =>
-      'Permite que Android ajuste el nivel del micrófono en lugar de usar una ganancia fija. También amplifica el ruido ambiental y en algunos dispositivos no tiene ningún efecto.';
-
-  @override
-  String get settingMicNoiseSuppressionTitle => 'Supresión de ruido';
-
-  @override
-  String get settingMicNoiseSuppressionDescription =>
-      'Reduce el ruido de fondo del micrófono mediante el procesamiento de Android. Puede mejorar o empeorar la detección de la palabra de activación según el dispositivo.';
 
   @override
   String get settingMicGainDbTitle => 'Ganancia del micrófono';
@@ -8778,21 +8749,11 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get screenAudioMicrophoneHint =>
-      'Modo de captura, canal, ganancia y nivel en tiempo real';
+      'Cancelación de eco, ganancia, formato y nivel en tiempo real';
 
   @override
   String get screenAudioMicrophoneNote =>
       'Ajusta la captura al micrófono y a la habitación. Prueba las palabras de activación y las interacciones de voz después de cambiar estas opciones.';
-
-  @override
-  String get screenAudioVoiceCommunication =>
-      'Comunicación de voz (predeterminado)';
-
-  @override
-  String get screenAudioVoiceRecognition => 'Reconocimiento de voz';
-
-  @override
-  String get screenAudioRawMicrophone => 'Micrófono sin procesar';
 
   @override
   String get screenAudioAutomaticDefault => 'Automático (predeterminado)';
@@ -8925,14 +8886,6 @@ class UiStringsEs extends UiStrings {
   @override
   String get settingAssistantVolumeDescription =>
       'Las respuestas de voz y los sonidos se reproducen a esta proporción del volumen principal, independientemente del volumen multimedia.';
-
-  @override
-  String get settingAssistantFullVolumeRangeTitle =>
-      'Rango completo del volumen del asistente';
-
-  @override
-  String get settingAssistantFullVolumeRangeDescription =>
-      'Establece el volumen de llamadas del altavoz integrado al 100 % cuando se inicia el audio del asistente por primera vez. El volumen principal y el del asistente siguen aplicándose. Otras aplicaciones comparten este volumen de llamadas, que no se restaura después.';
 
   @override
   String get settingIntercomVolumeTitle => 'Volumen del intercomunicador';

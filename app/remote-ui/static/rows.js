@@ -252,13 +252,6 @@ export function settingRow(s) {
       await loadSettings({ cached: true });
       return;
     }
-    // AGC hides the gain slider next to it without gating it (the row is
-    // always rendered, so there is nothing for syncGatedRows to place).
-    if (s.key === 'audio.mic_agc') {
-      const gain = document.querySelector('[data-key="audio.mic_gain_db"]');
-      if (gain) gain.style.display = value ? 'none' : '';
-      return;
-    }
     // Three keys genuinely need the device's answer again: the rotation
     // switch reveals a hand-built section, and editing either Immich
     // credential resets immich_validated on the device, which the dependent

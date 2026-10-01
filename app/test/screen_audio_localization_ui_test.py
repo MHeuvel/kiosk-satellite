@@ -29,7 +29,7 @@ setting('screen.orientation', 'auto', 'select', section='Screen',
 setting('screen.adaptive_brightness', True, subpage='Adaptive brightness', titleMessageId='settingAdaptiveBrightnessTitle')
 setting('screen.default_brightness', .5, 'number', section='Screen', min=0, max=1)
 setting('audio.media_volume', .5, 'number', section='Audio Volume', min=0, max=1)
-setting('audio.mic_source', 'voice_communication', 'select', 'Microphone settings', options=['voice_communication'])
+setting('audio.mic_gain_db', 0, 'number', 'Microphone settings', min=-24, max=24, step=1, unit=' dB')
 setting('audio.mic_channel', 5, 'number', hidden=True)
 setting('audio.mic_device', 'usb|1|Microphone', 'string', hidden=True)
 setting('audio.speaker_device', 'usb|2|Speaker', 'string', hidden=True)

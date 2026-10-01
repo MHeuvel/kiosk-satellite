@@ -212,7 +212,7 @@ export async function appendAudioDeviceRows(card, wakeWordOn, watching = false) 
 export async function updateMicChannelRow() {
   const root = document.getElementById('tab-screenaudio');
   const micCard = root && [...root.querySelectorAll('.card')]
-    .find((c) => c.querySelector('[data-key="audio.mic_source"]'));
+    .find((c) => c.querySelector('[data-key="audio.mic_gain_db"]'));
   if (!micCard) return;
   const old = micCard.querySelector('[data-key="audio.mic_channel"]');
   const setting = (state.settings || []).find((o) => o.key === 'audio.mic_channel');
