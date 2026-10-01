@@ -8937,6 +8937,13 @@ class UiStringsEs extends UiStrings {
       'Cómo se muestra el reloj.';
 
   @override
+  String get settingScreensaverClockVerticalTitle => 'Modo vertical';
+
+  @override
+  String get settingScreensaverClockVerticalDescription =>
+      'Apila las horas sobre los minutos, para pantallas verticales.';
+
+  @override
   String get settingScreensaverClockFontTitle => 'Tipo de letra';
 
   @override

@@ -8985,6 +8985,13 @@ class UiStringsDe extends UiStrings {
       'Legt fest, wie die Uhr dargestellt wird.';
 
   @override
+  String get settingScreensaverClockVerticalTitle => 'Vertikaler Modus';
+
+  @override
+  String get settingScreensaverClockVerticalDescription =>
+      'Stapelt die Stunden über den Minuten, für Bildschirme im Hochformat.';
+
+  @override
   String get settingScreensaverClockFontTitle => 'Schriftart';
 
   @override

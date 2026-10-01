@@ -759,6 +759,7 @@ class _ClockScreensaverState extends State<ClockScreensaver>
     defs.screensaverClockNightHideBackground.key,
     defs.screensaverClockFont.key,
     defs.screensaverClockFontWeight.key,
+    defs.screensaverClockVertical.key,
     defs.screensaverClockColor.key,
     defs.screensaverClockBgColor.key,
     defs.screensaverFlipDigitColor.key,
@@ -784,9 +785,10 @@ class _ClockScreensaverState extends State<ClockScreensaver>
     }
     // The face only rebuilds on clock ticks, a minute apart with seconds
     // off — a background pushed over ESPHome (issue #150) must not wait out
-    // the minute. The Font key rides the same listener so it can be tuned
-    // from the remote admin against the live face; the Night mode keys
-    // reach the face through the overlay, which owns that decision.
+    // the minute. The Font and Vertical mode keys ride the same listener
+    // so they can be tuned from the remote admin against the live face;
+    // the Night mode keys reach the face through the overlay, which owns
+    // that decision.
     _bgSub = widget.container.bus.on<SettingChanged>().listen((e) {
       if (!mounted) return;
       if (e.key == defs.screensaverClockBackground.key ||
@@ -1096,7 +1098,12 @@ class _ClockScreensaverState extends State<ClockScreensaver>
   /// The center of the face for the non-digital styles (issue #56). The
   /// shell around it — glance row, pixel shift, anchor — is shared, so the
   /// style only swaps what sits in the middle.
-  Widget _styledFace(String style, double scale, String? fontFamily) {
+  Widget _styledFace(
+    String style,
+    double scale,
+    String? fontFamily, {
+    required bool vertical,
+  }) {
     final weight = clockWeightOverride(
       widget.container.settings.get(defs.screensaverClockFontWeight),
     );
@@ -1121,6 +1128,7 @@ class _ClockScreensaverState extends State<ClockScreensaver>
         fontFamily: fontFamily,
         weight: weight,
         opticalSize: opticalSize,
+        vertical: vertical,
       );
     }
     return RollerClockFace(
@@ -1164,11 +1172,21 @@ class _ClockScreensaverState extends State<ClockScreensaver>
         !ringing && widget.container.glance.entities.value.isNotEmpty;
     final glanceScale = min(1.0, size.height / 480).clamp(0.75, 1.0);
     final clockShrink = glance ? 0.72 : 1.0;
-    // min(20vw, 30vh), the same basis Voice Satellite uses, then scaled.
+    // Vertical mode (issue #767) stacks the digital and flip faces; the
+    // roller has nothing to stack, so a switch left on from another style
+    // does nothing there.
+    final vertical = style != 'roller' && s.get(defs.screensaverClockVertical);
+    final lines = DigitalClockFace.linesFor(
+      seconds: s.get(defs.screensaverClockSeconds),
+    );
     final clockSize =
-        min(size.width * 0.20, size.height * 0.30) * scale * clockShrink;
+        DigitalClockFace.sizeFor(size, vertical: vertical, lines: lines) *
+        scale *
+        clockShrink;
     final dateSize =
-        min(size.width * 0.05, size.height * 0.07) * scale * clockShrink;
+        DigitalClockFace.dateSizeFor(size, vertical: vertical, lines: lines) *
+        scale *
+        clockShrink;
     final backdrop =
         nightBg ??
         switch (style) {
@@ -1177,9 +1195,10 @@ class _ClockScreensaverState extends State<ClockScreensaver>
           _ => _rgb(defs.screensaverClockBgColor, Colors.black),
         };
     final Widget face = style != 'digital'
-        ? _styledFace(style, scale * clockShrink, font)
+        ? _styledFace(style, scale * clockShrink, font, vertical: vertical)
         : DigitalClockFace(
             time: _time(),
+            vertical: vertical,
             date: !ringing && s.get(defs.screensaverClockDate) ? _date() : null,
             fontFamily: font,
             color: color,

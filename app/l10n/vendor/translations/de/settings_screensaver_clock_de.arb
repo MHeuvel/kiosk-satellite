@@ -2,6 +2,8 @@
   "@@locale": "de",
   "settingScreensaverClockStyleTitle": "Stil",
   "settingScreensaverClockStyleDescription": "Legt fest, wie die Uhr dargestellt wird.",
+  "settingScreensaverClockVerticalTitle": "Vertikaler Modus",
+  "settingScreensaverClockVerticalDescription": "Stapelt die Stunden über den Minuten, für Bildschirme im Hochformat.",
   "settingScreensaverClockFontTitle": "Schriftart",
   "settingScreensaverClockFontDescription": "Schriftart der Uhr.",
   "settingScreensaverClockFontWeightTitle": "Schriftstärke",

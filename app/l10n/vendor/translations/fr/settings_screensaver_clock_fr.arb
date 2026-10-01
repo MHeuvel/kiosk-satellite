@@ -2,6 +2,8 @@
   "@@locale": "fr",
   "settingScreensaverClockStyleTitle": "Style",
   "settingScreensaverClockStyleDescription": "Comment l'horloge est dessinée.",
+  "settingScreensaverClockVerticalTitle": "Mode vertical",
+  "settingScreensaverClockVerticalDescription": "Empiler les heures au-dessus des minutes, pour les écrans en portrait.",
   "settingScreensaverClockFontTitle": "Famille de police",
   "settingScreensaverClockFontDescription": "La police avec laquelle l'horloge est dessinée.",
   "settingScreensaverClockFontWeightTitle": "Graisse de police",

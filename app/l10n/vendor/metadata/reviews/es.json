@@ -18643,5 +18643,15 @@
     "source": "267dc9baec38c75236512ae2292cb527f37b37a910719cb78f7e49161e33d462",
     "translation": "ede6c2e027a8673b96df51f84db6155c69510521f996a0dfb034feed340c4a74",
     "author": "Xavier Larrea"
+  },
+  "settingScreensaverClockVerticalTitle": {
+    "source": "fde43cb31a30dfccd44a274dd0bb3d8cba164fa0b62e8e33a36a9a57462cd3d4",
+    "translation": "d593c13d4b60dff7b540c3e325f6a3a4a38107a3d4db7f14e3df42bb0bf59988",
+    "author": "Xavier Larrea"
+  },
+  "settingScreensaverClockVerticalDescription": {
+    "source": "410f635f3d27b1a5994eb37daafad6e990693e769b0533babd4b3acadf6ec5b9",
+    "translation": "508bf0c3f0e2b90c42473228c7cacb92d08742afb1a42e556628cb1ea6104f81",
+    "author": "Xavier Larrea"
   }
 }

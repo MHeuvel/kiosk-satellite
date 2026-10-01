@@ -8935,6 +8935,13 @@ class UiStringsFr extends UiStrings {
       'Comment l\'horloge est dessinée.';
 
   @override
+  String get settingScreensaverClockVerticalTitle => 'Mode vertical';
+
+  @override
+  String get settingScreensaverClockVerticalDescription =>
+      'Empiler les heures au-dessus des minutes, pour les écrans en portrait.';
+
+  @override
   String get settingScreensaverClockFontTitle => 'Famille de police';
 
   @override

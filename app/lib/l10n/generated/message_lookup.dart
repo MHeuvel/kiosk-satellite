@@ -2688,6 +2688,10 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingScreensaverClockStyleTitle,
       'settingScreensaverClockStyleDescription' =>
         strings.settingScreensaverClockStyleDescription,
+      'settingScreensaverClockVerticalTitle' =>
+        strings.settingScreensaverClockVerticalTitle,
+      'settingScreensaverClockVerticalDescription' =>
+        strings.settingScreensaverClockVerticalDescription,
       'settingScreensaverClockFontTitle' =>
         strings.settingScreensaverClockFontTitle,
       'settingScreensaverClockFontDescription' =>

@@ -296,6 +296,10 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingScreensaverClockStyleTitle",
     "description": "settingScreensaverClockStyleDescription",
   },
+  "screensaver.clock_vertical": {
+    "title": "settingScreensaverClockVerticalTitle",
+    "description": "settingScreensaverClockVerticalDescription",
+  },
   "screensaver.clock_font": {
     "title": "settingScreensaverClockFontTitle",
     "description": "settingScreensaverClockFontDescription",
@@ -1467,6 +1471,10 @@ const settingMessageIds = <String, Map<String, String>>{
   "screensaver.weather_clock": {
     "title": "settingScreensaverWeatherClockTitle",
     "description": "settingScreensaverWeatherClockDescription",
+  },
+  "screensaver.weather_clock_vertical": {
+    "title": "settingScreensaverClockVerticalTitle",
+    "description": "settingScreensaverClockVerticalDescription",
   },
   "screensaver.weather_clock_font": {
     "title": "settingScreensaverClockFontTitle",

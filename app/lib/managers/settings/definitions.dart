@@ -1968,6 +1968,19 @@ const screensaverWeatherClock = SettingDef<bool>(
   dependsOnValue: 'weather_mood',
 );
 
+/// The Weather Mood twin of [screensaverClockVertical].
+const screensaverWeatherClockVertical = SettingDef<bool>(
+  key: 'screensaver.weather_clock_vertical',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Vertical mode',
+  description: 'Stack the hours above the minutes, for portrait screens.',
+  category: 'Screensaver',
+  section: 'Clock',
+  subpage: 'Weather Mood screensaver',
+  dependsOn: 'screensaver.weather_clock',
+);
+
 const screensaverWeatherClockFont = SettingDef<String>(
   key: 'screensaver.weather_clock_font',
   type: SettingType.select,
@@ -2370,6 +2383,23 @@ const screensaverClockStyle = SettingDef<String>(
   },
   dependsOn: 'screensaver.mode',
   dependsOnValue: 'clock',
+);
+
+// Hours above minutes for a portrait panel (issue #767), so the digits
+// can grow into the height instead of being capped by the width. Digital
+// and Flip only: the roller's digits are cropped to the screen's width on
+// purpose and have nothing to stack.
+const screensaverClockVertical = SettingDef<bool>(
+  key: 'screensaver.clock_vertical',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Vertical mode',
+  description: 'Stack the hours above the minutes, for portrait screens.',
+  category: 'Screensaver',
+  section: 'Clock screensaver',
+  subpage: 'Clock screensaver',
+  dependsOn: 'screensaver.clock_style',
+  dependsOnValue: ['digital', 'flip'],
 );
 
 // The typeface, any face (issue #391): the app's own Rubik plus Android's
@@ -9723,6 +9753,7 @@ const List<SettingDef<Object>> allSettings = [
   screensaverWeatherBlur,
   screensaverWeatherAlarmTakeover,
   screensaverWeatherClock,
+  screensaverWeatherClockVertical,
   screensaverWeatherClockFont,
   screensaverWeatherClockFontWeight,
   screensaverWeatherClock24h,
@@ -9753,6 +9784,7 @@ const List<SettingDef<Object>> allSettings = [
   screensaverSavedBrightness,
   screensaverBlackHideExtras,
   screensaverClockStyle,
+  screensaverClockVertical,
   screensaverClockFont,
   screensaverClockFontWeight,
   screensaverClock24h,

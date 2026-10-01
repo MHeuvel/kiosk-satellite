@@ -2,6 +2,8 @@
   "@@locale": "es",
   "settingScreensaverClockStyleTitle": "Estilo",
   "settingScreensaverClockStyleDescription": "Cómo se muestra el reloj.",
+  "settingScreensaverClockVerticalTitle": "Modo vertical",
+  "settingScreensaverClockVerticalDescription": "Apila las horas sobre los minutos, para pantallas verticales.",
   "settingScreensaverClockFontTitle": "Tipo de letra",
   "settingScreensaverClockFontDescription": "Tipo de letra del reloj.",
   "settingScreensaverClockFontWeightTitle": "Grosor de la letra",

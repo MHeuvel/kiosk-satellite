@@ -8863,6 +8863,13 @@ class UiStringsUk extends UiStrings {
       'Спосіб відображення годинника.';
 
   @override
+  String get settingScreensaverClockVerticalTitle => 'Вертикальний режим';
+
+  @override
+  String get settingScreensaverClockVerticalDescription =>
+      'Розміщувати години над хвилинами, для вертикальних екранів.';
+
+  @override
   String get settingScreensaverClockFontTitle => 'Шрифт';
 
   @override

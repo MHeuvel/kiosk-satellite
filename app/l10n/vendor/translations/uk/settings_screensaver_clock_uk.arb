@@ -2,6 +2,8 @@
   "@@locale": "uk",
   "settingScreensaverClockStyleTitle": "Стиль",
   "settingScreensaverClockStyleDescription": "Спосіб відображення годинника.",
+  "settingScreensaverClockVerticalTitle": "Вертикальний режим",
+  "settingScreensaverClockVerticalDescription": "Розміщувати години над хвилинами, для вертикальних екранів.",
   "settingScreensaverClockFontTitle": "Шрифт",
   "settingScreensaverClockFontDescription": "Гарнітура шрифту для відображення годинника.",
   "settingScreensaverClockFontWeightTitle": "Товщина шрифту",

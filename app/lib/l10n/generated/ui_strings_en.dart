@@ -8765,6 +8765,13 @@ class UiStringsEn extends UiStrings {
       'How the clock is drawn.';
 
   @override
+  String get settingScreensaverClockVerticalTitle => 'Vertical mode';
+
+  @override
+  String get settingScreensaverClockVerticalDescription =>
+      'Stack the hours above the minutes, for portrait screens.';
+
+  @override
   String get settingScreensaverClockFontTitle => 'Font Family';
 
   @override

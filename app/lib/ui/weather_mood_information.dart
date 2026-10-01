@@ -272,9 +272,8 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
         ? _now.hour
         : (_now.hour % 12 == 0 ? 12 : _now.hour % 12);
     final hours = use24h ? '$hour'.padLeft(2, '0') : '$hour';
-    final seconds = s.get(defs.screensaverWeatherClockSeconds)
-        ? ':${'${_now.second}'.padLeft(2, '0')}'
-        : '';
+    final showSeconds = s.get(defs.screensaverWeatherClockSeconds);
+    final seconds = showSeconds ? ':${'${_now.second}'.padLeft(2, '0')}' : '';
     final time =
         '$hours:${'${_now.minute}'.padLeft(2, '0')}$seconds${use24h
             ? ''
@@ -285,8 +284,14 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
     final scale =
         (s.get(defs.screensaverWeatherClockScale) / 100).clamp(.5, 3.0) *
         (glance ? .72 : 1);
-    final clockSize = math.min(size.width * .20, size.height * .30) * scale;
-    final dateSize = math.min(size.width * .05, size.height * .07) * scale;
+    final vertical = s.get(defs.screensaverWeatherClockVertical);
+    final lines = DigitalClockFace.linesFor(seconds: showSeconds);
+    final clockSize =
+        DigitalClockFace.sizeFor(size, vertical: vertical, lines: lines) *
+        scale;
+    final dateSize =
+        DigitalClockFace.dateSizeFor(size, vertical: vertical, lines: lines) *
+        scale;
     final shadow = s.get(defs.screensaverWeatherClockShadow);
     final bright = widget.brightSky;
     final ringing = _ringing;
@@ -299,6 +304,7 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
         clockFontWeight(font);
     final face = DigitalClockFace(
       time: time,
+      vertical: vertical,
       dateGapFactor: .015,
       dateOpacity: 1,
       date: date,
@@ -349,6 +355,7 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
                       dateSize,
                       font,
                       weight,
+                      vertical,
                     ),
                     child: face,
                   )

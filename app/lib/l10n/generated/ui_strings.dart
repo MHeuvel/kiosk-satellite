@@ -15253,6 +15253,18 @@ abstract class UiStrings {
   /// Setting label.
   ///
   /// In en, this message translates to:
+  /// **'Vertical mode'**
+  String get settingScreensaverClockVerticalTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Stack the hours above the minutes, for portrait screens.'**
+  String get settingScreensaverClockVerticalDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
   /// **'Font Family'**
   String get settingScreensaverClockFontTitle;
 

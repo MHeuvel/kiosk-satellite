@@ -22422,5 +22422,17 @@
     "translation": "284b1937193845672c3f403644566bb4c845e5c47ca7771b8f7c82db8ff2aa7d",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "settingScreensaverClockVerticalTitle": {
+    "source": "fde43cb31a30dfccd44a274dd0bb3d8cba164fa0b62e8e33a36a9a57462cd3d4",
+    "translation": "34864bb6f1461508d68b1983ac0cca2839da860773da448b7691e58c3333a605",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingScreensaverClockVerticalDescription": {
+    "source": "410f635f3d27b1a5994eb37daafad6e990693e769b0533babd4b3acadf6ec5b9",
+    "translation": "37b35d852ae4b9deb97c919105bb4eb464719fe6dd68564cc0979eca5992b789",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }
