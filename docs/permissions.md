@@ -162,10 +162,10 @@ Finally, keep in mind that certain hardware vendors layer aggressive, proprietar
 
 Many MediaTek tablets (Lenovo, Alcatel and others) ship DuraSpeed, a background app control that goes further than killing apps: it can refuse to start an app's services. The dashboard WebView runs its page in a separate renderer process that Android starts as a service, and when DuraSpeed refuses it the dashboard stays black while everything else works, the clock screensaver included. The app log then repeats `WebView renderer unresponsive` and `rebuilding the WebView` without ever recovering, and `adb logcat` shows `bringUpServiceLocked, suppress to start service!` followed by `Unable to launch app ... SandboxedProcessService ... process is bad`.
 
-Turn DuraSpeed off, or add Kiosk Satellite to its allow list, in **Settings > Apps > DuraSpeed** (some tablets keep it under Battery). Over adb:
+Some tablets show DuraSpeed in **Settings > Apps** or under Battery, with a master switch and a per-app allow list. Others, the Lenovo Tab M8 4th gen on Android 13 among them, ship it with no settings page at all, and it is then invisible until a service refuses to start. Either way, adb turns it off:
 
 ```
 adb shell settings put global setting.duraspeed.enabled 0
 ```
 
-Then restart Kiosk Satellite. The setting survives reboots. Verified on a Lenovo Tab M8 4th gen on Android 13.
+Then restart Kiosk Satellite. The setting survives reboots. Lenovo's Battery Manager list is a different thing and does not cause this.
