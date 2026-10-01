@@ -84,6 +84,24 @@ test('the chart range ignores the live reading, so a flapping sensor never '
   assert.deepEqual(plain(curveDomain(points)), { lo: 1, hi: 100 });
 });
 
+test('dragging the ends to the edges never widens the chart past 1 lx and '
+  + '10k lx', () => {
+  let points = steep.map((p) => ({ ...p }));
+  for (let round = 0; round < 6; round++) {
+    for (const [i, lux] of [[0, 0.001], [3, 1e9]]) {
+      const domain = plain(curveDomain(points));
+      const moved = clampPoint(points, i, { lux, level: points[i].level }, domain);
+      points = points.map((p, k) => (k === i ? { ...moved } : p));
+    }
+  }
+  assert.deepEqual(plain(curveDomain(points)), { lo: 1, hi: 10000 });
+  assert.equal(points[0].lux, 1);
+  assert.equal(points[3].lux, 10000);
+  // An end typed past the cap still gets its decade on the chart.
+  const typed = curvePoints({ ...defaults, dark: 0.5, bright: 30000 });
+  assert.deepEqual(plain(curveDomain(typed)), { lo: 0.1, hi: 100000 });
+});
+
 test('a dragged point stays between its neighbors and snaps to two figures', () => {
   const domain = plain(curveDomain(steep));
   assert.deepEqual(domain, { lo: 1, hi: 1000 });

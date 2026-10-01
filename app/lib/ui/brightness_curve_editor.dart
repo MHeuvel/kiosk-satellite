@@ -568,19 +568,23 @@ CurvePoint _clampPoint(
   return (lux: lux.toDouble(), level: level.toDouble());
 }
 
-/// The chart's light range: whole decades around the curve's ends, from
-/// 1 lx or lower, with room past the ends to drag. A sensor that calls a
-/// lit room 30 lx gets a chart to 100, not a wide empty stretch to 1000.
-/// The live reading has no say: a dark room's sensor flapping between 0
-/// and 1 lx would redraw the axis on every sample. A reading outside the
-/// range sits on the chart's edge.
+/// The chart's light range: whole decades around the curve's ends, with
+/// room past them to drag, but never past 1 lx or 10k lx (issue #793).
+/// Without the cap every drag to an edge earned another decade, down to
+/// 0.01 lx and up to 1M lx. An end typed outside that range still gets its
+/// decade. A sensor that calls a lit room 30 lx gets a chart to 100, not a
+/// wide empty stretch to 1000. The live reading has no say: a dark room's
+/// sensor flapping between 0 and 1 lx would redraw the axis on every
+/// sample. A reading outside the range sits on the chart's edge.
 class _Domain {
   const _Domain(this.lo, this.hi);
 
   factory _Domain.around(List<CurvePoint> p) {
-    var lo = math.min(1.0, p.first.lux / 2);
-    final hi = math.max(10.0, p.last.lux * 2);
-    lo = math.max(lo, 0.01);
+    final lo = math.max(math.min(_dragLo, p.first.lux), 0.01);
+    final hi = math.max(
+      10.0,
+      math.max(math.min(p.last.lux * 2, _dragHi), p.last.lux),
+    );
     // A hair of slack so a whole decade (log 1000 is 2.9999999999999996
     // in float) stays that decade.
     double decade(double v, bool up) {
@@ -592,6 +596,9 @@ class _Domain {
 
     return _Domain(decade(lo, false), decade(hi, true));
   }
+
+  static const _dragLo = 1.0;
+  static const _dragHi = 10000.0;
 
   final double lo;
   final double hi;
