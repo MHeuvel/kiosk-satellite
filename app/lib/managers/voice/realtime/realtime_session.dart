@@ -153,6 +153,11 @@ class RealtimeSession {
   bool _userSpeaking = false;
   bool _responding = false;
   bool _awaiting = false;
+
+  /// Tools running for the model now. The answer that asked for them is
+  /// done and nothing plays, which looked like silence to the end of the
+  /// conversation: a slow tool started the countdown and could end it.
+  int _toolsRunning = 0;
   DateTime? _awaitingSince;
   bool _endRequested = false;
   bool _stopArmed = false;
@@ -568,6 +573,14 @@ class RealtimeSession {
         _show(_docked(answer: text, streaming: !complete));
       case RealtimeToolActivity(:final name, :final done):
         _touch();
+        if (done) {
+          _toolsRunning = math.max(0, _toolsRunning - 1);
+          // Its output goes to the model, which answers it next.
+          _awaiting = true;
+          _awaitingSince = _now();
+        } else {
+          _toolsRunning++;
+        }
         if (!done) {
           onTrace?.call('tool $name');
           final line = humanizeToolName(name);
@@ -808,7 +821,12 @@ class RealtimeSession {
       return;
     }
     final quiet =
-        _ready && !_userSpeaking && !_responding && !_awaiting && !playing;
+        _ready &&
+        !_userSpeaking &&
+        !_responding &&
+        !_awaiting &&
+        _toolsRunning == 0 &&
+        !playing;
     if (!quiet) {
       onCountdown(1);
       return;
@@ -934,6 +952,7 @@ class RealtimeSession {
     _responding = false;
     _awaiting = false;
     _awaitingSince = null;
+    _toolsRunning = 0;
     _endRequested = false;
     _newExchange = false;
     _lastMicLevel = 0;

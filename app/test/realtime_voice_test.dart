@@ -1140,6 +1140,36 @@ void main() {
       });
     });
 
+    test('a slow tool holds the end off, and the countdown resumes after', () {
+      fakeAsync((time) {
+        final h = _Harness(
+          time,
+          options: const RealtimeOptions(idleSeconds: 5),
+        );
+        h.wakeAndConnect();
+        h.backend
+          ..emit(const RealtimeResponseStarted())
+          ..emit(const RealtimeToolActivity('weather__GetForecast'))
+          ..emit(const RealtimeResponseDone());
+        time.elapse(const Duration(seconds: 20));
+        expect(h.countdown.last, 1);
+        expect(h.session.busy, isTrue);
+        // The tool comes back and its answer is asked for: still waiting.
+        h.backend.emit(
+          const RealtimeToolActivity('weather__GetForecast', done: true),
+        );
+        time.elapse(const Duration(seconds: 3));
+        expect(h.countdown.last, 1);
+        h.answer('a1');
+        h.backend.emit(const RealtimeResponseDone());
+        h.player.frames = 24000;
+        time.elapse(const Duration(seconds: 4));
+        expect(h.countdown.last, lessThan(1));
+        time.elapse(const Duration(seconds: 3));
+        expect(h.session.busy, isFalse);
+      });
+    });
+
     test('the goodbye plays out before the conversation ends', () {
       fakeAsync((time) {
         final h = _Harness(time);
