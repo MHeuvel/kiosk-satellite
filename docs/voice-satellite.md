@@ -88,8 +88,6 @@ The **Wake Word Tester** and **Wake word diagnostics** are covered in [Microphon
 
 A wake word answered by a realtime provider starts a conversation with a speech to speech model instead of a Home Assistant pipeline. The model listens while it talks, so you can interrupt it, and the answers start as soon as you stop speaking. OpenAI and xAI Grok are supported.
 
-> **Important:** Realtime needs the kiosk to hear you over its own voice. The kiosk's echo canceller handles that on every device tested so far. If the assistant still hears its own answers and interrupts itself, turn off **Talk over answers** as a workaround. The microphone then stays shut while the assistant talks.
-
 1. Under **Realtime**, tap **Configure** on the provider you use and paste its **API key**. You can set up both.
 2. Tap **Save & Validate**. The kiosk connects once with those settings and saves them only if the provider accepts the connection. Otherwise the dialog stays open and shows the error. The provider's row then reads **Connection validated**, or shows what went wrong with the connection or the Home Assistant tools.
 3. Under **Assistant**, pick the provider (for example **OpenAI Realtime**) for **Assistant 1** or **Assistant 2**. Each wake word can use a different provider or keep its pipeline.

@@ -17,5 +17,5 @@
   "screenAudioMicrophoneLevel": "Nivel del micrófono",
   "screenAudioMicrophoneLevelHelp": "Habla desde donde usas el dispositivo. Ajusta la ganancia hasta que la voz normal alcance aproximadamente el final de la zona verde.",
   "settingMicSoftwareEchoCancellationTitle": "Cancelación de eco",
-  "settingMicSoftwareEchoCancellationDescription": "Elimina del micrófono los sonidos del propio kiosko para que ni la palabra de activación ni el asistente los oigan. Desactívala solo si un micrófono con su propio cancelador de eco suena peor con ella activada."
+  "settingMicSoftwareEchoCancellationDescription": "Elimina del micrófono los sonidos del propio kiosko para que ni la palabra de activación ni el asistente los oigan. Déjala activada salvo que un micrófono que cancela su propio eco suene peor con ella."
 }

@@ -17,5 +17,5 @@
   "screenAudioMicrophoneLevel": "Niveau du microphone",
   "screenAudioMicrophoneLevelHelp": "Parlez depuis l'endroit où vous utilisez l'appareil ; ajustez le gain jusqu'à ce qu'une voix normale culmine vers la fin de la zone verte.",
   "settingMicSoftwareEchoCancellationTitle": "Annulation d'écho",
-  "settingMicSoftwareEchoCancellationDescription": "Retire du microphone les sons émis par le kiosque pour que ni le mot de réveil ni l'assistant ne les entendent. Ne la désactivez que si un microphone doté de sa propre annulation d'écho sonne moins bien avec elle."
+  "settingMicSoftwareEchoCancellationDescription": "Retire du microphone les sons émis par le kiosque pour que ni le mot de réveil ni l'assistant ne les entendent. Laissez-la activée, sauf si un microphone qui annule lui-même son écho sonne moins bien avec elle."
 }

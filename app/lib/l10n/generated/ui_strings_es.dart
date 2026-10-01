@@ -8710,7 +8710,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get settingAudioSpeakerDeviceDescription =>
-      'Salida para los sonidos de Voice Satellite. La reproducción multimedia sigue la ruta del sistema. La cancelación de eco solo funciona si el micrófono y el altavoz pertenecen al mismo dispositivo.';
+      'Salida para los sonidos de Voice Satellite. La reproducción multimedia sigue la ruta del sistema.';
 
   @override
   String get screenAudioDevices => 'Dispositivos de audio';
@@ -8728,7 +8728,7 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get settingMicSoftwareEchoCancellationDescription =>
-      'Elimina del micrófono los sonidos del propio kiosko para que ni la palabra de activación ni el asistente los oigan. Desactívala solo si un micrófono con su propio cancelador de eco suena peor con ella activada.';
+      'Elimina del micrófono los sonidos del propio kiosko para que ni la palabra de activación ni el asistente los oigan. Déjala activada salvo que un micrófono que cancela su propio eco suene peor con ella.';
 
   @override
   String get settingMicChannelTitle => 'Canal del micrófono';
@@ -12001,10 +12001,6 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get voiceRealtimeValidated => 'Conexión validada';
-
-  @override
-  String get voiceRealtimeEchoNotice =>
-      'El modo en tiempo real requiere un dispositivo con buena cancelación de eco. Sin ella, el asistente oye sus propias respuestas y se interrumpe a sí mismo. Desactiva \"Hablar sobre las respuestas\" como solución alternativa.';
 
   @override
   String get voiceDisconnected => 'Home Assistant no está conectado';

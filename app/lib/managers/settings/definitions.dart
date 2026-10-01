@@ -4987,8 +4987,8 @@ const micSoftwareEchoCancellation = SettingDef<bool>(
   title: 'Echo cancellation',
   description:
       'Removes the kiosk\'s own sounds from the microphone so the wake '
-      'word and the assistant do not hear them. Turn it off only if a '
-      'microphone with its own canceller sounds worse with it on.',
+      'word and the assistant do not hear them. Leave it on unless a '
+      'microphone that cancels its own echo sounds worse with it.',
   category: 'Screen & Audio',
   section: 'Microphone settings',
   subpage: 'Microphone settings',
@@ -6163,8 +6163,7 @@ const audioSpeakerDevice = SettingDef<String>(
   title: 'Speaker',
   description:
       'Output for Voice Satellite sounds; media playback follows the system '
-      'route. Echo cancellation only works with the microphone and speaker '
-      'on the same device.',
+      'route.',
   category: 'Screen & Audio',
   hidden: true,
   perDevice: true,

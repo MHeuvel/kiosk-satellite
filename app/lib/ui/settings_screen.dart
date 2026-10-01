@@ -3363,8 +3363,6 @@ class _CategoryContentState extends State<_CategoryContent> {
           for (final def in list.skip(1)) def.key,
       };
       return [
-        // Mirrored on the remote (renderNativeVs in vs_native.js).
-        NoticeBanner(text: voiceText(context, realtimeEchoNotice)),
         ...sectioned(
           [
             for (final def in _defsFor(widget.category))

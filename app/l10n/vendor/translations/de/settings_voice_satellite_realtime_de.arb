@@ -34,6 +34,5 @@
   "voiceRealtimeConfigure": "Konfigurieren",
   "voiceRealtimeSaveValidate": "Speichern und prüfen",
   "voiceRealtimeNotConfigured": "Nicht konfiguriert",
-  "voiceRealtimeValidated": "Verbindung geprüft",
-  "voiceRealtimeEchoNotice": "Echtzeit erfordert ein Gerät mit guter Echounterdrückung. Ohne sie hört der Assistent seine eigenen Antworten und unterbricht sich selbst. Schalte als Behelf „In Antworten hineinsprechen“ aus."
+  "voiceRealtimeValidated": "Verbindung geprüft"
 }

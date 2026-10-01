@@ -498,11 +498,6 @@ export async function renderNativeVs(root, byKey) {
     }
     const realtimePanel = panel('Realtime');
     if (realtimePanel) {
-      // The device's realtimeEchoNotice, at the top of the page.
-      if (!realtimePanel.querySelector('.realtime-echo-banner')) {
-        realtimePanel.prepend(banner(voiceText('Realtime requires a device with good echo cancellation. Without it, the assistant hears its own answers and interrupts itself. Turn off "Talk over answers" as a workaround.'),
-          { className: 'realtime-echo-banner' }));
-      }
       for (const provider of Object.keys(REALTIME_PROVIDERS)) realtimeProviderRow(realtimePanel, provider);
     }
     const ttsRow = assistant?.querySelector('[data-key="voice.tts_output"]');

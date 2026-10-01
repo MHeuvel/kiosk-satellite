@@ -35,7 +35,7 @@ const screenAudioTextMessageIds = <String, String>{
   "Microphone": "settingAudioMicDeviceTitle",
   "The microphone wake word detection and voice turns capture from.": "settingAudioMicDeviceDescription",
   "Speaker": "settingAudioSpeakerDeviceTitle",
-  "Output for Voice Satellite sounds; media playback follows the system route. Echo cancellation only works with the microphone and speaker on the same device.": "settingAudioSpeakerDeviceDescription",
+  "Output for Voice Satellite sounds; media playback follows the system route.": "settingAudioSpeakerDeviceDescription",
   "Screen": "screenAudioScreen",
   "Use the cutout area": "screenAudioCutoutAlways",
   "Short edges only": "screenAudioCutoutShort",

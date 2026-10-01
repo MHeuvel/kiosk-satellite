@@ -34,6 +34,5 @@
   "voiceRealtimeConfigure": "Configurer",
   "voiceRealtimeSaveValidate": "Enregistrer et valider",
   "voiceRealtimeNotConfigured": "Non configuré",
-  "voiceRealtimeValidated": "Connexion validée",
-  "voiceRealtimeEchoNotice": "Le temps réel nécessite un appareil doté d'une bonne annulation d'écho. Sans elle, l'assistant entend ses propres réponses et s'interrompt lui-même. Désactivez « Parler pendant les réponses » pour contourner le problème."
+  "voiceRealtimeValidated": "Connexion validée"
 }

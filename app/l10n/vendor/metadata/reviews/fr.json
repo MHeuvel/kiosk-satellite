@@ -13676,10 +13676,15 @@
     "provenance": "50a40b9b0f2cc752c88ccaa455255d187c5d5a9594152fadced57a7289592afd"
   },
   "settingAudioSpeakerDeviceDescription": {
-    "source": "cd7f30da6940bfbbb3bfc586975e543be4b4fdcd47d6cd05389dd63bdfdbad52",
-    "translation": "bf3775cf65a7b0361f40a4162783c5c0b560abeb899d0414c8b9e58579210a85",
+    "source": "7fb78a794bb834d8b301800899d026e35d4acb4dc31faf24e03eac242f6f98be",
+    "translation": "89bd82b4aebfaf2a6611b264da77d39e47416c8d2676f4f5c7c55cf1b7f2ed40",
     "author": "Limoniak",
-    "provenance": "50a40b9b0f2cc752c88ccaa455255d187c5d5a9594152fadced57a7289592afd"
+    "provenance": "50a40b9b0f2cc752c88ccaa455255d187c5d5a9594152fadced57a7289592afd",
+    "maintainerCorrection": {
+      "reviewer": "Xavier Larrea",
+      "originalTranslation": "bf3775cf65a7b0361f40a4162783c5c0b560abeb899d0414c8b9e58579210a85",
+      "reason": "The platform echo canceller is gone, and the sentence about the microphone and speaker sharing a device went with it."
+    }
   },
   "screenAudioDevices": {
     "source": "a7ad739567d3875302ed0a04616a734fc5d2c3e18eabc8fcf80a1c5201b6ef4f",
@@ -22385,8 +22390,8 @@
     "ownerAuthored": true
   },
   "settingMicSoftwareEchoCancellationDescription": {
-    "source": "db40251577162e09ae61150edacf1a1a9693d9fd608166012f028dbe03c44d0a",
-    "translation": "d1cd435e5dd64d1404576d284fed3cdbbd5ab4a308baa9469d544bb06a4c4bb2",
+    "source": "1f4a074f5870f491e0657f2d9f6292312412af8e9eb0e5966adc7db3b91c594b",
+    "translation": "1bc8967ae817a58bb82dc3a7f276300bc45bbeec4015d4cc6e26253366fa8329",
     "author": "Xavier Larrea",
     "ownerAuthored": true
   },

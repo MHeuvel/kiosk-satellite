@@ -405,13 +405,6 @@ class _VoiceHaSelectsState extends State<VoiceHaSelects> {
   }
 }
 
-/// The Realtime page's opening warning: without a working echo canceller
-/// the model hears its own voice and answers it.
-const realtimeEchoNotice =
-    'Realtime requires a device with good echo cancellation. Without it, the '
-    'assistant hears its own answers and interrupts itself. Turn off "Talk '
-    'over answers" as a workaround.';
-
 /// A realtime provider's row in the Providers group: its status under its
 /// name and Configure, which opens its settings. Mirrored on the remote
 /// (realtimeProviderRow in vs_native.js).

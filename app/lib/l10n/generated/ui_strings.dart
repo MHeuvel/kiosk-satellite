@@ -14863,7 +14863,7 @@ abstract class UiStrings {
   /// Help below the setting.
   ///
   /// In en, this message translates to:
-  /// **'Output for Voice Satellite sounds; media playback follows the system route. Echo cancellation only works with the microphone and speaker on the same device.'**
+  /// **'Output for Voice Satellite sounds; media playback follows the system route.'**
   String get settingAudioSpeakerDeviceDescription;
 
   /// Heading, choice, status or guidance shown in this group.
@@ -14893,7 +14893,7 @@ abstract class UiStrings {
   /// Help below the setting.
   ///
   /// In en, this message translates to:
-  /// **'Removes the kiosk\'s own sounds from the microphone so the wake word and the assistant do not hear them. Turn it off only if a microphone with its own canceller sounds worse with it on.'**
+  /// **'Removes the kiosk\'s own sounds from the microphone so the wake word and the assistant do not hear them. Leave it on unless a microphone that cancels its own echo sounds worse with it.'**
   String get settingMicSoftwareEchoCancellationDescription;
 
   /// Setting label.
@@ -20457,12 +20457,6 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Connection validated'**
   String get voiceRealtimeValidated;
-
-  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
-  ///
-  /// In en, this message translates to:
-  /// **'Realtime requires a device with good echo cancellation. Without it, the assistant hears its own answers and interrupts itself. Turn off \"Talk over answers\" as a workaround.'**
-  String get voiceRealtimeEchoNotice;
 
   /// Label or help shown on the Voice Satellite main page.
   ///

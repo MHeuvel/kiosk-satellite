@@ -3913,7 +3913,6 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'voiceRealtimeSaveValidate' => strings.voiceRealtimeSaveValidate,
       'voiceRealtimeNotConfigured' => strings.voiceRealtimeNotConfigured,
       'voiceRealtimeValidated' => strings.voiceRealtimeValidated,
-      'voiceRealtimeEchoNotice' => strings.voiceRealtimeEchoNotice,
       'voiceDisconnected' => strings.voiceDisconnected,
       'voiceValidate' => strings.voiceValidate,
       'voiceChecking' => strings.voiceChecking,

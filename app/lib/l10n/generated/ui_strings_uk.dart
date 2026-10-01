@@ -8636,7 +8636,7 @@ class UiStringsUk extends UiStrings {
 
   @override
   String get settingAudioSpeakerDeviceDescription =>
-      'Вихід для звуків Voice Satellite; відтворення медіа слідує системному маршруту. Ехопоглинання працює лише тоді, коли мікрофон і динамік на одному пристрої.';
+      'Вихід для звуків Voice Satellite; відтворення медіа слідує системному маршруту.';
 
   @override
   String get screenAudioDevices => 'Аудіопристрої';
@@ -8654,7 +8654,7 @@ class UiStringsUk extends UiStrings {
 
   @override
   String get settingMicSoftwareEchoCancellationDescription =>
-      'Прибирає з мікрофона власні звуки кіоска, щоб їх не чули ні слово активації, ні асистент. Вимикайте лише якщо мікрофон із власним ехопоглинанням звучить гірше з увімкненим.';
+      'Прибирає з мікрофона власні звуки кіоска, щоб їх не чули ні слово активації, ні асистент. Залишайте увімкненим, якщо тільки мікрофон із власним ехопоглинанням не звучить гірше з ним.';
 
   @override
   String get settingMicChannelTitle => 'Канал мікрофона';
@@ -11890,10 +11890,6 @@ class UiStringsUk extends UiStrings {
 
   @override
   String get voiceRealtimeValidated => 'З\'єднання перевірено';
-
-  @override
-  String get voiceRealtimeEchoNotice =>
-      'Режим реального часу потребує пристрою з якісним придушенням луни. Без нього асистент чує власні відповіді й перебиває сам себе. Як тимчасове рішення вимкніть «Перебивати відповіді».';
 
   @override
   String get voiceDisconnected => 'Home Assistant не підключено';

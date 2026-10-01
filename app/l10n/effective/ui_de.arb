@@ -31987,7 +31987,7 @@
       ]
     }
   },
-  "settingAudioSpeakerDeviceDescription": "Ausgabegerät für die Töne von Voice Satellite. Die Medienwiedergabe folgt weiterhin der Systemausgabe. Die Echounterdrückung funktioniert nur, wenn Mikrofon und Lautsprecher zum selben Gerät gehören.",
+  "settingAudioSpeakerDeviceDescription": "Ausgabegerät für die Töne von Voice Satellite. Die Medienwiedergabe folgt weiterhin der Systemausgabe.",
   "@settingAudioSpeakerDeviceDescription": {
     "context": "Settings:Screen & Audio:Audio Devices",
     "description": "Help below the setting.",
@@ -32058,7 +32058,7 @@
       ]
     }
   },
-  "settingMicSoftwareEchoCancellationDescription": "Entfernt die eigenen Töne des Kiosks aus dem Mikrofon, damit weder das Aktivierungswort noch der Assistent sie hören. Deaktiviere sie nur, wenn ein Mikrofon mit eigener Echounterdrückung damit schlechter klingt.",
+  "settingMicSoftwareEchoCancellationDescription": "Entfernt die eigenen Töne des Kiosks aus dem Mikrofon, damit weder das Aktivierungswort noch der Assistent sie hören. Lass sie eingeschaltet, es sei denn, ein Mikrofon mit eigener Echounterdrückung klingt damit schlechter.",
   "@settingMicSoftwareEchoCancellationDescription": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Help below the setting.",
@@ -42955,11 +42955,6 @@
   },
   "voiceRealtimeValidated": "Verbindung geprüft",
   "@voiceRealtimeValidated": {
-    "context": "Settings > Voice Satellite > Realtime",
-    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
-  },
-  "voiceRealtimeEchoNotice": "Echtzeit erfordert ein Gerät mit guter Echounterdrückung. Ohne sie hört der Assistent seine eigenen Antworten und unterbricht sich selbst. Schalte als Behelf „In Antworten hineinsprechen“ aus.",
-  "@voiceRealtimeEchoNotice": {
     "context": "Settings > Voice Satellite > Realtime",
     "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   },

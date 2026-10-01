@@ -8708,7 +8708,7 @@ class UiStringsFr extends UiStrings {
 
   @override
   String get settingAudioSpeakerDeviceDescription =>
-      'Sortie pour les sons de Voice Satellite ; la lecture multimédia suit la sortie audio du système. L\'annulation d\'écho ne fonctionne qu\'avec le microphone et le haut-parleur sur le même appareil.';
+      'Sortie pour les sons de Voice Satellite ; la lecture multimédia suit la sortie audio du système.';
 
   @override
   String get screenAudioDevices => 'Périphériques audio';
@@ -8726,7 +8726,7 @@ class UiStringsFr extends UiStrings {
 
   @override
   String get settingMicSoftwareEchoCancellationDescription =>
-      'Retire du microphone les sons émis par le kiosque pour que ni le mot de réveil ni l\'assistant ne les entendent. Ne la désactivez que si un microphone doté de sa propre annulation d\'écho sonne moins bien avec elle.';
+      'Retire du microphone les sons émis par le kiosque pour que ni le mot de réveil ni l\'assistant ne les entendent. Laissez-la activée, sauf si un microphone qui annule lui-même son écho sonne moins bien avec elle.';
 
   @override
   String get settingMicChannelTitle => 'Canal du microphone';
@@ -11997,10 +11997,6 @@ class UiStringsFr extends UiStrings {
 
   @override
   String get voiceRealtimeValidated => 'Connexion validée';
-
-  @override
-  String get voiceRealtimeEchoNotice =>
-      'Le temps réel nécessite un appareil doté d\'une bonne annulation d\'écho. Sans elle, l\'assistant entend ses propres réponses et s\'interrompt lui-même. Désactivez « Parler pendant les réponses » pour contourner le problème.';
 
   @override
   String get voiceDisconnected => 'Home Assistant non connecté';

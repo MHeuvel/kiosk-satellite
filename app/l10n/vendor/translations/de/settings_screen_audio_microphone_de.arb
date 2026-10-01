@@ -17,5 +17,5 @@
   "screenAudioMicrophoneLevel": "Mikrofonpegel",
   "screenAudioMicrophoneLevelHelp": "Sprich aus der Entfernung, aus der du das Gerät normalerweise nutzt. Passe die Verstärkung so an, dass normale Sprache ungefähr das Ende des grünen Bereichs erreicht.",
   "settingMicSoftwareEchoCancellationTitle": "Echounterdrückung",
-  "settingMicSoftwareEchoCancellationDescription": "Entfernt die eigenen Töne des Kiosks aus dem Mikrofon, damit weder das Aktivierungswort noch der Assistent sie hören. Deaktiviere sie nur, wenn ein Mikrofon mit eigener Echounterdrückung damit schlechter klingt."
+  "settingMicSoftwareEchoCancellationDescription": "Entfernt die eigenen Töne des Kiosks aus dem Mikrofon, damit weder das Aktivierungswort noch der Assistent sie hören. Lass sie eingeschaltet, es sei denn, ein Mikrofon mit eigener Echounterdrückung klingt damit schlechter."
 }

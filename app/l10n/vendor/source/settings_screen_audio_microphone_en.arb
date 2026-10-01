@@ -13,7 +13,7 @@
       ]
     }
   },
-  "settingMicSoftwareEchoCancellationDescription": "Removes the kiosk's own sounds from the microphone so the wake word and the assistant do not hear them. Turn it off only if a microphone with its own canceller sounds worse with it on.",
+  "settingMicSoftwareEchoCancellationDescription": "Removes the kiosk's own sounds from the microphone so the wake word and the assistant do not hear them. Leave it on unless a microphone that cancels its own echo sounds worse with it.",
   "@settingMicSoftwareEchoCancellationDescription": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Help below the setting.",

@@ -31987,7 +31987,7 @@
       ]
     }
   },
-  "settingAudioSpeakerDeviceDescription": "Sortie pour les sons de Voice Satellite ; la lecture multimédia suit la sortie audio du système. L'annulation d'écho ne fonctionne qu'avec le microphone et le haut-parleur sur le même appareil.",
+  "settingAudioSpeakerDeviceDescription": "Sortie pour les sons de Voice Satellite ; la lecture multimédia suit la sortie audio du système.",
   "@settingAudioSpeakerDeviceDescription": {
     "context": "Settings:Screen & Audio:Audio Devices",
     "description": "Help below the setting.",
@@ -32058,7 +32058,7 @@
       ]
     }
   },
-  "settingMicSoftwareEchoCancellationDescription": "Retire du microphone les sons émis par le kiosque pour que ni le mot de réveil ni l'assistant ne les entendent. Ne la désactivez que si un microphone doté de sa propre annulation d'écho sonne moins bien avec elle.",
+  "settingMicSoftwareEchoCancellationDescription": "Retire du microphone les sons émis par le kiosque pour que ni le mot de réveil ni l'assistant ne les entendent. Laissez-la activée, sauf si un microphone qui annule lui-même son écho sonne moins bien avec elle.",
   "@settingMicSoftwareEchoCancellationDescription": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Help below the setting.",
@@ -42955,11 +42955,6 @@
   },
   "voiceRealtimeValidated": "Connexion validée",
   "@voiceRealtimeValidated": {
-    "context": "Settings > Voice Satellite > Realtime",
-    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
-  },
-  "voiceRealtimeEchoNotice": "Le temps réel nécessite un appareil doté d'une bonne annulation d'écho. Sans elle, l'assistant entend ses propres réponses et s'interrompt lui-même. Désactivez « Parler pendant les réponses » pour contourner le problème.",
-  "@voiceRealtimeEchoNotice": {
     "context": "Settings > Voice Satellite > Realtime",
     "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   },

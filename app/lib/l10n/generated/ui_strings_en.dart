@@ -8542,7 +8542,7 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get settingAudioSpeakerDeviceDescription =>
-      'Output for Voice Satellite sounds; media playback follows the system route. Echo cancellation only works with the microphone and speaker on the same device.';
+      'Output for Voice Satellite sounds; media playback follows the system route.';
 
   @override
   String get screenAudioDevices => 'Audio Devices';
@@ -8560,7 +8560,7 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get settingMicSoftwareEchoCancellationDescription =>
-      'Removes the kiosk\'s own sounds from the microphone so the wake word and the assistant do not hear them. Turn it off only if a microphone with its own canceller sounds worse with it on.';
+      'Removes the kiosk\'s own sounds from the microphone so the wake word and the assistant do not hear them. Leave it on unless a microphone that cancels its own echo sounds worse with it.';
 
   @override
   String get settingMicChannelTitle => 'Microphone channel';
@@ -11762,10 +11762,6 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get voiceRealtimeValidated => 'Connection validated';
-
-  @override
-  String get voiceRealtimeEchoNotice =>
-      'Realtime requires a device with good echo cancellation. Without it, the assistant hears its own answers and interrupts itself. Turn off \"Talk over answers\" as a workaround.';
 
   @override
   String get voiceDisconnected => 'Home Assistant not connected';

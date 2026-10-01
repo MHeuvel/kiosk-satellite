@@ -8758,7 +8758,7 @@ class UiStringsDe extends UiStrings {
 
   @override
   String get settingAudioSpeakerDeviceDescription =>
-      'Ausgabegerät für die Töne von Voice Satellite. Die Medienwiedergabe folgt weiterhin der Systemausgabe. Die Echounterdrückung funktioniert nur, wenn Mikrofon und Lautsprecher zum selben Gerät gehören.';
+      'Ausgabegerät für die Töne von Voice Satellite. Die Medienwiedergabe folgt weiterhin der Systemausgabe.';
 
   @override
   String get screenAudioDevices => 'Audiogeräte';
@@ -8776,7 +8776,7 @@ class UiStringsDe extends UiStrings {
 
   @override
   String get settingMicSoftwareEchoCancellationDescription =>
-      'Entfernt die eigenen Töne des Kiosks aus dem Mikrofon, damit weder das Aktivierungswort noch der Assistent sie hören. Deaktiviere sie nur, wenn ein Mikrofon mit eigener Echounterdrückung damit schlechter klingt.';
+      'Entfernt die eigenen Töne des Kiosks aus dem Mikrofon, damit weder das Aktivierungswort noch der Assistent sie hören. Lass sie eingeschaltet, es sei denn, ein Mikrofon mit eigener Echounterdrückung klingt damit schlechter.';
 
   @override
   String get settingMicChannelTitle => 'Mikrofonkanal';
@@ -12047,10 +12047,6 @@ class UiStringsDe extends UiStrings {
 
   @override
   String get voiceRealtimeValidated => 'Verbindung geprüft';
-
-  @override
-  String get voiceRealtimeEchoNotice =>
-      'Echtzeit erfordert ein Gerät mit guter Echounterdrückung. Ohne sie hört der Assistent seine eigenen Antworten und unterbricht sich selbst. Schalte als Behelf „In Antworten hineinsprechen“ aus.';
 
   @override
   String get voiceDisconnected => 'Home Assistant ist nicht verbunden';
