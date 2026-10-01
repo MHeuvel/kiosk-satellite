@@ -157,3 +157,15 @@ Running `dpm set-active-admin` grants basic device administration, which powers 
 Device ownership has strict prerequisites and is intentionally difficult to reverse, so its setup is covered in detail in the [Kiosk and Lockdown](kiosk.md#going-further-device-ownership) documentation.
 
 Finally, keep in mind that certain hardware vendors layer aggressive, proprietary battery management software on top of standard Android. These vendor utilities cannot be queried by apps or configured via standard `adb` commands. If Kiosk Satellite continues to be killed in the background despite all permissions showing as Granted, inspect the manufacturer's custom power and battery management settings directly on the device.
+
+## MediaTek DuraSpeed
+
+Many MediaTek tablets (Lenovo, Alcatel and others) ship DuraSpeed, a background app control that goes further than killing apps: it can refuse to start an app's services. The dashboard WebView runs its page in a separate renderer process that Android starts as a service, and when DuraSpeed refuses it the dashboard stays black while everything else works, the clock screensaver included. The app log then repeats `WebView renderer unresponsive` and `rebuilding the WebView` without ever recovering, and `adb logcat` shows `bringUpServiceLocked, suppress to start service!` followed by `Unable to launch app ... SandboxedProcessService ... process is bad`.
+
+Turn DuraSpeed off, or add Kiosk Satellite to its allow list, in **Settings > Apps > DuraSpeed** (some tablets keep it under Battery). Over adb:
+
+```
+adb shell settings put global setting.duraspeed.enabled 0
+```
+
+Then restart Kiosk Satellite. The setting survives reboots. Verified on a Lenovo Tab M8 4th gen on Android 13.
