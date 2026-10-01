@@ -17,6 +17,7 @@
 #include <functional>
 #include <memory>
 #include <mutex>
+#include <optional>
 #include <string>
 #include <thread>
 #include <unistd.h>
@@ -191,6 +192,91 @@ public:
     std::atomic<int> progress_ms{0};
     std::atomic<int> duration_ms{0};
 
+    // The server's latest progress report, with Music Assistant's resume skew
+    // taken out. Music Assistant 2.10 falls back to a stop on pause and, on
+    // resume, extrapolates its retained elapsed time across the whole stopped
+    // span, so the report lands that far ahead of the audio. Every later
+    // report for the track carries the same skew until a seek or a new track
+    // re-anchors it. Touched only on the loop thread.
+    struct Report {
+        uint32_t raw;       // track_progress as received
+        uint32_t progress;  // raw minus skew_ms
+        uint32_t duration;
+        uint32_t speed;
+        int64_t timestamp;  // server time, kept in step with the library
+        std::string title;
+    };
+    std::optional<Report> report;
+    uint32_t skew_ms = 0;
+    int64_t paused_at_us = 0;  // steady clock, when the last paused report landed
+
+    // How far a resume may land from the paused position and still be taken
+    // as is: Music Assistant restarts from its last committed elapsed time,
+    // which trails the pause report by a second or two.
+    static constexpr int64_t RESUME_BEHIND_MS = 8000;
+    static constexpr int64_t RESUME_AHEAD_MS = 3000;
+
+    static int64_t steady_us() {
+        return std::chrono::duration_cast<std::chrono::microseconds>(
+                   std::chrono::steady_clock::now().time_since_epoch())
+            .count();
+    }
+
+    void track_report(const sendspin::ServerMetadataStateObject& md) {
+        if (!md.progress) {
+            this->report.reset();
+            return;
+        }
+        const auto& p = *md.progress;
+        std::string title = md.title.value_or("");
+        auto& last = this->report;
+        if (last && last->raw == p.track_progress && last->speed == p.playback_speed &&
+            last->duration == p.track_duration && last->title == title) {
+            // A title or artwork delta re-sends the same progress. The library
+            // still restamps it, so follow suit.
+            last->timestamp = md.timestamp;
+            return;
+        }
+        bool same_track = last && last->title == title && last->duration == p.track_duration;
+        int64_t now_us = steady_us();
+        if (same_track && last->speed == 0 && p.playback_speed > 0) {
+            int64_t paused = last->progress;
+            int64_t gap_ms = (now_us - this->paused_at_us) / 1000;
+            int64_t raw = p.track_progress;
+            auto near_pause = [paused](int64_t pos) {
+                return pos >= paused - RESUME_BEHIND_MS && pos <= paused + RESUME_AHEAD_MS;
+            };
+            this->skew_ms = 0;
+            if (!near_pause(raw) && raw >= gap_ms && near_pause(raw - gap_ms)) {
+                this->skew_ms = static_cast<uint32_t>(gap_ms);
+                __android_log_print(ANDROID_LOG_INFO, TAG,
+                                    "resume progress %lld ms counts the %lld ms pause, using %lld ms",
+                                    static_cast<long long>(raw), static_cast<long long>(gap_ms),
+                                    static_cast<long long>(raw - gap_ms));
+            }
+        } else if (!(same_track && last->speed > 0 && p.playback_speed == 0)) {
+            // Only the pause report repeats the skew of the resume before it.
+            this->skew_ms = 0;
+        }
+        uint32_t progress = p.track_progress > this->skew_ms ? p.track_progress - this->skew_ms : 0;
+        if (p.playback_speed == 0) this->paused_at_us = now_us;
+        last = Report{p.track_progress, progress,    p.track_duration,
+                      p.playback_speed, md.timestamp, std::move(title)};
+    }
+
+    // MetadataRole::get_track_progress_ms() on the corrected report.
+    int corrected_progress_ms() const {
+        if (!this->report) return 0;
+        const auto& r = *this->report;
+        int64_t calculated = r.progress;
+        int64_t client_target = r.speed != 0 ? this->client->get_client_time(r.timestamp) : 0;
+        if (client_target != 0) {
+            calculated += (steady_us() - client_target) * static_cast<int64_t>(r.speed) / 1'000'000;
+        }
+        if (r.duration != 0) calculated = std::min(calculated, static_cast<int64_t>(r.duration));
+        return static_cast<int>(std::max(calculated, static_cast<int64_t>(0)));
+    }
+
     void post(std::function<void()> fn) {
         std::lock_guard<std::mutex> lock(this->queue_mutex);
         this->queue.push_back(std::move(fn));
@@ -212,7 +298,7 @@ public:
             this->connected.store(now_connected);
             this->time_synced.store(this->client->is_time_synced());
             if (this->metadata != nullptr) {
-                this->progress_ms.store(static_cast<int>(this->metadata->get_track_progress_ms()));
+                this->progress_ms.store(this->corrected_progress_ms());
                 this->duration_ms.store(static_cast<int>(this->metadata->get_track_duration_ms()));
             }
             if (now_connected != last_connected) {
@@ -297,6 +383,7 @@ public:
     // --- MetadataRoleListener ----------------------------------------------
 
     void on_metadata(const sendspin::ServerMetadataStateObject& md) override {
+        this->track_report(md);
         JNIEnv* env = get_env();
         if (env == nullptr) return;
         jstring title = to_jstring(env, md.title);
@@ -306,7 +393,7 @@ public:
         jstring artwork_url = to_jstring(env, md.artwork_url);
         jint year = md.year ? static_cast<jint>(*md.year) : -1;
         jint track = md.track ? static_cast<jint>(*md.track) : -1;
-        jlong progress = md.progress ? static_cast<jlong>(md.progress->track_progress) : -1;
+        jlong progress = md.progress ? static_cast<jlong>(this->report->progress) : -1;
         jlong duration = md.progress ? static_cast<jlong>(md.progress->track_duration) : -1;
         env->CallVoidMethod(this->callbacks, this->mid_metadata, title, artist, album,
                             album_artist, artwork_url, year, track, progress, duration,
@@ -316,6 +403,8 @@ public:
             if (s != nullptr) env->DeleteLocalRef(s);
         }
     }
+
+    void on_metadata_clear() override { this->report.reset(); }
 
     // --- ControllerRoleListener --------------------------------------------
 
