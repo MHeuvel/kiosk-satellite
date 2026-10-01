@@ -3,8 +3,9 @@ package me.jxl.kiosk_satellite
 import android.util.Log
 
 /**
- * Echo cancellation in software: WebRTC's AEC3 (echo_jni.cpp) over the
- * microphone, with everything the kiosk plays ([EchoReference]) as the
+ * Echo cancellation in software: WebRTC's AEC3 by default and the opt-in
+ * custom filter for duplex voice, with everything the kiosk plays
+ * ([EchoReference]) as the
  * reference. MicRecorder turns it on with the capture when the setting
  * asks for it, and hands every chunk to [process] on its thread before any
  * consumer sees it, so the wake word, Assist, realtime conversations, the
@@ -36,6 +37,10 @@ object SoftwareEcho {
         Log.w(TAG, "native library unavailable: ${e.message}")
         false
     }
+
+    private val customDuplex = loaded && nativePrototypeAvailable(false)
+    private val customRealtime = loaded && nativePrototypeAvailable(true)
+    private var usesPrototype = false
 
     private val lock = Object()
     private var handle = 0L
@@ -99,40 +104,33 @@ object SoftwareEcho {
 
     private val streams = HashMap<EchoReference.Source, Stream>()
 
-    /**
-     * The residual echo gate. AEC3 leaves a faint copy of the voice it
-     * cancels, so a listener can still pick out speech under it, and a
-     * realtime model takes that for the user talking over it. A frame where
-     * something played, the microphone heard it and the canceller took most
-     * of it away holds only echo, and goes as silence, as a phone's canceller
-     * does. A frame the canceller left most of is someone talking over the
-     * sound, and it and the [GATE_HANGOVER] frames after it go as they are.
-     */
-    private const val GATE_RATIO = 0.3
-
-    /** Loudness (mean |sample|) under which there is no echo worth gating. */
-    private const val GATE_FLOOR = 300
+    private val residualGate = ResidualEchoGate()
 
     /**
-     * Loudness the gate never takes: speech at the kiosk reads in the
-     * hundreds and up, what the canceller leaves of an echo well under
-     * this. Against loud music the ratio alone asked for a voice at a third
-     * of the music's own echo, and the wake word had to be shouted.
+     * Each player owns its processing request. Stopping one cannot disable
+     * another. AEC3 runs with one configuration in every mode, so a call
+     * starting or ending keeps the canceller and what it learned from the
+     * ring and every sound before it: rebuilt at each call, it started
+     * every call empty and let the first far sentence through while it
+     * learned. Only an experimental build that swaps in the custom filter
+     * for a mode rebuilds.
      */
-    private const val GATE_CEILING = 200
-
-    /** Frames that go ungated after one that held someone talking: 200 ms. */
-    private const val GATE_HANGOVER = 20
-
-    private var hangover = 0
-
-    /**
-     * Whether the gate runs: only while a realtime conversation plays
-     * ([RealtimeAudio]), the one listener a faint echo misleads. The wake
-     * word hears speech with the quiet parts of every word zeroed as a
-     * word with holes in it, and over music it had to be shouted.
-     */
-    @Volatile var gated = false
+    internal fun setMode(owner: Any, mode: ResidualEchoGate.Mode?) {
+        synchronized(lock) {
+            residualGate.set(owner, mode)
+            val prototype = (customDuplex && residualGate.intercomOnly) ||
+                (customRealtime && residualGate.realtime)
+            if (enabled && prototype != usesPrototype) {
+                val next = nativeCreate(RATE, RATE, false, residualGate.intercomOnly, residualGate.realtime)
+                if (next != 0L) {
+                    stopWorking()
+                    nativeDestroy(handle)
+                    handle = next
+                    usesPrototype = prototype
+                }
+            }
+        }
+    }
 
     private val mix = ShortArray(FRAME)
     private val mixBytes = ByteArray(FRAME_BYTES)
@@ -147,9 +145,10 @@ object SoftwareEcho {
             if (on == enabled) return
             if (on) {
                 if (!loaded) return
-                val created = nativeCreate(RATE, RATE, false)
+                val created = nativeCreate(RATE, RATE, false, residualGate.intercomOnly, residualGate.realtime)
                 if (created == 0L) return
                 handle = created
+                usesPrototype = (customDuplex && residualGate.intercomOnly) || (customRealtime && residualGate.realtime)
                 enabled = true
                 Log.i(TAG, "on")
             } else {
@@ -157,7 +156,9 @@ object SoftwareEcho {
                 stopWorking()
                 nativeDestroy(handle)
                 handle = 0L
+                usesPrototype = false
                 streams.clear()
+                residualGate.reset()
                 Log.i(TAG, "off")
             }
         }
@@ -196,7 +197,7 @@ object SoftwareEcho {
                     fresh = true
                 }
             }
-            if (streams.size > sources.size) streams.keys.retainAll(sources.toSet())
+            streams.keys.retainAll(sources.toSet())
             if (!EchoReference.playedWithin(TAIL_MS) && !fresh) {
                 stopWorking()
                 return
@@ -228,7 +229,9 @@ object SoftwareEcho {
                 val played = meanAbs(mixBytes, 0)
                 nativeRender(h, mixBytes, 0)
                 nativeCapture(h, chunk, at)
-                gate(chunk, at, heard, played)
+                if (residualGate.suppress(heard, played, meanAbs(chunk, at), subtractionOnly = usesPrototype)) {
+                    java.util.Arrays.fill(chunk, at, at + FRAME_BYTES, 0)
+                }
                 at += FRAME_BYTES
             }
             for (stream in streams.values) stream.cursor += need
@@ -243,17 +246,6 @@ object SoftwareEcho {
             sum += kotlin.math.abs(v.toShort().toInt())
         }
         return sum / FRAME
-    }
-
-    private fun gate(chunk: ByteArray, at: Int, heard: Int, played: Int) {
-        if (hangover > 0) hangover--
-        if (!gated || played < GATE_FLOOR / 3 || heard < GATE_FLOOR) return
-        val left = meanAbs(chunk, at)
-        if (left >= minOf(heard * GATE_RATIO, GATE_CEILING.toDouble())) {
-            hangover = GATE_HANGOVER
-            return
-        }
-        if (hangover == 0) java.util.Arrays.fill(chunk, at, at + FRAME_BYTES, 0)
     }
 
     /** Frame [f] of this chunk from every source, read at its cursor and summed into [mix]. */
@@ -295,6 +287,7 @@ object SoftwareEcho {
     private fun stopWorking() {
         if (!working) return
         working = false
+        residualGate.reset()
         val h = handle
         if (h == 0L) return
         val delayMs = nativeStats(h)[1]
@@ -304,7 +297,8 @@ object SoftwareEcho {
         ))
     }
 
-    @JvmStatic private external fun nativeCreate(captureRate: Int, renderRate: Int, noiseSuppression: Boolean): Long
+    @JvmStatic private external fun nativeCreate(captureRate: Int, renderRate: Int, noiseSuppression: Boolean, intercom: Boolean, realtime: Boolean): Long
+    @JvmStatic private external fun nativePrototypeAvailable(realtime: Boolean): Boolean
     @JvmStatic private external fun nativeRender(handle: Long, pcm: ByteArray, offset: Int)
     @JvmStatic private external fun nativeCapture(handle: Long, pcm: ByteArray, offset: Int)
     @JvmStatic private external fun nativeStats(handle: Long): DoubleArray

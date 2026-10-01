@@ -518,10 +518,12 @@ class IntercomManager extends Manager {
           unawaited(_onEnabledChanged());
         } else if (e.key == defs.intercomVolume.key) {
           unawaited(audio.setVolume(_playbackGain()));
+        } else if (e.key == defs.intercomTalkMode.key) {
+          unawaited(audio.setHandsFree(_handsFreeCall));
+          _changed();
         } else if (e.key == defs.intercomAnswerMode.key ||
             e.key == defs.lockdownEnabled.key ||
-            e.key == defs.intercomKey.key ||
-            e.key == defs.intercomTalkMode.key) {
+            e.key == defs.intercomKey.key) {
           _changed();
         } else if (e.key == defs.remoteEnabled.key ||
             e.key == defs.remotePassword.key ||
@@ -2106,9 +2108,14 @@ class IntercomManager extends Manager {
     }
   }
 
+  bool get _handsFreeCall => _call?.kind == 'call' && talkMode == 'handsfree';
+
   Future<void> _startPlayback({double? volume}) async {
     if (audio.open) return;
-    final ok = await audio.start(volume: volume ?? _playbackGain());
+    final ok = await audio.start(
+      volume: volume ?? _playbackGain(),
+      handsFree: _handsFreeCall,
+    );
     if (!ok) log.warn(name, 'playback could not open');
   }
 

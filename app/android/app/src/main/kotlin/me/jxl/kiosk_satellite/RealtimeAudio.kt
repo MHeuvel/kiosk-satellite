@@ -12,8 +12,6 @@ import android.os.Process
 import android.util.Log
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
-import java.util.concurrent.LinkedBlockingQueue
-import java.util.concurrent.TimeUnit
 
 /**
  * The realtime voice session's playback sink: one streaming AudioTrack
@@ -64,6 +62,7 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
     private val channel = MethodChannel(messenger, "kiosk_satellite/realtime_audio")
     private val mainHandler = Handler(Looper.getMainLooper())
     private val lock = Object()
+    private var queue = PlaybackPcmQueue(lock)
 
     @Volatile private var track: AudioTrack? = null
     @Volatile private var output: AudioDeviceInfo? = null
@@ -72,11 +71,6 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
     /** What the track plays, for the software echo canceller. */
     @Volatile private var tap: TrackTap? = null
     private var rate = 24000
-
-    private val queue = LinkedBlockingQueue<ByteArray>()
-
-    /** Advanced on every flush and stop: a slice from before is not written. */
-    @Volatile private var epoch = 0L
 
     // Guarded by [lock]. Stream frames count everything written to the
     // track, silence included; answer frames only what the model said.
@@ -103,8 +97,10 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
                 "write" -> {
                     val bytes = call.arguments as? ByteArray
                     if (bytes != null && track != null) {
-                        synchronized(lock) { answerWritten += bytes.size / 2 }
-                        queue.offer(bytes)
+                        synchronized(lock) {
+                            answerWritten += bytes.size / 2
+                            queue.offer(bytes)
+                        }
                     }
                     result.success(null)
                 }
@@ -163,7 +159,7 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
         if (Build.VERSION.SDK_INT >= 28 && target != null) {
             runCatching { newTrack.preferredDevice = target }
         }
-        queue.clear()
+        queue = PlaybackPcmQueue(lock)
         synchronized(lock) {
             headBefore = 0L
             streamWritten = 0L
@@ -174,11 +170,12 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
         track = newTrack
         output = target
         tap = TrackTap(newTrack, sampleRate, 1)
-        SoftwareEcho.gated = true
+        SoftwareEcho.setMode(this, ResidualEchoGate.Mode.REALTIME)
         applyVolume()
         newTrack.play()
         synchronized(lock) { headOffset = head(newTrack) }
-        val thread = Thread({ feed(newTrack) }, "ks-realtime")
+        val pending = queue
+        val thread = Thread({ feed(newTrack, pending) }, "ks-realtime")
         writer = thread
         thread.start()
         Log.i(TAG, "playback started at $sampleRate Hz (buffer=${bufferBytes}b)")
@@ -209,7 +206,7 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
     }
 
     /** The writer thread: the model's voice as it arrives. */
-    private fun feed(t: AudioTrack) {
+    private fun feed(t: AudioTrack, pending: PlaybackPcmQueue) {
         // At normal priority, a device busy starting up (the app after a
         // restart, a reopened microphone) held this thread up long enough
         // for the track to run dry every second, with half a minute of the
@@ -218,37 +215,43 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
         val slice = rate * 2 * SLICE_MS / 1000
         while (track === t) {
             val chunk = try {
-                queue.poll(100, TimeUnit.MILLISECONDS)
+                pending.poll()
             } catch (_: InterruptedException) {
                 break
             }
             if (track !== t) break
             if (chunk != null) {
                 var offset = 0
-                while (offset < chunk.size && track === t) {
-                    val at = epoch
-                    val length = minOf(slice, chunk.size - offset)
-                    val start = synchronized(lock) {
-                        tap?.wrote(chunk, offset, length)
-                        streamWritten
-                    }
+                while (offset < chunk.pcm.size && track === t) {
                     val n = try {
-                        t.write(chunk, offset, length, AudioTrack.WRITE_BLOCKING)
+                        pending.write(chunk) { pcm ->
+                            if (track !== t) return@write -1
+                            val length = minOf(slice, pcm.size - offset)
+                            // A nonblocking write and the tap stay inside
+                            // the flush lock. Only accepted bytes enter the
+                            // reference, with no wait for speaker playback.
+                            val accepted = t.write(pcm, offset, length, AudioTrack.WRITE_NON_BLOCKING)
+                            if (accepted > 0) {
+                                tap?.wrote(pcm, offset, accepted)
+                                pieces.addLast(longArrayOf(streamWritten, accepted / 2L))
+                                streamWritten += accepted / 2
+                            }
+                            accepted
+                        }
                     } catch (e: Exception) {
                         Log.w(TAG, "write failed: ${e.message}")
                         -1
                     }
-                    if (n <= 0) break
-                    synchronized(lock) {
-                        // A flush during the write threw it away (and the
-                        // tap with it: a flush restarts the tap).
-                        if (epoch == at) {
-                            pieces.addLast(longArrayOf(start, n / 2L))
-                            streamWritten += n / 2
+                    if (n == null || n < 0) break
+                    if (n == 0) {
+                        try {
+                            Thread.sleep(10)
+                        } catch (_: InterruptedException) {
+                            return
                         }
+                    } else {
+                        offset += n
                     }
-                    if (epoch != at) break
-                    offset += n
                 }
                 continue
             }
@@ -261,11 +264,10 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
      */
     private fun flush(): Long {
         val t = track ?: return 0L
-        queue.clear()
         synchronized(lock) {
-            epoch++
-            // The worker may be blocked in a write: pausing the track
-            // releases it, and the epoch keeps it from recording the slice.
+            queue.clear()
+            // Writes are nonblocking and share this lock, so no old
+            // slice can arrive between the flush and the next play.
             runCatching { t.pause() }
             val stream = streamPlayed()
             val heard = answerPlayed()
@@ -297,12 +299,13 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
 
     private fun stop() {
         val t = track ?: return
-        synchronized(lock) { epoch++ }
-        track = null
-        SoftwareEcho.gated = false
+        synchronized(lock) {
+            track = null
+            queue.clear()
+        }
+        SoftwareEcho.setMode(this, null)
         tap?.close()
         tap = null
-        queue.clear()
         val thread = writer
         writer = null
         output = null

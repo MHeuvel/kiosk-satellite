@@ -10,24 +10,41 @@
 #include <cstdint>
 #include <cstring>
 #include <mutex>
+#include <algorithm>
+#include <cmath>
 
 #include <memory>
 #include <optional>
 
-#include "api/audio/echo_canceller3_config.h"
+#include "echo_config.h"
 #include "api/audio/echo_control.h"
 #include "modules/audio_processing/aec3/echo_canceller3.h"
 #include "modules/audio_processing/include/audio_processing.h"
 
+#ifdef KIOSK_ECHO_PROTOTYPE
+#include "kiosk_echo_prototype.h"
+#endif
+
 namespace {
 
 constexpr const char* kTag = "SoftwareEcho";
+
+// Realtime acoustic tests have not passed. Keep their opt-in separate from calls.
+#ifdef KIOSK_ECHO_PROTOTYPE_REALTIME
+constexpr bool kPrototypeRealtime = true;
+#else
+constexpr bool kPrototypeRealtime = false;
+#endif
 
 struct Echo {
     rtc::scoped_refptr<webrtc::AudioProcessing> apm;
     webrtc::StreamConfig capture;
     webrtc::StreamConfig render;
     std::mutex lock;
+#ifdef KIOSK_ECHO_PROTOTYPE
+    std::unique_ptr<kiosk::EchoPrototype> prototype;
+    float reference[160]{};
+#endif
 };
 
 Echo* from(jlong handle) { return reinterpret_cast<Echo*>(handle); }
@@ -39,10 +56,7 @@ Echo* from(jlong handle) { return reinterpret_cast<Echo*>(handle); }
 // the echo right there, and realtime answers leaked two to three seconds in.
 class Aec3Factory : public webrtc::EchoControlFactory {
 public:
-    Aec3Factory() {
-        config_.filter.refined_initial = config_.filter.refined;
-        config_.filter.coarse_initial = config_.filter.coarse;
-    }
+    Aec3Factory() : config_(kiosk::EchoConfig()) {}
 
     std::unique_ptr<webrtc::EchoControl> Create(
         int sample_rate_hz, int num_render_channels, int num_capture_channels) override {
@@ -59,7 +73,8 @@ private:
 
 extern "C" JNIEXPORT jlong JNICALL
 Java_me_jxl_kiosk_1satellite_SoftwareEcho_nativeCreate(
-    JNIEnv*, jclass, jint captureRate, jint renderRate, jboolean noiseSuppression) {
+    JNIEnv*, jclass, jint captureRate, jint renderRate, jboolean noiseSuppression,
+    jboolean intercom, jboolean realtime) {
     auto apm = webrtc::AudioProcessingBuilder()
                    .SetEchoControlFactory(std::make_unique<Aec3Factory>())
                    .Create();
@@ -77,9 +92,28 @@ Java_me_jxl_kiosk_1satellite_SoftwareEcho_nativeCreate(
     apm->ApplyConfig(config);
     auto* echo = new Echo{apm, webrtc::StreamConfig(captureRate, 1),
                           webrtc::StreamConfig(renderRate, 1), {}};
-    __android_log_print(ANDROID_LOG_INFO, kTag, "started (capture %d Hz, reference %d Hz, ns %s)",
-                        captureRate, renderRate, noiseSuppression ? "on" : "off");
+#ifdef KIOSK_ECHO_PROTOTYPE
+    if ((intercom || (realtime && kPrototypeRealtime)) && captureRate == 16000 && renderRate == 16000) {
+        echo->prototype = std::make_unique<kiosk::EchoPrototype>();
+        __android_log_print(ANDROID_LOG_INFO, kTag,
+                            "experimental kiosk echo subtraction enabled, latency 8 ms");
+    }
+#endif
+    __android_log_print(ANDROID_LOG_INFO, kTag,
+                        "started (capture %d Hz, reference %d Hz, ns %s, mode %s)",
+                        captureRate, renderRate, noiseSuppression ? "on" : "off",
+                        intercom ? "intercom" : (realtime ? "realtime" : "default"));
     return reinterpret_cast<jlong>(echo);
+}
+
+// The prototype build bypasses the extra realtime output gate.
+extern "C" JNIEXPORT jboolean JNICALL
+Java_me_jxl_kiosk_1satellite_SoftwareEcho_nativePrototypeAvailable(JNIEnv*, jclass, jboolean realtime) {
+#ifdef KIOSK_ECHO_PROTOTYPE
+    return (!realtime || kPrototypeRealtime) ? JNI_TRUE : JNI_FALSE;
+#else
+    return JNI_FALSE;
+#endif
 }
 
 // One 10 ms frame of what the speaker played, PCM16 at the reference rate.
@@ -93,6 +127,12 @@ Java_me_jxl_kiosk_1satellite_SoftwareEcho_nativeRender(
     env->GetByteArrayRegion(pcm, offset, static_cast<jsize>(frames * 2),
                             reinterpret_cast<jbyte*>(block));
     std::lock_guard<std::mutex> guard(echo->lock);
+#ifdef KIOSK_ECHO_PROTOTYPE
+    if (echo->prototype) {
+        for (size_t i = 0; i < frames; ++i) echo->reference[i] = block[i] / 32768.f;
+        return;
+    }
+#endif
     echo->apm->ProcessReverseStream(block, echo->render, echo->render, block);
 }
 
@@ -109,8 +149,19 @@ Java_me_jxl_kiosk_1satellite_SoftwareEcho_nativeCapture(
                             reinterpret_cast<jbyte*>(block));
     {
         std::lock_guard<std::mutex> guard(echo->lock);
+#ifdef KIOSK_ECHO_PROTOTYPE
+        if (echo->prototype) {
+            float microphone[160], output[160];
+            for (size_t i = 0; i < frames; ++i) microphone[i] = block[i] / 32768.f;
+            echo->prototype->Process(echo->reference, microphone, output, frames);
+            for (size_t i = 0; i < frames; ++i)
+                block[i] = static_cast<int16_t>(std::clamp(std::round(output[i] * 32768.f), -32768.f, 32767.f));
+        } else
+#endif
+        {
         echo->apm->set_stream_delay_ms(0);
         echo->apm->ProcessStream(block, echo->capture, echo->capture, block);
+        }
     }
     env->SetByteArrayRegion(pcm, offset, static_cast<jsize>(frames * 2),
                             reinterpret_cast<const jbyte*>(block));

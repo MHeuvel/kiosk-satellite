@@ -2,7 +2,7 @@
 
 Navigate to **Settings > Screen & Audio > Microphone settings**.
 
-The kiosk records from the raw microphone, the same path a recorder app uses, and runs its own echo canceller over it. The rest of this page is escape hatches for devices whose Android audio stack is miscalibrated or behaving unpredictably. None of them is a universal upgrade: each trades off a specific capability, and applying them to a device that already hears you well will degrade detection. The exception is the microphone channel selector, which can offer a real quality boost on specialized hardware. It only appears when such hardware is selected.
+The kiosk records from Android's microphone source, the same path a recorder app uses, and runs its own echo canceller over it. The rest of this page is escape hatches for devices whose Android audio stack is miscalibrated or behaving unpredictably. None of them is a universal upgrade: each trades off a specific capability, and applying them to a device that already hears you well will degrade detection. The exception is the microphone channel selector, which can offer a real quality boost on specialized hardware. It only appears when such hardware is selected.
 
 ## When You Need Them
 
@@ -31,7 +31,7 @@ On by default. It removes the kiosk's own sounds from the microphone with WebRTC
 
 It covers everything the kiosk plays itself: chimes, timers, text to speech, the realtime assistant's voice, intercom calls, alarms, the Sendspin player and audio sent over DLNA. Every feature that listens gets the cleaned microphone, so the wake word, Assist, realtime conversations, the intercom and the RTSP stream all benefit. Sound from web pages and the sound of DLNA videos are not covered. The canceller only runs while something plays and for a moment after, so an idle microphone passes through untouched.
 
-The kiosk does not use Android's own echo canceller, noise suppressor or gain control. Android's canceller only worked on the phone call capture path, which some custom ROMs deliver 20 dB quieter than the raw microphone, and on most devices it let the assistant hear itself anyway. Devices that cancel their own echo in hardware, such as the Echo Show and the Meta Portal, keep doing so on the raw microphone, and the kiosk's canceller takes care of what they leave.
+The kiosk does not use Android's own echo canceller, noise suppressor or gain control. Android's canceller only worked on the phone call capture path, which some custom ROMs deliver 20 dB quieter than the microphone source, and on most devices it let the assistant hear itself anyway. Devices that process the microphone in their own firmware, such as the Echo Show and the Meta Portal, keep doing so, and the kiosk's canceller takes care of what their hardware canceller leaves.
 
 Turn it off only if a microphone with its own canceller sounds worse with a second one over it. The wake word then hears the kiosk's own sounds.
 
@@ -41,7 +41,7 @@ Off by default. It runs WebRTC's noise suppressor over the microphone, on any ca
 
 ## Microphone Gain
 
-Amplifies the captured audio from 0 to 24 dB before it reaches any downstream processing. The wake word engine, the stop word classifier, and the speech to text stream sent to Home Assistant all receive this boosted signal.
+Adjusts the captured audio from -24 to 24 dB after echo cancellation and noise suppression, so a boost never clips the speaker's echo before the canceller removes it. The wake word engine, the stop word classifier and the speech to text stream sent to Home Assistant all receive the adjusted signal.
 
 To calibrate this, keep the wake word tester open and adjust the gain until normal speech from your usual distance reads around 0.05. As a baseline rule, every 6 dB doubles the signal level; for example, if the tester reads 0.012, you will need roughly 12 dB of gain to hit the target 0.05 mark.
 

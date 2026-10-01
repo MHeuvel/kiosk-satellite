@@ -61,7 +61,7 @@ abstract class PresentedQueue(rate: Int) : EchoReference.Source {
     /** The source's sample rate. Under [lock] once it plays. */
     protected var rate = rate
         private set
-    private var resampler = LinearResampler(rate, EchoReference.RATE)
+    private var resampler = ReferenceResampler(rate, EchoReference.RATE)
 
     /**
      * The volume the player applies after the tap. It is applied here as the
@@ -139,7 +139,7 @@ abstract class PresentedQueue(rate: Int) : EchoReference.Source {
             written = 0
             if (newRate != rate) {
                 rate = newRate
-                resampler = LinearResampler(newRate, EchoReference.RATE)
+                resampler = ReferenceResampler(newRate, EchoReference.RATE)
             } else {
                 resampler.reset()
             }
@@ -458,57 +458,3 @@ fun tappedRenderers(context: android.content.Context, tap: SinkTap) =
             enableAudioTrackPlaybackParams: Boolean,
         ): androidx.media3.exoplayer.audio.AudioSink = tappedSink(context, tap)
     }.setEnableDecoderFallback(true)
-
-/**
- * Linear resampling of a mono stream, carried across calls. Going down, a
- * short moving average first keeps what lies above the new rate's range
- * from folding back into it: the microphone never hears it there.
- */
-class LinearResampler(private val from: Int, private val to: Int) {
-    private var position = 0.0
-    private var last = 0f
-    private val taps = if (from > to) Math.round(from.toFloat() / to).coerceAtLeast(1) else 1
-    private val history = FloatArray(taps)
-    private var historyAt = 0
-    private var historySum = 0f
-
-    fun reset() {
-        position = 0.0
-        last = 0f
-        history.fill(0f)
-        historyAt = 0
-        historySum = 0f
-    }
-
-    fun process(input: FloatArray): FloatArray {
-        if (from == to) return input
-        val x = if (taps > 1) smooth(input) else input
-        val step = from.toDouble() / to
-        val out = FloatArray(((x.size - position) / step).toInt() + 2)
-        var n = 0
-        // position runs over [-1, x.size): -1 is the previous call's last
-        // sample.
-        while (position < x.size - 1) {
-            val i = kotlin.math.floor(position).toInt()
-            val frac = (position - i).toFloat()
-            val a = if (i < 0) last else x[i]
-            val b = x[i + 1]
-            out[n++] = a + (b - a) * frac
-            position += step
-        }
-        position -= x.size
-        if (x.isNotEmpty()) last = x[x.size - 1]
-        return out.copyOf(n)
-    }
-
-    private fun smooth(input: FloatArray): FloatArray {
-        val out = FloatArray(input.size)
-        for (i in input.indices) {
-            historySum += input[i] - history[historyAt]
-            history[historyAt] = input[i]
-            historyAt = (historyAt + 1) % taps
-            out[i] = historySum / taps
-        }
-        return out
-    }
-}

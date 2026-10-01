@@ -1177,6 +1177,10 @@ void main() {
         expect(intercom.call?.since, isNotNull);
         expect(audioCalls, contains('start'));
         // Push to talk: nothing goes out until the button is held.
+        expect(
+          (audioArgs.lastWhere((e) => e.$1 == 'start').$2 as Map)['handsFree'],
+          isFalse,
+        );
         final chunk = Uint8List.fromList(List.filled(2560, 3));
         mic.add(chunk);
         await settle(50);
@@ -1190,10 +1194,18 @@ void main() {
           texts.any((t) => t['type'] == 'talk' && t['on'] == true),
           isTrue,
         );
+        // Holding PTT must preserve a continuous quiet source even after
+        // a send gate would have learned that source as its noise floor.
+        for (var i = 0; i < 60; i++) {
+          mic.add(chunk);
+        }
+        await settle(100);
+        expect(received.whereType<List<int>>(), hasLength(61));
+        expect(received.whereType<List<int>>().last, chunk);
         await commands.execute('intercomTalk', {'on': false});
         mic.add(chunk);
         await settle(50);
-        expect(received.whereType<List<int>>(), hasLength(1));
+        expect(received.whereType<List<int>>(), hasLength(61));
         // Hang up: the end frame goes out, then the socket closes.
         await commands.execute('intercomHangup', const {});
         await settle(100);
@@ -1249,7 +1261,7 @@ void main() {
       await server.close(force: true);
     });
 
-    test('hands free sends without the button and mute stops it', () async {
+    test('hands free keeps quiet audio during playback', () async {
       await build(prefs: {'ks.intercom.talk_mode': 'handsfree'});
       await settle();
       final server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
@@ -1274,14 +1286,51 @@ void main() {
       });
       final ws = await gotSocket.future.timeout(const Duration(seconds: 3));
       await settle(100);
+      expect(
+        (audioArgs.lastWhere((e) => e.$1 == 'start').$2 as Map)['handsFree'],
+        isTrue,
+      );
       final chunk = Uint8List.fromList(List.filled(2560, 3));
       mic.add(chunk);
       await settle(50);
       expect(received.whereType<List<int>>(), hasLength(1));
+      // The peer speaks while a quieter source continues at this kiosk.
+      // Keep sending beyond the old floor gate's four-second window.
+      ws.add(jsonEncode({'type': 'talk', 'on': true}));
+      ws.add(chunk);
+      final quiet = Uint8List(2560);
+      final samples = ByteData.sublistView(quiet);
+      for (var i = 0; i < quiet.length ~/ 2; i++) {
+        samples.setInt16(i * 2, i.isEven ? 100 : -100, Endian.little);
+      }
+      for (var i = 0; i < 75; i++) {
+        mic.add(quiet);
+      }
+      await settle(100);
+      expect(intercom.call?.farTalking, isTrue);
+      expect(audioWritten.last, chunk);
+      expect(received.whereType<List<int>>(), hasLength(76));
+      for (final sent in received.whereType<List<int>>().skip(1)) {
+        expect(sent, quiet);
+      }
       await commands.execute('intercomMute', {'on': true});
       mic.add(chunk);
       await settle(50);
-      expect(received.whereType<List<int>>(), hasLength(1));
+      expect(received.whereType<List<int>>(), hasLength(76));
+      await settings.set(defs.intercomTalkMode, 'ptt');
+      await settle(20);
+      expect(
+        (audioArgs.lastWhere((e) => e.$1 == 'setHandsFree').$2
+            as Map)['enabled'],
+        isFalse,
+      );
+      await settings.set(defs.intercomTalkMode, 'handsfree');
+      await settle(20);
+      expect(
+        (audioArgs.lastWhere((e) => e.$1 == 'setHandsFree').$2
+            as Map)['enabled'],
+        isTrue,
+      );
       await ws.close();
       await settle(100);
       // The far side closing the socket ends the call here too.
@@ -1386,6 +1435,10 @@ void main() {
       expect(intercom.call?.peer['name'], 'Home Assistant');
       expect(intercom.call?.automated, isTrue);
       expect(audioCalls, containsAll(['decode', 'chimePcm', 'start']));
+      expect(
+        (audioArgs.lastWhere((e) => e.$1 == 'start').$2 as Map)['handsFree'],
+        isFalse,
+      );
       expect(executed.map((e) => e.$1), contains('screenOn'));
       // The chime, then the second of clip, then the card closes.
       await settle(2600);

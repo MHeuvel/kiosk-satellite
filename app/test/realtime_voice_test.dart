@@ -687,6 +687,32 @@ void main() {
   });
 
   group('RealtimeSession', () {
+    test('quiet speech survives a pause and a long continuous utterance', () {
+      fakeAsync((time) {
+        final h = _Harness(time);
+        h.wakeAndConnect();
+        for (var i = 0; i < 65; i++) {
+          h.mic.speak(value: 50);
+          time.elapse(const Duration(milliseconds: 80));
+        }
+        h.backend.audio.clear();
+        // A quiet first syllable must not need an absolute gate threshold.
+        h.mic.speak(value: 100);
+        expect(
+          RealtimeSession.meanAbs(h.backend.audio.single),
+          closeTo(100, 2),
+        );
+        for (var i = 0; i < 80; i++) {
+          h.mic.speak(value: 250);
+          time.elapse(const Duration(milliseconds: 80));
+        }
+        // Continuous speech must not become the gate's new noise floor.
+        expect(RealtimeSession.meanAbs(h.backend.audio.last), closeTo(250, 2));
+        h.session.cancel();
+        time.flushMicrotasks();
+      });
+    });
+
     test('streams the microphone once connected, the chime left out', () {
       fakeAsync((time) {
         final h = _Harness(time);

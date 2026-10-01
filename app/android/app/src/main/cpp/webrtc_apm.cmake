@@ -20,6 +20,25 @@ if(NOT webrtc_apm_POPULATED)
     FetchContent_Populate(webrtc_apm)
 endif()
 
+# Add per-instance control of generated comfort noise. Realtime keeps the
+# upstream default. Intercom can avoid feeding synthetic noise around a call.
+# The reverse check makes this safe across repeated CMake configuration runs.
+set(apm_comfort_patch "${CMAKE_CURRENT_LIST_DIR}/patches/webrtc-apm-comfort-noise.patch")
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${apm_comfort_patch}")
+execute_process(
+    COMMAND git apply --reverse --check "${apm_comfort_patch}"
+    WORKING_DIRECTORY "${webrtc_apm_SOURCE_DIR}"
+    RESULT_VARIABLE apm_comfort_applied OUTPUT_QUIET ERROR_QUIET)
+if(NOT apm_comfort_applied EQUAL 0)
+    execute_process(
+        COMMAND git apply "${apm_comfort_patch}"
+        WORKING_DIRECTORY "${webrtc_apm_SOURCE_DIR}"
+        RESULT_VARIABLE apm_comfort_result ERROR_VARIABLE apm_comfort_error)
+    if(NOT apm_comfort_result EQUAL 0)
+        message(FATAL_ERROR "Cannot apply WebRTC comfort noise patch: ${apm_comfort_error}")
+    endif()
+endif()
+
 # The abseil release webrtc-audio-processing v2.1 builds against.
 FetchContent_Declare(
     absl

@@ -24,16 +24,16 @@ import kotlin.math.max
  * capture; onCancel (Dart cancelling the subscription) stops it and releases
  * the mic — which is what frees it for the WebView's getUserMedia during STT.
  *
- * The capture is the raw microphone (AudioSource.MIC) with none of the
- * platform's effects attached: echo cancellation is [SoftwareEcho]'s, fed
- * everything the kiosk plays, and the rest of the chain is the app's own
- * gain. The call capture path (VOICE_COMMUNICATION) and Android's own
+ * Capture uses AudioSource.MIC without attaching Android audio effects.
+ * Device firmware may still process it. MIC does not guarantee raw audio.
+ * Echo cancellation is [SoftwareEcho]'s, fed everything the kiosk plays,
+ * followed by optional noise suppression and fixed microphone gain.
+ * The call capture path (VOICE_COMMUNICATION) and Android's own
  * canceller, suppressor and gain control went with the move: the call
  * path came in 20 dB quieter on some custom ROMs, the canceller degraded
  * over a day on a Galaxy Tab S8 and let the assistant hear itself on
  * most others, and the effects did nothing or whispered the capture on
- * the rest. The raw microphone is the same path a recorder app uses, so
- * what it hears is what the user can check for themselves.
+ * the rest. The microphone source is the same path many recorder apps use.
  *
  * The tuning arrives as stream arguments, which is why a change of any of
  * it reopens capture.
@@ -154,6 +154,8 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         if (sink == null || recording) return
         val args = arguments as? Map<*, *>
         val source = MediaRecorder.AudioSource.MIC
+        val unprocessedSupported = appContext.getSystemService(AudioManager::class.java)
+            .getProperty(AudioManager.PROPERTY_SUPPORT_AUDIO_SOURCE_UNPROCESSED)
         val wantSoftwareAec = args?.get("softwareAec") != false
         val wantNs = args?.get("noiseSuppression") == true
         // A gain of 0 dB is the overwhelmingly common case, and a factor of
@@ -206,7 +208,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         record = opened
         Log.i(
             TAG,
-            "capture opening (device=${selector ?: "automatic"} " +
+            "capture opening (source=MIC unprocessed-supported=$unprocessedSupported device=${selector ?: "automatic"} " +
                 "gain=${"%.1f".format(gainDbOf(gain))}dB echo-cancellation=$wantSoftwareAec ns=$wantNs" +
                 (if (wantChannel >= 1) " channel=$wantChannel/${ladder[step].channels}" else "") +
                 " format=${ladder[step]}" +
@@ -445,15 +447,17 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
                     else -> buf.copyOf(read)
                 }
                 if (chunk.isEmpty()) continue
-                if (gain != 1.0) amplify(chunk, chunk.size, gain)
                 // A realtime conversation cancelling its own voice in
                 // software: everything downstream hears the cleaned audio.
-                if (SoftwareEcho.enabled) {
+                if (SoftwareEcho.enabled || SoftwareEcho.noiseSuppression) {
                     SoftwareEcho.process(
                         chunk,
                         captureClock.heard(capturedFrames, shape.rateHz, System.nanoTime()),
                     )
                 }
+                // Boost cleaned speech after cancellation. Boosting the speaker
+                // echo first can clip it and make nearby speech disappear.
+                if (gain != 1.0) amplify(chunk, chunk.size, gain)
                 rtspAudioTap?.invoke(chunk, System.nanoTime() / 1000 - chunk.size * 1_000_000L / 32000)
                 frames.offer(chunk)
             }
@@ -717,59 +721,5 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
             scoStarted = false
             AudioRouting.micHoldsCommDevice = false
         }
-    }
-}
-
-/**
- * When the last frame read was captured, by counting frames: the count is
- * exact, where a read's return time wanders by milliseconds and Android's
- * own capture timestamps cannot be relied on (an Echo Show 8 reports frame
- * positions that are not this record's). The count is anchored to the
- * system clock at the first read and kept as close behind it as the reads
- * allow: pulled back at once when a read returns before the count says its
- * last frame was captured, eased forward when every read in a while came
- * well after, which follows any drift between the two clocks.
- */
-internal class CaptureClock {
-    private var anchorNs = 0L
-    private var anchorFrames = 0L
-    private var anchored = false
-    private var windowStartNs = 0L
-    private var minSlackNs = Long.MAX_VALUE
-
-    fun reset() {
-        anchored = false
-    }
-
-    fun heard(frames: Long, rate: Int, nowNs: Long): Long {
-        if (!anchored) {
-            anchorNs = nowNs
-            anchorFrames = frames
-            anchored = true
-            windowStartNs = nowNs
-            minSlackNs = Long.MAX_VALUE
-            return nowNs
-        }
-        var heardNs = anchorNs + (frames - anchorFrames) * 1_000_000_000L / rate
-        val slackNs = nowNs - heardNs
-        if (slackNs < 0 || slackNs > RESET_NS) {
-            // Captured after it was read cannot be, and a count this far
-            // behind means reads were lost: start again from this read.
-            anchorNs += slackNs
-            heardNs = anchorNs + (frames - anchorFrames) * 1_000_000_000L / rate
-        }
-        minSlackNs = minOf(minSlackNs, nowNs - heardNs)
-        if (nowNs - windowStartNs >= WINDOW_NS) {
-            if (minSlackNs > EASE_NS) anchorNs += minSlackNs - EASE_NS
-            windowStartNs = nowNs
-            minSlackNs = Long.MAX_VALUE
-        }
-        return heardNs
-    }
-
-    private companion object {
-        const val RESET_NS = 500_000_000L
-        const val WINDOW_NS = 10_000_000_000L
-        const val EASE_NS = 2_000_000L
     }
 }
