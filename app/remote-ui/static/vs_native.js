@@ -114,7 +114,8 @@ async function ttsOutputRow(row, current) {
   const desc = row.querySelector('.desc')?.textContent || '';
   let players = [];
   try {
-    const r = await cmd('mediaPlayers', { source: 'ha' });
+    // Music Assistant's own entities stay in: any of them plays sounds.
+    const r = await cmd('mediaPlayers', { source: 'ha', speakers: true });
     const list = r.ok ? r.data?.players : null;
     players = (Array.isArray(list) ? list : []).filter((p) => p.group === 'ha');
   } catch (_) {}

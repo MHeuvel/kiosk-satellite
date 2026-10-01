@@ -7001,6 +7001,7 @@ class _TtsOutputRowState extends State<_TtsOutputRow> {
     if (id.isEmpty) return;
     final result = await widget.container.commands.execute('mediaPlayers', {
       'source': 'ha',
+      'speakers': true,
     });
     final data = result.data;
     final list = data is Map ? data['players'] : null;
@@ -7018,6 +7019,7 @@ class _TtsOutputRowState extends State<_TtsOutputRow> {
       builder: (ctx) => _PlayerPickerDialog(
         container: container,
         source: 'ha',
+        speakers: true,
         current: _listed(container.settings.get(voiceTtsOutput)),
         title: voiceTtsOutput.localizedTitle(context),
         noneLabel: voiceText(context, 'This kiosk'),
@@ -7077,11 +7079,16 @@ class _PlayerPickerDialog extends StatefulWidget {
     this.title,
     this.noneLabel,
     this.players,
+    this.speakers = false,
   });
 
   final AppContainer container;
   final String source;
   final String current;
+
+  /// A speaker for sounds: Home Assistant's list keeps Music Assistant's
+  /// own entities.
+  final bool speakers;
 
   /// A fixed list in place of the source's live one: this device's own
   /// players.
@@ -7116,7 +7123,10 @@ class _PlayerPickerDialogState extends State<_PlayerPickerDialog> {
       return;
     }
     widget.container.commands
-        .execute('mediaPlayers', {'source': widget.source})
+        .execute('mediaPlayers', {
+          'source': widget.source,
+          if (widget.speakers) 'speakers': true,
+        })
         .then((result) {
           if (!mounted) return;
           setState(() {

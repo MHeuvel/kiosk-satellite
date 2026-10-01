@@ -1366,8 +1366,13 @@ class SendspinManager extends Manager {
             'source: Music Assistant players, Home Assistant media players, '
             'Sonos rooms. Returns id, name, group and availability per '
             'player and a note per group that could not be listed. With '
-            'source set, only that group.',
-        params: const {'source': 'ma | ha | sonos, default all'},
+            'source set, only that group. With speakers true, the Home '
+            'Assistant group keeps Music Assistant\'s own entities, for '
+            'pickers that play sounds on a player.',
+        params: const {
+          'source': 'ma | ha | sonos, default all',
+          'speakers': 'true to keep Music Assistant entities in ha',
+        },
         handler: (p) async {
           final only = '${p['source'] ?? ''}'.trim();
           bool want(String group) => only.isEmpty || only == group;
@@ -1392,7 +1397,13 @@ class SendspinManager extends Manager {
             notes['ha'] = 'Connect Home Assistant to list its media players.';
           } else {
             try {
-              players.addAll(await _haPlayers(haUrl, haToken));
+              players.addAll(
+                await _haPlayers(
+                  haUrl,
+                  haToken,
+                  withMusicAssistant: p['speakers'] == true,
+                ),
+              );
             } catch (e) {
               notes['ha'] = 'Home Assistant did not answer: $e';
             }
@@ -1812,8 +1823,9 @@ class SendspinManager extends Manager {
   /// player both wear the device's name.
   Future<List<Map<String, Object?>>> _haPlayers(
     String baseUrl,
-    String token,
-  ) async {
+    String token, {
+    bool withMusicAssistant = false,
+  }) async {
     final own = {
       _settings.get(defs.deviceName).trim().toLowerCase(),
       _settings.get(defs.sendspinLocalPlayerName).trim().toLowerCase(),
@@ -1821,6 +1833,7 @@ class SendspinManager extends Manager {
     final players = await HaRemotePlayer.listMediaPlayers(
       baseUrl: baseUrl,
       token: token,
+      withMusicAssistant: withMusicAssistant,
     );
     return [
       for (final p in players)

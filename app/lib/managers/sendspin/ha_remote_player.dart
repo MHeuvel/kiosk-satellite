@@ -458,6 +458,7 @@ class HaRemotePlayer implements RemotePlayer {
   static Future<List<Map<String, Object?>>> listMediaPlayers({
     required String baseUrl,
     required String token,
+    bool withMusicAssistant = false,
   }) async {
     final client = HttpClient();
     try {
@@ -484,8 +485,11 @@ class HaRemotePlayer implements RemotePlayer {
             : const {};
         // Music Assistant's own entities are its players seen through
         // Home Assistant: they only know what Music Assistant plays, and
-        // the Music Assistant source lists the same players itself.
-        if (attrs.containsKey('mass_player_type')) continue;
+        // the Music Assistant source lists the same players itself. A
+        // speaker for sounds keeps them: any of them can play a file.
+        if (!withMusicAssistant && attrs.containsKey('mass_player_type')) {
+          continue;
+        }
         players.add({
           'id': id,
           'name': '${attrs['friendly_name'] ?? id}',
