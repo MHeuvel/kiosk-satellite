@@ -167,30 +167,25 @@ abstract class PresentedQueue(rate: Int) : EchoReference.Source {
 }
 
 /**
- * One AudioTrack's tap into [EchoReference]. The player hands over what it
- * writes ([wrote]) and says when it drops what is queued ([flushed]).
- *
- * What the speaker has presented comes from the track's timestamp while it
- * is fresh and agrees with the playback head, and otherwise from the head
- * minus the latency those timestamps last measured. A timestamp alone is not
- * enough: on a Galaxy Tab S8 it goes wrong the moment a second stream starts,
- * and a reference late by a quarter of a second cancels nothing. A player
- * with its own validated clock (Sendspin) passes it as [clock] instead.
+ * Where an AudioTrack's speaker is, in the track's frames since [reset]:
+ * the track's timestamp while it is fresh and agrees with the playback
+ * head, and otherwise the head minus the latency those timestamps last
+ * measured. A timestamp alone is not enough: on a Galaxy Tab S8 it goes
+ * wrong the moment a second stream starts, and a reference late by a
+ * quarter of a second cancels nothing. Every tap places its reference by
+ * this one rule, so the canceller sees the same delay whichever player is
+ * talking and keeps the echo path it learned across a chime, an answer
+ * and a song.
  */
-class TrackTap(
-    private val track: AudioTrack,
-    rate: Int,
-    private val channels: Int,
-    private val bytesPerSample: Int = 2,
-    private val clock: (() -> Long)? = null,
-) : PresentedQueue(rate) {
+class TrackClock(private val track: AudioTrack) {
+    val rate = track.sampleRate
     private val timestamp = AudioTimestamp()
     private val headClock = me.jxl.kiosk_satellite.sendspin.PlaybackClock()
-    private val headLock = Object()
+    private val lock = Object()
     private var headBase = 0L
 
     /**
-     * The latency the track's timestamps last measured, kept across flushes:
+     * The latency the track's timestamps last measured, kept across resets:
      * a talked-over answer flushes the track, and Android's own estimate
      * (109 ms against a measured 85 on a Galaxy Tab S8) put the next
      * answer's reference out of step with its echo just as it started.
@@ -208,32 +203,12 @@ class TrackTap(
     private val bufferFrames = runCatching { track.bufferSizeInFrames.toLong() }.getOrDefault(0L)
 
     init {
-        resetClock()
-        EchoReference.add(this)
+        reset()
     }
 
-    fun close() {
-        EchoReference.remove(this)
-    }
-
-    fun wrote(bytes: ByteArray, offset: Int, length: Int) {
-        wrote(ByteBuffer.wrap(bytes, offset, length), length)
-    }
-
-    /** [length] bytes of PCM from [buffer]'s position, left where it was. */
-    fun wrote(buffer: ByteBuffer, length: Int) {
-        val view = buffer.duplicate().order(ByteOrder.LITTLE_ENDIAN)
-        queue(view, length / (channels * bytesPerSample), channels, bytesPerSample)
-    }
-
-    /** The track dropped what it had not played: start over from its head. */
-    fun flushed() {
-        restart()
-        resetClock()
-    }
-
-    private fun resetClock() {
-        synchronized(headLock) {
+    /** The track's frames start over from its head now. */
+    fun reset() {
+        synchronized(lock) {
             headBase = head()
             headClock.reset()
         }
@@ -254,45 +229,44 @@ class TrackTap(
         }.getOrDefault(0L)
     }
 
-    override fun presented(): Long {
-        clock?.let { return it() }
-        val written = synchronized(lock) { written }
-        return synchronized(headLock) {
-            val now = System.nanoTime()
-            val head = headClock.position(head() - headBase, now, written, rate, bufferFrames)
-            // A timestamp is taken whenever it is fresh and agrees with the
-            // head: a stream fed in bursts (the realtime voice) stops its
-            // timestamps between them, and the head alone moves in mixer
-            // steps a few milliseconds apart, which on speech costs the
-            // canceller half of what it takes out.
-            val ok = runCatching { track.getTimestamp(timestamp) }.getOrDefault(false)
-            if (ok && now - timestamp.nanoTime in 0..FRESH_NS) {
-                val at = (timestamp.framePosition and 0xFFFFFFFFL) - headBase +
-                    (now - timestamp.nanoTime) * rate / 1_000_000_000L
-                if (at in 0..head && head - at < rate / 4) {
-                    val lagUs = (head - at) * 1_000_000L / rate
-                    measuredLatencyUs = if (measuredLatencyUs < 0) lagUs else (measuredLatencyUs * 7 + lagUs) / 8
-                    measuredByRate[rate] = measuredLatencyUs
-                    return@synchronized at.coerceAtMost(written)
-                }
+    /** Frames presented since [reset], never past [written]. */
+    fun presented(written: Long): Long = synchronized(lock) {
+        val now = System.nanoTime()
+        val head = headClock.position(head() - headBase, now, written, rate, bufferFrames)
+        // A timestamp is taken whenever it is fresh and agrees with the
+        // head: a stream fed in bursts (the realtime voice) stops its
+        // timestamps between them, and the head alone moves in mixer
+        // steps a few milliseconds apart, which on speech costs the
+        // canceller half of what it takes out.
+        val ok = runCatching { track.getTimestamp(timestamp) }.getOrDefault(false)
+        if (ok && now - timestamp.nanoTime in 0..FRESH_NS) {
+            val at = (timestamp.framePosition and 0xFFFFFFFFL) - headBase +
+                (now - timestamp.nanoTime) * rate / 1_000_000_000L
+            if (at in 0..head && head - at < rate / 4) {
+                val lagUs = (head - at) * 1_000_000L / rate
+                measuredLatencyUs = if (measuredLatencyUs < 0) lagUs else (measuredLatencyUs * 7 + lagUs) / 8
+                measuredByRate[rate] = measuredLatencyUs
+                return@synchronized at.coerceAtMost(written)
             }
-            (head - latencyUs() * rate / 1_000_000L).coerceIn(0L, written)
         }
+        (head - latencyUs() * rate / 1_000_000L).coerceIn(0L, written)
     }
 }
 
 /**
- * A Media3 player's tap into [EchoReference]: the PCM its audio processors
- * see ([TeeAudioProcessor]), timed by the sink's own playback position, which
- * the player's sink reports through [position] as it plays. [started] gives
- * the first buffer's presentation time, the zero of that clock.
+ * One AudioTrack's tap into [EchoReference]. The player hands over what it
+ * writes ([wrote]) and says when it drops what is queued ([flushed]). The
+ * speaker's position comes from a [TrackClock] on the track, or from a
+ * player's own validated clock (Sendspin) passed as [clock].
  */
-class SinkTap : PresentedQueue(48000), androidx.media3.exoplayer.audio.TeeAudioProcessor.AudioBufferSink {
-    private var channels = 2
-    private var pcm16 = true
-    private var startUs = Long.MIN_VALUE
-    private var positionUs = Long.MIN_VALUE
-    private var positionAtNs = 0L
+class TrackTap(
+    track: AudioTrack,
+    rate: Int,
+    private val channels: Int,
+    private val bytesPerSample: Int = 2,
+    private val clock: (() -> Long)? = null,
+) : PresentedQueue(rate) {
+    private val trackClock = TrackClock(track)
 
     init {
         EchoReference.add(this)
@@ -302,14 +276,71 @@ class SinkTap : PresentedQueue(48000), androidx.media3.exoplayer.audio.TeeAudioP
         EchoReference.remove(this)
     }
 
+    fun wrote(bytes: ByteArray, offset: Int, length: Int) {
+        wrote(ByteBuffer.wrap(bytes, offset, length), length)
+    }
+
+    /** [length] bytes of PCM from [buffer]'s position, left where it was. */
+    fun wrote(buffer: ByteBuffer, length: Int) {
+        val view = buffer.duplicate().order(ByteOrder.LITTLE_ENDIAN)
+        queue(view, length / (channels * bytesPerSample), channels, bytesPerSample)
+    }
+
+    /** The track dropped what it had not played: start over from its head. */
+    fun flushed() {
+        restart()
+        trackClock.reset()
+    }
+
+    override fun presented(): Long {
+        clock?.let { return it() }
+        val written = synchronized(lock) { written }
+        return trackClock.presented(written)
+    }
+}
+
+/**
+ * A Media3 player's tap into [EchoReference]: the PCM its audio processors
+ * see ([TeeAudioProcessor]), timed by a [TrackClock] on the AudioTrack the
+ * sink plays it through, which the sink hands over as it makes it
+ * ([trackProvider]). The sink flushes its processors and its track
+ * together, so the tee's frames and the track's start over as one.
+ */
+class SinkTap : PresentedQueue(48000), androidx.media3.exoplayer.audio.TeeAudioProcessor.AudioBufferSink {
+    private var channels = 2
+    private var pcm16 = true
+    @Volatile private var trackClock: TrackClock? = null
+
+    init {
+        EchoReference.add(this)
+    }
+
+    fun close() {
+        EchoReference.remove(this)
+    }
+
+    /** For the sink's builder: the tracks it makes, clocked here. */
+    fun trackProvider(): androidx.media3.exoplayer.audio.DefaultAudioSink.AudioTrackProvider =
+        object : androidx.media3.exoplayer.audio.DefaultAudioSink.AudioTrackProvider {
+            private val inner = androidx.media3.exoplayer.audio.DefaultAudioTrackProvider()
+
+            override fun getAudioTrack(
+                config: androidx.media3.exoplayer.audio.AudioSink.AudioTrackConfig,
+                attributes: androidx.media3.common.AudioAttributes,
+                sessionId: Int,
+                context: android.content.Context?,
+            ): AudioTrack = inner.getAudioTrack(config, attributes, sessionId, context).also {
+                trackClock = TrackClock(it)
+            }
+        }
+
     override fun flush(sampleRate: Int, channelCount: Int, encoding: Int) {
         restart(sampleRate)
         synchronized(lock) {
             channels = channelCount
             pcm16 = encoding == androidx.media3.common.C.ENCODING_PCM_16BIT
-            startUs = Long.MIN_VALUE
-            positionUs = Long.MIN_VALUE
         }
+        trackClock?.reset()
     }
 
     override fun handleBuffer(buffer: ByteBuffer) {
@@ -318,50 +349,26 @@ class SinkTap : PresentedQueue(48000), androidx.media3.exoplayer.audio.TeeAudioP
         queue(view, buffer.remaining() / (channels * 2), channels, 2)
     }
 
-    /** The first buffer's presentation time, in the sink's clock. */
-    fun started(presentationTimeUs: Long) {
-        synchronized(lock) { if (startUs == Long.MIN_VALUE) startUs = presentationTimeUs }
-    }
-
-    /** The sink's playback position as the player reads it. */
-    fun position(positionUs: Long) {
-        synchronized(lock) {
-            this.positionUs = positionUs
-            positionAtNs = System.nanoTime()
-        }
-    }
-
-    override fun presented(): Long = synchronized(lock) {
-        if (startUs == Long.MIN_VALUE || positionUs == Long.MIN_VALUE) return 0L
-        val nowUs = positionUs + (System.nanoTime() - positionAtNs) / 1000
-        ((nowUs - startUs) * rate / 1_000_000L).coerceIn(0L, written)
+    override fun presented(): Long {
+        val clock = trackClock ?: return 0L
+        val (written, rate) = synchronized(lock) { written to rate }
+        // The track plays at its own rate: the same as the tee's unless
+        // the sink resamples in between.
+        val frames = clock.presented(written * clock.rate / rate)
+        return frames * rate / clock.rate
     }
 }
 
-/**
- * A Media3 audio sink that times [tap] by the sink's own clock: its first
- * buffer's time and its position as it plays. The tap's PCM comes from a
- * [androidx.media3.exoplayer.audio.TeeAudioProcessor] in the sink's chain.
- */
-open class TappedAudioSink(
-    sink: androidx.media3.exoplayer.audio.AudioSink,
-    private val tap: SinkTap,
-) : androidx.media3.exoplayer.audio.ForwardingAudioSink(sink) {
-    override fun handleBuffer(
-        buffer: ByteBuffer,
-        presentationTimeUs: Long,
-        encodedAccessUnitCount: Int,
-    ): Boolean {
-        tap.started(presentationTimeUs)
-        return super.handleBuffer(buffer, presentationTimeUs, encodedAccessUnitCount)
-    }
-
-    override fun getCurrentPositionUs(sourceEnded: Boolean): Long {
-        val position = super.getCurrentPositionUs(sourceEnded)
-        if (position != androidx.media3.exoplayer.audio.AudioSink.CURRENT_POSITION_NOT_SET) tap.position(position)
-        return position
-    }
-}
+/** A Media3 audio sink whose PCM and track both go to [tap]. */
+fun tappedSink(
+    context: android.content.Context,
+    tap: SinkTap,
+    vararg before: androidx.media3.common.audio.AudioProcessor,
+): androidx.media3.exoplayer.audio.AudioSink =
+    androidx.media3.exoplayer.audio.DefaultAudioSink.Builder(context)
+        .setAudioProcessors(arrayOf(*before, androidx.media3.exoplayer.audio.TeeAudioProcessor(tap)))
+        .setAudioTrackProvider(tap.trackProvider())
+        .build()
 
 /** Renderers for a Media3 player whose audio also goes to [tap]. */
 fun tappedRenderers(context: android.content.Context, tap: SinkTap) =
@@ -370,12 +377,7 @@ fun tappedRenderers(context: android.content.Context, tap: SinkTap) =
             context: android.content.Context,
             enableFloatOutput: Boolean,
             enableAudioTrackPlaybackParams: Boolean,
-        ): androidx.media3.exoplayer.audio.AudioSink = TappedAudioSink(
-            androidx.media3.exoplayer.audio.DefaultAudioSink.Builder(context)
-                .setAudioProcessors(arrayOf(androidx.media3.exoplayer.audio.TeeAudioProcessor(tap)))
-                .build(),
-            tap,
-        )
+        ): androidx.media3.exoplayer.audio.AudioSink = tappedSink(context, tap)
     }.setEnableDecoderFallback(true)
 
 /**

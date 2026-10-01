@@ -29,7 +29,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.DecoderReuseEvaluation
 import androidx.media3.exoplayer.analytics.AnalyticsListener
 import androidx.media3.exoplayer.audio.AudioSink
-import androidx.media3.exoplayer.audio.DefaultAudioSink
+import androidx.media3.exoplayer.audio.ForwardingAudioSink
 import androidx.media3.exoplayer.audio.TeeAudioProcessor
 import androidx.media3.exoplayer.mediacodec.MediaCodecSelector
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
@@ -717,18 +717,16 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
                 context: Context,
                 enableFloatOutput: Boolean,
                 enableAudioTrackPlaybackParams: Boolean,
-            ): AudioSink = object : TappedAudioSink(
-                DefaultAudioSink.Builder(context)
-                    .setAudioProcessors(arrayOf(
-                        FrameAlignedAudioProcessor { bytes ->
-                            diagnostics.incompletePcmBytes += bytes
-                            diagnostic(id, "discarded incomplete final PCM frame bytes=$bytes")
-                        },
-                        levelTap(id),
-                        TeeAudioProcessor(echoTap),
-                    ))
-                    .build(),
-                echoTap,
+            ): AudioSink = object : ForwardingAudioSink(
+                tappedSink(
+                    context,
+                    echoTap,
+                    FrameAlignedAudioProcessor { bytes ->
+                        diagnostics.incompletePcmBytes += bytes
+                        diagnostic(id, "discarded incomplete final PCM frame bytes=$bytes")
+                    },
+                    levelTap(id),
+                ),
             ) {
                 override fun playToEndOfStream() {
                     if (!diagnostics.sinkEosRequested) {
