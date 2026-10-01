@@ -160,6 +160,12 @@ class BluetoothProxyBridge(private val context: Context, messenger: BinaryMessen
                 "voiceAnnounceFinished" -> result.success(
                     BluetoothProxyRuntime.sendAnnounceFinished(
                         call.argument<Boolean>("success") ?: true))
+                "fireEvent" -> result.success(
+                    BluetoothProxyRuntime.fireEvent(
+                        call.argument<String>("name") ?: "",
+                        call.argument<Map<String, String>>("data") ?: emptyMap(),
+                        call.argument<Map<String, String>>("typed") ?: emptyMap(),
+                    ))
                 "nearby" -> result.success(BluetoothProxyRuntime.nearbyDevices())
                 "entityState" -> {
                     BluetoothProxyRuntime.updateEntityState(

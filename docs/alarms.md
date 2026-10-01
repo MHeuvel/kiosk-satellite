@@ -141,3 +141,47 @@ The kiosk's alarms reach Home Assistant through [ESPHome](esphome.md):
 | **Stop alarm**, **Snooze alarm** | button | The same as the buttons on screen. |
 
 A morning routine is an automation that triggers when **Alarm ringing** turns off.
+
+### Alarm events
+
+Every alarm also fires an `esphome.kiosk_satellite_alarm` event on the Home Assistant bus, one per alarm, whenever it changes or rings. Home Assistant only fires device events under `esphome.`, hence the prefix.
+
+```yaml
+event_type: esphome.kiosk_satellite_alarm
+data:
+  device_id: 5f1c...
+  event_type: ringing
+  alarm_id: k3v9x2qa
+  label: Wake up
+  time: "07:00"
+  days: [mon, tue, wed, thu, fri]
+  enabled: true
+```
+
+| `event_type` | When |
+| --- | --- |
+| `created` | An alarm was added, on the kiosk, by voice, in the remote admin or by a settings import. |
+| `updated` | An alarm changed or was switched on or off. A one time alarm switches itself off once it rings. |
+| `deleted` | An alarm was removed. |
+| `sunrise` | Its sunrise started. |
+| `ringing` | It rings, again after each snooze. |
+| `snoozed` | It was snoozed. `snoozed_until` holds when it rings again, in UTC. |
+| `stopped` | It was stopped during a ring, a snooze or a sunrise. |
+| `silenced` | Nobody stopped it before **Silence after** ran out. |
+
+`time` is the alarm's local time and `days` lists the days it repeats on, empty for a one time alarm. `device_id` is the kiosk's ESPHome device, added by Home Assistant.
+
+```yaml
+# Turn on the bedroom lights when the bedroom kiosk's alarm is stopped.
+triggers:
+  - trigger: event
+    event_type: esphome.kiosk_satellite_alarm
+    event_data:
+      event_type: stopped
+      # The bedroom kiosk's device ID, from its device page URL.
+      device_id: 5f1c...
+actions:
+  - action: light.turn_on
+    target:
+      entity_id: light.bedroom
+```

@@ -50,6 +50,34 @@ class BleSupport {
   };
 }
 
+/// [fields] as Home Assistant's event data takes them: strings as plain
+/// data, everything else as a data template, which Home Assistant renders
+/// into a number, a boolean, a list or None. Those values are literals
+/// with no template markup, so no text a user spoke can be run as one.
+({Map<String, String> data, Map<String, String> typed}) haEventFields(
+  Map<String, Object?> fields,
+) {
+  final data = <String, String>{};
+  final typed = <String, String>{};
+  fields.forEach((key, value) {
+    switch (value) {
+      case String():
+        data[key] = value;
+      case null:
+        typed[key] = 'None';
+      case bool():
+        typed[key] = value ? 'True' : 'False';
+      case num() when value.isFinite:
+        typed[key] = '$value';
+      case List() when value.every((v) => v is String || v is num):
+        typed[key] = jsonEncode(value);
+      default:
+        data[key] = '$value';
+    }
+  });
+  return (data: data, typed: typed);
+}
+
 class BtProxyManager extends Manager {
   BtProxyManager(super.bus, super.commands, super.log, this._settings);
 
@@ -59,6 +87,7 @@ class BtProxyManager extends Manager {
 
   StreamSubscription<SettingChanged>? _settingsSub;
   StreamSubscription<ShizukuStateChanged>? _shizukuSub;
+  StreamSubscription<HaEventRequested>? _eventSub;
   Timer? _restartDebounce;
   Future<void> _transition = Future.value();
   String _appVersion = '0';
@@ -320,6 +349,21 @@ class BtProxyManager extends Manager {
         _scheduleRestart();
       }
     });
+    // Timer and alarm events for Home Assistant's bus (issue #765). With
+    // the server off there is no one to tell.
+    _eventSub = bus.on<HaEventRequested>().listen((e) async {
+      if (!_running) return;
+      final fields = haEventFields(e.data);
+      try {
+        await _channel.invokeMethod<bool>('fireEvent', {
+          'name': 'esphome.${e.name}',
+          'data': fields.data,
+          'typed': fields.typed,
+        });
+      } catch (err) {
+        log.warn(name, 'event ${e.name} not sent: $err');
+      }
+    });
     _settingsSub = bus.on<SettingChanged>().listen((e) {
       // Real MAC turned off: forget the adopted address, so turning it
       // back on reads the hardware again (issue #736). Falls through to
@@ -555,6 +599,8 @@ class BtProxyManager extends Manager {
     _settingsSub = null;
     await _shizukuSub?.cancel();
     _shizukuSub = null;
+    await _eventSub?.cancel();
+    _eventSub = null;
     await _stop();
   }
 

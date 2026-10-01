@@ -25,6 +25,7 @@ void main() {
   late AlarmManager alarms;
   late List<(String, Map<String, Object?>)> calls;
   late List<VoiceInteractionChanged> holds;
+  late List<HaEventRequested> haEvents;
   late DateTime now;
   late CommandRegistry registry;
   var takeoverOk = true;
@@ -45,7 +46,9 @@ void main() {
     await settings.init();
     calls = [];
     holds = [];
+    haEvents = [];
     bus.on<VoiceInteractionChanged>().listen(holds.add);
+    bus.on<HaEventRequested>().listen(haEvents.add);
     for (final name in [
       'bringToFront',
       'screenOn',
@@ -369,6 +372,80 @@ void main() {
     expect(await alarms.delete('a'), isTrue);
     expect(alarms.status.value.phase, AlarmPhase.idle);
     expect(alarms.alarms.value, isEmpty);
+  });
+
+  group('Home Assistant events', () {
+    List<String> fired() => [
+      for (final e in haEvents)
+        '${e.data['event_type']} ${e.data['alarm_id']}',
+    ];
+
+    test('a ring, a snooze and a stop each fire one', () async {
+      now = DateTime(2026, 10, 2, 7, 0, 5);
+      await build([daily('07:00', label: 'Wake up')]);
+      expect(haEvents.single.name, 'kiosk_satellite_alarm');
+      expect(haEvents.single.data, {
+        'event_type': 'ringing',
+        'alarm_id': 'a',
+        'label': 'Wake up',
+        'time': '07:00',
+        'days': ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
+        'enabled': true,
+      });
+      await alarms.snooze();
+      await pumpEventQueue();
+      expect(
+        haEvents.last.data['snoozed_until'],
+        DateTime(2026, 10, 2, 7, 10, 5).toUtc().toIso8601String(),
+      );
+      now = DateTime(2026, 10, 2, 7, 10, 6);
+      await alarms.check();
+      await alarms.stop();
+      await pumpEventQueue();
+      expect(fired(), ['ringing a', 'snoozed a', 'ringing a', 'stopped a']);
+    });
+
+    test('a ring nobody stops fires silenced', () async {
+      now = DateTime(2026, 10, 2, 7, 0, 5);
+      await build([daily('07:00')]);
+      now = DateTime(2026, 10, 2, 7, 10, 6);
+      await alarms.check();
+      await pumpEventQueue();
+      expect(fired(), ['ringing a', 'silenced a']);
+    });
+
+    test('a sunrise fires before its ring', () async {
+      now = DateTime(2026, 10, 2, 6, 45);
+      await build([daily('07:00', sunrise: true)]);
+      now = DateTime(2026, 10, 2, 7, 0, 1);
+      await alarms.check();
+      await pumpEventQueue();
+      expect(fired(), ['sunrise a', 'ringing a']);
+    });
+
+    test('changes to the list fire created, updated and deleted', () async {
+      now = DateTime(2026, 10, 2, 6);
+      await build([daily('07:00')]);
+      expect(haEvents, isEmpty);
+      await alarms.save(
+        const Alarm(id: 'b', hour: 8, minute: 30, days: [1, 2, 3, 4, 5]),
+      );
+      await alarms.setEnabled('a', false);
+      await alarms.delete('b');
+      await pumpEventQueue();
+      expect(fired(), ['created b', 'updated a', 'deleted b']);
+      expect(haEvents[1].data['enabled'], isFalse);
+      expect(haEvents[2].data['days'], ['mon', 'tue', 'wed', 'thu', 'fri']);
+    });
+
+    test('deleting a ringing alarm still names it when it stops', () async {
+      now = DateTime(2026, 10, 2, 7, 0, 5);
+      await build([daily('07:00', label: 'Wake up')]);
+      await alarms.delete('a');
+      await pumpEventQueue();
+      expect(fired(), ['ringing a', 'deleted a', 'stopped a']);
+      expect(haEvents.last.data['label'], 'Wake up');
+    });
   });
 
   group('ease in', () {

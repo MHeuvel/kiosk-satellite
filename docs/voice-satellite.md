@@ -50,7 +50,7 @@ A kiosk that ran the integration keeps running it on the dashboard until you mig
 5. Review the automations and scripts that still point at the old satellite. The wizard lists them and never changes them.
 6. Tap **Switch now**. The kiosk takes over the Assistant, wake words and Finished speaking detection picks of the old satellite.
 
-Not carried over: custom CSS, the browser's microphone processing and the conversation memory length. The old satellite stays in Home Assistant, unused. Once no other device uses the integration, uninstall it from HACS.
+Not carried over: custom CSS, the browser's microphone processing and the conversation memory length. Automations that trigger on the integration's `voice_satellite_timer` event move to [`esphome.kiosk_satellite_timer`](#timer-events), which carries the same `event_type`, `timer_id`, `name`, `total_seconds`, `seconds_left` and `is_active` fields. The old satellite stays in Home Assistant, unused. Once no other device uses the integration, uninstall it from HACS.
 
 **Run from the dashboard again**, at the bottom of the page while the integration is still installed, switches back. The settings made here stay for next time.
 
@@ -194,6 +194,59 @@ data:
 ```
 
 The entities and actions appear only while Voice Satellite runs natively and is on.
+
+## Timer events
+
+Every timer on the kiosk fires an `esphome.kiosk_satellite_timer` event on the Home Assistant bus when it starts, changes, is cancelled, finishes or its alert is dismissed. That covers spoken timers, timers from a realtime conversation and timers from `vs_start_timer`. Use it to flash a light or announce a kitchen timer in another room. Home Assistant only fires device events under `esphome.`, hence the prefix.
+
+```yaml
+event_type: esphome.kiosk_satellite_timer
+data:
+  device_id: 5f1c...
+  event_type: finished
+  timer_id: 01K6...
+  name: pasta
+  total_seconds: 600
+  seconds_left: 0
+  is_active: false
+```
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `device_id` | string | The kiosk's ESPHome device, added by Home Assistant. |
+| `event_type` | string | `started`, `updated`, `cancelled`, `finished` or `dismissed`. |
+| `timer_id` | string | Home Assistant's timer ID, the same across a timer's events. |
+| `name` | string | The timer's name, empty when it has none. |
+| `total_seconds` | integer | The duration it was started with. Added time does not change it. |
+| `seconds_left` | integer | Seconds left when the event fired. |
+| `is_active` | boolean | False while paused. `updated` covers added time, pause and resume, so this tells them apart. |
+
+`dismissed` fires when the ringing alert is silenced on the kiosk, by a tap, the stop word or `vs_cancel`.
+
+```yaml
+# Flash the living room lamps when any kiosk's timer ends.
+triggers:
+  - trigger: event
+    event_type: esphome.kiosk_satellite_timer
+    event_data:
+      event_type: finished
+actions:
+  - action: light.turn_on
+    target:
+      entity_id: light.living_room
+    data:
+      flash: long
+  - action: tts.speak
+    target:
+      entity_id: tts.home_assistant_cloud
+    data:
+      media_player_entity_id: media_player.living_room_sonos
+      message: >
+        The {{ trigger.event.data.name or 'timer' }} on the
+        {{ device_attr(trigger.event.data.device_id, 'name') }} is done.
+```
+
+Events need the kiosk connected to Home Assistant through ESPHome.
 
 ## Android broadcasts
 

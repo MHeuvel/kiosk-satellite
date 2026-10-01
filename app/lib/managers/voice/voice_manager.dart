@@ -2543,19 +2543,25 @@ class VoiceManager extends Manager {
     if (id.isEmpty) return;
     final type = (fields['type'] as num?)?.toInt() ?? -1;
     final now = DateTime.now().millisecondsSinceEpoch;
+    final timerName = '${fields['name'] ?? ''}';
+    final secondsLeft = (fields['secondsLeft'] as num?)?.toInt() ?? 0;
+    final active = fields['isActive'] == true;
+    // What it was started with: Home Assistant's total grows with added
+    // time, and the intents name an unnamed timer by its first duration.
+    final created =
+        _timers[id]?.createdSeconds ??
+        _ringingTotals[id] ??
+        (fields['totalSeconds'] as num?)?.toInt() ??
+        0;
     switch (type) {
       case 0: // started
       case 1: // updated
-        final previous = _timers[id];
         _timers[id] = _HaTimer(
           id: id,
-          name: '${fields['name'] ?? ''}',
-          createdSeconds:
-              previous?.createdSeconds ??
-              (fields['totalSeconds'] as num?)?.toInt() ??
-              0,
-          secondsLeft: (fields['secondsLeft'] as num?)?.toInt() ?? 0,
-          active: fields['isActive'] == true,
+          name: timerName,
+          createdSeconds: created,
+          secondsLeft: secondsLeft,
+          active: active,
           at: now,
         );
       case 2: // cancelled
@@ -2564,15 +2570,58 @@ class VoiceManager extends Manager {
       case 3: // finished
         final timer = _timers.remove(id);
         _ringing.add(id);
-        _ringingNames[id] = timer?.name ?? '${fields['name'] ?? ''}';
+        _ringingNames[id] = timer?.name ?? timerName;
+        _ringingTotals[id] = created;
         _alertSpeech = null;
         _pushAlert();
         unawaited(_speakAlert());
     }
+    final event = switch (type) {
+      0 => 'started',
+      1 => 'updated',
+      2 => 'cancelled',
+      3 => 'finished',
+      _ => null,
+    };
+    if (event != null) {
+      _timerEvent(
+        event,
+        id: id,
+        name: timerName,
+        totalSeconds: created,
+        secondsLeft: secondsLeft,
+        active: active,
+      );
+    }
     _pushTimers();
   }
 
+  /// Puts a timer change on Home Assistant's bus as
+  /// `esphome.kiosk_satellite_timer`, with the fields the Voice Satellite
+  /// integration's `voice_satellite_timer` event carried (issue #765).
+  void _timerEvent(
+    String event, {
+    required String id,
+    required String name,
+    required int totalSeconds,
+    required int secondsLeft,
+    required bool active,
+  }) {
+    log.info(this.name, 'timer $event: ${name.isEmpty ? id : name}');
+    bus.publish(
+      HaEventRequested('kiosk_satellite_timer', {
+        'event_type': event,
+        'timer_id': id,
+        'name': name,
+        'total_seconds': totalSeconds,
+        'seconds_left': secondsLeft,
+        'is_active': active,
+      }),
+    );
+  }
+
   final _ringingNames = <String, String>{};
+  final _ringingTotals = <String, int>{};
 
   /// The spoken phrase of the ringing alert, once Home Assistant made it.
   String? _alertSpeech;
@@ -2823,8 +2872,19 @@ class VoiceManager extends Manager {
   }
 
   void _dismissAlert() {
+    for (final id in _ringing) {
+      _timerEvent(
+        'dismissed',
+        id: id,
+        name: _ringingNames[id] ?? '',
+        totalSeconds: _ringingTotals[id] ?? 0,
+        secondsLeft: 0,
+        active: false,
+      );
+    }
     _ringing.clear();
     _ringingNames.clear();
+    _ringingTotals.clear();
     _alertSpeech = null;
     _speechGen++;
     _pushAlert();

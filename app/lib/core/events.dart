@@ -1008,6 +1008,17 @@ class VoiceTimersCleared extends AppEvent {
   const VoiceTimersCleared();
 }
 
+/// An event for Home Assistant to fire on its bus, sent over the ESPHome
+/// API while that server runs. [name] goes out under `esphome.`, the only
+/// namespace Home Assistant fires device events in. Strings stay strings;
+/// numbers, booleans, lists and nulls arrive in Home Assistant as their
+/// own types.
+class HaEventRequested extends AppEvent {
+  const HaEventRequested(this.name, this.data);
+  final String name;
+  final Map<String, Object?> data;
+}
+
 /// A gesture on a native timer pill, routed to its owning integration.
 class VoiceTimerAction extends AppEvent {
   const VoiceTimerAction({

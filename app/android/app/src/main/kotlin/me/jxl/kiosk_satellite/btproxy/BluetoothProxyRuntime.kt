@@ -249,6 +249,12 @@ internal object BluetoothProxyRuntime {
     fun sendAnnounceFinished(success: Boolean): Boolean =
         server?.sendAnnounceFinished(success) == true
 
+    fun fireEvent(
+        name: String,
+        data: Map<String, String>,
+        typed: Map<String, String>,
+    ): Boolean = server?.fireEvent(name, data, typed) == true
+
     /** A new scan duty cycle for the running scanner; nothing without one. */
     fun setScanDuty(key: String?) {
         engine?.setScanDuty(ScanDuty.fromKey(key))
