@@ -174,6 +174,7 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
         track = newTrack
         output = target
         tap = TrackTap(newTrack, sampleRate, 1)
+        SoftwareEcho.gated = true
         applyVolume()
         newTrack.play()
         synchronized(lock) { headOffset = head(newTrack) }
@@ -298,6 +299,7 @@ class RealtimeAudio(context: Context, messenger: BinaryMessenger) {
         val t = track ?: return
         synchronized(lock) { epoch++ }
         track = null
+        SoftwareEcho.gated = false
         tap?.close()
         tap = null
         queue.clear()

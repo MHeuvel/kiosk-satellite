@@ -84,10 +84,26 @@ object SoftwareEcho {
     /** Loudness (mean |sample|) under which there is no echo worth gating. */
     private const val GATE_FLOOR = 300
 
+    /**
+     * Loudness the gate never takes: speech at the kiosk reads in the
+     * hundreds and up, what the canceller leaves of an echo well under
+     * this. Against loud music the ratio alone asked for a voice at a third
+     * of the music's own echo, and the wake word had to be shouted.
+     */
+    private const val GATE_CEILING = 200
+
     /** Frames that go ungated after one that held someone talking: 200 ms. */
     private const val GATE_HANGOVER = 20
 
     private var hangover = 0
+
+    /**
+     * Whether the gate runs: only while a realtime conversation plays
+     * ([RealtimeAudio]), the one listener a faint echo misleads. The wake
+     * word hears speech with the quiet parts of every word zeroed as a
+     * word with holes in it, and over music it had to be shouted.
+     */
+    @Volatile var gated = false
 
     private val mix = ShortArray(FRAME)
     private val mixBytes = ByteArray(FRAME_BYTES)
@@ -186,9 +202,9 @@ object SoftwareEcho {
 
     private fun gate(chunk: ByteArray, at: Int, heard: Int, played: Int) {
         if (hangover > 0) hangover--
-        if (played < GATE_FLOOR / 3 || heard < GATE_FLOOR) return
+        if (!gated || played < GATE_FLOOR / 3 || heard < GATE_FLOOR) return
         val left = meanAbs(chunk, at)
-        if (left >= heard * GATE_RATIO) {
+        if (left >= minOf(heard * GATE_RATIO, GATE_CEILING.toDouble())) {
             hangover = GATE_HANGOVER
             return
         }
