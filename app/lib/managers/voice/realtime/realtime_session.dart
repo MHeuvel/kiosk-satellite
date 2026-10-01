@@ -201,13 +201,10 @@ class RealtimeSession {
     final opts = options();
     onTrace?.call('realtime conversation, wake word "$phrase"');
     onBusy(true, 'voice');
-    _show(
-      const AssistView(
-        phase: AssistPhase.listening,
-        reactive: false,
-        docked: true,
-      ),
-    );
+    // Listening shows with the wake chime, which holds its start until
+    // its track has settled (see LeadInProcessor); without one, now.
+    final wakeChime = opts.wakeSound && !opts.seamless;
+    if (!wakeChime) _showListening();
     onCountdown(1);
 
     final opened = await mic.open((pcm, preRoll) => _onMic(gen, pcm, preRoll));
@@ -232,19 +229,26 @@ class RealtimeSession {
 
     // The chime plays while the connection comes up. What the microphone
     // hears over it is not part of what the user says.
-    final chime = opts.wakeSound && !opts.seamless
-        ? _chime(gen, 'wake')
-        : Future<void>.value();
+    final chime = wakeChime ? _chime(gen, 'wake') : Future<void>.value();
     unawaited(
       backend.start(RealtimeStart(wakeWord: phrase, language: opts.language)),
     );
     await chime;
   }
 
+  void _showListening() => _show(
+    const AssistView(
+      phase: AssistPhase.listening,
+      reactive: false,
+      docked: true,
+    ),
+  );
+
   Future<void> _chime(int gen, String kind) async {
     _deafUntil = _now().add(const Duration(seconds: 5));
     final played = await chimes.chime(kind);
     if (gen != _gen) return;
+    if (kind == 'wake' && !_view.visible) _showListening();
     if (played == null) {
       _deafUntil = null;
       return;

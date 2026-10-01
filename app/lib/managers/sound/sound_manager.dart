@@ -83,6 +83,31 @@ class SoundManager extends Manager {
     return null;
   }
 
+  /// Resolves when [id] is heard, or when it ended or failed first, or
+  /// after a second: a sound holds its start until its track's clock has
+  /// settled (see LeadInProcessor), and what times itself off the chime,
+  /// the overlay above all, waits with it.
+  Future<void> _awaitStart(String id) {
+    final done = Completer<void>();
+    late final StreamSubscription<SoundStarted> started;
+    late final StreamSubscription<SoundEnded> ended;
+    void finish() {
+      if (done.isCompleted) return;
+      done.complete();
+      started.cancel();
+      ended.cancel();
+    }
+
+    started = bus.on<SoundStarted>().listen((e) {
+      if (e.id == id) finish();
+    });
+    ended = bus.on<SoundEnded>().listen((e) {
+      if (e.id == id) finish();
+    });
+    Timer(const Duration(seconds: 1), finish);
+    return done.future;
+  }
+
   Future<(String, double)> _voiceChime(String kind) async {
     final def = voiceChimeSettings[kind]!;
     final custom = await NotificationSounds.resolve(settings?.get(def) ?? '');
@@ -323,8 +348,9 @@ class SoundManager extends Manager {
           description:
               'Play a voice chime by kind (wake, done, error, alert, '
               'announce): the pick on the Chimes page, else the bundled '
-              'sound. Resolves {id, duration} in seconds; sound-ended fires '
-              'when it finishes.',
+              'sound. Resolves {id, duration} in seconds once the chime is '
+              'heard, so a wait of its duration ends with it; sound-ended '
+              'fires when it finishes.',
           params: const {'kind': 'wake | done | error | alert | announce'},
           handler: (p) async {
             final kind = p['kind'];
@@ -333,6 +359,7 @@ class SoundManager extends Manager {
             }
             final (source, duration) = await _voiceChime(kind);
             final id = 'snd${++_nextId}';
+            final started = _awaitStart(id);
             final ok = await _channel.invokeMethod<bool>('play', {
               'id': id,
               'source': source,
@@ -341,6 +368,7 @@ class SoundManager extends Manager {
             if (ok != true) {
               return const CommandResult.fail('native playback failed');
             }
+            await started;
             return CommandResult.ok({'id': id, 'duration': duration});
           },
         ),

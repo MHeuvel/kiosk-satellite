@@ -384,7 +384,9 @@ class SinkTap : PresentedQueue(48000), androidx.media3.exoplayer.audio.TeeAudioP
  * ([TrackClock.settled]), at most [MAX_MS]: the echo canceller then hears
  * every audible frame from a reference placed right, instead of
  * relearning the echo path over the first third of a second of every
- * answer. The sound starts 80 to 250 ms later for it.
+ * answer. The sound starts 80 to 250 ms later for it. Chime clips skip
+ * it: a late chime is what the user notices, and what follows a chime
+ * places itself.
  */
 class LeadInProcessor(private val settled: () -> Boolean) :
     androidx.media3.common.audio.BaseAudioProcessor() {
