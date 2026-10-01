@@ -95,6 +95,8 @@ Then ask the kiosk: "wake me up at 6:30 on weekdays", "set an alarm called Gym f
 
 It works in any language your agent speaks, with no sentences to set up per language. Ask in Spanish, German, French, Ukrainian or anything else the same way, like "despiértame a las seis y media de lunes a viernes", and the agent answers in that language.
 
+[Realtime conversations](voice-satellite.md#realtime-conversations) set alarms the same way: with **Tools** on **Home Assistant**, the model sees the exposed script and calls it while the conversation runs.
+
 The alarm goes to the kiosk you are talking to. A request typed into Home Assistant's own chat reaches no kiosk until it names one, as in "set an alarm on the bedroom kiosk", which matches the kiosk's device name or ESPHome name.
 
 The kiosk listens for the script over its own Home Assistant connection, so it needs the Home Assistant address and token under **Settings, Home Assistant**, and the token has to belong to an administrator. With any other token the kiosk leaves voice alarms off and asks Home Assistant nothing. Nothing new appears in ESPHome.

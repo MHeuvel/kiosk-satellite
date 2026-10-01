@@ -102,6 +102,19 @@ void main() {
       expect(requests.isForMe({'action': 'list'}), isFalse);
     });
 
+    test('a realtime conversation answers too', () async {
+      await build([]);
+      bus.publish(
+        const VoiceInteractionChanged(
+          active: true,
+          reason: 'conversation',
+          source: InteractionSource.native,
+        ),
+      );
+      await pumpEventQueue();
+      expect(requests.isForMe({'action': 'list'}), isTrue);
+    });
+
     test('a timer or an announcement is not a conversation', () async {
       await build([]);
       bus.publish(

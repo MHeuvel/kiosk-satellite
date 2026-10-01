@@ -50,6 +50,9 @@ class AlarmRequests {
   static const _turnReasons = {
     'voice',
     'show',
+    // A realtime session: its model calls the script over Home Assistant's
+    // MCP Server while the conversation runs.
+    'conversation',
     'start_conversation',
     'ask_question',
   };
