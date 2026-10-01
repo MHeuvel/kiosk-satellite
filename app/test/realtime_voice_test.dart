@@ -661,7 +661,11 @@ void main() {
       backend.interrupted('a1', 800);
       expect(socket.types, contains('response.cancel'));
       backend.userTurn(keep: true);
-      expect(socket.types.last, 'response.create');
+      // Any answer still open on the server goes first.
+      expect(socket.types.skip(socket.types.length - 2), [
+        'response.cancel',
+        'response.create',
+      ]);
       await backend.close();
     });
 
@@ -892,6 +896,38 @@ void main() {
           h.backend.emit(const RealtimeSpeechStopped());
           time.flushMicrotasks();
           expect(h.backend.turns, [true]);
+          h.session.cancel();
+          time.flushMicrotasks();
+        });
+      });
+
+      test('the rest of a cut answer does not play', () {
+        fakeAsync((time) {
+          final h = _Harness(time);
+          h.backend.clientTurns = true;
+          h.wakeAndConnect();
+          h.answer('a1', seconds: 8);
+          time.elapse(RealtimeSession.echoSettle);
+          h.backend.emit(const RealtimeSpeechStarted());
+          time.flushMicrotasks();
+          for (var i = 0; i < RealtimeSession.bargeInChunks; i++) {
+            time.elapse(const Duration(milliseconds: 80));
+            h.mic.speak(value: 3000);
+          }
+          time.flushMicrotasks();
+          expect(h.player.flushes, 1);
+          final written = h.player.written.length;
+          // What the provider had already sent of it arrives late.
+          h.backend.emit(RealtimeAudio('a1', _pcm(List.filled(24000, 3000))));
+          time.flushMicrotasks();
+          expect(h.player.written, hasLength(written));
+          // The user goes on talking, and the provider hears it.
+          h.backend.audio.clear();
+          h.mic.speak(value: 3000);
+          expect(
+            RealtimeSession.meanAbs(h.backend.audio.single),
+            closeTo(3000, 2),
+          );
           h.session.cancel();
           time.flushMicrotasks();
         });

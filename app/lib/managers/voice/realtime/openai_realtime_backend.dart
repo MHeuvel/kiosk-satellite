@@ -338,6 +338,10 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
   void userTurn({required bool keep}) {
     if (!_clientTurns) return;
     if (keep) {
+      // The user's turn wins over an answer still open on the server: one
+      // the kiosk stopped whose cancel has not landed, or one that started
+      // as the user spoke. Without it the reply is refused outright.
+      _send({'type': 'response.cancel'});
       _send({'type': 'response.create'});
       return;
     }

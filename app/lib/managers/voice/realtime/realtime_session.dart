@@ -623,8 +623,14 @@ class RealtimeSession {
   /// A slow stream still plays: what is staged goes out after this long.
   static const prebufferWait = Duration(milliseconds: 600);
 
+  /// Answers the user talked over. The provider keeps sending what it had
+  /// made of one for a moment after it is stopped, and playing that read
+  /// as a new answer: the microphone went back to the room's noise while
+  /// it settled, and the provider took the user for done after a word.
+  final _cut = <String>{};
+
   void _onAudio(String itemId, Uint8List pcm) {
-    if (!_playerOpen || pcm.isEmpty) return;
+    if (!_playerOpen || pcm.isEmpty || _cut.contains(itemId)) return;
     _awaiting = false;
     if (_view.phase != AssistPhase.speaking) {
       _show(_docked(phase: AssistPhase.speaking, reactive: true));
@@ -721,6 +727,7 @@ class RealtimeSession {
     _stagedFrames = 0;
     _stagedSince = null;
     final item = _item;
+    if (item.isNotEmpty) _cut.add(item);
     final heard = _playerOpen ? await player.flush() : _written;
     if (gen != _gen) return;
     final start = _itemStart[item] ?? heard;
@@ -895,6 +902,7 @@ class RealtimeSession {
 
   void _reset() {
     _recent.clear();
+    _cut.clear();
     _talkingOver = false;
     _heldBack.clear();
     _suspect = false;
