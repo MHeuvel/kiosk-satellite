@@ -31,8 +31,8 @@ setting('screen.default_brightness', .5, 'number', section='Screen', min=0, max=
 setting('audio.media_volume', .5, 'number', section='Audio Volume', min=0, max=1)
 setting('audio.mic_gain_db', 0, 'number', 'Microphone settings', min=-24, max=24, step=1, unit=' dB')
 setting('audio.mic_channel', 5, 'number', hidden=True)
-setting('audio.mic_device', 'usb|1|Microphone', 'string', hidden=True)
-setting('audio.speaker_device', 'usb|2|Speaker', 'string', hidden=True)
+setting('audio.mic_device', '11|1|Microphone', 'string', hidden=True)
+setting('audio.speaker_device', '11|2|Speaker', 'string', hidden=True)
 requests=[]
 def api(route):
  path=route.request.url.split('/api/',1)[1]
@@ -46,8 +46,8 @@ def api(route):
  name=path.removeprefix('commands/');args=route.request.post_data_json or {};requests.append((name,args))
  data={'getVolume':50, 'getLightLevel':{'present':True,'lux':12,'live':False},
  'getAmbientDisplay':True,'getSystemPermissions':{'writeSettings':False},
- 'getAudioDevices':{'inputs':[{'selector':'usb|1|Microphone','label':'Automatic','channels':2}],
- 'outputs':[], 'micSelected':'usb|1|Microphone','speakerSelected':'usb|2|Speaker'},
+ 'getAudioDevices':{'inputs':[{'selector':'11|1|Microphone','label':'Automatic','channels':2}],
+ 'outputs':[], 'micSelected':'11|1|Microphone','speakerSelected':'11|2|Speaker'},
  'listPlugins':[], 'listFiles':[], 'mediaPlayers':{'players':[]}}.get(name,{})
  route.fulfill(json={'ok':True,'data':data})
 class Handler(SimpleHTTPRequestHandler):
@@ -77,7 +77,7 @@ try:
         expect(root.get_by_text('TEST always on', exact=True)).to_be_visible()
         expect(root.get_by_text('TEST fallback', exact=True)).to_be_visible()
         speaker=root.locator('[data-key="audio.speaker_device"] select')
-        expect(speaker).to_have_value('usb|2|Speaker')
+        expect(speaker).to_have_value('11|2|Speaker')
         expect(speaker.locator('option:checked')).to_have_text('Speaker TEST disconnected')
         mic=root.locator('[data-key="audio.mic_device"] select')
         expect(mic.locator('option:checked')).to_have_text('Automatic')
