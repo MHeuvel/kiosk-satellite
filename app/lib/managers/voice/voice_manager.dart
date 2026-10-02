@@ -360,6 +360,13 @@ class VoiceManager extends Manager {
       ..add(bus.on<StopWordDetected>().listen((_) => _onStopWord()))
       ..add(
         bus.on<SettingChanged>().listen((e) {
+          // The earlier answers follow the old instructions and the model
+          // copies its own answers over what it is told now.
+          if (e.key == defs.voiceRealtimeInstructions.key &&
+              '${e.value ?? ''}'.trim() != '${e.previous ?? ''}'.trim()) {
+            _realtime.history.clear();
+            log.info(name, 'realtime: instructions changed, history cleared');
+          }
           // A provider's key or endpoint moved: its model and voice lists
           // may too.
           for (final provider in RealtimeProvider.values) {
