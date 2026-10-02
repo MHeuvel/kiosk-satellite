@@ -2068,6 +2068,9 @@ class UiStringsEn extends UiStrings {
   String get intercomEnded => 'Call ended';
 
   @override
+  String get intercomMaxDurationReached => 'Maximum call duration reached';
+
+  @override
   String get intercomAnnouncement => 'Announcement';
 
   @override
@@ -7408,6 +7411,66 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get intercomOptionTalkHandsfree => 'Hands free';
+
+  @override
+  String get settingIntercomMaxCallMinutesTitle => 'Maximum call duration';
+
+  @override
+  String get settingIntercomMaxCallMinutesDescription =>
+      'Calls end on their own after this long.';
+
+  @override
+  String get intercomOptionCallUnlimited => 'Unlimited';
+
+  @override
+  String get intercomOptionCall1 => '1 minute';
+
+  @override
+  String get intercomOptionCall2 => '2 minutes';
+
+  @override
+  String get intercomOptionCall5 => '5 minutes';
+
+  @override
+  String get intercomOptionCall10 => '10 minutes';
+
+  @override
+  String get intercomOptionCall15 => '15 minutes';
+
+  @override
+  String get intercomOptionCall20 => '20 minutes';
+
+  @override
+  String get intercomOptionCall30 => '30 minutes';
+
+  @override
+  String get intercomOptionCall45 => '45 minutes';
+
+  @override
+  String get intercomOptionCall60 => '60 minutes';
+
+  @override
+  String get settingIntercomHangupKeyTitle =>
+      'Hang up call when pressing this button';
+
+  @override
+  String get settingIntercomHangupKeyDescription =>
+      'During a call the button ends it instead of its usual action.';
+
+  @override
+  String get intercomOptionHangupOff => 'Disabled';
+
+  @override
+  String get intercomOptionHangupVolumeUp => 'Volume up';
+
+  @override
+  String get intercomOptionHangupVolumeDown => 'Volume down';
+
+  @override
+  String get intercomOptionHangupMute => 'Mute';
+
+  @override
+  String get intercomOptionHangupHelp => 'Help';
 
   @override
   String get intercomTalkSection => 'Talk';

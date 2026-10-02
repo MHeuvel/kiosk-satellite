@@ -2081,6 +2081,9 @@ class UiStringsNl extends UiStrings {
   String get intercomEnded => 'Oproep beëindigd';
 
   @override
+  String get intercomMaxDurationReached => 'Maximale gespreksduur bereikt';
+
+  @override
   String get intercomAnnouncement => 'Omroepbericht';
 
   @override
@@ -7498,6 +7501,66 @@ class UiStringsNl extends UiStrings {
 
   @override
   String get intercomOptionTalkHandsfree => 'Handsfree';
+
+  @override
+  String get settingIntercomMaxCallMinutesTitle => 'Maximale gespreksduur';
+
+  @override
+  String get settingIntercomMaxCallMinutesDescription =>
+      'Gesprekken stoppen vanzelf na deze tijd.';
+
+  @override
+  String get intercomOptionCallUnlimited => 'Onbeperkt';
+
+  @override
+  String get intercomOptionCall1 => '1 minuut';
+
+  @override
+  String get intercomOptionCall2 => '2 minuten';
+
+  @override
+  String get intercomOptionCall5 => '5 minuten';
+
+  @override
+  String get intercomOptionCall10 => '10 minuten';
+
+  @override
+  String get intercomOptionCall15 => '15 minuten';
+
+  @override
+  String get intercomOptionCall20 => '20 minuten';
+
+  @override
+  String get intercomOptionCall30 => '30 minuten';
+
+  @override
+  String get intercomOptionCall45 => '45 minuten';
+
+  @override
+  String get intercomOptionCall60 => '60 minuten';
+
+  @override
+  String get settingIntercomHangupKeyTitle =>
+      'Gesprek beëindigen met deze knop';
+
+  @override
+  String get settingIntercomHangupKeyDescription =>
+      'Tijdens een gesprek beëindigt de knop het gesprek in plaats van zijn gewone functie.';
+
+  @override
+  String get intercomOptionHangupOff => 'Uitgeschakeld';
+
+  @override
+  String get intercomOptionHangupVolumeUp => 'Volume omhoog';
+
+  @override
+  String get intercomOptionHangupVolumeDown => 'Volume omlaag';
+
+  @override
+  String get intercomOptionHangupMute => 'Dempen';
+
+  @override
+  String get intercomOptionHangupHelp => 'Hulp';
 
   @override
   String get intercomTalkSection => 'Praten';

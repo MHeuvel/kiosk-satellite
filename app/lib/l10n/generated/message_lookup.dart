@@ -542,6 +542,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'intercomNobody' => strings.intercomNobody,
       'intercomDone' => strings.intercomDone,
       'intercomEnded' => strings.intercomEnded,
+      'intercomMaxDurationReached' => strings.intercomMaxDurationReached,
       'intercomAnnouncement' => strings.intercomAnnouncement,
       'intercomAnnouncingOne' => strings.intercomAnnouncingOne,
       'intercomIsCalling' => strings.intercomIsCalling,
@@ -2158,6 +2159,29 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingIntercomTalkModeDescription,
       'intercomOptionTalkPtt' => strings.intercomOptionTalkPtt,
       'intercomOptionTalkHandsfree' => strings.intercomOptionTalkHandsfree,
+      'settingIntercomMaxCallMinutesTitle' =>
+        strings.settingIntercomMaxCallMinutesTitle,
+      'settingIntercomMaxCallMinutesDescription' =>
+        strings.settingIntercomMaxCallMinutesDescription,
+      'intercomOptionCallUnlimited' => strings.intercomOptionCallUnlimited,
+      'intercomOptionCall1' => strings.intercomOptionCall1,
+      'intercomOptionCall2' => strings.intercomOptionCall2,
+      'intercomOptionCall5' => strings.intercomOptionCall5,
+      'intercomOptionCall10' => strings.intercomOptionCall10,
+      'intercomOptionCall15' => strings.intercomOptionCall15,
+      'intercomOptionCall20' => strings.intercomOptionCall20,
+      'intercomOptionCall30' => strings.intercomOptionCall30,
+      'intercomOptionCall45' => strings.intercomOptionCall45,
+      'intercomOptionCall60' => strings.intercomOptionCall60,
+      'settingIntercomHangupKeyTitle' => strings.settingIntercomHangupKeyTitle,
+      'settingIntercomHangupKeyDescription' =>
+        strings.settingIntercomHangupKeyDescription,
+      'intercomOptionHangupOff' => strings.intercomOptionHangupOff,
+      'intercomOptionHangupVolumeUp' => strings.intercomOptionHangupVolumeUp,
+      'intercomOptionHangupVolumeDown' =>
+        strings.intercomOptionHangupVolumeDown,
+      'intercomOptionHangupMute' => strings.intercomOptionHangupMute,
+      'intercomOptionHangupHelp' => strings.intercomOptionHangupHelp,
       'intercomTalkSection' => strings.intercomTalkSection,
       'settingKioskAllowDrawerTitle' => strings.settingKioskAllowDrawerTitle,
       'settingKioskAllowDrawerDescription' =>

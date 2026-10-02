@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Added
+- **Maximum call duration and a hang up button for the intercom.** **Intercom > Talk** gains **Maximum call duration**, from Unlimited (the default) to 60 minutes, which ends a live call or announcement on its own, and **Hang up call when pressing this button**, which turns Volume up, Volume down, Mute or Help into a hang up button while a call is placed or live. Outside a call the button keeps its usual job. Translated into Spanish, German, French, Ukrainian and Dutch.
 - **Accept a fleet invitation from the remote admin.** A follower could only answer a leader's invitation on its own screen, and the remote admin refused to. The invitation now shows under **Overview > Needs attention** and on the **Fleet Management** page with the leader's address and version and **Accept** and **Decline** buttons, the same as the device's Fleet Management card. On a phone the two buttons get their own line under the text. A fleet token still cannot answer an invitation, only a signed in admin can. The leader's **Add a kiosk** hint now says so. Translated into Spanish, German, French, Ukrainian and Dutch.
 
 ### Fixed

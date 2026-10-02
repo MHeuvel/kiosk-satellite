@@ -7571,6 +7571,16 @@
       ]
     }
   },
+  "intercomMaxDurationReached": "Maximale Anrufdauer erreicht",
+  "@intercomMaxDurationReached": {
+    "context": "Intercom call controls",
+    "description": "Why the call ended: it ran for the Maximum call duration setting.",
+    "x-locations": {
+      "device": [
+        "Active intercom call overlay"
+      ]
+    }
+  },
   "intercomAnnouncement": "Durchsage",
   "@intercomAnnouncement": {
     "context": "Intercom call controls",
@@ -27703,6 +27713,253 @@
   "@intercomOptionTalkHandsfree": {
     "context": "Settings > Intercom > Talk",
     "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "settingIntercomMaxCallMinutesTitle": "Maximale Anrufdauer",
+  "@settingIntercomMaxCallMinutesTitle": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "settingIntercomMaxCallMinutesDescription": "Anrufe enden nach dieser Zeit von selbst.",
+  "@settingIntercomMaxCallMinutesDescription": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "intercomOptionCallUnlimited": "Unbegrenzt",
+  "@intercomOptionCallUnlimited": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "intercomOptionCall1": "1 Minute",
+  "@intercomOptionCall1": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "intercomOptionCall2": "2 Minuten",
+  "@intercomOptionCall2": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "intercomOptionCall5": "5 Minuten",
+  "@intercomOptionCall5": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "intercomOptionCall10": "10 Minuten",
+  "@intercomOptionCall10": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "intercomOptionCall15": "15 Minuten",
+  "@intercomOptionCall15": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "intercomOptionCall20": "20 Minuten",
+  "@intercomOptionCall20": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "intercomOptionCall30": "30 Minuten",
+  "@intercomOptionCall30": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "intercomOptionCall45": "45 Minuten",
+  "@intercomOptionCall45": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "intercomOptionCall60": "60 Minuten",
+  "@intercomOptionCall60": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "settingIntercomHangupKeyTitle": "Anruf beim Drücken dieser Taste beenden",
+  "@settingIntercomHangupKeyTitle": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "settingIntercomHangupKeyDescription": "Während eines Anrufs beendet die Taste ihn, statt ihre übliche Funktion auszuführen.",
+  "@settingIntercomHangupKeyDescription": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "intercomOptionHangupOff": "Deaktiviert",
+  "@intercomOptionHangupOff": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Visible option. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "intercomOptionHangupVolumeUp": "Lauter",
+  "@intercomOptionHangupVolumeUp": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Visible option, the hardware volume up button. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "intercomOptionHangupVolumeDown": "Leiser",
+  "@intercomOptionHangupVolumeDown": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Visible option, the hardware volume down button. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "intercomOptionHangupMute": "Stummschalten",
+  "@intercomOptionHangupMute": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Visible option, the hardware mute button. Its stored value stays unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Intercom > Talk"
+      ],
+      "remoteAdmin": [
+        "Intercom > Talk"
+      ]
+    }
+  },
+  "intercomOptionHangupHelp": "Hilfe",
+  "@intercomOptionHangupHelp": {
+    "context": "Settings > Intercom > Talk",
+    "description": "Visible option, the hardware help button. Its stored value stays unchanged.",
     "x-locations": {
       "device": [
         "Settings > Intercom > Talk"

@@ -56,5 +56,6 @@
   "intercomInCallName": "In een gesprek met {name}",
   "intercomNameAnnouncing": "{name} kondigt aan",
   "intercomHaMessage": "Home Assistant: {message}",
-  "intercomEndCall": "Gesprek beëindigen"
+  "intercomEndCall": "Gesprek beëindigen",
+  "intercomMaxDurationReached": "Maximale gespreksduur bereikt"
 }

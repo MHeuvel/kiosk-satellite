@@ -56,5 +56,6 @@
   "intercomInCallName": "En una llamada con {name}",
   "intercomNameAnnouncing": "{name} está anunciando",
   "intercomHaMessage": "Home Assistant: {message}",
-  "intercomEndCall": "Finalizar llamada"
+  "intercomEndCall": "Finalizar llamada",
+  "intercomMaxDurationReached": "Se alcanzó la duración máxima de la llamada"
 }

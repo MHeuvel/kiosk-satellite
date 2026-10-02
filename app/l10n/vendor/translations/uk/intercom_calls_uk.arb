@@ -56,5 +56,6 @@
   "intercomInCallName": "Розмова з {name}",
   "intercomNameAnnouncing": "{name} оголошує",
   "intercomHaMessage": "Home Assistant: {message}",
-  "intercomEndCall": "Завершити виклик"
+  "intercomEndCall": "Завершити виклик",
+  "intercomMaxDurationReached": "Досягнуто максимальної тривалості виклику"
 }

@@ -951,6 +951,97 @@ void main() {
       expect(good.ok, isTrue);
     });
 
+    test('Maximum call duration hangs up a live call', () async {
+      await build();
+      intercom.maxCallOverride = () => const Duration(milliseconds: 100);
+      answers['POST /api/intercom/call/c1'] = (_) => {'ok': true};
+      await commands.execute('intercomIncoming', {
+        'call': 'c1',
+        'kind': 'call',
+        'from': {'id': 'kitchen', 'name': 'Kitchen', 'port': 2324},
+        'address': '192.168.1.70',
+        'token': tokenFor('c1'),
+      });
+      // Ringing does not count toward the limit.
+      await settle(120);
+      expect(intercom.state, 'ringing');
+      await commands.execute('intercomAnswer', const {});
+      expect(intercom.state, 'in_call');
+      await settle(150);
+      expect(intercom.state, 'ended');
+      expect(intercom.call?.reason, 'time_limit');
+      final told = sent.lastWhere((r) => r.url.path.endsWith('/call/c1'));
+      expect(jsonDecode(told.body)['action'], 'hangup');
+    });
+
+    test('Unlimited leaves a live call running', () async {
+      await build();
+      expect(settings.get(defs.intercomMaxCallMinutes), '0');
+      answers['POST /api/intercom/call/c1'] = (_) => {'ok': true};
+      await commands.execute('intercomIncoming', {
+        'call': 'c1',
+        'kind': 'call',
+        'from': {'id': 'kitchen', 'name': 'Kitchen', 'port': 2324},
+        'address': '192.168.1.70',
+        'token': tokenFor('c1'),
+      });
+      await commands.execute('intercomAnswer', const {});
+      await settle(200);
+      expect(intercom.state, 'in_call');
+    });
+
+    test(
+      'the hang up button is armed only during a call and ends it',
+      () async {
+        await build(prefs: {'ks.intercom.hangup_key': 'volume_down'});
+        final armed = <int>[];
+        bus.on<IntercomHangupKeyArmed>().listen((e) => armed.add(e.keyCode));
+        answers['POST /api/intercom/call/c1'] = (_) => {'ok': true};
+        await commands.execute('intercomIncoming', {
+          'call': 'c1',
+          'kind': 'call',
+          'from': {'id': 'kitchen', 'name': 'Kitchen', 'port': 2324},
+          'address': '192.168.1.70',
+          'token': tokenFor('c1'),
+        });
+        await pumpEventQueue();
+        // A ringing call is answered or declined on the screen.
+        expect(armed, isEmpty);
+        bus.publish(const IntercomHangupKeyPressed());
+        await pumpEventQueue();
+        expect(intercom.state, 'ringing');
+        await commands.execute('intercomAnswer', const {});
+        await pumpEventQueue();
+        expect(armed, [25]);
+        bus.publish(const IntercomHangupKeyPressed());
+        await settle(20);
+        expect(intercom.state, 'ended');
+        expect(intercom.call?.reason, 'ended');
+        expect(armed, [25, 0]);
+      },
+    );
+
+    test('Disabled never arms the hang up button', () async {
+      await build();
+      final armed = <int>[];
+      bus.on<IntercomHangupKeyArmed>().listen((e) => armed.add(e.keyCode));
+      answers['POST /api/intercom/call/c1'] = (_) => {'ok': true};
+      await commands.execute('intercomIncoming', {
+        'call': 'c1',
+        'kind': 'call',
+        'from': {'id': 'kitchen', 'name': 'Kitchen', 'port': 2324},
+        'address': '192.168.1.70',
+        'token': tokenFor('c1'),
+      });
+      await commands.execute('intercomAnswer', const {});
+      await pumpEventQueue();
+      expect(armed, isEmpty);
+      // Picked mid call, the button arms at once.
+      await settings.set(defs.intercomHangupKey, 'volume_mute');
+      await pumpEventQueue();
+      expect(armed, [164]);
+    });
+
     test('Answer automatically counts down and opens on its own', () async {
       await build(prefs: {'ks.intercom.answer_mode': 'auto'});
       answers['POST /api/intercom/call/c1'] = (_) => {'ok': true};

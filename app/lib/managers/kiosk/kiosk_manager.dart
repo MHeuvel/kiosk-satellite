@@ -168,6 +168,10 @@ class KioskManager extends Manager with WidgetsBindingObserver {
   Future<void> _pushVolumeKeys() =>
       _invoke<void>('volumeKeys', _volumeKeys && !lockdownActive);
 
+  /// The intercom's hang up button, an Android key code or 0. Kept and
+  /// re-pushed on each new Activity.
+  int _hangupKey = 0;
+
   /// Which route, if any, a device restart has here (issue #528):
   /// `{supported, route, reason}` with route `device_owner` or `shizuku`.
   /// Owner first, since it needs nothing running; a device owner keeps the
@@ -705,6 +709,7 @@ class KioskManager extends Manager with WidgetsBindingObserver {
           await _apply();
           if (_navCapture) await _invoke<void>('navCapture', true);
           if (_volumeKeys) await _pushVolumeKeys();
+          if (_hangupKey != 0) await _invoke<void>('hangupKey', _hangupKey);
         case 'exitGesture':
           log.info(name, 'exit gesture detected');
           bus.publish(const KioskExitGesture());
@@ -724,12 +729,21 @@ class KioskManager extends Manager with WidgetsBindingObserver {
           onHomePressed();
         case 'volumeKey':
           bus.publish(VolumeKeyPressed(direction: '${call.arguments}'));
+        case 'hangupKey':
+          log.info(name, 'hang up button pressed');
+          bus.publish(const IntercomHangupKeyPressed());
         // A dpad press MainActivity handed to the dashboard: activity,
         // like the keys and touches Flutter sees itself.
         case 'pageKey':
           bus.publish(const ActivityDetected(source: 'key'));
       }
       return null;
+    });
+
+    bus.on<IntercomHangupKeyArmed>().listen((e) async {
+      if (e.keyCode == _hangupKey) return;
+      _hangupKey = e.keyCode;
+      await _invoke<void>('hangupKey', _hangupKey);
     });
 
     bus.on<SettingChanged>().listen((e) async {

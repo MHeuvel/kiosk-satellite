@@ -53,6 +53,10 @@ Each kiosk picks its own talk mode. **Intercom volume** under Screen & Audio, be
 
 During a call the kiosk holds the screensaver, the dashboard rotation and the return to home timer the way a voice turn does, ducks the music the same way and pauses wake word detection, so neither voice triggers the assistant. End on either side closes both. The screen shows the call's length for ten seconds with Call again and Close.
 
+**Maximum call duration** ends a live call or announcement after 1 to 60 minutes, Unlimited by default. Each kiosk counts on its own, so the shorter limit ends the call for both, and the call screen reads Maximum call duration reached.
+
+**Hang up call when pressing this button** picks a hardware button that ends the call: Volume up, Volume down, Mute or Help. It ends a call being placed, a live call and either end of an announcement. A ringing call still needs Decline on the screen. Outside a call the button keeps its usual job. It is a pick of this device's hardware, so Fleet Management never syncs it. A button only works when Android sees it: `adb shell getevent -l` lists the keys a device reports, and a key the device's key layout leaves unmapped never reaches the app.
+
 Voice is raw 16 kHz audio over one WebSocket per call, about 256 kbit/s each way on the local network, and reaches the other kiosk in roughly a quarter of a second.
 
 ## Announce to all

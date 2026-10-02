@@ -446,6 +446,20 @@ class IntercomStateChanged extends AppEvent {
   Map<String, Object?> toJson() => status;
 }
 
+/// The hardware button that hangs up the intercom call, as an Android
+/// key code, or 0 for none. Published while a call is placed or live and
+/// set back to 0 when it ends, so the button keeps its usual job the rest
+/// of the time. The kiosk manager hands it to the native key handler.
+class IntercomHangupKeyArmed extends AppEvent {
+  const IntercomHangupKeyArmed(this.keyCode);
+  final int keyCode;
+}
+
+/// The armed hang up button was pressed.
+class IntercomHangupKeyPressed extends AppEvent {
+  const IntercomHangupKeyPressed();
+}
+
 /// The intercom wants the microphone the page holds, or is done with it.
 /// A page that captures the microphone itself, such as Voice Satellite
 /// streaming to Home Assistant for its wake word, lets go for the call

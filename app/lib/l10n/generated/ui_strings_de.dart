@@ -2099,6 +2099,9 @@ class UiStringsDe extends UiStrings {
   String get intercomEnded => 'Anruf beendet';
 
   @override
+  String get intercomMaxDurationReached => 'Maximale Anrufdauer erreicht';
+
+  @override
   String get intercomAnnouncement => 'Durchsage';
 
   @override
@@ -7591,6 +7594,66 @@ class UiStringsDe extends UiStrings {
 
   @override
   String get intercomOptionTalkHandsfree => 'Freisprechen';
+
+  @override
+  String get settingIntercomMaxCallMinutesTitle => 'Maximale Anrufdauer';
+
+  @override
+  String get settingIntercomMaxCallMinutesDescription =>
+      'Anrufe enden nach dieser Zeit von selbst.';
+
+  @override
+  String get intercomOptionCallUnlimited => 'Unbegrenzt';
+
+  @override
+  String get intercomOptionCall1 => '1 Minute';
+
+  @override
+  String get intercomOptionCall2 => '2 Minuten';
+
+  @override
+  String get intercomOptionCall5 => '5 Minuten';
+
+  @override
+  String get intercomOptionCall10 => '10 Minuten';
+
+  @override
+  String get intercomOptionCall15 => '15 Minuten';
+
+  @override
+  String get intercomOptionCall20 => '20 Minuten';
+
+  @override
+  String get intercomOptionCall30 => '30 Minuten';
+
+  @override
+  String get intercomOptionCall45 => '45 Minuten';
+
+  @override
+  String get intercomOptionCall60 => '60 Minuten';
+
+  @override
+  String get settingIntercomHangupKeyTitle =>
+      'Anruf beim Drücken dieser Taste beenden';
+
+  @override
+  String get settingIntercomHangupKeyDescription =>
+      'Während eines Anrufs beendet die Taste ihn, statt ihre übliche Funktion auszuführen.';
+
+  @override
+  String get intercomOptionHangupOff => 'Deaktiviert';
+
+  @override
+  String get intercomOptionHangupVolumeUp => 'Lauter';
+
+  @override
+  String get intercomOptionHangupVolumeDown => 'Leiser';
+
+  @override
+  String get intercomOptionHangupMute => 'Stummschalten';
+
+  @override
+  String get intercomOptionHangupHelp => 'Hilfe';
 
   @override
   String get intercomTalkSection => 'Gespräch';

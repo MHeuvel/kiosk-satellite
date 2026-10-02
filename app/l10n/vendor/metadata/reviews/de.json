@@ -22752,5 +22752,125 @@
     "translation": "392f0ec9b2be4452309171d6d8ffbe3956c42c39b719380fafcab8b778f0e4f2",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "intercomOptionCall2": {
+    "source": "03f0b5e53e7ce7cd175ad44826c015d781b68167216f9ec246fdb7a1228134c7",
+    "translation": "947cbb6ea86629a69b5d7dc80fa322c6348832202b6c5979b0703358f9d8b6e0",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingIntercomMaxCallMinutesTitle": {
+    "source": "a3f3347288dc9d1ab5709cd738400abf68934255cc82d3c8f42d88caf9457847",
+    "translation": "68d4f0adb6fddf8caee213cd1f6e4c0b020b08e72d7a1ab930b0f1be9f8e1ab6",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "intercomOptionHangupHelp": {
+    "source": "cef3d9d985aa24eac7e6cf4496a41d97b4b19c1f41b8b7e85da377522dcda665",
+    "translation": "95472f650a2b647ff8fa66450c77b281ac2846cbe9d8df6354cbcd8c5e589455",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "intercomOptionCall45": {
+    "source": "740ff36c66dcf06729164560e30ab3a051f39e170657b80476eea09d7c54cec9",
+    "translation": "3b21d046e8998c7dd56c68d051acb305630ae4b7ebf30d13c89da472980daa4f",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "intercomMaxDurationReached": {
+    "source": "6cda5b2443b1d9842d4abb1d765dd76f70dfcf69346222941a7a3a826f9dd36f",
+    "translation": "ff09eeb8338d80448a71738a523c3f35628ab7f9aeddbfe93fa296bff73e5bd7",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "intercomOptionCall5": {
+    "source": "9e4afddc0e5a9232a56f0e71b188da0a01de39b62e552aa9f489936f6f14225d",
+    "translation": "937f3f850240a038c8dbdf2fe02a7f5e62931335a3a3ae290daf14dd6df5bb4d",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "intercomOptionHangupMute": {
+    "source": "ef2137a524439868247ba3b0de789e8ee73897381aa8fcf4d3989c47388d7eb1",
+    "translation": "ebe98d7263f0413548738129765a9d4174aba1a1837c759f4bd0ab3dd7260850",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingIntercomHangupKeyTitle": {
+    "source": "56a7d8c9640af2cc30c24add34d9b46022b72772a123d533c3b4bbca6ce27c35",
+    "translation": "a94cc0b5a28f24e514330fba6697eb826ad99f988cfe088ee28de546748ebc6a",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "intercomOptionCall60": {
+    "source": "b92ace51b90adff198a50af0153b2d6183f5eab6ab1d895af00d5498426a209d",
+    "translation": "7129a42ae842db9b79eb081eed46afd771b2218587fc33cfa3415fd09d177f6f",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "intercomOptionCall10": {
+    "source": "1186345431e8230a827ebaa9058303fbc37cf0c42f38bacc8ecade44faa024d4",
+    "translation": "499010ddb7ff6f89fca9231c17a921892c5acdc528b482124781031c50f99712",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "intercomOptionHangupOff": {
+    "source": "103e41c2c5cf69612e8774705b7c4f4c273a3634d87a136b3c678aa373f2c0e2",
+    "translation": "89fc217b35a43e58e6eb1c509b505c69306f389d7104d9c760fa782ce0435054",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "intercomOptionCallUnlimited": {
+    "source": "39398b5700489409d0576d10359ea1762865318e92557b4b19a2f5e9beed609f",
+    "translation": "30cc38a98a3432a215bc4ccfdcdf569eb39728dfaefa908a284b0f78e71b6e31",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "intercomOptionCall30": {
+    "source": "9b44ad29f64c12ddb5c33b27f75efdc6e9bb516b389edeeaf5d86cdb3bc90164",
+    "translation": "f49f54b079fc95c3b55d2d27fa2b3c5ff8d77464d478b9a8dfe1e40e294c8ac5",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "intercomOptionCall1": {
+    "source": "8f720a932af496c326d7467b0f903959017e784b5ec32b34d8c2fd3623214785",
+    "translation": "493e482ea5771b8c01ecbcb18aa58919bfcac7b2dfa6aef61ca94ebdad7b6f66",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "intercomOptionHangupVolumeDown": {
+    "source": "6d2b24db50b67db5a9a2bc9cc31cce3ca4bd56709d5420d6e54acfd0f1830b88",
+    "translation": "110f0b8a7890ba699e8c008524eb845d1e66784843c05810ac09b23e206760c0",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "intercomOptionHangupVolumeUp": {
+    "source": "786142304ed26a6681729d37dd8322d161843e4f6520aaea00e86b2bf64f7d65",
+    "translation": "4163ad8ab7b34a03c2ebed1a4fc110ec0c5f12a8724760e3012c14ed6d19b8db",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "intercomOptionCall20": {
+    "source": "d5b4418da8fab516da23610846388a54574eab4ea0b7c567812a35e9e5b34751",
+    "translation": "d160b6d3b320a1f2ae7e9a673397bdcf1815fa0e63b4fa22a0de79351dc240c7",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingIntercomHangupKeyDescription": {
+    "source": "2c2e85c3adbbd237108bfcea548da7dbfe5039d71538d300d642aa6406d4d349",
+    "translation": "ba1a8e4ebdd8bdb9672a2e5515e038bbf7844902221016556d04e6c8c41069b8",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "intercomOptionCall15": {
+    "source": "cfbcf40f9e85c08235b34dd9718dc5f53523e7e4ebfc47afbad6fd498cd70c4c",
+    "translation": "4299b09260b5e1e96e923d38a47ec872e5ceb94f5b8a54e6b538f084ea9f48e3",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingIntercomMaxCallMinutesDescription": {
+    "source": "e0f24e266cca251f056fb361debcc2a3e94efbc3fbcd09c1e924e90c486c9408",
+    "translation": "991b99cdddbf9d10a43ec262a541ca22d5eb8ea44ea5b76e3e70f8ee79a86394",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

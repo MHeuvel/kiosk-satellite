@@ -359,6 +359,18 @@ class IntercomManager extends Manager {
         seconds: int.tryParse(_settings.get(defs.intercomRingSeconds)) ?? 30,
       );
 
+  /// How long a live call may run here before it hangs up, null for no
+  /// limit: the Maximum call duration setting. Tests shorten it.
+  Duration? Function()? maxCallOverride;
+
+  Duration? get _maxCall {
+    final override = maxCallOverride;
+    if (override != null) return override();
+    final minutes =
+        int.tryParse(_settings.get(defs.intercomMaxCallMinutes)) ?? 0;
+    return minutes > 0 ? Duration(minutes: minutes) : null;
+  }
+
   /// The margin the caller waits past the callee's own ring time.
   Duration callerMargin = const Duration(seconds: 10);
 
@@ -441,6 +453,10 @@ class IntercomManager extends Manager {
   Timer? _connectTimer;
   Timer? _missedTimer;
   Timer? _injectTimer;
+  Timer? _limitTimer;
+
+  /// The key code last handed to the kiosk manager for the hang up button.
+  int _hangupKeyArmed = 0;
   DateTime _lastLevel = DateTime.fromMillisecondsSinceEpoch(0);
   double _farLevel = 0;
   double _nearLevel = 0;
@@ -527,6 +543,8 @@ class IntercomManager extends Manager {
         } else if (e.key == defs.intercomEnabled.key) {
           if (e.value != true) rosterVisible.value = false;
           unawaited(_onEnabledChanged());
+        } else if (e.key == defs.intercomHangupKey.key) {
+          _syncHangupKey();
         } else if (e.key == defs.intercomVolume.key) {
           unawaited(audio.setVolume(_playbackGain()));
         } else if (e.key == defs.intercomTalkMode.key) {
@@ -546,6 +564,11 @@ class IntercomManager extends Manager {
     // Another Voice Satellite turn or a page taking the microphone ends
     // the call: the page holds the microphone exclusively.
     micHub.browserCapturing.addListener(_onBrowserCapture);
+    _subs.add(
+      bus.on<IntercomHangupKeyPressed>().listen((_) {
+        if (_hangupStates.contains(_state)) unawaited(hangup());
+      }),
+    );
     await _readFleet();
     if (enabled && key.isEmpty) await _ensureKey();
   }
@@ -564,6 +587,7 @@ class IntercomManager extends Manager {
     _cancelTimers();
     _holdTimer?.cancel();
     _missedTimer?.cancel();
+    _limitTimer?.cancel();
     rosterVisible.dispose();
   }
 
@@ -2433,6 +2457,8 @@ class IntercomManager extends Manager {
       return;
     }
     _state = next;
+    _syncCallLimit();
+    _syncHangupKey();
     // The call screen takes over from the roster.
     if (next != 'idle' && next != 'missed') rosterVisible.value = false;
     // The card's last words hold nothing: the screensaver and the wake
@@ -2452,6 +2478,45 @@ class IntercomManager extends Manager {
     if (notify) _changed();
   }
 
+  /// The states the hang up button ends: a call being placed, a live call
+  /// and either end of a broadcast. A ringing call is answered or declined
+  /// on the screen.
+  static const _hangupStates = {
+    'calling',
+    'in_call',
+    'broadcasting',
+    'listening',
+  };
+
+  void _syncHangupKey() {
+    final code = _hangupStates.contains(_state)
+        ? defs.intercomHangupKeyCodes[_settings.get(defs.intercomHangupKey)] ??
+              0
+        : 0;
+    if (code == _hangupKeyArmed) return;
+    _hangupKeyArmed = code;
+    bus.publish(IntercomHangupKeyArmed(code));
+  }
+
+  /// Starts the Maximum call duration clock when a call or a broadcast
+  /// goes live and stops it when that ends.
+  void _syncCallLimit() {
+    if (!_active) {
+      _limitTimer?.cancel();
+      _limitTimer = null;
+      return;
+    }
+    if (_limitTimer != null) return;
+    final limit = _maxCall;
+    if (limit == null) return;
+    _limitTimer = Timer(limit, () {
+      _limitTimer = null;
+      if (!_active) return;
+      log.info(name, 'the call reached its maximum duration');
+      unawaited(hangup(reason: 'time_limit'));
+    });
+  }
+
   static String _reasonText(String reason) => switch (reason) {
     'ended' => 'ended',
     'declined' => 'declined',
@@ -2468,6 +2533,7 @@ class IntercomManager extends Manager {
     'mic_busy' => 'the page took the microphone',
     'no_targets' => 'nobody could take it',
     'broadcast_over' => 'the broadcast ended',
+    'time_limit' => 'maximum duration reached',
     _ => reason,
   };
 

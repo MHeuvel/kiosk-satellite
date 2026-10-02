@@ -2089,6 +2089,10 @@ class UiStringsEs extends UiStrings {
   String get intercomEnded => 'Llamada finalizada';
 
   @override
+  String get intercomMaxDurationReached =>
+      'Se alcanzó la duración máxima de la llamada';
+
+  @override
   String get intercomAnnouncement => 'Anuncio';
 
   @override
@@ -7546,6 +7550,67 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get intercomOptionTalkHandsfree => 'Manos libres';
+
+  @override
+  String get settingIntercomMaxCallMinutesTitle =>
+      'Duración máxima de la llamada';
+
+  @override
+  String get settingIntercomMaxCallMinutesDescription =>
+      'Las llamadas terminan solas después de este tiempo.';
+
+  @override
+  String get intercomOptionCallUnlimited => 'Ilimitada';
+
+  @override
+  String get intercomOptionCall1 => '1 minuto';
+
+  @override
+  String get intercomOptionCall2 => '2 minutos';
+
+  @override
+  String get intercomOptionCall5 => '5 minutos';
+
+  @override
+  String get intercomOptionCall10 => '10 minutos';
+
+  @override
+  String get intercomOptionCall15 => '15 minutos';
+
+  @override
+  String get intercomOptionCall20 => '20 minutos';
+
+  @override
+  String get intercomOptionCall30 => '30 minutos';
+
+  @override
+  String get intercomOptionCall45 => '45 minutos';
+
+  @override
+  String get intercomOptionCall60 => '60 minutos';
+
+  @override
+  String get settingIntercomHangupKeyTitle =>
+      'Colgar la llamada al pulsar este botón';
+
+  @override
+  String get settingIntercomHangupKeyDescription =>
+      'Durante una llamada, el botón la termina en lugar de hacer su función habitual.';
+
+  @override
+  String get intercomOptionHangupOff => 'Desactivado';
+
+  @override
+  String get intercomOptionHangupVolumeUp => 'Subir volumen';
+
+  @override
+  String get intercomOptionHangupVolumeDown => 'Bajar volumen';
+
+  @override
+  String get intercomOptionHangupMute => 'Silenciar';
+
+  @override
+  String get intercomOptionHangupHelp => 'Ayuda';
 
   @override
   String get intercomTalkSection => 'Conversación';

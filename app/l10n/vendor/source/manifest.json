@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "bb6cb66f0e97b713bbc81106f2e092e4348c5ea9",
+  "revision": "3e4f27458f2ae869f823c24aac434b9c5e09ad13",
   "workingTree": true,
   "files": {
     "about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
@@ -33,7 +33,7 @@
     "gesture_hand_tester_en.arb": "fe0cd4b66d32658f05ca0f2eb0e1fe3ccadecdd9b277407ee317c4aa4e2aab27",
     "gesture_outcomes_en.arb": "b07e5b548782c4a0cdc825427972d996f0a12aac4e43b612fa25de222e6898c5",
     "gesture_trigger_editor_en.arb": "39ca2a147b63eecc05ab3a6c8d5e9ea4a43489e69fdb478ec79cdb6178692de0",
-    "intercom_calls_en.arb": "76790d5c39367e505f5c282e60a64e6370f18620a3923da6bc2b6586cb16b78c",
+    "intercom_calls_en.arb": "65aada62896734212830468223fd90e28bc990bc8d7c54f7f6f0edcf5465e840",
     "intercom_errors_en.arb": "f4f62075f5beb8bda139356df2baa08b2702b7a8990d0c9d24d253169efd936c",
     "kiosk_notices_en.arb": "3f473e9d4e9771f1fbf8055cb13d96fbe5be188a3814e4734925c2cbe53d0358",
     "kiosk_pin_en.arb": "5490d54265cd01006e1b8bbb425aff2e8064bdddfd10d9721e7591bd862ce02c",
@@ -117,7 +117,7 @@
     "settings_intercom_answer_en.arb": "22a2819b9f429e82d7d5b4942301d942a60b743f9b4916c0942784a71dc89339",
     "settings_intercom_general_en.arb": "4724e41f91236bc05669438cdd8489e165f2f2c67e541f83a7e6f02c7372b439",
     "settings_intercom_kiosks_en.arb": "135b6b4da593ab57a523e70d84494c604d036d6da47d869407d3c03a20ba072e",
-    "settings_intercom_talk_en.arb": "a1f6fd2a791e716c89f5232552d3ff5c0b802837427ca6faf8173abc4fd998a6",
+    "settings_intercom_talk_en.arb": "28c742d4d80f1d8fbef774a54b8c12013896abc40f06ac6c7e03330b5ca83e18",
     "settings_kiosk_allowed_actions_en.arb": "b8e75e7a59104299e40f0ce16c09465a2af55c8773b069f9f065be2c44c5d405",
     "settings_kiosk_general_en.arb": "a45e0a0510b43f5a2f6f0deb5a508ddd31e2fb9ce5a69a1af9f2e4f1a4fe11a3",
     "settings_kiosk_permissions_en.arb": "686c9c49e03d50ec06070dbbf9717bccf2916fc68464d2ac12c4de3cd7f2e337",

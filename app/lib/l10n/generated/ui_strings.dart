@@ -3676,6 +3676,12 @@ abstract class UiStrings {
   /// **'Call ended'**
   String get intercomEnded;
 
+  /// Why the call ended: it ran for the Maximum call duration setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum call duration reached'**
+  String get intercomMaxDurationReached;
+
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:
@@ -12887,6 +12893,120 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Hands free'**
   String get intercomOptionTalkHandsfree;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum call duration'**
+  String get settingIntercomMaxCallMinutesTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Calls end on their own after this long.'**
+  String get settingIntercomMaxCallMinutesDescription;
+
+  /// Visible option. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited'**
+  String get intercomOptionCallUnlimited;
+
+  /// Visible option. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'1 minute'**
+  String get intercomOptionCall1;
+
+  /// Visible option. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'2 minutes'**
+  String get intercomOptionCall2;
+
+  /// Visible option. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'5 minutes'**
+  String get intercomOptionCall5;
+
+  /// Visible option. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'10 minutes'**
+  String get intercomOptionCall10;
+
+  /// Visible option. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'15 minutes'**
+  String get intercomOptionCall15;
+
+  /// Visible option. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'20 minutes'**
+  String get intercomOptionCall20;
+
+  /// Visible option. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'30 minutes'**
+  String get intercomOptionCall30;
+
+  /// Visible option. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'45 minutes'**
+  String get intercomOptionCall45;
+
+  /// Visible option. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'60 minutes'**
+  String get intercomOptionCall60;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Hang up call when pressing this button'**
+  String get settingIntercomHangupKeyTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'During a call the button ends it instead of its usual action.'**
+  String get settingIntercomHangupKeyDescription;
+
+  /// Visible option. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Disabled'**
+  String get intercomOptionHangupOff;
+
+  /// Visible option, the hardware volume up button. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Volume up'**
+  String get intercomOptionHangupVolumeUp;
+
+  /// Visible option, the hardware volume down button. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Volume down'**
+  String get intercomOptionHangupVolumeDown;
+
+  /// Visible option, the hardware mute button. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Mute'**
+  String get intercomOptionHangupMute;
+
+  /// Visible option, the hardware help button. Its stored value stays unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Help'**
+  String get intercomOptionHangupHelp;
 
   /// Section heading.
   ///

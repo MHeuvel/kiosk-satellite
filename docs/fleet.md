@@ -110,7 +110,7 @@ Certain settings remain unique to each kiosk regardless of the profile configura
 | Shizuku | `shizuku.install_updates` |
 | Interface language | `ui.language` |
 | Remote admin & fleet | `remote.enabled`, `remote.port`, `remote.tls`, `remote.password`, `remote.fleet_discovery`, `fleet.*` |
-| Intercom encryption | `intercom.tls` |
+| Intercom encryption and hang up button | `intercom.tls`, `intercom.hangup_key` |
 | Alarms | `alarms.list`, `alarms.runtime` |
 | Hardware picks | `camera.device`, `camera.rtsp.tls`, `camera.rtsp.resolution`, `camera.rtsp.analysis`, `motion.camera`, `audio.mic_device`, `audio.speaker_device`, `audio.mic_channel`, `audio.mic_capture_mode`, `audio.software_echo_cancellation`, `audio.mic_noise_suppression`, `audio.mic_gain_db`, `audio.mic_capture_format`, `render.disable_impeller`, `render.legacy_webview`, `ui.scale`, `screen.ambient_display` |
 | Followed player | `sendspin.player`, `sendspin.player_source`, `sendspin.player_name` |

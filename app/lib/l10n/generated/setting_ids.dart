@@ -1156,6 +1156,14 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingIntercomTalkModeTitle",
     "description": "settingIntercomTalkModeDescription",
   },
+  "intercom.max_call_minutes": {
+    "title": "settingIntercomMaxCallMinutesTitle",
+    "description": "settingIntercomMaxCallMinutesDescription",
+  },
+  "intercom.hangup_key": {
+    "title": "settingIntercomHangupKeyTitle",
+    "description": "settingIntercomHangupKeyDescription",
+  },
   "kiosk.enabled": {
     "title": "settingKioskEnabledTitle",
     "description": "settingKioskEnabledDescription",

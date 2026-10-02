@@ -8905,6 +8905,64 @@ const intercomTalkMode = SettingDef<String>(
   dependsOn: 'intercom.enabled',
 );
 
+/// Minutes a live call or announcement may run before this kiosk hangs
+/// up, 0 for no limit. Each side counts on its own, so the shorter limit
+/// ends the call for both.
+const intercomMaxCallMinutes = SettingDef<String>(
+  key: 'intercom.max_call_minutes',
+  type: SettingType.select,
+  defaultValue: '0',
+  title: 'Maximum call duration',
+  description: 'Calls end on their own after this long.',
+  category: 'Intercom',
+  section: 'Talk',
+  options: ['0', '1', '2', '5', '10', '15', '20', '30', '45', '60'],
+  optionLabels: {
+    '0': 'Unlimited',
+    '1': '1 minute',
+    '2': '2 minutes',
+    '5': '5 minutes',
+    '10': '10 minutes',
+    '15': '15 minutes',
+    '20': '20 minutes',
+    '30': '30 minutes',
+    '45': '45 minutes',
+    '60': '60 minutes',
+  },
+  dependsOn: 'intercom.enabled',
+);
+
+/// A hardware button that ends the call, the Android key codes in
+/// [intercomHangupKeyCodes]. Taken from its usual job only while a call
+/// is placed or live.
+const intercomHangupKey = SettingDef<String>(
+  key: 'intercom.hangup_key',
+  type: SettingType.select,
+  defaultValue: 'off',
+  title: 'Hang up call when pressing this button',
+  description: 'During a call the button ends it instead of its usual action.',
+  category: 'Intercom',
+  section: 'Talk',
+  options: ['off', 'volume_up', 'volume_down', 'volume_mute', 'help'],
+  optionLabels: {
+    'off': 'Disabled',
+    'volume_up': 'Volume up',
+    'volume_down': 'Volume down',
+    'volume_mute': 'Mute',
+    'help': 'Help',
+  },
+  dependsOn: 'intercom.enabled',
+  perDevice: true,
+);
+
+/// Android KeyEvent codes for [intercomHangupKey]'s options.
+const intercomHangupKeyCodes = {
+  'volume_up': 24,
+  'volume_down': 25,
+  'volume_mute': 164,
+  'help': 259,
+};
+
 /// Beside the media and assistant faders: the intercom's own share of the
 /// master volume, the third voice the kiosk plays. 60 on the squared taper
 /// is 9 dB under the master: clearly heard, and every dB off the far voice
@@ -10325,6 +10383,8 @@ const List<SettingDef<Object>> allSettings = [
   intercomRingSound,
   intercomAcceptAnnouncements,
   intercomTalkMode,
+  intercomMaxCallMinutes,
+  intercomHangupKey,
   intercomTls,
   alarmsList,
   alarmsRuntime,

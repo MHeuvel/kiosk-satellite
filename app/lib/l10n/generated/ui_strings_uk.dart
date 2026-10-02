@@ -2074,6 +2074,10 @@ class UiStringsUk extends UiStrings {
   String get intercomEnded => 'Виклик завершено';
 
   @override
+  String get intercomMaxDurationReached =>
+      'Досягнуто максимальної тривалості виклику';
+
+  @override
   String get intercomAnnouncement => 'Оголошення';
 
   @override
@@ -7478,6 +7482,67 @@ class UiStringsUk extends UiStrings {
 
   @override
   String get intercomOptionTalkHandsfree => 'Вільні руки';
+
+  @override
+  String get settingIntercomMaxCallMinutesTitle =>
+      'Максимальна тривалість виклику';
+
+  @override
+  String get settingIntercomMaxCallMinutesDescription =>
+      'Виклики завершуються самі після цього часу.';
+
+  @override
+  String get intercomOptionCallUnlimited => 'Без обмежень';
+
+  @override
+  String get intercomOptionCall1 => '1 хвилина';
+
+  @override
+  String get intercomOptionCall2 => '2 хвилини';
+
+  @override
+  String get intercomOptionCall5 => '5 хвилин';
+
+  @override
+  String get intercomOptionCall10 => '10 хвилин';
+
+  @override
+  String get intercomOptionCall15 => '15 хвилин';
+
+  @override
+  String get intercomOptionCall20 => '20 хвилин';
+
+  @override
+  String get intercomOptionCall30 => '30 хвилин';
+
+  @override
+  String get intercomOptionCall45 => '45 хвилин';
+
+  @override
+  String get intercomOptionCall60 => '60 хвилин';
+
+  @override
+  String get settingIntercomHangupKeyTitle =>
+      'Завершувати виклик натисканням цієї кнопки';
+
+  @override
+  String get settingIntercomHangupKeyDescription =>
+      'Під час виклику кнопка завершує його замість своєї звичайної дії.';
+
+  @override
+  String get intercomOptionHangupOff => 'Вимкнено';
+
+  @override
+  String get intercomOptionHangupVolumeUp => 'Гучніше';
+
+  @override
+  String get intercomOptionHangupVolumeDown => 'Тихіше';
+
+  @override
+  String get intercomOptionHangupMute => 'Вимкнути звук';
+
+  @override
+  String get intercomOptionHangupHelp => 'Довідка';
 
   @override
   String get intercomTalkSection => 'Розмова';
