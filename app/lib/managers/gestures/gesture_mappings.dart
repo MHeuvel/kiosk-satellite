@@ -224,6 +224,8 @@ String describeGestureAction(Map<String, Object?> action) {
       return 'Open ${action['uri']}';
     case 'android_settings':
       return 'Open Android Settings';
+    case 'alarms':
+      return 'Open the alarm list';
     case 'ha_service':
       return 'Call ${action['domain']}.${action['service']}';
     case 'ha_script':
