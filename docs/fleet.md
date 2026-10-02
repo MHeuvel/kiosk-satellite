@@ -11,7 +11,7 @@ Once a kiosk joins, its membership survives missing mDNS advertisements. The lea
 | Role | How to Assign | Limitations |
 | --- | --- | --- |
 | Leader | Select **Lead this fleet** on the Fleet Management page. | Cannot follow another kiosk. |
-| Follower | Accept a leader's invitation directly on the screen. | Limited to one leader; cannot lead. |
+| Follower | Accept a leader's invitation on the kiosk screen or in its remote admin. | Limited to one leader; cannot lead. |
 | Standalone | The default state. | None. |
 
 It is perfectly fine to have multiple fleets on a single network. A kiosk that needs to share a different set of settings can simply lead its own distinct fleet.
@@ -20,12 +20,12 @@ It is perfectly fine to have multiple fleets on a single network. A kiosk that n
 
 1. On the leader device, tap **Add a kiosk** to view discovered devices. If the kiosk is not discovered, choose **Add by IP**, enter its IP address and remote admin port (2324 by default) then tap **Find kiosk**. This option is also available in remote administration and works without mDNS advertisements. The leader verifies the kiosk before you continue. Kiosks already following another leader must leave that fleet first. A kiosk on a different version can join but settings sync waits until its version matches.
 2. Select a kiosk, assign it a profile, and tap **Send invitation**.
-3. The invitation will overlay on the target kiosk's screen, staying under its Settings, Fleet Management until answered. You must tap **Accept** directly on that device. (While the remote admin shows the invite, it cannot accept it. No passwords are required.)
+3. The invitation will overlay on the target kiosk's screen, staying under its Settings, Fleet Management until answered. Tap **Accept** on that device, or in its remote admin under Overview, Needs attention or on its Fleet Management page. No passwords are required.
 4. The leader's dashboard will display **Waiting for its OK** until accepted, after which it syncs immediately.
 
 Accepting an invitation grants the leader a token valid only for fleet endpoints, which is honored as long as the kiosk remains in the fleet. Tapping **Leave the fleet** forgets the leader and revokes the token.
 
-To keep each follower's settings, choose the **Updates only** profile before sending its invitation. Entering an IP address does not bypass the on-device acceptance step or make an unreachable address accessible. Both kiosks must be able to reach each other's remote admin ports. IPv4 and IPv6 addresses are supported.
+To keep each follower's settings, choose the **Updates only** profile before sending its invitation. Entering an IP address does not skip the follower's acceptance step or make an unreachable address accessible. Both kiosks must be able to reach each other's remote admin ports. IPv4 and IPv6 addresses are supported.
 
 ## Profiles
 
@@ -149,7 +149,7 @@ The status response includes `rosterRevision` on releases that support the direc
 
 For manual invitations, call `fleetLookup` with `{address, port}` to verify the target. It returns the kiosk identity and normalized endpoint without saving a member. Pass its `id`, `address` and `port` to `fleetInvite` with the chosen `profile`. The leader verifies the identity again before sending the invitation. Omitting `address` keeps the discovered or saved address path.
 
-A fleet token also grants access to `getUpdateStatus`, `checkUpdateNow`, `installUpdate` and `installUploadedApk` under `/api/commands/`, to `POST /api/update/upload` and to `GET /api/config/export` for the fleet export, but nothing else. Both pages utilize commands like: `fleetStatus`, `fleetCandidates`, `fleetInvite`, `fleetSetProfile`, `fleetDeleteProfile`, `fleetAssignProfile`, `fleetSyncable`, `fleetRemove`, `fleetSyncNow`, `fleetUpdate`, `fleetInstallUploaded`, `fleetExport`, and `fleetLeave`. Note that `fleetAccept` and `fleetDecline` are rejected if sent over the remote API. The WebSocket broadcast includes a `fleetsync` event upon any change.
+A fleet token also grants access to `getUpdateStatus`, `checkUpdateNow`, `installUpdate` and `installUploadedApk` under `/api/commands/`, to `POST /api/update/upload` and to `GET /api/config/export` for the fleet export, but nothing else. Both pages utilize commands like: `fleetStatus`, `fleetCandidates`, `fleetInvite`, `fleetSetProfile`, `fleetDeleteProfile`, `fleetAssignProfile`, `fleetSyncable`, `fleetRemove`, `fleetSyncNow`, `fleetUpdate`, `fleetInstallUploaded`, `fleetExport`, `fleetAccept`, `fleetDecline` and `fleetLeave`. A fleet token cannot run `fleetAccept` or `fleetDecline`, only an admin session can. The WebSocket broadcast includes a `fleetsync` event upon any change.
 
 ## Encrypted kiosk connections
 

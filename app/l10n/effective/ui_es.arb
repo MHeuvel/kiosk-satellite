@@ -3023,8 +3023,8 @@
       ]
     }
   },
-  "fleetKiosksMemberOfTheFleetAFollowerMustConfirm": "Añade un kiosko encontrado o introduce su dirección IP. El seguidor debe aceptar la invitación en su pantalla.",
-  "@fleetKiosksMemberOfTheFleetAFollowerMustConfirm": {
+  "fleetAddAKioskFollowerAcceptsOnScreenOrRemoteAdmin": "Añade un kiosko encontrado o introduce su dirección IP. El seguidor acepta la invitación en su pantalla o en su administración remota.",
+  "@fleetAddAKioskFollowerAcceptsOnScreenOrRemoteAdmin": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
     "x-locations": {
@@ -3128,19 +3128,6 @@
   },
   "fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail": "A partir de ahora, su configuración sustituye a la de este kiosko en las categorías que sincroniza. Este kiosko conserva su nombre, sus identidades en Home Assistant, Music Assistant y ESPHome y sus dispositivos seleccionados. Puedes salir de la flota cuando quieras desde Configuración > Gestión de flota.",
   "@fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail": {
-    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
-    "description": "Visible label, help or status in this section.",
-    "x-locations": {
-      "device": [
-        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
-      ],
-      "remoteAdmin": [
-        "Fleet Management > Add a kiosk and device invitation prompt"
-      ]
-    }
-  },
-  "fleetConfirmOnTheKioskItselfTheInvitationIsWaiting": "Confirma en el propio kiosko. La invitación aparece en su pantalla y en Configuración > Gestión de flota.",
-  "@fleetConfirmOnTheKioskItselfTheInvitationIsWaiting": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
     "x-locations": {
@@ -12083,17 +12070,6 @@
       ]
     }
   },
-  "overviewOpen": "Abrir",
-  "@overviewOpen": {
-    "context": "Remote admin > Overview > Needs attention",
-    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
-    "x-locations": {
-      "device": [],
-      "remoteAdmin": [
-        "Overview > Needs attention"
-      ]
-    }
-  },
   "overviewUpdate": "Actualizar",
   "@overviewUpdate": {
     "context": "Remote admin > Overview > Needs attention",
@@ -12119,17 +12095,6 @@
       "name": {
         "type": "String"
       }
-    }
-  },
-  "overviewInvitationHelp": "Confirma en la pantalla del kiosko o en Administración de flota en ese dispositivo.",
-  "@overviewInvitationHelp": {
-    "context": "Remote admin > Overview > Needs attention",
-    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
-    "x-locations": {
-      "device": [],
-      "remoteAdmin": [
-        "Overview > Needs attention"
-      ]
     }
   },
   "overviewOutdatedOne": "1 seguidor usa otra versión",

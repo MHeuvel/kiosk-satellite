@@ -892,8 +892,8 @@ class UiStringsEn extends UiStrings {
   String get fleetAddAKiosk => 'Add a kiosk';
 
   @override
-  String get fleetKiosksMemberOfTheFleetAFollowerMustConfirm =>
-      'Add a discovered kiosk or enter its IP address. The follower must accept the invitation on its screen.';
+  String get fleetAddAKioskFollowerAcceptsOnScreenOrRemoteAdmin =>
+      'Add a discovered kiosk or enter its IP address. The follower accepts the invitation on its screen or in its remote admin.';
 
   @override
   String get fleetSendInvitation => 'Send invitation';
@@ -922,10 +922,6 @@ class UiStringsEn extends UiStrings {
   @override
   String get fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail =>
       'Its settings replace this kiosk\'s in the categories it syncs, from now on. This kiosk keeps its name, its Home Assistant, Music Assistant and ESPHome selves and its hardware picks. You can leave the fleet at any time under Settings, Fleet Management.';
-
-  @override
-  String get fleetConfirmOnTheKioskItselfTheInvitationIsWaiting =>
-      'Confirm on the kiosk itself. The invitation is waiting on its screen and under Settings, Fleet Management.';
 
   @override
   String get fleetAccept => 'Accept';
@@ -3262,19 +3258,12 @@ class UiStringsEn extends UiStrings {
   String get overviewAttention => 'Needs attention';
 
   @override
-  String get overviewOpen => 'Open';
-
-  @override
   String get overviewUpdate => 'Update';
 
   @override
   String overviewInvitation(String name) {
     return '$name wants to lead this kiosk';
   }
-
-  @override
-  String get overviewInvitationHelp =>
-      'Confirm on the kiosk screen or under Fleet Management there.';
 
   @override
   String get overviewOutdatedOne => '1 follower runs another release';

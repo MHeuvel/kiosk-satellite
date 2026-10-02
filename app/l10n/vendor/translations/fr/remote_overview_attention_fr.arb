@@ -1,10 +1,8 @@
 {
   "@@locale": "fr",
   "overviewAttention": "Nécessite votre attention",
-  "overviewOpen": "Ouvrir",
   "overviewUpdate": "Mettre à jour",
   "overviewInvitation": "{name} souhaite diriger ce kiosque",
-  "overviewInvitationHelp": "Confirmez sur l'écran du kiosque ou dans Gestion de flotte sur le kiosque.",
   "overviewOutdatedOne": "1 suiveur exécute une autre version",
   "overviewOutdatedMany": "{count} suiveurs exécutent une autre version",
   "overviewSyncWaiting": "{names}. La synchronisation attend la version {version}.",

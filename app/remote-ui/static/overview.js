@@ -1,5 +1,6 @@
 import { overviewLabel, overviewMessageBox as messageBox, overviewModalShell as modalShell } from './overview_labels.js';
-import { overviewText, overviewStatus, cameraError, deviceText, deviceOperationError, intercomText, mediaText, mediaError, navigationText, t, voiceText } from './localization.js';
+import { fleetStatusText } from './fleet-messages.js';
+import { overviewText, overviewStatus, cameraError, deviceText, deviceOperationError, fleetText, intercomText, mediaText, mediaError, navigationText, t, voiceText } from './localization.js';
 import { watchUpdates } from './live.js';
 import { $, api, cmd, state } from './core.js';
 import { attachUpdateInstall, refreshUpdateBadge } from './device.js';
@@ -306,12 +307,20 @@ function renderAttention(items) {
     info.innerHTML = '<div class="name"></div><div class="desc"></div>';
     info.querySelector('.name').textContent = it.name;
     info.querySelector('.desc').textContent = it.desc;
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'btn-ghost';
-    btn.style.flexShrink = '0';
-    it.action(btn);
-    row.append(info, btn);
+    row.appendChild(info);
+    // One button, or several side by side (Decline, Accept). A phone
+    // gives several their own line under the text.
+    const list = it.actions || [it.action];
+    const actions = document.createElement('div');
+    actions.className = 'row-actions' + (list.length > 1 ? ' several' : '');
+    for (const action of list) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn-ghost';
+      action(btn);
+      actions.appendChild(btn);
+    }
+    row.appendChild(actions);
     card.appendChild(row);
   }
 }
@@ -328,6 +337,28 @@ function grantButton(btn, spec) {
     } catch (_) {}
     btn.disabled = false;
     readSource('service').then(() => paintHealth({ filter: false }));
+  };
+}
+// Accept or Decline on a fleet invitation. Both buttons hold still until
+// the answer lands, then the fleet push repaints the list without the row.
+function inviteButton(btn, label, command) {
+  btn.textContent = fleetText(label);
+  btn.onclick = async () => {
+    const both = btn.parentElement.querySelectorAll('button');
+    both.forEach((b) => { b.disabled = true; });
+    let res;
+    try { res = await cmd(command); } catch (_) { res = null; }
+    both.forEach((b) => { b.disabled = false; });
+    if (res && res.ok !== false) {
+      if (command === 'fleetAccept') {
+        showToast({ title: fleetText('Joined the fleet'),
+          message: fleetText('Settings from the leader arrive shortly.'), kind: 'success' });
+      }
+    } else {
+      showToast({ title: fleetText('Fleet Management'),
+        message: fleetStatusText((res && res.error) || 'The device did not answer.'), kind: 'error' });
+    }
+    readSource('fleet').then(() => paintHealth({ filter: false }));
   };
 }
 function openButton(btn, label, tab) {
@@ -505,15 +536,18 @@ function paintHealth({ filter = true } = {}) {
   paintPluginTiles(tiles);
 
   const items = [];
-  // A fleet invitation waits on the kiosk screen: nothing here can answer
-  // it, the row only says where to look. Followers behind the leader's
-  // release hold the sync until they update.
+  // A fleet invitation, answered here or on the kiosk screen. Followers
+  // behind the leader's release hold the sync until they update.
   if (fleet?.invite?.leader) {
+    const leader = fleet.invite.leader;
     items.push({
       key: 'fleet-invite',
-      name: t('overviewInvitation', {name: fleet.invite.leader.name}),
-      desc: overviewText('Confirm on the kiosk screen or under Fleet Management there.'),
-      action: (btn) => openButton(btn, 'Open', 'fleet'),
+      name: t('overviewInvitation', {name: leader.name}),
+      desc: [leader.address, leader.version].filter(Boolean).join(' · '),
+      actions: [
+        (btn) => inviteButton(btn, 'Decline', 'fleetDecline'),
+        (btn) => { btn.className = 'btn-primary'; inviteButton(btn, 'Accept', 'fleetAccept'); },
+      ],
     });
   }
   if (fleet?.leader && (fleet.outdated || []).length) {

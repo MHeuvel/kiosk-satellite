@@ -895,8 +895,8 @@ class UiStringsUk extends UiStrings {
   String get fleetAddAKiosk => 'Додати кіоск';
 
   @override
-  String get fleetKiosksMemberOfTheFleetAFollowerMustConfirm =>
-      'Додайте виявлений кіоск або введіть його IP-адресу. Підпорядкований кіоск повинен підтвердити запрошення на своєму екрані.';
+  String get fleetAddAKioskFollowerAcceptsOnScreenOrRemoteAdmin =>
+      'Додайте виявлений кіоск або введіть його IP-адресу. Підпорядкований кіоск підтверджує запрошення на своєму екрані або у своєму віддаленому адмініструванні.';
 
   @override
   String get fleetSendInvitation => 'Надіслати запрошення';
@@ -925,10 +925,6 @@ class UiStringsUk extends UiStrings {
   @override
   String get fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail =>
       'Його налаштування замінять поточні у вибраних категоріях синхронізації відтепер. Цей кіоск збереже своє ім\'я, інтеграції Home Assistant, Music Assistant, ESPHome та вибір апаратних засобів. Ви можете вийти з групи в будь-який час у розділі Налаштування > Керування групою.';
-
-  @override
-  String get fleetConfirmOnTheKioskItselfTheInvitationIsWaiting =>
-      'Підтвердіть дію на самому кіоску. Запрошення очікує на його екрані та у розділі Налаштування > Керування групою.';
 
   @override
   String get fleetAccept => 'Прийняти';
@@ -3286,19 +3282,12 @@ class UiStringsUk extends UiStrings {
   String get overviewAttention => 'Потребує уваги';
 
   @override
-  String get overviewOpen => 'Відкрити';
-
-  @override
   String get overviewUpdate => 'Оновити';
 
   @override
   String overviewInvitation(String name) {
     return '$name пропонує керувати цим кіоском';
   }
-
-  @override
-  String get overviewInvitationHelp =>
-      'Підтвердьте на екрані кіоска або у розділі керування парком.';
 
   @override
   String get overviewOutdatedOne =>

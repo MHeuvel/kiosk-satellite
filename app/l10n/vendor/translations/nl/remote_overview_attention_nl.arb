@@ -1,10 +1,8 @@
 {
   "@@locale": "nl",
   "overviewAttention": "Heeft aandacht nodig",
-  "overviewOpen": "Openen",
   "overviewUpdate": "Bijwerken",
   "overviewInvitation": "{name} wil deze kiosk leiden",
-  "overviewInvitationHelp": "Bevestig op het kioskscherm of daar via Vlootbeheer.",
   "overviewOutdatedOne": "1 volger draait een andere release",
   "overviewOutdatedMany": "{count} volgers draaien een andere release",
   "overviewSyncWaiting": "{names}. Synchronisatie wacht op versie {version}.",

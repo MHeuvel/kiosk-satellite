@@ -1,7 +1,7 @@
 {
   "@@locale": "fr",
   "fleetAddAKiosk": "Ajouter un kiosque",
-  "fleetKiosksMemberOfTheFleetAFollowerMustConfirm": "Ajoutez un kiosque détecté ou saisissez son adresse IP. Le suiveur doit accepter l'invitation sur son écran.",
+  "fleetAddAKioskFollowerAcceptsOnScreenOrRemoteAdmin": "Ajoutez un kiosque détecté ou saisissez son adresse IP. Le suiveur accepte l'invitation sur son écran ou dans son administration à distance.",
   "fleetSendInvitation": "Envoyer l'invitation",
   "fleetInviteAgain": "Inviter à nouveau",
   "fleetRemoveName": "Retirer {name} ?",
@@ -9,7 +9,6 @@
   "fleetNameWantsToLeadThisKiosk": "{name} souhaite diriger ce kiosque",
   "fleetItsSettingsReplaceThisKioskSInTheCategories": "Ses paramètres remplacent ceux de ce kiosque dans les catégories qu'il synchronise, à partir de maintenant. Ce kiosque conserve son nom et son identité.",
   "fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail": "Ses paramètres remplacent ceux de ce kiosque dans les catégories qu'il synchronise, à partir de maintenant. Ce kiosque conserve son nom, ses identités Home Assistant, Music Assistant et ESPHome ainsi que ses choix matériels. Vous pouvez quitter la flotte à tout moment dans Paramètres, Gestion de flotte.",
-  "fleetConfirmOnTheKioskItselfTheInvitationIsWaiting": "Confirmez directement sur le kiosque. L'invitation attend sur son écran et dans Paramètres, Gestion de flotte.",
   "fleetAccept": "Accepter",
   "fleetLookingForOtherKiosks": "Recherche d'autres kiosques…",
   "fleetNoOtherKioskFoundOnThisNetworkAKiosk": "Aucun kiosque détecté. Utilisez Ajouter par IP pour en trouver un à une adresse connue.",

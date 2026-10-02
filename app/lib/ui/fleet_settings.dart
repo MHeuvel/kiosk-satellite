@@ -204,7 +204,7 @@ class _FleetSettingsPanelState extends State<FleetSettingsPanel> {
             subtitle: Text(
               fleetText(
                 context,
-                'Add a discovered kiosk or enter its IP address. The follower must accept the invitation on its screen.',
+                'Add a discovered kiosk or enter its IP address. The follower accepts the invitation on its screen or in its remote admin.',
               ),
             ),
             trailing: OutlinedButton.icon(

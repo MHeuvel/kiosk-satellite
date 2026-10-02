@@ -1188,8 +1188,8 @@ class FleetSyncManager extends Manager {
           name: 'fleetInvite',
           description:
               'Invite a discovered kiosk or one found by IP address. The '
-              'invitation waits on that kiosk\'s screen; nothing is synced '
-              'until it is accepted there.',
+              'invitation waits on that kiosk until it is accepted on its '
+              'screen or in its remote admin. Nothing syncs before that.',
           params: const {
             'id': 'The kiosk id, from fleetCandidates or fleetLookup',
             'address':
@@ -1344,8 +1344,8 @@ class FleetSyncManager extends Manager {
         Command(
           name: 'fleetAccept',
           description:
-              'Accept the invitation waiting on this kiosk. Answered on '
-              'the kiosk itself; the remote admin refuses it.',
+              'Accept the invitation waiting on this kiosk, from its '
+              'screen or the remote admin.',
           handler: (_) async {
             final r = await accept();
             return r == null
@@ -1358,8 +1358,8 @@ class FleetSyncManager extends Manager {
         Command(
           name: 'fleetDecline',
           description:
-              'Decline the invitation waiting on this kiosk. Answered on '
-              'the kiosk itself; the remote admin refuses it.',
+              'Decline the invitation waiting on this kiosk, from its '
+              'screen or the remote admin.',
           handler: (_) async {
             await decline();
             return const CommandResult.ok(true);

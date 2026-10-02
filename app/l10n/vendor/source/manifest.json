@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "d11cf94dfaf55849fae48284461c2517a7cf537f",
+  "revision": "bb6cb66f0e97b713bbc81106f2e092e4348c5ea9",
   "workingTree": true,
   "files": {
     "about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
@@ -21,7 +21,7 @@
     "esphome_entity_picker_en.arb": "43f71f000a352dac8890878ad4f92051b8982f7cb87e404cc133b4d9278ab676",
     "file_manager_en.arb": "1d8db3a5e6bd21f7348d53ddba807c4e35f7c2656ba79e669db4fcd17a8bdf24",
     "fleet_general_en.arb": "81eedc53b95a855c10d7874fb4c809d08ae5ef0692d011400fa547f841d3a82b",
-    "fleet_invitations_en.arb": "25b8e70be2406987a42689bf72baa30573af503f76429eb2981186ed913a75ea",
+    "fleet_invitations_en.arb": "b49f4f9cf064c501db1df1f7962f01b8df7f5f8ea3d15f47117984b2faaa7df1",
     "fleet_profiles_en.arb": "e9487e27a346f21492ab6a0a6224cf251758965dbfb30bb5a5a8faef94bc3605",
     "fleet_status_en.arb": "a5036bc960e95d661fe0dc330704cc7d335fefa24960810c16e6b7128d9b4e04",
     "fleet_switcher_en.arb": "5991593bdda40d6869f6e2c3402a626b4b2ed8846c3c74135a0b7608cdd374d0",
@@ -59,7 +59,7 @@
     "remote_connection_en.arb": "d438faa4ded295302c4ef4ffc76ef2725bd24cdf12aec5b1ed322ba9474c4c15",
     "remote_login_en.arb": "41f863e4bcc35fd32888b1098539a67b31c40f06f0bf9dbd27c754caf74f8fbf",
     "remote_overview_action_errors_en.arb": "0ebf16c341b25d428f293a81781741b12acc7ec85ab8d9faec03ded19f4dad7c",
-    "remote_overview_attention_en.arb": "3854fcd0c487604b337723f6978646821a29ea01288e3e38f7928b01fa51e87c",
+    "remote_overview_attention_en.arb": "216e92747e8135dbfd5599bd754a3c2d96755a606a83f9105b27c6fe2598476e",
     "remote_overview_controls_en.arb": "3d7577c8816f1e5279142f158432401f6374eee5079a4595ef0a4fde4109dc29",
     "remote_overview_health_en.arb": "dbf7d548571a6232742a3f28a81ff4ce498d405df0eadea6ae2fe278349dde24",
     "remote_overview_screen_en.arb": "8a3fd605d0d74a4cedf1ad25e63d7e9edbf7aef47e0fd1603aee7ec50356d8a6",

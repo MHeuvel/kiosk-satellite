@@ -367,23 +367,38 @@ void main() {
     expect(s, 200);
   });
 
-  test(
-    'accepting and declining are answered on the kiosk, never here',
-    () async {
-      final token = await login();
-      for (final name in ['fleetAccept', 'fleetDecline']) {
-        final (s, b) = await call(
-          'POST',
-          '/api/commands/$name',
-          body: {},
-          token: token,
-        );
-        expect(s, 403, reason: name);
-        expect(b['error'], contains('kiosk'));
-      }
-      expect(executed.where((e) => e.$1 == 'fleetAccept'), isEmpty);
-    },
-  );
+  test('the remote admin can accept and decline an invitation', () async {
+    final token = await login();
+    for (final name in ['fleetAccept', 'fleetDecline']) {
+      final (s, _) = await call(
+        'POST',
+        '/api/commands/$name',
+        body: {},
+        token: token,
+      );
+      expect(s, 200, reason: name);
+    }
+    expect(
+      executed.map((e) => e.$1),
+      containsAll(['fleetAccept', 'fleetDecline']),
+    );
+  });
+
+  test('a fleet token cannot answer an invitation', () async {
+    final token = await fleetToken('lead');
+    await settings.set(defs.fleetLeaderInfo, jsonEncode({'id': 'lead'}));
+    for (final name in ['fleetAccept', 'fleetDecline']) {
+      final (s, _) = await call(
+        'POST',
+        '/api/commands/$name',
+        body: {},
+        token: token,
+      );
+      expect(s, 403, reason: name);
+    }
+    await settings.set(defs.fleetLeaderInfo, '');
+    expect(executed.where((e) => e.$1.startsWith('fleet')), isEmpty);
+  });
 
   test(
     'the APK upload streams the raw body and a fleet token opens it',

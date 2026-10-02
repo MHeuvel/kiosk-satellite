@@ -12,8 +12,8 @@ import { banner, hintRow, messageBox, localizedMessageBox, modalShell, showToast
    One kiosk leads, the others follow. Everything on this tab is drawn from
    the device's fleetStatus command (the same shape the device's own page
    draws) and redrawn on the fleetsync event the device pushes over the
-   socket. The one thing this page cannot do is accept an invitation: that
-   is answered on the kiosk screen. */
+   socket. An invitation is answered here, on Overview or on the kiosk
+   screen. */
 
 const DOCS_URL = 'https://kiosksatellite.com/docs/fleet/';
 
@@ -657,8 +657,18 @@ export async function renderFleetPage({ fetch = true } = {}) {
     const card = document.createElement('div');
     card.className = 'card';
     const l = invite.leader;
-    card.appendChild(kioskRow({ name: t("fleetNameWantsToLeadThisKiosk", {name: l.name}), address: l.address, version: l.version, tags: [tag(fleetText('Leader'), 'device')] }));
-    card.appendChild(hintRow(fleetText('Confirm on the kiosk itself. The invitation is waiting on its screen and under Settings, Fleet Management.')));
+    const row = kioskRow({ name: t("fleetNameWantsToLeadThisKiosk", {name: l.name}), address: l.address, version: l.version, tags: [tag(fleetText('Leader'), 'device')] });
+    const actions = document.createElement('div');
+    actions.className = 'row-actions several';
+    actions.append(
+      button(fleetText('Decline'), 'btn-ghost', () => run('fleetDecline')),
+      button(fleetText('Accept'), 'btn-primary', async () => {
+        const out = await run('fleetAccept');
+        if (out?.ok) showToast({ title: fleetText('Joined the fleet'), message: fleetText('Settings from the leader arrive shortly.'), kind: 'success' });
+      }));
+    row.appendChild(actions);
+    card.appendChild(row);
+    card.appendChild(hintRow(fleetText("Its settings replace this kiosk's in the categories it syncs, from now on. This kiosk keeps its name and identity.")));
     tab.appendChild(card);
   }
 
@@ -684,7 +694,7 @@ export async function renderFleetPage({ fetch = true } = {}) {
     // Followers.
     const [h, card] = titled(fleetText('Followers'));
     for (const f of status.followers || []) card.appendChild(followerRow(f));
-    const add = infoRow(fleetText('Add a kiosk'), fleetText('Add a discovered kiosk or enter its IP address. The follower must accept the invitation on its screen.'));
+    const add = infoRow(fleetText('Add a kiosk'), fleetText('Add a discovered kiosk or enter its IP address. The follower accepts the invitation on its screen or in its remote admin.'));
     add.appendChild(button(fleetText('Add'), 'btn-ghost', async () => {
       const k = await openAddDialog();
       if (!k) return;

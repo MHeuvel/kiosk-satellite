@@ -1000,15 +1000,9 @@ class RemoteManager extends Manager {
     return _json(result.ok ? 200 : 400, result.toJson());
   }
 
-  /// Commands that only the kiosk's own screen may run: accepting a fleet
-  /// invitation and answering an intercom call are confirmations the
-  /// remote admin must not give.
-  static const _deviceOnly = {
-    'fleetAccept',
-    'fleetDecline',
-    'intercomAnswer',
-    'intercomDecline',
-  };
+  /// Commands that only the kiosk's own screen may run: answering an
+  /// intercom call is a confirmation the remote admin must not give.
+  static const _deviceOnly = {'intercomAnswer', 'intercomDecline'};
 
   /// What a fleet token opens: the follower's side of the fleet wire and
   /// the update commands the leader drives.

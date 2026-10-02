@@ -22746,5 +22746,11 @@
     "translation": "7fb6ab12a10263d9b21ed0d7c90e3fb22e9aa282f6027be1a354778ba29d2eff",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "fleetAddAKioskFollowerAcceptsOnScreenOrRemoteAdmin": {
+    "source": "1a605e1506a860e890f8776ac1455af42f32ea40d3363172e5d1cbf1d9075a7c",
+    "translation": "392f0ec9b2be4452309171d6d8ffbe3956c42c39b719380fafcab8b778f0e4f2",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

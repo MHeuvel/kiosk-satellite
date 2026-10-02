@@ -3023,8 +3023,8 @@
       ]
     }
   },
-  "fleetKiosksMemberOfTheFleetAFollowerMustConfirm": "Ajoutez un kiosque détecté ou saisissez son adresse IP. Le suiveur doit accepter l'invitation sur son écran.",
-  "@fleetKiosksMemberOfTheFleetAFollowerMustConfirm": {
+  "fleetAddAKioskFollowerAcceptsOnScreenOrRemoteAdmin": "Ajoutez un kiosque détecté ou saisissez son adresse IP. Le suiveur accepte l'invitation sur son écran ou dans son administration à distance.",
+  "@fleetAddAKioskFollowerAcceptsOnScreenOrRemoteAdmin": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
     "x-locations": {
@@ -3128,19 +3128,6 @@
   },
   "fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail": "Ses paramètres remplacent ceux de ce kiosque dans les catégories qu'il synchronise, à partir de maintenant. Ce kiosque conserve son nom, ses identités Home Assistant, Music Assistant et ESPHome ainsi que ses choix matériels. Vous pouvez quitter la flotte à tout moment dans Paramètres, Gestion de flotte.",
   "@fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail": {
-    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
-    "description": "Visible label, help or status in this section.",
-    "x-locations": {
-      "device": [
-        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
-      ],
-      "remoteAdmin": [
-        "Fleet Management > Add a kiosk and device invitation prompt"
-      ]
-    }
-  },
-  "fleetConfirmOnTheKioskItselfTheInvitationIsWaiting": "Confirmez directement sur le kiosque. L'invitation attend sur son écran et dans Paramètres, Gestion de flotte.",
-  "@fleetConfirmOnTheKioskItselfTheInvitationIsWaiting": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
     "x-locations": {
@@ -12083,17 +12070,6 @@
       ]
     }
   },
-  "overviewOpen": "Ouvrir",
-  "@overviewOpen": {
-    "context": "Remote admin > Overview > Needs attention",
-    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
-    "x-locations": {
-      "device": [],
-      "remoteAdmin": [
-        "Overview > Needs attention"
-      ]
-    }
-  },
   "overviewUpdate": "Mettre à jour",
   "@overviewUpdate": {
     "context": "Remote admin > Overview > Needs attention",
@@ -12119,17 +12095,6 @@
       "name": {
         "type": "String"
       }
-    }
-  },
-  "overviewInvitationHelp": "Confirmez sur l'écran du kiosque ou dans Gestion de flotte sur le kiosque.",
-  "@overviewInvitationHelp": {
-    "context": "Remote admin > Overview > Needs attention",
-    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
-    "x-locations": {
-      "device": [],
-      "remoteAdmin": [
-        "Overview > Needs attention"
-      ]
     }
   },
   "overviewOutdatedOne": "1 suiveur exécute une autre version",

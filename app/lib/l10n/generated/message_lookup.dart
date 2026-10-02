@@ -241,8 +241,8 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'fleetMore' => strings.fleetMore,
       'fleetSearchFollowers' => strings.fleetSearchFollowers,
       'fleetAddAKiosk' => strings.fleetAddAKiosk,
-      'fleetKiosksMemberOfTheFleetAFollowerMustConfirm' =>
-        strings.fleetKiosksMemberOfTheFleetAFollowerMustConfirm,
+      'fleetAddAKioskFollowerAcceptsOnScreenOrRemoteAdmin' =>
+        strings.fleetAddAKioskFollowerAcceptsOnScreenOrRemoteAdmin,
       'fleetSendInvitation' => strings.fleetSendInvitation,
       'fleetInviteAgain' => strings.fleetInviteAgain,
       'fleetItStopsFollowingThisKioskAndKeepsItsSettings' =>
@@ -251,8 +251,6 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.fleetItsSettingsReplaceThisKioskSInTheCategories,
       'fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail' =>
         strings.fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail,
-      'fleetConfirmOnTheKioskItselfTheInvitationIsWaiting' =>
-        strings.fleetConfirmOnTheKioskItselfTheInvitationIsWaiting,
       'fleetAccept' => strings.fleetAccept,
       'fleetLookingForOtherKiosks' => strings.fleetLookingForOtherKiosks,
       'fleetNoOtherKioskFoundOnThisNetworkAKiosk' =>
@@ -878,9 +876,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'deviceRestartAndroidOnly' => strings.deviceRestartAndroidOnly,
       'deviceRestartShizukuRefused' => strings.deviceRestartShizukuRefused,
       'overviewAttention' => strings.overviewAttention,
-      'overviewOpen' => strings.overviewOpen,
       'overviewUpdate' => strings.overviewUpdate,
-      'overviewInvitationHelp' => strings.overviewInvitationHelp,
       'overviewOutdatedOne' => strings.overviewOutdatedOne,
       'overviewThisRelease' => strings.overviewThisRelease,
       'overviewUpdateAvailable' => strings.overviewUpdateAvailable,

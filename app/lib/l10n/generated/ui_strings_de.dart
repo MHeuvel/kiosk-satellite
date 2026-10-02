@@ -904,8 +904,8 @@ class UiStringsDe extends UiStrings {
   String get fleetAddAKiosk => 'Kiosk hinzufügen';
 
   @override
-  String get fleetKiosksMemberOfTheFleetAFollowerMustConfirm =>
-      'Füge einen gefundenen Kiosk hinzu oder gib seine IP-Adresse ein. Der Follower muss die Einladung auf seinem Bildschirm annehmen.';
+  String get fleetAddAKioskFollowerAcceptsOnScreenOrRemoteAdmin =>
+      'Füge einen gefundenen Kiosk hinzu oder gib seine IP-Adresse ein. Der Follower nimmt die Einladung auf seinem Bildschirm oder in seiner Fernverwaltung an.';
 
   @override
   String get fleetSendInvitation => 'Einladung senden';
@@ -934,10 +934,6 @@ class UiStringsDe extends UiStrings {
   @override
   String get fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail =>
       'Seine Einstellungen ersetzen ab sofort die dieses Kiosks in den synchronisierten Kategorien. Dieser Kiosk behält seinen Namen, seine Identitäten in Home Assistant, Music Assistant und ESPHome sowie seine ausgewählten Geräte. Du kannst die Flotte jederzeit unter Einstellungen > Flottenverwaltung verlassen.';
-
-  @override
-  String get fleetConfirmOnTheKioskItselfTheInvitationIsWaiting =>
-      'Bestätige die Einladung direkt auf dem Kiosk. Sie wird auf dem Bildschirm sowie unter Einstellungen > Flottenverwaltung angezeigt.';
 
   @override
   String get fleetAccept => 'Annehmen';
@@ -3341,19 +3337,12 @@ class UiStringsDe extends UiStrings {
   String get overviewAttention => 'Aufmerksamkeit erforderlich';
 
   @override
-  String get overviewOpen => 'Öffnen';
-
-  @override
   String get overviewUpdate => 'Aktualisieren';
 
   @override
   String overviewInvitation(String name) {
     return '$name möchte diesen Kiosk anführen';
   }
-
-  @override
-  String get overviewInvitationHelp =>
-      'Bestätige die Anfrage auf dem Bildschirm des Kiosks oder unter „Flottenverwaltung“ auf diesem Gerät.';
 
   @override
   String get overviewOutdatedOne => '1 Follower verwendet eine andere Version';

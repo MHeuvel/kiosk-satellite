@@ -4,6 +4,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ## Unreleased
 
+### Added
+- **Accept a fleet invitation from the remote admin.** A follower could only answer a leader's invitation on its own screen, and the remote admin refused to. The invitation now shows under **Overview > Needs attention** and on the **Fleet Management** page with the leader's address and version and **Accept** and **Decline** buttons, the same as the device's Fleet Management card. On a phone the two buttons get their own line under the text. A fleet token still cannot answer an invitation, only a signed in admin can. The leader's **Add a kiosk** hint now says so. Translated into Spanish, German, French, Ukrainian and Dutch.
+
 ### Fixed
 - **A camera view opened over another app returns to that app when it closes.** Showing a camera view from Home Assistant, a gesture or the remote admin while another app was in front brought Kiosk Satellite forward and left it there after the view closed (#814). The kiosk now steps back once the view closes, so the app it covered is in front again, the same way it does after a voice interaction. A view opened while the kiosk was already in front stays in the kiosk, and pressing Home to close a view never sends the kiosk back.
 - **Now Playing returns to the dashboard when it closes on its own.** Now Playing opens through a screensaver session, and when it closed after **Hide the paused player after** or the music stopped, that session switched to the configured screensaver, even with the screensaver turned off (#774). A session that playback or a request for Now Playing opened now ends with the view, so the dashboard comes back and the idle timer starts over. A screensaver that was already up when the music started still returns to its own mode.

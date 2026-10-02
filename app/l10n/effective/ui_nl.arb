@@ -3023,8 +3023,8 @@
       ]
     }
   },
-  "fleetKiosksMemberOfTheFleetAFollowerMustConfirm": "Voeg een ontdekte kiosk toe of voer het IP-adres in. De volger moet de uitnodiging op het scherm accepteren.",
-  "@fleetKiosksMemberOfTheFleetAFollowerMustConfirm": {
+  "fleetAddAKioskFollowerAcceptsOnScreenOrRemoteAdmin": "Voeg een ontdekte kiosk toe of voer het IP-adres in. De volger accepteert de uitnodiging op het scherm of via beheer op afstand.",
+  "@fleetAddAKioskFollowerAcceptsOnScreenOrRemoteAdmin": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
     "x-locations": {
@@ -3128,19 +3128,6 @@
   },
   "fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail": "Vanaf nu vervangen de instellingen van de leider de instellingen van deze kiosk in de categorieën die worden gesynchroniseerd. Deze kiosk behoudt zijn naam, de eigen Home Assistant-, Music Assistant- en ESPHome-identiteit en de hardwarekeuzes. Je kunt de vloot op elk moment verlaten via Instellingen → Vlootbeheer.",
   "@fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail": {
-    "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
-    "description": "Visible label, help or status in this section.",
-    "x-locations": {
-      "device": [
-        "Settings > Fleet Management > Add a kiosk and device invitation prompt"
-      ],
-      "remoteAdmin": [
-        "Fleet Management > Add a kiosk and device invitation prompt"
-      ]
-    }
-  },
-  "fleetConfirmOnTheKioskItselfTheInvitationIsWaiting": "Bevestig de uitnodiging op de kiosk zelf. Deze staat op het scherm en onder Instellingen → Vlootbeheer.",
-  "@fleetConfirmOnTheKioskItselfTheInvitationIsWaiting": {
     "context": "Settings > Fleet Management > Add a kiosk and device invitation prompt",
     "description": "Visible label, help or status in this section.",
     "x-locations": {
@@ -12083,17 +12070,6 @@
       ]
     }
   },
-  "overviewOpen": "Openen",
-  "@overviewOpen": {
-    "context": "Remote admin > Overview > Needs attention",
-    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
-    "x-locations": {
-      "device": [],
-      "remoteAdmin": [
-        "Overview > Needs attention"
-      ]
-    }
-  },
   "overviewUpdate": "Bijwerken",
   "@overviewUpdate": {
     "context": "Remote admin > Overview > Needs attention",
@@ -12119,17 +12095,6 @@
       "name": {
         "type": "String"
       }
-    }
-  },
-  "overviewInvitationHelp": "Bevestig op het kioskscherm of daar via Vlootbeheer.",
-  "@overviewInvitationHelp": {
-    "context": "Remote admin > Overview > Needs attention",
-    "description": "Translate the interface text. Keep external names, versions and technical details unchanged.",
-    "x-locations": {
-      "device": [],
-      "remoteAdmin": [
-        "Overview > Needs attention"
-      ]
     }
   },
   "overviewOutdatedOne": "1 volger draait een andere release",

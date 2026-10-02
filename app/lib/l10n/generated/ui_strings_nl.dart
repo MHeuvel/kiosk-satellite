@@ -896,8 +896,8 @@ class UiStringsNl extends UiStrings {
   String get fleetAddAKiosk => 'Een kiosk toevoegen';
 
   @override
-  String get fleetKiosksMemberOfTheFleetAFollowerMustConfirm =>
-      'Voeg een ontdekte kiosk toe of voer het IP-adres in. De volger moet de uitnodiging op het scherm accepteren.';
+  String get fleetAddAKioskFollowerAcceptsOnScreenOrRemoteAdmin =>
+      'Voeg een ontdekte kiosk toe of voer het IP-adres in. De volger accepteert de uitnodiging op het scherm of via beheer op afstand.';
 
   @override
   String get fleetSendInvitation => 'Uitnodiging verzenden';
@@ -926,10 +926,6 @@ class UiStringsNl extends UiStrings {
   @override
   String get fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail =>
       'Vanaf nu vervangen de instellingen van de leider de instellingen van deze kiosk in de categorieën die worden gesynchroniseerd. Deze kiosk behoudt zijn naam, de eigen Home Assistant-, Music Assistant- en ESPHome-identiteit en de hardwarekeuzes. Je kunt de vloot op elk moment verlaten via Instellingen → Vlootbeheer.';
-
-  @override
-  String get fleetConfirmOnTheKioskItselfTheInvitationIsWaiting =>
-      'Bevestig de uitnodiging op de kiosk zelf. Deze staat op het scherm en onder Instellingen → Vlootbeheer.';
 
   @override
   String get fleetAccept => 'Accepteren';
@@ -3301,19 +3297,12 @@ class UiStringsNl extends UiStrings {
   String get overviewAttention => 'Heeft aandacht nodig';
 
   @override
-  String get overviewOpen => 'Openen';
-
-  @override
   String get overviewUpdate => 'Bijwerken';
 
   @override
   String overviewInvitation(String name) {
     return '$name wil deze kiosk leiden';
   }
-
-  @override
-  String get overviewInvitationHelp =>
-      'Bevestig op het kioskscherm of daar via Vlootbeheer.';
 
   @override
   String get overviewOutdatedOne => '1 volger draait een andere release';

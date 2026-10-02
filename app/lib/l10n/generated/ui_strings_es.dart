@@ -901,8 +901,8 @@ class UiStringsEs extends UiStrings {
   String get fleetAddAKiosk => 'Añadir un kiosko';
 
   @override
-  String get fleetKiosksMemberOfTheFleetAFollowerMustConfirm =>
-      'Añade un kiosko encontrado o introduce su dirección IP. El seguidor debe aceptar la invitación en su pantalla.';
+  String get fleetAddAKioskFollowerAcceptsOnScreenOrRemoteAdmin =>
+      'Añade un kiosko encontrado o introduce su dirección IP. El seguidor acepta la invitación en su pantalla o en su administración remota.';
 
   @override
   String get fleetSendInvitation => 'Enviar invitación';
@@ -931,10 +931,6 @@ class UiStringsEs extends UiStrings {
   @override
   String get fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail =>
       'A partir de ahora, su configuración sustituye a la de este kiosko en las categorías que sincroniza. Este kiosko conserva su nombre, sus identidades en Home Assistant, Music Assistant y ESPHome y sus dispositivos seleccionados. Puedes salir de la flota cuando quieras desde Configuración > Gestión de flota.';
-
-  @override
-  String get fleetConfirmOnTheKioskItselfTheInvitationIsWaiting =>
-      'Confirma en el propio kiosko. La invitación aparece en su pantalla y en Configuración > Gestión de flota.';
 
   @override
   String get fleetAccept => 'Aceptar';
@@ -3312,19 +3308,12 @@ class UiStringsEs extends UiStrings {
   String get overviewAttention => 'Requiere atención';
 
   @override
-  String get overviewOpen => 'Abrir';
-
-  @override
   String get overviewUpdate => 'Actualizar';
 
   @override
   String overviewInvitation(String name) {
     return '$name quiere dirigir este kiosko';
   }
-
-  @override
-  String get overviewInvitationHelp =>
-      'Confirma en la pantalla del kiosko o en Administración de flota en ese dispositivo.';
 
   @override
   String get overviewOutdatedOne => '1 seguidor usa otra versión';

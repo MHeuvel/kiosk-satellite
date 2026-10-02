@@ -1692,8 +1692,8 @@ abstract class UiStrings {
   /// Visible label, help or status in this section.
   ///
   /// In en, this message translates to:
-  /// **'Add a discovered kiosk or enter its IP address. The follower must accept the invitation on its screen.'**
-  String get fleetKiosksMemberOfTheFleetAFollowerMustConfirm;
+  /// **'Add a discovered kiosk or enter its IP address. The follower accepts the invitation on its screen or in its remote admin.'**
+  String get fleetAddAKioskFollowerAcceptsOnScreenOrRemoteAdmin;
 
   /// Visible label, help or status in this section.
   ///
@@ -1736,12 +1736,6 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Its settings replace this kiosk\'s in the categories it syncs, from now on. This kiosk keeps its name, its Home Assistant, Music Assistant and ESPHome selves and its hardware picks. You can leave the fleet at any time under Settings, Fleet Management.'**
   String get fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail;
-
-  /// Visible label, help or status in this section.
-  ///
-  /// In en, this message translates to:
-  /// **'Confirm on the kiosk itself. The invitation is waiting on its screen and under Settings, Fleet Management.'**
-  String get fleetConfirmOnTheKioskItselfTheInvitationIsWaiting;
 
   /// Visible label, help or status in this section.
   ///
@@ -5750,12 +5744,6 @@ abstract class UiStrings {
   /// Translate the interface text. Keep external names, versions and technical details unchanged.
   ///
   /// In en, this message translates to:
-  /// **'Open'**
-  String get overviewOpen;
-
-  /// Translate the interface text. Keep external names, versions and technical details unchanged.
-  ///
-  /// In en, this message translates to:
   /// **'Update'**
   String get overviewUpdate;
 
@@ -5764,12 +5752,6 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'{name} wants to lead this kiosk'**
   String overviewInvitation(String name);
-
-  /// Translate the interface text. Keep external names, versions and technical details unchanged.
-  ///
-  /// In en, this message translates to:
-  /// **'Confirm on the kiosk screen or under Fleet Management there.'**
-  String get overviewInvitationHelp;
 
   /// Translate the interface text. Keep external names, versions and technical details unchanged.
   ///
