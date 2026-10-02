@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **The microphone works again on devices that record silence from Android's microphone source.** 2026.10.2 moved capture to the microphone source a recorder app uses, and on some firmware, such as the Meta Portal Mini's, that source delivers nothing but zeros, so the wake word stopped responding and the mic level stayed empty (#808). When every format on the microphone source reads silence, capture now tries Android's voice recognition source and then the call source the kiosk used before 2026.10.2. Once one of them delivers audio, the kiosk opens it first until the app restarts. Devices that already hear on the microphone source never reach them.
+
 ## v2026.10.2 - 2026-10-02
 
 ### Fixed

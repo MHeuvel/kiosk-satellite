@@ -34,6 +34,9 @@ import kotlin.math.max
  * over a day on a Galaxy Tab S8 and let the assistant hear itself on
  * most others, and the effects did nothing or whispered the capture on
  * the rest. The microphone source is the same path many recorder apps use.
+ * Some firmware feeds nothing but zeros to MIC (a Meta Portal Mini), so
+ * the format ladder ends on the voice recognition and call sources: a
+ * device reaches them only when every MIC format read silence.
  *
  * The tuning arrives as stream arguments, which is why a change of any of
  * it reopens capture.
@@ -83,6 +86,19 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         /** How long after a sound a muting microphone may still read zeros. */
         private const val PLAYBACK_MUTE_TAIL_MS = 2000L
 
+        /**
+         * A fallback source rung that delivered audio while MIC read
+         * zeros. Later opens start on it rather than spend seconds of
+         * deafness walking the MIC formats again.
+         */
+        @Volatile private var provenFallback: Shape? = null
+
+        private fun sourceName(source: Int): String = when (source) {
+            MediaRecorder.AudioSource.MIC -> "mic"
+            MediaRecorder.AudioSource.VOICE_RECOGNITION -> "voice_recognition"
+            MediaRecorder.AudioSource.VOICE_COMMUNICATION -> "voice_communication"
+            else -> "source $source"
+        }
 
         /**
          * The sound card's own format on the devices that cannot do 16 kHz
@@ -153,7 +169,6 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
     override fun onListen(arguments: Any?, sink: EventChannel.EventSink?) {
         if (sink == null || recording) return
         val args = arguments as? Map<*, *>
-        val source = MediaRecorder.AudioSource.MIC
         val unprocessedSupported = appContext.getSystemService(AudioManager::class.java)
             .getProperty(AudioManager.PROPERTY_SUPPORT_AUDIO_SOURCE_UNPROCESSED)
         val wantSoftwareAec = args?.get("softwareAec") != false
@@ -187,15 +202,18 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         // lists, so a HAL that matches by mask finds it.
         val indexed = wantChannel >= 1
         val ladder = captureLadder(hardwareFormat, chans, indexed)
+        // A proven fallback first, then the ladder in order.
+        val proven = ladder.indexOf(provenFallback)
+        val order = if (proven > 0) listOf(proven) + ladder.indices.filter { it != proven } else ladder.indices.toList()
         var step = 0
         var rec: AudioRecord? = null
         try {
-            while (step < ladder.size) {
-                rec = openRecord(source, ladder[step], indexed)
+            for ((i, rung) in order.withIndex()) {
+                step = rung
+                rec = openRecord(ladder[rung], indexed)
                 if (rec != null) break
-                Log.w(TAG, "${ladder[step]} capture refused" +
-                    (if (step + 1 < ladder.size) "; trying ${ladder[step + 1]}" else ""))
-                step++
+                Log.w(TAG, "${ladder[rung]} capture refused" +
+                    (if (i + 1 < order.size) "; trying ${ladder[order[i + 1]]}" else ""))
             }
         } catch (e: SecurityException) {
             mainHandler.post { sink.error("permission", "RECORD_AUDIO not granted", null) }
@@ -208,7 +226,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         record = opened
         Log.i(
             TAG,
-            "capture opening (source=MIC unprocessed-supported=$unprocessedSupported device=${selector ?: "automatic"} " +
+            "capture opening (source=${sourceName(ladder[step].source)} unprocessed-supported=$unprocessedSupported device=${selector ?: "automatic"} " +
                 "gain=${"%.1f".format(gainDbOf(gain))}dB echo-cancellation=$wantSoftwareAec ns=$wantNs" +
                 (if (wantChannel >= 1) " channel=$wantChannel/${ladder[step].channels}" else "") +
                 " format=${ladder[step]}" +
@@ -262,7 +280,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
             }
 
             fun tryOpen(rung: Int): AudioRecord? = try {
-                openRecord(source, ladder[rung], indexed)
+                openRecord(ladder[rung], indexed)
             } catch (_: SecurityException) {
                 null
             }
@@ -435,6 +453,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
                     zeroRun = 0
                     if (!silent) {
                         walk.audible()
+                        if (shape.source != MediaRecorder.AudioSource.MIC) provenFallback = shape
                         if (walk.step > 0 && !announcedAudio) {
                             announcedAudio = true
                             Log.i(TAG, "$shape capture is delivering audio")
@@ -464,11 +483,16 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         }
     }
 
-    /** A capture shape: rate and channel count, as a log-friendly string. */
-    data class Shape(val rateHz: Int, val channels: Int) {
+    /** A capture shape: rate, channel count and source, as a log-friendly string. */
+    data class Shape(
+        val rateHz: Int,
+        val channels: Int,
+        val source: Int = MediaRecorder.AudioSource.MIC,
+    ) {
         /** 80 ms of interleaved PCM16 at this shape. */
         val chunkBytes: Int get() = CHUNK_BYTES * (rateHz / SAMPLE_RATE) * channels
-        override fun toString() = "${rateHz}Hz x$channels"
+        override fun toString() = "${rateHz}Hz x$channels" +
+            if (source == MediaRecorder.AudioSource.MIC) "" else " ${sourceName(source)}"
     }
 
     /**
@@ -479,7 +503,9 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
      * array's own), so only the rate varies, with the plain mono open as
      * the last rung for a device that cannot satisfy the pick (mic swapped
      * for a mono one, a ROM that refuses index masks): capture beats
-     * silence.
+     * silence. The voice recognition and call sources close the ladder
+     * for firmware that feeds MIC nothing but zeros (a Meta Portal Mini
+     * captured on the call source and read silence on MIC).
      */
     private fun captureLadder(hardwareFormat: Boolean, chans: Int, indexed: Boolean): List<Shape> {
         val usual = Shape(SAMPLE_RATE, chans)
@@ -489,7 +515,11 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
             listOf(Shape(HARDWARE_RATE, HARDWARE_CHANNELS), Shape(HARDWARE_RATE, 1))
         }
         val ladder = if (hardwareFormat) card + usual else listOf(usual) + card
-        return if (indexed) ladder + Shape(SAMPLE_RATE, 1) else ladder
+        val mic = if (indexed) ladder + Shape(SAMPLE_RATE, 1) else ladder
+        return mic + listOf(
+            Shape(SAMPLE_RATE, 1, MediaRecorder.AudioSource.VOICE_RECOGNITION),
+            Shape(SAMPLE_RATE, 1, MediaRecorder.AudioSource.VOICE_COMMUNICATION),
+        )
     }
 
     /**
@@ -501,7 +531,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
      * without a pick fall back to the index mask, the only mask there is
      * past two channels.
      */
-    private fun openRecord(source: Int, shape: Shape, indexed: Boolean): AudioRecord? {
+    private fun openRecord(shape: Shape, indexed: Boolean): AudioRecord? {
         val rateHz = shape.rateHz
         val channels = shape.channels
         val minBuf = AudioRecord.getMinBufferSize(
@@ -525,14 +555,14 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
             .build()
         val rec = try {
             AudioRecord.Builder()
-                .setAudioSource(source)
+                .setAudioSource(shape.source)
                 .setAudioFormat(format)
                 .setBufferSizeInBytes(max(minBuf, chunk * 4))
                 .build()
         } catch (e: SecurityException) {
             throw e
         } catch (e: Exception) {
-            Log.w(TAG, "AudioRecord open at $rateHz Hz x$channels failed: ${e.message}")
+            Log.w(TAG, "AudioRecord open at $shape failed: ${e.message}")
             return null
         }
         if (rec.state != AudioRecord.STATE_INITIALIZED) {
