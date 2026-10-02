@@ -85,6 +85,11 @@
     <!-- Starting our Activity from behind another app on Android 10+. -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+    <!-- The System UI guard's shade collapse below Android 12
+         (KioskAccessibilityService). Normal protection: granted at
+         install. -->
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR"
+        android:maxSdkVersion="30"/>
     <!-- The kiosk's own alarms: setAlarmClock rings exactly and in Doze.
          USE_EXACT_ALARM is granted at install to an alarm clock app from
          Android 13; SCHEDULE_EXACT_ALARM covers 12 and 12L, where it is
