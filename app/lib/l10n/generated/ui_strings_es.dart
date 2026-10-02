@@ -12413,6 +12413,25 @@ class UiStringsEs extends UiStrings {
       'Di «stop» para cortar una respuesta, una alerta de temporizador o un anuncio.';
 
   @override
+  String get settingVoiceWakeArbitrationTitle =>
+      'Activar el arbitraje de la palabra de activación';
+
+  @override
+  String get settingVoiceWakeArbitrationDescription =>
+      'Cuando varios kioskos oyen la palabra de activación, responde el más cercano. Aumenta la latencia de detección.';
+
+  @override
+  String get settingVoiceWakeArbitrationWindowTitle => 'Ventana de arbitraje';
+
+  @override
+  String get settingVoiceWakeArbitrationWindowDescription =>
+      'Cuánto esperar a los otros kioskos. Súbela si un kiosko más lento pierde cuando está más cerca.';
+
+  @override
+  String get voiceSectionWakeArbitration =>
+      'Arbitraje de la palabra de activación';
+
+  @override
   String get voiceOptionSlightly => 'Poco sensible';
 
   @override

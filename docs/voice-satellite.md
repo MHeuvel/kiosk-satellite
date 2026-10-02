@@ -73,6 +73,7 @@ When Home Assistant runs the integration, onboarding offers the same migration i
 | | Wake word 1 and 2 | Home Assistant's selects. Wake word 2 is answered by Assistant 2. |
 | | Wake word sensitivity, Wake word noise gate | How easily the wake word triggers. The noise gate skips inference while the room is quiet to save CPU. |
 | | Stop word interruption | Say "stop" to cut off an answer, a timer alert or an announcement. It also closes a result panel. |
+| | Wake Word Arbitration | When several kiosks hear the wake word, only the closest one answers. See [Wake word arbitration](#wake-word-arbitration). |
 | | Custom Models | Your own wake word models. See [Custom wake word models](custom-wake-words.md). |
 | Appearance | Skin | Kiosk Satellite, Default, Google Home, Home Assistant, Alexa, Siri, Retro Terminal, Waveform, Lens Flares or Ink Blobs. **Preview** shows it for five seconds. |
 | | Theme, Background, Text size, Reactive activity bar | Light or dark, how much of the dashboard shows through, the text size and the bar that follows your voice and the answer. |
@@ -83,6 +84,21 @@ When Home Assistant runs the integration, onboarding offers the same migration i
 | Chimes | Play chimes, per-event sounds | The wake, done, error, timer and announcement sounds, built in or from the sounds folder. |
 
 The **Wake Word Tester** and **Wake word diagnostics** are covered in [Microphone settings](microphone.md).
+
+## Wake word arbitration
+
+Kiosks in the same room or in open spaces often hear the same wake word. Without arbitration, Home Assistant answers whichever kiosk reaches it first, which is the fastest one and not always the one you spoke to. Turn on **Enable wake word arbitration** on every kiosk that should take part, under **Wake Word > Wake Word Arbitration**.
+
+Home Assistant only settles duplicates for Assist pipelines. A wake word that starts a [realtime conversation](#realtime-conversations) goes straight to the provider, so without arbitration every kiosk that heard it opens its own conversation.
+
+When a kiosk hears the wake word, it broadcasts how loud the wake word reached it over its own background noise and waits for the **Arbitration window**. If another kiosk heard the same wake word louder, it goes back to listening without a chime or anything on screen. The loudest one answers. Each kiosk compares against its own noise floor, so a hot microphone does not win just for being loud, but very different microphones can still favor one model over another.
+
+| Setting | What it does |
+| --- | --- |
+| Enable wake word arbitration | Takes part in arbitration with the other kiosks on the network. |
+| Arbitration window | How long a kiosk waits to hear from the others, 100 to 500 ms (400 by default). It has to cover how much later a slow device detects the wake word plus the trip over Wi-Fi, where access points can hold broadcast traffic for a few hundred milliseconds. Raise it if a closer kiosk sometimes loses or both answer. Every wake waits this long, and nothing you say during the wait is lost. |
+
+The kiosks talk over UDP broadcast on port 2330 and need nothing else turned on: no fleet, intercom or remote admin. They have to be on the same network segment, and an access point that blocks broadcast traffic between wireless clients stops arbitration. When a claim does not arrive, each kiosk answers as it would without arbitration. A muted kiosk does not take part.
 
 ## Realtime conversations
 

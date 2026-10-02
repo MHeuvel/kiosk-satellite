@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "6d40a4d1437cc65d0a0d98117ff834b3039c2f09",
+  "revision": "b6835bf550e9a5dc58a6472a4976af8bc5dac976",
   "workingTree": true,
   "files": {
     "about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
@@ -180,7 +180,7 @@
     "settings_voice_satellite_setup_en.arb": "5d6e328bc7d48614c3b6af3e3ee2ecd16c9e36b38991a5f2e9477b2ac0584874",
     "settings_voice_satellite_tester_en.arb": "fe39cf6c05dec11c5bde90939f5098ecf79a6457e407dfee3a0a4a3d3cf13f12",
     "settings_voice_satellite_timers_en.arb": "118a416c99b72ea2338cad52d80dae774106ccf903ad25405b4a004708355aa1",
-    "settings_voice_satellite_wake_word_en.arb": "b2c03459945d0b08cdd20c3335d2a5e35a4b459e53a26fa36b8fdbcb14940158",
+    "settings_voice_satellite_wake_word_en.arb": "e32b28bce43529134089bf9a9a1c60b39bb6ec6aca52af7f4b556e2cd024266c",
     "settings_web_browsing_cache_security_en.arb": "505532dcf425da4b416891b480fa153a0774a1ac7aa2855412d0defc3f935f5b",
     "settings_web_browsing_navigation_en.arb": "ce4e29dcf1800a203436a4aad1575976dea606df52b005d088f6932886c6495a",
     "settings_web_browsing_scripts_en.arb": "90d79b0f38721340dd1b07041ebb40447869c9983daf6e0a772225a3974e3784",

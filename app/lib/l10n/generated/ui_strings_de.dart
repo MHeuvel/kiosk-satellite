@@ -12452,6 +12452,24 @@ class UiStringsDe extends UiStrings {
       'Sag „stop“, um eine Antwort, einen Timer-Alarm oder eine Durchsage abzubrechen.';
 
   @override
+  String get settingVoiceWakeArbitrationTitle =>
+      'Aktivierungswort-Arbitrierung aktivieren';
+
+  @override
+  String get settingVoiceWakeArbitrationDescription =>
+      'Wenn mehrere Kiosks das Aktivierungswort hören, antwortet der nächstgelegene. Erhöht die Erkennungslatenz.';
+
+  @override
+  String get settingVoiceWakeArbitrationWindowTitle => 'Arbitrierungsfenster';
+
+  @override
+  String get settingVoiceWakeArbitrationWindowDescription =>
+      'Wie lange auf die anderen Kiosks gewartet wird. Erhöhe den Wert, wenn ein langsamerer Kiosk verliert, obwohl er näher ist.';
+
+  @override
+  String get voiceSectionWakeArbitration => 'Aktivierungswort-Arbitrierung';
+
+  @override
   String get voiceOptionSlightly => 'Wenig empfindlich';
 
   @override

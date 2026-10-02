@@ -4049,6 +4049,15 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'settingVoiceStopWordTitle' => strings.settingVoiceStopWordTitle,
       'settingVoiceStopWordDescription' =>
         strings.settingVoiceStopWordDescription,
+      'settingVoiceWakeArbitrationTitle' =>
+        strings.settingVoiceWakeArbitrationTitle,
+      'settingVoiceWakeArbitrationDescription' =>
+        strings.settingVoiceWakeArbitrationDescription,
+      'settingVoiceWakeArbitrationWindowTitle' =>
+        strings.settingVoiceWakeArbitrationWindowTitle,
+      'settingVoiceWakeArbitrationWindowDescription' =>
+        strings.settingVoiceWakeArbitrationWindowDescription,
+      'voiceSectionWakeArbitration' => strings.voiceSectionWakeArbitration,
       'voiceOptionSlightly' => strings.voiceOptionSlightly,
       'voiceOptionModerately' => strings.voiceOptionModerately,
       'voiceOptionVery' => strings.voiceOptionVery,

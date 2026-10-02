@@ -12294,6 +12294,24 @@ class UiStringsUk extends UiStrings {
       'Скажіть «stop», щоб перервати відповідь, сповіщення таймера або оголошення.';
 
   @override
+  String get settingVoiceWakeArbitrationTitle =>
+      'Увімкнути арбітраж слова активації';
+
+  @override
+  String get settingVoiceWakeArbitrationDescription =>
+      'Коли кілька кіосків чують слово активації, відповідає найближчий. Збільшує затримку виявлення.';
+
+  @override
+  String get settingVoiceWakeArbitrationWindowTitle => 'Вікно арбітражу';
+
+  @override
+  String get settingVoiceWakeArbitrationWindowDescription =>
+      'Як довго чекати на інші кіоски. Збільште, якщо повільніший кіоск програє, хоча він ближче.';
+
+  @override
+  String get voiceSectionWakeArbitration => 'Арбітраж слова активації';
+
+  @override
   String get voiceOptionSlightly => 'Низька чутливість';
 
   @override

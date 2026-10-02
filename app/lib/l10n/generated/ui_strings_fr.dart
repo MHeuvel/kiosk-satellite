@@ -12405,6 +12405,24 @@ class UiStringsFr extends UiStrings {
       'Dites « stop » pour interrompre une réponse, une alerte de minuteur ou une annonce.';
 
   @override
+  String get settingVoiceWakeArbitrationTitle =>
+      'Activer l\'arbitrage du mot de réveil';
+
+  @override
+  String get settingVoiceWakeArbitrationDescription =>
+      'Quand plusieurs kiosques entendent le mot de réveil, le plus proche répond. Augmente la latence de détection.';
+
+  @override
+  String get settingVoiceWakeArbitrationWindowTitle => 'Fenêtre d\'arbitrage';
+
+  @override
+  String get settingVoiceWakeArbitrationWindowDescription =>
+      'Durée d\'attente des autres kiosques. Augmentez-la si un kiosque plus lent perd alors qu\'il est plus proche.';
+
+  @override
+  String get voiceSectionWakeArbitration => 'Arbitrage du mot de réveil';
+
+  @override
   String get voiceOptionSlightly => 'Peu sensible';
 
   @override

@@ -1648,6 +1648,14 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingVoiceStopWordTitle",
     "description": "settingVoiceStopWordDescription",
   },
+  "voice.wake_arbitration": {
+    "title": "settingVoiceWakeArbitrationTitle",
+    "description": "settingVoiceWakeArbitrationDescription",
+  },
+  "voice.wake_arbitration_window_ms": {
+    "title": "settingVoiceWakeArbitrationWindowTitle",
+    "description": "settingVoiceWakeArbitrationWindowDescription",
+  },
   "voice.skin": {
     "title": "voiceSkin",
     "description": "voiceSkinHelp",

@@ -44157,6 +44157,31 @@
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   },
+  "settingVoiceWakeArbitrationTitle": "Увімкнути арбітраж слова активації",
+  "@settingVoiceWakeArbitrationTitle": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceWakeArbitrationDescription": "Коли кілька кіосків чують слово активації, відповідає найближчий. Збільшує затримку виявлення.",
+  "@settingVoiceWakeArbitrationDescription": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceWakeArbitrationWindowTitle": "Вікно арбітражу",
+  "@settingVoiceWakeArbitrationWindowTitle": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceWakeArbitrationWindowDescription": "Як довго чекати на інші кіоски. Збільште, якщо повільніший кіоск програє, хоча він ближче.",
+  "@settingVoiceWakeArbitrationWindowDescription": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceSectionWakeArbitration": "Арбітраж слова активації",
+  "@voiceSectionWakeArbitration": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
   "voiceOptionSlightly": "Низька чутливість",
   "@voiceOptionSlightly": {
     "context": "Settings > Voice Satellite > Wake Word",

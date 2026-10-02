@@ -158,6 +158,8 @@ void main() {
       defs.voiceWakeWordSensitivity.key,
       defs.voiceNoiseGate.key,
       defs.voiceStopWord.key,
+      defs.voiceWakeArbitration.key,
+      defs.voiceWakeArbitrationWindowMs.key,
     ]);
     // Diagnostics is a page of its own, opened from the tester's group.
     expect(defs.wakeWordDiagnostics.subpage, 'Wake word diagnostics');

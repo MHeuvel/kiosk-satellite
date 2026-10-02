@@ -38,9 +38,14 @@ class PreRollChunk {
 /// clock shared with the compute isolate: a detection reports the absolute
 /// sample the wake word ended on, which indexes straight back into here.
 class PreRollBuffer {
-  PreRollBuffer({this.maxChunks = 8}); // 8 x 80 ms = 640 ms
+  PreRollBuffer({this.maxChunks = baseChunks});
 
-  final int maxChunks;
+  /// 8 x 80 ms = 640 ms.
+  static const baseChunks = 8;
+
+  /// Grown while wake word arbitration holds a wake back, so the command
+  /// spoken during the wait is still here when the turn asks for it.
+  int maxChunks;
   final List<PreRollChunk> _chunks = [];
   int _absSamples = 0;
 
@@ -56,10 +61,14 @@ class PreRollBuffer {
   }
 
   /// Buffered audio at or after [from], oldest first. A null [from] yields
-  /// everything: nothing was detected, so there is no wake word to trim.
+  /// the usual 640 ms: nothing was detected, so there is no wake word to
+  /// trim, and a pre-roll grown for arbitration would reach too far back.
   List<Uint8List> flush(int? from) {
     final out = <Uint8List>[];
-    for (final chunk in _chunks) {
+    final skip = from == null && _chunks.length > baseChunks
+        ? _chunks.length - baseChunks
+        : 0;
+    for (final chunk in _chunks.skip(skip)) {
       final pcm = from == null ? chunk.bytes : chunk.after(from);
       if (pcm != null && pcm.isNotEmpty) out.add(pcm);
     }
@@ -238,6 +247,10 @@ abstract class IsolateWakeEngine extends WakeWordEngine {
       _recent ??= PcmRing(WakeWordEngine.recentAudioLimit.inMilliseconds * 16);
     }
   }
+
+  @override
+  set preRollExtra(Duration extra) => _preRoll.maxChunks =
+      PreRollBuffer.baseChunks + (extra.inMilliseconds / 80).ceil();
 
   @override
   Uint8List? recentAudio(Duration length) =>

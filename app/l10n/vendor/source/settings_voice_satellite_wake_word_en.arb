@@ -666,6 +666,31 @@
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   },
+  "settingVoiceWakeArbitrationTitle": "Enable wake word arbitration",
+  "@settingVoiceWakeArbitrationTitle": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceWakeArbitrationDescription": "When several kiosks hear the wake word, the closest one answers. Increases detection latency.",
+  "@settingVoiceWakeArbitrationDescription": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceWakeArbitrationWindowTitle": "Arbitration window",
+  "@settingVoiceWakeArbitrationWindowTitle": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceWakeArbitrationWindowDescription": "How long to wait for the other kiosks. Raise it if a slower kiosk loses when it is closer.",
+  "@settingVoiceWakeArbitrationWindowDescription": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceSectionWakeArbitration": "Wake Word Arbitration",
+  "@voiceSectionWakeArbitration": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
   "voiceOptionSlightly": "Slightly sensitive",
   "@voiceOptionSlightly": {
     "context": "Settings > Voice Satellite > Wake Word",

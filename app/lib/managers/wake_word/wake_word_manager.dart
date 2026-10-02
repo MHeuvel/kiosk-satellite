@@ -16,6 +16,7 @@ import 'background_listening.dart';
 import 'engine.dart';
 import 'model_cache.dart';
 import 'system_permissions.dart';
+import 'wake_arbitration.dart';
 import 'wake_diagnostics.dart';
 import 'mww/mww_engine.dart';
 import 'mww/mww_probe.dart';
@@ -306,8 +307,63 @@ class WakeWordManager extends Manager
   /// activation. Nobody else pays for the buffer.
   void _applyRecording() {
     _engine
-      ..recordAudio = _testers > 0 || _diagnosticsOn
+      ..recordAudio = _testers > 0 || _diagnosticsOn || _arbitrationOn
+      ..preRollExtra = _arbitrationOn ? _arbitrationWindow : Duration.zero
       ..onNearMiss = _diagnosticsOn ? _onNearMiss : null;
+  }
+
+  /// Wake word arbitration: only the native satellite takes part, and only
+  /// with the switch on. The arbiter is made on first use and kept.
+  bool get _arbitrationOn =>
+      enabled &&
+      _settings.get(defs.voiceRuntime) == 'native' &&
+      _settings.get(defs.voiceEnabled) &&
+      _settings.get(defs.voiceWakeArbitration);
+
+  Duration get _arbitrationWindow => Duration(
+    milliseconds: _settings
+        .get(defs.voiceWakeArbitrationWindowMs)
+        .clamp(100, 500)
+        .toInt(),
+  );
+
+  @visibleForTesting
+  WakeArbiter? arbiter;
+
+  Future<void> _applyArbitration() async {
+    _applyRecording();
+    if (_arbitrationOn) {
+      await (arbiter ??= WakeArbiter(log)).start();
+    } else {
+      await arbiter?.stop();
+    }
+  }
+
+  /// Settle with the other kiosks that heard this wake word. True when
+  /// this kiosk answers: it won, or there was nothing to settle.
+  Future<bool> _arbitrate(WakeWordModelRef model) async {
+    final a = arbiter;
+    // A muted kiosk answers nothing, so it must not win for the others.
+    if (a == null || !a.running || _settings.get(defs.voiceMute)) return true;
+    final pcm = _engine.recentAudio(wakeEnergyWindow);
+    final energy = pcm == null ? null : wakeEnergy(pcm);
+    if (energy == null) return true;
+    final phrase = model.wakeWord.isEmpty ? model.id : model.wakeWord;
+    final r = await a.contend(
+      phrase: phrase,
+      energy: energy,
+      window: _arbitrationWindow,
+    );
+    final mine = energy.toStringAsFixed(1);
+    final heard = r.heard.isEmpty ? '' : '; heard ${r.heard.join(', ')}';
+    log.info(
+      name,
+      r.won
+          ? 'arbitration: answering at $mine dB$heard'
+          : 'arbitration: ${r.winner} answers instead, '
+                'this kiosk heard $mine dB$heard',
+    );
+    return r.won;
   }
 
   /// At most one near miss per this, so one noisy conversation cannot fill
@@ -711,6 +767,7 @@ class WakeWordManager extends Manager
     // Saved activations belong to a switch that is on; anything left over
     // from one turned off mid-write goes now.
     unawaited(_diagnosticsOn ? diagnostics.load() : diagnostics.clear());
+    unawaited(_applyArbitration());
     diagnostics.addListener(
       () => bus.publish(const RemoteStatusChanged('wakeword-activations')),
     );
@@ -769,6 +826,11 @@ class WakeWordManager extends Manager
         // The remote list shows or hides with the switch, even when there
         // is nothing to clear.
         bus.publish(const RemoteStatusChanged('wakeword-activations'));
+      } else if (e.key == defs.voiceWakeArbitration.key ||
+          e.key == defs.voiceWakeArbitrationWindowMs.key ||
+          e.key == defs.voiceEnabled.key ||
+          e.key == defs.voiceRuntime.key) {
+        unawaited(_applyArbitration());
       } else if (e.key == defs.wakeWordPreferFp32.key) {
         // Models are fetched at engine start; a precision flip needs the
         // same stop/start to re-download as a mic change does.
@@ -1643,6 +1705,12 @@ class WakeWordManager extends Manager
     // Before any await: the clip must end at the detection, not wherever
     // the mic has got to once the screen is on.
     _recordActivation(model, simulated: simulated);
+    // Another kiosk heard it louder: back to listening before anything
+    // about the turn shows, chimes or reaches Home Assistant.
+    if (!simulated && !await _arbitrate(model)) {
+      setActive(true);
+      return;
+    }
     // A dark panel wakes first, before anything else about the turn:
     // someone spoke to the device, and the UI the turn is about to show
     // must land on a lit screen. Covers the screensaver's screen-off timer
@@ -1757,6 +1825,7 @@ class WakeWordManager extends Manager
     await _remoteObservers?.cancel();
     _stopMicLevelWatch();
     _resumeTimer?.cancel();
+    await arbiter?.stop();
     await _engine.stop();
     diagnostics.dispose();
   }

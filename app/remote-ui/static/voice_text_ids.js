@@ -176,6 +176,7 @@ export const voiceTextMessageIds = {
   "Pills": "voiceSectionPills",
   "Speaker": "voiceSectionSpeaker",
   "Wake word and command": "voiceSectionWakeCommand",
+  "Wake Word Arbitration": "voiceSectionWakeArbitration",
   "When a timer ends": "voiceSectionTimerEnds",
   "The ESPHome server is off.": "voiceStatusEsphomeOff",
   "This kiosk is not added to Home Assistant yet.": "voiceStatusNotAdded",

@@ -44157,6 +44157,31 @@
     "context": "Settings > Voice Satellite > Wake Word",
     "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   },
+  "settingVoiceWakeArbitrationTitle": "Activar el arbitraje de la palabra de activación",
+  "@settingVoiceWakeArbitrationTitle": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceWakeArbitrationDescription": "Cuando varios kioskos oyen la palabra de activación, responde el más cercano. Aumenta la latencia de detección.",
+  "@settingVoiceWakeArbitrationDescription": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceWakeArbitrationWindowTitle": "Ventana de arbitraje",
+  "@settingVoiceWakeArbitrationWindowTitle": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceWakeArbitrationWindowDescription": "Cuánto esperar a los otros kioskos. Súbela si un kiosko más lento pierde cuando está más cerca.",
+  "@settingVoiceWakeArbitrationWindowDescription": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "voiceSectionWakeArbitration": "Arbitraje de la palabra de activación",
+  "@voiceSectionWakeArbitration": {
+    "context": "Settings > Voice Satellite > Wake Word",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
   "voiceOptionSlightly": "Poco sensible",
   "@voiceOptionSlightly": {
     "context": "Settings > Voice Satellite > Wake Word",

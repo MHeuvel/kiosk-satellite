@@ -3776,6 +3776,7 @@ class _CategoryContentState extends State<_CategoryContent> {
                 ],
               ),
             ),
+            ...sectioned([voiceWakeArbitration, voiceWakeArbitrationWindowMs]),
             _vsDetectionCard(container),
             CustomWakeModelsGroup(container: container),
           ];

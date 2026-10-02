@@ -12157,6 +12157,23 @@ class UiStringsEn extends UiStrings {
       'Say \"stop\" to cut off an answer, a timer alert or an announcement.';
 
   @override
+  String get settingVoiceWakeArbitrationTitle => 'Enable wake word arbitration';
+
+  @override
+  String get settingVoiceWakeArbitrationDescription =>
+      'When several kiosks hear the wake word, the closest one answers. Increases detection latency.';
+
+  @override
+  String get settingVoiceWakeArbitrationWindowTitle => 'Arbitration window';
+
+  @override
+  String get settingVoiceWakeArbitrationWindowDescription =>
+      'How long to wait for the other kiosks. Raise it if a slower kiosk loses when it is closer.';
+
+  @override
+  String get voiceSectionWakeArbitration => 'Wake Word Arbitration';
+
+  @override
   String get voiceOptionSlightly => 'Slightly sensitive';
 
   @override

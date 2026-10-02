@@ -320,6 +320,10 @@ abstract class WakeWordEngine {
   /// How much audio [recordAudio] keeps.
   static const recentAudioLimit = Duration(seconds: 10);
 
+  /// Keep this much more pre-roll than usual: the time a wake can be held
+  /// back before the turn opens the stream.
+  set preRollExtra(Duration extra) {}
+
   /// Up to [length] of the newest audio the engine heard, as 16 kHz mono
   /// PCM16, or null when nothing is being recorded.
   Uint8List? recentAudio(Duration length) => null;

@@ -5802,6 +5802,47 @@ const voiceStopWord = SettingDef<bool>(
   dependsOn: 'voice.enabled',
 );
 
+/// Kiosks that hear the same wake word settle which one answers: each
+/// broadcasts how loud the wake word reached it and the loudest one goes on
+/// while the others go back to listening. Off by default: a single kiosk
+/// gains nothing and every wake would wait out the window.
+const voiceWakeArbitration = SettingDef<bool>(
+  key: 'voice.wake_arbitration',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Enable wake word arbitration',
+  description:
+      'When several kiosks hear the wake word, the closest one answers. '
+      'Increases detection latency.',
+  category: 'Voice Satellite',
+  subpage: 'Wake Word',
+  section: 'Wake Word Arbitration',
+  dependsOn: 'voice.enabled',
+);
+
+/// How long a kiosk listens for the others' claims before it decides. It
+/// has to cover the gap between the fastest and the slowest kiosk to detect
+/// the same wake word plus the claim's trip over Wi-Fi, where access points
+/// hold broadcast frames for sleeping clients: claims landed up to 325 ms
+/// after detection between a Tab S8 and an Echo Show 8.
+const voiceWakeArbitrationWindowMs = SettingDef<num>(
+  key: 'voice.wake_arbitration_window_ms',
+  type: SettingType.number,
+  defaultValue: 400,
+  title: 'Arbitration window',
+  description:
+      'How long to wait for the other kiosks. Raise it if a slower kiosk '
+      'loses when it is closer.',
+  category: 'Voice Satellite',
+  subpage: 'Wake Word',
+  section: 'Wake Word Arbitration',
+  min: 100,
+  max: 500,
+  step: 50,
+  unit: 'ms',
+  dependsOn: 'voice.wake_arbitration',
+);
+
 const voiceSkin = SettingDef<String>(
   key: 'voice.skin',
   type: SettingType.select,
@@ -9996,6 +10037,8 @@ const List<SettingDef<Object>> allSettings = [
   voiceWakeWordSensitivity,
   voiceNoiseGate,
   voiceStopWord,
+  voiceWakeArbitration,
+  voiceWakeArbitrationWindowMs,
   voiceSkin,
   voiceTheme,
   voiceOverlayMode,
