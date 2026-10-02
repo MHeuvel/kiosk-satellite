@@ -56,6 +56,7 @@ class AssistView {
     this.results = const [],
     this.reactive = true,
     this.docked = false,
+    this.lingering = false,
   });
 
   static const hidden = AssistView();
@@ -88,6 +89,10 @@ class AssistView {
   /// with the screen under it visible and usable.
   final bool docked;
 
+  /// The turn is over and its answer or results stay on screen. Nothing
+  /// listens or speaks, so the skin's bar is down.
+  final bool lingering;
+
   bool get visible => phase != AssistPhase.hidden;
 
   /// The turn in progress, as it would be kept once the next one starts.
@@ -104,6 +109,7 @@ class AssistView {
     List<AssistResult>? results,
     bool? reactive,
     bool? docked,
+    bool? lingering,
   }) => AssistView(
     phase: phase ?? this.phase,
     earlier: earlier ?? this.earlier,
@@ -114,6 +120,7 @@ class AssistView {
     results: results ?? this.results,
     reactive: reactive ?? this.reactive,
     docked: docked ?? this.docked,
+    lingering: lingering ?? this.lingering,
   );
 }
 

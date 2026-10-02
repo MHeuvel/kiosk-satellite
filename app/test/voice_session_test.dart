@@ -528,6 +528,8 @@ void main() {
       expect(h.session.busy, isFalse);
       expect(h.view.phase, isNot(AssistPhase.hidden));
       expect(h.view.tools, ['Get weather forecast']);
+      // Nothing listens or speaks while it lingers: the bar is down.
+      expect(h.view.lingering, isTrue);
       async.elapse(const Duration(seconds: 31));
       expect(h.view.phase, AssistPhase.hidden);
     });

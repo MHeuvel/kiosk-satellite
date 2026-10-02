@@ -12207,6 +12207,14 @@ class UiStringsDe extends UiStrings {
       'Die Größe der Timer-Anzeigen.';
 
   @override
+  String get settingVoiceTimerAlertPillTitle =>
+      'Anzeigen abgelaufener Timer einblenden';
+
+  @override
+  String get settingVoiceTimerAlertPillDescription =>
+      'Tipp auf die Anzeige, um den Alarm zu beenden.';
+
+  @override
   String get settingVoiceMuteTimersTitle => 'Timer-Alarme stummschalten';
 
   @override

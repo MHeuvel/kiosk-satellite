@@ -323,6 +323,7 @@ class _AssistOverlayState extends State<AssistOverlay>
     );
     final scale = settings.get(defs.voiceTextScale).toDouble() / 100;
     final mode = switch (view.phase) {
+      _ when view.lingering => ArtMode.idle,
       AssistPhase.thinking => ArtMode.thinking,
       AssistPhase.speaking || AssistPhase.announcement => ArtMode.speaking,
       AssistPhase.listening => ArtMode.listening,

@@ -11920,6 +11920,13 @@ class UiStringsEn extends UiStrings {
       'The size of the timer pills.';
 
   @override
+  String get settingVoiceTimerAlertPillTitle => 'Show finished timer pills';
+
+  @override
+  String get settingVoiceTimerAlertPillDescription =>
+      'Tap the pill to stop the alert.';
+
+  @override
   String get settingVoiceMuteTimersTitle => 'Mute timer alerts';
 
   @override

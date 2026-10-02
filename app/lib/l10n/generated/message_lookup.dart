@@ -3973,6 +3973,10 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingVoiceTimerPillScaleTitle,
       'settingVoiceTimerPillScaleDescription' =>
         strings.settingVoiceTimerPillScaleDescription,
+      'settingVoiceTimerAlertPillTitle' =>
+        strings.settingVoiceTimerAlertPillTitle,
+      'settingVoiceTimerAlertPillDescription' =>
+        strings.settingVoiceTimerAlertPillDescription,
       'settingVoiceMuteTimersTitle' => strings.settingVoiceMuteTimersTitle,
       'settingVoiceMuteTimersDescription' =>
         strings.settingVoiceMuteTimersDescription,

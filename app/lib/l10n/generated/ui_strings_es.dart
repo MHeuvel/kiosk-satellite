@@ -12165,6 +12165,14 @@ class UiStringsEs extends UiStrings {
       'El tamaño de los indicadores de temporizador.';
 
   @override
+  String get settingVoiceTimerAlertPillTitle =>
+      'Mostrar indicadores de temporizadores finalizados';
+
+  @override
+  String get settingVoiceTimerAlertPillDescription =>
+      'Toca el indicador para detener la alerta.';
+
+  @override
   String get settingVoiceMuteTimersTitle =>
       'Silenciar las alertas de temporizador';
 

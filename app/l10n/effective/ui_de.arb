@@ -43488,6 +43488,16 @@
     "context": "Settings > Voice Satellite > Timers",
     "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   },
+  "settingVoiceTimerAlertPillTitle": "Anzeigen abgelaufener Timer einblenden",
+  "@settingVoiceTimerAlertPillTitle": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerAlertPillDescription": "Tipp auf die Anzeige, um den Alarm zu beenden.",
+  "@settingVoiceTimerAlertPillDescription": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
   "settingVoiceMuteTimersTitle": "Timer-Alarme stummschalten",
   "@settingVoiceMuteTimersTitle": {
     "context": "Settings > Voice Satellite > Timers",

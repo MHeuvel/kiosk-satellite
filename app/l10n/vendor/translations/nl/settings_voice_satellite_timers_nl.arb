@@ -6,6 +6,8 @@
   "settingVoiceTimerNameInPillDescription": "Toon de naam naast de tijd in het timerlabel.",
   "settingVoiceTimerPillScaleTitle": "Grootte van timerlabels",
   "settingVoiceTimerPillScaleDescription": "De grootte van de timerlabels.",
+  "settingVoiceTimerAlertPillTitle": "Labels van afgelopen timers tonen",
+  "settingVoiceTimerAlertPillDescription": "Tik op het label om de waarschuwing te stoppen.",
   "settingVoiceMuteTimersTitle": "Timerwaarschuwingen dempen",
   "settingVoiceMuteTimersDescription": "Toon de waarschuwing zonder geluid.",
   "settingVoiceTimerNameOnAlertTitle": "De naam op de waarschuwing tonen",

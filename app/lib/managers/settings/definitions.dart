@@ -6130,6 +6130,18 @@ const voiceTimerPillScale = SettingDef<num>(
   unit: '%',
 );
 
+const voiceTimerAlertPill = SettingDef<bool>(
+  key: 'voice.timer_alert_pill',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Show finished timer pills',
+  description: 'Tap the pill to stop the alert.',
+  category: 'Voice Satellite',
+  subpage: 'Timers',
+  section: 'When a timer ends',
+  dependsOn: 'voice.enabled',
+);
+
 const voiceMuteTimers = SettingDef<bool>(
   key: 'voice.mute_timers',
   type: SettingType.boolean,
@@ -6151,7 +6163,7 @@ const voiceTimerNameOnAlert = SettingDef<bool>(
   category: 'Voice Satellite',
   subpage: 'Timers',
   section: 'When a timer ends',
-  dependsOn: 'voice.enabled',
+  dependsOn: 'voice.timer_alert_pill',
 );
 
 const voiceTimerSpeak = SettingDef<bool>(
@@ -10084,6 +10096,7 @@ const List<SettingDef<Object>> allSettings = [
   voiceTimerPills,
   voiceTimerNameInPill,
   voiceTimerPillScale,
+  voiceTimerAlertPill,
   voiceMuteTimers,
   voiceTimerNameOnAlert,
   voiceTimerSpeak,

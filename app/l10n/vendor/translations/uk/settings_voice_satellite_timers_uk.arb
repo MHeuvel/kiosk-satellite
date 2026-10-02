@@ -6,6 +6,8 @@
   "settingVoiceTimerNameInPillDescription": "Назва поруч із часом в індикаторі.",
   "settingVoiceTimerPillScaleTitle": "Масштаб індикаторів таймерів",
   "settingVoiceTimerPillScaleDescription": "Розмір індикаторів таймерів.",
+  "settingVoiceTimerAlertPillTitle": "Показувати індикатори завершених таймерів",
+  "settingVoiceTimerAlertPillDescription": "Торкніться індикатора, щоб зупинити сповіщення.",
   "settingVoiceMuteTimersTitle": "Вимкнути звук сповіщень таймерів",
   "settingVoiceMuteTimersDescription": "Показувати сповіщення без звуку.",
   "settingVoiceTimerNameOnAlertTitle": "Показувати назву в сповіщенні",

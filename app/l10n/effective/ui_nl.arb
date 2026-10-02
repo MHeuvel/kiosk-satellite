@@ -43488,6 +43488,16 @@
     "context": "Settings > Voice Satellite > Timers",
     "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   },
+  "settingVoiceTimerAlertPillTitle": "Labels van afgelopen timers tonen",
+  "@settingVoiceTimerAlertPillTitle": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerAlertPillDescription": "Tik op het label om de waarschuwing te stoppen.",
+  "@settingVoiceTimerAlertPillDescription": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
   "settingVoiceMuteTimersTitle": "Timerwaarschuwingen dempen",
   "@settingVoiceMuteTimersTitle": {
     "context": "Settings > Voice Satellite > Timers",

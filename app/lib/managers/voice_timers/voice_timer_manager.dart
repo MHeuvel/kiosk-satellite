@@ -71,6 +71,10 @@ class VoiceTimerManager extends Manager {
 
   final timers = ValueNotifier<List<VoiceTimer>>(const []);
   final alerts = ValueNotifier<List<VoiceTimer>>(const []);
+
+  /// The alert rings and is dismissed as usual but shows no pill (native
+  /// Voice Satellite with Show finished timer pills off).
+  final alertHidden = ValueNotifier<bool>(false);
   bool _muted = false;
   Timer? _ring;
   String? _soundId;
@@ -134,6 +138,7 @@ class VoiceTimerManager extends Manager {
           if (raw.isEmpty) {
             _clearAlert();
           } else {
+            alertHidden.value = p['hidden'] == true;
             alerts.value = [
               for (final timer in parsed.cast<VoiceTimer>())
                 VoiceTimer(
@@ -271,6 +276,7 @@ class VoiceTimerManager extends Manager {
     _speech = null;
     _stopSound();
     alerts.value = const [];
+    alertHidden.value = false;
     // A normal playback speaker gets back what it played before the alert.
     if (ringing) {
       unawaited(commands.execute('voiceSpeakerDone', const {}));
@@ -281,6 +287,7 @@ class VoiceTimerManager extends Manager {
   Future<void> dispose() async {
     _clearAlert();
     alerts.dispose();
+    alertHidden.dispose();
     await _clearSub?.cancel();
     timers.dispose();
     error.dispose();

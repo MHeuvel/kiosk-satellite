@@ -6,6 +6,8 @@
   "settingVoiceTimerNameInPillDescription": "Le nom à côté du temps dans une pastille.",
   "settingVoiceTimerPillScaleTitle": "Taille des pastilles de minuteur",
   "settingVoiceTimerPillScaleDescription": "La taille des pastilles de minuteur.",
+  "settingVoiceTimerAlertPillTitle": "Afficher les pastilles des minuteurs terminés",
+  "settingVoiceTimerAlertPillDescription": "Touchez la pastille pour arrêter l'alerte.",
   "settingVoiceMuteTimersTitle": "Couper les alertes de minuteur",
   "settingVoiceMuteTimersDescription": "Affiche l'alerte sans le son.",
   "settingVoiceTimerNameOnAlertTitle": "Afficher le nom sur l'alerte",

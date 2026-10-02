@@ -12073,6 +12073,14 @@ class UiStringsNl extends UiStrings {
       'De grootte van de timerlabels.';
 
   @override
+  String get settingVoiceTimerAlertPillTitle =>
+      'Labels van afgelopen timers tonen';
+
+  @override
+  String get settingVoiceTimerAlertPillDescription =>
+      'Tik op het label om de waarschuwing te stoppen.';
+
+  @override
   String get settingVoiceMuteTimersTitle => 'Timerwaarschuwingen dempen';
 
   @override

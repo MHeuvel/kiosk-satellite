@@ -424,7 +424,9 @@ class VoiceManager extends Manager {
             if (_mirrored.remove(entry.key) == value) continue;
             if (_settings.importing) unawaited(_applySelect(entry.key, value));
           }
-          if (e.key == defs.voiceMuteTimers.key && _ringing.isNotEmpty) {
+          if ((e.key == defs.voiceMuteTimers.key ||
+                  e.key == defs.voiceTimerAlertPill.key) &&
+              _ringing.isNotEmpty) {
             _pushAlert();
           }
         }),
@@ -2884,6 +2886,9 @@ class VoiceManager extends Manager {
       commands.execute('setVoiceTimerAlert', {
         'entityId': timerEntity,
         'muted': _settings.get(defs.voiceMuteTimers),
+        // Without its pill the alert still rings and the stop word still
+        // takes it down.
+        'hidden': !_settings.get(defs.voiceTimerAlertPill),
         'speech': ?(_ringing.isEmpty ? null : _alertSpeech),
         'speechText': _alertSpeechText,
         'timers': [

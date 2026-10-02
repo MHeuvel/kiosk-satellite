@@ -12158,6 +12158,14 @@ class UiStringsFr extends UiStrings {
       'La taille des pastilles de minuteur.';
 
   @override
+  String get settingVoiceTimerAlertPillTitle =>
+      'Afficher les pastilles des minuteurs terminés';
+
+  @override
+  String get settingVoiceTimerAlertPillDescription =>
+      'Touchez la pastille pour arrêter l\'alerte.';
+
+  @override
   String get settingVoiceMuteTimersTitle => 'Couper les alertes de minuteur';
 
   @override

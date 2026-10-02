@@ -43488,6 +43488,16 @@
     "context": "Settings > Voice Satellite > Timers",
     "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   },
+  "settingVoiceTimerAlertPillTitle": "Mostrar indicadores de temporizadores finalizados",
+  "@settingVoiceTimerAlertPillTitle": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceTimerAlertPillDescription": "Toca el indicador para detener la alerta.",
+  "@settingVoiceTimerAlertPillDescription": {
+    "context": "Settings > Voice Satellite > Timers",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
   "settingVoiceMuteTimersTitle": "Silenciar las alertas de temporizador",
   "@settingVoiceMuteTimersTitle": {
     "context": "Settings > Voice Satellite > Timers",

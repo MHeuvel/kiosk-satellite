@@ -12050,6 +12050,14 @@ class UiStringsUk extends UiStrings {
       'Розмір індикаторів таймерів.';
 
   @override
+  String get settingVoiceTimerAlertPillTitle =>
+      'Показувати індикатори завершених таймерів';
+
+  @override
+  String get settingVoiceTimerAlertPillDescription =>
+      'Торкніться індикатора, щоб зупинити сповіщення.';
+
+  @override
   String get settingVoiceMuteTimersTitle => 'Вимкнути звук сповіщень таймерів';
 
   @override

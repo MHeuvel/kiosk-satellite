@@ -22686,5 +22686,17 @@
     "translation": "a8b112d2323a75497860ac06d84d0f9e274eced1c1a19d30544969ddbb3930ce",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "settingVoiceTimerAlertPillTitle": {
+    "source": "ceb4682745c691971db973d72d62b60a2635c53c0e09936fd2747625fde5193a",
+    "translation": "80f1eaf6183ccf03977ae73332c7e8bba1b07005784cf08a5bf7b341ce8cf6d5",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingVoiceTimerAlertPillDescription": {
+    "source": "4dcb05ebfe6028887a97cb33979e5413b84ff295110a0867a5b3e7f14fceb0e4",
+    "translation": "43d1fd296ddd5ff89e82dbc3ddea022d7d3bb96f5a52b4f040aa959030fa7811",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }
