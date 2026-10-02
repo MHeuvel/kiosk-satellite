@@ -14895,6 +14895,18 @@ abstract class UiStrings {
   /// Setting label.
   ///
   /// In en, this message translates to:
+  /// **'Capture mode'**
+  String get settingMicCaptureModeTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick Voice communication when the microphone goes silent here, or stops after the kiosk plays a sound. Some devices only record properly on their call audio path.'**
+  String get settingMicCaptureModeDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
   /// **'Echo cancellation'**
   String get settingMicSoftwareEchoCancellationTitle;
 
@@ -14981,6 +14993,18 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'48 kHz stereo'**
   String get screenAudioStereo;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Raw microphone (default)'**
+  String get screenAudioCaptureRawMicrophone;
+
+  /// Heading, choice, status or guidance shown in this group.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice communication'**
+  String get screenAudioCaptureVoiceCommunication;
 
   /// Heading, choice, status or guidance shown in this group.
   ///

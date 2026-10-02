@@ -2610,6 +2610,9 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingAudioSpeakerDeviceDescription,
       'screenAudioDevices' => strings.screenAudioDevices,
       'screenAudioSelectedDevice' => strings.screenAudioSelectedDevice,
+      'settingMicCaptureModeTitle' => strings.settingMicCaptureModeTitle,
+      'settingMicCaptureModeDescription' =>
+        strings.settingMicCaptureModeDescription,
       'settingMicSoftwareEchoCancellationTitle' =>
         strings.settingMicSoftwareEchoCancellationTitle,
       'settingMicSoftwareEchoCancellationDescription' =>
@@ -2630,6 +2633,10 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'screenAudioMicrophoneNote' => strings.screenAudioMicrophoneNote,
       'screenAudioAutomaticDefault' => strings.screenAudioAutomaticDefault,
       'screenAudioStereo' => strings.screenAudioStereo,
+      'screenAudioCaptureRawMicrophone' =>
+        strings.screenAudioCaptureRawMicrophone,
+      'screenAudioCaptureVoiceCommunication' =>
+        strings.screenAudioCaptureVoiceCommunication,
       'screenAudioDownmix' => strings.screenAudioDownmix,
       'screenAudioMicrophoneLevel' => strings.screenAudioMicrophoneLevel,
       'screenAudioMicrophoneLevelHelp' =>

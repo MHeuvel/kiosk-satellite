@@ -174,6 +174,7 @@ void main() {
         if (d.subpage == 'Microphone settings') d.key,
     ];
     expect(moved, [
+      defs.micCaptureMode.key,
       defs.micSoftwareEchoCancellation.key,
       defs.micNoiseSuppression.key,
       defs.micGainDb.key,

@@ -19,5 +19,9 @@
   "settingMicSoftwareEchoCancellationTitle": "Echounterdrückung",
   "settingMicSoftwareEchoCancellationDescription": "Entfernt die eigenen Töne des Kiosks aus dem Mikrofon, damit weder das Aktivierungswort noch der Assistent sie hören. Lass sie eingeschaltet, es sei denn, ein Mikrofon mit eigener Echounterdrückung klingt damit schlechter.",
   "settingMicNoiseSuppressionTitle": "Rauschunterdrückung",
-  "settingMicNoiseSuppressionDescription": "Entfernt das Rauschen aus dem Mikrofon. Sie verändert, was das Aktivierungswort hört, also schalte sie bei einem rauschenden Mikrofon ein."
+  "settingMicNoiseSuppressionDescription": "Entfernt das Rauschen aus dem Mikrofon. Sie verändert, was das Aktivierungswort hört, also schalte sie bei einem rauschenden Mikrofon ein.",
+  "settingMicCaptureModeTitle": "Aufnahmemodus",
+  "settingMicCaptureModeDescription": "Wähle Sprachkommunikation, wenn das Mikrofon hier stumm bleibt oder verstummt, nachdem der Kiosk einen Ton abgespielt hat. Manche Geräte nehmen nur über ihren Anruf-Audiopfad richtig auf.",
+  "screenAudioCaptureRawMicrophone": "Rohes Mikrofon (Standard)",
+  "screenAudioCaptureVoiceCommunication": "Sprachkommunikation"
 }

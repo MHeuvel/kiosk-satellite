@@ -32,6 +32,10 @@ const settingOptionMessageIds = <String, Map<String, String>>{
     "portrait": "screenAudioPortrait",
     "reverse_portrait": "screenAudioReversePortrait"
   },
+  "audio.mic_capture_mode": {
+    "mic": "screenAudioCaptureRawMicrophone",
+    "voice_communication": "screenAudioCaptureVoiceCommunication"
+  },
   "audio.mic_capture_format": {
     "auto": "screenAudioAutomaticDefault",
     "hardware": "screenAudioStereo"

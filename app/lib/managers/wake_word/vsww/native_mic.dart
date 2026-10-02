@@ -19,6 +19,10 @@ class NativeMic {
   /// of it when the session opens, so changing any of them needs a restart.
   static num gainDb = 0;
 
+  /// The Android capture source: 'mic' (the raw microphone) or
+  /// 'voice_communication' (the call path).
+  static String captureMode = 'mic';
+
   /// WebRTC's echo canceller over the capture, fed what the kiosk plays.
   static bool softwareEchoCancellation = true;
 
@@ -42,6 +46,7 @@ class NativeMic {
   Stream<Uint8List> stream() => _channel
       .receiveBroadcastStream({
         if (deviceSelector.isNotEmpty) 'device': deviceSelector,
+        'source': captureMode,
         'gainDb': gainDb,
         'softwareAec': softwareEchoCancellation,
         'noiseSuppression': noiseSuppression,

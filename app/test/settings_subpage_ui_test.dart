@@ -949,6 +949,7 @@ void main() {
       );
       expect(find.text(subpageHints['Microphone settings']!), findsOneWidget);
       // Its rows went with it.
+      expect(find.text(micCaptureMode.title), findsNothing);
       expect(find.text(micSoftwareEchoCancellation.title), findsNothing);
       expect(find.text(micGainDb.title), findsNothing);
       expect(find.text(micCaptureFormat.title), findsNothing);
@@ -974,6 +975,7 @@ void main() {
         find.widgetWithText(AppBar, 'Microphone settings'),
         findsOneWidget,
       );
+      expect(find.text(micCaptureMode.title), findsOneWidget);
       expect(find.text(micSoftwareEchoCancellation.title), findsOneWidget);
       expect(find.text(micGainDb.title), findsOneWidget);
       expect(find.text(micCaptureFormat.title), findsOneWidget);

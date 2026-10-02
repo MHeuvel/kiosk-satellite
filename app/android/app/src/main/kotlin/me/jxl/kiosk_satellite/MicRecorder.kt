@@ -6,6 +6,10 @@ import android.media.AudioFormat
 import android.media.AudioManager
 import android.media.AudioRecord
 import android.media.MediaRecorder
+import android.media.audiofx.AcousticEchoCanceler
+import android.media.audiofx.AudioEffect
+import android.media.audiofx.AutomaticGainControl
+import android.media.audiofx.NoiseSuppressor
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
@@ -24,19 +28,27 @@ import kotlin.math.max
  * capture; onCancel (Dart cancelling the subscription) stops it and releases
  * the mic — which is what frees it for the WebView's getUserMedia during STT.
  *
- * Capture uses AudioSource.MIC without attaching Android audio effects.
- * Device firmware may still process it. MIC does not guarantee raw audio.
+ * Capture uses AudioSource.MIC without attaching Android audio effects,
+ * or VOICE_COMMUNICATION when the `source` argument asks for it (some OEM
+ * ROMs only record properly on the call path). Android's audio policy
+ * attaches its own canceller, suppressor or gain control to the other
+ * sources on many devices (a Galaxy Tab S8 put Qualcomm Fluence's
+ * canceller on the call source), so [silencePlatformEffects] turns them
+ * off and only the kiosk's own processing runs. Processing inside the
+ * audio HAL is out of reach, so device firmware may still process any
+ * source. MIC does not guarantee raw audio.
  * Echo cancellation is [SoftwareEcho]'s, fed everything the kiosk plays,
  * followed by optional noise suppression and fixed microphone gain.
- * The call capture path (VOICE_COMMUNICATION) and Android's own
- * canceller, suppressor and gain control went with the move: the call
+ * MIC became the default and Android's own canceller, suppressor and
+ * gain control are never used: the call
  * path came in 20 dB quieter on some custom ROMs, the canceller degraded
  * over a day on a Galaxy Tab S8 and let the assistant hear itself on
  * most others, and the effects did nothing or whispered the capture on
  * the rest. The microphone source is the same path many recorder apps use.
  * Some firmware feeds nothing but zeros to MIC (a Meta Portal Mini), so
- * the format ladder ends on the voice recognition and call sources: a
- * device reaches them only when every MIC format read silence.
+ * the format ladder ends on the other sources (voice recognition, then
+ * the call or MIC source, whichever was not picked): a device reaches
+ * them only when every format on the picked source read silence.
  *
  * The tuning arrives as stream arguments, which is why a change of any of
  * it reopens capture.
@@ -87,11 +99,12 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         private const val PLAYBACK_MUTE_TAIL_MS = 2000L
 
         /**
-         * A fallback source rung that delivered audio while MIC read
-         * zeros. Later opens start on it rather than spend seconds of
-         * deafness walking the MIC formats again.
+         * A fallback source rung that delivered audio while the picked
+         * source read zeros, keyed by that picked source. Later opens with
+         * the same pick start on it rather than spend seconds of deafness
+         * walking its formats again. A different pick is the user's to try.
          */
-        @Volatile private var provenFallback: Shape? = null
+        @Volatile private var provenFallback: Pair<Int, Shape>? = null
 
         private fun sourceName(source: Int): String = when (source) {
             MediaRecorder.AudioSource.MIC -> "mic"
@@ -156,6 +169,9 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
     @Volatile private var record: AudioRecord? = null
     private var worker: Thread? = null
     private var delivery: PcmDelivery? = null
+    // Our handles on the platform effects of the open record's session,
+    // held off for as long as that record lives.
+    private val platformEffects = mutableListOf<AudioEffect>()
 
     // Bluetooth capture routing we brought up and therefore owe a teardown:
     // the communication device on Android 12+, the SCO link below it.
@@ -171,6 +187,11 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         val args = arguments as? Map<*, *>
         val unprocessedSupported = appContext.getSystemService(AudioManager::class.java)
             .getProperty(AudioManager.PROPERTY_SUPPORT_AUDIO_SOURCE_UNPROCESSED)
+        val source = if (args?.get("source") == "voice_communication") {
+            MediaRecorder.AudioSource.VOICE_COMMUNICATION
+        } else {
+            MediaRecorder.AudioSource.MIC
+        }
         val wantSoftwareAec = args?.get("softwareAec") != false
         val wantNs = args?.get("noiseSuppression") == true
         // A gain of 0 dB is the overwhelmingly common case, and a factor of
@@ -201,9 +222,10 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         // plain stereo open is positional, the shape every input profile
         // lists, so a HAL that matches by mask finds it.
         val indexed = wantChannel >= 1
-        val ladder = captureLadder(hardwareFormat, chans, indexed)
+        val ladder = captureLadder(source, hardwareFormat, chans, indexed)
         // A proven fallback first, then the ladder in order.
-        val proven = ladder.indexOf(provenFallback)
+        val proven = provenFallback?.takeIf { it.first == source }
+            ?.let { ladder.indexOf(it.second) } ?: -1
         val order = if (proven > 0) listOf(proven) + ladder.indices.filter { it != proven } else ladder.indices.toList()
         var step = 0
         var rec: AudioRecord? = null
@@ -233,6 +255,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
                 (if (hardwareFormat) " hardware-format" else "") + ")",
         )
         applyPreferredDevice(opened, selector)
+        silencePlatformEffects(opened, ladder[step].source)
         SoftwareEcho.setEnabled(wantSoftwareAec)
         SoftwareEcho.setNoiseSuppression(wantNs)
         // Four 80 ms chunks cover ordinary scheduling jitter. A stalled
@@ -287,8 +310,10 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
 
             fun swapTo(next: AudioRecord, rung: Int) {
                 try { cur.stop() } catch (_: IllegalStateException) {}
+                releasePlatformEffects()
                 cur.release()
                 applyPreferredDevice(next, selector)
+                silencePlatformEffects(next, ladder[rung].source)
                 next.startRecording()
                 cur = next
                 record = next
@@ -453,7 +478,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
                     zeroRun = 0
                     if (!silent) {
                         walk.audible()
-                        if (shape.source != MediaRecorder.AudioSource.MIC) provenFallback = shape
+                        if (shape.source != source) provenFallback = source to shape
                         if (walk.step > 0 && !announcedAudio) {
                             announcedAudio = true
                             Log.i(TAG, "$shape capture is delivering audio")
@@ -491,8 +516,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
     ) {
         /** 80 ms of interleaved PCM16 at this shape. */
         val chunkBytes: Int get() = CHUNK_BYTES * (rateHz / SAMPLE_RATE) * channels
-        override fun toString() = "${rateHz}Hz x$channels" +
-            if (source == MediaRecorder.AudioSource.MIC) "" else " ${sourceName(source)}"
+        override fun toString() = "${rateHz}Hz x$channels ${sourceName(source)}"
     }
 
     /**
@@ -503,23 +527,34 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
      * array's own), so only the rate varies, with the plain mono open as
      * the last rung for a device that cannot satisfy the pick (mic swapped
      * for a mono one, a ROM that refuses index masks): capture beats
-     * silence. The voice recognition and call sources close the ladder
-     * for firmware that feeds MIC nothing but zeros (a Meta Portal Mini
-     * captured on the call source and read silence on MIC).
+     * silence. Every shape is on the picked [source]. The other sources
+     * close the ladder for firmware that feeds the picked one nothing but
+     * zeros (a Meta Portal Mini read silence on MIC and captured on voice
+     * recognition).
      */
-    private fun captureLadder(hardwareFormat: Boolean, chans: Int, indexed: Boolean): List<Shape> {
-        val usual = Shape(SAMPLE_RATE, chans)
+    private fun captureLadder(
+        source: Int,
+        hardwareFormat: Boolean,
+        chans: Int,
+        indexed: Boolean,
+    ): List<Shape> {
+        val usual = Shape(SAMPLE_RATE, chans, source)
         val card = if (indexed) {
-            listOf(Shape(HARDWARE_RATE, chans))
+            listOf(Shape(HARDWARE_RATE, chans, source))
         } else {
-            listOf(Shape(HARDWARE_RATE, HARDWARE_CHANNELS), Shape(HARDWARE_RATE, 1))
+            listOf(
+                Shape(HARDWARE_RATE, HARDWARE_CHANNELS, source),
+                Shape(HARDWARE_RATE, 1, source),
+            )
         }
         val ladder = if (hardwareFormat) card + usual else listOf(usual) + card
-        val mic = if (indexed) ladder + Shape(SAMPLE_RATE, 1) else ladder
-        return mic + listOf(
-            Shape(SAMPLE_RATE, 1, MediaRecorder.AudioSource.VOICE_RECOGNITION),
-            Shape(SAMPLE_RATE, 1, MediaRecorder.AudioSource.VOICE_COMMUNICATION),
-        )
+        val picked = if (indexed) ladder + Shape(SAMPLE_RATE, 1, source) else ladder
+        val fallbacks = listOf(
+            MediaRecorder.AudioSource.VOICE_RECOGNITION,
+            MediaRecorder.AudioSource.VOICE_COMMUNICATION,
+            MediaRecorder.AudioSource.MIC,
+        ).filter { it != source }
+        return picked + fallbacks.map { Shape(SAMPLE_RATE, 1, it) }
     }
 
     /**
@@ -716,6 +751,44 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         }
     }
 
+    /**
+     * Turn off the echo canceller, noise suppressor and gain control the
+     * platform attaches to [rec]'s session, so the kiosk's own canceller
+     * and suppressor are the only ones. A handle created on the session
+     * takes control of an effect the audio policy added there. MIC gets
+     * none on the devices we know, so it is left alone. Each effect is
+     * optional per device, and what the device made of the request goes to
+     * the log, since creating an effect and the effect being off are
+     * different things on some OEM builds.
+     */
+    private fun silencePlatformEffects(rec: AudioRecord, source: Int) {
+        if (source == MediaRecorder.AudioSource.MIC) return
+        val session = rec.audioSessionId
+        fun off(name: String, available: Boolean, create: () -> AudioEffect?): String {
+            if (!available) return "$name=unsupported-on-device"
+            val effect = try {
+                create()
+            } catch (e: RuntimeException) {
+                Log.w(TAG, "$name control unavailable: ${e.message}")
+                null
+            } ?: return "$name=unsupported-on-session"
+            synchronized(platformEffects) { platformEffects.add(effect) }
+            effect.setEnabled(false)
+            return "$name=" + if (effect.enabled) "still-on" else "off"
+        }
+        val aec = off("aec", AcousticEchoCanceler.isAvailable()) { AcousticEchoCanceler.create(session) }
+        val ns = off("ns", NoiseSuppressor.isAvailable()) { NoiseSuppressor.create(session) }
+        val agc = off("agc", AutomaticGainControl.isAvailable()) { AutomaticGainControl.create(session) }
+        Log.i(TAG, "platform effects on ${sourceName(source)}: $aec $ns $agc")
+    }
+
+    private fun releasePlatformEffects() {
+        synchronized(platformEffects) {
+            platformEffects.forEach { it.release() }
+            platformEffects.clear()
+        }
+    }
+
     override fun onCancel(arguments: Any?) {
         stop()
     }
@@ -729,6 +802,8 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
         recording = false
         worker?.let { try { it.join(500) } catch (_: InterruptedException) {} }
         worker = null
+        // Effects first: they are attached to the session this record owns.
+        releasePlatformEffects()
         record?.let {
             try { it.stop() } catch (_: IllegalStateException) {}
             it.release()

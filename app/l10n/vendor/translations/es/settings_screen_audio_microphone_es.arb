@@ -19,5 +19,9 @@
   "settingMicSoftwareEchoCancellationTitle": "Cancelación de eco",
   "settingMicSoftwareEchoCancellationDescription": "Elimina del micrófono los sonidos del propio kiosko para que ni la palabra de activación ni el asistente los oigan. Déjala activada salvo que un micrófono que cancela su propio eco suene peor con ella.",
   "settingMicNoiseSuppressionTitle": "Supresión de ruido",
-  "settingMicNoiseSuppressionDescription": "Quita el siseo del micrófono. Cambia lo que oye la palabra de activación, así que actívala para un micrófono que sisea."
+  "settingMicNoiseSuppressionDescription": "Quita el siseo del micrófono. Cambia lo que oye la palabra de activación, así que actívala para un micrófono que sisea.",
+  "settingMicCaptureModeTitle": "Modo de captura",
+  "settingMicCaptureModeDescription": "Elige Comunicación de voz si el micrófono se queda en silencio aquí o deja de funcionar después de que el kiosco reproduce un sonido. Algunos dispositivos solo graban bien por su ruta de audio de llamadas.",
+  "screenAudioCaptureRawMicrophone": "Micrófono sin procesar (predeterminado)",
+  "screenAudioCaptureVoiceCommunication": "Comunicación de voz"
 }

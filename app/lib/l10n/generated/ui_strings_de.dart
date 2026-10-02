@@ -8775,6 +8775,13 @@ class UiStringsDe extends UiStrings {
   }
 
   @override
+  String get settingMicCaptureModeTitle => 'Aufnahmemodus';
+
+  @override
+  String get settingMicCaptureModeDescription =>
+      'Wähle Sprachkommunikation, wenn das Mikrofon hier stumm bleibt oder verstummt, nachdem der Kiosk einen Ton abgespielt hat. Manche Geräte nehmen nur über ihren Anruf-Audiopfad richtig auf.';
+
+  @override
   String get settingMicSoftwareEchoCancellationTitle => 'Echounterdrückung';
 
   @override
@@ -8825,6 +8832,12 @@ class UiStringsDe extends UiStrings {
 
   @override
   String get screenAudioStereo => 'Stereo mit 48 kHz';
+
+  @override
+  String get screenAudioCaptureRawMicrophone => 'Rohes Mikrofon (Standard)';
+
+  @override
+  String get screenAudioCaptureVoiceCommunication => 'Sprachkommunikation';
 
   @override
   String get screenAudioDownmix => 'Kanäle mischen (Standard)';

@@ -8653,6 +8653,13 @@ class UiStringsUk extends UiStrings {
   }
 
   @override
+  String get settingMicCaptureModeTitle => 'Режим захоплення';
+
+  @override
+  String get settingMicCaptureModeDescription =>
+      'Виберіть Голосовий зв\'язок, якщо мікрофон тут мовчить або перестає працювати після того, як кіоск відтворить звук. Деякі пристрої правильно записують лише через аудіотракт дзвінків.';
+
+  @override
   String get settingMicSoftwareEchoCancellationTitle => 'Ехопоглинання';
 
   @override
@@ -8703,6 +8710,13 @@ class UiStringsUk extends UiStrings {
 
   @override
   String get screenAudioStereo => '48 кГц стерео';
+
+  @override
+  String get screenAudioCaptureRawMicrophone =>
+      'Необроблений сигнал мікрофона (за замовчуванням)';
+
+  @override
+  String get screenAudioCaptureVoiceCommunication => 'Голосовий зв\'язок';
 
   @override
   String get screenAudioDownmix => 'Зведення доріжок (за замовчуванням)';

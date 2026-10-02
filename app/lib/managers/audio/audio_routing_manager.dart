@@ -73,7 +73,8 @@ class AudioRoutingManager extends Manager {
         // engine), the engine's own restart no longer guarantees a fresh
         // session; the hub reopens it with the values just pushed.
         await MicHub.instance.bounce();
-      } else if (e.key == defs.micSoftwareEchoCancellation.key ||
+      } else if (e.key == defs.micCaptureMode.key ||
+          e.key == defs.micSoftwareEchoCancellation.key ||
           e.key == defs.micNoiseSuppression.key ||
           e.key == defs.micGainDb.key ||
           e.key == defs.micChannel.key ||
@@ -174,6 +175,7 @@ class AudioRoutingManager extends Manager {
   /// until the next capture opens, which is the point: the platform fixes
   /// the source, the gain and the effect chain when the session is created.
   void _pushCaptureTuning() {
+    NativeMic.captureMode = _settings.get(defs.micCaptureMode);
     NativeMic.softwareEchoCancellation = _settings.get(
       defs.micSoftwareEchoCancellation,
     );

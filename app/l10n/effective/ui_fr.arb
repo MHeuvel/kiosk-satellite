@@ -32058,6 +32058,32 @@
       }
     }
   },
+  "settingMicCaptureModeTitle": "Mode de capture",
+  "@settingMicCaptureModeTitle": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
+  "settingMicCaptureModeDescription": "Choisissez Communication vocale si le microphone reste muet ici ou s'arrête après que le kiosque a joué un son. Certains appareils n'enregistrent correctement que par leur chemin audio d'appel.",
+  "@settingMicCaptureModeDescription": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
   "settingMicSoftwareEchoCancellationTitle": "Annulation d'écho",
   "@settingMicSoftwareEchoCancellationTitle": {
     "context": "Settings:Screen & Audio:Microphone settings",
@@ -32242,6 +32268,32 @@
   },
   "screenAudioStereo": "Stéréo 48 kHz",
   "@screenAudioStereo": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
+  "screenAudioCaptureRawMicrophone": "Microphone brut (par défaut)",
+  "@screenAudioCaptureRawMicrophone": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
+  "screenAudioCaptureVoiceCommunication": "Communication vocale",
+  "@screenAudioCaptureVoiceCommunication": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",
     "x-locations": {

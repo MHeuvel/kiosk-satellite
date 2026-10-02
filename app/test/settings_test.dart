@@ -166,6 +166,7 @@ void main() {
     'the microphone defaults: the raw capture, cancelled, at unity',
     () async {
       await build({});
+      expect(settings.get(defs.micCaptureMode), 'mic');
       expect(settings.get(defs.micSoftwareEchoCancellation), isTrue);
       expect(settings.get(defs.micNoiseSuppression), isFalse);
       expect(settings.get(defs.micGainDb), 0);

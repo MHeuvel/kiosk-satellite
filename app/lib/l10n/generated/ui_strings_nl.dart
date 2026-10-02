@@ -8666,6 +8666,13 @@ class UiStringsNl extends UiStrings {
   }
 
   @override
+  String get settingMicCaptureModeTitle => 'Opnamemodus';
+
+  @override
+  String get settingMicCaptureModeDescription =>
+      'Kies Spraakcommunicatie als de microfoon hier stil blijft of stopt nadat de kiosk een geluid heeft afgespeeld. Sommige apparaten nemen alleen goed op via hun audiopad voor gesprekken.';
+
+  @override
   String get settingMicSoftwareEchoCancellationTitle => 'Echo-onderdrukking';
 
   @override
@@ -8716,6 +8723,13 @@ class UiStringsNl extends UiStrings {
 
   @override
   String get screenAudioStereo => '48 kHz stereo';
+
+  @override
+  String get screenAudioCaptureRawMicrophone =>
+      'Onbewerkte microfoon (standaard)';
+
+  @override
+  String get screenAudioCaptureVoiceCommunication => 'Spraakcommunicatie';
 
   @override
   String get screenAudioDownmix => 'Downmix (standaard)';

@@ -22482,5 +22482,29 @@
     "translation": "dde9db9687a2cb48945899fea2fed8ae50150fa09d27c3fa91a5e91c985b22cb",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "screenAudioCaptureRawMicrophone": {
+    "source": "3c5f5a35b8dace1afe4620c6ec9d6fd28d8d3488d715546fa8586f1c9c73ea1d",
+    "translation": "7877bc624fbcfaac4787f9555b3ced055a28cfc24da362980c71fdf50ed6fbe4",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "screenAudioCaptureVoiceCommunication": {
+    "source": "1e38c94db449f47d2d5bdb2a362063b1c9ef75d18165b3bc9e9dacbea4836f8e",
+    "translation": "1ceb28479b5f13df1d0e42f6569d2fb7eb2ab956efb906885f6ada6431d5be19",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingMicCaptureModeDescription": {
+    "source": "9287c7ac1eec19021f470e0aed9544afa2273e53ab797d8722358153c50ff13f",
+    "translation": "80cfa7b02a3cc6532166d551b9d19e39fd7ed7037db94bdb4d3614793b8c27bc",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingMicCaptureModeTitle": {
+    "source": "f8f3d03cd47a6e975749432e110ddb7f90f756844cc476852899a8cffc161552",
+    "translation": "2282c8d8230c61418e472e17a862f24513403cfbf5b5b1eaeaf4177879781440",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

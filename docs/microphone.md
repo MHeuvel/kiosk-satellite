@@ -2,7 +2,7 @@
 
 Navigate to **Settings > Screen & Audio > Microphone settings**.
 
-The kiosk records from Android's microphone source, the same path a recorder app uses, and runs its own echo canceller over it. The rest of this page is escape hatches for devices whose Android audio stack is miscalibrated or behaving unpredictably. None of them is a universal upgrade: each trades off a specific capability, and applying them to a device that already hears you well will degrade detection. The exception is the microphone channel selector, which can offer a real quality boost on specialized hardware. It only appears when such hardware is selected.
+By default the kiosk records from Android's microphone source, the same path a recorder app uses, and runs its own echo canceller over it. The rest of this page is escape hatches for devices whose Android audio stack is miscalibrated or behaving unpredictably. None of them is a universal upgrade: each trades off a specific capability, and applying them to a device that already hears you well will degrade detection. The exception is the microphone channel selector, which can offer a real quality boost on specialized hardware. It only appears when such hardware is selected.
 
 ## When You Need Them
 
@@ -24,6 +24,14 @@ The tester's **Play last 10 seconds** button plays back exactly what the wake wo
 To review activations after they happen, turn on **Enable wake word diagnostics** on **Settings > Voice Satellite > Wake word diagnostics**. The kiosk then keeps its last 10 wake word activations and, separately, its last 10 near misses: moments when the score reached 75% of the threshold and fell back without triggering. Each entry shows its score, the threshold it had to clear, the peak and average level of the audio and a 3 second clip you can play on the device or in the remote admin. An activation clip tells you whether a trigger came from you or from the TV. A near miss clip lets you hear why a wake word you said did not register. A clip marked **Clipped** reached full scale, so lower the gain. Turning diagnostics off deletes the recordings.
 
 The **Microphone level** row at the bottom of Microphone settings shows the same level without the tester. It opens the microphone itself when no wake word engine is running, so it also works before Voice Satellite has started. A bar that never moves means no audio reaches the app and the app log says why.
+
+## Capture Mode
+
+**Raw microphone** is the default and the right choice for almost every device. **Voice communication** records on Android's call audio path instead. Some OEM ROMs only deliver a working microphone there: the level stays empty on the raw microphone, or the microphone goes silent after the kiosk plays a chime or an answer and only comes back when a microphone setting changes. Pick **Voice communication** on those devices.
+
+Voice communication only changes where the kiosk records from. Android attaches its own echo canceller, noise suppressor or gain control to the call path on many devices, and the kiosk turns them off, so only its own echo canceller, noise suppression and gain apply. Chimes and answers still play as media. Processing a ROM does inside its audio driver cannot be turned off from an app, so check the level in the wake word tester after switching.
+
+The kiosk also falls back on its own: when every format on the picked mode reads silence, it tries the other capture sources before giving up (see [Capture Format](#capture-format)).
 
 ## Echo Cancellation
 
@@ -53,7 +61,7 @@ The app consumes 16 kHz mono audio and by default asks Android for exactly that,
 
 When the ROM's audio configuration itself blocks the microphone, no format helps. The [Raspberry Pi 4](raspberry-pi.md) guide covers two such cases and their fixes.
 
-Capture therefore walks a short ladder of formats: 16 kHz mono, then 48 kHz stereo, then 48 kHz mono. After those it tries Android's voice recognition source and then its call source, for firmware such as the Meta Portal Mini's that hands the microphone source nothing but zeros. A kiosk only reaches them when every microphone format read silence, and once one of them delivers audio the kiosk opens it first until the app restarts. It steps to the next one when an open is refused, when the capture reads nothing but zeros or errors for two seconds, when a read delivers nothing at all for three seconds or when the delivered frame rate does not match the rate it was opened at. That last check is what catches a format lie: a capture opened at 16 kHz mono that is really fed 48 kHz stereo arrives six times too fast, and an old HAL that hands over mono under a stereo label arrives at half speed with the pitch doubled. Each step is logged with the rate it delivers, so the log says which format the device ended on and why.
+Capture therefore walks a short ladder of formats: 16 kHz mono, then 48 kHz stereo, then 48 kHz mono. After those it tries the other capture sources: Android's voice recognition source, then whichever of the microphone and call sources **Capture mode** did not pick. That covers firmware such as the Meta Portal Mini's, which hands the microphone source nothing but zeros. A kiosk only reaches them when every format on the picked mode read silence, and once one of them delivers audio the kiosk opens it first until the app restarts or the mode changes. It steps to the next one when an open is refused, when the capture reads nothing but zeros or errors for two seconds, when a read delivers nothing at all for three seconds or when the delivered frame rate does not match the rate it was opened at. That last check is what catches a format lie: a capture opened at 16 kHz mono that is really fed 48 kHz stereo arrives six times too fast, and an old HAL that hands over mono under a stereo label arrives at half speed with the pitch doubled. Each step is logged with the rate it delivers, so the log says which format the device ended on and why.
 
 Silence alone proves little, since some microphones hand over exact zeros whenever the room is quiet. A format that has delivered audio is trusted and is only questioned after thirty seconds of silence. When every format on the ladder reads silence, capture returns to the one that delivered audio earlier, or to the first one when none did, and waits a minute before trying the ladder again, doubling that wait up to ten minutes. A microphone that really stopped is retried within minutes, while one that is merely quiet is not reopened every two seconds.
 

@@ -19,5 +19,9 @@
   "settingMicSoftwareEchoCancellationTitle": "Annulation d'écho",
   "settingMicSoftwareEchoCancellationDescription": "Retire du microphone les sons émis par le kiosque pour que ni le mot de réveil ni l'assistant ne les entendent. Laissez-la activée, sauf si un microphone qui annule lui-même son écho sonne moins bien avec elle.",
   "settingMicNoiseSuppressionTitle": "Réduction du bruit",
-  "settingMicNoiseSuppressionDescription": "Supprime le souffle du microphone. Elle modifie ce que le mot de réveil entend, activez-la donc pour un microphone qui souffle."
+  "settingMicNoiseSuppressionDescription": "Supprime le souffle du microphone. Elle modifie ce que le mot de réveil entend, activez-la donc pour un microphone qui souffle.",
+  "settingMicCaptureModeTitle": "Mode de capture",
+  "settingMicCaptureModeDescription": "Choisissez Communication vocale si le microphone reste muet ici ou s'arrête après que le kiosque a joué un son. Certains appareils n'enregistrent correctement que par leur chemin audio d'appel.",
+  "screenAudioCaptureRawMicrophone": "Microphone brut (par défaut)",
+  "screenAudioCaptureVoiceCommunication": "Communication vocale"
 }

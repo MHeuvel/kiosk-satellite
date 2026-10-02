@@ -5018,6 +5018,33 @@ const screensaverSchedule = SettingDef<String>(
 // the app than through a recorder app, or in a format the app has to ask
 // for by name.
 
+/// The Android capture source. The raw microphone is what every kiosk
+/// records from by default. Some OEM ROMs only deliver a working
+/// microphone on the call path (#809: a FengHuo panel on an MT8167 went
+/// silent after every sound on the raw source), so that path stays one
+/// pick away. Capture still falls back to the other sources on its own
+/// when every format reads silence (#808). A new key rather than the old
+/// audio.mic_source, so a value stored before 2026.10.2 cannot come back.
+const micCaptureMode = SettingDef<String>(
+  key: 'audio.mic_capture_mode',
+  type: SettingType.select,
+  defaultValue: 'mic',
+  options: ['mic', 'voice_communication'],
+  optionLabels: {
+    'mic': 'Raw microphone (default)',
+    'voice_communication': 'Voice communication',
+  },
+  title: 'Capture mode',
+  description:
+      'Pick Voice communication when the microphone goes silent here, or '
+      'stops after the kiosk plays a sound. Some devices only record '
+      'properly on their call audio path.',
+  category: 'Screen & Audio',
+  section: 'Microphone settings',
+  subpage: 'Microphone settings',
+  perDevice: true,
+);
+
 /// WebRTC's echo canceller (AEC3) over the microphone, fed everything the
 /// kiosk plays itself (SoftwareEcho.kt, EchoReference.kt). The platform's
 /// own canceller is gone: it needed the call capture path, which came in
@@ -9775,6 +9802,7 @@ const List<SettingDef<Object>> allSettings = [
   assistantVolume,
   audioMicDevice,
   audioSpeakerDevice,
+  micCaptureMode,
   micSoftwareEchoCancellation,
   micNoiseSuppression,
   micGainDb,

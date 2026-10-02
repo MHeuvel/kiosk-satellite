@@ -19,5 +19,9 @@
   "settingMicSoftwareEchoCancellationTitle": "Ехопоглинання",
   "settingMicSoftwareEchoCancellationDescription": "Прибирає з мікрофона власні звуки кіоска, щоб їх не чули ні слово активації, ні асистент. Залишайте увімкненим, якщо тільки мікрофон із власним ехопоглинанням не звучить гірше з ним.",
   "settingMicNoiseSuppressionTitle": "Шумозаглушення",
-  "settingMicNoiseSuppressionDescription": "Прибирає шипіння з мікрофона. Воно змінює те, що чує слово активації, тож вмикайте його для мікрофона, який шипить."
+  "settingMicNoiseSuppressionDescription": "Прибирає шипіння з мікрофона. Воно змінює те, що чує слово активації, тож вмикайте його для мікрофона, який шипить.",
+  "settingMicCaptureModeTitle": "Режим захоплення",
+  "settingMicCaptureModeDescription": "Виберіть Голосовий зв'язок, якщо мікрофон тут мовчить або перестає працювати після того, як кіоск відтворить звук. Деякі пристрої правильно записують лише через аудіотракт дзвінків.",
+  "screenAudioCaptureRawMicrophone": "Необроблений сигнал мікрофона (за замовчуванням)",
+  "screenAudioCaptureVoiceCommunication": "Голосовий зв'язок"
 }

@@ -32058,6 +32058,32 @@
       }
     }
   },
+  "settingMicCaptureModeTitle": "Режим захоплення",
+  "@settingMicCaptureModeTitle": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
+  "settingMicCaptureModeDescription": "Виберіть Голосовий зв'язок, якщо мікрофон тут мовчить або перестає працювати після того, як кіоск відтворить звук. Деякі пристрої правильно записують лише через аудіотракт дзвінків.",
+  "@settingMicCaptureModeDescription": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
   "settingMicSoftwareEchoCancellationTitle": "Ехопоглинання",
   "@settingMicSoftwareEchoCancellationTitle": {
     "context": "Settings:Screen & Audio:Microphone settings",
@@ -32242,6 +32268,32 @@
   },
   "screenAudioStereo": "48 кГц стерео",
   "@screenAudioStereo": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
+  "screenAudioCaptureRawMicrophone": "Необроблений сигнал мікрофона (за замовчуванням)",
+  "@screenAudioCaptureRawMicrophone": {
+    "context": "Settings:Screen & Audio:Microphone settings",
+    "description": "Heading, choice, status or guidance shown in this group.",
+    "x-locations": {
+      "device": [
+        "Settings > Screen & Audio > Microphone settings"
+      ],
+      "remoteAdmin": [
+        "Screen & Audio > Microphone settings"
+      ]
+    }
+  },
+  "screenAudioCaptureVoiceCommunication": "Голосовий зв'язок",
+  "@screenAudioCaptureVoiceCommunication": {
     "context": "Settings:Screen & Audio:Microphone settings",
     "description": "Heading, choice, status or guidance shown in this group.",
     "x-locations": {

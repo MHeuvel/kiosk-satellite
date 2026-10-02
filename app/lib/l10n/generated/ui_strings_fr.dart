@@ -8725,6 +8725,13 @@ class UiStringsFr extends UiStrings {
   }
 
   @override
+  String get settingMicCaptureModeTitle => 'Mode de capture';
+
+  @override
+  String get settingMicCaptureModeDescription =>
+      'Choisissez Communication vocale si le microphone reste muet ici ou s\'arrête après que le kiosque a joué un son. Certains appareils n\'enregistrent correctement que par leur chemin audio d\'appel.';
+
+  @override
   String get settingMicSoftwareEchoCancellationTitle => 'Annulation d\'écho';
 
   @override
@@ -8775,6 +8782,12 @@ class UiStringsFr extends UiStrings {
 
   @override
   String get screenAudioStereo => 'Stéréo 48 kHz';
+
+  @override
+  String get screenAudioCaptureRawMicrophone => 'Microphone brut (par défaut)';
+
+  @override
+  String get screenAudioCaptureVoiceCommunication => 'Communication vocale';
 
   @override
   String get screenAudioDownmix => 'Sous-mixage (par défaut)';
