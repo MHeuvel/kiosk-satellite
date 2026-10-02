@@ -218,10 +218,7 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
     }
     if (_closing) return;
     try {
-      _socket = await _connector(url, {
-        if (config.apiKey.trim().isNotEmpty)
-          'Authorization': 'Bearer ${config.apiKey.trim()}',
-      });
+      _socket = await _connector(url, _authHeaders(url, config.apiKey.trim()));
     } catch (e) {
       // The provider turning the connection down answers the upgrade with
       // an HTTP status: say what that usually means.
@@ -571,9 +568,30 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
     unawaited(_events.close());
   }
 
+  /// Azure OpenAI answers a Bearer key with a redirect to the same address
+  /// with the key in the query, and dart:io cannot follow a redirect to
+  /// wss. Its own api-key header connects without one.
+  static Map<String, String> _authHeaders(Uri url, String key) {
+    if (key.isEmpty) return const {};
+    final host = url.host.toLowerCase();
+    if (host.endsWith('.azure.com') || host.endsWith('.azure.us')) {
+      return {'api-key': key};
+    }
+    return {'Authorization': 'Bearer $key'};
+  }
+
   static String _describe(Object e) {
-    // The socket's wrapper adds nothing a person needs to read.
-    final text = '$e'.replaceFirst('WebSocketChannelException: ', '');
+    // The socket's wrapper adds nothing a person needs to read. A failed
+    // redirect quotes the address it went to, which can carry a key.
+    final text = '$e'
+        .replaceFirst('WebSocketChannelException: ', '')
+        .replaceAllMapped(
+          RegExp(
+            r'([?&](?:api[-_]?key|key|token|access_token)=)[^&\s]+',
+            caseSensitive: false,
+          ),
+          (m) => '${m[1]}***',
+        );
     return text.length > 200 ? '${text.substring(0, 200)}...' : text;
   }
 

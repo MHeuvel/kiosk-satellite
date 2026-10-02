@@ -564,6 +564,43 @@ void main() {
       },
     );
 
+    test('Azure: the key goes in the api-key header', () async {
+      final backend = make(
+        const RealtimeConfig(
+          provider: RealtimeProvider.openai,
+          endpoint: 'https://res.openai.azure.com/openai/v1/realtime?model=dep',
+          apiKey: 'az',
+        ),
+      );
+      await backend.start(const RealtimeStart());
+      expect(
+        url.toString(),
+        'wss://res.openai.azure.com/openai/v1/realtime?model=dep',
+      );
+      expect(headers, {'api-key': 'az'});
+      await backend.close();
+    });
+
+    test('a failed connection never shows a key in the address', () async {
+      final backend = OpenAiRealtimeBackend(
+        config: const RealtimeConfig(
+          provider: RealtimeProvider.openai,
+          apiKey: 'sk',
+        ),
+        toolbox: _Tools(),
+        connector: (u, h) async => throw ArgumentError(
+          "Unsupported scheme 'wss' in URI "
+          'wss://res.openai.azure.com/v1/realtime?model=m&api-key=secret',
+        ),
+      );
+      final closed = backend.events.firstWhere((e) => e is RealtimeClosed);
+      await backend.start(const RealtimeStart());
+      final error = (await closed as RealtimeClosed).error!;
+      expect(error, contains('api-key=***'));
+      expect(error, isNot(contains('secret')));
+      await backend.close();
+    });
+
     test(
       'xAI: voice and turn detection at the top, a relay endpoint',
       () async {
