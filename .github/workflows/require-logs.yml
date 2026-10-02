@@ -58,14 +58,21 @@ jobs:
 
             if (!hasLogs(section("App logs"))) {
               missing.push(
-                "**App logs**: on the device under **Settings > App Logs**, or from a browser via the remote admin at `http://<device-ip>:2324` on the **Logs** tab. Paste the lines around the time the problem happened."
+                "**App logs**: on the device under **Settings > App Logs**, or from a browser via the remote admin at `http://<device-ip>:2324` on the **Logs** tab. Paste the lines around the time the problem happened." +
+                  (area.includes("voice") ? " For a voice issue, include a full attempt from the wake word onward." : "")
               );
             }
 
-            if (area.includes("voice") || area.includes("browser") || area.includes("dashboard")) {
-              if (!hasLogs(section("Web console logs (required for voice or dashboard issues)"))) {
+            // The built-in Voice Satellite logs to the app log, so only
+            // dashboard issues need the page's console. Reports opened on the
+            // older form carry the section under its previous label.
+            if (area.includes("browser") || area.includes("dashboard")) {
+              const consoleLogs =
+                section("Web console logs (required for dashboard issues)") ||
+                section("Web console logs (required for voice or dashboard issues)");
+              if (!hasLogs(consoleLogs)) {
                 missing.push(
-                  "**Web console logs**: remote admin **Console** tab. For a voice issue, first enable **Debug Logging** in the Voice Satellite sidepanel in Home Assistant, then reproduce the issue and paste a full attempt from the wake word onward (lines prefixed `[VS]`). For other dashboard issues, reproduce the issue and paste the lines around it."
+                  "**Web console logs**: remote admin **Console** tab. Reproduce the issue and paste the lines around it."
                 );
               }
             }
