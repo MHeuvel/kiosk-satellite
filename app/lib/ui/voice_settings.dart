@@ -263,11 +263,16 @@ class VoiceHaSelects extends StatefulWidget {
 class _VoiceHaSelectsState extends State<VoiceHaSelects> {
   Map<String, Object?>? _data;
   Timer? _poll;
+  StreamSubscription<RemoteStatusChanged>? _optionsSub;
 
   @override
   void initState() {
     super.initState();
     unawaited(_load());
+    // Home Assistant has new choices, a custom model added or deleted.
+    _optionsSub = widget.container.bus.on<RemoteStatusChanged>().listen((e) {
+      if (e.topic == 'voice-selects' && mounted) unawaited(_load());
+    });
     // Home Assistant, a voice command or the remote admin can change them.
     _poll = Timer.periodic(const Duration(seconds: 10), (_) {
       if (mounted && ModalRoute.of(context)?.isCurrent != false) {
@@ -279,6 +284,7 @@ class _VoiceHaSelectsState extends State<VoiceHaSelects> {
   @override
   void dispose() {
     _poll?.cancel();
+    _optionsSub?.cancel();
     super.dispose();
   }
 

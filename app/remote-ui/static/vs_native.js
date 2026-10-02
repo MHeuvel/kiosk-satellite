@@ -285,6 +285,8 @@ function selectsBlock(rows) {
   block.className = 'vs-ha-selects';
   haSelectRows(block, rows);
   onSettings(block, VS_SELECT_SETTINGS, () => haSelectRows(block, rows));
+  // Home Assistant has new choices, a custom model added or deleted.
+  watchUpdates(['voice-selects'], () => haSelectRows(block, rows), { owner: block });
   return block;
 }
 
