@@ -1808,6 +1808,10 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingVoiceRealtimeIdleSecondsTitle",
     "description": "settingVoiceRealtimeIdleSecondsDescription",
   },
+  "voice.realtime_history_hours": {
+    "title": "settingVoiceRealtimeHistoryHoursTitle",
+    "description": "settingVoiceRealtimeHistoryHoursDescription",
+  },
   "voice.realtime_talk_over": {
     "title": "settingVoiceRealtimeTalkOverTitle",
     "description": "settingVoiceRealtimeTalkOverDescription",

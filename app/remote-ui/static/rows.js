@@ -1537,8 +1537,8 @@ export function settingRow(s) {
       }
       // Hold mode's auto-release reads as a clock: 0 is "Never" and 90 is
       // "1 h 30 min". Kept identical to the device's copy.
-      if (s.key === 'ha.hold_release_minutes') {
-        const minutes = Math.round(v);
+      if (s.key === 'ha.hold_release_minutes' || s.key === 'voice.realtime_history_hours') {
+        const minutes = Math.round(s.key === 'voice.realtime_history_hours' ? v * 60 : v);
         if (minutes <= 0) return haText('Never');
         const h = Math.floor(minutes / 60), m = minutes % 60;
         if (h === 0) return t('haMinutes', {minutes: String(m)});

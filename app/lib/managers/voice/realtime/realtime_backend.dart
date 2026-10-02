@@ -43,13 +43,34 @@ class RealtimeCapabilities {
 
 /// Why and how the session started.
 class RealtimeStart {
-  const RealtimeStart({this.wakeWord = '', this.language = ''});
+  const RealtimeStart({
+    this.wakeWord = '',
+    this.language = '',
+    this.context = '',
+    this.history = const [],
+  });
 
   /// The wake word that started it, empty for a manual wake.
   final String wakeWord;
 
   /// The kiosk's language, a hint for transcription.
   final String language;
+
+  /// Where the kiosk is, added to the instructions: its name and its area
+  /// in Home Assistant, so "the lights" are the ones in this room.
+  final String context;
+
+  /// Earlier exchanges still within the session duration, oldest first.
+  final List<RealtimeTurn> history;
+}
+
+/// One side of an earlier exchange: what the user said or the answer.
+class RealtimeTurn {
+  const RealtimeTurn({required this.user, required this.text});
+
+  /// True for the user, false for the assistant.
+  final bool user;
+  final String text;
 }
 
 sealed class RealtimeEvent {
@@ -158,3 +179,19 @@ abstract class RealtimeBackend {
   /// Closes the connection. No events follow.
   Future<void> close();
 }
+
+/// What the kiosk adds after a conversation's instructions: where it is
+/// and the earlier exchanges.
+String realtimeContextText({
+  String context = '',
+  List<RealtimeTurn> history = const [],
+}) => [
+  if (context.trim().isNotEmpty) context.trim(),
+  if (history.isNotEmpty)
+    [
+      'Earlier conversations with the user, oldest first. Use them when '
+          'the user refers back to something:',
+      for (final turn in history)
+        '${turn.user ? 'User' : 'Assistant'}: ${turn.text}',
+    ].join('\n'),
+].join('\n\n');

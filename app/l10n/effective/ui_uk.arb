@@ -42990,6 +42990,16 @@
     "context": "Settings > Voice Satellite > Realtime",
     "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   },
+  "settingVoiceRealtimeHistoryHoursTitle": "Тривалість сеансу",
+  "@settingVoiceRealtimeHistoryHoursTitle": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeHistoryHoursDescription": "Сказане протягом цього часу переноситься в наступну розмову.",
+  "@settingVoiceRealtimeHistoryHoursDescription": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
   "settingVoiceRealtimeTalkOverTitle": "Перебивати відповіді",
   "@settingVoiceRealtimeTalkOverTitle": {
     "context": "Settings > Voice Satellite > Realtime",

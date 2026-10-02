@@ -11882,6 +11882,13 @@ class UiStringsNl extends UiStrings {
       'Het gesprek wordt beëindigd wanneer er gedurende deze tijd niemand spreekt.';
 
   @override
+  String get settingVoiceRealtimeHistoryHoursTitle => 'Sessieduur';
+
+  @override
+  String get settingVoiceRealtimeHistoryHoursDescription =>
+      'Wat binnen deze tijd is gezegd, wordt meegenomen naar het volgende gesprek.';
+
+  @override
   String get settingVoiceRealtimeTalkOverTitle => 'Door antwoorden heen praten';
 
   @override

@@ -6,6 +6,8 @@
   "settingVoiceRealtimeEndpointDescription": "Залиште порожнім, щоб використовувати постачальника. Використайте ретранслятор у своїй мережі, щоб цей кіоск лишався без інтернету.",
   "settingVoiceRealtimeIdleSecondsTitle": "Завершувати після тиші",
   "settingVoiceRealtimeIdleSecondsDescription": "Розмова завершується, якщо стільки часу ніхто не говорить.",
+  "settingVoiceRealtimeHistoryHoursTitle": "Тривалість сеансу",
+  "settingVoiceRealtimeHistoryHoursDescription": "Сказане протягом цього часу переноситься в наступну розмову.",
   "settingVoiceRealtimeInstructionsTitle": "Інструкції",
   "settingVoiceRealtimeInstructionsDescription": "Як поводиться асистент. Залиште порожнім для короткого типового тексту.",
   "settingVoiceRealtimeMcpTokenTitle": "Токен MCP",

@@ -67,7 +67,7 @@ When Home Assistant runs the integration, onboarding offers the same migration i
 | | Follow-up delay, Chime before a follow-up | A pause and a chime before listening for the answer to a question. |
 | | Play sounds on, Play as | Where answers and chimes play. See [below](#play-sounds-on-a-media-player). |
 | Realtime | Providers | A row per provider with its status. **Configure** opens its API key, model, voice and endpoint, and **Save & Validate** stores them once the provider connects. |
-| | Instructions, End after silence, Talk over answers | How the conversation behaves and ends, for both providers. |
+| | Instructions, End after silence, Session duration, Talk over answers | How the conversation behaves, ends and carries over, for both providers. |
 | | Tools | What the model can control. See [Realtime conversations](#realtime-conversations). |
 | Wake Word | Wake word engine | vsWakeWord (default), microWakeWord or openWakeWord. All models ship with the app. |
 | | Wake word 1 and 2 | Home Assistant's selects. Wake word 2 is answered by Assistant 2. |
@@ -111,6 +111,10 @@ A wake word answered by a realtime provider starts a conversation with a speech 
 **Model** and **Voice** list what each provider offers. With your key, the kiosk asks the provider for them (OpenAI's realtime models, xAI's voices). Through a relay it shows the ones built in. A provider whose key or endpoint changed outside its dialog, for example through a settings import, reads **Not validated** until you save it again. Until then its wake word answers with its Home Assistant pipeline.
 
 **Controlling your home.** With **Tools** on **Home Assistant**, the model uses Home Assistant's **Model Context Protocol Server** integration. Add it under **Settings > Devices & services** in Home Assistant. The model can use the entities exposed to Assist, and the scripts exposed to Assist become tools too. **Custom MCP server** points at another server that speaks Streamable HTTP. **None** leaves the tools to a relay that adds its own.
+
+**Which room.** Each conversation starts with the kiosk's name and its area in Home Assistant, so "turn on the lights" means the lights in the kiosk's area unless you name another one. Set the area on the kiosk's device in Home Assistant.
+
+**Picking up where you left off.** **Session duration** keeps what was said for 30 minutes up to 12 hours and gives it to the next conversation, so you can refer back to something after a conversation ended. Older exchanges are dropped, and nothing is kept across an app restart.
 
 **Kiosks without internet access.** Set a provider's **Endpoint** to a relay on your network that speaks its realtime protocol. The kiosk only talks to the relay, and the API key can live there instead of on the kiosk.
 

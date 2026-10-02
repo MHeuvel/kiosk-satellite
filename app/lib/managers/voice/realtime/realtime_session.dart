@@ -8,6 +8,7 @@ import '../reactive_level.dart';
 import '../voice_session.dart';
 import 'pcm_resampler.dart';
 import 'realtime_backend.dart';
+import 'realtime_history.dart';
 import 'realtime_player.dart';
 
 /// The settings a realtime session reads, fresh each time.
@@ -18,6 +19,7 @@ class RealtimeOptions {
     this.idleSeconds = 10,
     this.talkOver = true,
     this.language = '',
+    this.historyHours = 0,
   });
 
   final bool wakeSound;
@@ -36,6 +38,10 @@ class RealtimeOptions {
 
   /// The kiosk's language, a transcription hint.
   final String language;
+
+  /// How long earlier exchanges carry into the next conversation, in
+  /// hours. 0 starts every conversation fresh.
+  final double historyHours;
 }
 
 /// One realtime voice conversation: from the wake word until the user goes
@@ -65,9 +71,12 @@ class RealtimeSession {
     this.onWarning,
     this.onIdle,
     this.onTrace,
+    this.location,
+    RealtimeHistory? history,
     DateTime Function()? now,
     this.tick = const Duration(milliseconds: 20),
-  }) : _now = now ?? DateTime.now;
+  }) : _now = now ?? DateTime.now,
+       history = history ?? RealtimeHistory(now: now);
 
   /// A fresh backend per conversation.
   final RealtimeBackend Function() backend;
@@ -89,6 +98,14 @@ class RealtimeSession {
   final void Function(String message)? onWarning;
   final void Function()? onIdle;
   final void Function(String step, {String? text})? onTrace;
+
+  /// Where the kiosk is, for the instructions (see [RealtimeStart.context]).
+  /// Waited on for at most [locationWait] while the wake chime plays.
+  final Future<String> Function()? location;
+  static const locationWait = Duration(milliseconds: 1500);
+
+  /// What was said, across conversations.
+  final RealtimeHistory history;
   final DateTime Function() _now;
   final Duration tick;
 
@@ -242,10 +259,35 @@ class RealtimeSession {
     // The chime plays while the connection comes up. What the microphone
     // hears over it is not part of what the user says.
     final chime = wakeChime ? _chime(gen, 'wake') : Future<void>.value();
-    unawaited(
-      backend.start(RealtimeStart(wakeWord: phrase, language: opts.language)),
-    );
+    unawaited(_connect(gen, backend, phrase, opts));
     await chime;
+  }
+
+  Future<void> _connect(
+    int gen,
+    RealtimeBackend backend,
+    String phrase,
+    RealtimeOptions opts,
+  ) async {
+    var where = '';
+    final lookup = location;
+    if (lookup != null) {
+      try {
+        where = await lookup().timeout(locationWait);
+      } catch (_) {}
+    }
+    if (gen != _gen) return;
+    final minutes = (opts.historyHours * 60).round();
+    await backend.start(
+      RealtimeStart(
+        wakeWord: phrase,
+        language: opts.language,
+        context: where,
+        history: minutes > 0
+            ? history.recent(Duration(minutes: minutes))
+            : const [],
+      ),
+    );
   }
 
   void _showListening() => _show(
@@ -555,7 +597,10 @@ class RealtimeSession {
         _touch();
         _show(_docked(phase: AssistPhase.thinking, reactive: false));
       case RealtimeUserText(:final text, :final complete):
-        if (complete) onTrace?.call('heard', text: text);
+        if (complete) {
+          onTrace?.call('heard', text: text);
+          history.add(user: true, text: text);
+        }
         if (_newExchange) {
           _newExchange = false;
           _show(
@@ -576,7 +621,10 @@ class RealtimeSession {
       case RealtimeAudio(:final itemId, :final pcm):
         _onAudio(itemId, pcm);
       case RealtimeAnswerText(:final text, :final complete):
-        if (complete) onTrace?.call('answer', text: text);
+        if (complete) {
+          onTrace?.call('answer', text: text);
+          history.add(user: false, text: text);
+        }
         _show(_docked(answer: text, streaming: !complete));
       case RealtimeToolActivity(:final name, :final done):
         _touch();

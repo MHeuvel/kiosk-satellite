@@ -266,9 +266,16 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
     RealtimeStart start,
     List<RealtimeToolSpec> tools,
   ) {
-    final instructions = config.instructions.trim().isEmpty
-        ? defaultInstructions
-        : config.instructions.trim();
+    final added = realtimeContextText(
+      context: start.context,
+      history: start.history,
+    );
+    final instructions = [
+      config.instructions.trim().isEmpty
+          ? defaultInstructions
+          : config.instructions.trim(),
+      if (added.isNotEmpty) added,
+    ].join('\n\n');
     const format = {'type': 'audio/pcm', 'rate': rate};
     final language = start.language.split(RegExp('[-_]')).first.toLowerCase();
     final toolList = [for (final tool in tools) tool.toJson()];

@@ -11729,6 +11729,13 @@ class UiStringsEn extends UiStrings {
       'The conversation ends after this long with nobody talking.';
 
   @override
+  String get settingVoiceRealtimeHistoryHoursTitle => 'Session duration';
+
+  @override
+  String get settingVoiceRealtimeHistoryHoursDescription =>
+      'What was said within this time carries into the next conversation.';
+
+  @override
   String get settingVoiceRealtimeTalkOverTitle => 'Talk over answers';
 
   @override

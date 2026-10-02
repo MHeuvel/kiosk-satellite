@@ -333,6 +333,7 @@ class VoiceManager extends Manager {
         _trace('realtime: $step', text: text);
       },
       onIdle: _resumeWake,
+      location: realtimeLocation,
     );
     _esphome.onVoice = _onVoice;
     _esphome.onVoiceConfiguration = _configuration;
@@ -1895,7 +1896,67 @@ class VoiceManager extends Manager {
     idleSeconds: _settings.get(defs.voiceRealtimeIdleSeconds).toInt(),
     talkOver: _settings.get(defs.voiceRealtimeTalkOver),
     language: _settings.get(defs.uiLanguage),
+    historyHours: _settings.get(defs.voiceRealtimeHistoryHours).toDouble(),
   );
+
+  String _location = '';
+  DateTime? _locationAt;
+
+  /// The kiosk's name and area in Home Assistant, as a line for a realtime
+  /// conversation's instructions. With Assist, Home Assistant knows which
+  /// satellite asks and "the lights" are the ones in its area. Through the
+  /// MCP server a tool call comes from nowhere, and an unqualified command
+  /// reached every light in the house. Read from the device and area
+  /// registries, kept for a few minutes. Empty without Home Assistant.
+  Future<String> realtimeLocation() async {
+    final at = _locationAt;
+    if (at != null &&
+        DateTime.now().difference(at) < const Duration(minutes: 5)) {
+      return _location;
+    }
+    try {
+      if (homeAssistant.value.satelliteEntity.isEmpty) {
+        await refreshHomeAssistant();
+      }
+      final satellite = homeAssistant.value.satelliteEntity;
+      if (satellite.isEmpty) return '';
+      final entity = await _ha.request({
+        'type': 'config/entity_registry/get',
+        'entity_id': satellite,
+      });
+      if (entity is! Map || entity['device_id'] == null) return '';
+      final devices = await _ha.request({
+        'type': 'config/device_registry/list',
+      });
+      final device = devices is List
+          ? devices
+                .whereType<Map>()
+                .where((d) => d['id'] == entity['device_id'])
+                .firstOrNull
+          : null;
+      if (device == null) return '';
+      final kiosk = '${device['name_by_user'] ?? device['name'] ?? ''}'.trim();
+      // An area set on the entity wins over the device's.
+      final areaId = entity['area_id'] ?? device['area_id'];
+      var area = '';
+      if (areaId != null) {
+        final areas = await _ha.request({'type': 'config/area_registry/list'});
+        final match = areas is List
+            ? areas
+                  .whereType<Map>()
+                  .where((a) => a['area_id'] == areaId)
+                  .firstOrNull
+            : null;
+        area = '${match?['name'] ?? ''}'.trim();
+      }
+      _location = realtimeLocationLine(name: kiosk, area: area);
+      _locationAt = DateTime.now();
+      return _location;
+    } catch (e) {
+      log.debug(name, 'kiosk location lookup failed: $e');
+      return _location;
+    }
+  }
 
   /// A provider's settings as the backend takes them.
   RealtimeConfig realtimeConfig(
@@ -3257,4 +3318,15 @@ class _Player implements VoicePlayerPort {
   Future<void> settle() async {
     await _commands.execute('voiceSpeakerDone', const {});
   }
+}
+
+/// The instructions' line about where the kiosk is.
+String realtimeLocationLine({required String name, required String area}) {
+  if (name.isEmpty && area.isEmpty) return '';
+  if (area.isEmpty) return 'This kiosk is named $name.';
+  final named = name.isEmpty
+      ? 'This kiosk is'
+      : 'This kiosk is named $name and is';
+  return "$named located in the $area area. When the user doesn't name an "
+      'area, use this one.';
 }

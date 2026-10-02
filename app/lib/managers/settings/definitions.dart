@@ -5716,6 +5716,30 @@ const voiceRealtimeIdleSeconds = SettingDef<num>(
   dependsOn: 'voice.enabled',
 );
 
+/// How long what was said carries into the next realtime conversation, in
+/// hours. Each conversation is a new session with the provider: the kiosk
+/// keeps the exchanges and hands the ones within this time to the next.
+const voiceRealtimeHistoryHours = SettingDef<num>(
+  key: 'voice.realtime_history_hours',
+  type: SettingType.number,
+  defaultValue: 1,
+  title: 'Session duration',
+  description:
+      'What was said within this time carries into the next conversation.',
+  category: 'Voice Satellite',
+  subpage: 'Realtime',
+  section: 'Conversation',
+  min: 0.5,
+  max: 12,
+  step: 0.5,
+  unit: 'h',
+  normalizer: normalizeRealtimeHistoryHours,
+  dependsOn: 'voice.enabled',
+);
+
+Object normalizeRealtimeHistoryHours(Object value) =>
+    value is num && value.isFinite ? (value.clamp(0.5, 12) * 2).round() / 2 : 1;
+
 /// Needs the echo canceller: off, the microphone is shut while the answer
 /// plays and the stop word interrupts it.
 const voiceRealtimeTalkOver = SettingDef<bool>(
@@ -10070,6 +10094,7 @@ const List<SettingDef<Object>> allSettings = [
   voiceRealtimeXaiValidated,
   voiceRealtimeInstructions,
   voiceRealtimeIdleSeconds,
+  voiceRealtimeHistoryHours,
   voiceRealtimeTalkOver,
   voiceRealtimeTools,
   voiceRealtimeMcpUrl,

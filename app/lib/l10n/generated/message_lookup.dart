@@ -3906,6 +3906,10 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingVoiceRealtimeIdleSecondsTitle,
       'settingVoiceRealtimeIdleSecondsDescription' =>
         strings.settingVoiceRealtimeIdleSecondsDescription,
+      'settingVoiceRealtimeHistoryHoursTitle' =>
+        strings.settingVoiceRealtimeHistoryHoursTitle,
+      'settingVoiceRealtimeHistoryHoursDescription' =>
+        strings.settingVoiceRealtimeHistoryHoursDescription,
       'settingVoiceRealtimeTalkOverTitle' =>
         strings.settingVoiceRealtimeTalkOverTitle,
       'settingVoiceRealtimeTalkOverDescription' =>

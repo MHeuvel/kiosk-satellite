@@ -11970,6 +11970,13 @@ class UiStringsEs extends UiStrings {
       'La conversación termina tras este tiempo sin que nadie hable.';
 
   @override
+  String get settingVoiceRealtimeHistoryHoursTitle => 'Duración de la sesión';
+
+  @override
+  String get settingVoiceRealtimeHistoryHoursDescription =>
+      'Lo dicho dentro de este tiempo pasa a la siguiente conversación.';
+
+  @override
   String get settingVoiceRealtimeTalkOverTitle => 'Hablar sobre las respuestas';
 
   @override

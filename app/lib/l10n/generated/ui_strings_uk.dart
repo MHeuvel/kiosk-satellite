@@ -11859,6 +11859,13 @@ class UiStringsUk extends UiStrings {
       'Розмова завершується, якщо стільки часу ніхто не говорить.';
 
   @override
+  String get settingVoiceRealtimeHistoryHoursTitle => 'Тривалість сеансу';
+
+  @override
+  String get settingVoiceRealtimeHistoryHoursDescription =>
+      'Сказане протягом цього часу переноситься в наступну розмову.';
+
+  @override
   String get settingVoiceRealtimeTalkOverTitle => 'Перебивати відповіді';
 
   @override

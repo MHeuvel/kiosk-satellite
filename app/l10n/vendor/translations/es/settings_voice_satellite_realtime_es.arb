@@ -6,6 +6,8 @@
   "settingVoiceRealtimeEndpointDescription": "Déjalo vacío para usar el proveedor. Usa un relé en tu red para mantener este kiosko sin conexión.",
   "settingVoiceRealtimeIdleSecondsTitle": "Terminar tras el silencio",
   "settingVoiceRealtimeIdleSecondsDescription": "La conversación termina tras este tiempo sin que nadie hable.",
+  "settingVoiceRealtimeHistoryHoursTitle": "Duración de la sesión",
+  "settingVoiceRealtimeHistoryHoursDescription": "Lo dicho dentro de este tiempo pasa a la siguiente conversación.",
   "settingVoiceRealtimeInstructionsTitle": "Instrucciones",
   "settingVoiceRealtimeInstructionsDescription": "Cómo se comporta el asistente. Déjalo vacío para usar un texto breve predeterminado.",
   "settingVoiceRealtimeMcpTokenTitle": "Token de MCP",

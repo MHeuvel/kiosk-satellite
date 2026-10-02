@@ -20409,6 +20409,18 @@ abstract class UiStrings {
   /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
   ///
   /// In en, this message translates to:
+  /// **'Session duration'**
+  String get settingVoiceRealtimeHistoryHoursTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'What was said within this time carries into the next conversation.'**
+  String get settingVoiceRealtimeHistoryHoursDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
   /// **'Talk over answers'**
   String get settingVoiceRealtimeTalkOverTitle;
 

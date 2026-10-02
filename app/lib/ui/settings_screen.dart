@@ -10511,8 +10511,12 @@ class _SliderTileState extends State<_SliderTile> {
     // Hold mode's auto-release reads as a clock, not a raw minute count:
     // 0 is "Never" (the description carries the meaning; a bare "0" did
     // not) and 90 is "1 h 30 min". Wording mirrored in the remote admin.
-    if (def.key == haHoldReleaseMinutes.key) {
-      final minutes = v.round();
+    // The realtime session duration, in half hours, reads the same way.
+    if (def.key == haHoldReleaseMinutes.key ||
+        def.key == voiceRealtimeHistoryHours.key) {
+      final minutes = def.key == voiceRealtimeHistoryHours.key
+          ? (v * 60).round()
+          : v.round();
       if (minutes <= 0) return haText(context, 'Never');
       final h = minutes ~/ 60;
       final m = minutes % 60;

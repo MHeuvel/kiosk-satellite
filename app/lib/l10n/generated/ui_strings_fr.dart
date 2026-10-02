@@ -11965,6 +11965,13 @@ class UiStringsFr extends UiStrings {
       'La conversation se termine après ce délai sans que personne ne parle.';
 
   @override
+  String get settingVoiceRealtimeHistoryHoursTitle => 'Durée de la session';
+
+  @override
+  String get settingVoiceRealtimeHistoryHoursDescription =>
+      'Ce qui a été dit pendant cette durée est repris dans la conversation suivante.';
+
+  @override
   String get settingVoiceRealtimeTalkOverTitle => 'Parler pendant les réponses';
 
   @override

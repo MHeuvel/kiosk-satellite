@@ -6,6 +6,8 @@
   "settingVoiceRealtimeEndpointDescription": "Laissez vide pour utiliser le fournisseur. Utilisez un relais sur votre réseau pour garder ce kiosque hors ligne.",
   "settingVoiceRealtimeIdleSecondsTitle": "Terminer après un silence",
   "settingVoiceRealtimeIdleSecondsDescription": "La conversation se termine après ce délai sans que personne ne parle.",
+  "settingVoiceRealtimeHistoryHoursTitle": "Durée de la session",
+  "settingVoiceRealtimeHistoryHoursDescription": "Ce qui a été dit pendant cette durée est repris dans la conversation suivante.",
   "settingVoiceRealtimeInstructionsTitle": "Instructions",
   "settingVoiceRealtimeInstructionsDescription": "Le comportement de l'assistant. Laissez vide pour un court texte par défaut.",
   "settingVoiceRealtimeMcpTokenTitle": "Jeton MCP",

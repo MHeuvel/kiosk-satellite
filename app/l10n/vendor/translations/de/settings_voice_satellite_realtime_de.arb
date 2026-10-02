@@ -6,6 +6,8 @@
   "settingVoiceRealtimeEndpointDescription": "Leer lassen, um den Anbieter zu verwenden. Nutze ein Relay in deinem Netzwerk, um diesen Kiosk offline zu halten.",
   "settingVoiceRealtimeIdleSecondsTitle": "Nach Stille beenden",
   "settingVoiceRealtimeIdleSecondsDescription": "Das Gespräch endet, wenn so lange niemand spricht.",
+  "settingVoiceRealtimeHistoryHoursTitle": "Sitzungsdauer",
+  "settingVoiceRealtimeHistoryHoursDescription": "Was innerhalb dieser Zeit gesagt wurde, fließt in das nächste Gespräch ein.",
   "settingVoiceRealtimeInstructionsTitle": "Anweisungen",
   "settingVoiceRealtimeInstructionsDescription": "Wie sich der Assistent verhält. Leer lassen für eine kurze Standardanweisung.",
   "settingVoiceRealtimeMcpTokenTitle": "MCP-Token",

@@ -12014,6 +12014,13 @@ class UiStringsDe extends UiStrings {
       'Das Gespräch endet, wenn so lange niemand spricht.';
 
   @override
+  String get settingVoiceRealtimeHistoryHoursTitle => 'Sitzungsdauer';
+
+  @override
+  String get settingVoiceRealtimeHistoryHoursDescription =>
+      'Was innerhalb dieser Zeit gesagt wurde, fließt in das nächste Gespräch ein.';
+
+  @override
   String get settingVoiceRealtimeTalkOverTitle => 'In Antworten hineinsprechen';
 
   @override
