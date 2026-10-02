@@ -27,6 +27,7 @@ class Command {
     required this.handler,
     this.params = const {},
     this.quiet = false,
+    this.secretParams = const {},
   });
 
   final String name;
@@ -37,6 +38,12 @@ class Command {
   /// the app log into a metronome — a download had getUpdateStatus logged
   /// several times a second, which read as something being wrong (#272).
   final bool quiet;
+
+  /// Params whose values never reach the log: API keys, passwords and
+  /// anything carrying them. The log is what users paste into public
+  /// issues, and an OpenAI key logged this way was revoked by OpenAI
+  /// within minutes of being posted (#804).
+  final Set<String> secretParams;
 
   /// Human-readable parameter descriptions, keyed by param name
   /// (e.g. {'level': 'Brightness 0..1'}). Documentation, not validation.
@@ -90,7 +97,7 @@ class CommandRegistry {
       if (!command.quiet) {
         _log.info(
           'command',
-          '$name${params.isEmpty ? '' : ' $params'}'
+          '$name${params.isEmpty ? '' : ' ${_redact(command, params)}'}'
               '${source == null ? '' : ' [$source]'}',
         );
       }
@@ -99,5 +106,18 @@ class CommandRegistry {
       _log.error('command', '$name failed: $e');
       return CommandResult.fail('$e');
     }
+  }
+
+  static Map<String, Object?> _redact(
+    Command command,
+    Map<String, Object?> params,
+  ) {
+    if (command.secretParams.isEmpty) return params;
+    return {
+      for (final e in params.entries)
+        e.key: command.secretParams.contains(e.key) && e.value != null
+            ? '<redacted>'
+            : e.value,
+    };
   }
 }

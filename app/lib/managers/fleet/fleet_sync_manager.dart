@@ -1454,6 +1454,7 @@ class FleetSyncManager extends Manager {
             'version': "The leader's version",
             'settings': '{key: value}',
           },
+          secretParams: const {'settings'},
           handler: (p) async {
             final r = await apply(p);
             return r.$1 == null

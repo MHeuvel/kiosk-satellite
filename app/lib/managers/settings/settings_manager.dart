@@ -199,6 +199,7 @@ class SettingsManager extends Manager {
                 'satellite entity setting) alone so this device answers as '
                 'its own satellite (default true)',
           },
+          secretParams: const {'config'},
           handler: (p) async {
             final config = p['config'];
             if (config is! Map) {

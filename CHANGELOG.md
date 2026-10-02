@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **API keys and passwords no longer show up in the app log.** The log line for each command listed its parameters as sent, so saving a realtime provider wrote its OpenAI or xAI key to the log in plain text, and a log pasted into a public issue exposed it (#804). Importing a configuration did the same with the whole file, Home Assistant token included, and so did setting the intercom key, saving a Go2RTC server's password and a fleet leader pushing settings. Those values now read `<redacted>` in the log.
+
 ## v2026.10.1 - 2026-10-01
 
 ### Added

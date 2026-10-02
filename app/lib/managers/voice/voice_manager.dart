@@ -518,6 +518,7 @@ class VoiceManager extends Manager {
             'model': 'the model, empty for the provider\'s default',
             'voice': 'the voice, empty for the provider\'s default',
           },
+          secretParams: const {'apiKey'},
           handler: (p) async => CommandResult.ok(
             await realtimeSave(
               RealtimeProvider.byId('${p['provider'] ?? ''}'),

@@ -1141,6 +1141,7 @@ class IntercomManager extends Manager {
             'key': 'The key to use',
             'regenerate': 'true for a fresh random key',
           },
+          secretParams: const {'key'},
           handler: (p) async {
             final String next;
             if (p['regenerate'] == true) {

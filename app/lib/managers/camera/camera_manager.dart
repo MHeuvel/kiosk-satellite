@@ -134,6 +134,7 @@ class CameraManager extends Manager {
             'allowInvalidCertificate':
                 'Allow an invalid TLS certificate for this server',
           },
+          secretParams: const {'password'},
           handler: _putServerCommand,
         ),
       )
