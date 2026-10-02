@@ -1,0 +1,9 @@
+{
+  "@@locale": "nl",
+  "overviewGoView": "Ga naar weergave",
+  "overviewLoadingViews": "Weergaven laden…",
+  "overviewPickView": "Kies een dashboardweergave…",
+  "overviewDefaultView": "Standaardweergave",
+  "overviewNoDashboards": "Geen dashboards gevonden",
+  "overviewViewsUnavailable": "Weergaven niet beschikbaar"
+}

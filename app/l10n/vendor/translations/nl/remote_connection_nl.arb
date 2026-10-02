@@ -1,0 +1,11 @@
+{
+  "@@locale": "nl",
+  "remoteReconnecting": "Opnieuw verbinden…",
+  "remoteConnectionLost": "De verbinding met {name} is verbroken. Deze pagina gaat automatisch verder zodra de verbinding is hersteld.",
+  "remoteConnectionLostUnnamed": "De verbinding met de kiosk is verbroken. Deze pagina gaat automatisch verder zodra de verbinding is hersteld.",
+  "remoteReloadPage": "Pagina herladen",
+  "remoteUpdated": "Kiosk Satellite is bijgewerkt",
+  "remoteUpdatedHelp": "Op het apparaat draait nu versie {version}{build}. Deze pagina hoort bij de vorige versie en wordt over {seconds} s opnieuw geladen.",
+  "remoteBuild": " (build {build})",
+  "remoteReloadNow": "Nu herladen"
+}

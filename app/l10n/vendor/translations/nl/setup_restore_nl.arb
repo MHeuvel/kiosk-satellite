@@ -1,0 +1,16 @@
+{
+  "@@locale": "nl",
+  "setupNotBackup": "Geen back-upbestand",
+  "setupInvalidBackupHelp": "Dit bestand bevat geen geldige JSON. Exporteer een configuratie via Instellingen op een geconfigureerde Kiosk Satellite of via beheer op afstand.",
+  "setupWrongBackupKind": "Exporteer een configuratie van het tabblad Instellingen van een ingestelde Kiosk Satellite.",
+  "setupImportFailedHelp": "Het bestand kon niet worden toegepast.",
+  "setupBackupNoDashboard": "Back-up bevat geen dashboard",
+  "setupBackupNoDashboardHelp": "De instellingen zijn toegepast, maar deze back-up is gemaakt voordat het apparaat werd geconfigureerd. Er is daarom nog geen dashboard geselecteerd. Ga verder met de wizard om er een te kiezen.",
+  "setupImporting": "Importeren…",
+  "setupRemoteRestoreHelp": "Importeer een vanuit Kiosk Satellite geëxporteerde configuratie en sla de rest van deze wizard over.",
+  "setupFinishOnDevice": "Voltooien op het apparaat",
+  "setupFinishOnDeviceHelp": "De configuratie is geïmporteerd. Bevestig de toestemmingsverzoeken op de tablet. Deze pagina gaat automatisch verder zodra het dashboard wordt geladen.",
+  "setupBackupObject": "De back-up moet een JSON-object bevatten.",
+  "setupBackupKind": "Dit is geen configuratiebestand van Kiosk Satellite.",
+  "setupBackupSettings": "De back-up bevat geen instellingen."
+}

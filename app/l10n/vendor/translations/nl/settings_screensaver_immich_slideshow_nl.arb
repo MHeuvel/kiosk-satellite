@@ -1,0 +1,18 @@
+{
+  "@@locale": "nl",
+  "settingScreensaverImmichIntervalTitle": "Seconden per afbeelding",
+  "settingScreensaverImmichIntervalDescription": "Hoelang elke afbeelding wordt getoond voordat de volgende verschijnt. Video's worden volledig afgespeeld.",
+  "settingScreensaverImmichShuffleTitle": "Willekeurige volgorde",
+  "settingScreensaverImmichShuffleDescription": "Speel de media in willekeurige volgorde af.",
+  "settingScreensaverImmichTransitionTitle": "Overgang",
+  "settingScreensaverImmichTransitionDescription": "De overgang van het ene item naar het volgende.",
+  "settingScreensaverImmichFillTitle": "Het scherm vullen",
+  "settingScreensaverImmichFillDescription": "Uit toont de volledige foto met zwarte balken ernaast. Slim vergroot foto's met een beeldverhouding die dicht bij die van het scherm ligt; de rest wordt tegen een vervaagde achtergrond getoond. Altijd vergroot elke foto en snijdt af wat niet op het scherm past.",
+  "settingScreensaverImmichPairPortraitTitle": "Portretfoto's combineren",
+  "settingScreensaverImmichPairPortraitDescription": "Toon twee portretfoto's naast elkaar zodat ze het scherm vullen.",
+  "settingScreensaverImmichPairLandscapeTitle": "Liggende foto's combineren",
+  "settingScreensaverImmichPairLandscapeDescription": "Toon twee landschapsfoto's boven elkaar zodat ze een portretscherm vullen.",
+  "settingScreensaverImmichEdgeTapsTitle": "Tik op randen om dia's te wijzigen",
+  "settingScreensaverImmichEdgeTapsDescription": "Een tik op het linker- of rechtervijfde deel van het scherm toont de vorige of volgende dia in plaats van de schermbeveiliging te sluiten.",
+  "screensaverMediaSlideshow": "Diavoorstelling"
+}

@@ -1,0 +1,10 @@
+{
+  "@@locale": "nl",
+  "settingScreensaverWebsiteUrlTitle": "Website-URL",
+  "settingScreensaverWebsiteUrlDescription": "Een pagina die schermvullend wordt weergegeven. De website moet insluiten toestaan.",
+  "settingScreensaverWebsiteZoomTitle": "Zoomniveau",
+  "settingScreensaverWebsiteZoomDescription": "Past de schaal aan van de volledige webweergave van de externe schermbeveiliging.",
+  "settingScreensaverWebsiteDoubleTapTitle": "Dubbele tik om af te sluiten",
+  "settingScreensaverWebsiteDoubleTapDescription": "Enkele tikken werken met de website en sluiten de schermbeveiliging niet af.",
+  "screensaverWebsiteSection": "Website als schermbeveiliging"
+}

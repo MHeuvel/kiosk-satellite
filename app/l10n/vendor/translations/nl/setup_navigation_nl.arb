@@ -1,0 +1,11 @@
+{
+  "@@locale": "nl",
+  "setupWelcome": "Welkom",
+  "setupConnect": "Verbinden",
+  "setupConnectSummary": "Home Assistant-URL en token",
+  "setupDashboard": "Dashboard",
+  "setupDashboardSummary": "Wat de kiosk laat zien",
+  "setupRecommendedSummary": "Aanbevolen instellingen",
+  "setupPermissions": "Toestemmingen",
+  "setupPermissionsSummary": "Benodigd voor de configuratie"
+}

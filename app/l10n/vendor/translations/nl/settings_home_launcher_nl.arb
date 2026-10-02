@@ -1,0 +1,7 @@
+{
+  "@@locale": "nl",
+  "settingHomeLauncherEnabledTitle": "Als startscherm gebruiken",
+  "settingHomeLauncherEnabledDescription": "Registreer Kiosk Satellite als startscherm van het apparaat. De kiosk start tijdens het opstarten en iedere druk op de startknop keert ernaar terug. Als de app herhaaldelijk niet kan starten, wordt deze optie automatisch uitgeschakeld en het vorige startscherm hersteld.",
+  "settingHomeKeepPinningTitle": "Schermvastzetting behouden",
+  "settingHomeKeepPinningDescription": "Zet het scherm ook vast wanneer Kiosk Satellite het startscherm is. Dit blokkeert de recente apps en terugknop via Android, maar toont op apparaten zonder apparaateigenaarschap opnieuw het bevestigingsvenster voor schermvastzetting."
+}

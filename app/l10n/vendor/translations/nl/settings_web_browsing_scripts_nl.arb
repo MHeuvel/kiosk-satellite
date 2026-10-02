@@ -1,0 +1,9 @@
+{
+  "@@locale": "nl",
+  "settingBrowserInjectJsTitle": "JavaScript uitvoeren op het HA-dashboard",
+  "settingBrowserInjectJsDescription": "Voer deze JavaScript-code uit telkens nadat de dashboardpagina is geladen. Hiermee kun je bijvoorbeeld afleidende onderdelen verbergen of een dashboard aanpassen dat je niet beheert.",
+  "settingBrowserInjectJsExternalTitle": "JavaScript uitvoeren op externe pagina's",
+  "settingBrowserInjectJsExternalDescription": "Voer deze JavaScript-code uit nadat een externe pagina is geladen, waaronder pagina's uit dashboardlinks, pagina's voor dashboardrotatie en de websiteschermbeveiliging. De Music Assistant-pagina wordt niet aangepast.",
+  "browserInjectJsPlaceholder": "// Voorbeeld: een afleidend element verbergen\ndocument.querySelector('#banner').style.display = 'none';",
+  "browserInjectJsExternalPlaceholder": "// Voorbeeld: zoom een site die het zoomniveau van het dashboard negeert\ndocument.documentElement.style.zoom = '1.25';"
+}

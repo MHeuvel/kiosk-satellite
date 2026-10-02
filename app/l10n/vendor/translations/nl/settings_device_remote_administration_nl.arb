@@ -1,0 +1,21 @@
+{
+  "@@locale": "nl",
+  "settingRemoteEnabledTitle": "Beheer op afstand",
+  "settingRemoteEnabledDescription": "Start de ingebouwde webserver voor beheer.",
+  "settingRemotePortTitle": "Serverpoort",
+  "settingRemotePortDescription": "Poort voor de interface voor beheer op afstand.",
+  "settingRemotePasswordTitle": "Beheerderswachtwoord",
+  "settingRemotePasswordDescription": "Vereist om in te loggen op de externe interface.",
+  "settingRemoteFleetDiscoveryTitle": "Andere kiosken zoeken",
+  "settingRemoteFleetDiscoveryDescription": "Maak dit apparaat vindbaar op het netwerk en toon andere kiosken in beheer op afstand, zodat je ertussen kunt wisselen.",
+  "deviceRemotePage": "Beheer op afstand",
+  "deviceAdminAddress": "Beheeradres",
+  "deviceAdminAddressHelp": "Open dit adres in een browser op je computer.",
+  "deviceByName": "Op naam",
+  "deviceByNameHelp": "Hetzelfde adres met de hostnaam, op netwerken die .local-namen ondersteunen.",
+  "devicePasswordNeeded": "Stel hieronder een beheerderswachtwoord in om de server te starten.",
+  "deviceServerStopped": "De server draait niet.",
+  "devicePortError": "Kon niet luisteren op poort {port}: {error}",
+  "settingRemoteTlsTitle": "HTTPS gebruiken",
+  "settingRemoteTlsDescription": "Versleutel beheer op afstand, de API en WebSocket. Je browser kan vragen om het apparaatcertificaat te accepteren."
+}

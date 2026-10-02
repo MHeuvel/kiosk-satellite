@@ -1,0 +1,6 @@
+{
+  "@@locale": "nl",
+  "fleetSwitchKiosk": "Kiosk wisselen",
+  "fleetKiosksOnThisNetworkWithTheRemoteAdminOn": "Ontdekte kiosken en opgeslagen vlootleden. Als je een kiosk kiest, wordt het beheer op afstand ervan op deze pagina geopend.",
+  "fleetNoOtherKioskFoundOnThisNetworkAKioskDetail": "Geen andere kiosken gevonden. Kiosken verschijnen via netwerkdetectie of een opgeslagen vlootlidmaatschap."
+}

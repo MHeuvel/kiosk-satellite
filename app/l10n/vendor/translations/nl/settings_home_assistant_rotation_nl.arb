@@ -1,0 +1,19 @@
+{
+  "@@locale": "nl",
+  "settingHaRotationEnabledTitle": "Dashboardrotatie inschakelen",
+  "settingHaRotationEnabledDescription": "Doorloop de geselecteerde dashboardweergaven voortdurend en toon elke weergave gedurende het gekozen aantal seconden.",
+  "settingHaRotationSecondsTitle": "Seconden per weergave",
+  "settingHaRotationSecondsDescription": "Hoelang elke weergave in beeld blijft.",
+  "settingHaRotationPauseSecondsTitle": "Rotatie pauzeren na interactie (seconden)",
+  "settingHaRotationPauseSecondsDescription": "Een aanraking pauzeert de rotatie gedurende deze tijd en start het aftellen opnieuw. Spraakinteracties pauzeren de rotatie totdat ze zijn afgelopen. Bij 0 blijft de rotatie actief tijdens aanrakingen.",
+  "settingHaRotationCrossfadeTitle": "Overgang tussen weergaven",
+  "settingHaRotationCrossfadeDescription": "Laat de huidige weergave via de achtergrond overvloeien in de volgende, in plaats van direct te wisselen. Bij een ander dashboard of een externe pagina wordt nog steeds direct gewisseld.",
+  "settingHaRotationFadeSecondsTitle": "Duur van overgang (seconden)",
+  "settingHaRotationFadeSecondsDescription": "Totale duur van het uit- en infaden. Het laden van de volgende weergave kan extra tijd kosten, vooral de eerste keer.",
+  "haRotation": "Dashboardrotatie",
+  "haRotationHint": "Weergaven doorlopen, weergaveduur en overgang",
+  "haDefaultView": "Standaardweergave",
+  "haExternalPages": "Externe pagina's",
+  "haFadeError": "Kies een vervagingsduur van 0,2 tot 5 seconden.",
+  "haPauseRemoteHelp": "Een aanraking pauzeert de rotatie gedurende deze tijd en start de timer opnieuw. Spraakinteracties pauzeren altijd totdat ze zijn afgelopen. Bij 0 blijft de rotatie actief."
+}

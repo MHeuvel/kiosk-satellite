@@ -1,0 +1,8 @@
+{
+  "@@locale": "nl",
+  "remoteDisableTitle": "Beheer op afstand uitschakelen?",
+  "remoteDisableHelp": "WAARSCHUWING: je hebt daarna geen toegang meer tot deze pagina. Schakel beheer op afstand weer in op het apparaat of met de schakelaar Beheer op afstand in Home Assistant.",
+  "remoteDisableConfirm": "Uitschakelen",
+  "remoteCopyHelp": "Selecteer de sleutel en kopieer deze handmatig.",
+  "remoteSaveSettingFailed": "Kon deze instelling niet opslaan. Probeer het nog eens."
+}

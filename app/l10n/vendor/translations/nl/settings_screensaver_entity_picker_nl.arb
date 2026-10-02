@@ -1,0 +1,18 @@
+{
+  "@@locale": "nl",
+  "screensaverOverlayEntity": "Entiteit",
+  "screensaverOverlayNotSet": "Niet ingesteld",
+  "screensaverOverlayName": "Naam",
+  "screensaverOverlayNameHelp": "Laat dit leeg om de naam uit Home Assistant te gebruiken.",
+  "screensaverOverlayValue": "Weergegeven waarde",
+  "screensaverOverlayState": "Status",
+  "screensaverOverlayEntityRequired": "Kies een entiteit.",
+  "screensaverOverlaySearchHint": "Naam of entiteit-ID",
+  "screensaverOverlaySearchHintRemote": "Zoeken op naam of entiteit-id",
+  "screensaverOverlaySearchEmpty": "Typ om entiteiten te zoeken.",
+  "screensaverOverlayNoMatches": "Niets kwam overeen.",
+  "screensaverOverlaySearching": "Zoeken…",
+  "screensaverOverlayUnreachable": "Kon Home Assistant niet bereiken",
+  "screensaverOverlayNoAnswer": "Het apparaat reageerde niet.",
+  "screensaverOverlaySearchError": "Er kon niet naar entiteiten worden gezocht: {error}"
+}

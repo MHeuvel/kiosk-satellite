@@ -1,0 +1,11 @@
+{
+  "@@locale": "nl",
+  "settingHaReturnHomeEnabledTitle": "Terugkeren naar de startweergave van het dashboard",
+  "settingHaReturnHomeEnabledDescription": "Keer na een periode van inactiviteit terug naar het hierboven ingestelde dashboard.",
+  "settingHaReturnHomeSecondsTitle": "Terugkeer na (seconden)",
+  "settingHaReturnHomeSecondsDescription": "Inactiviteitsperiode voordat de kiosk teruggaat.",
+  "haReturnHint": "Na inactiviteit terugkeren naar de startweergave",
+  "haReturnDisabled": "Uitgeschakeld zolang dashboardrotatie actief is.",
+  "haReturnNoPath": "Het ingestelde dashboard heeft geen weergavepad om naar terug te keren.",
+  "haReturnPath": "Keert na de time-out terug naar \"{path}\"."
+}

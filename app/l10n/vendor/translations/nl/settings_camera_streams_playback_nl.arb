@@ -1,0 +1,19 @@
+{
+  "@@locale": "nl",
+  "settingCameraAllowH265Title": "H.265-streams toestaan",
+  "settingCameraAllowH265Description": "Speel H.265-camerastreams ongewijzigd af. Een apparaat dat H.265 niet kan decoderen, toont in plaats daarvan een leeg beeld.",
+  "settingCameraPreferMseTitle": "MSE verkiezen boven WebRTC",
+  "settingCameraPreferMseDescription": "Stream Go2RTC-camera's bij voorkeur via MSE. Bedoeld voor apparaten die WebRTC niet kunnen afspelen; dit voegt één of twee seconden vertraging toe.",
+  "settingCameraPreferHlsTitle": "HLS verkiezen boven WebRTC",
+  "settingCameraPreferHlsDescription": "Stream Home Assistant-camera's bij voorkeur via HLS. Bedoeld voor apparaten die WebRTC niet kunnen afspelen; dit voegt enkele seconden vertraging toe.",
+  "settingCameraSingleAudioTitle": "Geluid afspelen voor een enkele camera",
+  "settingCameraSingleAudioDescription": "Speel het geluid van de camera af als er maar één camera op het scherm staat. Rasters met meerdere camera's blijven stil.",
+  "settingCameraPinchZoomTitle": "Knijpen om op één camera in te zoomen",
+  "settingCameraPinchZoomDescription": "Zoom met twee vingers in wanneer er één camera in beeld is. Sleep om het beeld te verplaatsen en dubbeltik om de zoom te herstellen.",
+  "settingCameraAutoDismissSecondsTitle": "Automatisch sluiten na",
+  "settingCameraAutoDismissSecondsDescription": "Sluit een geopende cameraweergave automatisch. Bij 0 blijft deze geopend. Dit heeft geen invloed op de cameraschermbeveiliging.",
+  "cameraStreamsPlayback": "Afspelen",
+  "cameraStreamsOff": "Uit",
+  "cameraStreamsSeconds": "{seconds} s",
+  "cameraStreamsGridHelp": "Rasters met meerdere camera's bevatten alleen video. Gebruik op minder krachtige apparaten Go2RTC-streams met een lagere resolutie en stel eventueel een afzonderlijke stream voor volledig scherm in."
+}

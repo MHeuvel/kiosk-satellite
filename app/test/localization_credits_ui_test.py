@@ -50,6 +50,7 @@ try:
         languages = [("English", "jxlarrea"), ("Español", "jxlarrea"), ("Français", "Limoniak")]
         if german:
             languages.insert(0, ("Deutsch", "Dee-san"))
+        languages.append(("Nederlands", "rononline"))
         languages.append(("Українська", "kdinya"))
         expect(credits.locator("h2")).to_have_text([name for name, _ in languages])
         for index, (_, login) in enumerate(languages):
@@ -65,6 +66,7 @@ try:
             locales.append(("es", "Créditos de traducción"))
         if german:
             locales.append(("de", "Mitwirkende an der Übersetzung"))
+        locales.append(("nl", "Vertalers"))
         locales.append(("uk", "Автори перекладу"))
         locales.append(("fr", "Crédits de traduction"))
         for locale, title in locales:
@@ -87,7 +89,7 @@ try:
             expect(page.locator("#pageTitle")).to_have_text(title)
             page.wait_for_timeout(350)
             expect(page.locator("#pageTitle")).to_have_text(title)
-        layout_locales = [("uk", "Автори перекладу")]
+        layout_locales = [("nl", "Vertalers"), ("uk", "Автори перекладу")]
         if german:
             layout_locales.insert(0, ("de", "Mitwirkende an der Übersetzung"))
         for locale, title in layout_locales:

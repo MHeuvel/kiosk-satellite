@@ -1,0 +1,9 @@
+{
+  "@@locale": "nl",
+  "settingDisableCacheTitle": "Cache uitschakelen",
+  "settingDisableCacheDescription": "Haal de pagina altijd op via het netwerk en verwijder tijdens het laden gegevens uit de cache, zodat een opnieuw uitgerold dashboard altijd actueel wordt geladen. Dit is langzaam en alleen bedoeld als hulpmiddel tijdens ontwikkeling.",
+  "settingAllowMixedContentTitle": "Gemengde inhoud toestaan",
+  "settingAllowMixedContentDescription": "Laat HTTPS-pagina's onveilige HTTP-bronnen laden. Dit helpt wanneer Home Assistant inhoud via http:// in een dashboard via https:// gebruikt.",
+  "settingIgnoreSslErrorsTitle": "SSL-fouten negeren",
+  "settingIgnoreSslErrorsDescription": "Accepteer niet-vertrouwde of zelfondertekende certificaten. Gebruik dit alleen op je eigen netwerk, omdat certificaatcontrole hiermee wordt uitgeschakeld."
+}

@@ -1,0 +1,22 @@
+{
+  "@@locale": "nl",
+  "settingScreensaverImmichUrlTitle": "Serveradres",
+  "settingScreensaverImmichUrlDescription": "Het adres van je Immich-server, inclusief poortnummer.",
+  "settingScreensaverImmichApiKeyTitle": "API-sleutel",
+  "settingScreensaverImmichApiKeyDescription": "Aangemaakt in Immich onder Accountinstellingen → API-sleutels.",
+  "screensaverMediaImmichPage": "Immich-media als schermbeveiliging",
+  "screensaverMediaImmichHint": "Server, media, diavoorstelling, metagegevens en filters",
+  "screensaverMediaServerConnection": "Verbinding met server",
+  "screensaverMediaValidateFailedLog": "Validatie is mislukt. Raadpleeg het app-logboek voor de mislukte aanvraag.",
+  "screensaverMediaValidateFailed": "Validatie mislukt.",
+  "screensaverMediaNoAnswer": "Het apparaat reageerde niet.",
+  "screensaverMediaAddressFirst": "Voer eerst het serveradres in.",
+  "screensaverMediaKeyFirst": "Voer eerst een API-sleutel in.",
+  "screensaverMediaBadAddress": "Het serveradres is geen geldige URL.",
+  "screensaverMediaKeyRejected": "De API-sleutel is geweigerd.",
+  "screensaverMediaScopeMissing": "De API-sleutel mist de {scope}-toestemming.",
+  "screensaverMediaPermissionMissing": "De API-sleutel mist een toestemming: {error}",
+  "screensaverMediaServerError": "De server antwoordde {status}: {error}",
+  "screensaverMediaUnreachable": "Kon {url} niet bereiken.",
+  "screensaverMediaTalkError": "Kan geen verbinding maken met de server: {error}"
+}

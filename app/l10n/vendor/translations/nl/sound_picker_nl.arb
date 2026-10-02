@@ -1,0 +1,18 @@
+{
+  "@@locale": "nl",
+  "intercomBuiltinRing": "Ingebouwde beltoon",
+  "intercomBuiltinChime": "Ingebouwd geluidssignaal",
+  "intercomMissingFile": "{file} (ontbrekend)",
+  "intercomAddSound": "Een geluid toevoegen",
+  "intercomCopySoundHelp": "Kopieer een geluidsbestand van dit apparaat naar de geluidsmap.",
+  "intercomUploadSoundHelp": "Upload een geluidsbestand van deze computer naar de geluidsmap.",
+  "intercomUpload": "Uploaden",
+  "intercomUploading": "Uploaden…",
+  "intercomUnsupportedSound": "Geen ondersteund geluid",
+  "intercomChooseSound": "Geen ondersteund geluid: kies een MP3-, OGG-, WAV-, FLAC-, M4A- of AAC-bestand.",
+  "intercomCopyFailed": "Kon het bestand niet kopiëren",
+  "intercomUploadFailed": "Uploaden mislukt: {error}",
+  "intercomSaveFailed": "Niet opgeslagen: {error}",
+  "intercomSoundFilename": "Voer een bestandsnaam in, geen pad.",
+  "intercomSoundFormats": "Kies een MP3-, OGG-, WAV-, FLAC-, M4A- of AAC-bestand."
+}

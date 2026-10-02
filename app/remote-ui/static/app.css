@@ -559,7 +559,9 @@
     line-height: 1.3; text-align: left; }
   .action.tile .disc { width: 32px; height: 32px; transition: transform .12s; }
   .action.tile .disc svg { width: 16px; height: 16px; }
-  .action.tile > .disc + span { min-width: 0; }
+  /* Long single words like Dutch "Schermbeveiliging" hyphenate instead of
+     running past the tile on a phone. */
+  .action.tile > .disc + span { min-width: 0; overflow-wrap: anywhere; hyphens: auto; }
   .action.tile:active .disc { transform: scale(.92); }
   /* A tile that is a state (Do not disturb) reads on with the soft tint. */
   .action.tile.active { background: var(--primary-soft); color: var(--primary); }

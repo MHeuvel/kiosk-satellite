@@ -1,0 +1,19 @@
+{
+  "@@locale": "nl",
+  "pluginAddPlugin": "Plug-in toevoegen",
+  "pluginInstallFromAGithubRepository": "Installeren vanuit een GitHub-repository",
+  "pluginMakeSureYouTrustThePluginSAuthorAnd": "Controleer voordat je de plug-in installeert of je de auteur en de code vertrouwt.",
+  "pluginPreview": "Voorbeeldweergave",
+  "pluginInstalledVersion": "Geïnstalleerde versie",
+  "pluginAuthor": "Auteur",
+  "pluginLicense": "Licentie",
+  "pluginPluginsRunCodeInsideKioskSatelliteAndCanAccess": "Plug-ins voeren code uit binnen Kiosk Satellite en hebben toegang tot appgegevens en verleende Android-toestemmingen. Een defecte of schadelijke plug-in kan privégegevens openbaar maken of voorkomen dat de app werkt. Installeer alleen plug-ins van auteurs die je vertrouwt.",
+  "pluginNewPluginsStartDisabledUpdatesPreserveTheEnabledState": "Nieuwe plug-ins zijn aanvankelijk uitgeschakeld. Bij updates blijft de ingeschakelde status behouden en worden actieve plug-ins automatisch opnieuw gestart.",
+  "pluginTrustAndUpdate": "Vertrouwen en bijwerken",
+  "pluginTrustAndInstall": "Vertrouwen en installeren",
+  "pluginInstallFromZip": "Installeren vanuit ZIP",
+  "pluginForDevelopersOnlyTestALocalBuild": "Alleen voor ontwikkelaars: een lokale build testen",
+  "pluginPluginZip": "ZIP-bestand van plug-in",
+  "pluginPluginZipMustBeAtMost4Mb": "Het ZIP-bestand van de plug-in mag maximaal 4 MB groot zijn",
+  "pluginCouldNotReadTheSelectedZip": "Kon de geselecteerde ZIP niet lezen"
+}

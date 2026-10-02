@@ -1,0 +1,19 @@
+{
+  "@@locale": "nl",
+  "settingEsphomeEnabledTitle": "ESPHome inschakelen",
+  "settingEsphomeEnabledDescription": "Stel deze kiosk als ESPHome-apparaat beschikbaar aan Home Assistant, met de sensoren en bedieningselementen als systeemeigen entiteiten. De kiosk wordt automatisch ontdekt.",
+  "settingEsphomeEntitiesTitle": "Kiosk-entiteiten beschikbaar stellen",
+  "settingEsphomeEntitiesDescription": "Stel de sensoren en bedieningselementen van dit apparaat beschikbaar als ESPHome-entiteiten.",
+  "settingEsphomeExcludedEntitiesTitle": "Uitgesloten entiteiten",
+  "settingEsphomeExcludedEntitiesDescription": "Kies welke entiteiten je niet aan Home Assistant beschikbaar wilt stellen. Alle overige beschikbare entiteiten worden wel getoond. Na het opslaan maakt ESPHome opnieuw verbinding.",
+  "settingEsphomeNodeNameTitle": "Nodenaam",
+  "settingEsphomeNodeNameDescription": "Geeft deze kiosk een naam op het netwerk. Home Assistant leidt de namen van acties hiervan af. Als je de node hernoemt, worden die acties ook hernoemd.",
+  "settingEsphomeNodeNamePlaceholder": "Instellen bij eerste start",
+  "settingBtproxyKeyTitle": "Versleutelingssleutel",
+  "settingBtproxyKeyDescription": "Plak deze sleutel in Home Assistant wanneer om de versleutelingssleutel wordt gevraagd. De sleutel wordt bij de eerste start automatisch gegenereerd.",
+  "settingBtproxyKeyPlaceholder": "Gegenereerd bij eerste start",
+  "settingBtproxyPortTitle": "API-poort",
+  "settingBtproxyPortDescription": "De poort waarmee Home Assistant verbinding maakt. Laat dit veld leeg om de ESPHome-standaardpoort 6053 te gebruiken.",
+  "esphomeStartFailed": "De ESPHome-server kon niet worden gestart: {error}",
+  "esphomeExcludedInvalid": "Kies een lijst van entiteits-ID's."
+}

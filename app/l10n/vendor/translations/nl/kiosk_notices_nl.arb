@@ -1,0 +1,21 @@
+{
+  "@@locale": "nl",
+  "kioskBackClose": "Druk opnieuw op terug om de app te sluiten",
+  "kioskBackAgain": "Druk weer op terug om terug te gaan",
+  "kioskHoldOn": "Wachtstand ingeschakeld",
+  "kioskHoldOff": "Wachtstand uitgeschakeld",
+  "kioskHoldNotice": "De huidige weergave blijft staan totdat je de wachtstand uitschakelt.",
+  "kioskDownloadComplete": "Download voltooid",
+  "kioskDownloadFailed": "Downloaden is mislukt",
+  "kioskDownload": "Downloaden",
+  "kioskDownloading": "Downloaden",
+  "kioskOpen": "Openen",
+  "kioskTip": "Tip",
+  "kioskMenuHint": "Veeg vanaf de linkerkant om het menu te openen.",
+  "kioskUnknownLink": "Onbekende kiosk-link",
+  "kioskOpenAppFailed": "Kon de app niet openen",
+  "kioskWebViewMissing": "Android System WebView is niet geïnstalleerd",
+  "kioskWebViewMissingHelp": "Dit apparaat heeft geen WebView-provider, waardoor Home Assistant niet kan worden weergegeven. Installeer Android System WebView of Chrome en start Kiosk Satellite opnieuw.",
+  "kioskDuraSpeedBlocking": "DuraSpeed blokkeert het dashboard",
+  "kioskDuraSpeedBlockingHelp": "DuraSpeed op deze tablet voorkomt dat de dashboardrenderer wordt gestart. Op sommige tablets is hiervoor geen instellingenpagina beschikbaar. Schakel DuraSpeed eenmalig uit via ADB en start Kiosk Satellite daarna opnieuw:"
+}

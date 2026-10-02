@@ -1,0 +1,23 @@
+{
+  "@@locale": "nl",
+  "setupRemoteHeading": "Beheer op afstand",
+  "setupTitle": "Instellen\nKiosk Satellite",
+  "setupWelcomeLead": "Maak van deze tablet een Home Assistant-kiosk. De configuratie duurt maar een paar minuten. Deze wizard begeleidt je stap voor stap.",
+  "setupDeviceName": "Apparaatnaam",
+  "setupDeviceNameHelp": "De naam van deze kiosk in Home Assistant, beheer op afstand en op het netwerk. Je kunt deze later wijzigen via Instellingen > Apparaat.",
+  "setupEnableRemote": "Beheer op afstand inschakelen",
+  "setupEnableRemoteHelp": "Beheer deze kiosk na de configuratie vanuit een webbrowser. Daar kun je het Home Assistant-toegangstoken gemakkelijker plakken.",
+  "setupRemotePassword": "Wachtwoord voor beheer op afstand",
+  "setupRestoreHeading": "Reservekopie herstellen",
+  "setupRestore": "Configuratiebestand herstellen",
+  "setupRestoreHelp": "Importeer een vanuit Kiosk Satellite geëxporteerde configuratie en sla de rest van deze wizard over. Instellingen, het dashboard en aanmeldgegevens worden allemaal overgenomen.",
+  "setupServicePermissions": "Aanbevolen servicetoestemmingen",
+  "setupPasswordShort": "Wachtwoord te kort",
+  "setupPasswordMinimum": "Gebruik ten minste 4 tekens.",
+  "setupRemoteAddress": "Je kunt de configuratie op afstand voortzetten in een webbrowser via {address}, ongeacht of de schakelaar hierboven is ingeschakeld.",
+  "remoteWelcomeTitle": "Welkom bij Kiosk Satellite",
+  "remoteWelcomePassword": "Deze tablet moet nog worden geconfigureerd. Beveilig beheer op afstand eerst met een wachtwoord.",
+  "remoteWelcomeReady": "Deze tablet moet nog worden geconfigureerd. Er is al een wachtwoord voor beheer op afstand ingesteld. Voer hier een nieuw wachtwoord in om het te wijzigen.",
+  "remoteInitialPassword": "Beheerderswachtwoord (minimaal 4 tekens)",
+  "remoteNewPassword": "Nieuw beheerderswachtwoord (leeg laten om het huidige te behouden)"
+}

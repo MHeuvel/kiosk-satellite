@@ -1,0 +1,17 @@
+{
+  "@@locale": "nl",
+  "settingVoiceShowCommandTitle": "Tonen wat je hebt gezegd",
+  "settingVoiceShowCommandDescription": "Toon je opdracht boven het antwoord.",
+  "settingVoiceShowAnswerTitle": "Antwoord tonen",
+  "settingVoiceShowAnswerDescription": "Toon het antwoord terwijl het wordt uitgesproken.",
+  "settingVoiceShowToolsTitle": "Toolgebruik tonen",
+  "settingVoiceShowToolsDescription": "Een regel voor elke actie die de assistent uitvoert.",
+  "settingVoiceHideSentimentTagsTitle": "Sentimenttags verbergen",
+  "settingVoiceHideSentimentTagsDescription": "Verberg labels zoals [happy] die sommige assistenten toevoegen.",
+  "settingVoiceAnswerLingerTitle": "Het antwoord op het scherm houden",
+  "settingVoiceAnswerLingerDescription": "Nadat het antwoord is uitgesproken.",
+  "settingVoiceResultsLingerTitle": "Resultaten op het scherm houden",
+  "settingVoiceResultsLingerDescription": "Afbeeldingen, weer en andere resultaten. Stel 0 in om ze te tonen totdat je ze sluit.",
+  "settingVoiceAnnouncementLingerTitle": "Duur van aankondiging",
+  "settingVoiceAnnouncementLingerDescription": "Na een aankondiging."
+}

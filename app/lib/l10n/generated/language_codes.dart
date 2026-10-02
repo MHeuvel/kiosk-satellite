@@ -4,6 +4,7 @@ const messageLanguageOptions = <String>[
   'de',
   'es',
   'fr',
+  'nl',
   'uk',
 ];
-const messageLanguageLabels = <String, String>{"en": "English", "de": "Deutsch", "es": "Español", "fr": "Français", "uk": "Українська"};
+const messageLanguageLabels = <String, String>{"en": "English", "de": "Deutsch", "es": "Español", "fr": "Français", "nl": "Nederlands", "uk": "Українська"};

@@ -1,0 +1,12 @@
+{
+  "@@locale": "nl",
+  "settingFacePreviewTitle": "Cameravoorbeeld tonen",
+  "settingFacePreviewDescription": "Toon enkele seconden een kleine ronde liveweergave van de camera in een hoek van het scherm wanneer een gezicht de kiosk activeert.",
+  "settingFacePreviewSecondsTitle": "Duur van voorbeeldweergave",
+  "settingFacePreviewSecondsDescription": "Hoelang de voorbeeldweergave op het scherm blijft.",
+  "settingFacePreviewScaleTitle": "Grootte van voorbeeldweergave",
+  "settingFacePreviewScaleDescription": "Pas de grootte van de voorbeeldweergave aan zodat deze beter op het scherm past.",
+  "settingFacePreviewPositionTitle": "Positie van voorbeeldweergave",
+  "settingFacePreviewPositionDescription": "In welke hoek de voorbeeldweergave verschijnt.",
+  "screensaverDetectionPreviewSection": "Cameravoorbeeld"
+}

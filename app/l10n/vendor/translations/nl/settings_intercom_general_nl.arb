@@ -1,0 +1,22 @@
+{
+  "@@locale": "nl",
+  "settingIntercomEnabledTitle": "Intercom inschakelen",
+  "settingIntercomEnabledDescription": "Bel andere kiosken op dit netwerk en neem hun oproepen aan.",
+  "settingIntercomKeyTitle": "Intercomsleutel",
+  "settingIntercomKeyDescription": "Kiosken met dezelfde sleutel kunnen elkaar bellen. Vlootbeheer kan de sleutel synchroniseren.",
+  "settingIntercomKeyPlaceholder": "Gemaakt wanneer de intercom is ingeschakeld",
+  "settingIntercomMenuTitle": "Toon in het kioskmenu",
+  "settingIntercomMenuDescription": "Voeg een intercomoptie toe aan het kioskmenu.",
+  "intercomNeedsAdmin": "De intercom vereist beheer op afstand",
+  "intercomAdminHelp": "Kiosken vinden en bereiken elkaar via beheer op afstand. Schakel onder Apparaat de opties Beheer op afstand en Andere kiosken zoeken in en kom daarna terug.",
+  "intercomChangeKey": "Sleutel wijzigen",
+  "intercomChangeKeyHelp": "Plak de sleutel van een andere kiosk, of maak een nieuwe.",
+  "intercomChange": "Wijzigen",
+  "intercomKeyWarning": "Kiosken met deze sleutel kunnen elkaar bellen. Een nieuwe sleutel snijdt deze kiosk af van de anderen totdat ze het ook krijgen.",
+  "intercomRegenerate": "Opnieuw genereren",
+  "intercomKeyChanged": "Sleutel gewijzigd",
+  "intercomNotSet": "Niet ingesteld",
+  "intercomOpen": "Openen",
+  "settingIntercomTlsTitle": "Communicatie versleutelen",
+  "settingIntercomTlsDescription": "Gebruik TLS om intercomgesprekken tussen kiosken te versleutelen. Dit moet zijn ingeschakeld op alle kiosken in het gesprek."
+}

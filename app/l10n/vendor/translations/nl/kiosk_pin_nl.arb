@@ -1,0 +1,7 @@
+{
+  "@@locale": "nl",
+  "kioskPinTitle": "Kiosk-pincode",
+  "kioskPinHint": "PIN",
+  "kioskWrongPin": "Verkeerde pincode",
+  "kioskUnlock": "Ontgrendelen"
+}

@@ -1,0 +1,9 @@
+{
+  "@@locale": "nl",
+  "pluginShizuku13OrLaterIsRequiredTapForSetup": "Shizuku 13 of hoger is vereist. Tik voor installatie-instructies.",
+  "pluginStartShizukuOnThisDeviceTapForSetupInstructions": "Start Shizuku op dit apparaat. Tik voor installatie-instructies.",
+  "pluginShizukuGrantsKioskSatelliteShellOrRootAccessInstalled": "Shizuku verleent Kiosk Satellite shell- of roottoegang. Geïnstalleerde plug-ins worden binnen Kiosk Satellite uitgevoerd. Verleen daarom alleen toegang als je ze vertrouwt.",
+  "pluginSetUp": "Instellen",
+  "pluginGrantAccess": "Toegang verlenen",
+  "pluginApproveThePermissionRequestOnTheKiosk": "Keur het toestemmingsverzoek op de kiosk goed."
+}

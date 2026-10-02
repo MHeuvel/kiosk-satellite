@@ -95,6 +95,6 @@ void main() {
 
   testWidgets('Other languages fall back to English as before', (tester) async {
     expect(await resolve(tester, const Locale('it', 'IT')), const Locale('en'));
-    expect(await resolve(tester, const Locale('nl')), const Locale('en'));
+    expect(await resolve(tester, const Locale('sv')), const Locale('en'));
   });
 }

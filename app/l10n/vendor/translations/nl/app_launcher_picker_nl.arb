@@ -1,0 +1,9 @@
+{
+  "@@locale": "nl",
+  "launcherNoneHelp": "Nog geen apps geselecteerd. Kies welke apps de appstarter moet aanbieden.",
+  "launcherNone": "Nog geen apps",
+  "launcherListFailed": "Kon de apps niet ophalen",
+  "launcherListError": "Kon de apps niet ophalen: {error}",
+  "launcherListingFailed": "ophalen mislukt",
+  "launcherEmpty": "Geen apps gevonden die kunnen worden gestart."
+}

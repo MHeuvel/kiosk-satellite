@@ -1,0 +1,11 @@
+{
+  "@@locale": "nl",
+  "voiceTimerDefaultName": "Timer",
+  "voiceTimerDrag": "Slepen om timers te verplaatsen",
+  "voiceTimerPauseHint": "Tik om te pauzeren. Dubbeltik om te annuleren. Sleep om te verplaatsen.",
+  "voiceTimerResumeHint": "Tik om te hervatten. Dubbeltik om te annuleren. Sleep om te verplaatsen.",
+  "voiceTimerCancel": "Timer annuleren",
+  "voiceTimerActionError": "Kon de timer niet wijzigen. Controleer de verbinding en werk Voice Satellite zo nodig bij.",
+  "voiceTimerFinished": "Timer afgelopen",
+  "voiceTimerDismissHint": "Tik om de timermelding te sluiten."
+}

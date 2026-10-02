@@ -1,0 +1,20 @@
+{
+  "@@locale": "nl",
+  "gestureTester": "Handgebarentester",
+  "gestureOpenTester": "Tester openen",
+  "gestureCameraFirst": "Schakel eerst de camera in via de camera-instellingen.",
+  "gestureTesterHelp": "Bekijk welke vingers de camera herkent om te leren hoe je je hand moet houden.",
+  "gestureHandHelp": "Houd je hand op schouderhoogte met de handpalm naar de camera en de vingers gespreid. Buig een vinger volledig om deze niet mee te laten tellen. Leg de duim over de handpalm om vier vingers te tonen: de duim telt alleen mee bij een open hand.",
+  "gestureTesterPaused": "Gebaren worden niet geactiveerd zolang de tester geopend is.",
+  "gestureShowHand": "Toon een hand aan de camera.",
+  "gestureTesterTrigger": "Activeert: {action}",
+  "gestureNoCount": "Geen enkel gebaar gebruikt dit aantal.",
+  "gestureNoHand": "Geen hand in zicht",
+  "gestureReadingHand": "Hand herkennen",
+  "gestureNoFingers": "Geen opgestoken vingers",
+  "gestureHandsCount": "{count} handen in beeld; de grootste wordt herkend.",
+  "gestureTesterSearch": "Liveweergave van de vingers die de camera herkent.",
+  "gestureHoldConfirmed": "Vasthouden bevestigd",
+  "gestureHoldProgress": "Voortgang vasthouden: {progress}",
+  "gestureTesterHoldDuration": "Duur van vasthouden: {duration}"
+}

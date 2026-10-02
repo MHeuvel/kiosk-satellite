@@ -1,0 +1,11 @@
+{
+  "@@locale": "nl",
+  "fleetUpdateTheFleet": "De vloot bijwerken",
+  "fleetUpdateTheWholeFleetToTheKioskSatelliteVersion": "Werk de hele vloot bij naar de Kiosk Satellite-versie die op de leider draait.",
+  "fleetKeepFollowersOnThisVersion": "Volgers op deze versie houden",
+  "fleetAutomaticallyUpdateAllFollowersToTheKioskSatelliteVersion": "Alle volgers automatisch bijwerken naar de Kiosk Satellite-versie die op de leider draait.",
+  "fleetNothingToUpdate": "Niets om bij te werken",
+  "fleetUpdating": "Bijwerken",
+  "fleetNamesInstalling": "Installatie op {names} is bezig.",
+  "fleetSearchUpdates": "Installeer de release die aan elke volger wordt aangeboden en daarna op deze kiosk."
+}

@@ -1,0 +1,20 @@
+{
+  "@@locale": "nl",
+  "drawerVersion": "Versie {version}",
+  "drawerUpdateAvailable": "Update beschikbaar",
+  "drawerUpdateInstall": "Versie {version} · tik om te installeren",
+  "drawerUpdateChecking": "Controleren op updates…",
+  "drawerUpdateCurrent": "Up-to-date",
+  "drawerUpdateCurrentHelp": "Je gebruikt de nieuwste versie.",
+  "drawerUpdateCheckFailed": "Controle op updates mislukt",
+  "drawerUpdateOffline": "Is het apparaat online?",
+  "drawerUpdateTo": "Bijwerken naar {version}",
+  "drawerUpdateInstructions": "De download begint wanneer je op Bijwerken tikt. Android vraagt om de installatie te bevestigen.",
+  "drawerUpdateRelaunch": "Zonder toestemming voor weergave over andere apps kan de app zichzelf na de update niet opnieuw openen.",
+  "drawerUpdate": "Bijwerken",
+  "drawerUpdateDownloading": "Update wordt gedownload",
+  "drawerUpdateStarting": "Starten…",
+  "drawerUpdateFailed": "Update mislukt",
+  "drawerUpdates": "Updates",
+  "drawerNoReleaseNotes": "Geen releaseopmerkingen."
+}

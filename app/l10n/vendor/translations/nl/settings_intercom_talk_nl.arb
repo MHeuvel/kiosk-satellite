@@ -1,0 +1,8 @@
+{
+  "@@locale": "nl",
+  "settingIntercomTalkModeTitle": "Spreekmodus",
+  "settingIntercomTalkModeDescription": "Bij Indrukken om te praten wordt audio verzonden zolang je de knop vasthoudt. Handsfree houdt de microfoon tijdens het hele gesprek open.",
+  "intercomOptionTalkPtt": "Indrukken om te praten",
+  "intercomOptionTalkHandsfree": "Handsfree",
+  "intercomTalkSection": "Praten"
+}

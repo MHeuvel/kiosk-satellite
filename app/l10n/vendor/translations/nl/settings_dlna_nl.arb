@@ -1,0 +1,10 @@
+{
+  "@@locale": "nl",
+  "settingDlnaEnabledTitle": "DLNA-renderer inschakelen",
+  "settingDlnaEnabledDescription": "Toon afbeeldingen en speel media af die vanuit Home Assistant of een DLNA-app naar het apparaat worden gestuurd. Het apparaat verschijnt als mediaspeler met de apparaatnaam.",
+  "settingDlnaAudioBackgroundTitle": "Audio op de achtergrond houden",
+  "settingDlnaAudioBackgroundDescription": "Verzonden audio wordt afgespeeld zonder het scherm over te nemen.",
+  "settingDlnaPortTitle": "Serverpoort",
+  "settingDlnaPortDescription": "De poort waarop de renderer actief is. Deze wordt ingevuld wanneer de renderer start. Wijzig de poort om de renderer te verplaatsen of wis het veld om automatisch opnieuw een poort te kiezen.",
+  "settingDlnaPortPlaceholder": "Wordt ingesteld wanneer de renderer start"
+}

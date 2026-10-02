@@ -1,0 +1,16 @@
+{
+  "@@locale": "nl",
+  "settingSendspinEnabledTitle": "Sendspin-speler inschakelen",
+  "settingSendspinEnabledDescription": "Maak van dit apparaat een gesynchroniseerde Sendspin-speler. Het verschijnt in Music Assistant onder de apparaatnaam en speelt synchroon met andere Sendspin-luidsprekers.",
+  "settingSendspinServerTitle": "Server",
+  "settingSendspinServerDescription": "Adres van de Sendspin-server, bijvoorbeeld 192.168.1.10:8927. Laat het veld leeg om de server automatisch op het netwerk te zoeken.",
+  "settingSendspinCodecTitle": "Voorkeurscodec voor audio",
+  "settingSendspinCodecDescription": "FLAC is verliesloos en ideaal op WiFi of ethernet. De server maakt de uiteindelijke keuze uit wat dit apparaat biedt.",
+  "settingSendspinSyncOffsetTitle": "Correctie voor audiosynchronisatie (ms)",
+  "settingSendspinSyncOffsetDescription": "Een negatieve waarde laat dit apparaat eerder afspelen, voor luidsprekers die achterlopen op de groep, bijvoorbeeld via Bluetooth. Stel dit op gehoor af; wijzigingen worden direct toegepast.",
+  "mediaSendspinPage": "Sendspin-speler",
+  "mediaSendspinHint": "Maak van dit apparaat een gesynchroniseerde Music Assistant-speler",
+  "mediaFlac": "FLAC (verliesloos)",
+  "mediaOpus": "Opus (efficiënt)",
+  "mediaPcm": "PCM (niet gecomprimeerd)"
+}

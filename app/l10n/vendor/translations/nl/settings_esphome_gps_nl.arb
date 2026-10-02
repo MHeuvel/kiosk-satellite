@@ -1,0 +1,16 @@
+{
+  "@@locale": "nl",
+  "settingLocationEnabledTitle": "Locatie doorgeven",
+  "settingLocationEnabledDescription": "Lees de GPS-positie uit en stel deze in Home Assistant beschikbaar als sensoren voor breedtegraad, lengtegraad, nauwkeurigheid, hoogte en snelheid. Als je dit in- of uitschakelt, wordt het ESPHome-apparaat opnieuw geregistreerd.",
+  "settingLocationIntervalTitle": "Update-interval",
+  "settingLocationIntervalDescription": "Seconden tussen positiemetingen.",
+  "esphomeGps": "GPS-sensor",
+  "esphomeGpsHelp": "GPS-sensorgegevens beschikbaar stellen aan Home Assistant",
+  "esphomeLocationOff": "Uit.",
+  "esphomeLocationWaiting": "Wachten op de eerste positiebepaling. Een koude start in de open lucht kan enkele minuten duren.",
+  "esphomeCoordinates": "Laatste coördinaten",
+  "esphomeLocationDenied": "Locatietoestemming niet verleend.",
+  "esphomeLocationAbsent": "Geen GPS-ontvanger.",
+  "esphomeLocationError": "GPS niet beschikbaar: {error}",
+  "esphomeLocationUnsupported": "Niet beschikbaar op dit apparaat: het heeft geen GPS-ontvanger."
+}

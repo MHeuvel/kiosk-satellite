@@ -1,0 +1,12 @@
+{
+  "@@locale": "nl",
+  "aboutCheckNow": "Controleer nu op updates",
+  "aboutChecking": "Controleren…",
+  "aboutCheckFailed": "Updatecontrole mislukt. Kan het apparaat GitHub bereiken?",
+  "aboutOverlayMissing": "Toestemming voor weergave over andere apps ontbreekt",
+  "aboutOverlayHelp": "Zonder deze toestemming kan de app zichzelf na een update niet opnieuw openen. Het toestemmingsscherm verschijnt op de tablet.",
+  "aboutDownloadProgress": "Downloaden… {percent}%",
+  "aboutDownloadFailed": "Update mislukt: {error}",
+  "aboutAlreadyCurrent": "De app is al bijgewerkt",
+  "aboutInstallHelp": "De download draait op de tablet; de installatie moet op het tabletscherm worden bevestigd."
+}

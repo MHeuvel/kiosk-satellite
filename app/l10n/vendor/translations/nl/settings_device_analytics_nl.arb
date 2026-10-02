@@ -1,0 +1,13 @@
+{
+  "@@locale": "nl",
+  "settingAnalyticsBasicTitle": "Basisanalyse",
+  "settingAnalyticsBasicDescription": "Informatie over je apparaat, zoals het model, de Android-versie, appversie, schermgrootte en taal.",
+  "settingAnalyticsUsageTitle": "Gebruik",
+  "settingAnalyticsUsageDescription": "Informatie over de functies die je in Kiosk Satellite gebruikt.",
+  "settingAnalyticsDiagnosticsTitle": "Diagnostiek",
+  "settingAnalyticsDiagnosticsDescription": "Crashmeldingen delen wanneer zich onverwachte fouten voordoen.",
+  "deviceAnalyticsPage": "Kiosk Satellite Analytics",
+  "deviceAnalyticsIntro": "Deel geanonimiseerde informatie over je installatie om Kiosk Satellite te verbeteren en te bepalen welke apparaten en functies extra aandacht nodig hebben.",
+  "deviceAnalyticsLearn": "Lees hoe we je gegevens verwerken",
+  "deviceAnalyticsLearnHelp": "Welke gegevens Kiosk Satellite Analytics wel en nooit verzendt."
+}

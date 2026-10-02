@@ -1,0 +1,23 @@
+{
+  "@@locale": "nl",
+  "settingMicSoftwareEchoCancellationTitle": "Echo-onderdrukking",
+  "settingMicSoftwareEchoCancellationDescription": "Filtert de eigen geluiden van de kiosk uit het microfoonsignaal, zodat de wekwoorddetectie en assistent ze niet horen. Laat dit ingeschakeld, tenzij een microfoon met eigen echo-onderdrukking hierdoor slechter klinkt.",
+  "settingMicNoiseSuppressionTitle": "Geluidsonderdrukking",
+  "settingMicNoiseSuppressionDescription": "Vermindert ruis in het microfoonsignaal. Dit verandert wat de wekwoorddetectie hoort; schakel het in voor een microfoon die ruist.",
+  "settingMicChannelTitle": "Microfoonkanaal",
+  "settingMicChannelDescription": "Microfoons met meerdere kanalen reserveren vaak één kanaal voor spraakherkenning. Het selecteren daarvan kan de detectie verbeteren.",
+  "settingMicGainDbTitle": "Microfoonversterking",
+  "settingMicGainDbDescription": "Versterk of verzwak het microfoonsignaal voordat het wordt verwerkt. Streef in de wekwoordtester naar een niveau rond 0,05. Te veel versterking vervormt spraak en verslechtert de detectie.",
+  "settingMicCaptureFormatTitle": "Opnameformaat",
+  "settingMicCaptureFormatDescription": "Kies 48 kHz-stereo als de microfoon wel in andere apps werkt, maar niet hier. Sommige geluidskaarten nemen alleen in dat formaat op; de app converteert het vervolgens zelf.",
+  "screenAudioMicrophoneSettings": "Microfooninstellingen",
+  "screenAudioMicrophoneHint": "Echo- en ruisonderdrukking, versterking, formaat en liveniveau",
+  "screenAudioMicrophoneNote": "Stem de opname af op je microfoon en ruimte. Test na wijzigingen de wekwoorden en spraakinteracties.",
+  "screenAudioAutomaticDefault": "Automatisch (standaard)",
+  "screenAudioStereo": "48 kHz stereo",
+  "screenAudioDownmix": "Downmix (standaard)",
+  "screenAudioChannel": "Kanaal {channel}",
+  "screenAudioChannelMissing": "Kanaal {channel} (niet op deze microfoon)",
+  "screenAudioMicrophoneLevel": "Microfoonniveau",
+  "screenAudioMicrophoneLevelHelp": "Spreek vanaf de plek waar je het apparaat gebruikt. Pas de versterking aan totdat normale spraak ongeveer aan het einde van het groene bereik piekt."
+}

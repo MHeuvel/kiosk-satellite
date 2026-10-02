@@ -1,0 +1,14 @@
+{
+  "@@locale": "nl",
+  "screensaverNoPhotos": "Geen foto's geselecteerd. Kies wat in Instellingen.",
+  "screensaverNoFolder": "Geen map geselecteerd. Kies er een in Instellingen.",
+  "screensaverFolderEmpty": "Geen foto's of video's in {folder}",
+  "screensaverFolderUnreadable": "Kon {folder} niet lezen. Is de mediatoestemming verleend?",
+  "screensaverReadPhotosFailed": "Kon foto's niet lezen.",
+  "screensaverImmichNotReady": "Immich is niet verbonden. Valideren in Instellingen.",
+  "screensaverNoMediaMatch": "Geen media komt overeen met de bron en filters.",
+  "screensaverNoMediaSource": "Geen media in de geselecteerde bron.",
+  "screensaverImmichUnreachable": "Kon de Immich-server niet bereiken.",
+  "screensaverRetryNotice": "{error} Er wordt automatisch opnieuw geprobeerd.",
+  "screensaverVideosTooLarge": "Elke video in deze afspeellijst is te groot voor dit apparaat om af te spelen."
+}

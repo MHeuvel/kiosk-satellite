@@ -1,0 +1,9 @@
+{
+  "@@locale": "nl",
+  "voiceFinancialOpen": "Openingskoers: {value}",
+  "voiceFinancialHigh": "Hoog: {value}",
+  "voiceFinancialLow": "Laag: {value}",
+  "voiceFinancialHigh24h": "Hoogste in 24 uur: {value}",
+  "voiceFinancialLow24h": "Laagste in 24 uur: {value}",
+  "voiceFinancialMarketCap": "Marktkapitalisatie: {value}"
+}

@@ -1,0 +1,17 @@
+{
+  "@@locale": "nl",
+  "settingHaThemeTitle": "Thema",
+  "settingHaThemeDescription": "Kies een licht of donker thema voor het Home Assistant-dashboard. Je kunt dit ook instellen via de thema-entiteit in Home Assistant. Bij 'Automatisch' worden de onderstaande instellingen gevolgd.",
+  "settingThemeMatchAppTitle": "Home Assistant-thema afstemmen op Kiosk Satellite",
+  "settingThemeMatchAppDescription": "Stem het Home Assistant-thema automatisch af op het thema van Kiosk Satellite.",
+  "settingThemeAutoTitle": "Thema aanpassen aan het tijdstip",
+  "settingThemeAutoDescription": "Schakel Home Assistant volgens een schema tussen licht en donker. Het gekozen thema blijft behouden; alleen de lichte of donkere variant verandert.",
+  "settingThemeDarkAtTitle": "Donker thema vanaf",
+  "settingThemeDarkAtDescription": "Lokale tijd om over te stappen op het donkere thema.",
+  "settingThemeLightAtTitle": "Licht thema vanaf",
+  "settingThemeLightAtDescription": "Lokale tijd om terug te schakelen naar het lichte thema.",
+  "settingThemeAutoAppTitle": "Ook het app-thema wijzigen",
+  "settingThemeAutoAppDescription": "Wijzig tegelijk met Home Assistant ook het thema van Kiosk Satellite, inclusief het menu en de instellingen.",
+  "haThemeHint": "Afstemmen op de app of volgens een schema wisselen tussen een licht en donker thema",
+  "haThemeAuto": "Automatisch"
+}

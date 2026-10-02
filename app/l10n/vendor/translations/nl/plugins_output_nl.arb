@@ -1,0 +1,14 @@
+{
+  "@@locale": "nl",
+  "pluginCharts": "Grafieken",
+  "pluginReadings": "Metingen",
+  "pluginWaitingForSamples": "Wachten op meetwaarden",
+  "pluginLatest": "Nieuwste",
+  "pluginSelected": "Geselecteerd",
+  "pluginNoDataYet": "Nog geen gegevens",
+  "pluginTapOrDragToInspectSamplesDoubleTapTo": "Tik of sleep om meetwaarden te bekijken. Dubbeltik om de nieuwste waarden te volgen.",
+  "pluginNoData": "Geen gegevens",
+  "pluginOn": "Aan",
+  "pluginEmpty": "Leeg",
+  "pluginChartKeyboardHelp": "Gebruik de pijltjestoetsen om meetwaarden te bekijken en End om naar de nieuwste waarde te gaan."
+}

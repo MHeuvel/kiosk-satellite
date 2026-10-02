@@ -1,0 +1,14 @@
+{
+  "@@locale": "nl",
+  "settingScreensaverDismissOnProximityTitle": "Sluiten bij nabijheid",
+  "settingScreensaverDismissOnProximityDescription": "Gebruik de nabijheidssensor terwijl de schermbeveiliging actief is en activeer het scherm wanneer iets dicht bij het apparaat komt. Een apparaat met alleen sensoren voor telefoongesprekken ('palm' of 'touch') werkt niet.",
+  "settingScreensaverDismissOnProximityScreenOffOnlyTitle": "Alleen als het scherm uit staat",
+  "settingScreensaverDismissOnProximityScreenOffOnlyDescription": "Houd de schermbeveiliging zichtbaar wanneer iets nadert terwijl het scherm aan staat. Zodra het scherm uitgaat, activeert de detectie het dashboard. Aanraken sluit de schermbeveiliging nog steeds af.",
+  "settingScreensaverPostponeOnProximityTitle": "Schermbeveiliging uitstellen bij nabijheid",
+  "settingScreensaverPostponeOnProximityDescription": "Stel het activeren van de schermbeveiliging uit zolang iets zich dicht bij de sensor bevindt.",
+  "screensaverDetectionProximityPage": "Nabijheiddetectie",
+  "screensaverDetectionProximityHint": "Sluit de schermbeveiliging bij detectie door de nabijheidssensor of stel deze uit",
+  "screensaverDetectionNoProximity": "Niet beschikbaar op dit apparaat: het heeft geen nabijheidssensor.",
+  "screensaverDetectionSensor": "Sensor",
+  "screensaverDetectionSensorHelp": "Wat het apparaat meldt als de nabijheidssensor. Een sensor voor gesprekken genaamd \"palm\" of \"touch\" zal niet werken."
+}

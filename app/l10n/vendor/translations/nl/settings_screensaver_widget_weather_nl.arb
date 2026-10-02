@@ -1,0 +1,22 @@
+{
+  "@@locale": "nl",
+  "screensaverOverlayWeatherEntity": "Weerentiteit",
+  "screensaverOverlayNoWeather": "Geen weerentiteiten",
+  "screensaverOverlayNoWeatherHelp": "Home Assistant heeft geen weerentiteiten gevonden.",
+  "screensaverOverlayPickWeather": "Kies een weerentiteit…",
+  "screensaverOverlayWeatherRequired": "Kies een weerentiteit.",
+  "screensaverOverlayLocationName": "Locatienaam",
+  "screensaverOverlayLocationHelp": "Laat dit leeg om de locatieregel te verbergen.",
+  "screensaverOverlayLocation": "Locatie",
+  "screensaverOverlayLocationDetail": "De plaatsnaam boven de temperatuur.",
+  "screensaverOverlayFeelsLike": "Gevoelstemperatuur",
+  "screensaverOverlayFeelsLikeHelp": "Toon de gevoelstemperatuur met een label onder de actuele temperatuur.",
+  "screensaverOverlayFeelsLikeOnly": "Alleen gevoelstemperatuur",
+  "screensaverOverlayFeelsLikeOnlyHelp": "Toon de gevoelstemperatuur met het label 'Gevoelstemperatuur' in plaats van de actuele temperatuur.",
+  "screensaverOverlayForecast": "Voorspelling",
+  "screensaverOverlayForecastHelp": "De weersomstandigheden met een bijpassend pictogram.",
+  "screensaverOverlayHumidity": "Vochtigheid",
+  "screensaverOverlayWind": "Windsnelheid",
+  "screensaverOverlayVisibility": "Zicht",
+  "screensaverWeatherFeelsLikeValue": "Gevoelstemperatuur: {temperature}"
+}

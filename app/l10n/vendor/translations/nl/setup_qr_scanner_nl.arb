@@ -1,0 +1,9 @@
+{
+  "@@locale": "nl",
+  "setupQrFlipCamera": "Andere camera gebruiken",
+  "setupQrCameraFailed": "De camera kon niet gestart worden.",
+  "setupQrTitle": "Scan de token QR-code",
+  "setupQrHelp": "Deze verschijnt naast een nieuw aangemaakt token in je Home Assistant-profiel.",
+  "setupQrFlashOff": "Zaklamp uitschakelen",
+  "setupQrFlashOn": "Zaklamp inschakelen"
+}

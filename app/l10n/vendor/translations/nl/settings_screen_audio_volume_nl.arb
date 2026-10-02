@@ -1,0 +1,12 @@
+{
+  "@@locale": "nl",
+  "settingMediaVolumeTitle": "Mediavolume",
+  "settingMediaVolumeDescription": "Muziek en video worden met dit aandeel van het hoofdvolume afgespeeld. Het Sendspin-spelervolume in Music Assistant past deze schuifregelaar aan.",
+  "settingAssistantVolumeTitle": "Assistentvolume",
+  "settingAssistantVolumeDescription": "Spraakreacties en geluidssignalen worden met dit aandeel van het hoofdvolume afgespeeld, onafhankelijk van het mediavolume.",
+  "settingIntercomVolumeTitle": "Intercomvolume",
+  "settingIntercomVolumeDescription": "De stem en omroepberichten van de andere kiosk worden met dit aandeel van het hoofdvolume afgespeeld.",
+  "screenAudioVolume": "Audiovolume",
+  "screenAudioMasterVolume": "Hoofdvolume",
+  "screenAudioMasterHelp": "Het apparaatvolume. De volumes voor media, intercom en assistent schalen hieronder."
+}

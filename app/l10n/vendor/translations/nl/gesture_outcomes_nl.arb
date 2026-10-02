@@ -1,0 +1,17 @@
+{
+  "@@locale": "nl",
+  "gestureHaServiceKind": "Home Assistant-service",
+  "gestureHaScriptKind": "Home Assistant-script",
+  "gestureHaAutomationKind": "Home Assistant-automatisering",
+  "gestureHaEventKind": "Home Assistant-gebeurtenis",
+  "gestureRan": "{value} uitgevoerd",
+  "gestureRunFailed": "Kon {value} niet uitvoeren",
+  "gestureCalled": "{value} aangeroepen",
+  "gestureCallFailed": "Kon {value} niet aanroepen",
+  "gestureTriggered": "{value} geactiveerd",
+  "gestureTriggerFailed": "Kon {value} niet activeren",
+  "gestureFired": "Gebeurtenis {value} geactiveerd",
+  "gestureFireFailed": "Kon gebeurtenis {value} niet activeren",
+  "gestureDone": "Klaar",
+  "gestureFailed": "Mislukt"
+}

@@ -1,0 +1,5 @@
+{
+  "@@locale": "nl",
+  "launcherOpenFailed": "Kon {name} niet openen",
+  "launcherUninstalled": "De app is mogelijk verwijderd."
+}

@@ -1,0 +1,17 @@
+{
+  "@@locale": "nl",
+  "settingScreensaverDismissOnFaceTitle": "Sluiten bij gezichtsdetectie",
+  "settingScreensaverDismissOnFaceDescription": "Activeer het scherm wanneer iemand naar de kiosk kijkt, niet alleen wanneer er beweging is. De camera werkt alleen terwijl de schermbeveiliging actief is. Waarschuwing: hiervoor moet het gezicht verlicht zijn. Gebruik in het donker bewegingsdetectie met een schema.",
+  "settingScreensaverDismissOnFaceScreenOffOnlyTitle": "Alleen als het scherm uit staat",
+  "settingScreensaverDismissOnFaceScreenOffOnlyDescription": "Houd de schermbeveiliging zichtbaar als er een gezicht wordt gedetecteerd terwijl het scherm aan staat. Zodra het scherm uitgaat, activeert de detectie het dashboard. Aanraken sluit de schermbeveiliging nog steeds af.",
+  "settingScreensaverPostponeOnFaceTitle": "Schermbeveiliging uitstellen bij gezichtsdetectie",
+  "settingScreensaverPostponeOnFaceDescription": "Stel het activeren van de schermbeveiliging uit zolang iemand naar de kiosk kijkt. Waarschuwing: de camera blijft voortdurend actief, waardoor gezichtsdetectie extra processorkracht gebruikt.",
+  "settingFaceSensitivityTitle": "Gezichtsgevoeligheid",
+  "settingFaceSensitivityDescription": "Bij een hogere gevoeligheid wordt het scherm ook geactiveerd door kleinere gezichten op grotere afstand. Bij 1 moet iemand dicht bij het scherm zijn; bij 100 reageert de camera op elk gezicht dat deze kan onderscheiden.",
+  "screensaverDetectionFacePage": "Gezichtsdetectie",
+  "screensaverDetectionFaceHint": "Sluit de schermbeveiliging wanneer iemand naar het scherm kijkt",
+  "screensaverDetectionMotionPrecedence": "Sluiten bij beweging staat aan en heeft voorrang. Gezichtsdetectie blijft daarom inactief totdat bewegingsdetectie wordt uitgeschakeld.",
+  "screensaverDetectionFaceTuning": "Framesnelheid, camerakeuze en opstartvertraging worden ingesteld bij de camera-instellingen.",
+  "screensaverDetectionAndroidUnsupported": "Niet beschikbaar op deze Android-versie.",
+  "screensaverDetectionX86Unsupported": "Niet beschikbaar op x86-apparaten."
+}

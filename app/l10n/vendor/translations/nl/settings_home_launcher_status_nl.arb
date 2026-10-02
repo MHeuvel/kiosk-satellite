@@ -1,0 +1,17 @@
+{
+  "@@locale": "nl",
+  "kioskHomeScreen": "Startscherm",
+  "kioskCheckingDevice": "Apparaat controleren...",
+  "kioskFireOs": "Fire OS staat niet toe dat het startscherm wordt vervangen.",
+  "kioskUnsupported": "Dit apparaat staat het wijzigen van het startscherm niet toe.",
+  "kioskRecovered": "Automatisch uitgeschakeld na meerdere mislukte starts. Het vorige startscherm is hersteld. Schakel de optie opnieuw in om het nogmaals te proberen.",
+  "kioskHeld": "Kiosk Satellite is het startscherm. De kiosk wordt tijdens het opstarten geopend en iedere druk op de startknop keert ernaar terug.",
+  "kioskDisabled": "Niet ingesteld als startscherm. Schakel hierboven Als startscherm gebruiken in.",
+  "kioskWaiting": "Nog niet het huidige startscherm: het apparaat wacht op een bevestiging.",
+  "kioskOpenHomeSettings": "Startscherminstellingen openen",
+  "kioskSetDefault": "Standaard instellen",
+  "kioskActive": "Actief",
+  "kioskNotHome": "Niet ingesteld als startscherm.",
+  "kioskWaitingRemote": "Wachten op bevestiging op het apparaat. Daar wordt het systeemvenster of de startscherminstelling geopend.",
+  "kioskSetDevice": "Instellen op apparaat"
+}

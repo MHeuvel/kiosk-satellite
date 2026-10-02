@@ -1,0 +1,13 @@
+{
+  "@@locale": "nl",
+  "esphomeNearby": "Apparaten in de buurt",
+  "esphomeNearbySearch": "De Bluetooth-apparaten die deze kiosk detecteert, waar mogelijk met naam.",
+  "esphomeNearbyEmpty": "Nog niets gehoord.",
+  "esphomeNearbyWaiting": "Nog niets gedetecteerd. Apparaten verschijnen hier zodra de proxy begint met scannen.",
+  "esphomeRotating": "(wisselend adres)",
+  "esphomeNearbyCount": "De eerste {count} van {total} worden weergegeven.",
+  "esphomeSlots": "Via deze proxy kunnen maximaal {count} apparaten tegelijk worden verbonden. Home Assistant leidt overige apparaten via andere proxy's.",
+  "esphomeSecondsAgo": "{count}s geleden",
+  "esphomeMinutesAgo": "{count} min geleden",
+  "esphomeHoursAgo": "{count} h geleden"
+}

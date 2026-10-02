@@ -1,0 +1,10 @@
+{
+  "@@locale": "nl",
+  "settingLauncherEnabledTitle": "Appstarter inschakelen",
+  "settingLauncherEnabledDescription": "Open vanuit de kiosk een geselecteerde groep geïnstalleerde apps.",
+  "settingLauncherAppsDescription": "De apps die de appstarter aanbiedt.",
+  "settingLauncherAutoReturnTitle": "Automatisch terugkeren",
+  "settingLauncherAutoReturnDescription": "Keer terug naar de kiosk wanneer de andere app enige tijd niet is aangeraakt.",
+  "settingLauncherAutoReturnSecondsTitle": "Terugkeer na (seconden)",
+  "settingLauncherAutoReturnSecondsDescription": "Tijd zonder aanraking in de andere app voordat de kiosk terugkeert."
+}

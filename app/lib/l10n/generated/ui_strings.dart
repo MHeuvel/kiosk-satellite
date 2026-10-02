@@ -9,6 +9,7 @@ import 'ui_strings_de.dart';
 import 'ui_strings_en.dart';
 import 'ui_strings_es.dart';
 import 'ui_strings_fr.dart';
+import 'ui_strings_nl.dart';
 import 'ui_strings_uk.dart';
 
 // ignore_for_file: type=lint
@@ -100,6 +101,7 @@ abstract class UiStrings {
     Locale('en'),
     Locale('es'),
     Locale('fr'),
+    Locale('nl'),
     Locale('uk'),
   ];
 
@@ -22478,8 +22480,14 @@ class _UiStringsDelegate extends LocalizationsDelegate<UiStrings> {
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['de', 'en', 'es', 'fr', 'uk'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>[
+    'de',
+    'en',
+    'es',
+    'fr',
+    'nl',
+    'uk',
+  ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_UiStringsDelegate old) => false;
@@ -22496,6 +22504,8 @@ UiStrings lookupUiStrings(Locale locale) {
       return UiStringsEs();
     case 'fr':
       return UiStringsFr();
+    case 'nl':
+      return UiStringsNl();
     case 'uk':
       return UiStringsUk();
   }

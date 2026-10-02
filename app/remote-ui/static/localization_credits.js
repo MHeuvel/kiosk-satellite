@@ -24,6 +24,12 @@ export const localizationCredits = {
       "login": "Limoniak"
     }
   ],
+  "nl": [
+    {
+      "name": "rononline",
+      "login": "rononline"
+    }
+  ],
   "uk": [
     {
       "name": "kdinya",
@@ -31,4 +37,4 @@ export const localizationCredits = {
     }
   ]
 };
-export const localizationLanguageNames = {"de": "Deutsch", "en": "English", "es": "Español", "fr": "Français", "uk": "Українська"};
+export const localizationLanguageNames = {"de": "Deutsch", "en": "English", "es": "Español", "fr": "Français", "nl": "Nederlands", "uk": "Українська"};

@@ -1,0 +1,11 @@
+{
+  "@@locale": "nl",
+  "kioskForeground": "Kiosk Satellite kan zichzelf weer naar de voorgrond brengen.",
+  "kioskOverlayMissing": "Zonder dit kan de kiosk zichzelf niet terugbrengen en dekt het vergrendelingsschild alleen de app.",
+  "kioskGuardHeld": "Het meldingenpaneel en de recente apps sluiten automatisch zolang het scherm wordt beveiligd.",
+  "kioskGuardMissing": "Zonder deze toestemming blijven het meldingenpaneel en de recente apps bereikbaar. Schakel Kiosk Satellite in onder Toegankelijkheid.",
+  "kioskOverlayRemote": "Zonder dit kan de kiosk zichzelf niet terugbrengen. Het toestemmingsscherm verschijnt op de tablet.",
+  "kioskGuardRemote": "Zonder deze toestemming blijven het meldingenpaneel en de recente apps bereikbaar. Schakel Kiosk Satellite op de tablet in onder Toegankelijkheid.",
+  "kioskGrantDevice": "Toestaan op apparaat",
+  "kioskOpenSettingsDevice": "Instellingen openen op apparaat"
+}

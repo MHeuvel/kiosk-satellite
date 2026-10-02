@@ -1,0 +1,12 @@
+{
+  "@@locale": "nl",
+  "settingScreensaverDismissOnMotionTitle": "Sluiten bij beweging",
+  "settingScreensaverDismissOnMotionDescription": "Gebruik de camera terwijl de schermbeveiliging actief is en activeer het scherm wanneer iemand dichterbij komt. De camera werkt alleen tijdens de schermbeveiliging.",
+  "settingScreensaverDismissOnMotionScreenOffOnlyTitle": "Alleen als het scherm uit staat",
+  "settingScreensaverDismissOnMotionScreenOffOnlyDescription": "Houd de schermbeveiliging zichtbaar wanneer beweging wordt gedetecteerd terwijl het scherm aan staat. Zodra het scherm uitgaat, activeert de detectie het dashboard. Aanraken sluit de schermbeveiliging nog steeds af.",
+  "settingScreensaverPostponeOnMotionTitle": "Schermbeveiliging uitstellen bij beweging",
+  "settingScreensaverPostponeOnMotionDescription": "Stel het activeren van de schermbeveiliging uit wanneer beweging wordt gedetecteerd. Waarschuwing: de camera blijft voortdurend actief.",
+  "screensaverDetectionMotionPage": "Bewegingsdetectie",
+  "screensaverDetectionMotionHint": "Sluit de schermbeveiliging bij beweging of stel deze uit",
+  "screensaverDetectionMotionTuning": "Bewegingsdetectie is ingesteld in de Camera-instellingen."
+}

@@ -1,0 +1,15 @@
+{
+  "@@locale": "nl",
+  "deviceHelperPage": "Optionele update-helper",
+  "deviceHelperStatus": "Status van helper",
+  "deviceHelperError": "Kon de update-helper niet controleren.",
+  "deviceHelperUnneeded": "Android kan updates nu zonder bevestiging installeren. De helper is niet nodig.",
+  "deviceHelperIntro": "Op dit apparaat moet de installatie van updates via Android momenteel op het scherm worden bevestigd. Met de optionele helper kan Kiosk Satellite updates zonder aanraking installeren.",
+  "deviceHelperBusy": "Update wordt geïnstalleerd.",
+  "deviceHelperReady": "Klaar. Updates installeren zonder bevestiging.",
+  "deviceHelperUnavailable": "Niet beschikbaar. Start de helper via ADB om updates zonder bevestiging in te schakelen.",
+  "deviceHelperLifetime": "De helper blijft actief na het opnieuw starten of bijwerken van de app, maar stopt wanneer het apparaat opnieuw wordt opgestart. Voer de opdracht opnieuw uit vanaf een computer met ADB. De computer kan daarna worden losgekoppeld.",
+  "deviceHelperStart": "Starten via ADB",
+  "deviceHelperGuide": "Configuratiehandleiding",
+  "deviceHelperGuideHelp": "Lees de instructies en vereisten voor de update-helper."
+}

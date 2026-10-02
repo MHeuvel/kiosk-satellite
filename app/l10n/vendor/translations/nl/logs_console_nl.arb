@@ -1,0 +1,12 @@
+{
+  "@@locale": "nl",
+  "logsWebConsole": "Webconsole",
+  "logsDock": "Vastzetten boven de livepagina",
+  "logsNoOutput": "Nog geen console-uitvoer",
+  "logsShareSubject": "Consolelogboek van Kiosk Satellite",
+  "logsInput": "JavaScript uitvoeren op de pagina",
+  "logsInputHistory": "JavaScript uitvoeren op de pagina (Enter om uit te voeren, Omhoog/Omlaag voor geschiedenis)",
+  "logsRun": "Uitvoeren",
+  "logsEvaluationFailed": "evaluatie mislukt",
+  "logsDeviceUnreachable": "apparaat onbereikbaar"
+}
