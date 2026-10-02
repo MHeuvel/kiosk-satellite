@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.10.3 - 2026-10-02
 
 ### Added
 - **Dutch localization.** Nederlands is available during onboarding and in Settings on the device and in Remote Admin. All 3,725 current messages are translated. Localization Credits lists rononline with a GitHub profile link. Long single words in the remote admin's Quick controls tiles now hyphenate instead of running past the tile on a phone.
