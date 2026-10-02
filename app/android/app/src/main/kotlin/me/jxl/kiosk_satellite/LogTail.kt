@@ -39,9 +39,16 @@ class LogTail(messenger: BinaryMessenger) {
                     return
                 }
                 process = proc
+                // Both readers catch: destroy() closes the pipes under a
+                // blocked read, which throws, and an uncaught throw on
+                // either thread takes the whole app down.
                 Thread({
-                    proc.errorStream.bufferedReader().forEachLine {
-                        Log.d(TAG, "logcat: $it")
+                    try {
+                        proc.errorStream.bufferedReader().forEachLine {
+                            Log.d(TAG, "logcat: $it")
+                        }
+                    } catch (_: Exception) {
+                        // Killed by cancel.
                     }
                 }, "log-tail-err").apply { isDaemon = true }.start()
                 Thread({
