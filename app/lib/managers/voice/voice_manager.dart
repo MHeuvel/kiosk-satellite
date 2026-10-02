@@ -3320,13 +3320,18 @@ class _Player implements VoicePlayerPort {
   }
 }
 
-/// The instructions' line about where the kiosk is.
+/// The instructions' line about where the kiosk is. The kiosk's name is
+/// the device's: said plainly, or the model takes it for its own.
 String realtimeLocationLine({required String name, required String area}) {
   if (name.isEmpty && area.isEmpty) return '';
-  if (area.isEmpty) return 'This kiosk is named $name.';
-  final named = name.isEmpty
-      ? 'This kiosk is'
-      : 'This kiosk is named $name and is';
-  return "$named located in the $area area. When the user doesn't name an "
-      'area, use this one.';
+  final device = name.isEmpty
+      ? ''
+      : 'You run on a device named "$name" in Home Assistant. That is its '
+            'name, not yours.';
+  if (area.isEmpty) return device;
+  return [
+    if (device.isNotEmpty) device,
+    "The device is in the $area area. When the user doesn't name an area, "
+        'use this one.',
+  ].join(' ');
 }

@@ -474,53 +474,92 @@ void main() {
       await backend.close();
     });
 
-    test(
-      'where the kiosk is and earlier exchanges join the instructions',
-      () async {
-        for (final provider in RealtimeProvider.values) {
-          final backend = make(
-            RealtimeConfig(provider: provider, instructions: 'Be brief.'),
-          );
-          await backend.start(
-            const RealtimeStart(
-              context: 'This kiosk is in the Kitchen area.',
-              history: [
-                RealtimeTurn(user: true, text: 'Dim the kitchen'),
-                RealtimeTurn(user: false, text: 'Done.'),
-              ],
-            ),
-          );
-          final instructions =
-              (socket.sent.first['session'] as Map)['instructions'] as String;
+    test('where the kiosk is joins the instructions, with xAI the earlier '
+        'exchanges too', () async {
+      const history = [
+        RealtimeTurn(user: true, text: 'Dim the kitchen'),
+        RealtimeTurn(user: false, text: 'Done.'),
+      ];
+      for (final provider in RealtimeProvider.values) {
+        final backend = make(
+          RealtimeConfig(provider: provider, instructions: 'Be brief.'),
+        );
+        await backend.start(
+          const RealtimeStart(
+            context: 'This kiosk is in the Kitchen area.',
+            history: history,
+          ),
+        );
+        final instructions =
+            (socket.sent.first['session'] as Map)['instructions'] as String;
+        if (provider == RealtimeProvider.xai) {
           expect(
             instructions,
-            'Be brief.\n\n${realtimeContextText(
-              context: 'This kiosk is in the Kitchen area.',
-              history: const [
-                RealtimeTurn(user: true, text: 'Dim the kitchen'),
-                RealtimeTurn(user: false, text: 'Done.'),
-              ],
-            )}',
-          );
-          expect(
-            instructions,
-            startsWith('Be brief.\n\nThis kiosk is in the Kitchen area.\n\n'),
+            'Be brief.\n\n${realtimeContextText(context: 'This kiosk is in the Kitchen area.', history: history)}',
           );
           expect(
             instructions,
             endsWith('User: Dim the kitchen\nAssistant: Done.'),
           );
-          await backend.close();
+          expect(socket.sent, hasLength(1));
+        } else {
+          expect(
+            instructions,
+            'Be brief.\n\nThis kiosk is in the Kitchen area.',
+          );
         }
-        // Neither: the instructions alone.
+        await backend.close();
+      }
+      // Neither: the instructions alone.
+      final backend = make(
+        const RealtimeConfig(provider: RealtimeProvider.openai),
+      );
+      await backend.start(const RealtimeStart());
+      expect(
+        (socket.sent.first['session'] as Map)['instructions'],
+        OpenAiRealtimeBackend.defaultInstructions,
+      );
+      expect(socket.sent, hasLength(1));
+      await backend.close();
+    });
+
+    test(
+      'OpenAI: earlier exchanges replay as the conversation\'s items',
+      () async {
         final backend = make(
           const RealtimeConfig(provider: RealtimeProvider.openai),
         );
-        await backend.start(const RealtimeStart());
-        expect(
-          (socket.sent.first['session'] as Map)['instructions'],
-          OpenAiRealtimeBackend.defaultInstructions,
+        await backend.start(
+          const RealtimeStart(
+            history: [
+              RealtimeTurn(user: true, text: 'Turn on the AC.'),
+              RealtimeTurn(user: false, text: 'The office AC is now on.'),
+            ],
+          ),
         );
+        expect(socket.sent.first['type'], 'session.update');
+        expect(socket.sent.skip(1).toList(), [
+          {
+            'type': 'conversation.item.create',
+            'item': {
+              'type': 'message',
+              'role': 'user',
+              'content': [
+                {'type': 'input_text', 'text': 'Turn on the AC.'},
+              ],
+            },
+          },
+          {
+            'type': 'conversation.item.create',
+            'item': {
+              'type': 'message',
+              'role': 'assistant',
+              'content': [
+                {'type': 'output_text', 'text': 'The office AC is now on.'},
+              ],
+            },
+          },
+        ]);
         await backend.close();
       },
     );
@@ -786,15 +825,22 @@ void main() {
     });
   });
 
-  test('the location line names the kiosk and its area', () {
+  test('the location line names the device, not the assistant', () {
     expect(
       realtimeLocationLine(name: 'KS Portal Go', area: 'Kitchen'),
-      'This kiosk is named KS Portal Go and is located in the Kitchen area. '
+      'You run on a device named "KS Portal Go" in Home Assistant. That is '
+      'its name, not yours. The device is in the Kitchen area. '
       "When the user doesn't name an area, use this one.",
     );
     expect(
       realtimeLocationLine(name: 'KS Portal Go', area: ''),
-      'This kiosk is named KS Portal Go.',
+      'You run on a device named "KS Portal Go" in Home Assistant. That is '
+      'its name, not yours.',
+    );
+    expect(
+      realtimeLocationLine(name: '', area: 'Kitchen'),
+      "The device is in the Kitchen area. When the user doesn't name an "
+      'area, use this one.',
     );
     expect(realtimeLocationLine(name: '', area: ''), '');
   });

@@ -148,7 +148,7 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
   static const rate = 24000;
 
   static const defaultInstructions =
-      'You are a voice assistant on a wall tablet in the user\'s home. Keep '
+      'You are a voice assistant in the user\'s home. Keep '
       'answers short and conversational, since they are spoken aloud. Use '
       'the tools to check and control the home. Answer in the language the '
       'user speaks to you. When the user is done, call end_conversation.';
@@ -257,10 +257,33 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
       },
     );
     _send(_sessionUpdate(start, tools));
+    if (_replaysHistory && start.history.isNotEmpty) {
+      for (final turn in start.history) {
+        _send(_historyItem(turn));
+      }
+      log?.call('replayed ${start.history.length} earlier lines');
+    }
     _readyTimer = Timer(readyTimeout, () {
       if (!_ready) _finish(error: 'no answer from the provider');
     });
   }
+
+  /// OpenAI takes the earlier exchanges as the conversation's own items,
+  /// which the model follows far better than the same lines in its
+  /// instructions: from there "turn it off" missed the AC it had just
+  /// turned on. xAI gets them in the instructions.
+  bool get _replaysHistory => config.provider == RealtimeProvider.openai;
+
+  static Map<String, Object?> _historyItem(RealtimeTurn turn) => {
+    'type': 'conversation.item.create',
+    'item': {
+      'type': 'message',
+      'role': turn.user ? 'user' : 'assistant',
+      'content': [
+        {'type': turn.user ? 'input_text' : 'output_text', 'text': turn.text},
+      ],
+    },
+  };
 
   Map<String, Object?> _sessionUpdate(
     RealtimeStart start,
@@ -268,7 +291,7 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
   ) {
     final added = realtimeContextText(
       context: start.context,
-      history: start.history,
+      history: _replaysHistory ? const [] : start.history,
     );
     final instructions = [
       config.instructions.trim().isEmpty
