@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **A camera view opened over another app returns to that app when it closes.** Showing a camera view from Home Assistant, a gesture or the remote admin while another app was in front brought Kiosk Satellite forward and left it there after the view closed (#814). The kiosk now steps back once the view closes, so the app it covered is in front again, the same way it does after a voice interaction. A view opened while the kiosk was already in front stays in the kiosk, and pressing Home to close a view never sends the kiosk back.
+
 ## v2026.10.3 - 2026-10-02
 
 ### Added

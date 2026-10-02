@@ -760,7 +760,9 @@ class _KioskScreenState extends State<KioskScreen>
       c.intercom.rosterVisible.value = false;
       c.alarms.visible.value = false;
       if (c.browser.overlayUrl.value != null) c.browser.dismissOverlay();
-      if (c.camera.activeViewId.value != null) c.camera.hideView();
+      if (c.camera.activeViewId.value != null) {
+        c.camera.hideView(returnToPreviousApp: false);
+      }
       unawaited(c.commands.execute('stopScreensaver', const {}));
     });
     // The volume key routing follows the player and the screensaver

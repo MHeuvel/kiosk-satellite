@@ -9,10 +9,12 @@ import '../../core/active_interactions.dart';
 import '../../core/certificate_log.dart';
 import '../../core/command_registry.dart';
 import '../../core/events.dart';
+import '../../core/lifecycle.dart';
 import '../../core/manager.dart';
 import '../home_assistant/home_assistant_manager.dart';
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
+import '../wake_word/background_listening.dart';
 import 'models.dart';
 
 class CameraManager extends Manager {
@@ -68,6 +70,26 @@ class CameraManager extends Manager {
   /// construction. Focusing a camera re-arms the countdown: a tap on the
   /// view is someone using it.
   Timer? _autoDismiss;
+
+  /// Set when a view opened over another app (issue #814): closing it
+  /// sends the kiosk back so that app is in front again, the way a voice
+  /// turn does. A voice interruption keeps it for the restored view.
+  bool _returnToPreviousApp = false;
+  Timer? _previousAppReturn;
+
+  /// Whether another app is in front, unless a test says otherwise.
+  @visibleForTesting
+  Future<bool> Function() behindAnotherApp = () async {
+    try {
+      return await BackgroundListening.isBehindAnotherApp();
+    } catch (_) {
+      return false;
+    }
+  };
+
+  /// Reveals the previous task, unless a test says otherwise.
+  @visibleForTesting
+  Future<bool> Function() moveToBack = BackgroundListening.returnToBackground;
 
   CameraViewConfig? get activeView {
     final id = activeViewId.value;
@@ -280,6 +302,7 @@ class CameraManager extends Manager {
   @override
   Future<void> dispose() async {
     _autoDismiss?.cancel();
+    _previousAppReturn?.cancel();
     await _settingsSub?.cancel();
     await _voiceSub?.cancel();
     closeHaSessions();
@@ -721,6 +744,12 @@ class CameraManager extends Manager {
       hideView();
       return CommandResult.ok(_stateJson());
     }
+    _previousAppReturn?.cancel();
+    // Only a fresh open asks: switching views, or showing one while a voice
+    // turn holds another, keeps what the first open found.
+    if (activeViewId.value == null && _interruptedViewId == null) {
+      _returnToPreviousApp = await behindAnotherApp();
+    }
     _clearInterruptedView();
     await _prepareToShowView();
     focusedCameraId.value = null;
@@ -736,9 +765,34 @@ class CameraManager extends Manager {
     await commands.execute('hideOverlayPage', const {});
   }
 
-  void hideView() {
+  /// Closes the view. One that opened over another app hands the screen
+  /// back to it, unless [returnToPreviousApp] is false: the Home key is the
+  /// user leaving on their own.
+  void hideView({bool returnToPreviousApp = true}) {
     _clearInterruptedView();
+    final wasOpen = activeViewId.value != null;
     _hideActiveView();
+    final shouldReturn = wasOpen && returnToPreviousApp && _returnToPreviousApp;
+    _returnToPreviousApp = false;
+    if (shouldReturn) _scheduleReturnToPreviousApp();
+  }
+
+  void _scheduleReturnToPreviousApp() {
+    _previousAppReturn?.cancel();
+    // Let a view reopening or a voice turn claim the screen first.
+    _previousAppReturn = Timer(const Duration(milliseconds: 300), () async {
+      _previousAppReturn = null;
+      if (activeViewId.value != null || _voiceActive || !Lifecycle.onScreen) {
+        return;
+      }
+      try {
+        if (await moveToBack()) {
+          log.info(name, 'camera view closed, returned to previous app');
+        }
+      } catch (e) {
+        log.warn(name, 'could not return to previous app: $e');
+      }
+    });
   }
 
   void _hideActiveView() {

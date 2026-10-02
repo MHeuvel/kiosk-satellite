@@ -247,8 +247,10 @@ void main() {
       });
       expect(toggled.ok, isTrue);
       expect(cameras.activeViewId.value, isNull);
-      await commands
-          .execute('showCameraView', {'viewId': viewId, 'toggle': true});
+      await commands.execute('showCameraView', {
+        'viewId': viewId,
+        'toggle': true,
+      });
       expect(cameras.activeViewId.value, viewId);
       await commands.execute('showCameraView', {'viewId': viewId});
       expect(cameras.activeViewId.value, viewId);
@@ -259,13 +261,19 @@ void main() {
       await commands.execute('showCameraView', {'viewId': viewId});
       expect(cameras.activeViewId.value, viewId);
       await Future<void>.delayed(const Duration(milliseconds: 1400));
-      expect(cameras.activeViewId.value, isNull,
-          reason: 'the view should have auto-dismissed');
+      expect(
+        cameras.activeViewId.value,
+        isNull,
+        reason: 'the view should have auto-dismissed',
+      );
       await settings.set(defs.cameraAutoDismissSeconds, 0);
       await commands.execute('showCameraView', {'viewId': viewId});
       await Future<void>.delayed(const Duration(milliseconds: 1200));
-      expect(cameras.activeViewId.value, viewId,
-          reason: 'off means a view stays up');
+      expect(
+        cameras.activeViewId.value,
+        viewId,
+        reason: 'off means a view stays up',
+      );
       expect(cameras.focusCamera('$cameraId').ok, isTrue);
       expect(cameras.focusCamera('unknown').ok, isFalse);
 
@@ -284,22 +292,41 @@ void main() {
       expect(cameras.activeViewId.value, viewId);
       expect(cameras.focusedCameraId.value, cameraId);
 
-      bus.publish(const VoiceInteractionChanged(
-        active: true, reason: 'media', source: InteractionSource.sendspin,
-      ));
-      bus.publish(const VoiceInteractionChanged(
-        active: true, reason: 'media', source: InteractionSource.page,
-      ));
+      bus.publish(
+        const VoiceInteractionChanged(
+          active: true,
+          reason: 'media',
+          source: InteractionSource.sendspin,
+        ),
+      );
+      bus.publish(
+        const VoiceInteractionChanged(
+          active: true,
+          reason: 'media',
+          source: InteractionSource.page,
+        ),
+      );
       await pumpEventQueue();
-      bus.publish(const VoiceInteractionChanged(
-        active: false, reason: 'media', source: InteractionSource.page,
-      ));
+      bus.publish(
+        const VoiceInteractionChanged(
+          active: false,
+          reason: 'media',
+          source: InteractionSource.page,
+        ),
+      );
       await pumpEventQueue();
-      expect(cameras.activeViewId.value, isNull,
-          reason: 'discarding the page must preserve native playback');
-      bus.publish(const VoiceInteractionChanged(
-        active: false, reason: 'media', source: InteractionSource.sendspin,
-      ));
+      expect(
+        cameras.activeViewId.value,
+        isNull,
+        reason: 'discarding the page must preserve native playback',
+      );
+      bus.publish(
+        const VoiceInteractionChanged(
+          active: false,
+          reason: 'media',
+          source: InteractionSource.sendspin,
+        ),
+      );
       await pumpEventQueue();
       expect(cameras.activeViewId.value, viewId);
       expect(cameras.focusedCameraId.value, cameraId);
@@ -325,6 +352,80 @@ void main() {
       await bus.dispose();
     },
   );
+
+  test('a view opened over another app hands the screen back (#814)', () async {
+    SharedPreferences.setMockInitialValues({});
+    final bus = EventBus();
+    final logger = Logger();
+    final commands = CommandRegistry(logger);
+    final settings = SettingsManager(bus, commands, logger);
+    await settings.init();
+    final cameras = CameraManager(
+      bus,
+      commands,
+      logger,
+      settings,
+      HomeAssistantManager(bus, commands, logger, settings),
+    );
+    var behind = true;
+    var returns = 0;
+    cameras
+      ..behindAnotherApp = (() async => behind)
+      ..moveToBack = (() async {
+        returns++;
+        return true;
+      });
+    await cameras.init();
+    final source = await commands.execute('cameraPutSource', {
+      'name': 'Front door',
+      'kind': 'whep',
+      'whepUrl': 'https://camera.example/whep',
+    });
+    final view = await commands.execute('cameraPutView', {
+      'name': 'Outside',
+      'cameraIds': [(source.data as Map)['id']],
+    });
+    final viewId = (view.data as Map)['id'];
+    const settle = Duration(milliseconds: 400);
+
+    await cameras.showView(viewId);
+    cameras.hideView();
+    await Future<void>.delayed(settle);
+    expect(returns, 1, reason: 'closing returns to the app it covered');
+
+    behind = false;
+    await cameras.showView(viewId);
+    cameras.hideView();
+    await Future<void>.delayed(settle);
+    expect(returns, 1, reason: 'a view opened in the kiosk stays there');
+
+    behind = true;
+    await cameras.showView(viewId);
+    cameras.hideView(returnToPreviousApp: false);
+    await Future<void>.delayed(settle);
+    expect(returns, 1, reason: 'the Home key is the user leaving');
+
+    await cameras.showView(viewId);
+    cameras.hideView();
+    await cameras.showView(viewId);
+    await Future<void>.delayed(settle);
+    expect(returns, 1, reason: 'a view reopening keeps the screen');
+    expect(cameras.activeViewId.value, viewId);
+
+    behind = false;
+    bus.publish(const VoiceInteractionChanged(active: true));
+    await pumpEventQueue();
+    bus.publish(const VoiceInteractionChanged(active: false));
+    await pumpEventQueue();
+    expect(cameras.activeViewId.value, viewId);
+    cameras.hideView();
+    await Future<void>.delayed(settle);
+    expect(returns, 2, reason: 'a voice turn keeps what the first open found');
+
+    await cameras.dispose();
+    await logger.dispose();
+    await bus.dispose();
+  });
 
   test('camera views dismiss and suppress the screensaver', () async {
     SharedPreferences.setMockInitialValues({});
@@ -536,10 +637,12 @@ void main() {
       final socket = await WebSocketTransformer.upgrade(request);
       socket.listen((message) {
         if (message is! String) return;
-        socket.add(jsonEncode({
-          'type': 'mse',
-          'value': 'video/mp4; codecs="avc1.64001f"',
-        }));
+        socket.add(
+          jsonEncode({
+            'type': 'mse',
+            'value': 'video/mp4; codecs="avc1.64001f"',
+          }),
+        );
         socket.add(<int>[1, 2, 3, 4]);
       });
     });
@@ -563,8 +666,13 @@ void main() {
           streamName: 'front_sub',
           fullscreenStreamName: 'front_main',
         ),
-        CameraSource(id: 'door', name: 'Door', kind: 'ha',
-            entityId: 'camera.door', imported: true),
+        CameraSource(
+          id: 'door',
+          name: 'Door',
+          kind: 'ha',
+          entityId: 'camera.door',
+          imported: true,
+        ),
       ],
     );
     SharedPreferences.setMockInitialValues({
@@ -586,10 +694,16 @@ void main() {
     addTearDown(cameras.dispose);
 
     // WebRTC-only kinds have no MSE endpoint to hand out.
-    final refused = await cameras.mseEndpoint(cameraId: 'door', fullscreen: false);
+    final refused = await cameras.mseEndpoint(
+      cameraId: 'door',
+      fullscreen: false,
+    );
     expect(refused['ok'], isFalse);
 
-    final endpoint = await cameras.mseEndpoint(cameraId: 'cam', fullscreen: false);
+    final endpoint = await cameras.mseEndpoint(
+      cameraId: 'cam',
+      fullscreen: false,
+    );
     expect(endpoint['ok'], isTrue, reason: '${endpoint['error']}');
     final url = '${endpoint['url']}';
     expect(url, startsWith('ws://127.0.0.1:'));
@@ -601,8 +715,11 @@ void main() {
       received.add(message);
       if (received.length == 2) break;
     }
-    expect(sawAuth, 'Basic ${base64Encode(utf8.encode('user:secret'))}',
-        reason: 'the relay must carry the server login the page cannot');
+    expect(
+      sawAuth,
+      'Basic ${base64Encode(utf8.encode('user:secret'))}',
+      reason: 'the relay must carry the server login the page cannot',
+    );
     expect(sawSrc, 'front_sub');
     expect(received.first, contains('avc1.64001f'));
     expect(received.last, [1, 2, 3, 4]);
@@ -660,13 +777,17 @@ void main() {
     );
     expect(
       out,
-      contains('r?u=https%3A%2F%2Fha.example%2Fapi%2Fhls%2Ftok'
-          '%2Fsegment%2F1.m4s'),
+      contains(
+        'r?u=https%3A%2F%2Fha.example%2Fapi%2Fhls%2Ftok'
+        '%2Fsegment%2F1.m4s',
+      ),
     );
     expect(
       out,
-      contains('r?u=https%3A%2F%2Fha.example%2Fapi%2Fhls%2Ftok'
-          '%2Fsegment%2F2.m4s'),
+      contains(
+        'r?u=https%3A%2F%2Fha.example%2Fapi%2Fhls%2Ftok'
+        '%2Fsegment%2F2.m4s',
+      ),
     );
     // Every URI line goes through the relay; none reaches upstream direct.
     for (final line in out.split('\n')) {
@@ -697,11 +818,7 @@ void main() {
 
     // The entity grew a WebRTC provider: a re-import refreshes the types.
     ha.streamable = [
-      (
-        entityId: 'camera.door',
-        name: 'Door',
-        streamTypes: ['web_rtc', 'hls'],
-      ),
+      (entityId: 'camera.door', name: 'Door', streamTypes: ['web_rtc', 'hls']),
     ];
     result = await commands.execute('cameraImportHomeAssistant', {});
     expect(result.ok, isTrue);
@@ -722,63 +839,66 @@ void main() {
     ];
     result = await commands.execute('cameraImportHomeAssistant', {});
     expect(result.ok, isTrue);
-    final package = cameras.config.cameras
-        .firstWhere((camera) => camera.entityId == 'camera.package');
+    final package = cameras.config.cameras.firstWhere(
+      (camera) => camera.entityId == 'camera.package',
+    );
     expect(package.streamTypes, isEmpty);
   });
 
-  test('a hand-added ha camera asks Home Assistant for its stream types',
-      () async {
-    SharedPreferences.setMockInitialValues({});
-    final bus = EventBus();
-    final logger = Logger();
-    final commands = CommandRegistry(logger);
-    final settings = SettingsManager(bus, commands, logger);
-    await settings.init();
-    final ha = _FakeHaManager(bus, commands, logger, settings)
-      ..capabilities = <String>[];
-    final cameras = CameraManager(bus, commands, logger, settings, ha);
-    await cameras.init();
-    addTearDown(cameras.dispose);
+  test(
+    'a hand-added ha camera asks Home Assistant for its stream types',
+    () async {
+      SharedPreferences.setMockInitialValues({});
+      final bus = EventBus();
+      final logger = Logger();
+      final commands = CommandRegistry(logger);
+      final settings = SettingsManager(bus, commands, logger);
+      await settings.init();
+      final ha = _FakeHaManager(bus, commands, logger, settings)
+        ..capabilities = <String>[];
+      final cameras = CameraManager(bus, commands, logger, settings, ha);
+      await cameras.init();
+      addTearDown(cameras.dispose);
 
-    // A stills-only entity records its (empty) types at save time, so the
-    // player goes straight to MJPEG instead of laddering through
-    // transports the entity does not have.
-    final put = await commands.execute('cameraPutSource', {
-      'name': 'Package',
-      'kind': 'ha',
-      'entityId': 'camera.package',
-    });
-    expect(put.ok, isTrue);
-    expect(cameras.config.cameras.single.streamTypes, isEmpty);
+      // A stills-only entity records its (empty) types at save time, so the
+      // player goes straight to MJPEG instead of laddering through
+      // transports the entity does not have.
+      final put = await commands.execute('cameraPutSource', {
+        'name': 'Package',
+        'kind': 'ha',
+        'entityId': 'camera.package',
+      });
+      expect(put.ok, isTrue);
+      expect(cameras.config.cameras.single.streamTypes, isEmpty);
 
-    // A rename keeps the known types rather than asking again.
-    ha.capabilities = ['web_rtc'];
-    final rename = await commands.execute('cameraPutSource', {
-      'id': cameras.config.cameras.single.id,
-      'name': 'Package Camera',
-      'kind': 'ha',
-      'entityId': 'camera.package',
-    });
-    expect(rename.ok, isTrue);
-    expect(cameras.config.cameras.single.name, 'Package Camera');
-    expect(cameras.config.cameras.single.streamTypes, isEmpty);
+      // A rename keeps the known types rather than asking again.
+      ha.capabilities = ['web_rtc'];
+      final rename = await commands.execute('cameraPutSource', {
+        'id': cameras.config.cameras.single.id,
+        'name': 'Package Camera',
+        'kind': 'ha',
+        'entityId': 'camera.package',
+      });
+      expect(rename.ok, isTrue);
+      expect(cameras.config.cameras.single.name, 'Package Camera');
+      expect(cameras.config.cameras.single.streamTypes, isEmpty);
 
-    // Home Assistant unreachable at save time: unknown, not incapable.
-    ha.capabilities = null;
-    final blind = await commands.execute('cameraPutSource', {
-      'name': 'Blind',
-      'kind': 'ha',
-      'entityId': 'camera.blind',
-    });
-    expect(blind.ok, isTrue);
-    expect(
-      cameras.config.cameras
-          .firstWhere((camera) => camera.entityId == 'camera.blind')
-          .streamTypes,
-      isNull,
-    );
-  });
+      // Home Assistant unreachable at save time: unknown, not incapable.
+      ha.capabilities = null;
+      final blind = await commands.execute('cameraPutSource', {
+        'name': 'Blind',
+        'kind': 'ha',
+        'entityId': 'camera.blind',
+      });
+      expect(blind.ok, isTrue);
+      expect(
+        cameras.config.cameras
+            .firstWhere((camera) => camera.entityId == 'camera.blind')
+            .streamTypes,
+        isNull,
+      );
+    },
+  );
 
   test('the MJPEG relay streams the camera proxy with the bearer token, '
       'single use', () async {
@@ -793,8 +913,9 @@ void main() {
       sawAuth = request.headers.value(HttpHeaders.authorizationHeader);
       final response = request.response;
       if (request.uri.path == '/api/camera_proxy_stream/camera.package') {
-        response.headers.contentType =
-            ContentType.parse('multipart/x-mixed-replace; boundary=frame');
+        response.headers.contentType = ContentType.parse(
+          'multipart/x-mixed-replace; boundary=frame',
+        );
         response.add(const [1, 2, 3, 4, 5]);
       } else {
         response.statusCode = HttpStatus.notFound;
@@ -851,18 +972,18 @@ void main() {
     addTearDown(() => client.close(force: true));
     final response = await (await client.getUrl(url)).close();
     expect(response.statusCode, HttpStatus.ok);
-    expect(
-      response.headers.contentType?.mimeType,
-      'multipart/x-mixed-replace',
-    );
+    expect(response.headers.contentType?.mimeType, 'multipart/x-mixed-replace');
     expect(response.headers.contentType?.parameters['boundary'], 'frame');
     final bytes = await response.fold<List<int>>(
       [],
       (all, chunk) => all..addAll(chunk),
     );
     expect(bytes, const [1, 2, 3, 4, 5]);
-    expect(sawAuth, 'Bearer secret-token',
-        reason: 'the relay must carry the login the page img cannot');
+    expect(
+      sawAuth,
+      'Bearer secret-token',
+      reason: 'the relay must carry the login the page img cannot',
+    );
 
     // A token is single use: replaying the same url is refused.
     final replay = await (await client.getUrl(url)).close();
@@ -971,8 +1092,9 @@ void main() {
     final initRef = RegExp(r'URI="([^"]+)"').firstMatch(variant)![1]!;
     expect(initRef, startsWith('r?u='));
 
-    final initResponse =
-        await (await client.getUrl(entry.resolve(initRef))).close();
+    final initResponse = await (await client.getUrl(
+      entry.resolve(initRef),
+    )).close();
     final bytes = await initResponse.fold<List<int>>(
       [],
       (all, chunk) => all..addAll(chunk),
