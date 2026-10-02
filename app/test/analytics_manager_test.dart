@@ -8,6 +8,7 @@ import 'package:kiosk_satellite/core/command_registry.dart';
 import 'package:kiosk_satellite/core/event_bus.dart';
 import 'package:kiosk_satellite/core/logging.dart';
 import 'package:kiosk_satellite/managers/analytics/analytics_manager.dart';
+import 'package:kiosk_satellite/managers/analytics/usage_counters.dart';
 import 'package:kiosk_satellite/managers/settings/definitions.dart' as defs;
 import 'package:kiosk_satellite/managers/settings/settings_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -63,6 +64,7 @@ void main() {
   late Map<String, Object?> wakeState;
   late Map<String, Object?> installerState;
   late Map<String, Object?> shizukuState;
+  late List<String> answers;
 
   Future<void> build(
     Map<String, Object> initial, {
@@ -120,6 +122,14 @@ void main() {
         name: 'getWakeWordState',
         description: 'stub',
         handler: (_) async => CommandResult.ok(wakeState),
+      ),
+    );
+    answers = ['assist', 'assist'];
+    commands.register(
+      Command(
+        name: 'voiceStatus',
+        description: 'stub',
+        handler: (_) async => CommandResult.ok({'answers': answers}),
       ),
     );
     commands.register(
@@ -377,6 +387,163 @@ void main() {
     expect(jsonEncode(u), isNot(contains('kitchen')));
     expect(jsonEncode(u), isNot(contains('Second brain')));
     expect(jsonEncode(u), isNot(contains('ding')));
+  });
+
+  test(
+    'what answers each wake word, the realtime picks and turn counts',
+    () async {
+      await build({
+        'ks.voice.runtime': 'native',
+        'ks.voice.enabled': true,
+        'ks.voice.realtime_openai_model': 'gpt-realtime-mini',
+        'ks.voice.realtime_instructions': 'Talk like a pirate',
+        'ks.voice.realtime_mcp_url': 'https://mcp.example/secret',
+      }, firstDelay: const Duration(days: 1));
+      Future<Map> usage() async {
+        sent.clear();
+        expect(await analytics.sendSnapshot(force: true), isTrue);
+        return bodyOf(sent.single)['usage'] as Map;
+      }
+
+      // Assist alone: no realtime picks, and the turns read as ranges.
+      var u = await usage();
+      expect(u['vs_answers_1'], 'assist');
+      expect(u.containsKey('vs_answers_2'), isFalse);
+      expect(u.containsKey('vs_realtime_tools'), isFalse);
+      expect(u['vs_turns_assist'], '0');
+      expect(u['vs_turns_openai'], '0');
+      expect(u['vs_wake_arbitration'], isFalse);
+      expect(u.containsKey('vs_arbitration_won'), isFalse);
+
+      // OpenAI answers wake word 1, a second wake word goes to Assist.
+      answers = ['openai', 'assist'];
+      wakeState = {
+        ...wakeState,
+        'models': [
+          {'id': 'ok_nova', 'wakeWord': 'Ok Nova'},
+          {'id': 'hey_jarvis', 'wakeWord': 'Hey Jarvis'},
+        ],
+      };
+      for (var i = 0; i < 7; i++) {
+        await UsageCounters.bump(settings, 'vs_turns_openai');
+      }
+      await UsageCounters.bump(settings, 'vs_turns_assist');
+      u = await usage();
+      expect(u['vs_answers_1'], 'openai');
+      expect(u['vs_answers_2'], 'assist');
+      expect(u['vs_realtime_tools'], 'home_assistant');
+      expect(u['vs_realtime_talk_over'], isTrue);
+      expect(u['vs_realtime_instructions'], isTrue);
+      expect(u['vs_realtime_openai_model'], 'gpt-realtime-mini');
+      expect(u['vs_realtime_openai_voice'], 'default');
+      expect(u.containsKey('vs_realtime_xai_model'), isFalse);
+      expect(u['vs_turns_openai'], '6-20');
+      expect(u['vs_turns_assist'], '1-5');
+      final text = jsonEncode(u);
+      expect(text, isNot(contains('pirate')));
+      expect(text, isNot(contains('mcp.example')));
+      // Sent: the counts start over.
+      u = await usage();
+      expect(u['vs_turns_openai'], '0');
+      expect(u['vs_turns_assist'], '0');
+    },
+  );
+
+  test('a failed snapshot keeps its counts for the next one', () async {
+    await build({
+      'ks.voice.runtime': 'native',
+      'ks.voice.enabled': true,
+    }, firstDelay: const Duration(days: 1));
+    await UsageCounters.bump(settings, 'vs_turns_assist');
+    status = 500;
+    expect(await analytics.sendSnapshot(force: true), isFalse);
+    status = 200;
+    sent.clear();
+    expect(await analytics.sendSnapshot(force: true), isTrue);
+    expect((bodyOf(sent.single)['usage'] as Map)['vs_turns_assist'], '1-5');
+  });
+
+  test('counts nothing while Usage is off', () async {
+    await build({
+      'ks.analytics.usage': false,
+      'ks.voice.runtime': 'native',
+      'ks.voice.enabled': true,
+    }, firstDelay: const Duration(days: 1));
+    await UsageCounters.bump(settings, 'vs_turns_assist');
+    expect(UsageCounters.read(settings), isEmpty);
+  });
+
+  test(
+    'wake word arbitration reports its window and contested wakes',
+    () async {
+      await build({
+        'ks.voice.runtime': 'native',
+        'ks.voice.enabled': true,
+        'ks.voice.wake_arbitration': true,
+      }, firstDelay: const Duration(days: 1));
+      await UsageCounters.bump(settings, 'vs_arbitration_won');
+      for (var i = 0; i < 25; i++) {
+        await UsageCounters.bump(settings, 'vs_arbitration_lost');
+      }
+      expect(await analytics.sendSnapshot(force: true), isTrue);
+      final u = bodyOf(sent.single)['usage'] as Map;
+      expect(u['vs_wake_arbitration'], isTrue);
+      expect(u['vs_wake_arbitration_window_ms'], 400);
+      expect(u['vs_arbitration_won'], '1-5');
+      expect(u['vs_arbitration_lost'], '21+');
+    },
+  );
+
+  test('echo cancellation, the overlay mode, DuraSpeed and the clock '
+      'layouts', () async {
+    await build({
+      'ks.voice.runtime': 'native',
+      'ks.voice.enabled': true,
+      'ks.voice.overlay_mode': 'docked',
+      'ks.voice.dock_position': '0.9,0.1',
+      'ks.screensaver.clock_vertical': true,
+      'ks.screensaver.clock_style': 'analog',
+      'ks.screensaver.weather_clock_vertical': true,
+      'ks.screensaver.clock_night': true,
+      'ks.screensaver.clock_night_hide_widgets': true,
+    }, firstDelay: const Duration(days: 1));
+    // Set after start: the update that made it the only canceller turns
+    // it back on once.
+    await settings.set(defs.micSoftwareEchoCancellation, false);
+    await UsageCounters.bump(settings, 'duraspeed_blocked');
+    Future<Map> usage() async {
+      sent.clear();
+      expect(await analytics.sendSnapshot(force: true), isTrue);
+      return bodyOf(sent.single)['usage'] as Map;
+    }
+
+    var u = await usage();
+    expect(u['vs_overlay_mode'], 'docked');
+    expect(u['vs_dock_position'], 'top_right');
+    expect(u['software_echo_cancellation'], isFalse);
+    expect(u['duraspeed_blocked'], isTrue);
+    // The analog face has no vertical layout, whatever the switch says.
+    expect(u['clock_vertical'], isFalse);
+    expect(u['weather_clock_vertical'], isTrue);
+    expect(u['clock_night_mode'], isTrue);
+    expect(u['clock_night_hide_widgets'], isTrue);
+    // A block reads once, then not again until another one.
+    u = await usage();
+    expect(u['duraspeed_blocked'], isFalse);
+    await settings.set(defs.screensaverClockStyle, 'flip');
+    await settings.set(defs.voiceOverlayMode, 'full');
+    u = await usage();
+    expect(u['clock_vertical'], isTrue);
+    expect(u.containsKey('vs_dock_position'), isFalse);
+  });
+
+  test('the dock position reads as its nearest edge or corner', () {
+    expect(dockEdge('0.5,1'), 'bottom');
+    expect(dockEdge('0.5,0'), 'top');
+    expect(dockEdge('0,0.5'), 'left');
+    expect(dockEdge('0.1,0.9'), 'bottom_left');
+    expect(dockEdge('0.5,0.5'), 'center');
+    expect(dockEdge('nonsense'), 'bottom');
   });
 
   test('alarms read as counts and picks, never as times or labels', () async {

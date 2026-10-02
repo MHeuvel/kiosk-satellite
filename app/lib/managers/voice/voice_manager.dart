@@ -11,6 +11,7 @@ import '../../core/command_registry.dart';
 import '../../core/events.dart';
 import '../../core/manager.dart';
 import '../btproxy/bt_proxy_manager.dart';
+import '../analytics/usage_counters.dart';
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
 import '../wake_word/engine.dart';
@@ -1685,6 +1686,11 @@ class VoiceManager extends Manager {
     'answer': view.value.answer,
     'wakeWords': _activeIds(),
     'engine': _settings.get(defs.voiceWakeWordEngine),
+    // What answers each wake word: 'assist', or the realtime provider
+    // when one is picked and still validated.
+    'answers': [
+      for (final slot in [1, 2]) _slotProvider(slot)?.id ?? 'assist',
+    ],
     'timers': _timers.length,
     'overlayFrames': overlayFrames,
     'audioSent': _audioSent,
@@ -1850,9 +1856,11 @@ class VoiceManager extends Manager {
     if (provider != null) {
       if (_session.busy) return;
       _activeProvider = provider;
+      unawaited(UsageCounters.bump(_settings, 'vs_turns_${provider.id}'));
       unawaited(_realtime.wake(phrase));
       return;
     }
+    unawaited(UsageCounters.bump(_settings, 'vs_turns_assist'));
     unawaited(_session.wake(phrase));
   }
 

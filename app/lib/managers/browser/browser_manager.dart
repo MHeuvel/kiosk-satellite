@@ -15,6 +15,7 @@ import 'webview_snapshot_width.dart';
 import '../../core/command_registry.dart';
 import '../../core/events.dart';
 import '../../core/manager.dart';
+import '../analytics/usage_counters.dart';
 import '../device/device_details.dart';
 import '../device/screen_capture.dart';
 import '../device/webview_freeze.dart';
@@ -894,6 +895,7 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
     log.warn(name, '$reason; rebuilding the WebView');
     if (!duraSpeedBlocking.value && await duraSpeedInstalled()) {
       duraSpeedBlocking.value = true;
+      unawaited(UsageCounters.bump(_settings, 'duraspeed_blocked'));
       log.error(
         name,
         'the dashboard renderer never answers and this device runs '

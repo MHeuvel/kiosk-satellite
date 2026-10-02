@@ -10,6 +10,7 @@ import '../../core/manager.dart';
 import '../../core/permissions.dart';
 import '../assist_pipeline/native_audio_source.dart';
 import '../audio/mic_level_monitor.dart';
+import '../analytics/usage_counters.dart';
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
 import 'background_listening.dart';
@@ -363,6 +364,13 @@ class WakeWordManager extends Manager
           : 'arbitration: ${r.winner} answers instead, '
                 'this kiosk heard $mine dB$heard',
     );
+    // Only a contested wake says arbitration did something: a win with
+    // nobody else heard is every wake on a lone kiosk.
+    if (!r.won) {
+      unawaited(UsageCounters.bump(_settings, 'vs_arbitration_lost'));
+    } else if (r.heard.isNotEmpty) {
+      unawaited(UsageCounters.bump(_settings, 'vs_arbitration_won'));
+    }
     return r.won;
   }
 
