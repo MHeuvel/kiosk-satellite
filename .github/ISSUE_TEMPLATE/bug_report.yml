@@ -30,11 +30,11 @@ body:
       options:
         - Voice / wake word (Voice Satellite)
         - Crash, freeze, white screen, or restart
-        - Browser / dashboard display
+        - Dashboard page (loading, rendering, scrolling)
         - Screensaver (clock, photos, Immich, media)
         - Audio output (chimes, TTS, Bluetooth, speaker/mic selection)
         - MQTT / Home Assistant entities
-        - Media (SendSpin, DLNA, cameras)
+        - Media and cameras (SendSpin, DLNA, camera views)
         - Remote administration
         - Setup wizard / configuration import
         - Other

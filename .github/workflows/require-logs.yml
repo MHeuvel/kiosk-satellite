@@ -8,7 +8,8 @@ name: Require logs on bug reports
 # labels the issue "needs-logs" and posts one comment explaining exactly what
 # to attach. The existing stale workflow then closes it if the reporter never
 # follows up. When an edit fills in the logs, the label and nothing else is
-# removed automatically.
+# removed automatically. A maintainer who removes the label by hand has
+# judged the logs enough, so later edits leave the issue alone.
 
 on:
   issues:
@@ -64,8 +65,9 @@ jobs:
             }
 
             // The built-in Voice Satellite logs to the app log, so only
-            // dashboard issues need the page's console. Reports opened on the
-            // older form carry the section under its previous label.
+            // dashboard page issues need the page's console. Reports opened
+            // on the older form carry the area and the section under their
+            // previous labels ("Browser / dashboard display").
             if (area.includes("browser") || area.includes("dashboard")) {
               const consoleLogs =
                 section("Web console logs (required for dashboard issues)") ||
@@ -96,6 +98,13 @@ jobs:
               }
               return;
             }
+
+            const events = await github.paginate(github.rest.issues.listEvents, {
+              owner, repo, issue_number: issue.number, per_page: 100,
+            });
+            if (events.some(e =>
+              e.event === "unlabeled" && e.label?.name === LABEL && e.actor?.type !== "Bot"
+            )) return;
 
             await github.rest.issues.addLabels({
               owner, repo, issue_number: issue.number, labels: [LABEL],
