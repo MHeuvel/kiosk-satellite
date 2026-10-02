@@ -638,4 +638,31 @@ void main() {
       expect(h.view.phase, AssistPhase.hidden);
     });
   });
+
+  group('the Voice Satellite sensor', () {
+    test('reads the turn in assist_satellite states', () {
+      String of(AssistPhase phase, {bool lingering = false}) => satelliteState(
+        AssistView(phase: phase, lingering: lingering),
+        busy: true,
+      );
+      expect(of(AssistPhase.hidden), 'idle');
+      expect(of(AssistPhase.listening), 'listening');
+      expect(of(AssistPhase.thinking), 'processing');
+      expect(of(AssistPhase.speaking), 'responding');
+      expect(of(AssistPhase.announcement), 'responding');
+      // The answer left on screen after its turn is over.
+      expect(of(AssistPhase.speaking, lingering: true), 'idle');
+    });
+
+    test('a view with no turn behind it is idle', () {
+      // The Appearance page's preview draws a speaking overlay.
+      expect(
+        satelliteState(
+          const AssistView(phase: AssistPhase.speaking),
+          busy: false,
+        ),
+        'idle',
+      );
+    });
+  });
 }

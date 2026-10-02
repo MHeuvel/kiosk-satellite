@@ -413,6 +413,14 @@ class VoiceInteractionChanged extends AppEvent {
   final String reason;
 }
 
+/// Native Voice Satellite moved between Home Assistant's assist_satellite
+/// states: idle, listening, processing or responding. Covers Assist turns
+/// and realtime conversations alike.
+class VoiceSatelliteStateChanged extends AppEvent {
+  const VoiceSatelliteStateChanged(this.state);
+  final String state;
+}
+
 // ── Alarms ─────────────────────────────────────────────────────────────
 
 /// The alarms or their ringing state changed: an alarm added, edited or

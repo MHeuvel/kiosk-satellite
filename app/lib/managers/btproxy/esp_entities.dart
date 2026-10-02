@@ -576,6 +576,18 @@ class EspEntitySurface {
           'name': 'Voice Satellite',
           'icon': 'mdi:account-voice',
         },
+      // The turn in Home Assistant's assist_satellite states, for Assist
+      // turns and realtime conversations alike. A realtime conversation
+      // runs no pipeline, so the satellite entity Home Assistant keeps
+      // stays idle through it. Never beside the switch above, which only
+      // the dashboard runtime lists.
+      if (_voiceNative)
+        {
+          'type': 'text_sensor',
+          'objectId': 'voice_satellite_state',
+          'name': 'Voice Satellite',
+          'icon': 'mdi:account-voice',
+        },
       button(
         'postpone_screensaver',
         'Postpone screensaver',
@@ -1729,6 +1741,11 @@ class EspEntitySurface {
         if (InteractionStamp.countsAsVoice(e)) _interaction.mark();
       }),
     );
+    _subs.add(
+      bus.on<VoiceSatelliteStateChanged>().listen((e) {
+        if (_voiceNative) _send('voice_satellite_state', e.state);
+      }),
+    );
     // A person waking the panel by hand counts too (issue #348); see the
     // ScreenStateChanged listener below for why only the OS-reported wake
     // qualifies.
@@ -2185,6 +2202,13 @@ class EspEntitySurface {
       'clock_background',
       _settings.get(defs.screensaverClockBackground),
     );
+    if (_voiceNative) {
+      final voice = await commands.execute('voiceStatus', const {});
+      final state = voice.ok && voice.data is Map
+          ? (voice.data as Map)['state']
+          : null;
+      await _send('voice_satellite_state', '${state ?? 'idle'}');
+    }
     if (_settings.get(defs.intercomEnabled)) {
       final intercom = await commands.execute('intercomStatus', const {});
       if (intercom.ok && intercom.data is Map) {

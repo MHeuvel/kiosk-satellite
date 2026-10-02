@@ -124,6 +124,20 @@ class AssistView {
   );
 }
 
+/// The turn in Home Assistant's assist_satellite states (idle, listening,
+/// processing, responding), for the Voice Satellite sensor. [busy] is
+/// whether a turn or a conversation runs: a preview or an answer left on
+/// screen after its turn reads idle.
+String satelliteState(AssistView view, {required bool busy}) {
+  if (!busy || view.lingering) return 'idle';
+  return switch (view.phase) {
+    AssistPhase.hidden => 'idle',
+    AssistPhase.listening => 'listening',
+    AssistPhase.thinking => 'processing',
+    AssistPhase.speaking || AssistPhase.announcement => 'responding',
+  };
+}
+
 /// Voice Satellite's estimate of how long [text] takes to say, in seconds:
 /// 2.8 words a second, 0.7 more per number, three at least.
 double estimateSpeechSeconds(String text) {

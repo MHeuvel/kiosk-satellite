@@ -789,6 +789,49 @@ void main() {
     },
   );
 
+  group('the Voice Satellite sensor', () {
+    test('is listed only while Voice Satellite runs natively', () async {
+      Future<List<String>> ids() async => [
+        for (final d in await surface.build()) '${d['objectId']}',
+      ];
+      await settings.set(defs.haSatelliteEntity, 'assist_satellite.office');
+      await settings.set(defs.voiceRuntime, 'dashboard');
+      await settings.set(defs.voiceEnabled, true);
+      expect(await ids(), isNot(contains('voice_satellite_state')));
+      expect(await ids(), contains('voice_satellite'));
+      await settings.set(defs.voiceRuntime, 'native');
+      final catalog = await surface.build();
+      final sensor = catalog.singleWhere(
+        (d) => d['objectId'] == 'voice_satellite_state',
+      );
+      expect(sensor['type'], 'text_sensor');
+      expect(sensor['name'], 'Voice Satellite');
+      expect(
+        catalog.map((d) => d['objectId']),
+        isNot(contains('voice_satellite')),
+      );
+    });
+
+    test('is seeded at attach and follows the turn', () async {
+      await settings.set(defs.voiceRuntime, 'native');
+      await settings.set(defs.voiceEnabled, true);
+      commands.register(
+        Command(
+          name: 'voiceStatus',
+          description: 'stub',
+          handler: (_) async => const CommandResult.ok({'state': 'listening'}),
+        ),
+      );
+      await attach();
+      expect(pushed, contains(('voice_satellite_state', 'listening')));
+      for (final state in ['processing', 'responding', 'idle']) {
+        bus.publish(VoiceSatelliteStateChanged(state));
+        await Future<void>.delayed(const Duration(milliseconds: 20));
+        expect(pushed.last, ('voice_satellite_state', state));
+      }
+    });
+  });
+
   test('the catalog carries the full entity set', () async {
     final catalog = await surface.build();
     final ids = [for (final d in catalog) '${d['objectId']}'];

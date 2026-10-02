@@ -88,6 +88,18 @@ class VoiceManager extends Manager {
   /// What the assist overlay draws.
   final view = ValueNotifier<AssistView>(AssistView.hidden);
 
+  /// The turn in Home Assistant's assist_satellite states, as the Voice
+  /// Satellite sensor reports it. Home Assistant's own satellite entity
+  /// stays idle through a realtime conversation, which runs no pipeline.
+  String _satelliteState = 'idle';
+
+  void _publishSatelliteState() {
+    final next = satelliteState(view.value, busy: busy);
+    if (next == _satelliteState) return;
+    _satelliteState = next;
+    bus.publish(VoiceSatelliteStateChanged(next));
+  }
+
   /// Seconds into the answer (or announcement) playing now and its length,
   /// while the player knows both; the overlay paces a long answer's scroll
   /// to it.
@@ -1715,6 +1727,7 @@ class VoiceManager extends Manager {
     'conversation': _realtime.busy,
     'listening': _wakeWord.listening,
     'phase': view.value.phase.name,
+    'state': _satelliteState,
     'command': view.value.command,
     'answer': view.value.answer,
     'wakeWords': _activeIds(),
@@ -2279,6 +2292,7 @@ class VoiceManager extends Manager {
     view.value = shown;
     if (!next.visible) level.value = 0;
     _publishOverlay(was);
+    _publishSatelliteState();
   }
 
   /// What is under the overlay holds its last frame: the dashboard, a
@@ -2339,6 +2353,7 @@ class VoiceManager extends Manager {
     // The remote admin's status rows say Busy for the whole turn: the wake
     // word's microphone stays open through it, so nothing else moves them.
     _announceStatus();
+    _publishSatelliteState();
     if (busy) {
       _previewDocked = false;
       if (_busyReasons.add(reason)) {

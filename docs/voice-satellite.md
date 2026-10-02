@@ -112,7 +112,7 @@ A wake word answered by a realtime provider starts a conversation with a speech 
 
 **Controlling your home.** With **Tools** on **Home Assistant**, the model uses Home Assistant's **Model Context Protocol Server** integration. Add it under **Settings > Devices & services** in Home Assistant. The model can use the entities exposed to Assist, and the scripts exposed to Assist become tools too. **Custom MCP server** points at another server that speaks Streamable HTTP. **None** leaves the tools to a relay that adds its own.
 
-**Which room.** Each conversation starts with the kiosk's name and its area in Home Assistant, so "turn on the lights" means the lights in the kiosk's area unless you name another one. Set the area on the kiosk's device in Home Assistant.
+**Which room.** Each conversation starts with the kiosk's name and its area in Home Assistant, so "turn on the lights" means the lights in the kiosk's area unless you name another one. Set the area on the kiosk's device in Home Assistant. The Assist satellite entity stays idle during a conversation, so automations that need to know which kiosk is talking should check the kiosk's [Voice Satellite](#home-assistant-entities-and-actions) sensor.
 
 **Picking up where you left off.** **Session duration** keeps what was said for 30 minutes up to 12 hours and gives it to the next conversation, so you can refer back to something after a conversation ended. Older exchanges are dropped, and nothing is kept across an app restart.
 
@@ -174,6 +174,8 @@ With **Expose kiosk entities** on under **Settings > ESPHome**, the kiosk adds i
 | VS Wake word sensitivity | select | Wake word sensitivity |
 | VS Answer linger | number | Keep the answer on screen |
 | VS Announcement linger | number | Announcement time |
+
+The kiosk also adds a **Voice Satellite** text sensor. It reads `idle`, `listening`, `processing` or `responding`, the same states as the Assist satellite entity, and it follows realtime conversations too. A realtime conversation runs no Home Assistant pipeline, so the Assist satellite entity stays idle through it. Check the sensor instead when an automation or script needs to know which kiosk is talking.
 
 And four actions, named after the kiosk's [node name](esphome.md#node-name):
 
