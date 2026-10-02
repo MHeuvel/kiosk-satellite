@@ -75,7 +75,9 @@
     <!-- Keeps GPS fixes arriving while the app is not on screen: Android 10+
          only delivers location to a backgrounded app through a location-type
          foreground service; attached while Report location is on and the
-         location permission granted. -->
+         location permission granted. Also attached while the Bluetooth
+         proxy is on: a scan started off screen gets no results without
+         it. -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION"/>
     <!-- The service's notification. Denied, the service still runs; it just says
          nothing, which is worse for the person in the room than for us. -->

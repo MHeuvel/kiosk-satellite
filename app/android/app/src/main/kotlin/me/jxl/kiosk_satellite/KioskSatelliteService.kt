@@ -125,7 +125,14 @@ class KioskSatelliteService : Service() {
         fun ensureRunning(context: Context) {
             // Already up and in the foreground: nothing to start, and no
             // deadline to arm. Every resume of the Activity lands here.
-            if (instance != null && isForeground) return
+            // A service that came up from the background was refused its
+            // while-in-use types (microphone, camera, location), and a
+            // resume is the first moment Android grants them.
+            val live = instance
+            if (live != null && isForeground) {
+                if (ActivityState.resumed) live.mainHandler.post { live.regainTypes() }
+                return
+            }
             val intent = Intent(context, KioskSatelliteService::class.java)
             try {
                 // From a resumed Activity the app is in the foreground, so a
@@ -272,7 +279,17 @@ class KioskSatelliteService : Service() {
         val notification = buildNotification(reasons, localized)
         val wanted = typesFor(reasons)
         val base = typesFor(setOf(REASON_SESSIONS))
+        // Location is a while-in-use type like the microphone. A refusal of
+        // it from the background must not cost the other types.
+        val withoutLocation =
+            if (Build.VERSION.SDK_INT >= 29) {
+                wanted and ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION.inv()
+            } else {
+                wanted
+            }
         if (!startForegroundWith(notification, wanted, prefs) &&
+            (withoutLocation == wanted ||
+                !startForegroundWith(notification, withoutLocation, prefs)) &&
             (wanted == base || !startForegroundWith(notification, base, prefs))
         ) {
             isForeground = false
@@ -281,6 +298,12 @@ class KioskSatelliteService : Service() {
             return
         }
         syncCpuLock(prefs.getBoolean(KEY_CPU_AWAKE, true))
+    }
+
+    /** Asks again for the full set of types when the last start fell short. */
+    private fun regainTypes() {
+        val reasons = reasonsOf(getSharedPreferences(PREFS, Context.MODE_PRIVATE))
+        if (activeTypes != typesFor(reasons)) refresh()
     }
 
     private fun startForegroundWith(
@@ -347,7 +370,16 @@ class KioskSatelliteService : Service() {
         // backgrounded app only receives location through a service of
         // this type (or the background location grant, which the app
         // never asks for).
-        if (REASON_LOCATION in reasons && Build.VERSION.SDK_INT >= 29 &&
+        //
+        // The Bluetooth proxy needs it too. Android delivers scan results
+        // only to an app that holds fine location when the scan starts, and
+        // the while-in-use grant lapses once the screen is off unless a
+        // service of this type runs. The proxy restarts its scan every two
+        // minutes, so without it a panel went deaf at the first restart
+        // after screen-off and stayed deaf until the screen came back on.
+        // connectedDevice does not carry location.
+        if ((REASON_LOCATION in reasons || REASON_BLUETOOTH in reasons) &&
+            Build.VERSION.SDK_INT >= 29 &&
             granted(android.Manifest.permission.ACCESS_FINE_LOCATION)
         ) {
             types = types or ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION
