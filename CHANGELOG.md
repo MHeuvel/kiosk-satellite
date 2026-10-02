@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.10.1 - 2026-10-01
 
 ### Added
 - **Wake word arbitration.** When several kiosks hear the same wake word, only the closest one answers (#790). Before, Home Assistant answered whichever kiosk reached it first, which was the fastest device rather than the one you spoke to, and a wake word that starts a realtime conversation had no dedupe at all, so every kiosk that heard it answered. Each kiosk broadcasts how loud the wake word reached it over its own background noise, waits for the others and goes back to listening without a chime when another kiosk heard it louder. Turn on **Enable wake word arbitration** under **Voice Satellite > Wake Word > Wake Word Arbitration** on every kiosk that should take part. **Arbitration window** sets how long each kiosk waits for the others, from 100 to 500 ms with 400 by default, so a slow device like an Echo Show still gets a say against a fast tablet. Nothing said during the wait is lost. It works over UDP broadcast on port 2330 and needs no fleet, intercom or remote admin. Mirrored in the remote admin and translated into Spanish, German, French and Ukrainian.
