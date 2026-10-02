@@ -742,7 +742,8 @@ class SendspinManager extends Manager {
   /// the way a pause made on the view holds it, so the view opens paused
   /// with its play button instead of the regular screensaver. The
   /// screensaver start itself goes through the same command the menu's
-  /// Start Screensaver uses, with every refusal that has.
+  /// Start Screensaver uses, with every refusal that has, marked as a
+  /// session for the view so it ends when the view does.
   Future<void> showFullscreen() async {
     final now = nowPlaying.value;
     if (now == null) return;
@@ -766,7 +767,7 @@ class SendspinManager extends Manager {
       // before the session starts.
       await Future<void>.delayed(const Duration(milliseconds: 50));
     }
-    await commands.execute('startScreensaver', const {});
+    await commands.execute('startScreensaver', const {'nowPlaying': true});
   }
 
   /// Nothing to show any more: take the paused track off the card and

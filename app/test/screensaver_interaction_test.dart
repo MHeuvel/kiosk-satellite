@@ -158,6 +158,44 @@ void main() {
     expect(views, [true, false, true, false]);
   });
 
+  test('a session launched by playback ends with Now Playing', () async {
+    await build(nowPlaying: true);
+    await settings.set(defs.sendspinFullscreenOnPlay, true);
+    bus.publish(const SendspinNowPlayingChanged(active: true, playing: true));
+    await pumpEventQueue();
+    expect(saver.isActive, isTrue);
+    // The paused hold runs out: back to the dashboard, not the mode.
+    bus.publish(const SendspinNowPlayingChanged(active: false));
+    await pumpEventQueue();
+    expect(saver.isActive, isFalse);
+    expect(saver.activeView.value, isNull);
+    expect(saver.idleDue, isNotNull);
+  });
+
+  test('a session opened for Now Playing ends with it', () async {
+    await build(nowPlaying: true);
+    bus.publish(const SendspinNowPlayingChanged(active: true));
+    await pumpEventQueue();
+    await commands.execute('startScreensaver', const {'nowPlaying': true});
+    expect(saver.isActive, isTrue);
+    bus.publish(const SendspinNowPlayingChanged(active: false));
+    await pumpEventQueue();
+    expect(saver.isActive, isFalse);
+  });
+
+  test('Now Playing restored after voice still ends its session', () async {
+    await build(nowPlaying: true);
+    await settings.set(defs.sendspinFullscreenOnPlay, true);
+    bus.publish(const SendspinNowPlayingChanged(active: true, playing: true));
+    await pumpEventQueue();
+    await page(true, 'voice');
+    await page(false, 'voice');
+    expect(saver.isActive, isTrue);
+    bus.publish(const SendspinNowPlayingChanged(active: false));
+    await pumpEventQueue();
+    expect(saver.isActive, isFalse);
+  });
+
   test(
     'Now Playing returns when a wake turn ends without a page signal',
     () async {
