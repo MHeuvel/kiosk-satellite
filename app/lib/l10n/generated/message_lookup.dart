@@ -1775,6 +1775,10 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'settingBtproxyScanDutyTitle' => strings.settingBtproxyScanDutyTitle,
       'settingBtproxyScanDutyDescription' =>
         strings.settingBtproxyScanDutyDescription,
+      'settingBtproxyScreenOffScanTitle' =>
+        strings.settingBtproxyScreenOffScanTitle,
+      'settingBtproxyScreenOffScanDescription' =>
+        strings.settingBtproxyScreenOffScanDescription,
       'settingBtproxyConnectionsTitle' =>
         strings.settingBtproxyConnectionsTitle,
       'settingBtproxyConnectionsDescription' =>

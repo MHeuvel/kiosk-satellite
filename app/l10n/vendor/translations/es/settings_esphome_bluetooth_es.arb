@@ -4,6 +4,8 @@
   "settingBtproxyEnabledDescription": "Conecta los dispositivos Bluetooth cercanos con Home Assistant a través de este kiosko.",
   "settingBtproxyScanDutyTitle": "Intensidad del escaneo",
   "settingBtproxyScanDutyDescription": "Cuánto tiempo escucha la radio. Una intensidad menor reduce el uso de CPU. Los dispositivos que transmiten con poca frecuencia tardan más en aparecer.",
+  "settingBtproxyScreenOffScanTitle": "Seguir escaneando con la pantalla apagada",
+  "settingBtproxyScreenOffScanDescription": "Actívalo si el proxy deja de retransmitir con la pantalla apagada. Usa más CPU.",
   "settingBtproxyConnectionsTitle": "Permitir conexiones a dispositivos",
   "settingBtproxyConnectionsDescription": "Home Assistant puede conectarse a dispositivos Bluetooth a través de este proxy.",
   "settingBtproxyMacLookupTitle": "Consultar fabricantes de dispositivos en línea",

@@ -33,8 +33,9 @@ import android.util.Log
  *    seconds, silently delivering nothing afterwards. Every start funnels
  *    through a rate gate that defers, never drops, a restart.
  *  - Android 8.1+ blocks unfiltered scans while the screen is off. A single
- *    match-everything filter satisfies the "filtered" requirement and keeps
- *    full discovery running on a dark kiosk.
+ *    match-everything filter satisfies the "filtered" requirement on most
+ *    stacks. Some count it as unfiltered anyway, and the opt-in screen-off
+ *    scan swaps it for a list they accept (see [scanFilters]).
  *  - Unrecoverable stack errors (SCAN_FAILED_INTERNAL_ERROR on some Echo
  *    Show builds) are retried with escalating backoff and surfaced as a
  *    FAILED state instead of a tight retry loop flooding the log.
@@ -74,6 +75,7 @@ internal class BleScanEngine(
     private val onStateChange: (ScannerState, ScannerMode) -> Unit,
     private val onLog: (String) -> Unit = {},
     scanDuty: ScanDuty = ScanDuty.BALANCED,
+    screenOffScan: Boolean = false,
 ) {
     private companion object {
         const val TAG = "KsBtProxy"
@@ -98,6 +100,69 @@ internal class BleScanEngine(
          */
         const val ROTATION_MS = 120_000L
         val FAILURE_BACKOFF_MS = longArrayOf(5_000, 15_000, 60_000, 300_000)
+
+        /**
+         * Advertising data types (Bluetooth SIG assigned numbers) that
+         * stand in for "everything" on Android 13+: flags, the service UUID
+         * lists, the names, TX power, the solicitation lists, the service
+         * data blocks, appearance, URI, broadcast name and manufacturer
+         * data. An advertisement carrying none of them carries nothing
+         * Home Assistant reads.
+         */
+        val MATCH_ALL_AD_TYPES = intArrayOf(
+            0x01, 0xFF, 0x16, 0x03, 0x02, 0x09, 0x08, 0x0A, 0x07, 0x06,
+            0x05, 0x04, 0x14, 0x15, 0x19, 0x1F, 0x20, 0x21, 0x24, 0x30,
+        )
+
+        /**
+         * More filters than any controller holds. The controller reports its
+         * filter slots in a single byte, so 256 always overflows it, and
+         * the stack then programs its all-pass hardware filter and matches
+         * the list in software (see [scanFilters]).
+         */
+        const val MATCH_ALL_FILTER_COUNT = 256
+    }
+
+    /**
+     * Filters that match every advertisement but still count as a filtered
+     * scan, which Android requires for scanning while the screen is off.
+     *
+     * One criteria-less filter is enough on most stacks. Some treat it as
+     * no filter at all and suspend the scan at screen-off ("Cannot start
+     * unfiltered scan in screen-off" on a Tab S8 with Android 16, which
+     * rejects even an empty filter listed next to a real one). With the
+     * screen-off scan on (Android 13+), each filter instead asks for one
+     * advertising data type, which matches any advertisement that carries
+     * the type.
+     *
+     * Those filters must never reach the controller: the Tab S8's
+     * controller has no data type filtering ("AD type filter isn't
+     * supported") and delivered nothing with them while the screen was
+     * off. The list is
+     * made longer than any controller's filter table, which makes the stack
+     * use its all-pass hardware filter and apply the list in software, where
+     * data type matching always works. The stack drops duplicate filters,
+     * so each one carries a different first byte under a zero mask: it
+     * matches any value, and the filters stay distinct. The most common
+     * types come first, so most advertisements match on the first filter
+     * or two.
+     *
+     * Software matching costs the Bluetooth process CPU on every
+     * advertisement, which is why the list is opt-in. Older releases and
+     * the minimal tier keep the single empty filter: no data type filter
+     * exists before 13, and a stack that refuses refinements gets the
+     * plainest request.
+     */
+    private fun scanFilters(): List<ScanFilter> {
+        if (!screenOffFilters || Build.VERSION.SDK_INT < 33 || minimalSettings) {
+            return listOf(ScanFilter.Builder().build())
+        }
+        val anyByte = byteArrayOf(0)
+        return List(MATCH_ALL_FILTER_COUNT) {
+            val type = MATCH_ALL_AD_TYPES[it % MATCH_ALL_AD_TYPES.size]
+            val tag = byteArrayOf((it / MATCH_ALL_AD_TYPES.size).toByte())
+            ScanFilter.Builder().setAdvertisingDataTypeWithData(type, tag, anyByte).build()
+        }
     }
 
     private val handler = Handler(Looper.getMainLooper())
@@ -122,6 +187,9 @@ internal class BleScanEngine(
     // The duty cycle in force; a change restarts the scan session (a stop
     // and a start, milliseconds), never the server.
     private var duty = scanDuty
+    // Whether the scan uses the screen-off filter list. A change restarts
+    // the scan session too.
+    private var screenOffFilters = screenOffScan
     // One adapter restart per run: a bounce that does not clear the stack
     // will not clear it on a loop either, and each one drops the proxy's
     // GATT connections for nothing.
@@ -130,6 +198,16 @@ internal class BleScanEngine(
     val isScanning: Boolean get() = scanning
     val lastAdvertisementAt: Long get() = lastCallbackAt
     val scanDuty: ScanDuty get() = duty
+
+    /** Switch the screen-off filter list. A running scan restarts with it. */
+    fun setScreenOffScan(enabled: Boolean) {
+        handler.post {
+            if (enabled == screenOffFilters) return@post
+            screenOffFilters = enabled
+            note("screen-off scanning ${if (enabled) "on" else "off"}")
+            if (scanning) restartScan("screen-off scanning changed")
+        }
+    }
 
     /** Apply a new duty cycle; a running scan is restarted with it. */
     fun setScanDuty(next: ScanDuty) {
@@ -350,14 +428,10 @@ internal class BleScanEngine(
                 }
             }
         }.build()
-        // One match-everything filter. An empty filter LIST is an
-        // "unfiltered" scan, which Android 8.1+ suppresses whenever the
-        // screen is off; a list with one criteria-less filter counts as
-        // filtered and keeps advertisements flowing on a dark kiosk.
         // (Filter choice does NOT influence the per-session duplicate
         // suppression some stacks apply; the short session rotation above
         // is what handles that.)
-        val filters = listOf(ScanFilter.Builder().build())
+        val filters = scanFilters()
         try {
             scanner.startScan(filters, settings, callback)
             startTimestamps.addLast(now)

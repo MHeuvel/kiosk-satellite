@@ -6324,6 +6324,14 @@ class UiStringsNl extends UiStrings {
       'Bepaalt hoeveel tijd de Bluetooth-radio luistert. Een lagere waarde belast de CPU minder, maar apparaten die niet vaak uitzenden verschijnen dan later.';
 
   @override
+  String get settingBtproxyScreenOffScanTitle =>
+      'Blijven scannen met het scherm uit';
+
+  @override
+  String get settingBtproxyScreenOffScanDescription =>
+      'Schakel in als de proxy niets meer doorgeeft terwijl het scherm uit is. Belast de CPU meer.';
+
+  @override
   String get settingBtproxyConnectionsTitle => 'Apparaatverbindingen toestaan';
 
   @override

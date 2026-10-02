@@ -8458,6 +8458,28 @@ const btproxyScanDuty = SettingDef<String>(
   dependsOn: 'btproxy.enabled',
 );
 
+/// Some Bluetooth stacks (a Tab S8 on Android 16) stop the proxy's scan the
+/// moment the screen goes off: they count its match-everything filter as
+/// "unfiltered", which Android only runs on a lit screen. On, the scan
+/// sends a filter list those stacks accept instead (BleScanEngine's
+/// scanFilters). It is opt-in because every advertisement is then matched
+/// in software, which costs the Bluetooth process CPU for as long as the
+/// screen is off. Android 13+ only, so hidden below it (BtProxyManager).
+/// Applied live: the scan session restarts, the server does not.
+const btproxyScreenOffScan = SettingDef<bool>(
+  key: 'btproxy.screen_off_scan',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Keep scanning with the screen off',
+  description:
+      'Turn on if the proxy stops relaying while the screen is off. Uses '
+      'more CPU.',
+  category: 'ESPHome',
+  section: 'Bluetooth Proxy',
+  subpage: 'Bluetooth Proxy',
+  dependsOn: 'btproxy.enabled',
+);
+
 const btproxyConnections = SettingDef<bool>(
   key: 'btproxy.connections',
   type: SettingType.boolean,
@@ -10251,6 +10273,7 @@ const List<SettingDef<Object>> allSettings = [
   announcementsChimeFile,
   btproxyEnabled,
   btproxyScanDuty,
+  btproxyScreenOffScan,
   btproxyConnections,
   btproxyMinConnectRssi,
   btproxyMacLookup,

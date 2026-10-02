@@ -6248,6 +6248,14 @@ class UiStringsEn extends UiStrings {
       'How much of the time the radio listens. Lower cuts CPU; devices that advertise rarely take longer to appear.';
 
   @override
+  String get settingBtproxyScreenOffScanTitle =>
+      'Keep scanning with the screen off';
+
+  @override
+  String get settingBtproxyScreenOffScanDescription =>
+      'Turn on if the proxy stops relaying while the screen is off. Uses more CPU.';
+
+  @override
   String get settingBtproxyConnectionsTitle => 'Allow device connections';
 
   @override

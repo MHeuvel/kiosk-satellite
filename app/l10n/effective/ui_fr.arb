@@ -23274,6 +23274,32 @@
       ]
     }
   },
+  "settingBtproxyScreenOffScanTitle": "Continuer la recherche écran éteint",
+  "@settingBtproxyScreenOffScanTitle": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
+  "settingBtproxyScreenOffScanDescription": "À activer si le proxy cesse de relayer quand l'écran est éteint. Utilise plus de CPU.",
+  "@settingBtproxyScreenOffScanDescription": {
+    "context": "Settings > ESPHome > Bluetooth Proxy",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > ESPHome > Bluetooth Proxy"
+      ],
+      "remoteAdmin": [
+        "ESPHome > Bluetooth Proxy"
+      ]
+    }
+  },
   "settingBtproxyConnectionsTitle": "Autoriser les connexions d'appareils",
   "@settingBtproxyConnectionsTitle": {
     "context": "Settings > ESPHome > Bluetooth Proxy",

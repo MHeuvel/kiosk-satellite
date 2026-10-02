@@ -6304,6 +6304,14 @@ class UiStringsUk extends UiStrings {
       'Частка часу, протягом якої радіомодуль прослуховує ефір. Менше значення знижує навантаження на процесор; пристрої, які рідко передають сигнали, з\'являтимуться довше.';
 
   @override
+  String get settingBtproxyScreenOffScanTitle =>
+      'Сканувати з вимкненим екраном';
+
+  @override
+  String get settingBtproxyScreenOffScanDescription =>
+      'Увімкніть, якщо проксі перестає транслювати, коли екран вимкнено. Збільшує навантаження на процесор.';
+
+  @override
   String get settingBtproxyConnectionsTitle =>
       'Дозволити підключення пристроїв';
 

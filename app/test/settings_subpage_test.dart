@@ -351,6 +351,7 @@ void main() {
     expect(moved, [
       defs.btproxyEnabled.key,
       defs.btproxyScanDuty.key,
+      defs.btproxyScreenOffScan.key,
       defs.btproxyConnections.key,
       defs.btproxyMinConnectRssi.key,
       defs.btproxyMacLookup.key,

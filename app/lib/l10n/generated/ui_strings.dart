@@ -10893,6 +10893,18 @@ abstract class UiStrings {
   /// Setting label.
   ///
   /// In en, this message translates to:
+  /// **'Keep scanning with the screen off'**
+  String get settingBtproxyScreenOffScanTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on if the proxy stops relaying while the screen is off. Uses more CPU.'**
+  String get settingBtproxyScreenOffScanDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
   /// **'Allow device connections'**
   String get settingBtproxyConnectionsTitle;
 

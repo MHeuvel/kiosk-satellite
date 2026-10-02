@@ -22734,5 +22734,17 @@
     "translation": "2d7b86cc2590396aaabf3c1acb782abd2b1869c093c07d7b9be8b5a1e4d097f1",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "settingBtproxyScreenOffScanTitle": {
+    "source": "74621ac59773bb0512136a8472eb721dc9d54f4a1d4a4aa8f039a5d411f109fe",
+    "translation": "fa0106e5a123c1616add408fb4af8a8311c074bb2dca2fa39973fd2c5dbaa52d",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingBtproxyScreenOffScanDescription": {
+    "source": "5e18ec2fac449e3dffebebca38b38a742d6e30ca803ab9be492fb8ffcced2218",
+    "translation": "7fb6ab12a10263d9b21ed0d7c90e3fb22e9aa282f6027be1a354778ba29d2eff",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

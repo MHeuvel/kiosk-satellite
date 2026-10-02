@@ -6407,6 +6407,14 @@ class UiStringsDe extends UiStrings {
       'Legt fest, wie lange das Funkmodul lauscht. Eine geringere Intensität reduziert die CPU-Auslastung. Geräte, die selten senden, benötigen länger, bis sie erscheinen.';
 
   @override
+  String get settingBtproxyScreenOffScanTitle =>
+      'Bei ausgeschaltetem Bildschirm weiter scannen';
+
+  @override
+  String get settingBtproxyScreenOffScanDescription =>
+      'Einschalten, wenn der Proxy bei ausgeschaltetem Bildschirm nichts mehr weiterleitet. Erhöht die CPU-Auslastung.';
+
+  @override
   String get settingBtproxyConnectionsTitle =>
       'Verbindungen zu Geräten zulassen';
 

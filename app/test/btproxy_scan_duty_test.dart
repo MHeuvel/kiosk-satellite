@@ -90,6 +90,28 @@ void main() {
     },
   );
 
+  test('the server start carries Keep scanning with the screen off', () async {
+    await boot();
+    expect((starts().single.arguments as Map)['screenOffScan'], isFalse);
+  });
+
+  test('Keep scanning with the screen off reaches the running scanner without '
+      'a server restart', () async {
+    final (settings, _) = await boot();
+    await settings.set(defs.btproxyScreenOffScan, true);
+    await Future<void>.delayed(const Duration(milliseconds: 700));
+    expect(starts(), hasLength(1));
+    final pushes = sent.where((c) => c.method == 'screenOffScan');
+    expect(pushes, hasLength(1));
+    expect((pushes.single.arguments as Map)['enabled'], isTrue);
+  });
+
+  test('Keep scanning with the screen off is opt-in under the proxy', () {
+    expect(defs.btproxyScreenOffScan.defaultValue, isFalse);
+    expect(defs.btproxyScreenOffScan.subpage, 'Bluetooth Proxy');
+    expect(defs.btproxyScreenOffScan.dependsOn, 'btproxy.enabled');
+  });
+
   test('the definition offers the three Android scan modes', () {
     expect(defs.btproxyScanDuty.options, [
       'low_latency',

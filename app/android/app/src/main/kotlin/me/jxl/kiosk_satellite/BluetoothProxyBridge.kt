@@ -61,6 +61,8 @@ class BluetoothProxyBridge(private val context: Context, messenger: BinaryMessen
                                     call.argument<Int>("minConnectRssi") ?: 0,
                                 scanDuty = call.argument<String>("scanDuty")
                                     ?: "balanced",
+                                screenOffScan =
+                                    call.argument<Boolean>("screenOffScan") ?: false,
                                 entities = entities,
                                 services = services,
                                 macOverride = call.argument<String>("macOverride"),
@@ -140,6 +142,11 @@ class BluetoothProxyBridge(private val context: Context, messenger: BinaryMessen
                 }
                 "scanDuty" -> {
                     BluetoothProxyRuntime.setScanDuty(call.argument<String>("duty"))
+                    result.success(null)
+                }
+                "screenOffScan" -> {
+                    BluetoothProxyRuntime.setScreenOffScan(
+                        call.argument<Boolean>("enabled") ?: false)
                     result.success(null)
                 }
                 "status" -> result.success(BluetoothProxyRuntime.status())

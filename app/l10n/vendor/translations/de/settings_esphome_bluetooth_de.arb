@@ -4,6 +4,8 @@
   "settingBtproxyEnabledDescription": "Verbindet Bluetooth-Geräte in der Nähe über diesen Kiosk mit Home Assistant.",
   "settingBtproxyScanDutyTitle": "Scan-Intensität",
   "settingBtproxyScanDutyDescription": "Legt fest, wie lange das Funkmodul lauscht. Eine geringere Intensität reduziert die CPU-Auslastung. Geräte, die selten senden, benötigen länger, bis sie erscheinen.",
+  "settingBtproxyScreenOffScanTitle": "Bei ausgeschaltetem Bildschirm weiter scannen",
+  "settingBtproxyScreenOffScanDescription": "Einschalten, wenn der Proxy bei ausgeschaltetem Bildschirm nichts mehr weiterleitet. Erhöht die CPU-Auslastung.",
   "settingBtproxyConnectionsTitle": "Verbindungen zu Geräten zulassen",
   "settingBtproxyConnectionsDescription": "Home Assistant kann über diesen Proxy Verbindungen zu Bluetooth-Geräten herstellen.",
   "settingBtproxyMacLookupTitle": "Gerätehersteller online ermitteln",

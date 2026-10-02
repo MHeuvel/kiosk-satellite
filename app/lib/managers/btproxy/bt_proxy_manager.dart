@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io' show Platform;
 import 'dart:math' show Random;
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
@@ -235,6 +237,15 @@ class BtProxyManager extends Manager {
 
   @override
   Future<void> init() async {
+    // Keep scanning with the screen off needs Android 13's data type
+    // filters. Below that the switch could do nothing, so neither UI shows
+    // it. Settled before any page renders.
+    if (Platform.isAndroid) {
+      try {
+        final sdk = (await DeviceInfoPlugin().androidInfo).version.sdkInt;
+        if (sdk < 33) defs.deviceHiddenKeys.add(defs.btproxyScreenOffScan.key);
+      } catch (_) {}
+    }
     commands.register(
       Command(
         name: 'getEspHomeEntities',
@@ -409,6 +420,10 @@ class BtProxyManager extends Manager {
       // Assistant's session.
       if (e.key == defs.btproxyScanDuty.key) {
         if (_running) unawaited(_pushScanDuty());
+        return;
+      }
+      if (e.key == defs.btproxyScreenOffScan.key) {
+        if (_running) unawaited(_pushScreenOffScan());
         return;
       }
       // The first start writes the generated key into settings; restarting
@@ -730,6 +745,7 @@ class BtProxyManager extends Manager {
         'bluetoothProxy': _settings.get(defs.btproxyEnabled),
         'connections': _settings.get(defs.btproxyConnections),
         'scanDuty': _settings.get(defs.btproxyScanDuty),
+        'screenOffScan': _settings.get(defs.btproxyScreenOffScan),
         'minConnectRssi':
             int.tryParse(_settings.get(defs.btproxyMinConnectRssi)) ?? 0,
         'entities': _settings.get(defs.esphomeEntities)
@@ -791,6 +807,16 @@ class BtProxyManager extends Manager {
       });
     } catch (e) {
       log.warn(name, 'scan intensity not applied: $e');
+    }
+  }
+
+  Future<void> _pushScreenOffScan() async {
+    try {
+      await _channel.invokeMethod('screenOffScan', {
+        'enabled': _settings.get(defs.btproxyScreenOffScan),
+      });
+    } catch (e) {
+      log.warn(name, 'screen-off scanning not applied: $e');
     }
   }
 

@@ -6356,6 +6356,14 @@ class UiStringsFr extends UiStrings {
       'Part du temps pendant laquelle la radio écoute. Une valeur plus basse réduit l\'usage du CPU ; les appareils qui s\'annoncent rarement mettent plus de temps à apparaître.';
 
   @override
+  String get settingBtproxyScreenOffScanTitle =>
+      'Continuer la recherche écran éteint';
+
+  @override
+  String get settingBtproxyScreenOffScanDescription =>
+      'À activer si le proxy cesse de relayer quand l\'écran est éteint. Utilise plus de CPU.';
+
+  @override
   String get settingBtproxyConnectionsTitle =>
       'Autoriser les connexions d\'appareils';
 

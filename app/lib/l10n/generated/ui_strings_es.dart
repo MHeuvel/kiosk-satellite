@@ -6363,6 +6363,14 @@ class UiStringsEs extends UiStrings {
       'Cuánto tiempo escucha la radio. Una intensidad menor reduce el uso de CPU. Los dispositivos que transmiten con poca frecuencia tardan más en aparecer.';
 
   @override
+  String get settingBtproxyScreenOffScanTitle =>
+      'Seguir escaneando con la pantalla apagada';
+
+  @override
+  String get settingBtproxyScreenOffScanDescription =>
+      'Actívalo si el proxy deja de retransmitir con la pantalla apagada. Usa más CPU.';
+
+  @override
   String get settingBtproxyConnectionsTitle =>
       'Permitir conexiones a dispositivos';
 
