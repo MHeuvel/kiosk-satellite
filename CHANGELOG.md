@@ -2,10 +2,10 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.10.2 - 2026-10-02
 
 ### Fixed
-- **API keys and passwords no longer show up in the app log.** The log line for each command listed its parameters as sent, so saving a realtime provider wrote its OpenAI or xAI key to the log in plain text, and a log pasted into a public issue exposed it (#804). Importing a configuration did the same with the whole file, Home Assistant token included, and so did setting the intercom key, saving a Go2RTC server's password and a fleet leader pushing settings. Those values now read `<redacted>` in the log.
+- **Secrets no longer leak into the app log.** Some commands wrote sensitive values to the app log in plain text, so a log shared in a public issue could expose them (#804). Those values now read `<redacted>` in the log.
 - **The remote admin's wake word dropdowns show a new custom model without a page reload.** After adding or deleting a custom wake word model in the remote admin, Wake word 1 and 2 kept the old list until the page was reloaded (#801). The kiosk now tells the remote admin when Home Assistant's wake word selects get new options, and the dropdowns read them again. The device's own settings pick up the change right away too, instead of on their next 10 second refresh.
 
 ## v2026.10.1 - 2026-10-01
