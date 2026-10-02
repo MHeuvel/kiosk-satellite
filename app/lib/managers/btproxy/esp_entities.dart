@@ -2312,7 +2312,7 @@ class EspEntitySurface {
       'current': current,
       'latest': data['availableVersion'] as String? ?? current,
       'title': 'Kiosk Satellite',
-      'summary': notes.length > 250 ? notes.substring(0, 250) : notes,
+      'summary': _fitNotes(notes),
       'url': data['releaseUrl'] is String ? data['releaseUrl'] : '',
       // UpdateStateResponse's progress field is a 0-100 percentage; the
       // manager's notifier is a 0..1 fraction.
@@ -2320,6 +2320,30 @@ class EspEntitySurface {
         'progress': progress.toDouble().clamp(0.0, 1.0) * 100,
       'inProgress': progress != null,
     });
+  }
+
+  /// Home Assistant serves the update entity's summary in full as its
+  /// release notes, so the notes go whole. A device many versions behind
+  /// gets every missed release joined, which can outgrow the API's 64 KB
+  /// frame, so long notes stop at the last whole release that fits.
+  static const _maxNotesBytes = 30 * 1024;
+
+  static String _fitNotes(String notes) {
+    final bytes = utf8.encode(notes);
+    if (bytes.length <= _maxNotesBytes) return notes;
+    const more = '\n\nThe rest of the notes are on the GitHub releases page.';
+    var cut = utf8.decode(
+      bytes.sublist(0, _maxNotesBytes - more.length),
+      allowMalformed: true,
+    );
+    // A cut inside a multi-byte character decodes to a replacement mark.
+    if (cut.endsWith('�')) cut = cut.substring(0, cut.length - 1);
+    // Each missed release opens with "# Version" (UpdateManager's
+    // _combinedNotes). Failing that, stop at a line end.
+    var end = cut.lastIndexOf('\n\n# Version ');
+    if (end <= 0) end = cut.lastIndexOf('\n');
+    if (end > 0) cut = cut.substring(0, end);
+    return '${cut.trimRight()}$more';
   }
 
   /// The person sensor's state onto the Person binary sensor.

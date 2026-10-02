@@ -1363,6 +1363,44 @@ void main() {
     expect(state['progress'], closeTo(42, 1e-9));
   });
 
+  // Issue #819: Home Assistant shows the summary as the full release
+  // notes, so it must not be cut to the 255 characters of the old MQTT
+  // attribute.
+  Future<String> pushedSummary() async {
+    await surface.build();
+    await attach();
+    pushed.clear();
+    bus.publish(const UpdateStateChanged());
+    await Future<void>.delayed(const Duration(milliseconds: 20));
+    final state =
+        pushed.lastWhere((p) => p.$1 == 'update').$2 as Map<String, Object?>;
+    return state['summary'] as String;
+  }
+
+  test('the update entity carries the full release notes', () async {
+    final notes = '## What is new\n\n${'- **A change.** Details.\n' * 200}';
+    updateStatus['availableNotes'] = notes;
+    expect(await pushedSummary(), notes.trim());
+  });
+
+  test('notes past the frame budget stop at a whole release', () async {
+    final body = '- **A change.** Détails über ünïcode.\n' * 300;
+    final releases = [
+      for (var i = 9; i > 0; i--) '# Version 2026.8.$i\n\n$body',
+    ];
+    updateStatus['availableNotes'] = releases.join('\n\n');
+    final summary = await pushedSummary();
+    expect(utf8.encode(summary).length, lessThanOrEqualTo(30 * 1024));
+    expect(summary, startsWith(releases.first));
+    expect(
+      summary,
+      endsWith('\n\nThe rest of the notes are on the GitHub releases page.'),
+    );
+    final kept = summary.split('# Version ').length - 1;
+    expect(summary, contains(releases[kept - 1].trimRight()));
+    expect(kept, lessThan(releases.length));
+  });
+
   test('setting-backed entities write settings and echo real state', () async {
     await surface.build();
     await attach();
