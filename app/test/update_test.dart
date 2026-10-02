@@ -396,10 +396,12 @@ void main() {
   });
 
   /// Delivers an installer callback the way the native side would.
-  Future<void> installerEvent(String method) async {
+  Future<void> installerEvent(String method, [Object? arguments]) async {
     await messenger.handlePlatformMessage(
       'kiosk_satellite/installer',
-      const StandardMethodCodec().encodeMethodCall(MethodCall(method)),
+      const StandardMethodCodec().encodeMethodCall(
+        MethodCall(method, arguments),
+      ),
       (_) {},
     );
   }
@@ -774,6 +776,35 @@ void main() {
     // percent gate, so a chunk storm never becomes a bus storm.
     expect(busEvents, 4);
     await sub.cancel();
+  });
+
+  test('a refused silent install retries once through the confirm screen '
+      '(#768)', () async {
+    await notice('1.1.0');
+    update.clientFactory = () => MockClient(
+      (request) async => isReleaseQuery(request)
+          ? http.Response(release('1.1.0'), 200)
+          : http.Response.bytes(List.filled(64, 7), 200),
+    );
+
+    expect(await update.downloadAndInstall(), isNull);
+    expect(kioskCalls, isEmpty);
+
+    await installerEvent('silentInstallRefused', 'INSTALL_FAILED_ABORTED');
+
+    // The same APK, now asking for the confirm screen with the kiosk down.
+    expect(installArguments, hasLength(2));
+    expect(installArguments.last['useSystemInstaller'], true);
+    expect(installed, [installed.first, installed.first]);
+    expect(kioskCalls, ['pause']);
+    var status = await registry.execute('getUpdateStatus', const {});
+    expect((status.data as Map)['lastOutcome'], 'confirm');
+
+    // Declining that screen is a real decline and re-arms the kiosk.
+    await installerEvent('installDeclined', 'INSTALL_FAILED_ABORTED');
+    expect(kioskCalls, ['pause', 'resume']);
+    status = await registry.execute('getUpdateStatus', const {});
+    expect((status.data as Map)['lastOutcome'], 'cancelled');
   });
 
   test('a silent install never touches the kiosk', () async {

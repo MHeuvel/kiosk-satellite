@@ -252,9 +252,14 @@ class UpdateManager extends Manager {
     _installer.setMethodCallHandler((call) async {
       switch (call.method) {
         case 'installDeclined':
-          log.info(name, 'install declined on the device screen');
+          log.info(
+            name,
+            'install declined on the device screen (${call.arguments})',
+          );
           _lastOutcome = 'cancelled';
           await _resumeKioskIfPaused();
+        case 'silentInstallRefused':
+          await _retryWithConfirmation('${call.arguments}');
         case 'installFailed':
           log.warn(name, 'install failed: ${call.arguments}');
           _fail('Install failed: ${call.arguments}');
@@ -1005,6 +1010,7 @@ class UpdateManager extends Manager {
         const {},
       )).ok;
     }
+    _apkPath = file.path;
     var mode = await _installer.invokeMethod<String>('installApk', {
       'path': file.path,
       if (useShizukuUpdates) 'useShizuku': true,
@@ -1085,6 +1091,50 @@ class UpdateManager extends Manager {
   /// re-arm. Cleared by the declined/failed callbacks; a successful
   /// install ends the process instead.
   bool _kioskPaused = false;
+
+  /// The APK most recently handed to the installer, for the retry below.
+  String? _apkPath;
+
+  /// Android accepted a silent install and then aborted it with nothing on
+  /// screen. Xiaomi's MIUI and HyperOS do this to every silent update even
+  /// though stock Android allows it (issue #768), which left those tablets
+  /// unable to update at all. The same APK goes through the confirm screen
+  /// instead. Only a silent session can trigger this, and the retry is a
+  /// confirm session, so it happens at most once per install.
+  Future<void> _retryWithConfirmation(String message) async {
+    final path = _apkPath;
+    log.warn(
+      name,
+      'Android refused the silent install ($message); asking for '
+      'confirmation on the device screen instead',
+    );
+    if (path == null || !await File(path).exists()) {
+      _fail('Install failed: $message');
+      await _resumeKioskIfPaused();
+      return;
+    }
+    try {
+      if (!_kioskPaused) {
+        _kioskPaused = (await commands.execute(
+          'pauseKioskForInstall',
+          const {},
+        )).ok;
+      }
+      await _installer.invokeMethod<String>('installApk', {
+        'path': path,
+        'useSystemInstaller': true,
+      });
+      _lastOutcome = 'confirm';
+      log.info(
+        name,
+        'waiting for the install to be confirmed on the device screen',
+      );
+    } catch (e) {
+      log.warn(name, 'install failed: $e');
+      _fail('Install failed: $e');
+      await _resumeKioskIfPaused();
+    }
+  }
 
   Future<void> _resumeKioskIfPaused() async {
     if (!_kioskPaused) return;
