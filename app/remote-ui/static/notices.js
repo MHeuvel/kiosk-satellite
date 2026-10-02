@@ -70,7 +70,9 @@ export async function updateCameraFacingsRow() {
   const tab = document.getElementById('tab-camera');
   const sel = tab.querySelector('[data-key="camera.device"]');
   if (!sel) return;
-  const label = state.cameraFacings[0] === 'back' ? cameraText('Back') : cameraText('Front');
+  const facing = state.cameraFacings[0];
+  const label = facing === 'back' ? cameraText('Back')
+    : facing === 'external' ? cameraText('External') : cameraText('Front');
   const row = readOnlyRow(cameraText('Camera'), cameraText('The only camera this device has.'), label);
   row.dataset.key = 'camera.device';
   sel.replaceWith(row);

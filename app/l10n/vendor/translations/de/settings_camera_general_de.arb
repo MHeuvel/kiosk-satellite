@@ -14,5 +14,6 @@
   "settingCameraSnapshotIntervalDescription": "Sekunden zwischen den Schnappschüssen.",
   "cameraFront": "Vorderkamera",
   "cameraBack": "Rückkamera",
+  "cameraExternal": "Externe Kamera",
   "cameraOnlyCamera": "Die einzige Kamera dieses Geräts."
 }

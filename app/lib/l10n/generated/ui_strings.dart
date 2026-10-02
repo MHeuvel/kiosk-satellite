@@ -6849,6 +6849,12 @@ abstract class UiStrings {
   /// **'Back'**
   String get cameraBack;
 
+  /// Names a USB or monitor webcam when it is the only camera the device has.
+  ///
+  /// In en, this message translates to:
+  /// **'External'**
+  String get cameraExternal;
+
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:

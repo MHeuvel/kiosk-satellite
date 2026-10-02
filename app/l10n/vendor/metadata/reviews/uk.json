@@ -13505,7 +13505,7 @@
     "provenance": "46fa6328ce5f92c4d1875a765a15713fb19dae857f4fdbdc7af8818fa64498a3"
   },
   "settingsMenuHomeAssistant": {
-    "source": "a96d7876f71689c560da8c3d47b89cac0964647f538d186ad00b69d841c740df",
+    "source": "88c1c4394e52ae8d49da175e42a7a1c75c14fdeb4202cc65eecd35f79aed1008",
     "translation": "2a366abb0cd47f51f3725bf0fb7ebcb4fefa6e20f4971e25fe2bb8da8145ce2b",
     "author": "kdinya",
     "provenance": "46fa6328ce5f92c4d1875a765a15713fb19dae857f4fdbdc7af8818fa64498a3"
@@ -22479,6 +22479,12 @@
   "settingScreensaverClockNightHideWidgetsTitle": {
     "source": "237ff9c396dc0a4b3b4bfdee6450812c8c173b4ae7195bd5101a268c94045fb2",
     "translation": "ddf2cc08c2fa7a3e9003b20807d8b2e2a98fec914f55923b0f12c4875f2e506d",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "cameraExternal": {
+    "source": "f2061f2dd573a564e408129ca1e5dd1a115b66f20467a479e0106389ad853176",
+    "translation": "1dfa9cec5aa78e450e3250e2c1b0c6273d82af6c6ec1d13053e7df2e5274fcef",
     "author": "Xavier Larrea",
     "ownerAuthored": true
   }

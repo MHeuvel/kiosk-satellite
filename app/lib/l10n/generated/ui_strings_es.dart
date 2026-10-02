@@ -3967,6 +3967,9 @@ class UiStringsEs extends UiStrings {
   String get cameraBack => 'Trasera';
 
   @override
+  String get cameraExternal => 'Externa';
+
+  @override
   String get cameraOnlyCamera => 'La única cámara de este dispositivo.';
 
   @override

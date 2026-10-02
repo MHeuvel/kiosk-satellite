@@ -3042,16 +3042,20 @@ class _CategoryContentState extends State<_CategoryContent> {
           subtitle: Text(
             cameraText(context, 'The only camera this device has.'),
           ),
+          // A USB or monitor webcam is not a picker option, so it
+          // takes its label from the camera strings.
           trailing: Text(
-            cameraDevice.localizedOption(
-              context,
-              container.deviceCamera.knownFacings!.single,
-              cameraDevice.optionLabels?[container
-                      .deviceCamera
-                      .knownFacings!
-                      .single] ??
-                  container.deviceCamera.knownFacings!.single,
-            ),
+            container.deviceCamera.knownFacings!.single == 'external'
+                ? cameraText(context, 'External')
+                : cameraDevice.localizedOption(
+                    context,
+                    container.deviceCamera.knownFacings!.single,
+                    cameraDevice.optionLabels?[container
+                            .deviceCamera
+                            .knownFacings!
+                            .single] ??
+                        container.deviceCamera.knownFacings!.single,
+                  ),
           ),
         ),
       ),

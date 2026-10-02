@@ -1072,6 +1072,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingCameraSnapshotIntervalDescription,
       'cameraFront' => strings.cameraFront,
       'cameraBack' => strings.cameraBack,
+      'cameraExternal' => strings.cameraExternal,
       'cameraOnlyCamera' => strings.cameraOnlyCamera,
       'settingMotionSensorTitle' => strings.settingMotionSensorTitle,
       'settingMotionSensorDescription' =>

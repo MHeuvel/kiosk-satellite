@@ -17,7 +17,7 @@ For devices that were already using the **Dismiss on motion** feature before the
 | Setting | Default | Notes |
 | --- | --- | --- |
 | Enable camera | off | The master switch. All settings below depend on this being turned on. |
-| Camera | Front | Choose Front or Back. This single choice applies to every camera feature. On devices with only one camera, this picker acts as a plain label. |
+| Camera | Front | Choose Front or Back. This single choice applies to every camera feature. On devices with only one camera, this picker acts as a plain label. A USB or monitor webcam that is the only camera shows as External. |
 | Snapshot resolution | 480p | Choose 480p, 720p, or 1080p on the 4:3 ladder. This maps to the nearest resolution the hardware offers. A single 480p frame is approximately 30 KB. |
 | Disable snapshots on detection | off | Prevent automatic snapshots triggered by detection while keeping motion, face, presence and gesture detection working. Manual requests and continuous snapshots can still capture images. |
 | Continuous snapshots | off | Capture a new snapshot for Home Assistant at a fixed, recurring interval. |
@@ -165,7 +165,7 @@ A few extremely low end devices cannot run motion analysis and JPEG capture in t
 ## Hardware Notes
 
 * **No usable camera:** Some custom ROMs (such as LineageOS ports on Echo Show hardware) have no camera support at all, even if the physical hardware is present. The Camera page will state this up front, and no camera entities will be published. If a device has a physical privacy shutter, closing it disconnects the camera completely and looks identical to the app.
-* **Single camera:** The Front/Back picker turns into a simple label naming the one camera the device has. The app automatically handles devices whose ROM falsely advertises cameras they do not possess. It also handles camera HALs that pad their lists with a phantom camera whose lens facing cannot be read (common on cheap Unisoc tablets) by skipping the phantom and using the real camera. Failed captures will report a real error instead of simply hanging.
+* **Single camera:** The Front/Back picker turns into a simple label naming the one camera the device has. A USB or monitor webcam, like the one built into a monitor on a Raspberry Pi, is named External. The app checks for cameras when it starts, so restart it after connecting one. The app automatically handles devices whose ROM falsely advertises cameras they do not possess. It also handles camera HALs that pad their lists with a phantom camera whose lens facing cannot be read (common on cheap Unisoc tablets) by skipping the phantom and using the real camera. Failed captures will report a real error instead of simply hanging.
 
 ## The Remote Admin
 

@@ -4001,6 +4001,9 @@ class UiStringsDe extends UiStrings {
   String get cameraBack => 'Rückkamera';
 
   @override
+  String get cameraExternal => 'Externe Kamera';
+
+  @override
   String get cameraOnlyCamera => 'Die einzige Kamera dieses Geräts.';
 
   @override

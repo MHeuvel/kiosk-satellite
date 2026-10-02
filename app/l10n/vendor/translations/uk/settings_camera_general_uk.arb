@@ -14,5 +14,6 @@
   "settingCameraSnapshotIntervalDescription": "Секунди між знімками.",
   "cameraFront": "Передня",
   "cameraBack": "Задня",
+  "cameraExternal": "Зовнішня",
   "cameraOnlyCamera": "Єдина камера на цьому пристрої."
 }

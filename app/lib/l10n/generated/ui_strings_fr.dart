@@ -3968,6 +3968,9 @@ class UiStringsFr extends UiStrings {
   String get cameraBack => 'Arrière';
 
   @override
+  String get cameraExternal => 'Externe';
+
+  @override
   String get cameraOnlyCamera => 'La seule caméra que possède cet appareil.';
 
   @override

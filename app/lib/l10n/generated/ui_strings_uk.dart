@@ -3943,6 +3943,9 @@ class UiStringsUk extends UiStrings {
   String get cameraBack => 'Задня';
 
   @override
+  String get cameraExternal => 'Зовнішня';
+
+  @override
   String get cameraOnlyCamera => 'Єдина камера на цьому пристрої.';
 
   @override

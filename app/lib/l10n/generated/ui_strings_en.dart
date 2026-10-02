@@ -3910,6 +3910,9 @@ class UiStringsEn extends UiStrings {
   String get cameraBack => 'Back';
 
   @override
+  String get cameraExternal => 'External';
+
+  @override
   String get cameraOnlyCamera => 'The only camera this device has.';
 
   @override

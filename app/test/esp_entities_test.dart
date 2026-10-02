@@ -1037,6 +1037,11 @@ void main() {
     ids = [for (final d in await surface.build()) '${d['objectId']}'];
     expect(ids, isNot(contains('camera_device')));
 
+    // A USB or monitor webcam as the only camera (Raspberry Pi).
+    cameraFacings = ['external'];
+    ids = [for (final d in await surface.build()) '${d['objectId']}'];
+    expect(ids, isNot(contains('camera_device')));
+
     // An empty answer means the probe could not look, not one camera:
     // stay optimistic like hasDeviceCamera.
     cameraFacings = [];

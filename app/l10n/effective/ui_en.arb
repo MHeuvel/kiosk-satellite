@@ -14348,6 +14348,19 @@
       ]
     }
   },
+  "cameraExternal": "External",
+  "@cameraExternal": {
+    "context": "Settings > Camera",
+    "description": "Names a USB or monitor webcam when it is the only camera the device has.",
+    "x-locations": {
+      "device": [
+        "Settings > Camera"
+      ],
+      "remoteAdmin": [
+        "Camera"
+      ]
+    }
+  },
   "cameraOnlyCamera": "The only camera this device has.",
   "@cameraOnlyCamera": {
     "context": "Settings > Camera",
