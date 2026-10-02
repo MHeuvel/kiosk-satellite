@@ -137,12 +137,10 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
          * under the stereo label (half the frames, pitch doubled), and a
          * card's 48 kHz stereo misread as 16 kHz mono arrives six times
          * too fast. Two seconds from the first read is long enough for
-         * read granularity not to matter, and the bounds are wide enough
-         * that no healthy device trips them.
+         * read granularity not to matter. [CaptureWalk.rateVerdict] judges
+         * the measurement.
          */
         private const val RATE_CHECK_NS = 2_000_000_000L
-        private const val RATE_RATIO_MIN = 0.6
-        private const val RATE_RATIO_MAX = 1.6
         private const val RATE_BLOCKED_READ_NS = 20_000_000L
         private const val RATE_WINDOW_AFTER_READS = 8
 
@@ -289,6 +287,9 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
             var framesRead = 0L
             var reads = 0
             var rateChecked = false
+            // Whether this open's rate check already said it is waiting
+            // out a sound (once per open, the app log is not a meter).
+            var rateDeferred = false
             var buf = ByteArray(shape.chunkBytes)
             // Frames read from this record: when each chunk was heard, for
             // pairing it with what the speaker played then (SoftwareEcho).
@@ -326,6 +327,7 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
                 framesRead = 0
                 reads = 0
                 rateChecked = false
+                rateDeferred = false
                 announcedAudio = false
                 capturedFrames = 0
                 captureClock.reset()
@@ -443,7 +445,24 @@ class MicRecorder(context: Context, messenger: BinaryMessenger) : EventChannel.S
                         rateChecked = true
                         val ratio = framesRead * 1e9 / elapsedNs / shape.rateHz
                         Log.i(TAG, "capture delivers ${(ratio * 100).toInt()}% of ${shape.rateHz} Hz")
-                        if (ratio < RATE_RATIO_MIN || ratio > RATE_RATIO_MAX) {
+                        // A sound anywhere in the window, its tail included.
+                        val played = EchoReference.playedWithin(
+                            elapsedNs / 1_000_000L + PLAYBACK_MUTE_TAIL_MS,
+                        )
+                        val verdict = CaptureWalk.rateVerdict(ratio, played)
+                        if (verdict == CaptureWalk.RateVerdict.MEASURE_AGAIN) {
+                            if (!rateDeferred) {
+                                rateDeferred = true
+                                warn(
+                                    "capture delivers ${(ratio * 100).toInt()}% of the " +
+                                        "${shape.rateHz} Hz it was opened at while a sound plays; " +
+                                        "measuring again once it ends",
+                                )
+                            }
+                            rateChecked = false
+                            windowNs = System.nanoTime()
+                            framesRead = 0
+                        } else if (verdict == CaptureWalk.RateVerdict.LIE) {
                             val why = "capture delivers ${(ratio * 100).toInt()}% of the " +
                                 "${shape.rateHz} Hz it was opened at (wrong format under the label)"
                             if (!advance(why)) warn("$why; keeping $shape until the next check")
