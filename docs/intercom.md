@@ -88,6 +88,38 @@ Two ESPHome actions put a call through from an automation or a dashboard button.
 
 Home Assistant cannot talk on a call: the kiosks hold the microphones. To speak on a kiosk from Home Assistant, use the [announce action](esphome.md#announcements) under ESPHome. On the [remote API](remote-api.md) the same two are `intercomCall {kiosk}` and `intercomHangup`.
 
+## Calling by voice
+
+Ask the kiosk you are talking to for a call, like "call the kitchen" or "call the Echo Show 8", and it rings that kiosk. This goes through an LLM conversation agent (Qwen, Gemma, Gemini, Claude, OpenAI or any other agent that can control Home Assistant) and a script that Kiosk Satellite ships as a blueprint, so it works in any language the agent speaks.
+
+The built-in **Home Assistant** conversation agent does not work for this, since it cannot fill in the script's fields. An LLM agent with **Prefer handling commands locally** turned on works fine.
+
+1. Import the blueprint:
+
+    [![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fjxlarrea%2Fkiosk-satellite%2Fblob%2Fmain%2Fblueprints%2Fscript%2Fkiosk_satellite_intercom.yaml)
+
+2. Create a script from it. It has no settings.
+3. Expose the script to Assist under **Settings, Voice assistants, Expose**.
+
+Name the kiosk the way you think of it: its name, the name its device has in Home Assistant or the area Home Assistant puts it in. "Call the master bedroom" finds the kiosk in the Master Bedroom area. The kiosk checks the other kiosk first, and the agent tells you when it is on Do not disturb, has its intercom off or cannot be reached. When the name fits several kiosks, like two kiosks in one room, the agent asks which one, and "which kiosks can I call?" lists them with their areas. The call rings once the agent has finished its answer, so the reply is never cut off. A [realtime conversation](voice-satellite.md#realtime-conversations) ends right after its answer instead of waiting out its closing silence.
+
+Hanging up stays on the screen. Wake word detection pauses for the whole call, so the kiosk cannot hear "hang up".
+
+The call goes out from the kiosk you are talking to. A request typed into Home Assistant's own chat reaches no kiosk until it names the one that should call, as in "call the kitchen from the bedroom kiosk", which matches the kiosk's device name or ESPHome name.
+
+The kiosk listens for the script over its own Home Assistant connection and it needs the Home Assistant long-lived token under **Settings, Home Assistant** to belong to an administrator user. Home Assistant only lets administrators fire and follow the events the script runs on. With any other token the kiosk leaves voice calls off and asks Home Assistant nothing. [Voice alarms](alarms.md#setting-alarms-by-voice) work the same way and need the same token.
+
+The script works from automations too. Set `caller` to the kiosk that should place the call, and the call rings at once:
+
+```yaml
+action: script.kiosk_satellite_intercom
+data:
+  action: call
+  kiosk: Kitchen
+  caller: Bedroom
+response_variable: result
+```
+
 ## Fleet Management
 
 The Intercom category syncs like the others. The key travels only as a credential, on by default in new profiles, so a fleet shares one key without anyone typing it. The intercom volume stays out of new profiles like the other volumes. So does the answer mode, so Do not disturb on one kiosk never mutes the rest of the fleet. Add **Answer mode** back to a profile to share it.

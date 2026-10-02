@@ -160,6 +160,13 @@ class RealtimeSession {
   int _toolsRunning = 0;
   DateTime? _awaitingSince;
   bool _endRequested = false;
+
+  /// Asked to end once the model has answered: an intercom call placed by
+  /// voice waits for the conversation, and the closing silence would only
+  /// keep it ringing later. [_answeredSinceEndAsk] is an answer finished
+  /// since the ask, so a tool still running does not end it first.
+  bool _endAfterAnswer = false;
+  bool _answeredSinceEndAsk = false;
   bool _stopArmed = false;
 
   AssistView _view = AssistView.hidden;
@@ -590,6 +597,7 @@ class RealtimeSession {
         }
       case RealtimeResponseDone():
         _responding = false;
+        if (_endAfterAnswer) _answeredSinceEndAsk = true;
         if (_staged.isNotEmpty) _release();
         _touch();
       case RealtimeEndRequested():
@@ -820,6 +828,16 @@ class RealtimeSession {
       unawaited(_end(gen, sound: 'done'));
       return;
     }
+    if (_endAfterAnswer &&
+        _answeredSinceEndAsk &&
+        !_responding &&
+        !_awaiting &&
+        _toolsRunning == 0 &&
+        !playing) {
+      onTrace?.call('ending after the answer');
+      unawaited(_end(gen, sound: 'done'));
+      return;
+    }
     final quiet =
         _ready &&
         !_userSpeaking &&
@@ -876,6 +894,13 @@ class RealtimeSession {
     if (gen != _gen) return;
     _touch();
     _show(_docked(phase: AssistPhase.listening, streaming: false));
+  }
+
+  /// Ends the conversation once the model has spoken its next answer.
+  void endAfterAnswer() {
+    if (!_busy) return;
+    _endAfterAnswer = true;
+    _answeredSinceEndAsk = false;
   }
 
   /// Closed from the overlay or the voiceCancel command.
@@ -954,6 +979,8 @@ class RealtimeSession {
     _awaitingSince = null;
     _toolsRunning = 0;
     _endRequested = false;
+    _endAfterAnswer = false;
+    _answeredSinceEndAsk = false;
     _newExchange = false;
     _lastMicLevel = 0;
     _answerFrom = null;

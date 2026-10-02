@@ -470,6 +470,18 @@ class VoiceManager extends Manager {
       )
       ..register(
         Command(
+          name: 'voiceEndAfterAnswer',
+          description:
+              'End a realtime conversation once the assistant finishes its '
+              'next answer, without waiting out the closing silence',
+          handler: (_) async {
+            _realtime.endAfterAnswer();
+            return const CommandResult.ok();
+          },
+        ),
+      )
+      ..register(
+        Command(
           name: 'voiceRealtimeState',
           description:
               'A realtime provider\'s status as its row reads it: {status '

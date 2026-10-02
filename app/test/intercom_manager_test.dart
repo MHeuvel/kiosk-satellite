@@ -1383,6 +1383,243 @@ void main() {
     );
   });
 
+  group('calls asked for by voice', () {
+    late List<String> voice;
+
+    Future<Map<String, Object?>> ask(Map<String, Object?> p) async {
+      final r = await commands.execute('intercomVoiceRequest', p);
+      expect(r.ok, isTrue, reason: r.error);
+      return (r.data! as Map).cast<String, Object?>();
+    }
+
+    void turn({required bool active}) => bus.publish(
+      VoiceInteractionChanged(
+        active: active,
+        reason: 'voice',
+        source: InteractionSource.native,
+      ),
+    );
+
+    Future<void> buildVoice() async {
+      await build();
+      voice = [];
+      for (final name in ['voiceEndAfterAnswer', 'voiceCancel']) {
+        commands.register(
+          Command(
+            name: name,
+            description: 'stub',
+            handler: (_) async {
+              voice.add(name);
+              if (name == 'voiceCancel') turn(active: false);
+              return const CommandResult.ok();
+            },
+          ),
+        );
+      }
+      answers['POST /api/intercom/call'] = (_) => {'status': 'ringing'};
+      await settle();
+    }
+
+    bool rang() => sent.any((r) => r.url.path == '/api/intercom/call');
+
+    test('list names the kiosks and whether they can be called', () async {
+      await buildVoice();
+      final r = await ask({'action': 'list'});
+      expect(r['ok'], isTrue);
+      expect(r['kiosk'], 'Living Room');
+      expect(r['kiosks'], [
+        {'name': 'Bedroom', 'status': 'ready'},
+        {'name': 'Kitchen', 'status': 'ready'},
+      ]);
+    });
+
+    test('a call in a voice turn rings once the turn is over', () async {
+      await buildVoice();
+      turn(active: true);
+      await pumpEventQueue();
+      final r = await ask({
+        'action': 'call',
+        'kiosk': "the kitchen's kiosk",
+        'voiceTurn': true,
+      });
+      expect(r, {
+        'ok': true,
+        'kiosk': 'Living Room',
+        'result': 'calling',
+        'calling': 'Kitchen',
+      });
+      await settle(100);
+      // The answer that says the call is coming plays first.
+      expect(rang(), isFalse);
+      expect(voice, ['voiceEndAfterAnswer']);
+      turn(active: false);
+      await settle(100);
+      final req = sent.lastWhere((r) => r.url.path == '/api/intercom/call');
+      expect(req.url.host, '192.168.1.70');
+      expect(intercom.state, 'calling');
+      expect(voice, ['voiceEndAfterAnswer']);
+    });
+
+    test('a conversation that goes on is ended for the call', () async {
+      await buildVoice();
+      intercom.voiceTurnWait = const Duration(milliseconds: 100);
+      turn(active: true);
+      await pumpEventQueue();
+      await ask({'action': 'call', 'kiosk': 'Bedroom', 'voiceTurn': true});
+      await settle(300);
+      expect(voice, ['voiceEndAfterAnswer', 'voiceCancel']);
+      expect(intercom.state, 'calling');
+    });
+
+    test('an automation naming the caller rings at once', () async {
+      await buildVoice();
+      final r = await ask({'action': 'call', 'kiosk': 'bedroom'});
+      expect(r['ok'], isTrue);
+      expect(r['calling'], 'Bedroom');
+      expect(intercom.state, 'calling');
+      expect(voice, isEmpty);
+    });
+
+    test('a name that matches several kiosks asks which one', () async {
+      peers.add({
+        'id': 'den',
+        'name': 'Bedroom Echo',
+        'version': '2026.9.50',
+        'address': '192.168.1.72',
+        'port': 2324,
+        'self': false,
+      });
+      await buildVoice();
+      const rooms = [
+        {'name': 'Kitchen', 'alias': '', 'area': 'Upstairs'},
+        {'name': 'Bedroom Echo', 'alias': '', 'area': 'Upstairs'},
+      ];
+      // The exact name wins.
+      var r = await ask({'action': 'call', 'kiosk': 'Bedroom', 'rooms': rooms});
+      expect(r['calling'], 'Bedroom');
+      await commands.execute('intercomHangup', const {});
+      await commands.execute('intercomDismiss', const {});
+      r = await ask({'action': 'call', 'kiosk': 'upstairs', 'rooms': rooms});
+      expect(r['ok'], isFalse);
+      expect(r['error'], 'several kiosks match, ask which one');
+      expect(r['kiosks'], [
+        {'name': 'Kitchen', 'area': 'Upstairs', 'status': 'ready'},
+        {'name': 'Bedroom Echo', 'area': 'Upstairs', 'status': 'ready'},
+      ]);
+    });
+
+    test('the room Home Assistant puts a kiosk in finds it', () async {
+      await buildVoice();
+      final r = await ask({
+        'action': 'call',
+        'kiosk': 'the master bedroom intercom',
+        'rooms': [
+          {'name': 'Bedroom', 'alias': '', 'area': 'Master Bedroom'},
+          {'name': 'HA Voice 09f458', 'alias': '', 'area': 'Master Bedroom'},
+        ],
+      });
+      expect(r['calling'], 'Bedroom');
+    });
+
+    test('an unknown name or this kiosk is refused with the roster', () async {
+      await buildVoice();
+      var r = await ask({'action': 'call', 'kiosk': 'Garage'});
+      expect(r['ok'], isFalse);
+      expect(r['error'], 'no kiosk goes by that name');
+      expect(r['kiosks'], hasLength(2));
+      r = await ask({'action': 'call', 'kiosk': 'living room'});
+      expect(r['error'], 'that is this kiosk');
+      r = await ask({
+        'action': 'call',
+        'kiosk': 'balcony',
+        'rooms': [
+          {'name': 'Living Room', 'alias': '', 'area': 'Balcony'},
+        ],
+      });
+      expect(r['error'], 'that is this kiosk');
+      expect(rang(), isFalse);
+    });
+
+    test('a kiosk on do not disturb is refused before it rings', () async {
+      await buildVoice();
+      final ready = answers['GET /api/intercom/identity']!;
+      answers['GET /api/intercom/identity'] = (req) => {
+        ...(ready(req)! as Map<String, Object?>),
+        if (req.url.host == '192.168.1.70') 'dnd': true,
+      };
+      final r = await ask({
+        'action': 'call',
+        'kiosk': 'Kitchen',
+        'voiceTurn': true,
+      });
+      expect(r['ok'], isFalse);
+      expect(r['error'], 'Kitchen: do not disturb');
+      await settle(100);
+      expect(rang(), isFalse);
+    });
+
+    test('the intercom off here is said so', () async {
+      await buildVoice();
+      await settings.set(defs.intercomEnabled, false);
+      final r = await ask({'action': 'call', 'kiosk': 'Kitchen'});
+      expect(r['error'], 'the intercom is off on this kiosk');
+    });
+  });
+
+  group('matching a spoken name', () {
+    // The household on the test bench: kiosk names and their areas.
+    const kiosks = [
+      'KS Echo Show 8 Bedroom',
+      'KS Echo Show 8 Office',
+      'KS Entrance Tablet',
+      'KS Living Room Tablet',
+      'Meta PortalGo Kitchen',
+    ];
+    final rooms = voiceRooms([
+      {'name': 'KS Echo Show 8 Bedroom', 'alias': '', 'area': 'Master Bedroom'},
+      {'name': 'KS Echo Show 8 Office', 'alias': '', 'area': 'Office'},
+      {'name': 'KS Entrance Tablet', 'alias': '', 'area': 'Hallway'},
+      {'name': 'KS Living Room Tablet', 'alias': '', 'area': 'Living Room'},
+      {'name': 'Meta PortalGo Kitchen', 'alias': '', 'area': 'Kitchen'},
+    ]);
+    List<String> match(String said) =>
+        matchKiosks(said, kiosks, name: (k) => k, rooms: rooms);
+
+    test('by area, name or the words they share', () {
+      for (final said in [
+        'master bedroom',
+        'the master bedroom intercom',
+        'bedroom',
+        'Echo Show 8 Bedroom',
+        'bedroom echo',
+      ]) {
+        expect(match(said), ['KS Echo Show 8 Bedroom'], reason: said);
+      }
+      expect(match('kitchen'), ['Meta PortalGo Kitchen']);
+      expect(match('the portal'), isEmpty);
+      expect(match('hallway'), ['KS Entrance Tablet']);
+      expect(match('living room'), ['KS Living Room Tablet']);
+    });
+
+    test('a name that fits several asks which one', () {
+      expect(match('echo show'), [
+        'KS Echo Show 8 Bedroom',
+        'KS Echo Show 8 Office',
+      ]);
+    });
+
+    test('whole words only', () {
+      final garden = voiceRooms([
+        {'name': 'Den', 'alias': '', 'area': 'Den'},
+      ]);
+      expect(
+        matchKiosks('garden', ['Den'], name: (k) => k, rooms: garden),
+        isEmpty,
+      );
+      expect(match('garage'), isEmpty);
+    });
+  });
+
   group('announcements', () {
     test('Accept announcements off refuses Announce to all', () async {
       await build(prefs: {'ks.intercom.accept_announcements': false});

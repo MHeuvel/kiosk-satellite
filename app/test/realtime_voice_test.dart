@@ -1185,6 +1185,36 @@ void main() {
       });
     });
 
+    test('asked to end after the answer, it ends once that plays', () {
+      fakeAsync((time) {
+        final h = _Harness(
+          time,
+          options: const RealtimeOptions(idleSeconds: 30),
+        );
+        h.wakeAndConnect();
+        // The intercom script runs as a tool: the ask comes mid tool.
+        h.backend
+          ..emit(const RealtimeResponseStarted())
+          ..emit(const RealtimeToolActivity('script__intercom'))
+          ..emit(const RealtimeResponseDone());
+        time.flushMicrotasks();
+        h.session.endAfterAnswer();
+        h.backend.emit(
+          const RealtimeToolActivity('script__intercom', done: true),
+        );
+        time.elapse(const Duration(seconds: 2));
+        expect(h.session.busy, isTrue);
+        h.answer('a1');
+        h.backend.emit(const RealtimeResponseDone());
+        time.elapse(const Duration(milliseconds: 300));
+        expect(h.session.busy, isTrue);
+        h.player.frames = 24000;
+        time.elapse(const Duration(seconds: 1));
+        // Long before the 30 second silence.
+        expect(h.session.busy, isFalse);
+      });
+    });
+
     test('a connection that fails ends it with the error chime', () {
       fakeAsync((time) {
         final h = _Harness(time);

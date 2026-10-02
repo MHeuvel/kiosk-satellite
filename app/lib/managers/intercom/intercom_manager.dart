@@ -23,6 +23,8 @@ import '../remote/auth.dart';
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
 import '../voice/ha_socket.dart';
+import '../voice/voice_requests_manager.dart' show normalizeKioskName;
+import '../voice/voice_turns.dart';
 import 'intercom_audio.dart';
 import 'intercom_routes.dart';
 
@@ -343,6 +345,10 @@ class IntercomManager extends Manager {
   /// How long a probe result is trusted.
   Duration probeTtl = const Duration(seconds: 30);
 
+  /// A call asked for by voice waits this long for the conversation to
+  /// end before it ends it.
+  Duration voiceTurnWait = const Duration(seconds: 30);
+
   /// How long a call rings here before it is missed: the Ring for setting.
   /// Tests shorten it.
   Duration Function()? ringForOverride;
@@ -423,6 +429,10 @@ class IntercomManager extends Manager {
 
   StreamSubscription<Uint8List>? _mic;
   final _subs = <StreamSubscription<Object?>>[];
+
+  /// Whether this kiosk is in a conversation, for a call asked for by
+  /// voice to wait out.
+  late final _voiceTurns = VoiceTurns(bus);
   Timer? _remoteRosterTimer;
   Timer? _ringTimer;
   Timer? _chimeTimer;
@@ -476,6 +486,7 @@ class IntercomManager extends Manager {
   @override
   Future<void> init() async {
     _registerCommands();
+    _voiceTurns.start();
     _subs.add(
       bus.on<RemoteObserversChanged>().listen((event) {
         if (!event.topics.contains('intercom')) {
@@ -548,6 +559,7 @@ class IntercomManager extends Manager {
     for (final s in _subs) {
       await s.cancel();
     }
+    await _voiceTurns.dispose();
     await _finish('ended', notify: false);
     _cancelTimers();
     _holdTimer?.cancel();
@@ -748,6 +760,130 @@ class IntercomManager extends Manager {
       if (k.status(keyFingerprint, encrypted: _encrypted) == 'ready') k,
   ];
 
+  // ── Voice requests ─────────────────────────────────────────────────
+
+  /// The Kiosk Satellite intercom script, through the voice requests
+  /// manager: `list` names the kiosks this one can call and `call` rings
+  /// one. Asked for in a voice turn, the call is checked now and placed
+  /// once the turn ends, so the call taking the microphone never cuts off
+  /// the answer that says it is coming.
+  Future<Map<String, Object?>> _voiceRequest(Map<String, Object?> p) async {
+    await _readFleet();
+    final self = _selfName.isNotEmpty
+        ? _selfName
+        : _settings.get(defs.deviceName);
+    final rooms = voiceRooms(p['rooms']);
+    Map<String, Object?> entry(IntercomKiosk k) {
+      final st = k.status(keyFingerprint, encrypted: _encrypted);
+      final area = rooms[normalizeKioskName(k.name)]?.area ?? '';
+      return {
+        'name': k.name,
+        if (area.isNotEmpty) 'area': area,
+        'status': _voiceStatus[st] ?? st,
+      };
+    }
+
+    Map<String, Object?> fail(
+      String error, [
+      Iterable<IntercomKiosk>? kiosks,
+    ]) => {
+      'ok': false,
+      'kiosk': self,
+      'error': error,
+      if (kiosks != null) 'kiosks': [for (final k in kiosks) entry(k)],
+    };
+    if (!enabled) return fail('the intercom is off on this kiosk');
+    if (!available) {
+      return fail('the intercom needs Remote Administration on this kiosk');
+    }
+    switch ('${p['action'] ?? ''}'.trim().toLowerCase()) {
+      case 'list':
+        await _probeAll();
+        return {
+          'ok': true,
+          'kiosk': self,
+          'result': 'listed',
+          'kiosks': [for (final k in _voiceRoster) entry(k)],
+        };
+      case 'call':
+        if (_busy && _state != 'listening') {
+          return fail('this kiosk is already in a call');
+        }
+        final target = '${p['kiosk'] ?? ''}';
+        final matches = matchKiosks(
+          target,
+          _kiosks.values,
+          name: (k) => k.name,
+          address: (k) => k.address,
+          rooms: rooms,
+        );
+        if (matches.length != 1) {
+          await _probeAll();
+          if (matches.length > 1) {
+            return fail('several kiosks match, ask which one', matches);
+          }
+          if (matchKiosks(
+            target,
+            [self],
+            name: (n) => n,
+            rooms: rooms,
+          ).isNotEmpty) {
+            return fail('that is this kiosk');
+          }
+          return fail('no kiosk goes by that name', _voiceRoster);
+        }
+        final k = matches.single;
+        await _probe(k);
+        final st = k.status(keyFingerprint, encrypted: _encrypted);
+        if (st != 'ready') {
+          return fail('${k.name}: ${_voiceStatus[st] ?? st}');
+        }
+        final calling = {
+          'ok': true,
+          'kiosk': self,
+          'result': 'calling',
+          'calling': k.name,
+        };
+        if (p['voiceTurn'] == true) {
+          unawaited(_callAfterTurn(k));
+          return calling;
+        }
+        final r = await _place(k);
+        return r.ok ? calling : fail(r.error ?? 'failed');
+      default:
+        return fail('action must be call or list');
+    }
+  }
+
+  List<IntercomKiosk> get _voiceRoster => [
+    for (final k in _kiosks.values)
+      if (k.heard) k,
+  ]..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+
+  /// A kiosk's status as the LLM reads it.
+  static const _voiceStatus = {
+    'ready': 'ready',
+    'off': 'its intercom is off',
+    'key': 'a different intercom key',
+    'tls': 'encryption mismatch',
+    'dnd': 'do not disturb',
+    'unreachable': 'not answering',
+    'offline': 'offline',
+    'unknown': 'not checked yet',
+  };
+
+  Future<void> _callAfterTurn(IntercomKiosk k) async {
+    // A realtime conversation would otherwise hold on through its closing
+    // silence after the answer.
+    await commands.execute('voiceEndAfterAnswer', const {});
+    if (!await _voiceTurns.ended(voiceTurnWait)) {
+      log.info(name, 'the conversation is still going, ending it for the call');
+      await commands.execute('voiceCancel', const {});
+    }
+    final r = await _place(k);
+    if (!r.ok) log.warn(name, 'the call to ${k.name} failed: ${r.error}');
+  }
+
   // ── Status ─────────────────────────────────────────────────────────
 
   Map<String, Object?> status() => {
@@ -834,6 +970,24 @@ class IntercomManager extends Manager {
             if (!r.ok) return r;
             return CommandResult.ok({'id': k.id, 'kiosk': k.name});
           },
+        ),
+      )
+      ..register(
+        Command(
+          name: 'intercomVoiceRequest',
+          description:
+              'What the Kiosk Satellite intercom script asks for, answered '
+              'in the shape the script hands back to the LLM.',
+          params: const {
+            'action': 'call or list',
+            'kiosk': 'The kiosk to call, by name',
+            'voiceTurn':
+                'true to place the call once the voice turn that asked '
+                'for it ends',
+          },
+          // The voice requests manager logs each one with its outcome.
+          quiet: true,
+          handler: (p) async => CommandResult.ok(await _voiceRequest(p)),
         ),
       )
       ..register(
@@ -2453,3 +2607,103 @@ Uint8List? _wavPcm16k(Uint8List wav) {
   }
   return null;
 }
+
+/// What the intercom script tells about each kiosk: the name its user gave
+/// its ESPHome device in Home Assistant and the device's area, keyed by the
+/// device name, which is the kiosk's name.
+Map<String, ({String alias, String area})> voiceRooms(Object? raw) {
+  final out = <String, ({String alias, String area})>{};
+  if (raw is! List) return out;
+  for (final r in raw) {
+    if (r is! Map) continue;
+    final n = normalizeKioskName('${r['name'] ?? ''}');
+    if (n.isEmpty) continue;
+    out[n] = (
+      alias: '${r['alias'] ?? ''}'.trim(),
+      area: '${r['area'] ?? ''}'.trim(),
+    );
+  }
+  return out;
+}
+
+/// The kiosks a spoken name means, by the kiosk's name, the name given to
+/// its device in Home Assistant or its area, so "the master bedroom
+/// intercom" finds the kiosk in the Master Bedroom. In order: a name said
+/// exactly (or the address), then every kiosk whose name holds the words
+/// said or is held in them, then the kiosks sharing the most words with
+/// it. Several matches mean the request has to say which.
+List<T> matchKiosks<T>(
+  String target,
+  Iterable<T> kiosks, {
+  required String Function(T) name,
+  String Function(T)? address,
+  Map<String, ({String alias, String area})> rooms = const {},
+}) {
+  final asked = normalizeKioskName(target);
+  if (asked.isEmpty) return const [];
+  List<String> namesOf(T k) {
+    final room = rooms[normalizeKioskName(name(k))];
+    return [
+      name(k),
+      if (room != null && room.alias.isNotEmpty) room.alias,
+      if (room != null && room.area.isNotEmpty) room.area,
+    ];
+  }
+
+  final exact = [
+    for (final k in kiosks)
+      if (address?.call(k) == target.trim() ||
+          namesOf(k).any((n) => normalizeKioskName(n) == asked))
+        k,
+  ];
+  if (exact.isNotEmpty) return exact;
+  final said = _words(target);
+  if (said.isEmpty) return const [];
+  final within = [
+    for (final k in kiosks)
+      if (namesOf(k).any((n) {
+        final words = _words(n);
+        return words.isNotEmpty && (_holds(said, words) || _holds(words, said));
+      }))
+        k,
+  ];
+  if (within.isNotEmpty) return within;
+  final heard = said.where((w) => !_filler.contains(w)).toSet();
+  var best = 0;
+  var out = <T>[];
+  for (final k in kiosks) {
+    final shared = {
+      for (final n in namesOf(k)) ..._words(n),
+    }.intersection(heard).length;
+    if (shared == 0 || shared < best) continue;
+    if (shared > best) {
+      best = shared;
+      out = [];
+    }
+    out.add(k);
+  }
+  return out;
+}
+
+List<String> _words(String s) => [
+  for (final w in s.toLowerCase().split(
+    RegExp(r'[^\p{L}\p{N}]+', unicode: true),
+  ))
+    if (w.isNotEmpty) w,
+];
+
+/// [words] holds [part] as a run of whole words: "the master bedroom
+/// intercom" holds "master bedroom", "garden" never holds "den".
+bool _holds(List<String> words, List<String> part) {
+  for (var i = 0; i + part.length <= words.length; i++) {
+    var all = true;
+    for (var j = 0; j < part.length && all; j++) {
+      all = words[i + j] == part[j];
+    }
+    if (all) return true;
+  }
+  return false;
+}
+
+/// Words that say nothing about which kiosk, left out of the word count.
+const _filler = {'the', 'a', 'an', 'my', 'our', 'kiosk', 'tablet', 'intercom'};

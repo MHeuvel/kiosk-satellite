@@ -16,7 +16,6 @@ import '../screensaver/screensaver_manager.dart'
     show currentScreensaverScheduleEntry;
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
-import '../voice/ha_socket.dart';
 import 'alarm_model.dart';
 import 'alarm_requests.dart';
 
@@ -131,14 +130,12 @@ class AlarmManager extends Manager {
     this._settings, {
     DateTime Function()? clock,
     MethodChannel? channel,
-    this._haSocket,
   }) : _clock = clock ?? DateTime.now,
        _channel = channel ?? const MethodChannel('kiosk_satellite/alarms');
 
   final SettingsManager _settings;
   final DateTime Function() _clock;
   final MethodChannel _channel;
-  final HaSocket? _haSocket;
 
   /// The full screen alarm list is up.
   final visible = ValueNotifier<bool>(false);
@@ -151,14 +148,7 @@ class AlarmManager extends Manager {
   final _subs = <StreamSubscription<Object?>>[];
 
   /// Alarms asked for by voice through Home Assistant.
-  late final requests = AlarmRequests(
-    bus,
-    log,
-    _settings,
-    this,
-    clock: _clock,
-    socket: _haSocket,
-  );
+  late final requests = AlarmRequests(_settings, this, clock: _clock);
   Timer? _tick;
   Timer? _precise;
   Timer? _ramp;
@@ -252,13 +242,11 @@ class AlarmManager extends Manager {
         }),
       );
     _tick = Timer.periodic(const Duration(seconds: 15), (_) => _check());
-    requests.start();
     await _check();
   }
 
   @override
   Future<void> dispose() async {
-    await requests.dispose();
     _tick?.cancel();
     _precise?.cancel();
     _ramp?.cancel();
@@ -1213,6 +1201,23 @@ class AlarmManager extends Manager {
               'snoozedUntil, takeover, next, alarms: [...]}.',
           quiet: true,
           handler: (_) async => CommandResult.ok(statusJson),
+        ),
+      )
+      ..register(
+        Command(
+          name: 'alarmsVoiceRequest',
+          description:
+              'What the Kiosk Satellite alarms script asks for, answered in '
+              'the shape the script hands back to the LLM.',
+          params: const {
+            'action': 'set, list, turn_off, turn_on or delete',
+            'time': 'HH:MM, 24 hour',
+            'days': 'Repeat days: mon to sun, weekdays, weekends or daily',
+            'label': 'The alarm\'s name',
+          },
+          // The voice requests manager logs each one with its outcome.
+          quiet: true,
+          handler: (p) async => CommandResult.ok(await requests.handle(p)),
         ),
       )
       ..register(
