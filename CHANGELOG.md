@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.10.4 - 2026-10-02
 
 ### Added
 - **Voice Satellite sensor.** A new ESPHome text sensor named **Voice Satellite** reads `idle`, `listening`, `processing` or `responding`, the same states as the Assist satellite entity, for Assist turns and realtime conversations alike. A realtime conversation runs no Home Assistant pipeline, so the Assist satellite entity stayed idle through it and automations had no way to tell which kiosk was talking. Listed while native Voice Satellite is on.
