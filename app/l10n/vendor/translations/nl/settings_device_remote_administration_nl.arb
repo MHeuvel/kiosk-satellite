@@ -13,6 +13,7 @@
   "deviceAdminAddressHelp": "Open dit adres in een browser op je computer.",
   "deviceByName": "Op naam",
   "deviceByNameHelp": "Hetzelfde adres met de hostnaam, op netwerken die .local-namen ondersteunen.",
+  "deviceByCertificateNameHelp": "Hetzelfde adres met de naam uit het certificaat.",
   "devicePasswordNeeded": "Stel hieronder een beheerderswachtwoord in om de server te starten.",
   "deviceServerStopped": "De server draait niet.",
   "devicePortError": "Kon niet luisteren op poort {port}: {error}",

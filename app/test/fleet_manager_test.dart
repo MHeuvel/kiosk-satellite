@@ -490,11 +490,22 @@ void main() {
       expect((start.arguments as Map)['dnsName'], 'kitchen.example.com');
     });
 
+    test('the Access cards show the name its certificate covers', () async {
+      await build({...serving, 'ks.remote.tls': true});
+      expect(fleet.hostUrl, 'https://kitchen.example.com:2324');
+      final r = await commands.execute('fleet', const {});
+      expect((r.data as Map)['hostUrl'], 'https://kitchen.example.com:2324');
+      expect((r.data as Map)['certificateName'], 'kitchen.example.com');
+    });
+
     test('announces no DNS name with the generated certificate', () async {
       certificate = {...certificate, 'imported': false};
       await build({...serving, 'ks.remote.tls': true});
       final start = calls.lastWhere((c) => c.method == 'start');
       expect((start.arguments as Map).containsKey('dnsName'), isFalse);
+      expect(fleet.hostUrl, 'https://ks-living-room.local:2324');
+      final r = await commands.execute('fleet', const {});
+      expect((r.data as Map)['certificateName'], '');
     });
 
     test('announces no DNS name over HTTP', () async {

@@ -5388,6 +5388,10 @@ class UiStringsUk extends UiStrings {
       'Та сама адреса за назвою хоста в мережах, що підтримують домен .local.';
 
   @override
+  String get deviceByCertificateNameHelp =>
+      'Та сама адреса за назвою з її сертифіката.';
+
+  @override
   String get devicePasswordNeeded =>
       'Встановіть пароль адміністратора нижче, щоб запустити сервер.';
 

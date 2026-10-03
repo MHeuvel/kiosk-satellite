@@ -9356,6 +9356,12 @@ abstract class UiStrings {
   /// Label or explanation on this Device settings page.
   ///
   /// In en, this message translates to:
+  /// **'The same address by the name on its certificate.'**
+  String get deviceByCertificateNameHelp;
+
+  /// Label or explanation on this Device settings page.
+  ///
+  /// In en, this message translates to:
   /// **'Set an admin password below to start the server.'**
   String get devicePasswordNeeded;
 

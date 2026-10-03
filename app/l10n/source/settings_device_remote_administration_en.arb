@@ -169,6 +169,19 @@
       ]
     }
   },
+  "deviceByCertificateNameHelp": "The same address by the name on its certificate.",
+  "@deviceByCertificateNameHelp": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration"
+      ]
+    }
+  },
   "devicePasswordNeeded": "Set an admin password below to start the server.",
   "@devicePasswordNeeded": {
     "context": "Settings:Device:Remote Administration",

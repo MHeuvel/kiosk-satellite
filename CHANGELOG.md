@@ -5,7 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Fixed
-- **Switch kiosk opens HTTPS kiosks with a CA-signed certificate by name.** The kiosk switcher linked every kiosk by its IP address, so a kiosk serving HTTPS with an imported certificate, such as one from Let's Encrypt, failed the browser's certificate check with a name mismatch (#833). A kiosk with an imported certificate now announces the first DNS name the certificate covers, skipping wildcard and `.local` names, and the switcher opens it by that name. Fleet members saved without discovery keep the name too. Kiosks on the generated certificate or plain HTTP are still opened by their IP address.
+- **Switch kiosk opens HTTPS kiosks with a CA-signed certificate by name.** The kiosk switcher linked every kiosk by its IP address, so a kiosk serving HTTPS with an imported certificate, such as one from Let's Encrypt, failed the browser's certificate check with a name mismatch (#833). A kiosk with an imported certificate now announces the first DNS name the certificate covers, skipping wildcard and `.local` names, and the switcher opens it by that name. Fleet members saved without discovery keep the name too. Kiosks on the generated certificate or plain HTTP are still opened by their IP address. The **By name** row on the Access card, on the device and in the remote admin, shows the certificate's name too instead of the `.local` address the certificate does not cover. Translated into Spanish, German, French, Ukrainian and Dutch.
 
 ## v2026.10.5 - 2026-10-03
 

@@ -42,6 +42,9 @@ to copy. Renaming the device leaves it alone; clear the field to take the
 device name again. A typed name is slugified the same way: lowercase
 letters, digits and hyphens. The Access card under Remote Administration, on the device and
 in the remote admin, shows the address by name next to the one by IP.
+Over HTTPS with an imported certificate it shows the first DNS name that
+certificate covers instead, since the browser rejects that certificate
+under `.local`. The kiosk still answers to its `.local` name.
 
 | | |
 | --- | --- |

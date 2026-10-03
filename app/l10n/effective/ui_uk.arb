@@ -19875,6 +19875,19 @@
       ]
     }
   },
+  "deviceByCertificateNameHelp": "Та сама адреса за назвою з її сертифіката.",
+  "@deviceByCertificateNameHelp": {
+    "context": "Settings:Device:Remote Administration",
+    "description": "Label or explanation on this Device settings page.",
+    "x-locations": {
+      "device": [
+        "Settings > Device > Remote Administration"
+      ],
+      "remoteAdmin": [
+        "Device > Remote Administration"
+      ]
+    }
+  },
   "devicePasswordNeeded": "Встановіть пароль адміністратора нижче, щоб запустити сервер.",
   "@devicePasswordNeeded": {
     "context": "Settings:Device:Remote Administration",

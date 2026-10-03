@@ -5409,6 +5409,10 @@ class UiStringsNl extends UiStrings {
       'Hetzelfde adres met de hostnaam, op netwerken die .local-namen ondersteunen.';
 
   @override
+  String get deviceByCertificateNameHelp =>
+      'Hetzelfde adres met de naam uit het certificaat.';
+
+  @override
   String get devicePasswordNeeded =>
       'Stel hieronder een beheerderswachtwoord in om de server te starten.';
 

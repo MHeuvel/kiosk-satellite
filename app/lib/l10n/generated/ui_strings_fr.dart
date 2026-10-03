@@ -5432,6 +5432,10 @@ class UiStringsFr extends UiStrings {
       'La même adresse par nom d\'hôte, sur les réseaux qui résolvent les noms .local.';
 
   @override
+  String get deviceByCertificateNameHelp =>
+      'La même adresse par le nom de son certificat.';
+
+  @override
   String get devicePasswordNeeded =>
       'Définissez un mot de passe d\'administration ci-dessous pour démarrer le serveur.';
 

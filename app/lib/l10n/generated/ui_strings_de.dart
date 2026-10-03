@@ -5474,6 +5474,10 @@ class UiStringsDe extends UiStrings {
       'Dieselbe Adresse über den Gerätenamen in Netzwerken, die .local-Namen auflösen.';
 
   @override
+  String get deviceByCertificateNameHelp =>
+      'Dieselbe Adresse über den Namen aus ihrem Zertifikat.';
+
+  @override
   String get devicePasswordNeeded =>
       'Lege unten ein Administrationspasswort fest, um den Server zu starten.';
 

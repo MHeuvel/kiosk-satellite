@@ -5345,6 +5345,10 @@ class UiStringsEn extends UiStrings {
       'The same address by hostname, on networks that resolve .local names.';
 
   @override
+  String get deviceByCertificateNameHelp =>
+      'The same address by the name on its certificate.';
+
+  @override
   String get devicePasswordNeeded =>
       'Set an admin password below to start the server.';
 

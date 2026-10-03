@@ -5435,6 +5435,10 @@ class UiStringsEs extends UiStrings {
       'La misma dirección mediante el nombre del equipo, en redes que resuelven nombres .local.';
 
   @override
+  String get deviceByCertificateNameHelp =>
+      'La misma dirección mediante el nombre de su certificado.';
+
+  @override
   String get devicePasswordNeeded =>
       'Define una contraseña de administración abajo para iniciar el servidor.';
 

@@ -1509,6 +1509,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'deviceAdminAddressHelp' => strings.deviceAdminAddressHelp,
       'deviceByName' => strings.deviceByName,
       'deviceByNameHelp' => strings.deviceByNameHelp,
+      'deviceByCertificateNameHelp' => strings.deviceByCertificateNameHelp,
       'devicePasswordNeeded' => strings.devicePasswordNeeded,
       'deviceServerStopped' => strings.deviceServerStopped,
       'settingRemoteTlsTitle' => strings.settingRemoteTlsTitle,

@@ -174,11 +174,21 @@ class FleetManager extends Manager {
     _settings.get(defs.deviceName),
   );
 
-  /// Where the admin answers by name, or null with no hostname or no
-  /// server.
-  String? get hostUrl => !serving || hostname.isEmpty
-      ? null
-      : '${_settings.get(defs.remoteTls) ? 'https' : 'http'}://$hostname.local:${_settings.get(defs.remotePort).toInt()}';
+  /// The DNS name of the imported certificate the admin serves over
+  /// HTTPS, empty for none. Read on every sync.
+  String get certificateName => _certificateName;
+  String _certificateName = '';
+
+  /// Where the admin answers by name, or null with no name or no server.
+  /// With an imported certificate that is the name it covers, since the
+  /// browser rejects it under `.local`.
+  String? get hostUrl {
+    if (!serving) return null;
+    final port = _settings.get(defs.remotePort).toInt();
+    if (_certificateName.isNotEmpty) return 'https://$_certificateName:$port';
+    if (hostname.isEmpty) return null;
+    return '${_settings.get(defs.remoteTls) ? 'https' : 'http'}://$hostname.local:$port';
+  }
 
   /// Whether the native announcer should run at all: for the fleet, for
   /// the hostname, or both.
@@ -217,6 +227,8 @@ class FleetManager extends Manager {
             // the admin's address under it, for the Access cards.
             'hostname': serving ? hostname : '',
             'hostUrl': hostUrl,
+            // Set when hostUrl is the certificate's name, not `.local`.
+            'certificateName': serving ? _certificateName : '',
           });
         },
       ),
@@ -280,6 +292,7 @@ class FleetManager extends Manager {
   bool _seedEcho = false;
 
   Future<void> _sync() async {
+    _certificateName = await _readCertificateName();
     if (active) {
       await _start();
     } else if (running) {
@@ -290,7 +303,7 @@ class FleetManager extends Manager {
 
   /// The DNS name of the imported certificate the admin serves, or empty
   /// over HTTP, with the generated certificate or when it cannot be read.
-  Future<String> _certificateName() async {
+  Future<String> _readCertificateName() async {
     if (!_settings.get(defs.remoteTls)) return '';
     try {
       return (await _settings.tls.load()).publicName ?? '';
@@ -302,7 +315,7 @@ class FleetManager extends Manager {
   Future<void> _start() async {
     final host = hostname;
     final tls = _settings.get(defs.remoteTls);
-    final dnsName = await _certificateName();
+    final dnsName = _certificateName;
     final args = {
       'name': _settings.get(defs.deviceName),
       'port': _settings.get(defs.remotePort).toInt(),
