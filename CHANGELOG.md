@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **Voice Satellite answers and announcements play on Music Assistant speakers.** With **Play sounds on** set to a Music Assistant player, only the chimes played. The answer, announcements and the timer phrase went out as a path from Home Assistant's root, which Home Assistant turns into a full address for every other speaker but Music Assistant refuses, so the turn went quiet. Music Assistant players now get the full address on Home Assistant's own URL, and every other speaker gets the same path as before. Announcements on a Music Assistant player also no longer hang the satellite: Music Assistant answers the play request only once the sound has played, and the kiosk waited for that answer, missed the end of the sound and sat out a 35 second timeout after the preannounce chime and a two minute one after the message.
+
 ## v2026.10.4 - 2026-10-02
 
 ### Added

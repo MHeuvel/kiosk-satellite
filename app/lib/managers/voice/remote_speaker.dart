@@ -108,25 +108,28 @@ class RemoteSpeaker {
     play.initialState = state?.state;
     play.initialContent = state?.content;
     if (normal) _ensureSnapshot(entity, state);
+    final media = await _forSpeaker(entity, url, state: state);
+    if (!identical(_current, play)) return id;
     watch?.onChange = () {
       if (!identical(_current, play)) return;
       play.evaluate(watch.state, log);
       if (play.done) _finish(play);
     };
-    final media = _forSpeaker(url);
     log(
       '${kind.name} on $entity announce=${!normal} media=$media '
       'was=${play.initialState} ${play.initialContent ?? ''}',
     );
-    final sent = await _playMedia(entity, media, announce: !normal);
-    if (!identical(_current, play)) return id;
-    if (!sent) {
-      // As Voice Satellite: a refused call ends the sound as if it had
-      // played, the turn carries on.
-      log('play_media refused, completing');
-      _finish(play);
-      return id;
-    }
+    // Not waited for, as Voice Satellite: Music Assistant answers an
+    // announcement only once it has played, and the caller needs the id
+    // before the end it follows. A refused call ends the sound as if it
+    // had played, the turn carries on.
+    unawaited(
+      _playMedia(entity, media, announce: !normal).then((sent) {
+        if (sent || play.finished) return;
+        log('play_media refused, completing');
+        _finish(play);
+      }),
+    );
     play.startedAt = DateTime.now();
     // A player that never says it finished is let go after this, or after
     // the sound's length once it is measured. The answer's words stand in
@@ -186,7 +189,7 @@ class RemoteSpeaker {
     final measured = await measure?.call(url, timerMeasureTimeout);
     final seconds = measured ?? _timerEstimate(text);
     final id = 'remote-${++_next}';
-    final media = _forSpeaker(url);
+    final media = await _forSpeaker(entity, url);
     log('timer phrase on $entity announce=${!normal} media=$media');
     await _playMedia(entity, media, announce: !normal);
     _timed[id] = _Timed(
@@ -269,11 +272,14 @@ class RemoteSpeaker {
     );
   }
 
-  Future<void> _takeSnapshot(String entity) async {
+  Future<void> _takeSnapshot(String entity) async =>
+      _ensureSnapshot(entity, await _stateOf(entity));
+
+  /// [entity]'s state right now, or null when it could not be read.
+  Future<_State?> _stateOf(String entity) async {
     final watch = await _Watch.open(ha, entity, log);
-    if (watch == null) return;
-    _ensureSnapshot(entity, watch.state);
-    unawaited(watch.close());
+    unawaited(watch?.close());
+    return watch?.state;
   }
 
   bool _isOurs(String content) =>
@@ -361,16 +367,52 @@ class RemoteSpeaker {
     }
   }
 
-  /// A Home Assistant URL as a path from its root, which Home Assistant
-  /// resolves and signs for the speaker the way tts.speak does. The speaker
-  /// may not reach the address the kiosk uses, or trust its certificate.
-  /// media-source:// ids pass as they are, for Home Assistant to resolve.
-  static String _forSpeaker(String url) {
+  /// [url] as [entity] gets it. A Home Assistant URL goes as a path from
+  /// its root, which Home Assistant resolves and signs for the speaker the
+  /// way tts.speak does. The speaker may not reach the address the kiosk
+  /// uses, or trust its certificate. media-source:// ids pass as they are,
+  /// for Home Assistant to resolve.
+  ///
+  /// Music Assistant's integration resolves media-source ids only and its
+  /// players refuse a path, so they get it on Home Assistant's own address,
+  /// the one Home Assistant puts in front of it for every other player.
+  Future<String> _forSpeaker(String entity, String url, {_State? state}) async {
+    final path = _haPath(url);
+    if (path == null) return url;
+    state ??= await _stateOf(entity);
+    if (state?.attributes['mass_player_type'] == null) return path;
+    final base = await _haAddress();
+    return base == null ? url : '$base$path';
+  }
+
+  /// The path and query of a Home Assistant API URL, or null for anything
+  /// else.
+  static String? _haPath(String url) {
     final uri = Uri.tryParse(url);
     if (uri == null || !uri.hasScheme || !uri.path.startsWith('/api/')) {
-      return url;
+      return null;
     }
     return uri.hasQuery ? '${uri.path}?${uri.query}' : uri.path;
+  }
+
+  /// Home Assistant's address for the devices it sends media to: its
+  /// internal URL, else its external one, as its get_url picks them.
+  Future<String?> _haAddress() async {
+    try {
+      final urls = await ha.request({'type': 'network/url'});
+      if (urls is Map) {
+        for (final key in const ['internal', 'external']) {
+          final url = urls[key];
+          if (url is String && url.isNotEmpty) {
+            return url.replaceFirst(RegExp(r'/+$'), '');
+          }
+        }
+      }
+      log('Home Assistant has no URL for devices');
+    } catch (e) {
+      log('Home Assistant URL not read: $e');
+    }
+    return null;
   }
 
   /// About how long [text] takes to say: the timer phrase's stand-in when
