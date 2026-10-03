@@ -132,6 +132,17 @@ class BackgroundBridge(
                 }
                 "isActivityResumed" -> result.success(ActivityState.resumed)
                 "isActivityAttached" -> result.success(ActivityState.attached)
+                // The frame watchdog's render wedge probe (issue #830). This
+                // handler runs on the main thread, the thread whose EGL
+                // binding it has to read.
+                "renderProbe" -> result.success(
+                    mapOf(
+                        "resumed" to ActivityState.resumed,
+                        "mainContext" to MainThreadEgl.held(),
+                        "rasterSwitches" to MainThreadEgl.rasterSwitches(),
+                        "teardownReleases" to MainThreadEgl.teardownReleases,
+                    ),
+                )
                 // Open another app by package name (issue #44). The kiosk
                 // stays running behind it; whatever brings the kiosk back —
                 // the return gesture, a wake word, an automation — finds it

@@ -114,6 +114,7 @@ class KioskApplication : Application(), CameraXConfig.Provider {
         }
 
         val engine = FlutterEngine(this, RendererGuard.engineArgs(this))
+        MainThreadEgl.watch(engine)
         // Plugins before the entrypoint: Dart main() starts the admin server and
         // reads shared_preferences immediately, so shared_preferences,
         // path_provider et al. must already be registered when it runs.
