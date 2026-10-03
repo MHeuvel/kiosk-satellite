@@ -686,6 +686,64 @@ void main() {
       },
     );
 
+    test('a track with no album or cover clears the one before\'s', () async {
+      await build(
+        extra: {
+          'ks.sendspin.player': '',
+          'ks.sendspin.player_source': '',
+          'ks.sendspin.enabled': true,
+        },
+      );
+      final messenger =
+          TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+      messenger.setMockMethodCallHandler(channel, (call) async => true);
+      sendspin.artworkFetcher = (url) async => Uint8List.fromList([1]);
+      const codec = StandardMethodCodec();
+      Future<void> fromNative(String method, Map<String, Object?> args) =>
+          messenger.handlePlatformMessage(
+            channel.name,
+            codec.encodeMethodCall(MethodCall(method, args)),
+            (_) {},
+          );
+      await fromNative('playingChanged', {'playing': true});
+      // The engine sends the whole track, empty where it has nothing.
+      await fromNative('metadataChanged', {
+        'title': 'Apocalypse',
+        'artist': 'Cigarettes After Sex',
+        'album': 'Cigarettes After Sex',
+        'artworkUrl': 'https://ma.local/a',
+      });
+      expect(sendspin.nowPlaying.value?['artworkUrl'], 'https://ma.local/a');
+      // A local file from Home Assistant's media: tags, no album or cover.
+      await fromNative('metadataChanged', {
+        'title': 'Crab Rave',
+        'artist': 'Noisestorm',
+        'album': '',
+        'artworkUrl': '',
+      });
+      expect(sendspin.nowPlaying.value?['title'], 'Crab Rave');
+      expect(sendspin.nowPlaying.value?['artist'], 'Noisestorm');
+      expect(sendspin.nowPlaying.value?['album'], isNull);
+      expect(sendspin.nowPlaying.value?['artworkUrl'], isNull);
+      // A progress update or a message with no title keeps the track.
+      await fromNative('metadataChanged', {
+        'title': 'Apocalypse',
+        'artist': 'Cigarettes After Sex',
+        'album': 'Cigarettes After Sex',
+        'artworkUrl': 'https://ma.local/a',
+      });
+      await fromNative('metadataChanged', {'positionMs': 5000});
+      await fromNative('metadataChanged', {
+        'title': '',
+        'artist': '',
+        'album': '',
+        'artworkUrl': '',
+      });
+      expect(sendspin.nowPlaying.value?['title'], 'Apocalypse');
+      expect(sendspin.nowPlaying.value?['album'], 'Cigarettes After Sex');
+      expect(sendspin.nowPlaying.value?['artworkUrl'], 'https://ma.local/a');
+    });
+
     test('the watcher re-bases a position the engine ran away with', () async {
       await build(
         extra: {

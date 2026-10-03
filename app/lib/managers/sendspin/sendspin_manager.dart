@@ -881,19 +881,24 @@ class SendspinManager extends Manager {
             _sessionArtUrl = art;
             unawaited(_pushSessionArtwork(art));
           }
-          // Metadata arrives as deltas: a progress-only update carries no
-          // title, and the server may send literal "null" strings. Absent
-          // fields must not clobber what an earlier message established.
+          // A progress-only update carries no title, and the server may
+          // send literal "null" strings: absent fields must not clobber
+          // what an earlier message established. A message with a title
+          // is the whole track, as the engine keeps it, so a track with no
+          // album or cover clears the one before's.
           // The engine's own position stands aside for a while after
           // the server's queue time was taken instead (see
           // _rebaseFromQueue): its extrapolation is the thing that
           // drifts, and every push would drag the bar back to it.
           final title = map['title'];
-          if (title is String &&
-              title.isNotEmpty &&
-              title != 'null' &&
-              title != _status['title']) {
-            _maPositionAt = 0;
+          final track = title is String && title.isNotEmpty && title != 'null';
+          if (track && title != _status['title']) _maPositionAt = 0;
+          if (track) {
+            _status = {
+              for (final e in _status.entries)
+                if (!const {'artist', 'album', 'artworkUrl'}.contains(e.key))
+                  e.key: e.value,
+            };
           }
           // A paused queue has no more progress polls. Keep its corrected
           // position until playback resumes or a different item arrives.

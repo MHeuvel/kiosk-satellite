@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Fixed
+- **Now Playing clears the cover and album of a track that has none.** Playing a file with no cover after a Music Assistant track, such as an MP3 from Home Assistant's **My media**, kept the last track's cover and album on Now Playing, the floating card and the current queue row. The Sendspin engine sends each track whole, but the kiosk read a missing cover or album as "unchanged". A new track now replaces the cover and album, and a progress update still leaves them alone.
 - **Voice Satellite answers and announcements play on Music Assistant speakers.** With **Play sounds on** set to a Music Assistant player, only the chimes played. The answer, announcements and the timer phrase went out as a path from Home Assistant's root, which Home Assistant turns into a full address for every other speaker but Music Assistant refuses, so the turn went quiet. Music Assistant players now get the full address on Home Assistant's own URL, and every other speaker gets the same path as before. Announcements on a Music Assistant player also no longer hang the satellite: Music Assistant answers the play request only once the sound has played, and the kiosk waited for that answer, missed the end of the sound and sat out a 35 second timeout after the preannounce chime and a two minute one after the message.
 
 ## v2026.10.4 - 2026-10-02
