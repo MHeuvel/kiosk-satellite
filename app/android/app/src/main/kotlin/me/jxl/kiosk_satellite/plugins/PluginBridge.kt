@@ -21,6 +21,29 @@ import org.json.JSONObject
 
 /** Process-owned runtime for explicitly installed, trusted SDK 1 plugins. */
 class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
+    companion object {
+        /** Incomplete startups in a row that switch the enabled plugins off. */
+        internal const val STARTUP_STRIKES = 2
+
+        /**
+         * Restart app and Exit end the process on purpose, so a startup still
+         * inside its 30 seconds did not fail.
+         */
+        fun noteDeliberateExit(context: Context) {
+            context.getSharedPreferences("kiosk_plugins", Context.MODE_PRIVATE)
+                .edit().putBoolean("startupPending", false).commit()
+        }
+
+        /**
+         * Counts the incomplete startups in a row, including the previous
+         * launch. A startup that finished counts nothing, and neither does
+         * one cut short by an app update, which kills the process wherever
+         * it is.
+         */
+        internal fun startupStrikes(pending: Boolean, startedUpdatedAt: Long, updatedAt: Long, strikes: Int): Int =
+            if (!pending || startedUpdatedAt != updatedAt) 0 else strikes + 1
+    }
+
     private val channel = MethodChannel(messenger, "kiosk_satellite/plugins")
     private val main = Handler(Looper.getMainLooper())
     private val worker = Executors.newSingleThreadExecutor { task -> Thread(task, "plugin-manager").apply { isDaemon = true } }
@@ -443,14 +466,21 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
             check(prefs.edit().putBoolean("startupPending", false).commit())
             return
         }
-        val enabled = enabledIds()
-        if (prefs.getBoolean("startupPending", false)) {
-            for (id in enabled) records.getJSONObject(id).put("enabled", false)
-                .put("error", "Disabled after an incomplete plugin startup. Enable it to try again.")
+        val updatedAt = appUpdatedAt()
+        val strikes = startupStrikes(
+            prefs.getBoolean("startupPending", false),
+            prefs.getLong("startupUpdatedAt", updatedAt),
+            updatedAt,
+            prefs.getInt("startupStrikes", 0),
+        )
+        if (strikes >= STARTUP_STRIKES) {
+            for (id in enabledIds()) records.getJSONObject(id).put("enabled", false)
+                .put("error", "Disabled after two incomplete plugin startups in a row. Enable it to try again.")
             save()
-            prefs.edit().putBoolean("startupPending", false).commit()
+            prefs.edit().putBoolean("startupPending", false).putInt("startupStrikes", 0).commit()
             return
         }
+        prefs.edit().putInt("startupStrikes", strikes).commit()
         startEnabled()
     }
 
@@ -461,14 +491,20 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
         val enabled = enabledIds()
         if (enabled.isEmpty()) return
         val generation = ++startupGeneration
-        check(prefs.edit().putBoolean("startupPending", true).commit())
+        check(prefs.edit().putBoolean("startupPending", true).putLong("startupUpdatedAt", appUpdatedAt()).commit())
         for (id in enabled) {
             try { enable(id) } catch (_: Throwable) { /* Failure is recorded by enable. */ }
         }
         main.postDelayed({ worker.execute {
-            if (startupGeneration == generation) prefs.edit().putBoolean("startupPending", false).commit()
+            if (startupGeneration == generation) {
+                prefs.edit().putBoolean("startupPending", false).putInt("startupStrikes", 0).commit()
+            }
         } }, 30_000)
     }
+
+    private fun appUpdatedAt(): Long = try {
+        context.packageManager.getPackageInfo(context.packageName, 0).lastUpdateTime
+    } catch (_: Exception) { 0L }
 
     private fun setEnabled(enabled: Boolean) {
         if (pluginsEnabled == enabled) return
@@ -490,7 +526,7 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
                 }
             }
             save()
-            check(prefs.edit().putBoolean("startupPending", false).commit())
+            check(prefs.edit().putBoolean("startupPending", false).putInt("startupStrikes", 0).commit())
         }
     }
 

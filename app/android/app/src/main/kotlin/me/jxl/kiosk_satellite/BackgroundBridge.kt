@@ -343,6 +343,8 @@ class BackgroundBridge(
                     // five seconds, after the guard's relaunch was already
                     // up, and its clear-task launch evicted that Activity.
                     scheduleRestartAlarm(context)
+                    // A chosen restart, not a plugin that took the process down.
+                    me.jxl.kiosk_satellite.plugins.PluginBridge.noteDeliberateExit(context)
                     result.success(true)
                     android.os.Process.killProcess(android.os.Process.myPid())
                 }
@@ -781,6 +783,7 @@ class BackgroundBridge(
         // The ESPHome server has no Activity to notice the exit; close its
         // sockets before the process goes.
         me.jxl.kiosk_satellite.btproxy.BluetoothProxyRuntime.stop()
+        me.jxl.kiosk_satellite.plugins.PluginBridge.noteDeliberateExit(context)
         if (KioskSatelliteService.isRunning) {
             // The keep-alive foreground service is what fights a clean exit:
             // kill the process on a timer while it is still started and
