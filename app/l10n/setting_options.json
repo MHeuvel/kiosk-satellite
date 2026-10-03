@@ -337,6 +337,14 @@
     "25": "alarmsOption25Minutes",
     "30": "alarmsOption30Minutes"
   },
+  "voice.realtime_openai_reasoning": {
+    "": "voiceRealtimeReasoningDefault",
+    "minimal": "voiceRealtimeReasoningMinimal",
+    "low": "voiceRealtimeReasoningLow",
+    "medium": "voiceRealtimeReasoningMedium",
+    "high": "voiceRealtimeReasoningHigh",
+    "xhigh": "voiceRealtimeReasoningExtraHigh"
+  },
   "voice.realtime_tools": {
     "custom": "voiceRealtimeToolsCustom",
     "none": "voiceNone"

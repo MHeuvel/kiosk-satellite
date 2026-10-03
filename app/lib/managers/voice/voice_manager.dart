@@ -351,6 +351,8 @@ class VoiceManager extends Manager {
     _esphome.onVoiceConfiguration = _configuration;
     for (final provider in RealtimeProvider.values) {
       unawaited(refreshRealtimeCatalog(provider));
+      // A key that came over before this kiosk checked them itself.
+      _scheduleRealtimeCheck(provider, after: const Duration(seconds: 30));
     }
     homeAssistant.addListener(_watchSelects);
     // A subscription dies with its socket and nothing says so: look again
@@ -384,6 +386,7 @@ class VoiceManager extends Manager {
           for (final provider in RealtimeProvider.values) {
             final d = _realtimeDefs(provider);
             if (e.key != d.apiKey.key && e.key != d.endpoint.key) continue;
+            _scheduleRealtimeCheck(provider);
             _catalogTimers[provider]?.cancel();
             _catalogTimers[provider] = Timer(
               const Duration(seconds: 1),
@@ -539,6 +542,9 @@ class VoiceManager extends Manager {
             'endpoint': 'the endpoint, empty for the provider\'s own',
             'model': 'the model, empty for the provider\'s default',
             'voice': 'the voice, empty for the provider\'s default',
+            'reasoning':
+                'OpenAI only: minimal, low, medium, high or xhigh, empty '
+                'for the model\'s default',
           },
           secretParams: const {'apiKey'},
           handler: (p) async => CommandResult.ok(
@@ -548,6 +554,7 @@ class VoiceManager extends Manager {
               endpoint: '${p['endpoint'] ?? ''}',
               model: '${p['model'] ?? ''}',
               voice: '${p['voice'] ?? ''}',
+              reasoning: '${p['reasoning'] ?? ''}',
             ),
           ),
         ),
@@ -1780,6 +1787,7 @@ class VoiceManager extends Manager {
     SettingDef<String> endpoint,
     SettingDef<String> model,
     SettingDef<String> voice,
+    SettingDef<String>? reasoning,
     SettingDef<String> validated,
   })
   _realtimeDefs(RealtimeProvider provider) => switch (provider) {
@@ -1788,6 +1796,7 @@ class VoiceManager extends Manager {
       endpoint: defs.voiceRealtimeOpenAiEndpoint,
       model: defs.voiceRealtimeOpenAiModel,
       voice: defs.voiceRealtimeOpenAiVoice,
+      reasoning: defs.voiceRealtimeOpenAiReasoning,
       validated: defs.voiceRealtimeOpenAiValidated,
     ),
     RealtimeProvider.xai => (
@@ -1795,6 +1804,7 @@ class VoiceManager extends Manager {
       endpoint: defs.voiceRealtimeXaiEndpoint,
       model: defs.voiceRealtimeXaiModel,
       voice: defs.voiceRealtimeXaiVoice,
+      reasoning: null,
       validated: defs.voiceRealtimeXaiValidated,
     ),
   };
@@ -1859,10 +1869,17 @@ class VoiceManager extends Manager {
         _settings.get(d.endpoint).trim().isEmpty) {
       return (status: RealtimeStatus.unconfigured, error: '', tools: false);
     }
-    if (!realtimeReady(provider)) {
-      return (status: RealtimeStatus.unvalidated, error: '', tools: false);
-    }
     final problem = _realtimeProblems[provider];
+    if (!realtimeReady(provider)) {
+      // Its own check (_checkRealtime) failed.
+      return problem == null
+          ? (status: RealtimeStatus.unvalidated, error: '', tools: false)
+          : (
+              status: RealtimeStatus.failed,
+              error: problem.message,
+              tools: false,
+            );
+    }
     return problem == null
         ? (status: RealtimeStatus.validated, error: '', tools: false)
         : (
@@ -1985,8 +2002,10 @@ class VoiceManager extends Manager {
     String? apiKey,
     String? model,
     String? voice,
+    String? reasoning,
   }) {
     final d = _realtimeDefs(provider);
+    final effort = d.reasoning;
     return RealtimeConfig(
       provider: provider,
       endpoint: endpoint ?? _settings.get(d.endpoint),
@@ -1994,6 +2013,8 @@ class VoiceManager extends Manager {
       model: model ?? _settings.get(d.model),
       voice: voice ?? _settings.get(d.voice),
       instructions: _settings.get(defs.voiceRealtimeInstructions),
+      speed: _settings.get(defs.voiceRealtimeSpeed).toDouble(),
+      reasoning: effort == null ? '' : reasoning ?? _settings.get(effort),
     );
   }
 
@@ -2050,6 +2071,7 @@ class VoiceManager extends Manager {
     required String endpoint,
     required String model,
     required String voice,
+    String reasoning = '',
   }) async {
     final d = _realtimeDefs(provider);
     final String saved = _settings.get(d.apiKey);
@@ -2074,36 +2096,25 @@ class VoiceManager extends Manager {
         toolbox.close();
       }
     }();
-    final backend = OpenAiRealtimeBackend(
-      config: realtimeConfig(
+    final error = await _realtimeConnects(
+      realtimeConfig(
         provider,
         endpoint: endpoint,
         apiKey: key,
         model: model,
         voice: voice,
+        reasoning: reasoning,
       ),
-      toolbox: const LocalToolbox(),
-      log: (line) => log.info(name, 'realtime test: $line'),
     );
-    final done = Completer<String?>();
-    final sub = backend.events.listen((e) {
-      if (done.isCompleted) return;
-      if (e is RealtimeReady) done.complete(null);
-      if (e is RealtimeClosed) done.complete(e.error ?? 'closed');
-    });
-    unawaited(backend.start(const RealtimeStart()));
-    final error = await done.future.timeout(
-      const Duration(seconds: 15),
-      onTimeout: () => 'no answer from the provider',
-    );
-    await sub.cancel();
-    await backend.close();
     await listing;
     if (error != null) return {'connected': false, 'error': error};
     await _settings.set(d.apiKey, key, source: 'voice');
     await _settings.set(d.endpoint, endpoint, source: 'voice');
     await _settings.set(d.model, model, source: 'voice');
     await _settings.set(d.voice, voice, source: 'voice');
+    if (d.reasoning case final effort?) {
+      await _settings.set(effort, reasoning, source: 'voice');
+    }
     await _settings.set(
       d.validated,
       _signature(provider, endpoint: endpoint, apiKey: key),
@@ -2121,6 +2132,84 @@ class VoiceManager extends Manager {
       'tools': tools,
       if (toolsError.isNotEmpty) 'toolsError': toolsError,
     };
+  }
+
+  /// Whether [config] gets a session: null when the provider takes it, the
+  /// reason otherwise.
+  Future<String?> _realtimeConnects(RealtimeConfig config) async {
+    final backend = OpenAiRealtimeBackend(
+      config: config,
+      toolbox: const LocalToolbox(),
+      log: (line) => log.info(name, 'realtime test: $line'),
+    );
+    final done = Completer<String?>();
+    final sub = backend.events.listen((e) {
+      if (done.isCompleted) return;
+      if (e is RealtimeReady) done.complete(null);
+      if (e is RealtimeClosed) done.complete(e.error ?? 'closed');
+    });
+    unawaited(backend.start(const RealtimeStart()));
+    final error = await done.future.timeout(
+      const Duration(seconds: 15),
+      onTimeout: () => 'no answer from the provider',
+    );
+    await sub.cancel();
+    await backend.close();
+    return error;
+  }
+
+  final _checkTimers = <RealtimeProvider, Timer>{};
+
+  /// The providers whose row shows a failed check, not a conversation's.
+  final _checkFailed = <RealtimeProvider>{};
+
+  /// A provider whose key or endpoint changed outside its dialog, from a
+  /// fleet leader or a settings import, gets the test Save & Validate runs.
+  /// Validation is per device, and without it a follower's wake word fell
+  /// back to Assist with the leader's working key. A change from the dialog
+  /// is validated by the time this runs and is left alone.
+  void _scheduleRealtimeCheck(
+    RealtimeProvider provider, {
+    Duration after = const Duration(seconds: 3),
+  }) {
+    _checkTimers[provider]?.cancel();
+    _checkTimers[provider] = Timer(
+      after,
+      () => unawaited(_checkRealtime(provider)),
+    );
+  }
+
+  Future<void> _checkRealtime(RealtimeProvider provider) async {
+    final d = _realtimeDefs(provider);
+    final key = _settings.get(d.apiKey).trim();
+    final endpoint = _settings.get(d.endpoint).trim();
+    if (realtimeReady(provider) || (key.isEmpty && endpoint.isEmpty)) {
+      // Back to settings that worked, or to none: an earlier check's
+      // failure is about settings that are gone.
+      if (_checkFailed.remove(provider)) _realtimeProblem(provider, null);
+      return;
+    }
+    _checkFailed.remove(provider);
+    _realtimeProblem(provider, null);
+    final error = await _realtimeConnects(realtimeConfig(provider));
+    // Changed again meanwhile: that change has a check of its own.
+    if (_settings.get(d.apiKey).trim() != key ||
+        _settings.get(d.endpoint).trim() != endpoint) {
+      return;
+    }
+    if (error != null) {
+      log.info(name, 'realtime: ${provider.id} not validated: $error');
+      _checkFailed.add(provider);
+      _realtimeProblem(provider, error);
+      return;
+    }
+    await _settings.set(
+      d.validated,
+      _signature(provider, endpoint: endpoint, apiKey: key),
+      source: 'voice',
+    );
+    log.info(name, 'realtime: ${provider.id} validated');
+    realtimeStatusRevision.value++;
   }
 
   // What each provider offers when it cannot be asked: xAI documents these
@@ -3216,7 +3305,7 @@ class VoiceManager extends Manager {
     homeAssistant.removeListener(_announceStatus);
     homeAssistant.removeListener(_watchSelects);
     _watchTimer?.cancel();
-    for (final timer in _catalogTimers.values) {
+    for (final timer in [..._catalogTimers.values, ..._checkTimers.values]) {
       timer.cancel();
     }
     await _unwatchSelects?.call();

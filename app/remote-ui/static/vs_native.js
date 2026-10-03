@@ -294,7 +294,11 @@ function selectsBlock(rows) {
    holds (the device's realtimeProviderSettings). Neither UI draws them as
    rows: the provider's row takes the first one's place. */
 export const REALTIME_PROVIDERS = { openai: 'OpenAI', xai: 'xAI Grok' };
-export const providerKeys = (provider) => ['api_key', 'model', 'voice', 'endpoint']
+const PROVIDER_FIELDS = ['api_key', 'model', 'voice', 'endpoint'];
+// OpenAI's Reasoning effort, which xAI has no say in.
+const providerFields = (provider) => provider === 'openai'
+  ? [...PROVIDER_FIELDS, 'reasoning'] : PROVIDER_FIELDS;
+export const providerKeys = (provider) => providerFields(provider)
   .map((name) => `voice.realtime_${provider}_${name}`);
 
 /* The provider settings a device echo repaints in place: their rows are
@@ -344,7 +348,7 @@ function dialogField(setting, control) {
 function openRealtimeProvider(provider, onSaved) {
   const setting = (name) => (state.settings || [])
     .find((s) => s.key === `voice.realtime_${provider}_${name}`);
-  const [keyDef, modelDef, voiceDef, endpointDef] = ['api_key', 'model', 'voice', 'endpoint'].map(setting);
+  const [keyDef, modelDef, voiceDef, endpointDef, reasoningDef] = providerFields(provider).map(setting);
   let saving = false;
   const shell = modalShell({ title: REALTIME_PROVIDERS[provider], width: 480,
     onDismiss: () => { if (!saving) shell.close(); } });
@@ -370,6 +374,7 @@ function openRealtimeProvider(provider, onSaved) {
   };
   const model = picker(modelDef);
   const voice = picker(voiceDef);
+  const reasoning = reasoningDef ? picker(reasoningDef) : null;
   const endpoint = document.createElement('input');
   endpoint.type = 'url';
   endpoint.spellcheck = false;
@@ -377,8 +382,8 @@ function openRealtimeProvider(provider, onSaved) {
   endpoint.placeholder = endpointDef?.placeholder || '';
   const issue = document.createElement('div');
   issue.setAttribute('role', 'alert');
-  form.append(dialogField(keyDef, key), dialogField(modelDef, model),
-    dialogField(voiceDef, voice), dialogField(endpointDef, endpoint), issue);
+  form.append(dialogField(keyDef, key), dialogField(modelDef, model), dialogField(voiceDef, voice),
+    ...(reasoning ? [dialogField(reasoningDef, reasoning)] : []), dialogField(endpointDef, endpoint), issue);
   shell.body.append(form);
   const cancel = document.createElement('button');
   cancel.type = 'button';
@@ -391,7 +396,7 @@ function openRealtimeProvider(provider, onSaved) {
   save.textContent = voiceText('Save & Validate');
   save.addEventListener('click', () => form.requestSubmit());
   shell.foot.append(cancel, save);
-  const controls = [cancel, save, key, model, voice, endpoint];
+  const controls = [cancel, save, key, model, voice, endpoint, ...(reasoning ? [reasoning] : [])];
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     if (saving) return;
@@ -400,6 +405,7 @@ function openRealtimeProvider(provider, onSaved) {
     save.textContent = voiceText('Checking…');
     issue.replaceChildren();
     const params = { provider, endpoint: endpoint.value, model: model.value, voice: voice.value };
+    if (reasoning) params.reasoning = reasoning.value;
     if (key.value || keyDef?.value !== '__set__') params.apiKey = key.value;
     const r = await cmd('voiceRealtimeSave', params, { timeoutMs: 40000 }).catch((e) => ({ ok: false, error: e?.message }));
     saving = false;

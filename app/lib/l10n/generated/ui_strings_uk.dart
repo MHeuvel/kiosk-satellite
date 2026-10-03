@@ -1441,6 +1441,15 @@ class UiStringsUk extends UiStrings {
   String get fleetImmichApiKey => 'Ключ API Immich';
 
   @override
+  String get fleetOpenAiApiKey => 'Ключ API OpenAI';
+
+  @override
+  String get fleetXaiApiKey => 'Ключ API xAI';
+
+  @override
+  String get fleetMcpServerToken => 'Токен сервера MCP';
+
+  @override
   String get fleetUpdateTheFleet => 'Оновити групу';
 
   @override
@@ -11919,6 +11928,38 @@ class UiStringsUk extends UiStrings {
   @override
   String get settingVoiceRealtimeIdleSecondsDescription =>
       'Розмова завершується, якщо стільки часу ніхто не говорить.';
+
+  @override
+  String get settingVoiceRealtimeReasoningTitle => 'Рівень міркувань';
+
+  @override
+  String get settingVoiceRealtimeReasoningDescription =>
+      'Більше зусиль дає кращі відповіді на складні запитання. Потрібна модель gpt-realtime-2.';
+
+  @override
+  String get voiceRealtimeReasoningDefault => 'Типово для моделі';
+
+  @override
+  String get voiceRealtimeReasoningMinimal => 'Мінімальний';
+
+  @override
+  String get voiceRealtimeReasoningLow => 'Низький';
+
+  @override
+  String get voiceRealtimeReasoningMedium => 'Середній';
+
+  @override
+  String get voiceRealtimeReasoningHigh => 'Високий';
+
+  @override
+  String get voiceRealtimeReasoningExtraHigh => 'Дуже високий';
+
+  @override
+  String get settingVoiceRealtimeSpeedTitle => 'Швидкість мовлення';
+
+  @override
+  String get settingVoiceRealtimeSpeedDescription =>
+      'Як швидко говорить асистент.';
 
   @override
   String get settingVoiceRealtimeHistoryHoursTitle => 'Тривалість сеансу';

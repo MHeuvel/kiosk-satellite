@@ -475,12 +475,15 @@ Future<bool> showRealtimeProviderDialog(
   RealtimeProvider provider,
 ) async {
   final settings = container.settings;
-  final [keyDef, modelDef, voiceDef, endpointDef] =
+  // OpenAI's list ends with Reasoning effort, which xAI has no say in.
+  final [keyDef, modelDef, voiceDef, endpointDef, ...more] =
       defs.realtimeProviderSettings[provider.id]!;
+  final reasoningDef = more.firstOrNull;
   final apiKey = TextEditingController(text: settings.get(keyDef));
   final endpoint = TextEditingController(text: settings.get(endpointDef));
   var model = settings.get(modelDef);
   var voice = settings.get(voiceDef);
+  var reasoning = reasoningDef == null ? '' : settings.get(reasoningDef);
   var saving = false;
   String? error;
 
@@ -532,6 +535,7 @@ Future<bool> showRealtimeProviderDialog(
             'endpoint': endpoint.text,
             'model': model,
             'voice': voice,
+            'reasoning': reasoning,
           });
           if (!ctx.mounted) return;
           final data = result.data is Map
@@ -584,6 +588,13 @@ Future<bool> showRealtimeProviderDialog(
                       voice,
                       (v) => setDialogState(() => voice = v),
                     ),
+                    if (reasoningDef != null)
+                      picker(
+                        ctx,
+                        reasoningDef,
+                        reasoning,
+                        (v) => setDialogState(() => reasoning = v),
+                      ),
                     LabeledField(
                       label: endpointDef.localizedTitle(ctx),
                       helper: endpointDef.localizedDescription(ctx),

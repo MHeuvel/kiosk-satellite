@@ -398,6 +398,9 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'fleetHomeAssistantToken' => strings.fleetHomeAssistantToken,
       'fleetMusicAssistantToken' => strings.fleetMusicAssistantToken,
       'fleetImmichApiKey' => strings.fleetImmichApiKey,
+      'fleetOpenAiApiKey' => strings.fleetOpenAiApiKey,
+      'fleetXaiApiKey' => strings.fleetXaiApiKey,
+      'fleetMcpServerToken' => strings.fleetMcpServerToken,
       'fleetUpdateTheFleet' => strings.fleetUpdateTheFleet,
       'fleetUpdateTheWholeFleetToTheKioskSatelliteVersion' =>
         strings.fleetUpdateTheWholeFleetToTheKioskSatelliteVersion,
@@ -3930,6 +3933,21 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingVoiceRealtimeIdleSecondsTitle,
       'settingVoiceRealtimeIdleSecondsDescription' =>
         strings.settingVoiceRealtimeIdleSecondsDescription,
+      'settingVoiceRealtimeReasoningTitle' =>
+        strings.settingVoiceRealtimeReasoningTitle,
+      'settingVoiceRealtimeReasoningDescription' =>
+        strings.settingVoiceRealtimeReasoningDescription,
+      'voiceRealtimeReasoningDefault' => strings.voiceRealtimeReasoningDefault,
+      'voiceRealtimeReasoningMinimal' => strings.voiceRealtimeReasoningMinimal,
+      'voiceRealtimeReasoningLow' => strings.voiceRealtimeReasoningLow,
+      'voiceRealtimeReasoningMedium' => strings.voiceRealtimeReasoningMedium,
+      'voiceRealtimeReasoningHigh' => strings.voiceRealtimeReasoningHigh,
+      'voiceRealtimeReasoningExtraHigh' =>
+        strings.voiceRealtimeReasoningExtraHigh,
+      'settingVoiceRealtimeSpeedTitle' =>
+        strings.settingVoiceRealtimeSpeedTitle,
+      'settingVoiceRealtimeSpeedDescription' =>
+        strings.settingVoiceRealtimeSpeedDescription,
       'settingVoiceRealtimeHistoryHoursTitle' =>
         strings.settingVoiceRealtimeHistoryHoursTitle,
       'settingVoiceRealtimeHistoryHoursDescription' =>

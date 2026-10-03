@@ -20,5 +20,8 @@
   "fleetNameRemoteAdministrationRendererWorkaroundsScale": "naam, beheer op afstand, rendereroplossingen, schaal",
   "fleetHomeAssistantToken": "Home Assistant-token",
   "fleetMusicAssistantToken": "Music Assistant-token",
-  "fleetImmichApiKey": "Immich-API-sleutel"
+  "fleetImmichApiKey": "Immich-API-sleutel",
+  "fleetOpenAiApiKey": "OpenAI-API-sleutel",
+  "fleetXaiApiKey": "xAI-API-sleutel",
+  "fleetMcpServerToken": "MCP-servertoken"
 }

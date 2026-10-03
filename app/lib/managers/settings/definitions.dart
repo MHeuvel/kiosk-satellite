@@ -5568,6 +5568,32 @@ const voiceRealtimeOpenAiVoice = SettingDef<String>(
   dependsOn: 'voice.enabled',
 );
 
+/// OpenAI only, and only its gpt-realtime-2 models: the older ones refuse
+/// a session that sets it, which Save & Validate reports. xAI refuses the
+/// field outright. Empty leaves it to the model.
+const voiceRealtimeOpenAiReasoning = SettingDef<String>(
+  key: 'voice.realtime_openai_reasoning',
+  type: SettingType.select,
+  defaultValue: '',
+  title: 'Reasoning effort',
+  description:
+      'More effort answers harder questions better. Needs a gpt-realtime-2 '
+      'model.',
+  category: 'Voice Satellite',
+  subpage: 'Realtime',
+  section: 'Providers',
+  options: ['', 'minimal', 'low', 'medium', 'high', 'xhigh'],
+  optionLabels: {
+    '': 'Model default',
+    'minimal': 'Minimal',
+    'low': 'Low',
+    'medium': 'Medium',
+    'high': 'High',
+    'xhigh': 'Extra high',
+  },
+  dependsOn: 'voice.enabled',
+);
+
 const voiceRealtimeOpenAiEndpoint = SettingDef<String>(
   key: 'voice.realtime_openai_endpoint',
   type: SettingType.string,
@@ -5678,6 +5704,7 @@ const realtimeProviderSettings = <String, List<SettingDef<String>>>{
     voiceRealtimeOpenAiModel,
     voiceRealtimeOpenAiVoice,
     voiceRealtimeOpenAiEndpoint,
+    voiceRealtimeOpenAiReasoning,
   ],
   'xai': [
     voiceRealtimeXaiApiKey,
@@ -5713,6 +5740,24 @@ const voiceRealtimeIdleSeconds = SettingDef<num>(
   max: 60,
   step: 1,
   unit: 's',
+  dependsOn: 'voice.enabled',
+);
+
+/// OpenAI (and Azure) accept 0.25 to 1.5 and refuse the session above
+/// that. xAI goes to 2, but one range keeps the setting the same for both.
+const voiceRealtimeSpeed = SettingDef<num>(
+  key: 'voice.realtime_speed',
+  type: SettingType.number,
+  defaultValue: 1,
+  title: 'Speech speed',
+  description: 'How fast the assistant talks.',
+  category: 'Voice Satellite',
+  subpage: 'Realtime',
+  section: 'Conversation',
+  min: 0.5,
+  max: 1.5,
+  step: 0.05,
+  unit: 'x',
   dependsOn: 'voice.enabled',
 );
 
@@ -9273,6 +9318,9 @@ const fleetCredentials = <(String, String)>[
   ('sendspin.ma_token', 'Music Assistant token'),
   ('screensaver.immich_api_key', 'Immich API key'),
   ('intercom.key', 'Intercom key'),
+  ('voice.realtime_openai_api_key', 'OpenAI API key'),
+  ('voice.realtime_xai_api_key', 'xAI API key'),
+  ('voice.realtime_mcp_token', 'MCP server token'),
 ];
 
 const fleetCredentialKeys = {
@@ -9280,6 +9328,20 @@ const fleetCredentialKeys = {
   'sendspin.ma_token',
   'screensaver.immich_api_key',
   'intercom.key',
+  'voice.realtime_openai_api_key',
+  'voice.realtime_xai_api_key',
+  'voice.realtime_mcp_token',
+};
+
+/// Credentials that traveled with a category before they had a switch of
+/// their own. A profile saved by a version that did not offer them keeps
+/// them on where it synced that category, so an upgrade takes nothing
+/// away from a fleet. New profiles leave them off: the realtime keys are
+/// billed per use.
+const fleetFormerCategoryCredentials = {
+  'voice.realtime_openai_api_key': 'Voice Satellite',
+  'voice.realtime_xai_api_key': 'Voice Satellite',
+  'voice.realtime_mcp_token': 'Voice Satellite',
 };
 
 /// The dashboard: synced only when the leader was told to include it.
@@ -10166,6 +10228,7 @@ const List<SettingDef<Object>> allSettings = [
   voiceRealtimeOpenAiModel,
   voiceRealtimeOpenAiVoice,
   voiceRealtimeOpenAiEndpoint,
+  voiceRealtimeOpenAiReasoning,
   voiceRealtimeOpenAiValidated,
   voiceRealtimeXaiApiKey,
   voiceRealtimeXaiModel,
@@ -10174,6 +10237,7 @@ const List<SettingDef<Object>> allSettings = [
   voiceRealtimeXaiValidated,
   voiceRealtimeInstructions,
   voiceRealtimeIdleSeconds,
+  voiceRealtimeSpeed,
   voiceRealtimeHistoryHours,
   voiceRealtimeTalkOver,
   voiceRealtimeTools,

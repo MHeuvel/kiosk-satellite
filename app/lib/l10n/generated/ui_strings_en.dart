@@ -1437,6 +1437,15 @@ class UiStringsEn extends UiStrings {
   String get fleetImmichApiKey => 'Immich API key';
 
   @override
+  String get fleetOpenAiApiKey => 'OpenAI API key';
+
+  @override
+  String get fleetXaiApiKey => 'xAI API key';
+
+  @override
+  String get fleetMcpServerToken => 'MCP server token';
+
+  @override
   String get fleetUpdateTheFleet => 'Update the fleet';
 
   @override
@@ -11787,6 +11796,38 @@ class UiStringsEn extends UiStrings {
   @override
   String get settingVoiceRealtimeIdleSecondsDescription =>
       'The conversation ends after this long with nobody talking.';
+
+  @override
+  String get settingVoiceRealtimeReasoningTitle => 'Reasoning effort';
+
+  @override
+  String get settingVoiceRealtimeReasoningDescription =>
+      'More effort answers harder questions better. Needs a gpt-realtime-2 model.';
+
+  @override
+  String get voiceRealtimeReasoningDefault => 'Model default';
+
+  @override
+  String get voiceRealtimeReasoningMinimal => 'Minimal';
+
+  @override
+  String get voiceRealtimeReasoningLow => 'Low';
+
+  @override
+  String get voiceRealtimeReasoningMedium => 'Medium';
+
+  @override
+  String get voiceRealtimeReasoningHigh => 'High';
+
+  @override
+  String get voiceRealtimeReasoningExtraHigh => 'Extra high';
+
+  @override
+  String get settingVoiceRealtimeSpeedTitle => 'Speech speed';
+
+  @override
+  String get settingVoiceRealtimeSpeedDescription =>
+      'How fast the assistant talks.';
 
   @override
   String get settingVoiceRealtimeHistoryHoursTitle => 'Session duration';

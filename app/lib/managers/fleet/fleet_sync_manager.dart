@@ -106,6 +106,9 @@ class SyncProfile {
     'name': name,
     'categories': categories.toList(),
     'credentials': credentials.toList(),
+    // What this version offered, so a later one tells the credentials
+    // left off from the ones it adds (_loadProfiles).
+    'credentialsOffered': defs.fleetCredentialKeys.toList(),
     'dashboard': dashboard,
     'excluded': excluded.toList(),
   };
@@ -495,6 +498,24 @@ class FleetSyncManager extends Manager {
               (former) => setEquals(excluded, former),
             )) {
               p = p.copyWith(excluded: defs.fleetDefaultExcluded);
+              changed = true;
+            }
+            // A credential its version did not offer traveled with its
+            // category then, and still does.
+            final offered = item is Map && item['credentialsOffered'] is List
+                ? {for (final k in item['credentialsOffered'] as List) '$k'}
+                : const <String>{};
+            final added = defs.fleetFormerCategoryCredentials.entries.where(
+              (e) => !offered.contains(e.key),
+            );
+            if (added.isNotEmpty) {
+              p = p.copyWith(
+                credentials: {
+                  ...p.credentials,
+                  for (final e in added)
+                    if (p.categories.contains(e.value)) e.key,
+                },
+              );
               changed = true;
             }
             _profiles.add(p);

@@ -474,6 +474,55 @@ void main() {
       await backend.close();
     });
 
+    test('speech speed goes in audio.output, left out at 1', () async {
+      for (final provider in RealtimeProvider.values) {
+        var backend = make(RealtimeConfig(provider: provider, speed: 1.25));
+        await backend.start(const RealtimeStart());
+        var audio = (socket.sent.first['session'] as Map)['audio'] as Map;
+        expect((audio['output'] as Map)['speed'], 1.25);
+        await backend.close();
+
+        backend = make(RealtimeConfig(provider: provider));
+        await backend.start(const RealtimeStart());
+        audio = (socket.sent.first['session'] as Map)['audio'] as Map;
+        expect((audio['output'] as Map).containsKey('speed'), isFalse);
+        await backend.close();
+      }
+    });
+
+    test('reasoning effort goes to OpenAI only, left out when empty', () async {
+      var backend = make(
+        const RealtimeConfig(
+          provider: RealtimeProvider.openai,
+          reasoning: 'high',
+        ),
+      );
+      await backend.start(const RealtimeStart());
+      expect((socket.sent.first['session'] as Map)['reasoning'], {
+        'effort': 'high',
+      });
+      await backend.close();
+
+      backend = make(const RealtimeConfig(provider: RealtimeProvider.openai));
+      await backend.start(const RealtimeStart());
+      expect(
+        (socket.sent.first['session'] as Map).containsKey('reasoning'),
+        isFalse,
+      );
+      await backend.close();
+
+      // xAI refuses the whole session.update over the field.
+      backend = make(
+        const RealtimeConfig(provider: RealtimeProvider.xai, reasoning: 'high'),
+      );
+      await backend.start(const RealtimeStart());
+      expect(
+        (socket.sent.first['session'] as Map).containsKey('reasoning'),
+        isFalse,
+      );
+      await backend.close();
+    });
+
     test('where the kiosk is joins the instructions, with xAI the earlier '
         'exchanges too', () async {
       const history = [

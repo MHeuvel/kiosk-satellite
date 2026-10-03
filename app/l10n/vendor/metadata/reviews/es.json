@@ -18868,5 +18868,70 @@
     "source": "786142304ed26a6681729d37dd8322d161843e4f6520aaea00e86b2bf64f7d65",
     "translation": "39fe963e0a7bdf1fddcbebf85ab3ee963f1d7e3d8b81b4178d6e76e7a7f10c6f",
     "author": "Xavier Larrea"
+  },
+  "settingVoiceRealtimeSpeedDescription": {
+    "source": "82a2308724ef78bf7fe1ad5def418e43a6ee18ad4fcaf9a904104593db83727a",
+    "translation": "a9200e07362fb3cfd6c9a8d790c8675c04866712c88da0ea9e63ff5ce6938e87",
+    "author": "Xavier Larrea"
+  },
+  "settingVoiceRealtimeSpeedTitle": {
+    "source": "a6dad5501c67b0dbe5c8fc0dc84b7e8b93126aafb8a91148a2b0a02c33529f4a",
+    "translation": "0afc327f00f6af5bb44e44ca4284f85d777ee7efdce926ee64c141299ece9898",
+    "author": "Xavier Larrea"
+  },
+  "voiceRealtimeReasoningHigh": {
+    "source": "c333c6feb6a7350fe6be9f5cef33c307baecebd73747c30f80fac4574886a6e1",
+    "translation": "85e2adef7edee9e0bc96d3d04ec60799093f6363be6acde0aacec77587b3f952",
+    "author": "Xavier Larrea"
+  },
+  "settingVoiceRealtimeReasoningDescription": {
+    "source": "264de1f471e8382bddcf105d48be5aa68a859daf51d6544eff9c65605da77151",
+    "translation": "fa3210b2ea77793c36a2ae343ccaecfb5c15bb88e0d84b23337fd4c3b3f2fcc4",
+    "author": "Xavier Larrea"
+  },
+  "voiceRealtimeReasoningMedium": {
+    "source": "064381d49648c1d2d2e29a67f31501d26e47bd8fecff86af768a4375fcc319ef",
+    "translation": "da26d4f11244518e356cd45724d7e4bd2095275d2a26fd7786890400238a997c",
+    "author": "Xavier Larrea"
+  },
+  "voiceRealtimeReasoningMinimal": {
+    "source": "c9ebc78695cbb17b0511122fd9fe6789935189c80ff28fe0cd2fd6726961fa4c",
+    "translation": "5d61b4a122c009e1376065911bb22100ba0054dfe7d1936a9f51c70bf1480908",
+    "author": "Xavier Larrea"
+  },
+  "voiceRealtimeReasoningDefault": {
+    "source": "1fb4fd57978d9f3ab57c17c400119dfaccb6385dfc331107b054352a175a1994",
+    "translation": "d6d36e40237203fd7a7d91cd1afdc04f32e69fc5432ada4d41d5f63ede66b1f6",
+    "author": "Xavier Larrea"
+  },
+  "voiceRealtimeReasoningLow": {
+    "source": "d7fb1f122c8fd14e97239efaa2185134c98cdf919e1bdadf96d7325b91fd2823",
+    "translation": "ece6db80e37700b71f538a0d7071ae1163c2c0753b6484b5dc05ac0ab8f1e9b1",
+    "author": "Xavier Larrea"
+  },
+  "settingVoiceRealtimeReasoningTitle": {
+    "source": "c3e6ba7144c5de93a4a7263c5bd183b687abe3e2c0d445f98d3a589f8617b105",
+    "translation": "faab3a43680f9605a296f67247e9d32890d81fcc23a0340a706ee96634ba36b7",
+    "author": "Xavier Larrea"
+  },
+  "voiceRealtimeReasoningExtraHigh": {
+    "source": "c1b1a1828ea799d6b96547af7b7e1180c51d7acae29b4ee1a753b55f6c6cfd75",
+    "translation": "2d24ed4768df5c894bc98984b1040626b6ce01e8bf032a23bf5d1d72bec300f7",
+    "author": "Xavier Larrea"
+  },
+  "fleetOpenAiApiKey": {
+    "source": "9c81ac9ab31ba6c8c10642e427256596016cb39fe4ce04a24ad989cc643d1ae1",
+    "translation": "83d4bcd87fba32c796cd0265b471d2c78a97e501811b931728f138d6b042a2c4",
+    "author": "Xavier Larrea"
+  },
+  "fleetMcpServerToken": {
+    "source": "5d7bd734b39b0bcda62cbf56c71c8f6d4d31176fa9cd9baabb5891cdbec42a9b",
+    "translation": "996283cf591ebd34a9ffc478da946cab53cbce2a3cd02b1589eb5c8cf07b1b5b",
+    "author": "Xavier Larrea"
+  },
+  "fleetXaiApiKey": {
+    "source": "b6fa8a69870b5533b454797fbf0b752a012b01ec4d13087b4a9372943283a013",
+    "translation": "353ef506736a37e904c3aeed86096475c2b88e28ffad4923e08c99f210821666",
+    "author": "Xavier Larrea"
   }
 }

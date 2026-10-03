@@ -20,5 +20,8 @@
   "fleetNameRemoteAdministrationRendererWorkaroundsScale": "ім'я, віддалене керування, виправлення рендерера, масштаб",
   "fleetHomeAssistantToken": "Токен Home Assistant",
   "fleetMusicAssistantToken": "Токен Music Assistant",
-  "fleetImmichApiKey": "Ключ API Immich"
+  "fleetImmichApiKey": "Ключ API Immich",
+  "fleetOpenAiApiKey": "Ключ API OpenAI",
+  "fleetXaiApiKey": "Ключ API xAI",
+  "fleetMcpServerToken": "Токен сервера MCP"
 }

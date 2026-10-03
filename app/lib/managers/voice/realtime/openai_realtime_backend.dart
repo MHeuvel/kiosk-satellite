@@ -48,6 +48,8 @@ class RealtimeConfig {
     this.model = '',
     this.voice = '',
     this.instructions = '',
+    this.speed = 1,
+    this.reasoning = '',
   });
 
   final RealtimeProvider provider;
@@ -59,6 +61,14 @@ class RealtimeConfig {
   final String model;
   final String voice;
   final String instructions;
+
+  /// How fast the answers play, 1 for the provider's normal pace. Both
+  /// dialects take it as `audio.output.speed`.
+  final double speed;
+
+  /// OpenAI's reasoning effort (minimal to xhigh), empty for the model's
+  /// own. xAI has none and refuses the field.
+  final String reasoning;
 
   String get effectiveModel =>
       model.trim().isEmpty ? provider.model : model.trim();
@@ -324,8 +334,14 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
               'interrupt_response': false,
             },
           },
-          'output': {'format': format, 'voice': config.effectiveVoice},
+          'output': {
+            'format': format,
+            'voice': config.effectiveVoice,
+            if (config.speed != 1) 'speed': config.speed,
+          },
         },
+        if (config.reasoning.isNotEmpty)
+          'reasoning': {'effort': config.reasoning},
         if (toolList.isNotEmpty) 'tools': toolList,
         if (toolList.isNotEmpty) 'tool_choice': 'auto',
       },
@@ -339,7 +355,10 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
             if (language.length == 2)
               'transcription': {'language_hint': language},
           },
-          'output': {'format': format},
+          'output': {
+            'format': format,
+            if (config.speed != 1) 'speed': config.speed,
+          },
         },
         if (toolList.isNotEmpty) 'tools': toolList,
       },

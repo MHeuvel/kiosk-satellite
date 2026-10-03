@@ -66,8 +66,8 @@ When Home Assistant runs the integration, onboarding offers the same migration i
 | | Talk right after the wake word | Skips the wake sound and keeps what you say right after the wake word. |
 | | Follow-up delay, Chime before a follow-up | A pause and a chime before listening for the answer to a question. |
 | | Play sounds on, Play as | Where answers and chimes play. See [below](#play-sounds-on-a-media-player). |
-| Realtime | Providers | A row per provider with its status. **Configure** opens its API key, model, voice and endpoint, and **Save & Validate** stores them once the provider connects. |
-| | Instructions, End after silence, Session duration, Talk over answers | How the conversation behaves, ends and carries over, for both providers. |
+| Realtime | Providers | A row per provider with its status. **Configure** opens its API key, model, voice and endpoint, plus **Reasoning effort** for OpenAI, and **Save & Validate** stores them once the provider connects. |
+| | Instructions, End after silence, Speech speed, Session duration, Talk over answers | How the conversation behaves, sounds, ends and carries over, for both providers. |
 | | Tools | What the model can control. See [Realtime conversations](#realtime-conversations). |
 | Wake Word | Wake word engine | vsWakeWord (default), microWakeWord or openWakeWord. All models ship with the app. |
 | | Wake word 1 and 2 | Home Assistant's selects. Wake word 2 is answered by Assistant 2. |
@@ -119,6 +119,10 @@ A wake word answered by a realtime provider starts a conversation with a speech 
 **Kiosks without internet access.** Set a provider's **Endpoint** to a relay on your network that speaks its realtime protocol. The kiosk only talks to the relay, and the API key can live there instead of on the kiosk.
 
 **On screen.** A conversation docks at the bottom of the screen in a bubble with the current exchange and the skin's bar along its bottom edge. It stays up until the conversation ends, and the dashboard stays visible and usable underneath. The bar drains in the last seconds before **End after silence** ends the conversation. Saying goodbye ends it too, and so does the close button. "Stop" cuts off an answer and keeps the conversation going.
+
+**Reasoning effort** (OpenAI only) sets how much the model reasons before it answers, from Minimal to Extra high. More effort gets harder questions right more often. Only the gpt-realtime-2 models support it, and Save & Validate fails with "Unsupported option for this model" on the others. **Model default** leaves it to the model.
+
+**Speech speed** sets how fast the model talks, from 0.5x to 1.5x. OpenAI does not go faster than 1.5x.
 
 **Talk over answers** keeps the microphone open while the model speaks, so you can interrupt it. It relies on the kiosk's echo canceller. If the model keeps interrupting itself, turn it off: the microphone then closes while the model speaks and "stop" interrupts it when **Stop word interruption** is on.
 

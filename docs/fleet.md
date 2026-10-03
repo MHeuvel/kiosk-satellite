@@ -47,7 +47,12 @@ A profile consists of:
 | Home Assistant token | Off | Kiosk keeps its own (stays as its local user). | Token syncs across fleet. |
 | Music Assistant token | On | Kiosk keeps its own. | Token syncs across fleet. |
 | Immich API key | On | Kiosk keeps its own. | Token syncs across fleet. |
+| OpenAI API key | Off | Kiosk keeps its own. | Key syncs across fleet, and each follower validates it on its own. |
+| xAI API key | Off | Kiosk keeps its own. | Key syncs across fleet, and each follower validates it on its own. |
+| MCP server token | Off | Kiosk keeps its own. | Token syncs across fleet. |
 | Include the dashboard | Off | Kiosk keeps its local start page and dashboard. | Start page and dashboard sync. |
+
+The realtime keys are off by default because each provider bills per use. A profile saved before they became credentials keeps them on where it syncs Voice Satellite, as they were before. When a follower receives a realtime key or endpoint, it runs the same connection test as **Save & Validate**. The provider becomes a choice for its wake words once that passes, and the provider's row shows the error if it fails.
 
 ### Excluded by Default
 

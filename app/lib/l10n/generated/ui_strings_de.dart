@@ -1459,6 +1459,15 @@ class UiStringsDe extends UiStrings {
   String get fleetImmichApiKey => 'Immich-API-Schlüssel';
 
   @override
+  String get fleetOpenAiApiKey => 'OpenAI-API-Schlüssel';
+
+  @override
+  String get fleetXaiApiKey => 'xAI-API-Schlüssel';
+
+  @override
+  String get fleetMcpServerToken => 'MCP-Server-Token';
+
+  @override
   String get fleetUpdateTheFleet => 'Flotte aktualisieren';
 
   @override
@@ -12072,6 +12081,38 @@ class UiStringsDe extends UiStrings {
   @override
   String get settingVoiceRealtimeIdleSecondsDescription =>
       'Das Gespräch endet, wenn so lange niemand spricht.';
+
+  @override
+  String get settingVoiceRealtimeReasoningTitle => 'Denkaufwand';
+
+  @override
+  String get settingVoiceRealtimeReasoningDescription =>
+      'Mehr Aufwand beantwortet schwierige Fragen besser. Erfordert ein gpt-realtime-2-Modell.';
+
+  @override
+  String get voiceRealtimeReasoningDefault => 'Modellstandard';
+
+  @override
+  String get voiceRealtimeReasoningMinimal => 'Minimal';
+
+  @override
+  String get voiceRealtimeReasoningLow => 'Niedrig';
+
+  @override
+  String get voiceRealtimeReasoningMedium => 'Mittel';
+
+  @override
+  String get voiceRealtimeReasoningHigh => 'Hoch';
+
+  @override
+  String get voiceRealtimeReasoningExtraHigh => 'Sehr hoch';
+
+  @override
+  String get settingVoiceRealtimeSpeedTitle => 'Sprechgeschwindigkeit';
+
+  @override
+  String get settingVoiceRealtimeSpeedDescription =>
+      'Wie schnell der Assistent spricht.';
 
   @override
   String get settingVoiceRealtimeHistoryHoursTitle => 'Sitzungsdauer';

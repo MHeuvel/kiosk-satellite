@@ -1820,6 +1820,10 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingVoiceRealtimeIdleSecondsTitle",
     "description": "settingVoiceRealtimeIdleSecondsDescription",
   },
+  "voice.realtime_speed": {
+    "title": "settingVoiceRealtimeSpeedTitle",
+    "description": "settingVoiceRealtimeSpeedDescription",
+  },
   "voice.realtime_history_hours": {
     "title": "settingVoiceRealtimeHistoryHoursTitle",
     "description": "settingVoiceRealtimeHistoryHoursDescription",
@@ -1847,6 +1851,10 @@ const settingMessageIds = <String, Map<String, String>>{
   "voice.realtime_openai_api_key": {
     "title": "settingVoiceRealtimeApiKeyTitle",
     "description": "settingVoiceRealtimeApiKeyDescription",
+  },
+  "voice.realtime_openai_reasoning": {
+    "title": "settingVoiceRealtimeReasoningTitle",
+    "description": "settingVoiceRealtimeReasoningDescription",
   },
   "voice.realtime_openai_endpoint": {
     "title": "settingVoiceRealtimeEndpointTitle",

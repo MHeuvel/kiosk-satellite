@@ -877,8 +877,29 @@ void main() {
         // Picked one by one: the other two stay with the kiosk.
         expect(withCreds.keys, isNot(contains('sendspin.ma_token')));
         expect(withCreds.keys, isNot(contains('screensaver.immich_api_key')));
+        // A realtime key is a credential of its own, off unless picked:
+        // Voice Satellite alone does not carry it.
+        await settings.set(defs.voiceRealtimeOpenAiApiKey, 'sk-x');
+        expect(
+          fleet
+              .profileSettings(
+                const SyncProfile(categories: {'Voice Satellite'}),
+              )
+              .keys,
+          isNot(contains('voice.realtime_openai_api_key')),
+        );
+        expect(
+          fleet.profileSettings(
+            const SyncProfile(
+              categories: {'Voice Satellite'},
+              credentials: {'voice.realtime_openai_api_key'},
+            ),
+          )['voice.realtime_openai_api_key'],
+          'sk-x',
+        );
         // A new follower shares the household credentials, not the user.
-        // The intercom key is the household's too.
+        // The intercom key is the household's too. The realtime keys are
+        // billed per use and stay off.
         expect(SyncProfile.initial.credentials, {
           'sendspin.ma_token',
           'screensaver.immich_api_key',
@@ -889,7 +910,7 @@ void main() {
             'categories': [],
             'credentials': ['ha.token', 'bogus'],
           })!.describe(),
-          'Categories: 0 of 18. Credentials: 1 of 4. Excluded: 34.',
+          'Categories: 0 of 18. Credentials: 1 of 7. Excluded: 34.',
         );
         expect(
           withCreds['browser.start_url'],
@@ -2016,6 +2037,73 @@ void main() {
       ((stored.first as Map)['excluded'] as List).toSet(),
       defs.fleetDefaultExcluded,
     );
+  });
+
+  test('a profile from before the realtime keys were credentials keeps '
+      'them where Voice Satellite took them', () async {
+    await build(
+      prefs: {
+        'ks.fleet.leader': true,
+        'ks.fleet.profiles': jsonEncode([
+          {
+            'id': 'default',
+            'name': 'Default',
+            'categories': ['Voice Satellite', 'Gestures'],
+            'credentials': ['ha.token'],
+            'dashboard': false,
+            'excluded': [],
+          },
+          {
+            'id': 'own',
+            'name': 'Own list',
+            'categories': ['Gestures'],
+            'credentials': [],
+            'dashboard': false,
+            'excluded': [],
+          },
+          {
+            'id': 'new',
+            'name': 'Saved since',
+            'categories': ['Voice Satellite'],
+            'credentials': [],
+            'credentialsOffered': defs.fleetCredentialKeys.toList(),
+            'dashboard': false,
+            'excluded': [],
+          },
+        ]),
+      },
+    );
+    final byId = {for (final p in fleet.profiles) p.id: p};
+    expect(byId['default']!.credentials, {
+      'ha.token',
+      'voice.realtime_openai_api_key',
+      'voice.realtime_xai_api_key',
+      'voice.realtime_mcp_token',
+    });
+    // No Voice Satellite, nothing to keep.
+    expect(byId['own']!.credentials, isEmpty);
+    // Saved knowing them: left off on purpose.
+    expect(byId['new']!.credentials, isEmpty);
+    // Stored with the marker: switching them off later sticks.
+    final stored = jsonDecode(settings.get(defs.fleetProfiles)) as List;
+    for (final p in stored) {
+      expect(
+        ((p as Map)['credentialsOffered'] as List).toSet(),
+        defs.fleetCredentialKeys,
+      );
+    }
+    final off = await commands.execute('fleetSetProfile', {
+      'profile': {...byId['default']!.toJson(), 'credentials': <String>[]},
+    });
+    expect(off.ok, isTrue);
+    await fleet.dispose();
+    await build(
+      prefs: {
+        'ks.fleet.leader': true,
+        'ks.fleet.profiles': settings.get(defs.fleetProfiles),
+      },
+    );
+    expect(fleet.defaultProfile.credentials, isEmpty);
   });
 
   test('the brightness curve travels as one: its middle points go where '
