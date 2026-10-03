@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.10.5 - 2026-10-03
 
 ### Added
 - **Speech speed for realtime conversations.** **Voice Satellite > Realtime** gains **Speech speed**, from 0.5x to 1.5x, which sets how fast the model talks with OpenAI, Azure OpenAI and xAI Grok alike. OpenAI refuses a session above 1.5x, so the range stops there for every provider. Translated into Spanish, German, French, Ukrainian and Dutch.
