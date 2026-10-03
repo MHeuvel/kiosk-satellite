@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -462,4 +463,120 @@ void main() {
       expect(fleet.devices.map((d) => d.id), ['aaaa']);
     },
   );
+
+  group('a kiosk with an imported certificate (issue #833)', () {
+    const tls = MethodChannel('kiosk_satellite/tls');
+    Map<String, Object?> certificate = {};
+
+    setUp(() {
+      certificate = {
+        'certificate': File('test/fixtures/tls/cert.pem').readAsStringSync(),
+        'privateKey': File('test/fixtures/tls/key.pem').readAsStringSync(),
+        'notAfter': DateTime.utc(2036).millisecondsSinceEpoch,
+        'imported': true,
+        'dnsNames': ['*.example.com', 'kitchen.local', 'Kitchen.Example.com'],
+      };
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(tls, (call) async => certificate);
+    });
+    tearDown(
+      () => TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(tls, null),
+    );
+
+    test('announces the DNS name its certificate covers', () async {
+      await build({...serving, 'ks.remote.tls': true});
+      final start = calls.lastWhere((c) => c.method == 'start');
+      expect((start.arguments as Map)['dnsName'], 'kitchen.example.com');
+    });
+
+    test('announces no DNS name with the generated certificate', () async {
+      certificate = {...certificate, 'imported': false};
+      await build({...serving, 'ks.remote.tls': true});
+      final start = calls.lastWhere((c) => c.method == 'start');
+      expect((start.arguments as Map).containsKey('dnsName'), isFalse);
+    });
+
+    test('announces no DNS name over HTTP', () async {
+      await build(serving);
+      final start = calls.lastWhere((c) => c.method == 'start');
+      expect((start.arguments as Map).containsKey('dnsName'), isFalse);
+    });
+
+    test('a new certificate goes out at once', () async {
+      certificate = {...certificate, 'imported': false};
+      await build({...serving, 'ks.remote.tls': true});
+      calls.clear();
+      certificate = {
+        ...certificate,
+        'imported': true,
+        'dnsNames': ['office.example.com'],
+      };
+      await settings.tls.change('import');
+      await pump();
+      final start = calls.lastWhere((c) => c.method == 'start');
+      expect((start.arguments as Map)['dnsName'], 'office.example.com');
+    });
+  });
+
+  test('the switcher links an HTTPS kiosk by its DNS name', () async {
+    await build(serving);
+    snapshot = {
+      'self': self,
+      'peers': [
+        {
+          'id': 'bbbb',
+          'name': 'Bedroom',
+          'version': '2026.9.18',
+          'address': '192.168.1.71',
+          'port': 2324,
+          'tls': true,
+          'dnsName': 'bedroom.example.com',
+        },
+        {
+          'id': 'cccc',
+          'name': 'Kitchen',
+          'version': '2026.9.18',
+          'address': '192.168.1.70',
+          'port': 2324,
+          'dnsName': 'kitchen.example.com',
+        },
+        {
+          'id': 'dddd',
+          'name': 'Office',
+          'version': '2026.9.18',
+          'address': '192.168.1.72',
+          'port': 2324,
+          'tls': true,
+          'dnsName': 'not a name/',
+        },
+      ],
+    };
+    final r = await commands.execute('fleet', const {});
+    final devices = (r.data as Map)['devices'] as List;
+    final urls = {for (final d in devices.cast<Map>()) d['id']: d['url']};
+    expect(urls['bbbb'], 'https://bedroom.example.com:2324');
+    // Over HTTP the address still works, so it stays.
+    expect(urls['cccc'], 'http://192.168.1.70:2324');
+    // A name that is not a hostname is dropped.
+    expect(urls['dddd'], 'https://192.168.1.72:2324');
+    // The address is kept for everything else that reaches the kiosk.
+    expect(
+      fleet.devices.firstWhere((d) => d.id == 'bbbb').address,
+      '192.168.1.71',
+    );
+  });
+
+  test('a saved member keeps its DNS name', () async {
+    final leader = {
+      ...self,
+      'id': 'lead',
+      'name': 'Leader',
+      'tls': true,
+      'dnsName': 'leader.example.com',
+    };
+    await build({...serving, 'ks.fleet.leader_info': jsonEncode(leader)});
+    expect(fleet.devices.single.url, 'https://leader.example.com:2324');
+    expect(fleet.devices.single.toDirectory()['dnsName'], 'leader.example.com');
+  });
 }

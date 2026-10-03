@@ -181,6 +181,7 @@ class Follower {
     this.lastSyncAt = 0,
     this.version = '',
     this.tls = false,
+    this.dnsName = '',
   }) : addedAt = addedAt ?? DateTime.now().millisecondsSinceEpoch;
 
   final String id;
@@ -210,6 +211,10 @@ class Follower {
   int lastSyncAt;
   String version;
   bool tls;
+
+  /// The DNS name its imported certificate covers, for the member
+  /// directory's links. Fleet calls keep to [address].
+  String dnsName;
 
   // What the last poll learned. Not persisted.
   bool online = false;
@@ -247,6 +252,7 @@ class Follower {
       lastSyncAt: (raw['lastSyncAt'] as num?)?.toInt() ?? 0,
       version: '${raw['version'] ?? ''}',
       tls: raw['tls'] == true,
+      dnsName: '${raw['dnsName'] ?? ''}',
     );
   }
 
@@ -256,6 +262,7 @@ class Follower {
     'address': address,
     'port': port,
     if (tls) 'tls': true,
+    if (dnsName.isNotEmpty) 'dnsName': dnsName,
     if (token != null) 'token': token,
     if (invite != null) 'invite': invite,
     if (profile != null) 'profile': profile,
@@ -692,13 +699,16 @@ class FleetSyncManager extends Manager {
           final version = '${peer['version'] ?? f.version}';
           final peerName = '${peer['name'] ?? f.name}';
           final tls = peer['tls'] == true;
+          final dnsName = '${peer['dnsName'] ?? ''}';
           if (tls != f.tls ||
+              dnsName != f.dnsName ||
               address != f.address ||
               port != f.port ||
               version != f.version ||
               peerName != f.name) {
             f
               ..tls = tls
+              ..dnsName = dnsName
               ..address = address
               ..port = port
               ..version = version
@@ -844,6 +854,7 @@ class FleetSyncManager extends Manager {
             address: f.address,
             port: f.port,
             tls: f.tls,
+            dnsName: f.dnsName,
           ),
     ]..sort((a, b) => a.id.compareTo(b.id));
     final devices = [for (final member in members) member.toDirectory()];

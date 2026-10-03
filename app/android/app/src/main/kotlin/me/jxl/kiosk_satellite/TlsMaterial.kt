@@ -33,11 +33,19 @@ class TlsMaterial(val certificates: List<X509Certificate>, val key: PrivateKey, 
         JcaPEMWriter(out).use { it.writeObject(value) }
     }.toString()
 
+    /** The DNS names the certificate covers, in its own order. */
+    val dnsNames: List<String> get() = runCatching {
+        certificate.subjectAlternativeNames.orEmpty()
+            .filter { (it[0] as? Int) == GeneralName.dNSName }
+            .mapNotNull { it[1] as? String }
+    }.getOrDefault(emptyList())
+
     fun toMap(): Map<String, Any> = mapOf(
         "certificate" to certificates.joinToString("") { pem(it) },
         "privateKey" to pem(org.bouncycastle.util.io.pem.PemObject("PRIVATE KEY", key.encoded)),
         "notAfter" to certificate.notAfter.time,
         "imported" to imported,
+        "dnsNames" to dnsNames,
     )
 
     fun validate() {

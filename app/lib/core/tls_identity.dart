@@ -16,12 +16,32 @@ class TlsMaterial {
         (data['notAfter'] as num).toInt(),
         isUtc: true,
       ),
-      imported = data['imported'] == true;
+      imported = data['imported'] == true,
+      dnsNames = [
+        for (final n in (data['dnsNames'] as List? ?? const []))
+          if (n is String) n.toLowerCase(),
+      ];
 
   final String certificate;
   final String privateKey;
   final DateTime expires;
   final bool imported;
+
+  /// The DNS names the certificate covers, in its own order.
+  final List<String> dnsNames;
+
+  /// The name an imported certificate is reached by, for links from other
+  /// kiosks: its first DNS name that is neither a wildcard nor `.local`.
+  /// Null for the generated certificate, which covers only `.local`.
+  String? get publicName => !imported
+      ? null
+      : dnsNames
+            .where(
+              (n) =>
+                  n.contains('.') && !n.contains('*') && !n.endsWith('.local'),
+            )
+            .firstOrNull;
+
   Uint8List get der => base64Decode(
     certificate
         .split('-----BEGIN CERTIFICATE-----')[1]
