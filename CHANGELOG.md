@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.10.6 - 2026-10-03
 
 ### Added
 - **Google Gemini for realtime conversations.** **Voice Satellite > Realtime** gains a Google Gemini provider next to OpenAI and xAI Grok, over Google's Live API (#832). A key from Google AI Studio works on the free tier, so realtime conversations can be tried without paying per minute first. **Model** lists the Live models the key can use and defaults to `gemini-3.8-live`, and **Voice** offers Gemini's 30 voices. The Home Assistant tools, instructions, session duration and talk over work as with the other providers. The Configure dialog also has **Reasoning effort** for the Gemini models that think, a **Google Search** switch that lets the model look things up on the web (it needs billing turned on for the key), and **Ignore talk not meant for it**, Gemini's experimental proactive audio, which keeps the model quiet when what it hears is not addressed to it. Gemini has no speech speed setting. The Gemini API key is a Fleet Management credential, off by default like the other realtime keys. Translated into Spanish, German, French, Ukrainian and Dutch.
