@@ -1,0 +1,21 @@
+{
+  "@@locale": "zh_CN",
+  "voiceNoticeError": "Voice Satellite 错误",
+  "voiceNoticeWarning": "Voice Satellite 警告",
+  "voiceNoticeNotice": "Voice Satellite 通知",
+  "voiceNoticeTts": "文本转语音",
+  "voiceNoticeAssistPipeline": "Assist 管线",
+  "voiceNoticePipeline": "管线“{name}”",
+  "voiceNoticeMicUnavailable": "麦克风不可用。",
+  "voiceNoticeNotConnected": "Home Assistant 未连接此 Kiosk。",
+  "voiceNoticeConnectionLost": "与 Home Assistant 的连接已断开，正在自动重新连接。",
+  "voiceNoticePlayback": "无法在设备上播放音频。",
+  "voiceNoticeWatchdog": "讲话结束后 Home Assistant 没有响应，管线可能已卡住。",
+  "voiceNoticeRefused": "Home Assistant 无法启动助手。",
+  "voiceNoticeUnexpected": "发生意外的管线错误。",
+  "voiceNoticeMicBlocked": "麦克风访问被阻止。请在 Android 设置中允许 Kiosk Satellite 使用麦克风。",
+  "voiceNoticeMicDeclined": "麦克风访问被拒绝，无法听到唤醒词。",
+  "voiceNoticeMicLost": "麦克风停止工作。",
+  "voiceNoticeModels": "无法加载唤醒词模型。",
+  "voiceNoticeCrashed": "唤醒词检测器在此设备上反复崩溃，已停止运行。"
+}

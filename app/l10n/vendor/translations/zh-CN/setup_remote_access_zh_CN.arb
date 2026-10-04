@@ -1,0 +1,8 @@
+{
+  "@@locale": "zh_CN",
+  "setupPasswordFirst": "请先设置管理密码",
+  "setupPasswordBeforeImport": "请在上方输入管理密码（至少 4 个字符），然后导入备份。",
+  "setupPasswordFailed": "无法设置密码",
+  "setupPasswordExists": "已设置密码",
+  "setupPasswordExistsHelp": "请使用平板上设置的密码登录以继续。正在重新加载…"
+}

@@ -1,0 +1,18 @@
+{
+  "@@locale": "zh_CN",
+  "cameraViewerTitle": "摄像头画面",
+  "cameraViewerConnecting": "正在连接…",
+  "cameraViewerReconnecting": "正在重新连接…",
+  "cameraViewerTrying": "正在尝试 {transport}…",
+  "cameraViewerCannotDecode": "此设备无法解码 {codec}",
+  "cameraViewerCannotPlay": "此设备无法播放 {transport} 视频流",
+  "cameraViewerCannotDecodeStream": "此设备无法解码此视频流",
+  "cameraViewerHaRetry": "无法连接 Home Assistant。将在 {seconds} 秒后重试",
+  "cameraViewerServerRetry": "无法连接摄像头服务器。将在 {seconds} 秒后重试",
+  "cameraViewerConnectionRetry": "连接失败。将在 {seconds} 秒后重试",
+  "cameraViewerStartRetry": "摄像头服务器无法启动此视频流。正在重试…",
+  "cameraViewerStartDelayedRetry": "摄像头服务器无法启动此视频流。将在 {seconds} 秒后重试",
+  "cameraViewerMissingRetry": "摄像头服务器上未找到此视频流。将在 {seconds} 秒后重试",
+  "cameraViewerLoginRetry": "摄像头服务器拒绝了登录请求。将在 {seconds} 秒后重试",
+  "cameraViewerMissing": "Go2RTC 中缺少此视频流"
+}

@@ -1,0 +1,11 @@
+{
+  "@@locale": "zh_CN",
+  "cameraNoCamera": "未检测到摄像头",
+  "cameraNoCameraHelp": "此设备未报告任何可用摄像头。",
+  "cameraCameraPermission": "缺少摄像头权限",
+  "cameraCameraPermissionHelp": "缺少此权限时，无法使用摄像头。请在平板上显示的授权页面中开启此权限。",
+  "cameraGrantOnDevice": "在设备上授权",
+  "cameraCameraBlocked": "摄像头权限被拒绝，系统不会再次弹出请求。请在 Android 应用设置中开启此权限。",
+  "cameraCameraNeeded": "没有此权限，无法使用摄像头。",
+  "cameraAppSettings": "应用设置"
+}

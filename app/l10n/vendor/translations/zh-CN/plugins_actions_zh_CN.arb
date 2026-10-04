@@ -1,0 +1,13 @@
+{
+  "@@locale": "zh_CN",
+  "pluginActions": "操作",
+  "pluginKioskDrawer": "Kiosk 抽屉菜单",
+  "pluginToAssignAGestureOpenGesturesAndChooseRun": "要分配手势，请打开“手势”并选择“执行插件操作”。",
+  "pluginShowInKioskDrawer": "在 Kiosk 抽屉菜单中显示",
+  "pluginAlsoAvailableWhileLockedIfTheKioskDrawerIs": "允许使用 Kiosk 抽屉菜单时，锁定状态下也可用。",
+  "pluginExposeToHomeAssistant": "提供给 Home Assistant",
+  "pluginAddsAButtonToTheKioskEsphomeDeviceRequires": "在 Kiosk 的 ESPHome 设备中添加按钮。此功能需要 ESPHome 和原生实体。",
+  "pluginSelectAnEntity": "选择实体",
+  "pluginChooseName": "选择 {name}",
+  "pluginConfigureName": "配置 {name}"
+}

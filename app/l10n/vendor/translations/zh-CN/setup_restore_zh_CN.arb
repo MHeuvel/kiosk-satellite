@@ -1,0 +1,16 @@
+{
+  "@@locale": "zh_CN",
+  "setupNotBackup": "不是备份文件",
+  "setupInvalidBackupHelp": "此文件不是有效的 JSON。请从已完成设置的 Kiosk Satellite 设置页面或其远程管理中导出配置。",
+  "setupWrongBackupKind": "请从已完成设置的 Kiosk Satellite 设置页面导出配置。",
+  "setupImportFailedHelp": "无法应用此文件。",
+  "setupBackupNoDashboard": "备份中没有仪表盘",
+  "setupBackupNoDashboardHelp": "设置已应用，但此备份在原设备完成设置前创建，因此没有可显示的仪表盘。请继续向导以选择仪表盘。",
+  "setupImporting": "正在导入…",
+  "setupRemoteRestoreHelp": "导入 Kiosk Satellite 导出的配置，并跳过向导的其余步骤。",
+  "setupFinishOnDevice": "在设备上完成",
+  "setupFinishOnDeviceHelp": "配置已导入。请在平板屏幕上回应权限提示；仪表盘加载后，此页面会自动继续。",
+  "setupBackupObject": "备份必须包含 JSON 对象。",
+  "setupBackupKind": "这不是 Kiosk Satellite 配置文件。",
+  "setupBackupSettings": "备份中不包含设置。"
+}

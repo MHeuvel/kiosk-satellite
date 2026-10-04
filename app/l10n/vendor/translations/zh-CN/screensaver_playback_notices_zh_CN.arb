@@ -1,0 +1,14 @@
+{
+  "@@locale": "zh_CN",
+  "screensaverNoPhotos": "未选择照片。请在设置中选择。",
+  "screensaverNoFolder": "未选择文件夹。请在设置中选择。",
+  "screensaverFolderEmpty": "{folder} 中没有照片或视频",
+  "screensaverFolderUnreadable": "无法读取 {folder}。是否已授予媒体权限？",
+  "screensaverReadPhotosFailed": "无法读取照片。",
+  "screensaverImmichNotReady": "未连接 Immich。请在设置中验证连接。",
+  "screensaverNoMediaMatch": "没有符合来源和筛选条件的媒体。",
+  "screensaverNoMediaSource": "所选来源中没有媒体。",
+  "screensaverImmichUnreachable": "无法连接 Immich 服务器。",
+  "screensaverRetryNotice": "{error} 正在自动重试。",
+  "screensaverVideosTooLarge": "此播放列表中的所有视频都过大，此设备无法播放。"
+}

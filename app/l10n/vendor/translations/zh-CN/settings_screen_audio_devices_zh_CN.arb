@@ -1,0 +1,10 @@
+{
+  "@@locale": "zh_CN",
+  "settingAudioMicDeviceTitle": "麦克风",
+  "settingAudioMicDeviceDescription": "唤醒词检测和语音交互使用的麦克风。",
+  "settingAudioSpeakerDeviceTitle": "扬声器",
+  "settingAudioSpeakerDeviceDescription": "Voice Satellite 使用的声音输出设备。媒体播放仍使用系统选择的输出设备。",
+  "screenAudioDevices": "音频设备",
+  "screenAudioSelectedDevice": "所选设备",
+  "screenAudioDisconnected": "{name}（未连接）"
+}

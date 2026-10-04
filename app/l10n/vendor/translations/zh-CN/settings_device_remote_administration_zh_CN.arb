@@ -1,0 +1,22 @@
+{
+  "@@locale": "zh_CN",
+  "settingRemoteEnabledTitle": "远程管理",
+  "settingRemoteEnabledDescription": "运行内置管理网页服务器。",
+  "settingRemotePortTitle": "服务器端口",
+  "settingRemotePortDescription": "远程管理界面使用的端口。",
+  "settingRemotePasswordTitle": "管理密码",
+  "settingRemotePasswordDescription": "登录远程界面时需要提供。",
+  "settingRemoteFleetDiscoveryTitle": "查找其他 Kiosk 设备",
+  "settingRemoteFleetDiscoveryDescription": "在网络中广播此设备，并在远程管理中列出其他 Kiosk 设备，方便切换。",
+  "deviceRemotePage": "远程管理",
+  "deviceAdminAddress": "管理地址",
+  "deviceAdminAddressHelp": "在电脑浏览器中打开此地址。",
+  "deviceByName": "通过名称访问",
+  "deviceByNameHelp": "在支持解析 .local 名称的网络中，通过主机名访问同一地址。",
+  "deviceByCertificateNameHelp": "通过证书上的名称访问同一地址。",
+  "devicePasswordNeeded": "请在下方设置管理密码以启动服务器。",
+  "deviceServerStopped": "服务器未运行。",
+  "devicePortError": "无法监听端口 {port}：{error}",
+  "settingRemoteTlsTitle": "使用 HTTPS",
+  "settingRemoteTlsDescription": "加密远程管理、API 和 WebSocket。浏览器可能要求你接受设备证书。"
+}

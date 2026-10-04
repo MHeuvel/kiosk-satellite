@@ -1,0 +1,17 @@
+{
+  "@@locale": "zh_CN",
+  "gestureHaServiceKind": "Home Assistant 服务",
+  "gestureHaScriptKind": "Home Assistant 脚本",
+  "gestureHaAutomationKind": "Home Assistant 自动化",
+  "gestureHaEventKind": "Home Assistant 事件",
+  "gestureRan": "已运行 {value}",
+  "gestureRunFailed": "无法运行 {value}",
+  "gestureCalled": "已调用 {value}",
+  "gestureCallFailed": "无法调用 {value}",
+  "gestureTriggered": "已触发 {value}",
+  "gestureTriggerFailed": "无法触发 {value}",
+  "gestureFired": "已触发事件 {value}",
+  "gestureFireFailed": "无法触发事件 {value}",
+  "gestureDone": "完成",
+  "gestureFailed": "失败"
+}

@@ -1,0 +1,16 @@
+{
+  "@@locale": "zh_CN",
+  "settingLocationEnabledTitle": "报告位置",
+  "settingLocationEnabledDescription": "读取 GPS 位置，并以纬度、经度、精度、海拔和速度传感器提供给 Home Assistant。开启或关闭此项会重新注册 ESPHome 设备。",
+  "settingLocationIntervalTitle": "更新间隔",
+  "settingLocationIntervalDescription": "读取位置的时间间隔（秒）。",
+  "esphomeGps": "GPS 传感器",
+  "esphomeGpsHelp": "将 GPS 传感器数据提供给 Home Assistant",
+  "esphomeLocationOff": "已关闭。",
+  "esphomeLocationWaiting": "正在等待首次定位。在开阔处首次启动定位也可能需要几分钟。",
+  "esphomeCoordinates": "最新坐标",
+  "esphomeLocationDenied": "未授予位置权限。",
+  "esphomeLocationAbsent": "没有 GPS 接收器。",
+  "esphomeLocationError": "GPS 不可用：{error}",
+  "esphomeLocationUnsupported": "此设备没有 GPS 接收器，不支持此功能。"
+}

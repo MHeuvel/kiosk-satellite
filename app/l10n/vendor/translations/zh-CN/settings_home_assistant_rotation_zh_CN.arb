@@ -1,0 +1,19 @@
+{
+  "@@locale": "zh_CN",
+  "settingHaRotationEnabledTitle": "启用仪表盘页面轮播",
+  "settingHaRotationEnabledDescription": "循环显示所选仪表盘页面，每个页面停留设定秒数后切换到下一个。",
+  "settingHaRotationSecondsTitle": "每个页面的显示时长（秒）",
+  "settingHaRotationSecondsDescription": "每个页面在屏幕上停留的时长。",
+  "settingHaRotationPauseSecondsTitle": "交互时暂停轮播（秒）",
+  "settingHaRotationPauseSecondsDescription": "触屏后，轮播会暂停设定时长；每次触屏都会重新计时。语音交互期间也会暂停，直到交互结束。设为 0 时，触屏不会暂停轮播。",
+  "settingHaRotationCrossfadeTitle": "页面切换时淡入淡出",
+  "settingHaRotationCrossfadeDescription": "切换页面时，先淡出到背景，再淡入下一页。切换到其他仪表盘或外部网页时，仍然直接切换。",
+  "settingHaRotationFadeSecondsTitle": "淡入淡出时长（秒）",
+  "settingHaRotationFadeSecondsDescription": "页面淡出和淡入的总时长。加载下一页可能需要额外时间，尤其是首次打开时。",
+  "haRotation": "仪表盘页面轮播",
+  "haRotationHint": "页面轮播、停留时长和淡入淡出",
+  "haDefaultView": "默认页面",
+  "haExternalPages": "外部页面",
+  "haFadeError": "请选择 0.2 至 5 秒之间的淡入淡出时长。",
+  "haPauseRemoteHelp": "触屏后，轮播会暂停设定时长；每次触屏都会重新计时。语音交互期间会一直暂停，直到交互结束。设为 0 时，触屏不会暂停轮播。"
+}

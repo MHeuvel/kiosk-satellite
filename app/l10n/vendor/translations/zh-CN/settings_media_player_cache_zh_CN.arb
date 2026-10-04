@@ -1,0 +1,9 @@
+{
+  "@@locale": "zh_CN",
+  "mediaCacheTitle": "专辑封面缓存",
+  "mediaCacheReadFailed": "无法读取缓存大小。",
+  "mediaCacheClearFailed": "无法清除缓存。",
+  "mediaCacheChecking": "正在检查缓存大小…",
+  "mediaCacheClearing": "正在清除…",
+  "mediaCacheUsage": "已使用 {used}，上限 {limit}。播放队列缩略图会自动缓存。"
+}

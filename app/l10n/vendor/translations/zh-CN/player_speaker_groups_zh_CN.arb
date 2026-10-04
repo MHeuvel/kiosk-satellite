@@ -1,0 +1,7 @@
+{
+  "@@locale": "zh_CN",
+  "mediaGroupLead": "主播放器",
+  "mediaGroupReadFailed": "无法读取播放组。",
+  "mediaGroupEmpty": "没有其他可加入播放组的播放器。",
+  "mediaSpeakerSelection": "选择扬声器"
+}

@@ -1,0 +1,18 @@
+{
+  "@@locale": "zh_CN",
+  "settingScreensaverImmichIntervalTitle": "每张图片的显示时长（秒）",
+  "settingScreensaverImmichIntervalDescription": "每张图片切换前显示的时长。视频完整播放。",
+  "settingScreensaverImmichShuffleTitle": "随机播放",
+  "settingScreensaverImmichShuffleDescription": "以随机顺序轮播媒体。",
+  "settingScreensaverImmichTransitionTitle": "切换效果",
+  "settingScreensaverImmichTransitionDescription": "媒体之间的切换方式。",
+  "settingScreensaverImmichFillTitle": "填满屏幕",
+  "settingScreensaverImmichFillDescription": "“关闭”：完整显示照片，空白处显示黑边。“智能”：照片宽高比与屏幕接近时放大填充；其余照片完整显示，空白处使用模糊背景。“始终”：放大照片填满屏幕，超出部分会被裁掉。",
+  "settingScreensaverImmichPairPortraitTitle": "配对竖向照片",
+  "settingScreensaverImmichPairPortraitDescription": "将两张竖向照片并排显示以填满屏幕。",
+  "settingScreensaverImmichPairLandscapeTitle": "配对横向照片",
+  "settingScreensaverImmichPairLandscapeDescription": "将两张横向照片上下排列以填满竖屏。",
+  "settingScreensaverImmichEdgeTapsTitle": "点击边缘切换幻灯片",
+  "settingScreensaverImmichEdgeTapsDescription": "点击屏幕左侧或右侧五分之一区域，显示上一张或下一张幻灯片，而非关闭屏保。",
+  "screensaverMediaSlideshow": "幻灯片"
+}

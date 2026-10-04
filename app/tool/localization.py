@@ -713,10 +713,18 @@ def generate(app, preview_repo=None, preview_locale="es"):
     generate_android(app, catalogs)
     out = app / "l10n/effective"
     out.mkdir(parents=True, exist_ok=True)
+    # gen-l10n refuses zh_CN without a zh catalog. Give each regional
+    # language a base fallback with the same messages. It is not a choice in
+    # the language picker, which lists only the catalogs above.
+    effective_catalogs = dict(catalogs)
+    for locale in sorted(catalogs):
+        language = locale.split("-")[0]
+        if language != locale and language not in effective_catalogs:
+            effective_catalogs[language] = {**catalogs[locale], "@@locale": language}
     for path in out.glob("ui_*.arb"):
-        if path.stem[3:] not in {tag.replace("-", "_") for tag in catalogs}:
+        if path.stem[3:] not in {tag.replace("-", "_") for tag in effective_catalogs}:
             path.unlink()
-    for locale, catalog in catalogs.items():
+    for locale, catalog in effective_catalogs.items():
         filename_locale = locale.replace("-", "_")
         write(out / f"ui_{filename_locale}.arb", catalog)
     output = app / "lib/l10n/generated"

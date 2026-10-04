@@ -1,0 +1,10 @@
+{
+  "@@locale": "zh_CN",
+  "settingLauncherEnabledTitle": "启用应用启动器",
+  "settingLauncherEnabledDescription": "从 Kiosk 打开选定的已安装应用。",
+  "settingLauncherAppsDescription": "启动器中显示的应用。",
+  "settingLauncherAutoReturnTitle": "自动返回",
+  "settingLauncherAutoReturnDescription": "其他应用一段时间未收到触屏操作后，返回 Kiosk。",
+  "settingLauncherAutoReturnSecondsTitle": "无触屏操作后返回（秒）",
+  "settingLauncherAutoReturnSecondsDescription": "在其他应用中连续多久没有触屏操作后，自动返回 Kiosk。"
+}

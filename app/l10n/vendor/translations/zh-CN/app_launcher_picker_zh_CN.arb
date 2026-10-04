@@ -1,0 +1,9 @@
+{
+  "@@locale": "zh_CN",
+  "launcherNoneHelp": "尚未添加应用，请选择要在应用启动器中显示的应用。",
+  "launcherNone": "暂无",
+  "launcherListFailed": "无法获取应用列表",
+  "launcherListError": "无法获取应用列表：{error}",
+  "launcherListingFailed": "获取应用列表失败",
+  "launcherEmpty": "未找到可启动的应用。"
+}

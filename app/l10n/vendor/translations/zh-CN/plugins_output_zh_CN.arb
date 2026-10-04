@@ -1,0 +1,14 @@
+{
+  "@@locale": "zh_CN",
+  "pluginCharts": "图表",
+  "pluginReadings": "读数",
+  "pluginWaitingForSamples": "等待采样数据",
+  "pluginLatest": "最新",
+  "pluginSelected": "已选",
+  "pluginNoDataYet": "暂无数据",
+  "pluginTapOrDragToInspectSamplesDoubleTapTo": "点击或拖动查看采样数据，双击跟随最新数据。",
+  "pluginNoData": "无数据",
+  "pluginOn": "开启",
+  "pluginEmpty": "空",
+  "pluginChartKeyboardHelp": "使用方向键查看采样数据，按 End 查看最新数据。"
+}

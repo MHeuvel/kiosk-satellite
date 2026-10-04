@@ -1,0 +1,11 @@
+{
+  "@@locale": "zh_CN",
+  "voiceTimerDefaultName": "计时器",
+  "voiceTimerDrag": "拖动以移动计时器",
+  "voiceTimerPauseHint": "点击暂停，双击取消，拖动移动。",
+  "voiceTimerResumeHint": "点击恢复，双击取消，拖动移动。",
+  "voiceTimerCancel": "取消计时器",
+  "voiceTimerActionError": "无法更改计时器。请检查连接，必要时更新 Voice Satellite。",
+  "voiceTimerFinished": "计时器已结束",
+  "voiceTimerDismissHint": "点击关闭计时器提醒。"
+}

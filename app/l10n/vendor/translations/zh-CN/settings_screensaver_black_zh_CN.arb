@@ -1,0 +1,6 @@
+{
+  "@@locale": "zh_CN",
+  "settingScreensaverBlackHideExtrasTitle": "隐藏所有额外内容",
+  "settingScreensaverBlackHideExtrasDescription": "保持屏幕全黑，不显示时钟、速览实体或其他叠加内容。",
+  "screensaverBlackSection": "黑屏屏保"
+}

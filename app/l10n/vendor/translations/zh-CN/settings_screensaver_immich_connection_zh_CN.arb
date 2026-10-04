@@ -1,0 +1,22 @@
+{
+  "@@locale": "zh_CN",
+  "settingScreensaverImmichUrlTitle": "服务器地址",
+  "settingScreensaverImmichUrlDescription": "Immich 服务器地址，包含端口。",
+  "settingScreensaverImmichApiKeyTitle": "API 密钥",
+  "settingScreensaverImmichApiKeyDescription": "在 Immich 的“账号设置 → API 密钥”中创建。",
+  "screensaverMediaImmichPage": "Immich 媒体屏保",
+  "screensaverMediaImmichHint": "服务器、媒体、幻灯片、元数据和筛选",
+  "screensaverMediaServerConnection": "服务器连接",
+  "screensaverMediaValidateFailedLog": "验证失败。请查看应用日志中的失败请求。",
+  "screensaverMediaValidateFailed": "验证失败。",
+  "screensaverMediaNoAnswer": "设备未响应。",
+  "screensaverMediaAddressFirst": "请先输入服务器地址。",
+  "screensaverMediaKeyFirst": "请先输入 API 密钥。",
+  "screensaverMediaBadAddress": "服务器地址无效。",
+  "screensaverMediaKeyRejected": "API 密钥被拒绝。",
+  "screensaverMediaScopeMissing": "API 密钥缺少 {scope} 权限。",
+  "screensaverMediaPermissionMissing": "API 密钥缺少权限：{error}",
+  "screensaverMediaServerError": "服务器返回 {status}：{error}",
+  "screensaverMediaUnreachable": "无法连接 {url}。",
+  "screensaverMediaTalkError": "无法与服务器通信：{error}"
+}

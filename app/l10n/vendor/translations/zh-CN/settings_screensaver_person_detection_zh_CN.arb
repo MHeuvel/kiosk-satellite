@@ -1,0 +1,22 @@
+{
+  "@@locale": "zh_CN",
+  "settingScreensaverDismissOnPersonTitle": "检测到人体时关闭屏保",
+  "settingScreensaverDismissOnPersonDescription": "屏保显示期间读取设备人体传感器，有人在设备前方时唤醒屏幕。需要下方的日志访问权限。",
+  "settingScreensaverDismissOnPersonScreenOffOnlyTitle": "仅屏幕关闭时",
+  "settingScreensaverDismissOnPersonScreenOffOnlyDescription": "屏幕开启时，有人靠近仍保持屏保显示。屏幕关闭后，检测会唤醒仪表盘。触屏仍可关闭屏保。",
+  "settingScreensaverPostponeOnPersonTitle": "检测到人体时延迟启动屏保",
+  "settingScreensaverPostponeOnPersonDescription": "有人在设备前方时延迟启动屏保。",
+  "screensaverDetectionPersonPage": "人体检测",
+  "screensaverDetectionPersonHint": "根据设备人体传感器关闭或延迟启动屏保",
+  "screensaverDetectionOccupancy": "占用状态",
+  "screensaverDetectionStatusUnavailable": "状态不可用。",
+  "screensaverDetectionOff": "已关闭。",
+  "screensaverDetectionStarting": "正在启动…",
+  "screensaverDetectionWaiting": "等待传感器首次报告。有人在检测范围内时，传感器每 30 秒报告一次。",
+  "screensaverDetectionLastHeartbeat": "最近一次报告：{ago}。",
+  "screensaverDetectionSecondsAgo": "{count} 秒前",
+  "screensaverDetectionMinutesAgo": "{count} 分钟前",
+  "screensaverDetectionHoursAgo": "{count} 小时前",
+  "screensaverDetectionDetected": "已检测到",
+  "screensaverDetectionClear": "无人"
+}

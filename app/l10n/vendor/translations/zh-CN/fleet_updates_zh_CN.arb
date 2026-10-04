@@ -1,0 +1,11 @@
+{
+  "@@locale": "zh_CN",
+  "fleetUpdateTheFleet": "更新设备群",
+  "fleetUpdateTheWholeFleetToTheKioskSatelliteVersion": "将整个设备群更新至主设备正在运行的 Kiosk Satellite 版本。",
+  "fleetKeepFollowersOnThisVersion": "让从设备保持此版本",
+  "fleetAutomaticallyUpdateAllFollowersToTheKioskSatelliteVersion": "自动将所有从设备更新至主设备正在运行的 Kiosk Satellite 版本。",
+  "fleetNothingToUpdate": "无需更新",
+  "fleetUpdating": "正在更新",
+  "fleetNamesInstalling": "{names} 正在安装。",
+  "fleetSearchUpdates": "先为各从设备安装其可用版本，再更新此设备。"
+}

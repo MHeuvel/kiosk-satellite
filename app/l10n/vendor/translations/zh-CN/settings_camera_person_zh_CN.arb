@@ -1,0 +1,7 @@
+{
+  "@@locale": "zh_CN",
+  "settingPersonSensorTitle": "启用人体传感器",
+  "settingPersonSensorDescription": "将设备的人体传感器作为占用传感器提供给 Home Assistant。需要先授予下方的日志访问权限。",
+  "cameraPersonPage": "人体传感器",
+  "cameraPersonHint": "通过设备人体传感器提供的 Home Assistant 占用传感器"
+}

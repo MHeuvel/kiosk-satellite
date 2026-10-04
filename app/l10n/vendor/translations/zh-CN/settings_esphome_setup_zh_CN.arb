@@ -1,0 +1,19 @@
+{
+  "@@locale": "zh_CN",
+  "settingEsphomeEnabledTitle": "启用 ESPHome",
+  "settingEsphomeEnabledDescription": "将此 Kiosk 作为 ESPHome 设备提供给 Home Assistant，传感器和控制项将作为原生实体提供，支持自动发现。",
+  "settingEsphomeEntitiesTitle": "提供 Kiosk 实体",
+  "settingEsphomeEntitiesDescription": "将此设备的传感器和控制项作为 ESPHome 实体提供。",
+  "settingEsphomeExcludedEntitiesTitle": "排除的实体",
+  "settingEsphomeExcludedEntitiesDescription": "选择不提供给 Home Assistant 的实体，其余可用实体都会提供。保存后会重新连接 ESPHome。",
+  "settingEsphomeNodeNameTitle": "节点名称",
+  "settingEsphomeNodeNameDescription": "此 Kiosk 在网络中的名称，Home Assistant 据此生成操作名称。更改节点名称也会更改这些操作的名称。",
+  "settingEsphomeNodeNamePlaceholder": "首次启动时设置",
+  "settingBtproxyKeyTitle": "加密密钥",
+  "settingBtproxyKeyDescription": "Home Assistant 要求加密密钥时，请粘贴此密钥。首次启动时自动生成。",
+  "settingBtproxyKeyPlaceholder": "首次启动时生成",
+  "settingBtproxyPortTitle": "API 端口",
+  "settingBtproxyPortDescription": "Home Assistant 连接使用的端口。留空则使用 ESPHome 标准端口 6053。",
+  "esphomeStartFailed": "ESPHome 服务器启动失败：{error}",
+  "esphomeExcludedInvalid": "请选择实体 ID 列表。"
+}

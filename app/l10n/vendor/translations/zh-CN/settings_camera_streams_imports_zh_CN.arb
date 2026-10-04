@@ -1,0 +1,8 @@
+{
+  "@@locale": "zh_CN",
+  "cameraStreamsImportHa": "从 Home Assistant 导入摄像头",
+  "cameraStreamsImportHaHelp": "添加已连接 Home Assistant 中的所有摄像头，通过 WebRTC、HLS 或 MJPEG 播放。再次导入会合并新摄像头。",
+  "cameraStreamsImportFailed": "导入失败",
+  "cameraStreamsImportComplete": "导入完成",
+  "cameraStreamsImportCounts": "已添加 {added} 个，缺失 {missing} 个。"
+}

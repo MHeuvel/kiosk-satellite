@@ -1,0 +1,8 @@
+{
+  "@@locale": "zh_CN",
+  "remoteDisableTitle": "要关闭远程管理吗？",
+  "remoteDisableHelp": "警告：你将无法再访问此页面。要重新开启，请使用设备或 Home Assistant 中的“远程管理”开关。",
+  "remoteDisableConfirm": "关闭",
+  "remoteCopyHelp": "请选择密钥并手动复制。",
+  "remoteSaveSettingFailed": "无法保存此设置。请重试。"
+}

@@ -1,0 +1,11 @@
+{
+  "@@locale": "zh_CN",
+  "kioskForeground": "Kiosk Satellite 可以自行返回前台。",
+  "kioskOverlayMissing": "没有此权限，Kiosk 无法自行返回前台，锁定保护层也只能覆盖应用。",
+  "kioskGuardHeld": "屏幕受保护时，通知栏和最近任务界面会自动关闭。",
+  "kioskGuardMissing": "若无此权限，通知栏和最近任务界面仍可访问。请在无障碍设置中启用 Kiosk Satellite。",
+  "kioskOverlayRemote": "若无此权限，Kiosk 无法自行返回前台。授权页面会显示在平板上。",
+  "kioskGuardRemote": "若无此权限，通知栏和最近任务界面仍可访问。请在平板的无障碍设置中启用 Kiosk Satellite。",
+  "kioskGrantDevice": "在设备上授权",
+  "kioskOpenSettingsDevice": "在设备上打开设置"
+}

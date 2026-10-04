@@ -1,0 +1,15 @@
+{
+  "@@locale": "zh_CN",
+  "fleetFleetManagementNeedsTheRemoteAdmin": "设备群管理需要远程管理功能",
+  "fleetKiosksFindEachOtherThroughItTurnOnRemote": "Kiosk 设备通过远程管理发现彼此。请在“设备”中开启“远程管理”和“查找其他 Kiosk 设备”，然后返回此页面。",
+  "fleetLeadThisFleet": "管理此设备群",
+  "fleetSyncThisKioskSSettingsToItsFollowersRequires": "将此 Kiosk 设备的设置同步给从设备。所有 Kiosk 设备须运行相同版本。",
+  "fleetAKioskThatFollowsALeaderCannotLead": "作为从设备时，不能同时担任主设备。",
+  "fleetFollowers": "从设备",
+  "fleetProfiles": "配置方案",
+  "fleetLeader": "主设备",
+  "fleetLearnWhichSettingsSyncAndWhichDoNotIn": "要了解哪些设置会同步、哪些不会同步，请参阅 ",
+  "fleetFleetManagementDocumentation": "设备群管理文档",
+  "fleetMore": "更多",
+  "fleetSearchFollowers": "查看此设备管理的 Kiosk 设备及其状态，并添加设备。"
+}

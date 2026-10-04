@@ -1,0 +1,17 @@
+{
+  "@@locale": "zh_CN",
+  "settingHaThemeTitle": "主题",
+  "settingHaThemeDescription": "Home Assistant 仪表盘的浅色或深色主题，也可通过 Home Assistant 的主题实体设置。“自动”遵循下方设置。",
+  "settingThemeMatchAppTitle": "将 Home Assistant 主题与 Kiosk Satellite 同步",
+  "settingThemeMatchAppDescription": "让 Home Assistant 的主题自动与 Kiosk Satellite 界面保持一致。",
+  "settingThemeAutoTitle": "按时段切换主题",
+  "settingThemeAutoDescription": "按计划切换 Home Assistant 的浅色和深色模式。保留所选主题，只切换其浅色或深色版本。",
+  "settingThemeDarkAtTitle": "深色主题开始时间",
+  "settingThemeDarkAtDescription": "切换为深色主题的本地时间。",
+  "settingThemeLightAtTitle": "浅色主题开始时间",
+  "settingThemeLightAtDescription": "切换回浅色主题的本地时间。",
+  "settingThemeAutoAppTitle": "同时切换应用主题",
+  "settingThemeAutoAppDescription": "按计划更改 Home Assistant 主题时，同时切换 Kiosk Satellite 自身主题（菜单、设置）。",
+  "haThemeHint": "跟随应用，或按计划切换深色和浅色",
+  "haThemeAuto": "自动"
+}

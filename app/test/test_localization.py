@@ -696,6 +696,19 @@ class CommunityTests(unittest.TestCase):
         catalog.generate(self.app, self.repo, "pt-BR")
         self.assertEqual(catalog.read(self.app / "l10n/effective/ui_pt_BR.arb")["@@locale"], "pt_BR")
 
+    def test_regional_language_gets_base_fallback_outside_the_picker(self):
+        self.add_language("pt-BR")
+        catalog.generate(self.app, self.repo, "pt-BR")
+        regional = catalog.read(self.app / "l10n/effective/ui_pt_BR.arb")
+        fallback = catalog.read(self.app / "l10n/effective/ui_pt.arb")
+        self.assertEqual(fallback["@@locale"], "pt")
+        self.assertEqual(fallback["welcome"], regional["welcome"])
+        codes = (self.app / "lib/l10n/generated/language_codes.dart").read_text()
+        self.assertIn("'pt-BR'", codes)
+        self.assertNotIn("'pt',", codes)
+        catalog.generate(self.app)
+        self.assertFalse((self.app / "l10n/effective/ui_pt.arb").exists())
+
 
 if __name__ == "__main__":
     unittest.main()

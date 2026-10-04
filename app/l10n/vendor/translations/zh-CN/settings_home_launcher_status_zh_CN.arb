@@ -1,0 +1,17 @@
+{
+  "@@locale": "zh_CN",
+  "kioskHomeScreen": "主屏幕",
+  "kioskCheckingDevice": "正在检查设备…",
+  "kioskFireOs": "Fire OS 不允许替换其启动器。",
+  "kioskUnsupported": "此设备不允许更改主屏幕。",
+  "kioskRecovered": "因多次启动失败已自动关闭，并恢复原启动器。重新打开开关可再次尝试。",
+  "kioskHeld": "Kiosk Satellite 已设为主屏幕。Kiosk 会在开机时启动，每次按主页键都返回此应用。",
+  "kioskDisabled": "尚未设为主屏幕。请开启上方“设为主屏幕”。",
+  "kioskWaiting": "尚未成为当前主屏幕，设备正在等待确认。",
+  "kioskOpenHomeSettings": "打开主屏幕设置",
+  "kioskSetDefault": "设为默认",
+  "kioskActive": "已生效",
+  "kioskNotHome": "未设为主屏幕。",
+  "kioskWaitingRemote": "等待设备确认。系统确认框或默认主屏幕设置会在设备上打开。",
+  "kioskSetDevice": "在设备上设置"
+}

@@ -1,0 +1,13 @@
+{
+  "@@locale": "zh_CN",
+  "settingSendspinLyricsEnabledTitle": "启用歌词",
+  "settingSendspinLyricsEnabledDescription": "为所有播放器来源在“正在播放”页面中显示同步歌词。",
+  "settingSendspinLyricsSourceTitle": "歌词来源",
+  "settingSendspinLyricsSourceDescription": "歌词的获取来源。使用 Music Assistant 时，需在其页面设置服务器地址和令牌。",
+  "settingSendspinLyricsFallbackTitle": "回退至 Music Assistant",
+  "settingSendspinLyricsFallbackDescription": "无法访问 LRCLIB 时，改向 Music Assistant 请求。需要配置 Music Assistant 连接。",
+  "settingSendspinLyricsOffsetTitle": "歌词时间偏移",
+  "settingSendspinLyricsOffsetDescription": "调整歌词与音乐的时间差。正值让歌词提前显示，负值让歌词延后显示。歌词持续不同步时，可微调此值。",
+  "mediaLyricsPage": "歌词",
+  "mediaLyricsHint": "同步歌词、来源和时间偏移"
+}

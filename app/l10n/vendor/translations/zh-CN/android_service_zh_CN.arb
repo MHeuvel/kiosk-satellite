@@ -1,0 +1,13 @@
+{
+  "@@locale": "zh_CN",
+  "androidServiceChannelHelp": "屏幕关闭或切换到其他应用后，此服务会让 Kiosk Satellite 继续运行，并显示这条通知。",
+  "androidServiceListening": "正在监听唤醒词",
+  "androidServiceRtspAudio": "已启用 RTSP 麦克风音频",
+  "androidServiceEsphome": "ESPHome 服务运行中",
+  "androidServiceBluetooth": "正在转发蓝牙设备数据",
+  "androidServiceCamera": "正在监测摄像头",
+  "androidServiceLocation": "正在报告位置",
+  "androidServiceRemote": "远程管理服务运行中",
+  "androidServiceKiosk": "正在保护 Kiosk 模式",
+  "androidServiceSessions": "保持 Home Assistant 连接"
+}

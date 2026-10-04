@@ -11,6 +11,7 @@ import 'ui_strings_es.dart';
 import 'ui_strings_fr.dart';
 import 'ui_strings_nl.dart';
 import 'ui_strings_uk.dart';
+import 'ui_strings_zh.dart';
 
 // ignore_for_file: type=lint
 
@@ -103,6 +104,8 @@ abstract class UiStrings {
     Locale('fr'),
     Locale('nl'),
     Locale('uk'),
+    Locale('zh'),
+    Locale('zh', 'CN'),
   ];
 
   /// App information group heading.
@@ -22805,6 +22808,7 @@ class _UiStringsDelegate extends LocalizationsDelegate<UiStrings> {
     'fr',
     'nl',
     'uk',
+    'zh',
   ].contains(locale.languageCode);
 
   @override
@@ -22812,6 +22816,18 @@ class _UiStringsDelegate extends LocalizationsDelegate<UiStrings> {
 }
 
 UiStrings lookupUiStrings(Locale locale) {
+  // Lookup logic when language+country codes are specified.
+  switch (locale.languageCode) {
+    case 'zh':
+      {
+        switch (locale.countryCode) {
+          case 'CN':
+            return UiStringsZhCn();
+        }
+        break;
+      }
+  }
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'de':
@@ -22826,6 +22842,8 @@ UiStrings lookupUiStrings(Locale locale) {
       return UiStringsNl();
     case 'uk':
       return UiStringsUk();
+    case 'zh':
+      return UiStringsZh();
   }
 
   throw FlutterError(

@@ -1,0 +1,9 @@
+{
+  "@@locale": "zh_CN",
+  "settingDisableCacheTitle": "禁用缓存",
+  "settingDisableCacheDescription": "始终从网络获取，并在加载时丢弃缓存的页面数据，使重新部署的仪表盘始终显示最新内容。速度较慢，建议仅用于开发辅助。",
+  "settingAllowMixedContentTitle": "允许混合内容",
+  "settingAllowMixedContentDescription": "允许 HTTPS 页面加载不安全的 HTTP 资源，适用于 Home Assistant 在 https:// 仪表盘中混用 http:// 内容的情况。",
+  "settingIgnoreSslErrorsTitle": "忽略 SSL 错误",
+  "settingIgnoreSslErrorsDescription": "接受不受信任或自签名证书。此项会禁用证书验证，请仅在自己的网络中使用。"
+}

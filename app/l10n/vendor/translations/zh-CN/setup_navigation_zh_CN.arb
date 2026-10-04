@@ -1,0 +1,11 @@
+{
+  "@@locale": "zh_CN",
+  "setupWelcome": "欢迎",
+  "setupConnect": "连接",
+  "setupConnectSummary": "Home Assistant 地址和令牌",
+  "setupDashboard": "仪表盘",
+  "setupDashboardSummary": "Kiosk 显示的内容",
+  "setupRecommendedSummary": "推荐设置",
+  "setupPermissions": "权限",
+  "setupPermissionsSummary": "设置所需的权限"
+}

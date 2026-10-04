@@ -1,0 +1,13 @@
+{
+  "@@locale": "zh_CN",
+  "settingUiLanguageTitle": "语言",
+  "settingUiLanguageDescription": "设置 Kiosk Satellite 和远程管理界面的语言，Home Assistant 保持其自身语言设置。",
+  "settingUiThemeTitle": "应用主题",
+  "settingUiThemeDescription": "选择应用菜单、设置和对话框的浅色或深色主题。“系统”表示跟随 Android 的主题设置。",
+  "settingUiScaleTitle": "界面缩放",
+  "settingUiScaleDescription": "调整菜单、设置和对话框的大小，适合像素密度较高的屏幕。网页内容的大小不变。",
+  "deviceUserInterface": "用户界面",
+  "deviceThemeDark": "深色",
+  "deviceThemeLight": "浅色",
+  "deviceThemeSystem": "系统"
+}

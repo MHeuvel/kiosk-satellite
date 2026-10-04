@@ -1,0 +1,12 @@
+{
+  "@@locale": "zh_CN",
+  "screensaverMediaTransitionNone": "无",
+  "screensaverMediaTransitionFade": "交叉淡化",
+  "screensaverMediaTransitionSlide": "滑动",
+  "screensaverMediaTransitionZoom": "缩放",
+  "screensaverMediaTransitionKenBurns": "Ken Burns",
+  "screensaverMediaTransitionRandom": "随机",
+  "screensaverMediaFillOff": "关闭",
+  "screensaverMediaFillSmart": "智能",
+  "screensaverMediaFillAlways": "始终"
+}

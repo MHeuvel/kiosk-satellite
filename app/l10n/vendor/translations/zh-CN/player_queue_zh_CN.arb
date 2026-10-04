@@ -1,0 +1,8 @@
+{
+  "@@locale": "zh_CN",
+  "mediaNothingQueued": "播放队列为空",
+  "mediaChapters": "章节",
+  "mediaNowPlaying": "正在播放",
+  "mediaUpNext": "接下来播放",
+  "mediaUnnamedChapter": "第 {number} 章"
+}

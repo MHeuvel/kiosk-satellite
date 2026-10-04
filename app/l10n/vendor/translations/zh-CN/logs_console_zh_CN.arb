@@ -1,0 +1,12 @@
+{
+  "@@locale": "zh_CN",
+  "logsWebConsole": "网页控制台",
+  "logsDock": "悬浮在实时页面上方",
+  "logsNoOutput": "暂无控制台输出",
+  "logsShareSubject": "Kiosk Satellite 控制台日志",
+  "logsInput": "在页面中运行 JavaScript",
+  "logsInputHistory": "在页面中运行 JavaScript（Enter 执行，上下方向键查看历史）",
+  "logsRun": "运行",
+  "logsEvaluationFailed": "执行失败",
+  "logsDeviceUnreachable": "无法连接设备"
+}

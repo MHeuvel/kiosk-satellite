@@ -1,0 +1,12 @@
+{
+  "@@locale": "zh_CN",
+  "voiceDisconnected": "Home Assistant 未连接",
+  "voiceValidate": "请先在 Home Assistant 设置中验证连接。",
+  "voiceChecking": "正在检查 Voice Satellite…",
+  "voiceMissing": "Home Assistant 中未安装 Voice Satellite",
+  "voiceInstallHelp": "Voice Satellite 可将此 Kiosk 设为 Home Assistant 的完整免提语音助手，在仪表盘上直接提供唤醒词检测、对话、计时器和播报。\n\n可从默认 HACS 仓库安装。请在 Home Assistant 中安装后返回此处。",
+  "voiceLearnMore": "了解更多： ",
+  "voiceGithub": "GitHub 上的 Voice Satellite",
+  "voiceHacs": "打开 HACS 仓库",
+  "voiceLoading": "正在加载 Voice Satellite 控件…"
+}

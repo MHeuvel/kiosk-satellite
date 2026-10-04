@@ -1,0 +1,21 @@
+{
+  "@@locale": "zh_CN",
+  "settingVoiceTimerPillsTitle": "显示计时器浮条",
+  "settingVoiceTimerPillsDescription": "运行中的计时器悬浮在屏幕上，可拖动至任意位置。",
+  "settingVoiceTimerNameInPillTitle": "显示计时器名称",
+  "settingVoiceTimerNameInPillDescription": "浮条中时间旁的名称。",
+  "settingVoiceTimerPillScaleTitle": "计时器浮条缩放",
+  "settingVoiceTimerPillScaleDescription": "计时器浮条的大小。",
+  "settingVoiceTimerAlertPillTitle": "显示已结束的计时器浮条",
+  "settingVoiceTimerAlertPillDescription": "点击浮条停止提醒。",
+  "settingVoiceMuteTimersTitle": "计时器提醒静音",
+  "settingVoiceMuteTimersDescription": "显示提醒，但不播放声音。",
+  "settingVoiceTimerNameOnAlertTitle": "在提醒中显示名称",
+  "settingVoiceTimerNameOnAlertDescription": "提醒下方的计时器名称。",
+  "settingVoiceTimerSpeakTitle": "计时器结束时播报",
+  "settingVoiceTimerSpeakDescription": "在提醒声音间隙播报一段文字。",
+  "settingVoiceTimerPhraseTitle": "播报内容",
+  "settingVoiceTimerPhraseDescription": "用于未命名计时器的播报内容。",
+  "settingVoiceTimerNamedPhraseTitle": "命名计时器的播报内容",
+  "settingVoiceTimerNamedPhraseDescription": "{name} 会替换为计时器名称。"
+}

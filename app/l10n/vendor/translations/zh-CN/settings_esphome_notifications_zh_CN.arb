@@ -1,0 +1,19 @@
+{
+  "@@locale": "zh_CN",
+  "settingNotificationsTransparencyTitle": "透明度",
+  "settingNotificationsTransparencyDescription": "调整通知卡片的透明度，显示下方画面。文字和图标仍保持不透明。",
+  "settingNotificationsBlurTitle": "背景模糊",
+  "settingNotificationsBlurDescription": "模糊透明通知卡片下方的画面。注意：Home Assistant 仪表盘不支持此模糊效果。",
+  "settingNotificationsChimeFileTitle": "通知声音",
+  "settingNotificationsChimeFileDescription": "从设备上的 Android/data/me.jxl.kiosk_satellite/files/sounds 读取声音文件，也可通过文件管理器访问。",
+  "settingNotificationsVolumeTitle": "通知音量",
+  "settingNotificationsVolumeDescription": "通知声音的音量，独立于媒体和助手音量。",
+  "esphomeNotifications": "通知",
+  "esphomeNotificationsHelp": "透明度、模糊、通知声音和测试通知",
+  "esphomeAppearance": "外观",
+  "esphomeSound": "声音",
+  "esphomeNotificationTest": "测试通知",
+  "esphomeNotificationHelp": "通过 Home Assistant 的 {action} 操作发送通知。测试会在仪表盘上显示一条通知。",
+  "esphomeNotificationBody": "这是 Home Assistant 通知的外观和声音示例。",
+  "esphomeNotificationSearch": "发送通知的 Home Assistant 操作及用于显示测试通知的按钮。"
+}

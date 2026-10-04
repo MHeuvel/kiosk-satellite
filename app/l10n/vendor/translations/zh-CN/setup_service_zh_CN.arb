@@ -1,0 +1,6 @@
+{
+  "@@locale": "zh_CN",
+  "setupServiceHelp": "屏幕关闭或切换到其他应用后，让 Kiosk Satellite 继续运行，保持 Home Assistant 连接，并继续提供运动检测和蓝牙代理等功能。下方权限不是必需的，但建议开启，以减少系统在屏幕关闭后暂停应用的情况。",
+  "setupBatteryMissing": "屏幕关闭时 Android 可能暂停应用，同时断开 Home Assistant 连接。",
+  "setupOverlayMissing": "没有此权限，服务无法在崩溃后重新启动 Kiosk。"
+}

@@ -1,0 +1,9 @@
+{
+  "@@locale": "zh_CN",
+  "launcherOverlayHeld": "Kiosk Satellite 可以自动返回前台，并检测其他应用中的触屏操作。",
+  "launcherOverlayMissing": "缺少此权限时，Kiosk 无法自动返回，也无法检测其他应用中的触屏操作。",
+  "launcherOverlayRemote": "没有此权限，Kiosk 无法自动返回，也无法检测其他应用中的触屏操作。授权页面会显示在平板上。",
+  "launcherBatteryMissing": "系统可能暂停后台的 Kiosk Satellite，导致自动返回计时停止，无法自动回到 Kiosk 界面。",
+  "launcherBatteryRemote": "系统可能暂停后台的 Kiosk Satellite，导致自动返回计时停止，无法自动回到 Kiosk 界面。请在平板上显示的授权对话框中完成授权。",
+  "launcherPermissionsSearch": "“自动返回”所依赖的权限。"
+}

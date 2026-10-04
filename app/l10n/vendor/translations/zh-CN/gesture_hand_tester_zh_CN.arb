@@ -1,0 +1,20 @@
+{
+  "@@locale": "zh_CN",
+  "gestureTester": "手势测试器",
+  "gestureOpenTester": "打开测试器",
+  "gestureCameraFirst": "请先在摄像头设置中开启摄像头。",
+  "gestureTesterHelp": "观察摄像头识别出的手指，了解应如何摆放手部。",
+  "gestureHandHelp": "把手举到肩膀高度，掌心对着摄像头，五指张开。把某根手指完全弯下，就不会把它算进去。要比出“四”，将拇指弯到掌心；只有手掌张开时，拇指才会被计数。",
+  "gestureTesterPaused": "测试器打开时不会触发手势操作。",
+  "gestureShowHand": "请向摄像头展示手部。",
+  "gestureTesterTrigger": "触发：{action}",
+  "gestureNoCount": "没有手势使用此手指数量。",
+  "gestureNoHand": "画面中没有手",
+  "gestureReadingHand": "正在识别手部",
+  "gestureNoFingers": "没有伸出的手指",
+  "gestureHandsCount": "画面中有 {count} 只手，正在识别较大的一只。",
+  "gestureTesterSearch": "实时查看摄像头识别出的手指。",
+  "gestureHoldConfirmed": "长按已确认",
+  "gestureHoldProgress": "长按进度：{progress}",
+  "gestureTesterHoldDuration": "长按时长：{duration}"
+}
