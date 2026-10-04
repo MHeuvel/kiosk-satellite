@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Added
+- **Voice Only skin.** **Voice Satellite > Appearance > Skin** gains Voice Only for screens too small to read. It shows no command, answer, tool lines or results, only the Kiosk Satellite logo filling the screen, or on its own over the dashboard in docked mode, with its four bars stretching and shrinking to the microphone and the spoken answer. The bars follow the answer as far as they follow your voice. With **Reactive activity bar** off, the bars run their own animation for listening, thinking and speaking instead. In the light theme the full screen overlay sits on the same background gradient as the app launcher and the intercom. Skin names in the on-device picker are now translated too, and the remote admin's skin picker checks for updated pictures instead of keeping old ones for a day. Translated into Spanish, German, French, Ukrainian and Dutch.
 - **Play or pause media gesture.** **Gestures** gains a **Play or pause media** action that pauses the media player when it plays and plays it when it is paused, so claps or a hand showing fingers can stop the music without asking the voice assistant (#843). It controls the player picked under **Media Player > Player**, the Local Media Session and followed players included. The remote API's `sendspinControl` takes a `toggle` command for the same thing. Translated into Spanish, German, French, Ukrainian and Dutch.
 
 ## v2026.10.6 - 2026-10-03

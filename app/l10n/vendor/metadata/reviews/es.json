@@ -18983,5 +18983,10 @@
     "source": "bc43ecb9d90e0d9b6744546c7832c9e7f812f6be7102f18b8de2e52168131f64",
     "translation": "53fffe58a6988513ef7fbeaf46326d0592477f433f2a59fde7c48449b3b3674e",
     "author": "Xavier Larrea"
+  },
+  "voiceSkinVoiceOnly": {
+    "source": "90bbda65ebc2785f132e0720c2070e727bed332b0e90b5d3b52dadf12a0d698b",
+    "translation": "d6264608aaeb178b499182d7692c7192e9b5fe9f1385f0599bafa6577118d8c7",
+    "author": "Xavier Larrea"
   }
 }

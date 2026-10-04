@@ -15,9 +15,11 @@ import '../../managers/settings/definitions.dart' as defs;
 import '../../managers/voice/assist_view.dart';
 import '../../managers/voice/voice_manager.dart';
 import '../../managers/voice/voice_notice.dart';
+import '../theme.dart';
 import '../toast.dart';
 import 'art_ink_blobs.dart';
 import 'art_lens_flares.dart';
+import 'art_logo.dart';
 import 'art_waveform.dart';
 import 'assist_art.dart';
 import 'assist_panels.dart';
@@ -335,7 +337,13 @@ class _AssistOverlayState extends State<AssistOverlay>
         settings.get(defs.voiceReactiveBar) &&
         view.reactive &&
         mode != ArtMode.thinking;
-    final color = palette.backdrop.withValues(alpha: opacity);
+    // Voice Only's light screen takes the app's own full screen ground (the
+    // launcher's and the intercom's), drawn over the backdrop: the flat
+    // paper tone alone reads as white.
+    final ground = skin.voiceOnly && !dark;
+    final color = ground
+        ? const Color(0x00000000)
+        : palette.backdrop.withValues(alpha: opacity);
     // backdrop-filter: blur shows only where the backdrop lets the screen
     // through: the frozen blurred screen under it once captured, the live
     // filter until then.
@@ -351,6 +359,41 @@ class _AssistOverlayState extends State<AssistOverlay>
       backdrop = BackdropFilter(
         filter: ui.ImageFilter.blur(sigmaX: skin.blur, sigmaY: skin.blur),
         child: backdrop,
+      );
+    }
+    if (skin.voiceOnly) {
+      // The mark alone, as large as the screen allows.
+      final size = MediaQuery.sizeOf(context);
+      return Stack(
+        fit: StackFit.expand,
+        children: [
+          backdrop,
+          if (ground)
+            DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    for (final c in ksGroundGradient(
+                      palette.backdrop,
+                      Brightness.light,
+                    ).colors)
+                      c.withValues(alpha: opacity),
+                  ],
+                ),
+              ),
+            ),
+          Padding(
+            padding: EdgeInsets.all(math.min(size.width, size.height) * 0.08),
+            child: LogoArt(
+              mode: mode,
+              reactive: reactive,
+              level: _glide,
+              clock: _clock,
+            ),
+          ),
+        ],
       );
     }
     return Stack(
@@ -499,54 +542,74 @@ class _AssistOverlayState extends State<AssistOverlay>
     ];
     // The bubble: the exchange, and the skin's bar docked along its
     // bottom. Up for the whole conversation, a slim pill with just the bar
-    // while nothing has been said.
-    final card = AnimatedSize(
-      duration: const Duration(milliseconds: 250),
-      curve: Curves.ease,
-      alignment: Alignment.bottomCenter,
-      child: Container(
-        width: width,
-        clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(
-          color: bubble,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: palette.answer.withValues(alpha: 0.16)),
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x33000000),
-              blurRadius: 16,
-              offset: Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (lines.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 14, 20, 0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 6,
-                  children: lines,
-                ),
-              ),
-            IgnorePointer(
-              child: DockedBarLayer(
-                bar: skin.barDocked,
+    // while nothing has been said. Voice Only shows the mark alone, no
+    // bubble around it, fading as the conversation ends.
+    final logoSide = (math.min(size.width, size.height) * 0.24).clamp(
+      72.0,
+      140.0,
+    );
+    final card = skin.voiceOnly
+        ? SizedBox.square(
+            dimension: logoSide,
+            child: IgnorePointer(
+              child: LogoArt(
                 mode: mode,
                 reactive: reactive,
                 level: _glide,
                 clock: _clock,
-                countdown: c.voice.dockCountdown,
+                fade: c.voice.dockCountdown,
               ),
             ),
-          ],
-        ),
-      ),
-    );
+          )
+        : AnimatedSize(
+            duration: const Duration(milliseconds: 250),
+            curve: Curves.ease,
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              width: width,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                color: bubble,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: palette.answer.withValues(alpha: 0.16),
+                ),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0x33000000),
+                    blurRadius: 16,
+                    offset: Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  if (lines.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 14, 20, 0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        spacing: 6,
+                        children: lines,
+                      ),
+                    ),
+                  IgnorePointer(
+                    child: DockedBarLayer(
+                      bar: skin.barDocked,
+                      mode: mode,
+                      reactive: reactive,
+                      level: _glide,
+                      clock: _clock,
+                      countdown: c.voice.dockCountdown,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
     // Anywhere on screen, where it was last dragged: its position is a
     // fraction of the room left around it, so a bubble that grows as the
     // answer comes in keeps to the edge it was put against.

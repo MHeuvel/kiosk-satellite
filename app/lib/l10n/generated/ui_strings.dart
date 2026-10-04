@@ -19362,6 +19362,12 @@ abstract class UiStrings {
   /// **'Listening…'**
   String get voiceListeningEllipsis;
 
+  /// The name of a voice assistant overlay skin that shows no text, only the app logo whose bars move with the voice. Title case like the other skin names.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Only'**
+  String get voiceSkinVoiceOnly;
+
   /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
   ///
   /// In en, this message translates to:

@@ -11260,6 +11260,9 @@ class UiStringsUk extends UiStrings {
   String get voiceListeningEllipsis => 'Слухає…';
 
   @override
+  String get voiceSkinVoiceOnly => 'Лише голос';
+
+  @override
   String get voiceAssistant1 => 'Асистент 1';
 
   @override

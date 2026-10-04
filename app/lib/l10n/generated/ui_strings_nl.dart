@@ -11275,6 +11275,9 @@ class UiStringsNl extends UiStrings {
   String get voiceListeningEllipsis => 'Luisteren…';
 
   @override
+  String get voiceSkinVoiceOnly => 'Alleen spraak';
+
+  @override
   String get voiceAssistant1 => 'Assistent 1';
 
   @override

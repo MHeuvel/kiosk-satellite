@@ -30,5 +30,6 @@
   "settingVoiceOverlayModeDescription": "Angedockt zeigt eine kleine Blase über dem Dashboard. Umfangreiche Ergebnisse wie Bilder, Wetter oder Videos werden nicht angezeigt.",
   "voiceOverlayFullScreen": "Vollbild",
   "voiceOverlayDocked": "Angedockt",
-  "voiceListeningEllipsis": "Hört zu…"
+  "voiceListeningEllipsis": "Hört zu…",
+  "voiceSkinVoiceOnly": "Nur Stimme"
 }

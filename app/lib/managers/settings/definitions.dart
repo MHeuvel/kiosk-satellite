@@ -6103,6 +6103,7 @@ const voiceSkin = SettingDef<String>(
     'waveform',
     'lens-flares',
     'ink-blobs',
+    'voice-only',
   ],
   optionLabels: {
     'kiosk-satellite': 'Kiosk Satellite',
@@ -6115,6 +6116,7 @@ const voiceSkin = SettingDef<String>(
     'waveform': 'Waveform',
     'lens-flares': 'Lens Flares',
     'ink-blobs': 'Ink Blobs',
+    'voice-only': 'Voice Only',
   },
   dependsOn: 'voice.enabled',
 );

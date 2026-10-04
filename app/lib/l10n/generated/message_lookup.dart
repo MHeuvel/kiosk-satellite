@@ -3705,6 +3705,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'voiceOverlayFullScreen' => strings.voiceOverlayFullScreen,
       'voiceOverlayDocked' => strings.voiceOverlayDocked,
       'voiceListeningEllipsis' => strings.voiceListeningEllipsis,
+      'voiceSkinVoiceOnly' => strings.voiceSkinVoiceOnly,
       'voiceAssistant1' => strings.voiceAssistant1,
       'voiceAssistant1Help' => strings.voiceAssistant1Help,
       'voiceAssistant2' => strings.voiceAssistant2,

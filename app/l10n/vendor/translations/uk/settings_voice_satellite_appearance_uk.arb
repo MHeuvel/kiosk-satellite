@@ -30,5 +30,6 @@
   "settingVoiceOverlayModeDescription": "Закріплений показує невелику бульбашку поверх панелі керування. Розширені результати, як-от зображення, погода чи відео, не показуються.",
   "voiceOverlayFullScreen": "На весь екран",
   "voiceOverlayDocked": "Закріплений",
-  "voiceListeningEllipsis": "Слухає…"
+  "voiceListeningEllipsis": "Слухає…",
+  "voiceSkinVoiceOnly": "Лише голос"
 }

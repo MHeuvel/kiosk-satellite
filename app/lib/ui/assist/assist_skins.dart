@@ -191,6 +191,7 @@ class AssistSkin {
     this.toolItalic = true,
     this.prefix = '',
     this.crt = false,
+    this.voiceOnly = false,
   });
 
   final String id;
@@ -256,6 +257,10 @@ class AssistSkin {
 
   /// The terminal's CRT bezel, scanlines and vignette over the backdrop.
   final bool crt;
+
+  /// Only the Kiosk Satellite mark, its bars moving with the voice: no
+  /// text, tool lines or results, for screens too small to read them.
+  final bool voiceOnly;
 
   bool get darkOnly => dark == null;
 
@@ -631,6 +636,31 @@ final assistSkins = <AssistSkin>[
     announcementTop: 0.72,
     idleDotSize: 22,
     toolSize: 22,
+  ),
+  const AssistSkin(
+    id: 'voice-only',
+    name: 'Voice Only',
+    light: SkinPalette(
+      backdrop: Color(0xFFF5F4F2),
+      opacity: 1,
+      user: Color(0x80212327),
+      answer: Color(0xFF212327),
+      tool: Color(0xFF5D6066),
+      pill: Color(0xFFFFFFFF),
+      dots: kioskSatelliteColors,
+    ),
+    dark: SkinPalette(
+      backdrop: Color(0xFF121316),
+      opacity: 1,
+      user: Color(0x80E8EAED),
+      answer: Color(0xFFE8EAED),
+      tool: Color(0xFFB6BABF),
+      pill: Color(0xFF2A2B2F),
+      dots: kioskSatelliteColors,
+    ),
+    bar: NoBar(),
+    dots: DotsStyle.logoBars,
+    voiceOnly: true,
   ),
 ];
 

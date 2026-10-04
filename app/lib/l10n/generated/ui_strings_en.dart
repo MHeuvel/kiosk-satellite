@@ -11137,6 +11137,9 @@ class UiStringsEn extends UiStrings {
   String get voiceListeningEllipsis => 'Listening…';
 
   @override
+  String get voiceSkinVoiceOnly => 'Voice Only';
+
+  @override
   String get voiceAssistant1 => 'Assistant 1';
 
   @override
