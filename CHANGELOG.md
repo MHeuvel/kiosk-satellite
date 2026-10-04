@@ -11,6 +11,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Fixed
 - **DLNA renderer plays from foobar2000.** Playing to a kiosk from foobar2000 timed out and never started (#847). The renderer held its answer to Set URI, Play, Pause and Stop until the controller had taken the matching state update, and foobar2000 cannot take an update while it still waits for an answer, so each side waited on the other until foobar2000 gave up. The renderer now waits at most 300 ms before answering and sends the update right after. Home Assistant takes the update in milliseconds, so it still gets it before the answer as before.
+- **The device camera comes back after the camera driver restarts.** When the camera driver stalled and restarted, motion detection, snapshots and RTSP could stop until the app restarted, with "the camera library accepts none of the cameras Android lists" in the log (#848). The camera library drops a camera it catches missing while the driver is down and then fails to add it back when the driver returns. The kiosk now restarts the camera library when that happens, and the camera works again on the next try, about 10 seconds later.
 
 ## v2026.10.6 - 2026-10-03
 
