@@ -1,0 +1,18 @@
+{
+  "@@locale": "nl",
+  "settingAutoReloadOnErrorTitle": "Automatisch herladen bij fout",
+  "settingAutoReloadOnErrorDescription": "Herstel automatisch na fouten op de pagina of crashes van de app.",
+  "settingPullToRefreshTitle": "Trekken om te vernieuwen inschakelen",
+  "settingPullToRefreshDescription": "Sleep vanaf de bovenkant van de pagina omlaag om deze opnieuw te laden. Staat standaard uit, omdat dit gebaar op een scrollbaar dashboard gemakkelijk per ongeluk wordt uitgevoerd.",
+  "settingPullToRefreshClearCacheTitle": "Cache wissen bij verversen",
+  "settingPullToRefreshClearCacheDescription": "Het trekgebaar wist ook de webcache en opgeslagen wekwoordmodellen voordat de pagina opnieuw wordt geladen. Aanmeldgegevens en opgeslagen paginagegevens blijven behouden.",
+  "settingBrowserZoomTitle": "Zoomniveau",
+  "settingBrowserZoomDescription": "Schaalt de hele pagina. Boven 1x voor wandtabletten op afstand bekeken; onder 1x past meer dashboard op een klein scherm.",
+  "settingPinchToZoomTitle": "Knijpen om te zoomen inschakelen",
+  "settingPinchToZoomDescription": "Zoom met een knijpbeweging van twee vingers. Staat standaard uit, zodat onbedoelde aanrakingen het kioskdashboard niet verplaatsen.",
+  "settingDisableScrollingTitle": "Schuiven uitschakelen",
+  "settingDisableScrollingDescription": "Zet de pagina vast zodat deze in geen enkele richting kan worden verschoven. Tikken en knoppen blijven werken.",
+  "browserCrashPermissionHelp": "Zonder dit kan de kiosk niet terugkomen na een crash.",
+  "browserCrashPermissionMissing": "Toestemming voor weergave over andere apps ontbreekt",
+  "browserCrashPermissionRemoteHelp": "Zonder deze toestemming kan de kiosk zichzelf na een crash niet herstellen. Het toestemmingsscherm verschijnt op de tablet."
+}

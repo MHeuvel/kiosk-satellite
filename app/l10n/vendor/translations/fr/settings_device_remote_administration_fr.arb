@@ -13,6 +13,7 @@
   "deviceAdminAddressHelp": "Ouvrez cette adresse dans un navigateur sur votre ordinateur.",
   "deviceByName": "Par nom",
   "deviceByNameHelp": "La même adresse par nom d'hôte, sur les réseaux qui résolvent les noms .local.",
+  "deviceByCertificateNameHelp": "La même adresse par le nom de son certificat.",
   "devicePasswordNeeded": "Définissez un mot de passe d'administration ci-dessous pour démarrer le serveur.",
   "deviceServerStopped": "Le serveur n'est pas en cours d'exécution.",
   "devicePortError": "Impossible d'écouter sur le port {port} : {error}",

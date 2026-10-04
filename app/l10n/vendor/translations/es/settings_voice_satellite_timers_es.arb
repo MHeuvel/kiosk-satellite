@@ -6,6 +6,8 @@
   "settingVoiceTimerNameInPillDescription": "El nombre junto al tiempo en un indicador.",
   "settingVoiceTimerPillScaleTitle": "Escala de los indicadores de temporizador",
   "settingVoiceTimerPillScaleDescription": "El tamaño de los indicadores de temporizador.",
+  "settingVoiceTimerAlertPillTitle": "Mostrar indicadores de temporizadores finalizados",
+  "settingVoiceTimerAlertPillDescription": "Toca el indicador para detener la alerta.",
   "settingVoiceMuteTimersTitle": "Silenciar las alertas de temporizador",
   "settingVoiceMuteTimersDescription": "Muestra la alerta sin sonido.",
   "settingVoiceTimerNameOnAlertTitle": "Mostrar el nombre en la alerta",

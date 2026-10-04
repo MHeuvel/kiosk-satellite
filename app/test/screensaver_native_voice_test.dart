@@ -13,10 +13,10 @@ void main() {
   late ScreensaverManager saver;
   late List<double> levels;
 
-  Future<void> build({required String runtime}) async {
+  Future<void> build({required String runtime, String mode = 'clock'}) async {
     SharedPreferences.setMockInitialValues({
       'ks.screensaver.enabled': true,
-      'ks.screensaver.mode': 'clock',
+      'ks.screensaver.mode': mode,
       'ks.screensaver.brightness_enabled': true,
       'ks.screensaver.brightness_level': 0.1,
       'ks.voice.runtime': runtime,
@@ -93,6 +93,28 @@ void main() {
     expect(saver.isActive, isTrue);
     expect(saver.renderPaused.value, isFalse);
     expect(levels.last, 0.1);
+  });
+
+  group('under the docked overlay', () {
+    Future<void> docked({required bool pauses}) async {
+      bus.publish(AssistOverlayVisibility(true, covers: false, pauses: pauses));
+      await pumpEventQueue();
+    }
+
+    test('a clock keeps ticking', () async {
+      await build(runtime: 'native');
+      await docked(pauses: true);
+      expect(saver.renderPaused.value, isFalse);
+    });
+
+    test('Weather Mood holds its frame until a touch wakes it', () async {
+      await build(runtime: 'native', mode: 'weather_mood');
+      expect(saver.activeView.value, 'weather_mood');
+      await docked(pauses: true);
+      expect(saver.renderPaused.value, isTrue);
+      await docked(pauses: false);
+      expect(saver.renderPaused.value, isFalse);
+    });
   });
 
   test('the integration in the dashboard still dismisses it', () async {

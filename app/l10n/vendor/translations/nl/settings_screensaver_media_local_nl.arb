@@ -1,0 +1,19 @@
+{
+  "@@locale": "nl",
+  "settingScreensaverLocalFolderTitle": "Lokale map",
+  "settingScreensaverLocalFolderDescription": "De map op dit apparaat met foto's en video's die de schermbeveiliging afspeelt. Selecteer de map op het apparaat of voer het pad hier op afstand in.",
+  "settingScreensaverLocalIntervalTitle": "Seconden per foto",
+  "settingScreensaverLocalIntervalDescription": "Hoelang elke foto wordt getoond voordat de volgende verschijnt. Video's worden volledig afgespeeld.",
+  "settingScreensaverLocalShuffleTitle": "Willekeurige volgorde",
+  "settingScreensaverLocalShuffleDescription": "Speel de inhoud van de map in willekeurige volgorde af in plaats van op naam.",
+  "settingScreensaverLocalRecursiveTitle": "Submappen toevoegen",
+  "settingScreensaverLocalRecursiveDescription": "Speel ook foto's en video's uit submappen af.",
+  "settingScreensaverLocalTransitionTitle": "Overgang",
+  "settingScreensaverLocalTransitionDescription": "De overgang van de ene foto naar de volgende.",
+  "settingScreensaverLocalFillTitle": "Het scherm vullen",
+  "settingScreensaverLocalFillDescription": "Uit toont de volledige foto met zwarte balken ernaast. Slim vergroot foto's met een beeldverhouding die dicht bij die van het scherm ligt; de rest wordt tegen een vervaagde achtergrond getoond. Altijd vergroot elke foto en snijdt af wat niet op het scherm past.",
+  "settingScreensaverLocalEdgeTapsTitle": "Tik op randen om dia's te wijzigen",
+  "settingScreensaverLocalEdgeTapsDescription": "Tik in het linker- of rechtervijfde van het scherm om de vorige of volgende foto te tonen in plaats van de schermbeveiliging af te sluiten.",
+  "screensaverMediaLocalPage": "Lokale mediaschermbeveiliging",
+  "screensaverMediaLocalHint": "Map, timing, willekeurige volgorde en overgangen"
+}

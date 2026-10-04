@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Trust certificate authorities the user installs in Android's security
+     settings, not only the system ones, so a Home Assistant behind a
+     private CA loads in the WebView and the media players without Ignore
+     SSL errors (issue #775). The Dart clients get the same CAs from
+     TlsBridge. A config file overrides android:usesCleartextTraffic, so
+     cleartext stays allowed here: most dashboards run on plain http. -->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system"/>
+            <certificates src="user"/>
+        </trust-anchors>
+    </base-config>
+</network-security-config>

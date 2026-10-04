@@ -8,6 +8,7 @@ import 'package:kiosk_satellite/core/logging.dart';
 void main() {
   foldedTailTests();
   pacedStrikeTests();
+  renderWedgeTests();
   LogEntry entry(String tag, String message, {int second = 0}) => LogEntry(
     DateTime.utc(2026, 9, 13, 12, 0, second),
     LogLevel.info,
@@ -166,5 +167,95 @@ void foldedTailTests() {
     expect(note, contains('device: activity attached (HomeAlias) (x38)'));
     expect(note, contains('12:00:40 watchdog: strike 6/6'));
     expect('activity attached'.allMatches(note), hasLength(1));
+  });
+}
+
+/// The render wedge (issue #830): a context on the main thread while the
+/// raster thread keeps waking up. Readings from an Echo Show 8 (Impeller
+/// on OpenGL ES): the dashboard holds the context on the main thread with
+/// zero raster wakes, a screensaver leaves the main thread clear with
+/// hundreds.
+void renderWedgeTests() {
+  test('no context on the main thread is clear, whatever the raster does', () {
+    expect(
+      readRenderProbe(mainContext: false, switches: 1800, previous: 0),
+      RenderProbe.clear,
+    );
+  });
+
+  test('a merged frame loop leaves the raster thread asleep', () {
+    expect(
+      readRenderProbe(mainContext: true, switches: 500, previous: 500),
+      RenderProbe.quiet,
+    );
+  });
+
+  test('the raster thread waking up behind a held context is locked out', () {
+    expect(
+      readRenderProbe(mainContext: true, switches: 520, previous: 500),
+      RenderProbe.lockedOut,
+    );
+  });
+
+  test('a stray wakeup or two is not a wedge', () {
+    expect(
+      readRenderProbe(mainContext: true, switches: 502, previous: 500),
+      RenderProbe.quiet,
+    );
+    expect(
+      readRenderProbe(
+        mainContext: true,
+        switches: 501,
+        previous: 500,
+        minWakes: 1,
+      ),
+      RenderProbe.lockedOut,
+    );
+  });
+
+  test('no baseline or an unreadable thread never strikes', () {
+    expect(
+      readRenderProbe(mainContext: true, switches: 900, previous: null),
+      RenderProbe.quiet,
+    );
+    expect(
+      readRenderProbe(mainContext: true, switches: -1, previous: 500),
+      RenderProbe.quiet,
+    );
+    expect(
+      readRenderProbe(mainContext: true, switches: 900, previous: -1),
+      RenderProbe.quiet,
+    );
+  });
+
+  test('the restart note groups as a watchdog restart of its own', () {
+    final note = describeRenderWedge(
+      seconds: 15,
+      impellerDisabled: false,
+      recentLog: [
+        LogEntry(
+          DateTime.utc(2026, 10, 3, 21, 35, 14),
+          LogLevel.info,
+          'browser',
+          'rendering resumed',
+        ),
+        LogEntry(
+          DateTime.utc(2026, 10, 3, 21, 35, 15),
+          LogLevel.info,
+          'command',
+          'getBrightness [esphome]',
+        ),
+      ],
+    );
+    final lines = note.split('\n');
+    expect(
+      lines.first,
+      'the frame watchdog found Flutter locked out of its EGL context for '
+      '15s (held by the main thread)',
+    );
+    expect(lines.first, contains('frame watchdog'));
+    expect(note, contains('renderer: impeller on'));
+    expect(note, contains('21:35:14 browser: rendering resumed'));
+    expect(note, isNot(contains('getBrightness')));
   });
 }

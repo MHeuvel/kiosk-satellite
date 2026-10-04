@@ -3,17 +3,14 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kiosk_satellite/core/command_registry.dart';
 import 'package:kiosk_satellite/core/event_bus.dart';
-import 'package:kiosk_satellite/core/events.dart';
 import 'package:kiosk_satellite/core/logging.dart';
 import 'package:kiosk_satellite/managers/alarms/alarm_manager.dart';
 import 'package:kiosk_satellite/managers/alarms/alarm_requests.dart';
 import 'package:kiosk_satellite/managers/settings/settings_manager.dart';
-import 'package:kiosk_satellite/managers/voice/ha_socket.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Alarms asked for through the Kiosk Satellite alarms script: which kiosk
-/// answers, and what each action does to the list and says back to the
-/// LLM. 2026-10-02 is a Friday.
+/// Alarms asked for through the Kiosk Satellite alarms script: what each
+/// action does to the list and says back to the LLM. 2026-10-02 is a Friday.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -24,15 +21,10 @@ void main() {
   late SettingsManager settings;
   var now = DateTime(2026, 10, 2, 9);
 
-  Future<void> build(
-    List<Map<String, Object?>> list, {
-    Map<String, Object> extra = const {},
-    HaSocket? socket,
-  }) async {
+  Future<void> build(List<Map<String, Object?>> list) async {
     SharedPreferences.setMockInitialValues({
       'ks.alarms.list': jsonEncode(list),
       'ks.device.name': 'Bedroom Kiosk',
-      ...extra,
     });
     bus = EventBus();
     final log = Logger();
@@ -62,7 +54,6 @@ void main() {
       log,
       settings,
       clock: () => now,
-      haSocket: socket,
     );
     await alarms.init();
     requests = alarms.requests;
@@ -72,68 +63,6 @@ void main() {
   tearDown(() async {
     await built?.dispose();
     built = null;
-  });
-
-  group('who answers', () {
-    test('the kiosk in a voice turn, and only while in it', () async {
-      now = DateTime(2026, 10, 2, 9);
-      await build([]);
-      expect(requests.isForMe({'action': 'list'}), isFalse);
-      bus.publish(
-        const VoiceInteractionChanged(
-          active: true,
-          reason: 'voice',
-          source: InteractionSource.native,
-        ),
-      );
-      await pumpEventQueue();
-      expect(requests.isForMe({'action': 'list'}), isTrue);
-      bus.publish(
-        const VoiceInteractionChanged(
-          active: false,
-          reason: 'voice',
-          source: InteractionSource.native,
-        ),
-      );
-      await pumpEventQueue();
-      // A moment of grace for a runtime that reports the end first.
-      expect(requests.isForMe({'action': 'list'}), isTrue);
-      now = now.add(const Duration(seconds: 10));
-      expect(requests.isForMe({'action': 'list'}), isFalse);
-    });
-
-    test('a timer or an announcement is not a conversation', () async {
-      await build([]);
-      bus.publish(
-        const VoiceInteractionChanged(
-          active: true,
-          reason: 'timer',
-          source: InteractionSource.native,
-        ),
-      );
-      await pumpEventQueue();
-      expect(requests.isForMe({'action': 'list'}), isFalse);
-    });
-
-    test('a named kiosk answers whatever it is doing', () async {
-      await build([]);
-      expect(requests.isForMe({'kiosk': 'bedroom'}), isTrue);
-      expect(requests.isForMe({'kiosk': 'Bedroom Kiosk'}), isTrue);
-      expect(requests.isForMe({'kiosk': 'kitchen'}), isFalse);
-    });
-
-    test('a request for another kiosk is not taken mid turn', () async {
-      await build([]);
-      bus.publish(
-        const VoiceInteractionChanged(
-          active: true,
-          reason: 'voice',
-          source: InteractionSource.page,
-        ),
-      );
-      await pumpEventQueue();
-      expect(requests.isForMe({'kiosk': 'kitchen'}), isFalse);
-    });
   });
 
   group('actions', () {
@@ -213,6 +142,19 @@ void main() {
       expect(alarms.alarms.value.map((a) => a.id), ['b']);
     });
 
+    test('requests that arrive together apply one after the other', () async {
+      // An agent sends "delete my 6:30 alarm and set one for 7" as two
+      // tool calls at once: the set must not write back the deleted alarm.
+      await build([
+        {'id': 'a', 'time': '06:30', 'on': true},
+      ]);
+      await Future.wait([
+        requests.handle({'action': 'delete', 'time': '06:30'}),
+        requests.handle({'action': 'set', 'time': '07:00'}),
+      ]);
+      expect(alarms.alarms.value.map((a) => a.time), ['07:00']);
+    });
+
     test('several matches ask which one and change nothing', () async {
       await build([
         {'id': 'a', 'time': '06:30', 'on': true},
@@ -227,29 +169,6 @@ void main() {
       expect(r['ok'], isFalse);
       expect(r['alarms'], hasLength(2));
       expect(alarms.alarms.value, hasLength(2));
-    });
-  });
-
-  group('following requests', () {
-    Future<_FakeSocket> follow({required bool admin}) async {
-      final socket = _FakeSocket(admin: admin);
-      await build(
-        [],
-        extra: {'ks.ha.url': 'http://ha.local:8123', 'ks.ha.token': 'token'},
-        socket: socket,
-      );
-      return socket;
-    }
-
-    test('a non-admin token is never refused by Home Assistant', () async {
-      final socket = await follow(admin: false);
-      expect(socket.subscribes, 0);
-      expect(socket.userChecks, 1);
-    });
-
-    test('an admin token listens for requests', () async {
-      final socket = await follow(admin: true);
-      expect(socket.subscribes, 1);
     });
   });
 
@@ -275,41 +194,4 @@ void main() {
       expect(parseAlarmDays('[]'), isEmpty);
     });
   });
-}
-
-class _FakeSocket extends HaSocket {
-  _FakeSocket({required this.admin})
-    : super(baseUrl: () => '', token: () => '');
-
-  final bool admin;
-  int userChecks = 0;
-  int subscribes = 0;
-
-  @override
-  bool get connected => true;
-
-  @override
-  Future<Object?> request(
-    Map<String, Object?> command, {
-    Duration timeout = const Duration(seconds: 10),
-  }) async {
-    if (command['type'] == 'auth/current_user') {
-      userChecks++;
-      return {'id': 'u', 'is_admin': admin};
-    }
-    return null;
-  }
-
-  @override
-  Future<Future<void> Function()> subscribe(
-    Map<String, Object?> command,
-    void Function(Map<String, Object?> event) onEvent, {
-    Duration timeout = const Duration(seconds: 10),
-  }) async {
-    subscribes++;
-    return () async {};
-  }
-
-  @override
-  Future<void> close() async {}
 }

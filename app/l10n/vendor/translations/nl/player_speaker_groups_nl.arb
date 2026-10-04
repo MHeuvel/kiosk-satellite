@@ -1,0 +1,7 @@
+{
+  "@@locale": "nl",
+  "mediaGroupLead": "Leidt de groep",
+  "mediaGroupReadFailed": "De groep kon niet worden gelezen.",
+  "mediaGroupEmpty": "Geen andere spelers beschikbaar om te groeperen.",
+  "mediaSpeakerSelection": "Luidsprekerkeuze"
+}

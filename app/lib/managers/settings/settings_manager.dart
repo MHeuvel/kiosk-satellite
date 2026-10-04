@@ -60,19 +60,78 @@ class SettingsManager extends Manager {
     bus.publish(SettingOptionsChanged(cameraRtspResolution.key));
   }
 
+  /// Each realtime provider's models and voices: fetched from it when the
+  /// kiosk talks to it directly, else the ones built in (VoiceManager).
+  final _realtimeCatalog =
+      <String, ({List<String> models, List<String> voices})>{};
+
+  /// The Model and Voice settings of each provider, and which list each
+  /// takes: (provider, models).
+  static final _realtimeLists = <String, (String, bool)>{
+    voiceRealtimeOpenAiModel.key: ('openai', true),
+    voiceRealtimeOpenAiVoice.key: ('openai', false),
+    voiceRealtimeXaiModel.key: ('xai', true),
+    voiceRealtimeXaiVoice.key: ('xai', false),
+    voiceRealtimeGeminiModel.key: ('gemini', true),
+    voiceRealtimeGeminiVoice.key: ('gemini', false),
+  };
+
+  void updateRealtimeCatalog(
+    String provider, {
+    required List<String> models,
+    required List<String> voices,
+  }) {
+    final before = _realtimeCatalog[provider];
+    _realtimeCatalog[provider] = (
+      models: List.unmodifiable(models),
+      voices: List.unmodifiable(voices),
+    );
+    for (final entry in _realtimeLists.entries) {
+      final (owner, isModels) = entry.value;
+      if (owner != provider) continue;
+      final was = isModels ? before?.models : before?.voices;
+      final now = isModels ? models : voices;
+      if (was?.join(',') != now.join(',')) {
+        bus.publish(SettingOptionsChanged(entry.key));
+      }
+    }
+  }
+
+  /// '' (the provider's default) first, then the catalog, and the value
+  /// set when the catalog no longer lists it. Null for any other setting.
+  List<String>? _realtimeOptions(SettingDef<Object> def) {
+    final list = _realtimeLists[def.key];
+    if (list == null) return null;
+    final (provider, isModels) = list;
+    final catalog = _realtimeCatalog[provider];
+    final entries = (isModels ? catalog?.models : catalog?.voices) ?? const [];
+    final current = get(def) as String;
+    return [
+      '',
+      ...entries,
+      if (current.isNotEmpty && !entries.contains(current)) current,
+    ];
+  }
+
   List<String> optionsFor(SettingDef<Object> def) =>
       def.key == cameraRtspResolution.key
       ? _cameraStreamResolutions ?? const []
-      : [
-          ...?def.options,
-          if (def.key == screensaverMode.key) ...{
-            ...pluginScreensavers().keys,
-            if (isPluginScreensaver(get(def))) get(def) as String,
-          },
-        ];
+      : _realtimeOptions(def) ??
+            [
+              ...?def.options,
+              if (def.key == screensaverMode.key) ...{
+                ...pluginScreensavers().keys,
+                if (isPluginScreensaver(get(def))) get(def) as String,
+              },
+            ];
   String? optionLabel(SettingDef<Object> def, String value) =>
       def.key == cameraRtspResolution.key
       ? cameraResolutionLabel(value)
+      // Model ids read as they are; voices are names.
+      : _realtimeLists[def.key] != null && value.isNotEmpty
+      ? (_realtimeLists[def.key]!.$2
+            ? value
+            : value[0].toUpperCase() + value.substring(1))
       : def.optionLabels?[value] ??
             (def.key == screensaverMode.key
                 ? pluginScreensavers()[value] ??
@@ -142,6 +201,7 @@ class SettingsManager extends Manager {
                 'satellite entity setting) alone so this device answers as '
                 'its own satellite (default true)',
           },
+          secretParams: const {'config'},
           handler: (p) async {
             final config = p['config'];
             if (config is! Map) {
@@ -311,16 +371,32 @@ class SettingsManager extends Manager {
     if (_prefs.get(_prefix + uiLanguage.key) == 'system') {
       await _prefs.setString(_prefix + uiLanguage.key, 'en');
     }
-    // Turn noise suppression off once for existing installs. Record this
-    // on fresh installs too so later choices survive app restarts.
-    const noiseSuppressionMigration =
-        'audio.mic_noise_suppression_off.migrated';
-    if (internal(noiseSuppressionMigration).isEmpty) {
-      if (get(micNoiseSuppression)) {
-        await _prefs.setBool(_prefix + micNoiseSuppression.key, false);
-        log.info(name, 'turned microphone noise suppression off on upgrade');
+    // The platform's echo canceller, capture mode, noise suppression and
+    // gain control are gone: the capture is the raw microphone with the
+    // app's own canceller over it, which an install from the days of the
+    // switch may have turned off to try. On once for everyone.
+    const softwareEchoMigration =
+        'audio.software_echo_cancellation_on.migrated';
+    if (internal(softwareEchoMigration).isEmpty) {
+      if (!get(micSoftwareEchoCancellation)) {
+        await _prefs.setBool(_prefix + micSoftwareEchoCancellation.key, true);
+        log.info(name, 'turned echo cancellation on on upgrade');
       }
-      await setInternal(noiseSuppressionMigration, '1');
+      await setInternal(softwareEchoMigration, '1');
+    }
+    // The music duck used to go up to 25%, more than the software echo
+    // canceller keeps out of the microphone. Bring existing installs down
+    // to the new ceiling once.
+    const duckCapMigration = 'sendspin.duck_percent_10.migrated';
+    if (internal(duckCapMigration).isEmpty) {
+      if (get(sendspinDuckPercent) > sendspinDuckMax) {
+        await _prefs.setInt(_prefix + sendspinDuckPercent.key, sendspinDuckMax);
+        log.info(
+          name,
+          'lowered the music duck to $sendspinDuckMax% on upgrade',
+        );
+      }
+      await setInternal(duckCapMigration, '1');
     }
     // HA kiosk mode was a strategy choice (off/auto/plugin/css) while the
     // hiding could be handed to the kiosk-mode resource. It does the hiding
@@ -638,6 +714,9 @@ class SettingsManager extends Manager {
               for (final size in optionsFor(def))
                 size: cameraResolutionLabel(size),
             if (def.key == screensaverMode.key) ...pluginScreensavers(),
+            if (_realtimeLists.containsKey(def.key))
+              for (final option in optionsFor(def))
+                if (option.isNotEmpty) option: optionLabel(def, option)!,
             if (def.key == screensaverMode.key &&
                 isPluginScreensaver(get(def)) &&
                 !pluginScreensavers().containsKey(get(def)))

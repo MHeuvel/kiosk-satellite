@@ -82,11 +82,13 @@ void main() {
   Future<CommandResult> alert(
     List<Object?> timers, {
     bool muted = false,
+    bool hidden = false,
     String? speech,
   }) => c.commands.execute('setVoiceTimerAlert', {
     'entityId': 'assist_satellite.kitchen',
     'timers': timers,
     'muted': muted,
+    'hidden': hidden,
     'speech': ?speech,
   });
   Widget app({Locale? locale}) => MaterialApp(
@@ -221,6 +223,20 @@ void main() {
     expect(sounds.last, startsWith('stop:'));
     await tester.pump(const Duration(seconds: 6));
     expect(sounds.where((s) => s == 'play').length, 3);
+    await tester.pumpWidget(const SizedBox());
+  });
+
+  testWidgets('a hidden alert rings without a pill', (tester) async {
+    await tester.pumpWidget(app());
+    await alert([timer('done')], hidden: true);
+    await tester.pump();
+    expect(sounds, ['play']);
+    expect(c.voiceTimers.alerts.value, hasLength(1));
+    expect(find.text('Timer finished'), findsNothing);
+    await alert([]);
+    await tester.pump();
+    expect(c.voiceTimers.alertHidden.value, isFalse);
+    expect(sounds.last, 'stop:sound1');
     await tester.pumpWidget(const SizedBox());
   });
 

@@ -55,6 +55,7 @@ class KioskApplication : Application(), CameraXConfig.Provider {
     private lateinit var micRecorder: MicRecorder
     private lateinit var background: BackgroundBridge
     private lateinit var alarms: AlarmBridge
+    private lateinit var dlnaAudio: DlnaAudio
     private lateinit var deviceDetails: DeviceDetails
     private lateinit var brightness: BrightnessBridge
     private lateinit var sendspin: SendspinBridge
@@ -70,6 +71,7 @@ class KioskApplication : Application(), CameraXConfig.Provider {
     private lateinit var plugins: me.jxl.kiosk_satellite.plugins.PluginBridge
     private lateinit var fleet: FleetBridge
     private lateinit var intercomAudio: IntercomAudio
+    private lateinit var realtimeAudio: RealtimeAudio
     private lateinit var mediaSessions: MediaSessionBridge
     private lateinit var voiceIntents: VoiceIntentBridge
 
@@ -112,6 +114,7 @@ class KioskApplication : Application(), CameraXConfig.Provider {
         }
 
         val engine = FlutterEngine(this, RendererGuard.engineArgs(this))
+        MainThreadEgl.watch(engine)
         // Plugins before the entrypoint: Dart main() starts the admin server and
         // reads shared_preferences immediately, so shared_preferences,
         // path_provider et al. must already be registered when it runs.
@@ -131,6 +134,7 @@ class KioskApplication : Application(), CameraXConfig.Provider {
         micRecorder = MicRecorder(applicationContext, messenger)
         background = BackgroundBridge(applicationContext, messenger)
         alarms = AlarmBridge(applicationContext, messenger)
+        dlnaAudio = DlnaAudio(applicationContext, messenger)
         deviceDetails = DeviceDetails(applicationContext, messenger)
         brightness = BrightnessBridge(applicationContext, messenger)
         sendspin = SendspinBridge(applicationContext, messenger)
@@ -146,6 +150,7 @@ class KioskApplication : Application(), CameraXConfig.Provider {
         TlsBridge(applicationContext, messenger)
         fleet = FleetBridge(applicationContext, messenger)
         intercomAudio = IntercomAudio(applicationContext, messenger)
+        realtimeAudio = RealtimeAudio(applicationContext, messenger)
         mediaSessions = MediaSessionBridge(applicationContext, messenger)
         voiceIntents = VoiceIntentBridge(applicationContext, messenger)
         plugins = me.jxl.kiosk_satellite.plugins.PluginBridge(applicationContext, messenger)

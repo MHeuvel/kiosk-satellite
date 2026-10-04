@@ -13,29 +13,31 @@ import android.os.Looper
 import android.util.Log
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
+import io.flutter.plugin.common.StandardMethodCodec
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
- * The intercom's playback sink: one streaming AudioTrack on the
- * communication route, fed the far kiosk's voice as raw 16 kHz mono PCM16.
- *
- * On the communication route on purpose: the microphone capture runs on
- * VOICE_COMMUNICATION with the platform echo canceller, and the canceller
- * only cancels what plays through that route. [CommunicationPlayback]
- * holds the route and the mode for the whole call through one lease, the
- * way a chime or TTS does for its own length.
+ * The intercom's playback sink: one streaming AudioTrack, fed the far
+ * kiosk's voice as raw 16 kHz mono PCM16. It plays as media, and what it
+ * plays goes to the software echo canceller through a [TrackTap], so the
+ * microphone does not send the far kiosk its own voice back.
  *
  * Methods (channel `kiosk_satellite/intercom_audio`):
- *  - start {volume}: opens the track, `volume` the linear base gain 0..1
+ *  - start {volume, handsFree}: opens the track, `volume` the linear base gain 0..1
  *    (the intercom fader, tapered on the Dart side). True when playing.
- *  - write <bytes>: one chunk. Queued to a worker; the track's own buffer
- *    is the jitter buffer, and a backlog past a few chunks is dropped so
- *    the voice never drifts seconds behind.
+ *  - write <bytes>, on `kiosk_satellite/intercom_audio_data`: one chunk.
+ *    That channel runs on a background queue, not the main thread: on an
+ *    Echo Show 8 a busy UI thread held chunks back and handed them over in
+ *    bursts, the backlog rule dropped the excess, and the far voice played
+ *    two seconds, stopped for one and went on. Queued to a worker; the
+ *    track's own buffer is the jitter buffer, and a backlog past a few
+ *    chunks is dropped so the voice never drifts seconds behind.
  *  - setVolume {volume}: moves the fader live.
- *  - stop: releases the track and the route.
+ *  - setHandsFree {enabled}: selects call-specific echo cancellation tuning.
+ *  - stop: releases the track.
  *
- * The master volume rides in through [VolumeController.communicationGain]
- * like every communication sound, re-read on every fader change.
+ * Android puts the master volume on the track. On fixed-volume devices
+ * the software master ([VolumeController.masterGain]) stands in.
  */
 class IntercomAudio(context: Context, messenger: BinaryMessenger) {
     companion object {
@@ -43,20 +45,36 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
         private const val SAMPLE_RATE = 16000
         private const val BUFFER_MS = 400
         private const val MAX_QUEUED = 6
+
+        /**
+         * What the track may hold before silent chunks are dropped: the
+         * line's delay, and with it how late the far side hears a turn
+         * end, so as short as the network's jitter allows.
+         */
+        private const val BUFFER_TARGET_MS = 160
     }
 
     private val appContext = context.applicationContext
     private val channel = MethodChannel(messenger, "kiosk_satellite/intercom_audio")
-    private val communication = CommunicationPlayback.get(appContext)
+    private val dataChannel = MethodChannel(
+        messenger, "kiosk_satellite/intercom_audio_data",
+        StandardMethodCodec.INSTANCE, messenger.makeBackgroundTaskQueue(),
+    )
     private val worker = HandlerThread("ks-intercom").apply { start() }
     private val workerHandler = Handler(worker.looper)
     private val mainHandler = Handler(Looper.getMainLooper())
 
     @Volatile private var track: AudioTrack? = null
-    @Volatile private var lease: AutoCloseable? = null
+
+    /** What the track plays, for the software echo canceller. */
+
+    @Volatile private var tap: TrackTap? = null
     @Volatile private var output: AudioDeviceInfo? = null
     @Volatile private var baseVolume = 1f
     private val queued = AtomicInteger(0)
+
+    /** Frames written to [track] since it started, the prime included. */
+    private var written = 0L
 
     private val volumeListener: () -> Unit = { applyVolume() }
 
@@ -65,11 +83,11 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
             when (call.method) {
                 "start" -> {
                     baseVolume = (call.argument<Double>("volume") ?: 1.0).toFloat().coerceIn(0f, 1f)
-                    result.success(start())
+                    result.success(start(call.argument<Boolean>("handsFree") ?: false))
                 }
-                "write" -> {
-                    val bytes = call.arguments as? ByteArray
-                    if (bytes != null) enqueue(bytes)
+                "setHandsFree" -> {
+                    val on = call.argument<Boolean>("enabled") == true && track != null
+                    SoftwareEcho.setMode(this, if (on) ResidualEchoGate.Mode.INTERCOM else null)
                     result.success(null)
                 }
                 "setVolume" -> {
@@ -100,21 +118,40 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
                 else -> result.notImplemented()
             }
         }
+        dataChannel.setMethodCallHandler { call, result ->
+            if (call.method == "write") {
+                val bytes = call.arguments as? ByteArray
+                if (bytes != null) enqueue(bytes)
+                result.success(null)
+            } else {
+                result.notImplemented()
+            }
+        }
         VolumeController.addListener(volumeListener)
     }
 
-    private fun start(): Boolean {
+    /** Chunks dropped since the last report, and when that was. */
+    private val dropped = AtomicInteger(0)
+    @Volatile private var droppedReportedAt = 0L
+
+    /** A dropped chunk is a gap the far side hears: say so, at most every five seconds. */
+    private fun drop() {
+        dropped.incrementAndGet()
+        val now = System.nanoTime()
+        if (now - droppedReportedAt > 5_000_000_000L) {
+            droppedReportedAt = now
+            Log.w(TAG, "dropped ${dropped.getAndSet(0)} late chunks")
+        }
+    }
+
+    private fun start(handsFree: Boolean): Boolean {
         stop()
-        val selected = AudioRouting.currentOutput()
-        val acquired = communication.acquire(selected)
-        val target = if (acquired != null) communication.output else selected
-        val comm = acquired != null
+        val target = AudioRouting.currentOutput()
         val minBuf = AudioTrack.getMinBufferSize(
             SAMPLE_RATE, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT,
         )
         if (minBuf <= 0) {
             Log.e(TAG, "unsupported format")
-            acquired?.close()
             return false
         }
         val bufferBytes = maxOf(minBuf * 2, SAMPLE_RATE * 2 * BUFFER_MS / 1000)
@@ -122,10 +159,7 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
             AudioTrack.Builder()
                 .setAudioAttributes(
                     AudioAttributes.Builder()
-                        .setUsage(
-                            if (comm) AudioAttributes.USAGE_VOICE_COMMUNICATION
-                            else AudioAttributes.USAGE_MEDIA,
-                        )
+                        .setUsage(AudioAttributes.USAGE_MEDIA)
                         .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
                         .build(),
                 )
@@ -141,48 +175,77 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
                 .build()
         } catch (e: Exception) {
             Log.e(TAG, "AudioTrack create failed", e)
-            acquired?.close()
             return false
         }
         if (newTrack.state != AudioTrack.STATE_INITIALIZED) {
             Log.e(TAG, "AudioTrack init failed (state=${newTrack.state})")
             runCatching { newTrack.release() }
-            acquired?.close()
             return false
         }
         if (Build.VERSION.SDK_INT >= 28 && target != null) {
             runCatching { newTrack.preferredDevice = target }
         }
         track = newTrack
-        lease = acquired
         output = target
+        tap = TrackTap(newTrack, SAMPLE_RATE, 1)
         applyVolume()
         // Prime a short silence so the first chunk lands on a running
         // track without an underrun at the very start.
         val silence = ByteArray(SAMPLE_RATE * 2 / 10)
+        written = 0
+        tap?.wrote(silence, 0, silence.size)
         newTrack.write(silence, 0, silence.size)
+        written += silence.size / 2
         newTrack.play()
-        Log.i(TAG, "playback started (${if (comm) "communication" else "media"} route, buffer=${bufferBytes}b)")
+        // Use the call's echo processing without an extra energy gate.
+        // Nearby speech must remain audible while the other side talks.
+        SoftwareEcho.setMode(this, if (handsFree) ResidualEchoGate.Mode.INTERCOM else null)
+        Log.i(TAG, "playback started (buffer=${bufferBytes}b)")
         return true
     }
 
     private fun enqueue(bytes: ByteArray) {
         val t = track ?: return
+        val reference = tap
         if (queued.get() >= MAX_QUEUED) {
             // Behind by half a second: the network hiccuped, and playing
             // the backlog would keep the voice late for the whole call.
+            drop()
             return
         }
         queued.incrementAndGet()
         workerHandler.post {
             try {
                 if (track === t && t.playState == AudioTrack.PLAYSTATE_PLAYING) {
+                    // What the track still holds. The two kiosks' audio
+                    // clocks drift, and a sender a little fast fills the
+                    // buffer over a long call, at which point every write
+                    // blocks for a chunk and the voice runs a buffer late.
+                    // A silent chunk is
+                    // dropped once the buffer holds more than
+                    // [BUFFER_TARGET_MS], and any chunk once it holds far
+                    // more.
+                    val head = t.playbackHeadPosition.toLong() and 0xFFFFFFFFL
+                    val buffered = written - head
+                    if (buffered > SAMPLE_RATE * 3 / 4) {
+                        drop()
+                        return@post
+                    }
+                    if (buffered > SAMPLE_RATE * BUFFER_TARGET_MS / 1000 && silent(bytes)) {
+                        return@post
+                    }
+                    // The canceller's reference first: a write blocks while
+                    // the buffer is full, and told after it the reference
+                    // reached the canceller a chunk late and the far voice
+                    // leaked through for that long.
+                    reference?.wrote(bytes, 0, bytes.size)
                     var offset = 0
-                    while (offset < bytes.size) {
+                    while (offset < bytes.size && track === t) {
                         val n = t.write(bytes, offset, bytes.size - offset, AudioTrack.WRITE_BLOCKING)
                         if (n <= 0) break
                         offset += n
                     }
+                    if (track === t) written += offset / 2
                 }
             } catch (e: Exception) {
                 Log.w(TAG, "write failed: ${e.message}")
@@ -190,6 +253,18 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
                 queued.decrementAndGet()
             }
         }
+    }
+
+    /** Whether a chunk is digital silence, or as good as (mean |sample| under 4). */
+    private fun silent(bytes: ByteArray): Boolean {
+        var sum = 0L
+        var i = 0
+        while (i + 1 < bytes.size) {
+            val v = ((bytes[i].toInt() and 0xFF) or (bytes[i + 1].toInt() shl 8)).toShort().toInt()
+            sum += kotlin.math.abs(v)
+            i += 2
+        }
+        return sum < bytes.size / 2 * 4
     }
 
     // ── Decoding an announcement ─────────────────────────────────────
@@ -422,26 +497,22 @@ class IntercomAudio(context: Context, messenger: BinaryMessenger) {
      */
     private fun applyVolume() {
         val t = track ?: return
-        val master = if (lease != null) {
-            VolumeController.communicationGain(output?.type ?: AudioDeviceInfo.TYPE_BUILTIN_SPEAKER)
-        } else {
-            VolumeController.masterGain
-        }
-        val level = PlaybackVolume.level(baseVolume, 1f, master)
+        val level = PlaybackVolume.level(baseVolume, 1f, VolumeController.masterGain)
         runCatching { t.setVolume(level) }
+        tap?.gain = level
     }
 
     private fun stop() {
         val t = track ?: return
         track = null
-        val l = lease
-        lease = null
+        SoftwareEcho.setMode(this, null)
+        tap?.close()
+        tap = null
         output = null
+        runCatching { t.pause() }
         workerHandler.post {
-            runCatching { t.pause() }
             runCatching { t.flush() }
             runCatching { t.release() }
-            mainHandler.post { runCatching { l?.close() } }
             Log.i(TAG, "playback stopped")
         }
     }

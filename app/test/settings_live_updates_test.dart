@@ -98,9 +98,9 @@ void main() {
       matching: find.text(value),
     );
     expect(duckLabel('10%'), findsOneWidget);
-    await writeRemote(sendspinDuckPercent.key, 20);
-    expect(container.settings.get(sendspinDuckPercent), 20);
-    expect(duckLabel('20%'), findsOneWidget);
+    await writeRemote(sendspinDuckPercent.key, 5);
+    expect(container.settings.get(sendspinDuckPercent), 5);
+    expect(duckLabel('5%'), findsOneWidget);
 
     await tester.pumpWidget(
       MaterialApp(

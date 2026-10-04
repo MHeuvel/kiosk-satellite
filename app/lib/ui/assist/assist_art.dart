@@ -392,6 +392,7 @@ class SkinBarLayer extends StatelessWidget {
     required this.reactive,
     required this.level,
     required this.clock,
+    this.bar,
   });
 
   final AssistSkin skin;
@@ -402,15 +403,19 @@ class SkinBarLayer extends StatelessWidget {
   final ValueListenable<double> level;
   final ArtClock clock;
 
+  /// Drawn instead of the skin's own bar (a docked conversation's).
+  final BarStyle? bar;
+
   @override
   Widget build(BuildContext context) {
-    if (skin.bar is NoBar || mode == ArtMode.idle) {
+    final style = bar ?? skin.bar;
+    if (style is NoBar || mode == ArtMode.idle) {
       return const SizedBox.shrink();
     }
     return RepaintBoundary(
       child: CustomPaint(
         size: Size.infinite,
-        painter: _BarPainter(skin.bar, mode, reactive, level, clock),
+        painter: _BarPainter(style, mode, reactive, level, clock),
       ),
     );
   }
@@ -1101,4 +1106,174 @@ class ThinkingDots extends StatelessWidget {
       ),
     );
   }
+}
+
+/// A skin's bar docked inside the realtime conversation's bubble: a pill
+/// along the bubble's bottom edge in the skin's colors, animated as the
+/// skin animates its own bar, stretching and glowing with the level. It
+/// narrows toward its middle as [countdown] runs out before the end.
+class DockedBarLayer extends StatelessWidget {
+  const DockedBarLayer({
+    super.key,
+    required this.bar,
+    required this.mode,
+    required this.reactive,
+    required this.level,
+    required this.clock,
+    required this.countdown,
+  });
+
+  final BarStyle bar;
+  final ArtMode mode;
+  final bool reactive;
+  final ValueListenable<double> level;
+  final ArtClock clock;
+
+  /// 1 while the conversation is not ending, down to 0 as it does.
+  final ValueListenable<double> countdown;
+
+  /// The box the bar and its glow take at the bubble's bottom. The bar
+  /// stretches up from its baseline and glows past that: the room above it
+  /// keeps a loud answer's glow off the text.
+  static const height = 46.0;
+
+  @override
+  Widget build(BuildContext context) => RepaintBoundary(
+    child: CustomPaint(
+      size: const Size(double.infinity, height),
+      painter: _DockedBarPainter(bar, mode, reactive, level, clock, countdown),
+    ),
+  );
+}
+
+class _DockedBarPainter extends CustomPainter {
+  _DockedBarPainter(
+    this.bar,
+    this.mode,
+    this.reactive,
+    this.level,
+    this.clock,
+    this.countdown,
+  ) : super(repaint: Listenable.merge([level, clock, countdown]));
+
+  final BarStyle bar;
+  final ArtMode mode;
+  final bool reactive;
+  final ValueListenable<double> level;
+  final ArtClock clock;
+  final ValueListenable<double> countdown;
+
+  static const _inset = 20.0;
+  static const _rest = 4.0;
+  static const _bottom = 12.0;
+
+  static const _cyan = Color(0xFF00CAFF);
+  static const _cyanLight = Color(0xFF00E5FF);
+  static const _green = Color(0xFF33FF33);
+  static const _siri = [
+    Color(0xFF8B5CF6),
+    Color(0xFF3B82F6),
+    Color(0xFF06B6D4),
+    Color(0xFFEC4899),
+    Color(0xFF8B5CF6),
+  ];
+
+  double get t => clock.seconds;
+
+  /// The colors, stops and seconds per slide of each skin's bar.
+  (List<Color>, List<double>?, List<Color>?, double)? get _look =>
+      switch (bar) {
+        final GradientBar b => (
+          b.colors,
+          b.stops,
+          b.glowColors,
+          switch (mode) {
+            ArtMode.thinking => 0.5,
+            ArtMode.speaking => 2.0,
+            _ => 3.0,
+          },
+        ),
+        AlexaStrip() => (
+          const [_cyan, _cyanLight, _cyan],
+          const [0.0, 0.5, 1.0],
+          null,
+          switch (mode) {
+            ArtMode.thinking => 1.0,
+            ArtMode.speaking => 4.0,
+            _ => 3.0,
+          },
+        ),
+        SiriFrame() => (
+          _siri,
+          null,
+          null,
+          switch (mode) {
+            ArtMode.thinking => 0.8,
+            ArtMode.speaking => 2.0,
+            _ => 4.0,
+          },
+        ),
+        RetroFrame() => (const [_green, _green], null, null, 1.0),
+        NoBar() => null,
+      };
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final look = _look;
+    if (look == null) return;
+    final (colors, stops, glowColors, duration) = look;
+    final full = size.width - 2 * _inset;
+    final w = full * countdown.value.clamp(0.0, 1.0);
+    if (w <= 0) return;
+    final left = (size.width - w) / 2;
+    final bottom = size.height - _bottom;
+    final l = reactive ? level.value.clamp(0.0, 1.0) : 0.0;
+    final h = _rest * (1 + 2 * l);
+    // The gradient runs the full width even while the bar narrows, and
+    // slides one period per cycle as the skin's own bar does.
+    final shift = -2 * full * ((t / duration) % 1.0);
+    Shader shader(List<Color> c, List<double>? s) => ui.Gradient.linear(
+      Offset(_inset + shift, 0),
+      Offset(_inset + shift + 2 * full, 0),
+      c,
+      s ?? evenStops(c.length),
+      TileMode.repeated,
+    );
+    var alpha = 1.0;
+    if (bar is RetroFrame && mode == ArtMode.thinking) {
+      final step = ((t % 0.15) / 0.0375).floor();
+      alpha = const [1.0, 0.8, 0.6, 0.8][step.clamp(0, 3)];
+    }
+    final pill = RRect.fromLTRBR(
+      left,
+      bottom - h,
+      left + w,
+      bottom,
+      Radius.circular(h / 2),
+    );
+    // The glow: a blurred copy under the bar, brighter with the level.
+    final glow = (0.25 + 2 * l).clamp(0.0, 1.0) * alpha;
+    if (glow > 0) {
+      canvas.drawRRect(
+        pill.inflate(2 + 4 * l),
+        Paint()
+          ..shader = shader(
+            glowColors ?? colors,
+            glowColors == null ? stops : null,
+          )
+          ..color = Color.fromRGBO(0, 0, 0, glow)
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, 4 + 6 * l),
+      );
+    }
+    canvas.drawRRect(
+      pill,
+      Paint()
+        ..shader = shader(colors, stops)
+        ..color = Color.fromRGBO(0, 0, 0, alpha),
+    );
+  }
+
+  @override
+  bool shouldRepaint(_DockedBarPainter old) =>
+      old.bar != bar || old.mode != mode || old.reactive != reactive;
 }

@@ -1,0 +1,9 @@
+{
+  "@@locale": "nl",
+  "launcherOverlayHeld": "Kiosk Satellite kan zichzelf weer naar de voorgrond brengen en aanrakingen in de andere app detecteren.",
+  "launcherOverlayMissing": "Zonder deze toestemming kan de kiosk niet automatisch terugkeren en worden aanrakingen in de andere app niet gedetecteerd.",
+  "launcherOverlayRemote": "Zonder deze toestemming kan de kiosk niet automatisch terugkeren en worden aanrakingen in de andere app niet gedetecteerd. Het toestemmingsscherm verschijnt op de tablet.",
+  "launcherBatteryMissing": "Android kan Kiosk Satellite achter de andere app pauzeren. Een gepauzeerde timer kan de kiosk niet terugbrengen.",
+  "launcherBatteryRemote": "Android kan Kiosk Satellite achter de andere app pauzeren. Een gepauzeerde timer kan de kiosk niet terugbrengen. Het toestemmingsvenster verschijnt op de tablet.",
+  "launcherPermissionsSearch": "De toestemmingen die nodig zijn om automatisch terug te keren."
+}

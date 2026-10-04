@@ -1,0 +1,23 @@
+{
+  "@@locale": "nl",
+  "esphomeIdentityBthome": "BTHome-sensor",
+  "esphomeIdentityXiaomi": "Xiaomi-sensor",
+  "esphomeIdentityQingping": "Qingping-sensor",
+  "esphomeIdentityGoogleNest": "Google/Nest-apparaat",
+  "esphomeIdentityEddystone": "Eddystone-baken",
+  "esphomeIdentityGoogleFastPair": "Google Fast Pair-apparaat",
+  "esphomeIdentityAppleFindMy": "Apple Zoek mijn-apparaat",
+  "esphomeIdentityExposure": "Blootstellingsmelding (telefoon)",
+  "esphomeIdentityAugustYale": "August/Yale-slot",
+  "esphomeIdentityAmazon": "Amazon-apparaat",
+  "esphomeIdentityTile": "Tile-tracker",
+  "esphomeIdentityInput": "Invoerapparaat (afstandsbediening/toetsenbord)",
+  "esphomeIdentityHeartRate": "Hartslagsensor",
+  "esphomeIdentityEnvironmental": "Omgevingssensor",
+  "esphomeIdentityApple": "Apple-apparaat",
+  "esphomeIdentityWindows": "Windows-pc",
+  "esphomeIdentitySamsung": "Samsung-apparaat",
+  "esphomeIdentityGoogle": "Google-apparaat",
+  "esphomeIdentityUnknown": "Onbekend apparaat",
+  "esphomeIdentityVendor": "{vendor}-apparaat"
+}

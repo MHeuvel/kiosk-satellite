@@ -1,0 +1,95 @@
+blueprint:
+  name: Kiosk Satellite intercom
+  author: Kiosk Satellite
+  description: >-
+    Lets an LLM conversation agent call another Kiosk Satellite kiosk over
+    the intercom, in any language the agent speaks. Create a script from
+    this blueprint and expose it to Assist. The kiosk that heard the
+    request places the call, or the kiosk named in it. The kiosk needs its
+    Home Assistant address and a token from an administrator.
+  domain: script
+  homeassistant:
+    min_version: "2024.10.0"
+  source_url: https://github.com/jxlarrea/kiosk-satellite/blob/main/blueprints/script/kiosk_satellite_intercom.yaml
+
+mode: parallel
+max: 10
+
+description: >-
+  Calls another Kiosk Satellite kiosk over the intercom from the tablet the
+  user is talking to. Use it when the user asks to call, ring or intercom
+  a kiosk, a room or a device, like "call the kitchen" or "call the Echo
+  Show 8". Use list when the user asks which kiosks they can call. The
+  call starts once you have answered, so keep the answer short. The
+  response says what happened. Tell the user in their language. When the
+  response says several kiosks match, ask which one. When no kiosk goes
+  by that name, offer the kiosks it lists with their areas.
+
+fields:
+  action:
+    name: Action
+    description: >-
+      call rings the kiosk named in kiosk. list returns every kiosk this
+      one can see and whether it can be called.
+    required: true
+    selector:
+      select:
+        options:
+          - call
+          - list
+  kiosk:
+    name: Kiosk
+    description: >-
+      The kiosk to call, as the user says it: a room like Master Bedroom
+      or a device like Echo Show 8. Required for call.
+    selector:
+      text:
+  caller:
+    name: Caller
+    description: >-
+      Leave empty. Only when the user names the kiosk that should place
+      the call, its name, like Bedroom.
+    selector:
+      text:
+
+sequence:
+  - variables:
+      request: "{{ now().timestamp() }}-{{ range(10000) | random }}"
+      # Every ESPHome device with the name given to it and its area, so the
+      # kiosk finds the one in the room the user names.
+      rooms: >-
+        {% set ns = namespace(rooms=[], seen=[]) %}
+        {% for e in integration_entities('esphome') %}
+          {% set d = device_id(e) %}
+          {% if d and d not in ns.seen %}
+            {% set ns.seen = ns.seen + [d] %}
+            {% set ns.rooms = ns.rooms + [{
+              'name': device_attr(d, 'name') or '',
+              'alias': device_attr(d, 'name_by_user') or '',
+              'area': area_name(d) or ''
+            }] %}
+          {% endif %}
+        {% endfor %}
+        {{ ns.rooms }}
+  - event: kiosk_satellite_intercom
+    event_data:
+      id: "{{ request }}"
+      action: "{{ action | default('') }}"
+      kiosk: "{{ kiosk | default('') }}"
+      caller: "{{ caller | default('') }}"
+      rooms: "{{ rooms }}"
+  - wait_for_trigger:
+      - trigger: event
+        event_type: kiosk_satellite_intercom_result
+        event_data:
+          id: "{{ request }}"
+    timeout: 8
+  - variables:
+      result: >-
+        {{ wait.trigger.event.data if wait.trigger else {
+          'ok': false,
+          'error': 'No kiosk answered. None is in a voice turn or has that
+          name, or the kiosk cannot reach Home Assistant.'
+        } }}
+  - stop: Done
+    response_variable: result

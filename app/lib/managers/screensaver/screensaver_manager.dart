@@ -233,6 +233,13 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   /// asked for by voice starts mid-turn, so the launch waits for the turn
   /// to end instead of being dropped (issue #718).
   bool _launchOnPlayPending = false;
+
+  /// The session exists only to show Now Playing: playback launched it or
+  /// something asked for the view itself. It ends with the view (issue
+  /// #774). A session the idle clock or a plain start opened keeps going
+  /// in the configured mode instead.
+  bool _startedForNowPlaying = false;
+  bool _restoreForNowPlaying = false;
   Future<void>? _interactionStop;
   bool _cameraViewActive = false;
 
@@ -246,6 +253,11 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
 
   /// The screensaver's animations are paused under the voice overlay.
   final renderPaused = ValueNotifier<bool>(false);
+
+  /// Views that cost next to nothing to draw, left live around the docked
+  /// overlay. The Home Assistant Dashboard view is a clear layer over the
+  /// dashboard, which pauses on its own.
+  static const _cheapUnderDock = {null, 'black', 'clock', 'dashboard'};
 
   bool get _nativeVoice =>
       _settings.get(defs.voiceRuntime) == 'native' &&
@@ -373,7 +385,8 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
       // still observe its playback interaction.
       if (e.source == InteractionSource.sendspin && e.reason == 'media') return;
       _paused = _interactions.update(e);
-      // The native satellite's overlay draws over the screensaver.
+      // The native satellite's overlay draws over the screensaver, full
+      // screen or docked.
       if (_paused && e.source != InteractionSource.native) {
         _stopForInteraction();
       }
@@ -381,9 +394,15 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
       if (!_paused) unawaited(_restoreAfterInteraction());
     });
     bus.on<AssistOverlayVisibility>().listen((event) {
+      // Paused under the full screen overlay, and docked when it is one
+      // that costs: a still of Weather Mood or a slideshow shows around
+      // the bubble as well as the live one, and a clock keeps ticking.
+      renderPaused.value =
+          _active &&
+          (event.covers ||
+              (event.pauses && !_cheapUnderDock.contains(activeView.value)));
       if (event.visible == _assistOverlay) return;
       _assistOverlay = event.visible;
-      renderPaused.value = event.visible && _active;
       if (event.visible) {
         _cancelIdleTimer();
         if (_active) {
@@ -479,8 +498,15 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
       _sendspinNowPlaying = e.active;
       _syncNowPlayingShown();
       // Mid-session flip: music started (dim gives way to Now Playing at
-      // full brightness) or stopped (the configured mode re-asserts).
+      // full brightness) or stopped (the configured mode re-asserts). A
+      // session that only existed for the view ends with it instead, back
+      // to the dashboard.
       if (_active) {
+        if (changed && !e.active && _startedForNowPlaying) {
+          log.info(name, 'Now Playing ended; ending its session');
+          unawaited(stop().then((_) => _resetIdleTimer()));
+          return;
+        }
         if (changed) unawaited(_applyVisuals());
         return;
       }
@@ -495,7 +521,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
           _settings.get(defs.sendspinFullscreenOnPlay)) {
         log.info(name, 'Now Playing launched by playback');
         _launchOnPlayPending = _paused || _voiceTurn;
-        unawaited(start());
+        unawaited(start(forNowPlaying: true));
       }
     });
     bus.on<MotionDetected>().listen((_) {
@@ -810,9 +836,11 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
       ..register(
         Command(
           name: 'startScreensaver',
-          description: 'Start the screensaver now',
-          handler: (_) async {
-            await start();
+          description:
+              'Start the screensaver now. nowPlaying: true marks a session '
+              'opened for the Now Playing view, which ends with the view.',
+          handler: (params) async {
+            await start(forNowPlaying: params['nowPlaying'] == true);
             return const CommandResult.ok();
           },
         ),
@@ -1119,8 +1147,10 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
   void _stopForInteraction() {
     if (!_active) return;
     final restore = activeView.value != null && _nowPlayingTakeover;
+    final forNowPlaying = _startedForNowPlaying;
     _interactionStop = stop();
     _restoreNowPlaying = restore;
+    _restoreForNowPlaying = restore && forNowPlaying;
   }
 
   Future<void> _restoreAfterInteraction() async {
@@ -1130,14 +1160,18 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     await _interactionStop;
     if (!_restoreNowPlaying && !_launchOnPlayPending) return;
     if (_paused || _voiceTurn) return;
-    final launch =
-        _restoreNowPlaying ||
-        (_sendspinPlaying && _settings.get(defs.sendspinFullscreenOnPlay));
+    final launchOnPlay =
+        _sendspinPlaying && _settings.get(defs.sendspinFullscreenOnPlay);
+    final launch = _restoreNowPlaying || launchOnPlay;
+    final forNowPlaying = _restoreNowPlaying
+        ? _restoreForNowPlaying
+        : launchOnPlay;
     _restoreNowPlaying = false;
+    _restoreForNowPlaying = false;
     _launchOnPlayPending = false;
     if (!launch || !_nowPlayingTakeover) return;
     _cancelIdleTimer();
-    await start();
+    await start(forNowPlaying: forNowPlaying);
     if (!_active) _resetIdleTimer();
   }
 
@@ -1343,7 +1377,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     return true;
   }
 
-  Future<void> start({bool force = false}) async {
+  Future<void> start({bool force = false, bool forNowPlaying = false}) async {
     if (_active) return;
     // Say why a start goes nowhere: a page hold that never gets released
     // (a leaked "interaction running" from the dashboard) otherwise reads
@@ -1379,6 +1413,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
       return;
     }
     _active = true;
+    _startedForNowPlaying = forNowPlaying;
     _panelDark = false;
     _blanked = false;
     // A fresh session starts with no half-open double-tap chain.
@@ -1686,9 +1721,11 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     // An explicit dismissal also cancels a player waiting to return or
     // to launch.
     _restoreNowPlaying = false;
+    _restoreForNowPlaying = false;
     _launchOnPlayPending = false;
     if (!_active) return;
     _active = false;
+    _startedForNowPlaying = false;
     alarmTakeover.value = null;
     renderPaused.value = false;
     _nowPlayingShared = false;

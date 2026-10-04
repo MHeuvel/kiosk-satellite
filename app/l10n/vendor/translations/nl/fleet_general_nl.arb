@@ -1,0 +1,15 @@
+{
+  "@@locale": "nl",
+  "fleetFleetManagementNeedsTheRemoteAdmin": "Voor vlootbeheer is beheer op afstand nodig",
+  "fleetKiosksFindEachOtherThroughItTurnOnRemote": "Kiosken vinden elkaar via deze functie. Schakel onder Apparaat 'Beheer op afstand' en 'Andere kiosken zoeken' in en kom daarna hier terug.",
+  "fleetLeadThisFleet": "Deze vloot leiden",
+  "fleetSyncThisKioskSSettingsToItsFollowersRequires": "Synchroniseer de instellingen van deze kiosk met de volgers. Alle kiosken moeten dezelfde versie gebruiken.",
+  "fleetAKioskThatFollowsALeaderCannotLead": "Een kiosk die een leider volgt, kan zelf geen vloot leiden.",
+  "fleetFollowers": "Volgers",
+  "fleetProfiles": "Profielen",
+  "fleetLeader": "Leider",
+  "fleetLearnWhichSettingsSyncAndWhichDoNotIn": "Lees welke instellingen wel en niet worden gesynchroniseerd in de ",
+  "fleetFleetManagementDocumentation": "documentatie over vlootbeheer",
+  "fleetMore": "Meer",
+  "fleetSearchFollowers": "De kiosken die door deze kiosk worden geleid, hun status en een optie om een kiosk toe te voegen."
+}

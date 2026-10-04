@@ -14,5 +14,6 @@
   "settingCameraSnapshotIntervalDescription": "Secondes entre les instantanés.",
   "cameraFront": "Avant",
   "cameraBack": "Arrière",
+  "cameraExternal": "Externe",
   "cameraOnlyCamera": "La seule caméra que possède cet appareil."
 }

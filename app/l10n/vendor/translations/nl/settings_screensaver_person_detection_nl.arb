@@ -1,0 +1,22 @@
+{
+  "@@locale": "nl",
+  "settingScreensaverDismissOnPersonTitle": "Sluiten bij persoonsdetectie",
+  "settingScreensaverDismissOnPersonDescription": "Lees de persoonssensor terwijl de schermbeveiliging actief is en activeer het scherm wanneer er iemand voor staat. Hiervoor is de onderstaande toestemming voor logtoegang vereist.",
+  "settingScreensaverDismissOnPersonScreenOffOnlyTitle": "Alleen als het scherm uit staat",
+  "settingScreensaverDismissOnPersonScreenOffOnlyDescription": "Houd de schermbeveiliging zichtbaar wanneer iemand verschijnt terwijl het scherm aan staat. Zodra het scherm uitgaat, activeert de detectie het dashboard. Aanraken sluit de schermbeveiliging nog steeds af.",
+  "settingScreensaverPostponeOnPersonTitle": "Schermbeveiliging uitstellen bij persoonsdetectie",
+  "settingScreensaverPostponeOnPersonDescription": "Stel het activeren van de schermbeveiliging uit zolang iemand voor het apparaat staat.",
+  "screensaverDetectionPersonPage": "Persoonsdetectie",
+  "screensaverDetectionPersonHint": "Sluit de schermbeveiliging bij detectie door de persoonssensor of stel deze uit",
+  "screensaverDetectionOccupancy": "Bezetting",
+  "screensaverDetectionStatusUnavailable": "Status niet beschikbaar.",
+  "screensaverDetectionOff": "Uit.",
+  "screensaverDetectionStarting": "Starten...",
+  "screensaverDetectionWaiting": "Wachten op het eerste signaal. De sensor rapporteert elke 30 seconden zolang iemand in beeld is.",
+  "screensaverDetectionLastHeartbeat": "Laatste hartslag {ago}.",
+  "screensaverDetectionSecondsAgo": "{count}s geleden",
+  "screensaverDetectionMinutesAgo": "{count} min geleden",
+  "screensaverDetectionHoursAgo": "{count} h geleden",
+  "screensaverDetectionDetected": "Gedetecteerd",
+  "screensaverDetectionClear": "Geen persoon gedetecteerd"
+}

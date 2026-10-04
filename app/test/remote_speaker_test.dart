@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kiosk_satellite/managers/voice/ha_socket.dart';
@@ -13,6 +15,16 @@ class _Ha extends HaSocket {
   final _listeners = <void Function(Map<String, Object?> event)>[];
   bool failPlay = false;
 
+  /// Holds play_media's answer until completed, as Music Assistant answers
+  /// an announcement only once it has played.
+  Completer<void>? holdPlay;
+
+  /// What network/url answers, or null to fail it.
+  Map<String, Object?>? urls = {
+    'internal': 'http://192.168.1.5:8123/',
+    'external': 'https://ha.example.com',
+  };
+
   static const entity = 'media_player.kitchen';
 
   @override
@@ -21,8 +33,12 @@ class _Ha extends HaSocket {
     Duration timeout = const Duration(seconds: 10),
   }) async {
     calls.add(command);
+    if (command['service'] == 'play_media') await holdPlay?.future;
     if (failPlay && command['service'] == 'play_media') {
       throw StateError('unavailable');
+    }
+    if (command['type'] == 'network/url') {
+      return urls ?? (throw StateError('unknown command'));
     }
     return null;
   }
@@ -52,6 +68,8 @@ class _Ha extends HaSocket {
       });
     }
   }
+
+  bool get askedUrl => calls.any((c) => c['type'] == 'network/url');
 
   List<String> get services => [
     for (final c in calls)
@@ -106,6 +124,7 @@ void main() {
         '/api/tts_proxy/abc123.mp3',
       );
       expect(ha.data('play_media')['announce'], isTrue);
+      expect(ha.askedUrl, isFalse);
       ha.change('buffering', ours);
       ha.change('playing', ours);
       expect(ended, isEmpty);
@@ -115,6 +134,118 @@ void main() {
       ha.change('playing', ours);
       ha.change('idle');
       expect(ended, [id]);
+    });
+  });
+
+  group('a Music Assistant player', () {
+    const idle = {
+      's': 'idle',
+      'a': {'mass_player_type': 'player'},
+    };
+
+    test('gets the full URL on Home Assistant\'s own address', () {
+      fakeAsync((async) {
+        final ha = _Ha(idle);
+        final ended = <String>[];
+        final speaker = speakerFor(ha, ended);
+        String? id;
+        speaker.play(_Ha.entity, url, normal: false).then((v) => id = v);
+        async.flushMicrotasks();
+        expect(
+          ha.data('play_media')['media_content_id'],
+          'http://192.168.1.5:8123/api/tts_proxy/abc123.mp3',
+        );
+        expect(ha.data('play_media')['announce'], isTrue);
+        // Followed as any other player.
+        ha.change('playing', {
+          'media_content_id':
+              'builtin://radio/http://192.168.1.5:8123/api/tts_proxy/abc123.mp3',
+        });
+        ha.change('idle');
+        expect(ended, [id]);
+      });
+    });
+
+    test('an announcement answered only once played still ends the turn', () {
+      fakeAsync((async) {
+        final ha = _Ha(idle)..holdPlay = Completer<void>();
+        final ended = <String>[];
+        final speaker = speakerFor(ha, ended);
+        String? id;
+        speaker.play(_Ha.entity, url, normal: false).then((v) => id = v);
+        async.flushMicrotasks();
+        // The id comes back before the end it is followed by.
+        expect(id, isNotNull);
+        ha.change('playing', {'media_content_id': 'announcement'});
+        ha.change('idle');
+        expect(ended, [id]);
+        ha.holdPlay!.complete();
+        async.flushMicrotasks();
+        expect(ended, [id]);
+      });
+    });
+
+    test('keeps a signed query, and falls back to the external URL', () {
+      fakeAsync((async) {
+        final ha = _Ha(idle)
+          ..urls = {'internal': null, 'external': 'https://ha.example.com'};
+        final speaker = speakerFor(ha, []);
+        speaker.play(
+          _Ha.entity,
+          'https://ha.local:8123/api/media/x.mp3?authSig=abc',
+          normal: true,
+        );
+        async.flushMicrotasks();
+        expect(
+          ha.data('play_media')['media_content_id'],
+          'https://ha.example.com/api/media/x.mp3?authSig=abc',
+        );
+        expect(ha.data('play_media')['announce'], isFalse);
+      });
+    });
+
+    test('gets the URL as it came when Home Assistant has no address', () {
+      fakeAsync((async) {
+        final ha = _Ha(idle)..urls = null;
+        final speaker = speakerFor(ha, []);
+        speaker.play(_Ha.entity, url, normal: false);
+        async.flushMicrotasks();
+        expect(ha.data('play_media')['media_content_id'], url);
+      });
+    });
+
+    test('the timer phrase gets the full URL too', () {
+      fakeAsync((async) {
+        final ha = _Ha(idle);
+        final speaker = speakerFor(ha, [], measure: (url, timeout) async => 2);
+        speaker.play(_Ha.entity, url, normal: false, kind: RemoteSound.timed);
+        async.flushMicrotasks();
+        expect(
+          ha.data('play_media')['media_content_id'],
+          'http://192.168.1.5:8123/api/tts_proxy/abc123.mp3',
+        );
+      });
+    });
+
+    test('chimes and media-source ids pass as they are', () {
+      fakeAsync((async) {
+        final ha = _Ha(idle);
+        final speaker = speakerFor(ha, []);
+        speaker.chime(_Ha.entity, chime, 0.3, normal: false);
+        async.flushMicrotasks();
+        speaker.play(
+          _Ha.entity,
+          'media-source://tts/tts.piper?message=hi',
+          normal: false,
+        );
+        async.flushMicrotasks();
+        expect(ha.data('play_media')['media_content_id'], chime);
+        expect(
+          ha.data('play_media', last: true)['media_content_id'],
+          'media-source://tts/tts.piper?message=hi',
+        );
+        expect(ha.askedUrl, isFalse);
+      });
     });
   });
 
@@ -258,8 +389,10 @@ void main() {
         onEnded: (id, {error}) => errors.add(error),
         log: (_) {},
       );
-      speaker.play(_Ha.entity, url, normal: false);
+      String? id;
+      speaker.play(_Ha.entity, url, normal: false).then((v) => id = v);
       async.flushMicrotasks();
+      expect(id, isNotNull);
       expect(errors, [null]);
     });
   });

@@ -32,10 +32,9 @@ const settingOptionMessageIds = <String, Map<String, String>>{
     "portrait": "screenAudioPortrait",
     "reverse_portrait": "screenAudioReversePortrait"
   },
-  "audio.mic_source": {
-    "voice_communication": "screenAudioVoiceCommunication",
-    "voice_recognition": "screenAudioVoiceRecognition",
-    "mic": "screenAudioRawMicrophone"
+  "audio.mic_capture_mode": {
+    "mic": "screenAudioCaptureRawMicrophone",
+    "voice_communication": "screenAudioCaptureVoiceCommunication"
   },
   "audio.mic_capture_format": {
     "auto": "screenAudioAutomaticDefault",
@@ -216,6 +215,25 @@ const settingOptionMessageIds = <String, Map<String, String>>{
     "ptt": "intercomOptionTalkPtt",
     "handsfree": "intercomOptionTalkHandsfree"
   },
+  "intercom.max_call_minutes": {
+    "0": "intercomOptionCallUnlimited",
+    "1": "intercomOptionCall1",
+    "2": "intercomOptionCall2",
+    "5": "intercomOptionCall5",
+    "10": "intercomOptionCall10",
+    "15": "intercomOptionCall15",
+    "20": "intercomOptionCall20",
+    "30": "intercomOptionCall30",
+    "45": "intercomOptionCall45",
+    "60": "intercomOptionCall60"
+  },
+  "intercom.hangup_key": {
+    "off": "intercomOptionHangupOff",
+    "volume_up": "intercomOptionHangupVolumeUp",
+    "volume_down": "intercomOptionHangupVolumeDown",
+    "volume_mute": "intercomOptionHangupMute",
+    "help": "intercomOptionHangupHelp"
+  },
   "kiosk.exit_gesture": {
     "taps5": "kioskGestureTaps5",
     "taps7": "kioskGestureTaps7",
@@ -319,6 +337,47 @@ const settingOptionMessageIds = <String, Map<String, String>>{
     "20": "alarmsOption20Minutes",
     "25": "alarmsOption25Minutes",
     "30": "alarmsOption30Minutes"
+  },
+  "voice.realtime_openai_reasoning": {
+    "": "voiceRealtimeReasoningDefault",
+    "minimal": "voiceRealtimeReasoningMinimal",
+    "low": "voiceRealtimeReasoningLow",
+    "medium": "voiceRealtimeReasoningMedium",
+    "high": "voiceRealtimeReasoningHigh",
+    "xhigh": "voiceRealtimeReasoningExtraHigh"
+  },
+  "voice.realtime_tools": {
+    "custom": "voiceRealtimeToolsCustom",
+    "none": "voiceNone"
+  },
+  "voice.overlay_mode": {
+    "full": "voiceOverlayFullScreen",
+    "docked": "voiceOverlayDocked"
+  },
+  "voice.realtime_openai_model": {
+    "": "voiceRealtimeProviderDefault"
+  },
+  "voice.realtime_openai_voice": {
+    "": "voiceRealtimeProviderDefault"
+  },
+  "voice.realtime_xai_model": {
+    "": "voiceRealtimeProviderDefault"
+  },
+  "voice.realtime_xai_voice": {
+    "": "voiceRealtimeProviderDefault"
+  },
+  "voice.realtime_gemini_model": {
+    "": "voiceRealtimeProviderDefault"
+  },
+  "voice.realtime_gemini_voice": {
+    "": "voiceRealtimeProviderDefault"
+  },
+  "voice.realtime_gemini_reasoning": {
+    "": "voiceRealtimeReasoningDefault",
+    "minimal": "voiceRealtimeReasoningMinimal",
+    "low": "voiceRealtimeReasoningLow",
+    "medium": "voiceRealtimeReasoningMedium",
+    "high": "voiceRealtimeReasoningHigh"
   }
 };
 const settingPlaceholderMessageIds = <String, String>{
@@ -337,5 +396,8 @@ const settingPlaceholderMessageIds = <String, String>{
   "announcements.tts_voice": "esphomeTtsDefault",
   "alarms.tts_engine": "esphomeTtsFirst",
   "alarms.tts_language": "esphomeTtsDefault",
-  "alarms.tts_voice": "esphomeTtsDefault"
+  "alarms.tts_voice": "esphomeTtsDefault",
+  "voice.realtime_openai_endpoint": "voiceRealtimeProviderDefault",
+  "voice.realtime_xai_endpoint": "voiceRealtimeProviderDefault",
+  "voice.realtime_gemini_endpoint": "voiceRealtimeProviderDefault"
 };

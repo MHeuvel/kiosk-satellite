@@ -904,8 +904,8 @@ class UiStringsDe extends UiStrings {
   String get fleetAddAKiosk => 'Kiosk hinzufügen';
 
   @override
-  String get fleetKiosksMemberOfTheFleetAFollowerMustConfirm =>
-      'Füge einen gefundenen Kiosk hinzu oder gib seine IP-Adresse ein. Der Follower muss die Einladung auf seinem Bildschirm annehmen.';
+  String get fleetAddAKioskFollowerAcceptsOnScreenOrRemoteAdmin =>
+      'Füge einen gefundenen Kiosk hinzu oder gib seine IP-Adresse ein. Der Follower nimmt die Einladung auf seinem Bildschirm oder in seiner Fernverwaltung an.';
 
   @override
   String get fleetSendInvitation => 'Einladung senden';
@@ -934,10 +934,6 @@ class UiStringsDe extends UiStrings {
   @override
   String get fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail =>
       'Seine Einstellungen ersetzen ab sofort die dieses Kiosks in den synchronisierten Kategorien. Dieser Kiosk behält seinen Namen, seine Identitäten in Home Assistant, Music Assistant und ESPHome sowie seine ausgewählten Geräte. Du kannst die Flotte jederzeit unter Einstellungen > Flottenverwaltung verlassen.';
-
-  @override
-  String get fleetConfirmOnTheKioskItselfTheInvitationIsWaiting =>
-      'Bestätige die Einladung direkt auf dem Kiosk. Sie wird auf dem Bildschirm sowie unter Einstellungen > Flottenverwaltung angezeigt.';
 
   @override
   String get fleetAccept => 'Annehmen';
@@ -1461,6 +1457,18 @@ class UiStringsDe extends UiStrings {
 
   @override
   String get fleetImmichApiKey => 'Immich-API-Schlüssel';
+
+  @override
+  String get fleetOpenAiApiKey => 'OpenAI-API-Schlüssel';
+
+  @override
+  String get fleetXaiApiKey => 'xAI-API-Schlüssel';
+
+  @override
+  String get fleetGeminiApiKey => 'Gemini-API-Schlüssel';
+
+  @override
+  String get fleetMcpServerToken => 'MCP-Server-Token';
 
   @override
   String get fleetUpdateTheFleet => 'Flotte aktualisieren';
@@ -2103,6 +2111,9 @@ class UiStringsDe extends UiStrings {
   String get intercomEnded => 'Anruf beendet';
 
   @override
+  String get intercomMaxDurationReached => 'Maximale Anrufdauer erreicht';
+
+  @override
   String get intercomAnnouncement => 'Durchsage';
 
   @override
@@ -2351,6 +2362,13 @@ class UiStringsDe extends UiStrings {
   @override
   String get kioskWebViewMissingHelp =>
       'Auf diesem Gerät ist kein WebView-Anbieter installiert, daher kann Home Assistant nicht angezeigt werden. Installiere Android System WebView oder Chrome und starte Kiosk Satellite neu.';
+
+  @override
+  String get kioskDuraSpeedBlocking => 'DuraSpeed blockiert das Dashboard';
+
+  @override
+  String get kioskDuraSpeedBlockingHelp =>
+      'DuraSpeed auf diesem Tablet verhindert den Start des Dashboard-Renderers, und manche Tablets bieten dafür keine Einstellungsseite. Schalte es einmalig per adb aus und starte Kiosk Satellite dann neu:';
 
   @override
   String get kioskPinTitle => 'Kiosk-PIN';
@@ -3334,19 +3352,12 @@ class UiStringsDe extends UiStrings {
   String get overviewAttention => 'Aufmerksamkeit erforderlich';
 
   @override
-  String get overviewOpen => 'Öffnen';
-
-  @override
   String get overviewUpdate => 'Aktualisieren';
 
   @override
   String overviewInvitation(String name) {
     return '$name möchte diesen Kiosk anführen';
   }
-
-  @override
-  String get overviewInvitationHelp =>
-      'Bestätige die Anfrage auf dem Bildschirm des Kiosks oder unter „Flottenverwaltung“ auf diesem Gerät.';
 
   @override
   String get overviewOutdatedOne => '1 Follower verwendet eine andere Version';
@@ -3992,6 +4003,9 @@ class UiStringsDe extends UiStrings {
 
   @override
   String get cameraBack => 'Rückkamera';
+
+  @override
+  String get cameraExternal => 'Externe Kamera';
 
   @override
   String get cameraOnlyCamera => 'Die einzige Kamera dieses Geräts.';
@@ -5463,6 +5477,10 @@ class UiStringsDe extends UiStrings {
       'Dieselbe Adresse über den Gerätenamen in Netzwerken, die .local-Namen auflösen.';
 
   @override
+  String get deviceByCertificateNameHelp =>
+      'Dieselbe Adresse über den Namen aus ihrem Zertifikat.';
+
+  @override
   String get devicePasswordNeeded =>
       'Lege unten ein Administrationspasswort fest, um den Server zu starten.';
 
@@ -6395,6 +6413,14 @@ class UiStringsDe extends UiStrings {
   @override
   String get settingBtproxyScanDutyDescription =>
       'Legt fest, wie lange das Funkmodul lauscht. Eine geringere Intensität reduziert die CPU-Auslastung. Geräte, die selten senden, benötigen länger, bis sie erscheinen.';
+
+  @override
+  String get settingBtproxyScreenOffScanTitle =>
+      'Bei ausgeschaltetem Bildschirm weiter scannen';
+
+  @override
+  String get settingBtproxyScreenOffScanDescription =>
+      'Einschalten, wenn der Proxy bei ausgeschaltetem Bildschirm nichts mehr weiterleitet. Erhöht die CPU-Auslastung.';
 
   @override
   String get settingBtproxyConnectionsTitle =>
@@ -7586,6 +7612,66 @@ class UiStringsDe extends UiStrings {
   String get intercomOptionTalkHandsfree => 'Freisprechen';
 
   @override
+  String get settingIntercomMaxCallMinutesTitle => 'Maximale Anrufdauer';
+
+  @override
+  String get settingIntercomMaxCallMinutesDescription =>
+      'Anrufe enden nach dieser Zeit von selbst.';
+
+  @override
+  String get intercomOptionCallUnlimited => 'Unbegrenzt';
+
+  @override
+  String get intercomOptionCall1 => '1 Minute';
+
+  @override
+  String get intercomOptionCall2 => '2 Minuten';
+
+  @override
+  String get intercomOptionCall5 => '5 Minuten';
+
+  @override
+  String get intercomOptionCall10 => '10 Minuten';
+
+  @override
+  String get intercomOptionCall15 => '15 Minuten';
+
+  @override
+  String get intercomOptionCall20 => '20 Minuten';
+
+  @override
+  String get intercomOptionCall30 => '30 Minuten';
+
+  @override
+  String get intercomOptionCall45 => '45 Minuten';
+
+  @override
+  String get intercomOptionCall60 => '60 Minuten';
+
+  @override
+  String get settingIntercomHangupKeyTitle =>
+      'Anruf beim Drücken dieser Taste beenden';
+
+  @override
+  String get settingIntercomHangupKeyDescription =>
+      'Während eines Anrufs beendet die Taste ihn, statt ihre übliche Funktion auszuführen.';
+
+  @override
+  String get intercomOptionHangupOff => 'Deaktiviert';
+
+  @override
+  String get intercomOptionHangupVolumeUp => 'Lauter';
+
+  @override
+  String get intercomOptionHangupVolumeDown => 'Leiser';
+
+  @override
+  String get intercomOptionHangupMute => 'Stummschalten';
+
+  @override
+  String get intercomOptionHangupHelp => 'Hilfe';
+
+  @override
   String get intercomTalkSection => 'Gespräch';
 
   @override
@@ -8751,7 +8837,7 @@ class UiStringsDe extends UiStrings {
 
   @override
   String get settingAudioSpeakerDeviceDescription =>
-      'Ausgabegerät für die Töne von Voice Satellite. Die Medienwiedergabe folgt weiterhin der Systemausgabe. Die Echounterdrückung funktioniert nur, wenn Mikrofon und Lautsprecher zum selben Gerät gehören.';
+      'Ausgabegerät für die Töne von Voice Satellite. Die Medienwiedergabe folgt weiterhin der Systemausgabe.';
 
   @override
   String get screenAudioDevices => 'Audiogeräte';
@@ -8765,18 +8851,25 @@ class UiStringsDe extends UiStrings {
   }
 
   @override
-  String get settingMicAudioSourceTitle => 'Aufnahmemodus';
+  String get settingMicCaptureModeTitle => 'Aufnahmemodus';
 
   @override
-  String get settingMicAudioSourceDescription =>
-      'Sprachkommunikation ist der einzige Modus mit Echounterdrückung. Behalte diese Einstellung bei, außer das Mikrofon zeichnet hier deutlich leiser auf als in einer Aufnahme-App.';
+  String get settingMicCaptureModeDescription =>
+      'Wähle Sprachkommunikation, wenn das Mikrofon hier stumm bleibt oder verstummt, nachdem der Kiosk einen Ton abgespielt hat. Manche Geräte nehmen nur über ihren Anruf-Audiopfad richtig auf.';
 
   @override
-  String get settingMicEchoCancellationTitle => 'Echounterdrückung';
+  String get settingMicSoftwareEchoCancellationTitle => 'Echounterdrückung';
 
   @override
-  String get settingMicEchoCancellationDescription =>
-      'Verhindert, dass das Mikrofon den Lautsprecher des Kiosks aufnimmt, damit das Stoppwort auch während der Wiedergabe erkannt werden kann. Deaktiviere diese Funktion nur, wenn das Mikrofon hier deutlich leiser aufnimmt als in einer Aufnahme-App.';
+  String get settingMicSoftwareEchoCancellationDescription =>
+      'Entfernt die eigenen Töne des Kiosks aus dem Mikrofon, damit weder das Aktivierungswort noch der Assistent sie hören. Lass sie eingeschaltet, es sei denn, ein Mikrofon mit eigener Echounterdrückung klingt damit schlechter.';
+
+  @override
+  String get settingMicNoiseSuppressionTitle => 'Rauschunterdrückung';
+
+  @override
+  String get settingMicNoiseSuppressionDescription =>
+      'Entfernt das Rauschen aus dem Mikrofon. Sie verändert, was das Aktivierungswort hört, also schalte sie bei einem rauschenden Mikrofon ein.';
 
   @override
   String get settingMicChannelTitle => 'Mikrofonkanal';
@@ -8784,20 +8877,6 @@ class UiStringsDe extends UiStrings {
   @override
   String get settingMicChannelDescription =>
       'Mehrkanal-Mikrofone reservieren oft einen Kanal für die Spracherkennung. Die Auswahl dieses Kanals kann die Erkennung verbessern.';
-
-  @override
-  String get settingMicAgcTitle => 'Automatische Verstärkungsregelung';
-
-  @override
-  String get settingMicAgcDescription =>
-      'Erlaubt Android, den Mikrofonpegel automatisch anzupassen, anstatt eine feste Verstärkung zu verwenden. Kann auch Umgebungsgeräusche verstärken und hat auf manchen Geräten keine Wirkung.';
-
-  @override
-  String get settingMicNoiseSuppressionTitle => 'Rauschunterdrückung';
-
-  @override
-  String get settingMicNoiseSuppressionDescription =>
-      'Reduziert Hintergrundgeräusche durch die Audioverarbeitung von Android. Je nach Gerät kann dies die Aktivierungswort-Erkennung verbessern oder verschlechtern.';
 
   @override
   String get settingMicGainDbTitle => 'Mikrofonverstärkung';
@@ -8818,26 +8897,23 @@ class UiStringsDe extends UiStrings {
 
   @override
   String get screenAudioMicrophoneHint =>
-      'Aufnahmemodus, Kanal, Verstärkung und Echtzeit-Pegel';
+      'Echounterdrückung, Rauschen, Verstärkung, Format und Echtzeit-Pegel';
 
   @override
   String get screenAudioMicrophoneNote =>
       'Passe die Aufnahme an Mikrofon und Umgebung an. Teste nach Änderungen die Aktivierungswörter und Sprachinteraktionen.';
 
   @override
-  String get screenAudioVoiceCommunication => 'Sprachkommunikation (Standard)';
-
-  @override
-  String get screenAudioVoiceRecognition => 'Spracherkennung';
-
-  @override
-  String get screenAudioRawMicrophone => 'Rohes Mikrofon';
-
-  @override
   String get screenAudioAutomaticDefault => 'Automatisch (Standard)';
 
   @override
   String get screenAudioStereo => 'Stereo mit 48 kHz';
+
+  @override
+  String get screenAudioCaptureRawMicrophone => 'Rohes Mikrofon (Standard)';
+
+  @override
+  String get screenAudioCaptureVoiceCommunication => 'Sprachkommunikation';
 
   @override
   String get screenAudioDownmix => 'Kanäle mischen (Standard)';
@@ -8966,14 +9042,6 @@ class UiStringsDe extends UiStrings {
       'Sprachantworten und Signaltöne werden mit diesem Anteil der Hauptlautstärke wiedergegeben, unabhängig von der Medienlautstärke.';
 
   @override
-  String get settingAssistantFullVolumeRangeTitle =>
-      'Voller Lautstärkebereich für den Assistenten';
-
-  @override
-  String get settingAssistantFullVolumeRangeDescription =>
-      'Setzt die Anruflautstärke des integrierten Lautsprechers beim ersten Start der Assistenten-Audioausgabe auf 100 %. Die Hauptlautstärke und die Assistentenlautstärke wirken weiterhin darauf. Andere Anwendungen verwenden dieselbe Anruflautstärke, die anschließend nicht wiederhergestellt wird.';
-
-  @override
   String get settingIntercomVolumeTitle => 'Intercom-Lautstärke';
 
   @override
@@ -9007,6 +9075,13 @@ class UiStringsDe extends UiStrings {
   @override
   String get settingScreensaverClockStyleDescription =>
       'Legt fest, wie die Uhr dargestellt wird.';
+
+  @override
+  String get settingScreensaverClockVerticalTitle => 'Vertikaler Modus';
+
+  @override
+  String get settingScreensaverClockVerticalDescription =>
+      'Stapelt die Stunden über den Minuten, für Bildschirme im Hochformat.';
 
   @override
   String get settingScreensaverClockFontTitle => 'Schriftart';
@@ -9147,6 +9222,14 @@ class UiStringsDe extends UiStrings {
   @override
   String get settingScreensaverClockNightHideBackgroundDescription =>
       'Verwendet im Nachtmodus die Nachthintergrundfarbe anstelle des Hintergrundbilds.';
+
+  @override
+  String get settingScreensaverClockNightHideWidgetsTitle =>
+      'Widgets und Auf einen Blick ausblenden';
+
+  @override
+  String get settingScreensaverClockNightHideWidgetsDescription =>
+      'Zeigt im Nachtmodus nur die Uhr.';
 
   @override
   String get settingScreensaverClockNightCardColorTitle =>
@@ -11303,6 +11386,22 @@ class UiStringsDe extends UiStrings {
       'Gerade sonnig und 22°, mit einer leichten Brise.';
 
   @override
+  String get settingVoiceOverlayModeTitle => 'Overlay-Modus';
+
+  @override
+  String get settingVoiceOverlayModeDescription =>
+      'Angedockt zeigt eine kleine Blase über dem Dashboard. Umfangreiche Ergebnisse wie Bilder, Wetter oder Videos werden nicht angezeigt.';
+
+  @override
+  String get voiceOverlayFullScreen => 'Vollbild';
+
+  @override
+  String get voiceOverlayDocked => 'Angedockt';
+
+  @override
+  String get voiceListeningEllipsis => 'Hört zu…';
+
+  @override
   String get voiceAssistant1 => 'Assistent 1';
 
   @override
@@ -11941,6 +12040,187 @@ class UiStringsDe extends UiStrings {
       'Mikrofon und weitere Berechtigungen, die für die Aktivierungswort-Erkennung benötigt werden.';
 
   @override
+  String get voiceRealtime => 'Echtzeit';
+
+  @override
+  String get voiceRealtimeProvidersHint =>
+      'OpenAI, xAI Grok, Gemini, Werkzeuge, in Antworten hineinsprechen';
+
+  @override
+  String get voiceRealtimeToolsSection => 'Home Assistant-Werkzeuge';
+
+  @override
+  String get voiceRealtimeProviderDefault => 'Standard des Anbieters';
+
+  @override
+  String get voiceRealtimeToolsCustom => 'Eigener MCP-Server';
+
+  @override
+  String get settingVoiceRealtimeEndpointTitle => 'Endpunkt';
+
+  @override
+  String get settingVoiceRealtimeEndpointDescription =>
+      'Leer lassen, um den Anbieter zu verwenden. Nutze ein Relay in deinem Netzwerk, um diesen Kiosk offline zu halten.';
+
+  @override
+  String get settingVoiceRealtimeApiKeyTitle => 'API-Schlüssel';
+
+  @override
+  String get settingVoiceRealtimeApiKeyDescription =>
+      'Leer lassen, wenn ein Relay ihn hinzufügt.';
+
+  @override
+  String get settingVoiceRealtimeModelTitle => 'Modell';
+
+  @override
+  String get settingVoiceRealtimeVoiceTitle => 'Stimme';
+
+  @override
+  String get settingVoiceRealtimeInstructionsTitle => 'Anweisungen';
+
+  @override
+  String get settingVoiceRealtimeInstructionsDescription =>
+      'Wie sich der Assistent verhält. Leer lassen für eine kurze Standardanweisung.';
+
+  @override
+  String get settingVoiceRealtimeIdleSecondsTitle => 'Nach Stille beenden';
+
+  @override
+  String get settingVoiceRealtimeIdleSecondsDescription =>
+      'Das Gespräch endet, wenn so lange niemand spricht.';
+
+  @override
+  String get settingVoiceRealtimeReasoningTitle => 'Denkaufwand';
+
+  @override
+  String get settingVoiceRealtimeReasoningDescription =>
+      'Mehr Aufwand beantwortet schwierige Fragen besser. Erfordert ein gpt-realtime-2-Modell.';
+
+  @override
+  String get settingVoiceRealtimeGeminiReasoningDescription =>
+      'Mehr Aufwand beantwortet schwierige Fragen besser. Erfordert ein Modell, das nachdenkt, etwa gemini-3.8-live-extended-thinking.';
+
+  @override
+  String get settingVoiceRealtimeGeminiSearchTitle => 'Google Suche';
+
+  @override
+  String get settingVoiceRealtimeGeminiSearchBillingDescription =>
+      'Lässt das Modell im Web nachschlagen. Erfordert, dass für den API-Schlüssel die Abrechnung aktiviert ist.';
+
+  @override
+  String get settingVoiceRealtimeGeminiProactiveTitle =>
+      'Gespräche ignorieren, die nicht ihm gelten';
+
+  @override
+  String get settingVoiceRealtimeGeminiProactiveDescription =>
+      'Das Modell bleibt still, wenn das Gehörte nicht an es gerichtet ist. Bei Google experimentell.';
+
+  @override
+  String get voiceRealtimeReasoningDefault => 'Modellstandard';
+
+  @override
+  String get voiceRealtimeReasoningMinimal => 'Minimal';
+
+  @override
+  String get voiceRealtimeReasoningLow => 'Niedrig';
+
+  @override
+  String get voiceRealtimeReasoningMedium => 'Mittel';
+
+  @override
+  String get voiceRealtimeReasoningHigh => 'Hoch';
+
+  @override
+  String get voiceRealtimeReasoningExtraHigh => 'Sehr hoch';
+
+  @override
+  String get settingVoiceRealtimeSpeedTitle => 'Sprechgeschwindigkeit';
+
+  @override
+  String get settingVoiceRealtimeSpeedDescription =>
+      'Wie schnell der Assistent spricht.';
+
+  @override
+  String get settingVoiceRealtimeHistoryHoursTitle => 'Sitzungsdauer';
+
+  @override
+  String get settingVoiceRealtimeHistoryHoursDescription =>
+      'Was innerhalb dieser Zeit gesagt wurde, fließt in das nächste Gespräch ein.';
+
+  @override
+  String get settingVoiceRealtimeTalkOverTitle => 'In Antworten hineinsprechen';
+
+  @override
+  String get settingVoiceRealtimeTalkOverDescription =>
+      'Unterbrich eine Antwort, indem du sprichst. Schalte es aus, wenn er sich selbst unterbricht.';
+
+  @override
+  String get settingVoiceRealtimeToolsTitle => 'Werkzeuge';
+
+  @override
+  String get settingVoiceRealtimeToolsDescription =>
+      'Was der Assistent steuern kann. Home Assistant nutzt seine MCP Server-Integration und die für Assist freigegebenen Entitäten.';
+
+  @override
+  String get settingVoiceRealtimeMcpUrlTitle => 'MCP-Server-URL';
+
+  @override
+  String get settingVoiceRealtimeMcpUrlDescription =>
+      'Die Streamable-HTTP-Adresse des Servers.';
+
+  @override
+  String get settingVoiceRealtimeMcpTokenTitle => 'MCP-Token';
+
+  @override
+  String get settingVoiceRealtimeMcpTokenDescription =>
+      'Wird als Bearer-Token gesendet. Leer lassen, wenn der Server keinen braucht.';
+
+  @override
+  String get voiceRealtimeMcpMissing =>
+      'Füge die MCP Server-Integration in Home Assistant hinzu, um dein Zuhause zu steuern.';
+
+  @override
+  String get voiceRealtimeNotValidated => 'Nicht geprüft';
+
+  @override
+  String voiceRealtimeOption(String provider) {
+    return '$provider Echtzeit';
+  }
+
+  @override
+  String voiceRealtimeConnectFailed(String error) {
+    return 'Verbindung fehlgeschlagen: $error';
+  }
+
+  @override
+  String voiceRealtimeToolsUnavailable(String problem) {
+    return 'Verbunden, aber die Home Assistant-Werkzeuge sind nicht verfügbar: $problem';
+  }
+
+  @override
+  String get settingVoiceRealtimeModelDescription =>
+      'Das Sprache-zu-Sprache-Modell, das antwortet.';
+
+  @override
+  String get settingVoiceRealtimeVoiceDescription =>
+      'Wie der Assistent klingt.';
+
+  @override
+  String get voiceRealtimeProviders => 'Anbieter';
+
+  @override
+  String get voiceRealtimeConfigure => 'Konfigurieren';
+
+  @override
+  String get voiceRealtimeSaveValidate => 'Speichern und prüfen';
+
+  @override
+  String get voiceRealtimeNotConfigured => 'Nicht konfiguriert';
+
+  @override
+  String get voiceRealtimeValidated => 'Verbindung geprüft';
+
+  @override
   String get voiceDisconnected => 'Home Assistant ist nicht verbunden';
 
   @override
@@ -12059,6 +12339,14 @@ class UiStringsDe extends UiStrings {
   @override
   String get settingVoiceTimerPillScaleDescription =>
       'Die Größe der Timer-Anzeigen.';
+
+  @override
+  String get settingVoiceTimerAlertPillTitle =>
+      'Anzeigen abgelaufener Timer einblenden';
+
+  @override
+  String get settingVoiceTimerAlertPillDescription =>
+      'Tipp auf die Anzeige, um den Alarm zu beenden.';
 
   @override
   String get settingVoiceMuteTimersTitle => 'Timer-Alarme stummschalten';
@@ -12317,6 +12605,24 @@ class UiStringsDe extends UiStrings {
   @override
   String get settingVoiceStopWordDescription =>
       'Sag „stop“, um eine Antwort, einen Timer-Alarm oder eine Durchsage abzubrechen.';
+
+  @override
+  String get settingVoiceWakeArbitrationTitle =>
+      'Aktivierungswort-Arbitrierung aktivieren';
+
+  @override
+  String get settingVoiceWakeArbitrationDescription =>
+      'Wenn mehrere Kiosks das Aktivierungswort hören, antwortet der nächstgelegene. Erhöht die Erkennungslatenz.';
+
+  @override
+  String get settingVoiceWakeArbitrationWindowTitle => 'Arbitrierungsfenster';
+
+  @override
+  String get settingVoiceWakeArbitrationWindowDescription =>
+      'Wie lange auf die anderen Kiosks gewartet wird. Erhöhe den Wert, wenn ein langsamerer Kiosk verliert, obwohl er näher ist.';
+
+  @override
+  String get voiceSectionWakeArbitration => 'Aktivierungswort-Arbitrierung';
 
   @override
   String get voiceOptionSlightly => 'Wenig empfindlich';

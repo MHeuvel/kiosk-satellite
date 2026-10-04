@@ -1,0 +1,16 @@
+{
+  "@@locale": "nl",
+  "settingScreensaverGlanceScaleTitle": "Rij schalen",
+  "settingScreensaverGlanceScaleDescription": "Pas de schaal van de rij aan zodat deze beter op het scherm past.",
+  "settingScreensaverGlanceFontTitle": "Lettertypefamilie",
+  "settingScreensaverGlanceFontDescription": "Het lettertype waarin de rij is getekend.",
+  "settingScreensaverGlanceFontWeightTitle": "Tekstdikte",
+  "settingScreensaverGlanceFontWeightDescription": "Bepaalt hoe vet de tekst in de rij wordt weergegeven. Standaard heeft elke regel zijn eigen dikte: normale namen en halfvette waarden.",
+  "settingScreensaverGlanceHideNamesTitle": "Namen verbergen",
+  "settingScreensaverGlanceHideNamesDescription": "Alleen het pictogram en de waarde tonen, waarbij de waarde groter is.",
+  "settingScreensaverGlanceBwIconsTitle": "Pictogrammen in één kleur",
+  "settingScreensaverGlanceBwIconsDescription": "Toon alle pictogrammen in neutraal grijs in plaats van in de kleur van hun status.",
+  "settingScreensaverGlanceTextOnlyTitle": "Zwevende tekst",
+  "settingScreensaverGlanceTextOnlyDescription": "Toon entiteiten als zwevende tekst in plaats van als labels.",
+  "screensaverOverlayAppearance": "Uiterlijk"
+}

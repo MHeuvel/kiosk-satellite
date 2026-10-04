@@ -1,0 +1,7 @@
+{
+  "@@locale": "nl",
+  "settingsSearchHint": "Instellingen zoeken",
+  "settingsSearchClear": "Zoekopdracht wissen",
+  "settingsSearchResults": "Zoekresultaten",
+  "settingsSearchEmpty": "Geen instellingen gevonden voor \"{query}\"."
+}

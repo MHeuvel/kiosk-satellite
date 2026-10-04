@@ -6,6 +6,8 @@
   "settingVoiceTimerNameInPillDescription": "Der Name neben der Zeit in einer Anzeige.",
   "settingVoiceTimerPillScaleTitle": "Größe der Timer-Anzeigen",
   "settingVoiceTimerPillScaleDescription": "Die Größe der Timer-Anzeigen.",
+  "settingVoiceTimerAlertPillTitle": "Anzeigen abgelaufener Timer einblenden",
+  "settingVoiceTimerAlertPillDescription": "Tipp auf die Anzeige, um den Alarm zu beenden.",
   "settingVoiceMuteTimersTitle": "Timer-Alarme stummschalten",
   "settingVoiceMuteTimersDescription": "Zeigt den Alarm ohne Ton.",
   "settingVoiceTimerNameOnAlertTitle": "Namen im Alarm anzeigen",

@@ -118,7 +118,7 @@ try:
         assert len(writes)==before
         with page.expect_response('**/api/settings'):
             modal.get_by_text('<b>Original engine</b>',exact=True).click()
-        expect(box).to_have_text('<b>Original engine</b>');assert writes[-1]=={'announcements.tts_engine':'tts.raw'}
+        expect(box).to_have_text('<b>Original engine</b>');assert writes[-1]=={'announcements.tts_engine':'tts.raw','announcements.tts_language':'','announcements.tts_voice':''}
         box.click();modal.get_by_text(label('First available'),exact=True).click();expect(box).to_have_text(label('First available'))
         tts_fail=True;box.click();expect(page.locator('body')).to_contain_text(label('Could not reach Home Assistant'));tts_fail=False
         show('gps-sensor');status=root.locator('.location-status');expect(status).to_contain_text('45.50190, -73.56740')

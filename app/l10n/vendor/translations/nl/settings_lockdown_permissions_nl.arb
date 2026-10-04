@@ -1,0 +1,6 @@
+{
+  "@@locale": "nl",
+  "lockdownOverlayHeld": "Het vergrendelingsschild kan het hele scherm bedekken.",
+  "lockdownOverlayMissing": "Zonder dit dekt het schild alleen de app. Het toestemmingsscherm verschijnt op de tablet.",
+  "lockdownPermissionsSearch": "De toestemmingen waarop de beveiliging van de vergrendelingsmodus steunt."
+}

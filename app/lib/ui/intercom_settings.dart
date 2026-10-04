@@ -1427,6 +1427,7 @@ class _IntercomCallOverlayState extends State<IntercomCallOverlay> {
     'mic_busy' => intercomText(context, "The page took the microphone"),
     'no_targets' => intercomText(context, "Nobody could take it"),
     'broadcast_over' => intercomText(context, "Done"),
+    'time_limit' => intercomText(context, "Maximum call duration reached"),
     _ => intercomText(context, "Call ended"),
   };
 

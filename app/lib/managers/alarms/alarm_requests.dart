@@ -1,213 +1,36 @@
-import 'dart:async';
-
-import '../../core/event_bus.dart';
-import '../../core/events.dart';
-import '../../core/logging.dart';
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
-import '../voice/ha_socket.dart';
 import 'alarm_manager.dart';
 import 'alarm_model.dart';
 
 /// Alarms set by voice through Home Assistant. The Kiosk Satellite alarms
 /// script (a blueprint in this repository) is exposed to Assist, so any
-/// LLM conversation agent can call it in any language. It fires
-/// [requestEvent]; every kiosk hears it over its own Home Assistant
-/// socket, and the one being asked answers with [resultEvent], which the
-/// script hands back to the LLM.
-///
-/// The kiosk being asked is the one named in the request, or else the one
-/// in a voice turn right now: the tool runs while the conversation is
-/// still going, so that is the kiosk that heard it. Nothing here needs an
-/// ESPHome entity, so adding or removing alarms never restarts the ESPHome
-/// server.
+/// LLM conversation agent can call it in any language. The voice requests
+/// manager hears it and, on the kiosk being asked, runs it through the
+/// `alarmsVoiceRequest` command, which lands in [handle].
 class AlarmRequests {
-  AlarmRequests(
-    this._bus,
-    this._log,
-    this._settings,
-    this._alarms, {
-    DateTime Function()? clock,
-    HaSocket? socket,
-  }) : _clock = clock ?? DateTime.now,
-       _socket =
-           socket ??
-           HaSocket(
-             baseUrl: () => _settings.get(defs.haUrl),
-             token: () => _settings.get(defs.haToken),
-           );
+  AlarmRequests(this._settings, this._alarms, {DateTime Function()? clock})
+    : _clock = clock ?? DateTime.now;
 
-  static const requestEvent = 'kiosk_satellite_alarm';
-  static const resultEvent = 'kiosk_satellite_alarm_result';
-
-  /// A voice turn that ended this recently still counts, for a runtime
-  /// that reports the end before the tool's event arrives.
-  static const _grace = Duration(seconds: 5);
-
-  /// Interactions that are a conversation with this kiosk, a `vs_show`
-  /// prompt included. The page's unnamed one is a legacy Voice Satellite
-  /// reporting a turn.
-  static const _turnReasons = {
-    'voice',
-    'show',
-    'start_conversation',
-    'ask_question',
-  };
-
-  final EventBus _bus;
-  final Logger _log;
   final SettingsManager _settings;
   final AlarmManager _alarms;
   final DateTime Function() _clock;
-  final HaSocket _socket;
-
-  final _turns = <String>{};
-  DateTime? _turnEnded;
-  final _subs = <StreamSubscription<Object?>>[];
-  Timer? _watch;
-  Future<void> Function()? _unsubscribe;
-  int _subscribedOn = -1;
-  bool _subscribing = false;
-
-  /// The token's user is not an administrator. Home Assistant refuses
-  /// custom events to them and logs every refusal, so nothing is asked
-  /// again until the address or token changes.
-  bool _notAdmin = false;
-
-  static const _name = 'alarms';
-
-  void start() {
-    _subs
-      ..add(_bus.on<VoiceInteractionChanged>().listen(_onInteraction))
-      ..add(
-        _bus.on<SettingChanged>().listen((e) {
-          if (e.key == defs.haUrl.key || e.key == defs.haToken.key) {
-            unawaited(_resubscribe());
-          }
-        }),
-      );
-    // The socket does not reconnect on its own: look again now and then.
-    _watch = Timer.periodic(const Duration(seconds: 30), (_) => _follow());
-    unawaited(_follow());
-  }
-
-  Future<void> dispose() async {
-    _watch?.cancel();
-    for (final s in _subs) {
-      await s.cancel();
-    }
-    await _socket.close();
-  }
-
-  void _onInteraction(VoiceInteractionChanged e) {
-    final reason = e.reason.isEmpty && e.source == InteractionSource.page
-        ? 'voice'
-        : e.reason;
-    if (!_turnReasons.contains(reason)) return;
-    if (e.active) {
-      _turns.add(reason);
-    } else if (_turns.remove(reason) && _turns.isEmpty) {
-      _turnEnded = _clock();
-    }
-  }
-
-  /// This kiosk is in a conversation, or just finished one.
-  bool get inVoiceTurn {
-    if (_turns.isNotEmpty) return true;
-    final ended = _turnEnded;
-    return ended != null && _clock().difference(ended) <= _grace;
-  }
-
-  bool get _configured =>
-      _settings.get(defs.haUrl).trim().isNotEmpty &&
-      _settings.get(defs.haToken).isNotEmpty;
-
-  Future<void> _resubscribe() async {
-    _unsubscribe = null;
-    _subscribedOn = -1;
-    _notAdmin = false;
-    await _socket.close();
-    await _follow();
-  }
-
-  Future<void> _follow() async {
-    if (_subscribing || _notAdmin || !_configured) return;
-    if (_unsubscribe != null &&
-        _socket.connected &&
-        _socket.connections == _subscribedOn) {
-      return;
-    }
-    _subscribing = true;
-    try {
-      // Any user may ask who it is, so this check leaves no error in the
-      // Home Assistant log.
-      final user = await _socket.request({'type': 'auth/current_user'});
-      if (user is Map && user['is_admin'] != true) {
-        _notAdmin = true;
-        _log.info(
-          _name,
-          'voice alarms need an administrator token, not listening',
-        );
-        await _socket.close();
-        return;
-      }
-      _unsubscribe = await _socket.subscribe({
-        'type': 'subscribe_events',
-        'event_type': requestEvent,
-      }, (event) => unawaited(_onRequest(event['data'])));
-      _subscribedOn = _socket.connections;
-      _log.debug(_name, 'listening for alarm requests');
-    } catch (e) {
-      _unsubscribe = null;
-      _log.debug(_name, 'alarm requests not followed: $e');
-    } finally {
-      _subscribing = false;
-    }
-  }
-
-  Future<void> _onRequest(Object? raw) async {
-    if (raw is! Map) return;
-    final data = raw.cast<String, Object?>();
-    if (!isForMe(data)) return;
-    final result = await handle(data);
-    _log.info(
-      _name,
-      'voice request ${data['action']}: '
-      '${result['ok'] == true ? result['result'] : result['error']}',
-    );
-    try {
-      await _socket.request({
-        'type': 'fire_event',
-        'event_type': resultEvent,
-        'event_data': {'id': data['id'], ...result},
-      });
-    } catch (e) {
-      _log.warn(_name, 'could not answer the alarm request: $e');
-    }
-  }
-
-  /// Named in the request, or, with no name, in a voice turn.
-  bool isForMe(Map<String, Object?> data) {
-    final asked = _norm('${data['kiosk'] ?? ''}');
-    if (asked.isEmpty) return inVoiceTurn;
-    for (final own in [
-      _settings.get(defs.deviceName),
-      _settings.get(defs.esphomeNodeName),
-    ]) {
-      final name = _norm(own);
-      if (name.isNotEmpty && (name.contains(asked) || asked.contains(name))) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  static String _norm(String s) =>
-      s.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), '');
 
   /// Applies one request and says what came of it, in the shape the script
   /// returns to the LLM.
-  Future<Map<String, Object?>> handle(Map<String, Object?> data) async {
+  ///
+  /// One at a time: an agent sends "delete my 6:30 alarm and set one for
+  /// 7" as two tool calls at once, and each reads the list before the
+  /// other has written it, so the set would bring the deleted alarm back.
+  Future<Map<String, Object?>> handle(Map<String, Object?> data) {
+    final done = _queue.then((_) => _apply(data));
+    _queue = done.then((_) {}, onError: (_) {});
+    return done;
+  }
+
+  Future<void> _queue = Future.value();
+
+  Future<Map<String, Object?>> _apply(Map<String, Object?> data) async {
     final kiosk = _settings.get(defs.deviceName);
     Map<String, Object?> fail(String error, [List<Alarm>? alarms]) => {
       'ok': false,

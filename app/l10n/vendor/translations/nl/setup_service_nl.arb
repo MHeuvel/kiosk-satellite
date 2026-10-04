@@ -1,0 +1,6 @@
+{
+  "@@locale": "nl",
+  "setupServiceHelp": "Houdt de app actief wanneer het scherm uit staat of een andere app op de voorgrond staat. Zo blijven de Home Assistant-verbinding en functies zoals bewegingsdetectie en de Bluetooth-proxy werken. De onderstaande toestemmingen zijn optioneel, maar worden aanbevolen omdat ze de app actief helpen houden wanneer het scherm uit staat.",
+  "setupBatteryMissing": "Android kan de app pauzeren wanneer het scherm uit staat, waardoor ook de verbinding met Home Assistant wordt verbroken.",
+  "setupOverlayMissing": "Zonder deze toestemming kan de service de kiosk na een crash niet opnieuw starten."
+}

@@ -17,10 +17,11 @@ import android.view.accessibility.AccessibilityEvent
  * are SystemUI's own windows — an app can watch them appear but cannot
  * touch them, and the pre-12 tricks for slamming the shade shut
  * (StatusBarManager.collapsePanels reflection, ACTION_CLOSE_SYSTEM_DIALOGS)
- * are blocked on modern Android. What Android offers instead, to
- * accessibility services only, is [GLOBAL_ACTION_DISMISS_NOTIFICATION_SHADE]
- * (API 31). This is the same route the commercial kiosk vendors take, and
- * unlike screen pinning it shows nobody a consent dialog: the owner enables
+ * are blocked from Android 12, where the service uses what Android offers
+ * accessibility services instead: [GLOBAL_ACTION_DISMISS_NOTIFICATION_SHADE]
+ * (API 31). Below 12 the old collapse still works and is used. This is
+ * the same route the commercial kiosk vendors take, and unlike screen
+ * pinning it shows nobody a consent dialog: the owner enables
  * the service once in Android's Accessibility settings and it stays.
  *
  * The service reads no window content ([canRetrieveWindowContent] is off in
@@ -92,7 +93,8 @@ class KioskAccessibilityService : AccessibilityService() {
         val cls = event.className?.toString() ?: ""
         // Any SystemUI window while armed: the dismiss is a no-op unless
         // the shade or quick settings are actually open, so firing it on
-        // a volume panel or a transient bar costs nothing.
+        // a volume panel or a transient bar costs nothing. Never answer
+        // with Back here: it reaches the kiosk (issue #821).
         if (guardShade && pkg == "com.android.systemui") dismissBurst()
         // Recents is quickstep's RecentsActivity on stock, Samsung and most
         // OEM launchers alike. Back returns to the task below it: us.
@@ -121,14 +123,34 @@ class KioskAccessibilityService : AccessibilityService() {
                 if (Build.VERSION.SDK_INT >= 31) {
                     performGlobalAction(GLOBAL_ACTION_DISMISS_NOTIFICATION_SHADE)
                 } else {
-                    // Best effort below 31: back collapses an open shade.
-                    performGlobalAction(GLOBAL_ACTION_BACK)
+                    collapseShadeLegacy()
                 }
                 main.postDelayed(this, 120)
             }
         }
         burst = shot
         shot.run()
+    }
+
+    /**
+     * Below 31 the pre-12 collapse still works and, like the dismiss
+     * action, does nothing on a closed shade. Back was used here before
+     * (issue #821): the volume panel is a SystemUI window too, so every
+     * volume press fired the burst, and each Back that landed on the
+     * kiosk opened its menu or stepped the dashboard's history. A real
+     * shade fared no better, the first Back closed it and the rest of the
+     * burst reached the kiosk.
+     */
+    @Suppress("DEPRECATION")
+    private fun collapseShadeLegacy() {
+        try {
+            val bar = getSystemService("statusbar") ?: return
+            bar.javaClass.getMethod("collapsePanels").invoke(bar)
+        } catch (_: Exception) {
+            sendBroadcast(
+                android.content.Intent(
+                    android.content.Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
+        }
     }
 
     override fun onInterrupt() {}

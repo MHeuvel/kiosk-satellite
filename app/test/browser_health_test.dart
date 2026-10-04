@@ -134,6 +134,23 @@ void main() {
     expect(rebuilds, hasLength(1));
   });
 
+  test('an unanswered rebuild on a DuraSpeed tablet names DuraSpeed', () async {
+    await build();
+    browser.duraSpeedInstalled = () async => true;
+    await browser.rebuildFailedRenderer('renderer never answered');
+    expect(browser.duraSpeedBlocking.value, isTrue);
+    // A renderer that answers clears it.
+    browser.onRendererResponsive();
+    expect(browser.duraSpeedBlocking.value, isFalse);
+  });
+
+  test('an unanswered rebuild elsewhere stays quiet', () async {
+    await build();
+    browser.duraSpeedInstalled = () async => false;
+    await browser.rebuildFailedRenderer('renderer never answered');
+    expect(browser.duraSpeedBlocking.value, isFalse);
+  });
+
   test('a responsive callback cancels the fallback rebuild', () async {
     await build();
     final rebuilds = <WebViewRebuildRequested>[];

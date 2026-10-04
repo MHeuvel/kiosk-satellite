@@ -1,0 +1,11 @@
+{
+  "@@locale": "nl",
+  "logsSystemLog": "Android-systeemlogboek voor deze app (hier staan crashes)",
+  "logsErrors": "Fouten en crashes",
+  "logsWarnings": "Waarschuwingen",
+  "logsInfo": "Informatie en foutopsporing",
+  "logsNoMatches": "Geen overeenkomende regels. Schakel hierboven meer typen in om het volledige logboek te bekijken.",
+  "logsUnavailable": "logcat niet beschikbaar",
+  "logsReadFailed": "Kon logcat niet lezen: {error}",
+  "logsUnknown": "onbekend"
+}

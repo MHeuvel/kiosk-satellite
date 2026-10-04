@@ -23,6 +23,8 @@ import '../remote/auth.dart';
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
 import '../voice/ha_socket.dart';
+import '../voice/voice_requests_manager.dart' show normalizeKioskName;
+import '../voice/voice_turns.dart';
 import 'intercom_audio.dart';
 import 'intercom_routes.dart';
 
@@ -343,6 +345,10 @@ class IntercomManager extends Manager {
   /// How long a probe result is trusted.
   Duration probeTtl = const Duration(seconds: 30);
 
+  /// A call asked for by voice waits this long for the conversation to
+  /// end before it ends it.
+  Duration voiceTurnWait = const Duration(seconds: 30);
+
   /// How long a call rings here before it is missed: the Ring for setting.
   /// Tests shorten it.
   Duration Function()? ringForOverride;
@@ -352,6 +358,18 @@ class IntercomManager extends Manager {
       Duration(
         seconds: int.tryParse(_settings.get(defs.intercomRingSeconds)) ?? 30,
       );
+
+  /// How long a live call may run here before it hangs up, null for no
+  /// limit: the Maximum call duration setting. Tests shorten it.
+  Duration? Function()? maxCallOverride;
+
+  Duration? get _maxCall {
+    final override = maxCallOverride;
+    if (override != null) return override();
+    final minutes =
+        int.tryParse(_settings.get(defs.intercomMaxCallMinutes)) ?? 0;
+    return minutes > 0 ? Duration(minutes: minutes) : null;
+  }
 
   /// The margin the caller waits past the callee's own ring time.
   Duration callerMargin = const Duration(seconds: 10);
@@ -423,6 +441,10 @@ class IntercomManager extends Manager {
 
   StreamSubscription<Uint8List>? _mic;
   final _subs = <StreamSubscription<Object?>>[];
+
+  /// Whether this kiosk is in a conversation, for a call asked for by
+  /// voice to wait out.
+  late final _voiceTurns = VoiceTurns(bus);
   Timer? _remoteRosterTimer;
   Timer? _ringTimer;
   Timer? _chimeTimer;
@@ -431,6 +453,10 @@ class IntercomManager extends Manager {
   Timer? _connectTimer;
   Timer? _missedTimer;
   Timer? _injectTimer;
+  Timer? _limitTimer;
+
+  /// The key code last handed to the kiosk manager for the hang up button.
+  int _hangupKeyArmed = 0;
   DateTime _lastLevel = DateTime.fromMillisecondsSinceEpoch(0);
   double _farLevel = 0;
   double _nearLevel = 0;
@@ -476,6 +502,7 @@ class IntercomManager extends Manager {
   @override
   Future<void> init() async {
     _registerCommands();
+    _voiceTurns.start();
     _subs.add(
       bus.on<RemoteObserversChanged>().listen((event) {
         if (!event.topics.contains('intercom')) {
@@ -516,12 +543,16 @@ class IntercomManager extends Manager {
         } else if (e.key == defs.intercomEnabled.key) {
           if (e.value != true) rosterVisible.value = false;
           unawaited(_onEnabledChanged());
+        } else if (e.key == defs.intercomHangupKey.key) {
+          _syncHangupKey();
         } else if (e.key == defs.intercomVolume.key) {
           unawaited(audio.setVolume(_playbackGain()));
+        } else if (e.key == defs.intercomTalkMode.key) {
+          unawaited(audio.setHandsFree(_handsFreeCall));
+          _changed();
         } else if (e.key == defs.intercomAnswerMode.key ||
             e.key == defs.lockdownEnabled.key ||
-            e.key == defs.intercomKey.key ||
-            e.key == defs.intercomTalkMode.key) {
+            e.key == defs.intercomKey.key) {
           _changed();
         } else if (e.key == defs.remoteEnabled.key ||
             e.key == defs.remotePassword.key ||
@@ -533,6 +564,11 @@ class IntercomManager extends Manager {
     // Another Voice Satellite turn or a page taking the microphone ends
     // the call: the page holds the microphone exclusively.
     micHub.browserCapturing.addListener(_onBrowserCapture);
+    _subs.add(
+      bus.on<IntercomHangupKeyPressed>().listen((_) {
+        if (_hangupStates.contains(_state)) unawaited(hangup());
+      }),
+    );
     await _readFleet();
     if (enabled && key.isEmpty) await _ensureKey();
   }
@@ -546,10 +582,12 @@ class IntercomManager extends Manager {
     for (final s in _subs) {
       await s.cancel();
     }
+    await _voiceTurns.dispose();
     await _finish('ended', notify: false);
     _cancelTimers();
     _holdTimer?.cancel();
     _missedTimer?.cancel();
+    _limitTimer?.cancel();
     rosterVisible.dispose();
   }
 
@@ -746,6 +784,130 @@ class IntercomManager extends Manager {
       if (k.status(keyFingerprint, encrypted: _encrypted) == 'ready') k,
   ];
 
+  // ── Voice requests ─────────────────────────────────────────────────
+
+  /// The Kiosk Satellite intercom script, through the voice requests
+  /// manager: `list` names the kiosks this one can call and `call` rings
+  /// one. Asked for in a voice turn, the call is checked now and placed
+  /// once the turn ends, so the call taking the microphone never cuts off
+  /// the answer that says it is coming.
+  Future<Map<String, Object?>> _voiceRequest(Map<String, Object?> p) async {
+    await _readFleet();
+    final self = _selfName.isNotEmpty
+        ? _selfName
+        : _settings.get(defs.deviceName);
+    final rooms = voiceRooms(p['rooms']);
+    Map<String, Object?> entry(IntercomKiosk k) {
+      final st = k.status(keyFingerprint, encrypted: _encrypted);
+      final area = rooms[normalizeKioskName(k.name)]?.area ?? '';
+      return {
+        'name': k.name,
+        if (area.isNotEmpty) 'area': area,
+        'status': _voiceStatus[st] ?? st,
+      };
+    }
+
+    Map<String, Object?> fail(
+      String error, [
+      Iterable<IntercomKiosk>? kiosks,
+    ]) => {
+      'ok': false,
+      'kiosk': self,
+      'error': error,
+      if (kiosks != null) 'kiosks': [for (final k in kiosks) entry(k)],
+    };
+    if (!enabled) return fail('the intercom is off on this kiosk');
+    if (!available) {
+      return fail('the intercom needs Remote Administration on this kiosk');
+    }
+    switch ('${p['action'] ?? ''}'.trim().toLowerCase()) {
+      case 'list':
+        await _probeAll();
+        return {
+          'ok': true,
+          'kiosk': self,
+          'result': 'listed',
+          'kiosks': [for (final k in _voiceRoster) entry(k)],
+        };
+      case 'call':
+        if (_busy && _state != 'listening') {
+          return fail('this kiosk is already in a call');
+        }
+        final target = '${p['kiosk'] ?? ''}';
+        final matches = matchKiosks(
+          target,
+          _kiosks.values,
+          name: (k) => k.name,
+          address: (k) => k.address,
+          rooms: rooms,
+        );
+        if (matches.length != 1) {
+          await _probeAll();
+          if (matches.length > 1) {
+            return fail('several kiosks match, ask which one', matches);
+          }
+          if (matchKiosks(
+            target,
+            [self],
+            name: (n) => n,
+            rooms: rooms,
+          ).isNotEmpty) {
+            return fail('that is this kiosk');
+          }
+          return fail('no kiosk goes by that name', _voiceRoster);
+        }
+        final k = matches.single;
+        await _probe(k);
+        final st = k.status(keyFingerprint, encrypted: _encrypted);
+        if (st != 'ready') {
+          return fail('${k.name}: ${_voiceStatus[st] ?? st}');
+        }
+        final calling = {
+          'ok': true,
+          'kiosk': self,
+          'result': 'calling',
+          'calling': k.name,
+        };
+        if (p['voiceTurn'] == true) {
+          unawaited(_callAfterTurn(k));
+          return calling;
+        }
+        final r = await _place(k);
+        return r.ok ? calling : fail(r.error ?? 'failed');
+      default:
+        return fail('action must be call or list');
+    }
+  }
+
+  List<IntercomKiosk> get _voiceRoster => [
+    for (final k in _kiosks.values)
+      if (k.heard) k,
+  ]..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+
+  /// A kiosk's status as the LLM reads it.
+  static const _voiceStatus = {
+    'ready': 'ready',
+    'off': 'its intercom is off',
+    'key': 'a different intercom key',
+    'tls': 'encryption mismatch',
+    'dnd': 'do not disturb',
+    'unreachable': 'not answering',
+    'offline': 'offline',
+    'unknown': 'not checked yet',
+  };
+
+  Future<void> _callAfterTurn(IntercomKiosk k) async {
+    // A realtime conversation would otherwise hold on through its closing
+    // silence after the answer.
+    await commands.execute('voiceEndAfterAnswer', const {});
+    if (!await _voiceTurns.ended(voiceTurnWait)) {
+      log.info(name, 'the conversation is still going, ending it for the call');
+      await commands.execute('voiceCancel', const {});
+    }
+    final r = await _place(k);
+    if (!r.ok) log.warn(name, 'the call to ${k.name} failed: ${r.error}');
+  }
+
   // ── Status ─────────────────────────────────────────────────────────
 
   Map<String, Object?> status() => {
@@ -832,6 +994,24 @@ class IntercomManager extends Manager {
             if (!r.ok) return r;
             return CommandResult.ok({'id': k.id, 'kiosk': k.name});
           },
+        ),
+      )
+      ..register(
+        Command(
+          name: 'intercomVoiceRequest',
+          description:
+              'What the Kiosk Satellite intercom script asks for, answered '
+              'in the shape the script hands back to the LLM.',
+          params: const {
+            'action': 'call or list',
+            'kiosk': 'The kiosk to call, by name',
+            'voiceTurn':
+                'true to place the call once the voice turn that asked '
+                'for it ends',
+          },
+          // The voice requests manager logs each one with its outcome.
+          quiet: true,
+          handler: (p) async => CommandResult.ok(await _voiceRequest(p)),
         ),
       )
       ..register(
@@ -985,6 +1165,7 @@ class IntercomManager extends Manager {
             'key': 'The key to use',
             'regenerate': 'true for a fresh random key',
           },
+          secretParams: const {'key'},
           handler: (p) async {
             final String next;
             if (p['regenerate'] == true) {
@@ -2106,9 +2287,14 @@ class IntercomManager extends Manager {
     }
   }
 
+  bool get _handsFreeCall => _call?.kind == 'call' && talkMode == 'handsfree';
+
   Future<void> _startPlayback({double? volume}) async {
     if (audio.open) return;
-    final ok = await audio.start(volume: volume ?? _playbackGain());
+    final ok = await audio.start(
+      volume: volume ?? _playbackGain(),
+      handsFree: _handsFreeCall,
+    );
     if (!ok) log.warn(name, 'playback could not open');
   }
 
@@ -2271,6 +2457,8 @@ class IntercomManager extends Manager {
       return;
     }
     _state = next;
+    _syncCallLimit();
+    _syncHangupKey();
     // The call screen takes over from the roster.
     if (next != 'idle' && next != 'missed') rosterVisible.value = false;
     // The card's last words hold nothing: the screensaver and the wake
@@ -2290,6 +2478,45 @@ class IntercomManager extends Manager {
     if (notify) _changed();
   }
 
+  /// The states the hang up button ends: a call being placed, a live call
+  /// and either end of a broadcast. A ringing call is answered or declined
+  /// on the screen.
+  static const _hangupStates = {
+    'calling',
+    'in_call',
+    'broadcasting',
+    'listening',
+  };
+
+  void _syncHangupKey() {
+    final code = _hangupStates.contains(_state)
+        ? defs.intercomHangupKeyCodes[_settings.get(defs.intercomHangupKey)] ??
+              0
+        : 0;
+    if (code == _hangupKeyArmed) return;
+    _hangupKeyArmed = code;
+    bus.publish(IntercomHangupKeyArmed(code));
+  }
+
+  /// Starts the Maximum call duration clock when a call or a broadcast
+  /// goes live and stops it when that ends.
+  void _syncCallLimit() {
+    if (!_active) {
+      _limitTimer?.cancel();
+      _limitTimer = null;
+      return;
+    }
+    if (_limitTimer != null) return;
+    final limit = _maxCall;
+    if (limit == null) return;
+    _limitTimer = Timer(limit, () {
+      _limitTimer = null;
+      if (!_active) return;
+      log.info(name, 'the call reached its maximum duration');
+      unawaited(hangup(reason: 'time_limit'));
+    });
+  }
+
   static String _reasonText(String reason) => switch (reason) {
     'ended' => 'ended',
     'declined' => 'declined',
@@ -2306,6 +2533,7 @@ class IntercomManager extends Manager {
     'mic_busy' => 'the page took the microphone',
     'no_targets' => 'nobody could take it',
     'broadcast_over' => 'the broadcast ended',
+    'time_limit' => 'maximum duration reached',
     _ => reason,
   };
 
@@ -2446,3 +2674,103 @@ Uint8List? _wavPcm16k(Uint8List wav) {
   }
   return null;
 }
+
+/// What the intercom script tells about each kiosk: the name its user gave
+/// its ESPHome device in Home Assistant and the device's area, keyed by the
+/// device name, which is the kiosk's name.
+Map<String, ({String alias, String area})> voiceRooms(Object? raw) {
+  final out = <String, ({String alias, String area})>{};
+  if (raw is! List) return out;
+  for (final r in raw) {
+    if (r is! Map) continue;
+    final n = normalizeKioskName('${r['name'] ?? ''}');
+    if (n.isEmpty) continue;
+    out[n] = (
+      alias: '${r['alias'] ?? ''}'.trim(),
+      area: '${r['area'] ?? ''}'.trim(),
+    );
+  }
+  return out;
+}
+
+/// The kiosks a spoken name means, by the kiosk's name, the name given to
+/// its device in Home Assistant or its area, so "the master bedroom
+/// intercom" finds the kiosk in the Master Bedroom. In order: a name said
+/// exactly (or the address), then every kiosk whose name holds the words
+/// said or is held in them, then the kiosks sharing the most words with
+/// it. Several matches mean the request has to say which.
+List<T> matchKiosks<T>(
+  String target,
+  Iterable<T> kiosks, {
+  required String Function(T) name,
+  String Function(T)? address,
+  Map<String, ({String alias, String area})> rooms = const {},
+}) {
+  final asked = normalizeKioskName(target);
+  if (asked.isEmpty) return const [];
+  List<String> namesOf(T k) {
+    final room = rooms[normalizeKioskName(name(k))];
+    return [
+      name(k),
+      if (room != null && room.alias.isNotEmpty) room.alias,
+      if (room != null && room.area.isNotEmpty) room.area,
+    ];
+  }
+
+  final exact = [
+    for (final k in kiosks)
+      if (address?.call(k) == target.trim() ||
+          namesOf(k).any((n) => normalizeKioskName(n) == asked))
+        k,
+  ];
+  if (exact.isNotEmpty) return exact;
+  final said = _words(target);
+  if (said.isEmpty) return const [];
+  final within = [
+    for (final k in kiosks)
+      if (namesOf(k).any((n) {
+        final words = _words(n);
+        return words.isNotEmpty && (_holds(said, words) || _holds(words, said));
+      }))
+        k,
+  ];
+  if (within.isNotEmpty) return within;
+  final heard = said.where((w) => !_filler.contains(w)).toSet();
+  var best = 0;
+  var out = <T>[];
+  for (final k in kiosks) {
+    final shared = {
+      for (final n in namesOf(k)) ..._words(n),
+    }.intersection(heard).length;
+    if (shared == 0 || shared < best) continue;
+    if (shared > best) {
+      best = shared;
+      out = [];
+    }
+    out.add(k);
+  }
+  return out;
+}
+
+List<String> _words(String s) => [
+  for (final w in s.toLowerCase().split(
+    RegExp(r'[^\p{L}\p{N}]+', unicode: true),
+  ))
+    if (w.isNotEmpty) w,
+];
+
+/// [words] holds [part] as a run of whole words: "the master bedroom
+/// intercom" holds "master bedroom", "garden" never holds "den".
+bool _holds(List<String> words, List<String> part) {
+  for (var i = 0; i + part.length <= words.length; i++) {
+    var all = true;
+    for (var j = 0; j < part.length && all; j++) {
+      all = words[i + j] == part[j];
+    }
+    if (all) return true;
+  }
+  return false;
+}
+
+/// Words that say nothing about which kiosk, left out of the word count.
+const _filler = {'the', 'a', 'an', 'my', 'our', 'kiosk', 'tablet', 'intercom'};

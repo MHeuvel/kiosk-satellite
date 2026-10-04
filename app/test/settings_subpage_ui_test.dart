@@ -949,9 +949,10 @@ void main() {
       );
       expect(find.text(subpageHints['Microphone settings']!), findsOneWidget);
       // Its rows went with it.
-      expect(find.text(micAudioSource.title), findsNothing);
-      expect(find.text(micAgc.title), findsNothing);
-      expect(find.text(micNoiseSuppression.title), findsNothing);
+      expect(find.text(micCaptureMode.title), findsNothing);
+      expect(find.text(micSoftwareEchoCancellation.title), findsNothing);
+      expect(find.text(micGainDb.title), findsNothing);
+      expect(find.text(micCaptureFormat.title), findsNothing);
       // The groups that stayed are still here.
       expect(
         find.widgetWithText(SectionHeading, 'Audio Volume'),
@@ -974,12 +975,13 @@ void main() {
         find.widgetWithText(AppBar, 'Microphone settings'),
         findsOneWidget,
       );
-      expect(find.text(micAudioSource.title), findsOneWidget);
-      expect(find.text(micAgc.title), findsOneWidget);
-      expect(find.text(micNoiseSuppression.title), findsOneWidget);
+      expect(find.text(micCaptureMode.title), findsOneWidget);
+      expect(find.text(micSoftwareEchoCancellation.title), findsOneWidget);
+      expect(find.text(micGainDb.title), findsOneWidget);
+      expect(find.text(micCaptureFormat.title), findsOneWidget);
       expect(
-        tester.getTopLeft(find.text(micNoiseSuppression.title)).dy,
-        greaterThan(tester.getTopLeft(find.text(micAgc.title)).dy),
+        tester.getTopLeft(find.text(micCaptureFormat.title)).dy,
+        greaterThan(tester.getTopLeft(find.text(micGainDb.title)).dy),
       );
       // The caveat that used to sit under the heading came along.
       expect(find.byType(GroupNote), findsOneWidget);
@@ -997,7 +999,7 @@ void main() {
         find.widgetWithText(ListTile, 'Microphone settings'),
         findsOneWidget,
       );
-      expect(find.text(micAudioSource.title), findsNothing);
+      expect(find.text(micSoftwareEchoCancellation.title), findsNothing);
     });
   });
 

@@ -1,0 +1,10 @@
+{
+  "@@locale": "nl",
+  "logsEntries": "{count} vermeldingen",
+  "logsCopyLog": "Logboek kopiëren",
+  "logsShareLog": "Logboek delen",
+  "logsCopied": "Gekopieerd",
+  "logsCopyFailed": "Kon niet kopiëren",
+  "logsOnClipboard": "Het logboek staat op het klembord.",
+  "logsConsoleOnClipboard": "Het consolelogboek staat op het klembord."
+}

@@ -26,6 +26,36 @@
       ]
     }
   },
+  "settingScreensaverClockVerticalTitle": "Vertical mode",
+  "@settingScreensaverClockVerticalTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver",
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver",
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockVerticalDescription": "Stack the hours above the minutes, for portrait screens.",
+  "@settingScreensaverClockVerticalDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver",
+        "Settings > Screensaver > Weather Mood screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver",
+        "Screensaver > Weather Mood screensaver"
+      ]
+    }
+  },
   "settingScreensaverClockFontTitle": "Font Family",
   "@settingScreensaverClockFontTitle": {
     "context": "Settings:Screensaver:Clock screensaver",
@@ -535,6 +565,32 @@
   },
   "settingScreensaverClockNightHideBackgroundDescription": "Use the night background color instead of the photo while Night mode is active.",
   "@settingScreensaverClockNightHideBackgroundDescription": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockNightHideWidgetsTitle": "Hide widgets and At a Glance",
+  "@settingScreensaverClockNightHideWidgetsTitle": {
+    "context": "Settings:Screensaver:Clock screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver > Clock screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver > Clock screensaver"
+      ]
+    }
+  },
+  "settingScreensaverClockNightHideWidgetsDescription": "Show only the clock while Night mode is active.",
+  "@settingScreensaverClockNightHideWidgetsDescription": {
     "context": "Settings:Screensaver:Clock screensaver",
     "description": "Help below the setting.",
     "x-locations": {

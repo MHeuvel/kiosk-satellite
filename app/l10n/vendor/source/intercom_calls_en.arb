@@ -261,6 +261,16 @@
       ]
     }
   },
+  "intercomMaxDurationReached": "Maximum call duration reached",
+  "@intercomMaxDurationReached": {
+    "context": "Intercom call controls",
+    "description": "Why the call ended: it ran for the Maximum call duration setting.",
+    "x-locations": {
+      "device": [
+        "Active intercom call overlay"
+      ]
+    }
+  },
   "intercomAnnouncement": "Announcement",
   "@intercomAnnouncement": {
     "context": "Intercom call controls",

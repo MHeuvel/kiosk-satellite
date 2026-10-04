@@ -1,0 +1,8 @@
+{
+  "@@locale": "nl",
+  "setupPasswordFirst": "Stel eerst het wachtwoord van de beheerder in",
+  "setupPasswordBeforeImport": "Typ hierboven een beheerderswachtwoord (minimaal 4 tekens) en importeer daarna de back-up.",
+  "setupPasswordFailed": "Kon het wachtwoord niet instellen",
+  "setupPasswordExists": "Er is al een wachtwoord ingesteld",
+  "setupPasswordExistsHelp": "Meld je hier aan met het wachtwoord dat op de tablet is ingesteld om verder te gaan. Opnieuw laden…"
+}

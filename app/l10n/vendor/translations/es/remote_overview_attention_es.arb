@@ -1,10 +1,8 @@
 {
   "@@locale": "es",
   "overviewAttention": "Requiere atención",
-  "overviewOpen": "Abrir",
   "overviewUpdate": "Actualizar",
   "overviewInvitation": "{name} quiere dirigir este kiosko",
-  "overviewInvitationHelp": "Confirma en la pantalla del kiosko o en Administración de flota en ese dispositivo.",
   "overviewOutdatedOne": "1 seguidor usa otra versión",
   "overviewOutdatedMany": "{count} seguidores usan otra versión",
   "overviewSyncWaiting": "{names}. La sincronización espera la versión {version}.",

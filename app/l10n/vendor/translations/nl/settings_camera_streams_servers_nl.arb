@@ -1,0 +1,17 @@
+{
+  "@@locale": "nl",
+  "cameraStreamsServers": "Go2RTC-servers",
+  "cameraStreamsImportStreams": "Streams importeren",
+  "cameraStreamsDeleteServer": "Server verwijderen",
+  "cameraStreamsAddServer": "Go2RTC-server toevoegen",
+  "cameraStreamsAddServerHelp": "Maak verbinding met een server en importeer de streams.",
+  "cameraStreamsEditServer": "Server bewerken",
+  "cameraStreamsName": "Naam",
+  "cameraStreamsBaseUrl": "Basis-URL",
+  "cameraStreamsUsername": "Gebruikersnaam (optioneel)",
+  "cameraStreamsNewPassword": "Nieuw wachtwoord (leeg laten om het huidige te behouden)",
+  "cameraStreamsPassword": "Wachtwoord (optioneel)",
+  "cameraStreamsInvalidCertificate": "Ongeldig TLS-certificaat toestaan",
+  "cameraStreamsSaveServerFailed": "Kon de server niet opslaan",
+  "cameraStreamsDeleteServerHelp": "De camera's worden uit elke weergave verwijderd."
+}

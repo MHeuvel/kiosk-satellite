@@ -52,7 +52,7 @@ Fleet and intercom clients accept kiosk self-signed certificates automatically. 
 
 - **Copy public certificate** on the device or **Download public certificate** in the remote admin exports the public certificate without its private key.
 - **Renew certificate** keeps the generated private key and updates the certificate dates and current device addresses.
-- **Import certificate** accepts a PEM certificate chain and matching unencrypted EC or RSA private key. Remote import requires HTTPS. Invalid material leaves the current certificate in place.
+- **Import certificate** accepts a PEM certificate chain and matching unencrypted EC or RSA private key. Remote import requires HTTPS. Invalid material leaves the current certificate in place. Other kiosks open this kiosk from the kiosk switcher by the certificate's first DNS name that is neither a wildcard nor `.local`, and the Access card shows that name as its address by name.
 - **Replace certificate** creates a new private key and self-signed certificate. Browsers may ask you to accept the new certificate. Other kiosks reconnect without updating a trust list.
 
 Generated certificates last one year. While any encryption switch is enabled, the app checks every six hours and renews generated certificates within 30 days of expiration. Imported certificates must be renewed by their issuer and imported again. Renew manually after changing the hostname or when you need a new IP address included in the certificate.
@@ -60,3 +60,9 @@ Generated certificates last one year. While any encryption switch is enabled, th
 Private keys are encrypted with an Android Keystore key and stored outside Android backup. They are not returned by the API, exported with configuration or copied through Fleet Management. Cloning a configuration keeps each device's own identity.
 
 Certificate changes restart encrypted listeners. If certificate loading fails, the affected encrypted listener stays stopped rather than accepting plaintext. Local device settings remain available to renew or replace the certificate.
+
+## Private certificate authorities
+
+If your Home Assistant or another server on your network uses a certificate from your own certificate authority, install that CA on the device under Android's security settings (usually **Settings > Security > Encryption & credentials > Install a certificate > CA certificate**). Kiosk Satellite trusts these user-installed CAs everywhere: the dashboard, the Home Assistant API and WebSocket, media playback and downloads. **Ignore SSL errors** can stay off.
+
+The app reads the installed CAs when it starts, so restart it after installing one. The app log lists each CA it trusts under the `tls` tag, and any certificate it refused along with the host and the issuer. GitHub downloads and analytics still verify against the system CAs only.

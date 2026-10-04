@@ -19,6 +19,7 @@ class FleetDevice {
     required this.port,
     this.self = false,
     this.tls = false,
+    this.dnsName = '',
   });
 
   final String id;
@@ -31,9 +32,21 @@ class FleetDevice {
   final bool self;
   final bool tls;
 
-  /// Where its remote admin answers.
-  String get url =>
-      Uri(scheme: tls ? 'https' : 'http', host: address, port: port).toString();
+  /// The DNS name its imported certificate covers, empty for none.
+  final String dnsName;
+
+  /// Where its remote admin answers. Over HTTPS with a CA-signed
+  /// certificate that is its DNS name, since the browser rejects that
+  /// certificate under the IP address (issue #833).
+  String get url => Uri(
+    scheme: tls ? 'https' : 'http',
+    host: tls && dnsName.isNotEmpty ? dnsName : address,
+    port: port,
+  ).toString();
+
+  static final _dnsName = RegExp(
+    r'^(?=.{1,253}$)([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$',
+  );
 
   static FleetDevice? fromMap(Map<Object?, Object?>? raw, {bool self = false}) {
     if (raw == null) return null;
@@ -48,6 +61,10 @@ class FleetDevice {
       port: port.toInt(),
       self: self,
       tls: raw['tls'] == true,
+      dnsName: switch ('${raw['dnsName'] ?? ''}'.toLowerCase()) {
+        final n when _dnsName.hasMatch(n) => n,
+        _ => '',
+      },
     );
   }
 
@@ -58,6 +75,7 @@ class FleetDevice {
     'address': address,
     'port': port,
     if (tls) 'tls': true,
+    if (dnsName.isNotEmpty) 'dnsName': dnsName,
     'url': url,
     'self': self,
   };
@@ -70,6 +88,7 @@ class FleetDevice {
     'address': address,
     'port': port,
     if (tls) 'tls': true,
+    if (dnsName.isNotEmpty) 'dnsName': dnsName,
   };
 
   static FleetDevice? directoryEntry(Object? raw) {
@@ -112,6 +131,11 @@ class FleetDevice {
 /// runs with Find other kiosks off too; only the service records and
 /// the listening for the others follow the switch.
 ///
+/// Over HTTPS with an imported certificate, the DNS name it covers is
+/// announced too, and the other kiosks link here by that name instead of
+/// the IP address their browser would reject the certificate under
+/// (issue #833).
+///
 /// The mDNS name setting is seeded here, the way the ESPHome node name
 /// is at its server's first start: as soon as the device has a name and
 /// the field is empty, the device name as a DNS label under `ks-` is
@@ -150,11 +174,21 @@ class FleetManager extends Manager {
     _settings.get(defs.deviceName),
   );
 
-  /// Where the admin answers by name, or null with no hostname or no
-  /// server.
-  String? get hostUrl => !serving || hostname.isEmpty
-      ? null
-      : '${_settings.get(defs.remoteTls) ? 'https' : 'http'}://$hostname.local:${_settings.get(defs.remotePort).toInt()}';
+  /// The DNS name of the imported certificate the admin serves over
+  /// HTTPS, empty for none. Read on every sync.
+  String get certificateName => _certificateName;
+  String _certificateName = '';
+
+  /// Where the admin answers by name, or null with no name or no server.
+  /// With an imported certificate that is the name it covers, since the
+  /// browser rejects it under `.local`.
+  String? get hostUrl {
+    if (!serving) return null;
+    final port = _settings.get(defs.remotePort).toInt();
+    if (_certificateName.isNotEmpty) return 'https://$_certificateName:$port';
+    if (hostname.isEmpty) return null;
+    return '${_settings.get(defs.remoteTls) ? 'https' : 'http'}://$hostname.local:$port';
+  }
 
   /// Whether the native announcer should run at all: for the fleet, for
   /// the hostname, or both.
@@ -193,6 +227,8 @@ class FleetManager extends Manager {
             // the admin's address under it, for the Access cards.
             'hostname': serving ? hostname : '',
             'hostUrl': hostUrl,
+            // Set when hostUrl is the certificate's name, not `.local`.
+            'certificateName': serving ? _certificateName : '',
           });
         },
       ),
@@ -223,6 +259,8 @@ class FleetManager extends Manager {
         }
       }),
     );
+    // An imported certificate brings the DNS name the others link to.
+    _subs.add(bus.on<TlsIdentityChanged>().listen((_) => _sync()));
     // A network coming back is when the others need telling again: the
     // announcements they missed while it was down are gone.
     _subs.add(
@@ -254,6 +292,7 @@ class FleetManager extends Manager {
   bool _seedEcho = false;
 
   Future<void> _sync() async {
+    _certificateName = await _readCertificateName();
     if (active) {
       await _start();
     } else if (running) {
@@ -262,12 +301,26 @@ class FleetManager extends Manager {
     _mergeDirectory();
   }
 
+  /// The DNS name of the imported certificate the admin serves, or empty
+  /// over HTTP, with the generated certificate or when it cannot be read.
+  Future<String> _readCertificateName() async {
+    if (!_settings.get(defs.remoteTls)) return '';
+    try {
+      return (await _settings.tls.load()).publicName ?? '';
+    } catch (_) {
+      return '';
+    }
+  }
+
   Future<void> _start() async {
     final host = hostname;
+    final tls = _settings.get(defs.remoteTls);
+    final dnsName = _certificateName;
     final args = {
       'name': _settings.get(defs.deviceName),
       'port': _settings.get(defs.remotePort).toInt(),
-      if (_settings.get(defs.remoteTls)) 'tls': true,
+      if (tls) 'tls': true,
+      if (dnsName.isNotEmpty) 'dnsName': dnsName,
       'hostname': host,
       'fleet': enabled,
     };

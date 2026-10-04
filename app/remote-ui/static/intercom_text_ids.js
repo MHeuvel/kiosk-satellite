@@ -111,6 +111,7 @@ export const intercomTextMessageIds = {
   "Nobody could take it": "intercomNobody",
   "Done": "intercomDone",
   "Call ended": "intercomEnded",
+  "Maximum call duration reached": "intercomMaxDurationReached",
   "Announcement": "intercomAnnouncement",
   "Announcing to 1 kiosk": "intercomAnnouncingOne",
   "is calling": "intercomIsCalling",

@@ -42,6 +42,9 @@ to copy. Renaming the device leaves it alone; clear the field to take the
 device name again. A typed name is slugified the same way: lowercase
 letters, digits and hyphens. The Access card under Remote Administration, on the device and
 in the remote admin, shows the address by name next to the one by IP.
+Over HTTPS with an imported certificate it shows the first DNS name that
+certificate covers instead, since the browser rejects that certificate
+under `.local`. The kiosk still answers to its `.local` name.
 
 | | |
 | --- | --- |
@@ -67,6 +70,7 @@ own login card shows first if its password differs.
 | How they find each other | Each kiosk announces `ks-<id>._kiosk-satellite._tcp.local` over mDNS with its name, version and admin port, every 30 seconds and on a query, and listens for the others. Raw multicast packets, not NsdManager, which never calls back on Fire OS and some LineageOS builds. |
 | What is listed | Kiosks with **Remote management** on, a password set and **Find other kiosks** on, on the same network segment. Multicast does not cross VLANs by itself. Through an mDNS reflector on the router it does, and each kiosk is listed under the address its own announcement carries, not the router's, so calls and the switcher reach it as long as the VLANs route to each other. |
 | Saved fleet members | Accepted members remain listed without multicast. Leaders store their followers and send the member directory to each follower. Discovery refreshes known addresses. Opening another kiosk still requires a reachable admin endpoint. |
+| HTTPS with an imported certificate | A kiosk serving HTTPS with an imported certificate also announces the first DNS name that certificate covers, skipping wildcard and `.local` names. The switcher opens it by that name instead of its IP address, so the browser accepts the certificate. The name has to resolve to the kiosk on your network. A kiosk with only a wildcard certificate or the generated one is opened by its IP address. |
 | Switch | **Find other kiosks** under Settings → Device → Remote Administration, on by default. Off, the kiosk neither announces nor listens, and the dropdown stays plain text. |
 | Command | `fleet` answers the same list: `{enabled, devices: [{id, name, version, address, port, url, self}]}`. The WebSocket carries a `fleet` event on every change. |
 | Port 5353 | Hearing the others needs the mDNS port. Where something on the device holds it exclusively the kiosk still announces, and the log says the others will not be heard. |
@@ -136,7 +140,7 @@ is administrable here by construction.
 | `/api/files/download` | GET | Stream a device file. Query params: `root` (`shared` or `app`), `path` (relative to the root) |
 | `/api/files/upload` | POST | Write the raw request body to a device file, same `root`/`path` query params. Parent folders are created |
 | `/api/update/upload` | POST | Take in a Kiosk Satellite APK as the raw request body, for a kiosk that can reach neither GitHub nor a custom repository. The kiosk reads package, version and build out of it and refuses another package, an older build or a file its cache cannot hold twice. Answers `{version, buildNumber, size, currentVersion, currentBuild}`. Nothing installs until `installUploadedApk` is called; `getUpdateStatus` reports the waiting file under `uploaded` and `installing` while the hand-off runs, then the outcome in `lastOutcome`. See [Updates](updates.md#installing-an-uploaded-apk) |
-| `/api/fleet/identity`, `/api/fleet/invite`, `/api/fleet/invite/<nonce>` | GET, POST, GET | Fleet Management's public face, for a kiosk with no token here: who this kiosk is, an invitation to follow (answered on the kiosk screen, never here) and what became of one. See [Fleet Management](fleet.md) |
+| `/api/fleet/identity`, `/api/fleet/invite`, `/api/fleet/invite/<nonce>` | GET, POST, GET | Fleet Management's public face, for a kiosk with no token here: who this kiosk is, an invitation to follow (answered on the kiosk screen or with `fleetAccept` and `fleetDecline` in its remote admin) and what became of one. See [Fleet Management](fleet.md) |
 | `/api/fleet/status`, `/api/fleet/apply`, `/api/fleet/leave`, `/api/fleet/roster` | GET, POST, POST, POST | The follower's side of the fleet: opened by the fleet token a follower mints on accepting, which is good for these, `getUpdateStatus`, `checkUpdateNow`, `installUpdate`, `/api/update/upload` and `installUploadedApk` and nothing else, only while it names this kiosk's leader |
 | `/api/intercom/identity`, `/api/intercom/call`, `/api/intercom/call/<id>`, `/api/intercom/audio/<id>` | GET, POST, POST, WebSocket | The [intercom's](intercom.md#remote-api) wire between kiosks: who this kiosk is (public), a call or broadcast coming in, the answer going back and the voice socket. All but the identity carry a token signed with the shared intercom key, never an admin token |
 | `/api/logs` | GET | Recent app log ring buffer |

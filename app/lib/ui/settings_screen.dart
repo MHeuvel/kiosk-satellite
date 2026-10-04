@@ -42,6 +42,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'brightness_curve_editor.dart';
 
 import '../core/permissions.dart';
+import '../managers/voice/realtime/openai_realtime_backend.dart';
 import '../managers/wake_word/background_listening.dart';
 import '../managers/wake_word/system_permissions.dart';
 import 'color_picker.dart';
@@ -157,7 +158,8 @@ List<Widget> _sectionedCards(
                   def.category == 'Device' ||
                   def.category == 'Home Assistant' ||
                   def.category == 'Screen & Audio' ||
-                  def.category == 'Screensaver')
+                  def.category == 'Screensaver' ||
+                  def.category == 'Voice Satellite')
               ? Builder(
                   builder: (context) => SectionHeading(
                     settingsPageText(context, def.category, heading),
@@ -3040,16 +3042,20 @@ class _CategoryContentState extends State<_CategoryContent> {
           subtitle: Text(
             cameraText(context, 'The only camera this device has.'),
           ),
+          // A USB or monitor webcam is not a picker option, so it
+          // takes its label from the camera strings.
           trailing: Text(
-            cameraDevice.localizedOption(
-              context,
-              container.deviceCamera.knownFacings!.single,
-              cameraDevice.optionLabels?[container
-                      .deviceCamera
-                      .knownFacings!
-                      .single] ??
-                  container.deviceCamera.knownFacings!.single,
-            ),
+            container.deviceCamera.knownFacings!.single == 'external'
+                ? cameraText(context, 'External')
+                : cameraDevice.localizedOption(
+                    context,
+                    container.deviceCamera.knownFacings!.single,
+                    cameraDevice.optionLabels?[container
+                            .deviceCamera
+                            .knownFacings!
+                            .single] ??
+                        container.deviceCamera.knownFacings!.single,
+                  ),
           ),
         ),
       ),
@@ -3349,6 +3355,39 @@ class _CategoryContentState extends State<_CategoryContent> {
                   url,
             },
           ),
+        ),
+      ];
+    }
+
+    // Realtime: one row per provider in the Providers group, where its
+    // first setting sits. Its settings live in the dialog the row opens.
+    if (widget.category == 'Voice Satellite' && subpage == 'Realtime') {
+      final inDialog = {
+        for (final list in realtimeProviderSettings.values)
+          for (final def in list.skip(1)) def.key,
+        for (final list in realtimeProviderSwitches.values)
+          for (final def in list) def.key,
+      };
+      return [
+        ...sectioned(
+          [
+            for (final def in _defsFor(widget.category))
+              if (def.subpage == subpage && !inDialog.contains(def.key)) def,
+          ],
+          replace: {
+            ..._rowReplacements(container),
+            for (final provider in RealtimeProvider.values)
+              realtimeProviderSettings[provider.id]!.first.key:
+                  SearchLandingTarget(
+                    id: realtimeProviderSettings[provider.id]!.first.key,
+                    child: RealtimeProviderRow(
+                      key: ValueKey('realtime-provider-${provider.id}'),
+                      container: container,
+                      provider: provider,
+                      onChanged: changed,
+                    ),
+                  ),
+          },
         ),
       ];
     }
@@ -3739,6 +3778,7 @@ class _CategoryContentState extends State<_CategoryContent> {
                 ],
               ),
             ),
+            ...sectioned([voiceWakeArbitration, voiceWakeArbitrationWindowMs]),
             _vsDetectionCard(container),
             CustomWakeModelsGroup(container: container),
           ];
@@ -4150,8 +4190,9 @@ extension on _CategoryContentState {
       ),
       if (enabled) ...[
         for (final page in const [
-          'Assistant',
           'Wake Word',
+          'Assistant',
+          'Realtime',
           'Appearance',
           'Conversation',
           'Timers',
@@ -6967,6 +7008,7 @@ class _TtsOutputRowState extends State<_TtsOutputRow> {
     if (id.isEmpty) return;
     final result = await widget.container.commands.execute('mediaPlayers', {
       'source': 'ha',
+      'speakers': true,
     });
     final data = result.data;
     final list = data is Map ? data['players'] : null;
@@ -6984,6 +7026,7 @@ class _TtsOutputRowState extends State<_TtsOutputRow> {
       builder: (ctx) => _PlayerPickerDialog(
         container: container,
         source: 'ha',
+        speakers: true,
         current: _listed(container.settings.get(voiceTtsOutput)),
         title: voiceTtsOutput.localizedTitle(context),
         noneLabel: voiceText(context, 'This kiosk'),
@@ -7043,11 +7086,16 @@ class _PlayerPickerDialog extends StatefulWidget {
     this.title,
     this.noneLabel,
     this.players,
+    this.speakers = false,
   });
 
   final AppContainer container;
   final String source;
   final String current;
+
+  /// A speaker for sounds: Home Assistant's list keeps Music Assistant's
+  /// own entities.
+  final bool speakers;
 
   /// A fixed list in place of the source's live one: this device's own
   /// players.
@@ -7082,7 +7130,10 @@ class _PlayerPickerDialogState extends State<_PlayerPickerDialog> {
       return;
     }
     widget.container.commands
-        .execute('mediaPlayers', {'source': widget.source})
+        .execute('mediaPlayers', {
+          'source': widget.source,
+          if (widget.speakers) 'speakers': true,
+        })
         .then((result) {
           if (!mounted) return;
           setState(() {
@@ -7553,8 +7604,10 @@ class _AdminAddressCardState extends State<_AdminAddressCard> {
     final address =
         '${widget.container.settings.get(remoteTls) ? 'https' : 'http'}://${_ip ?? '…'}:$port';
     // The same admin by name (issue #470), while the kiosk has one: the
-    // Hostname setting or the device name as a DNS label.
+    // Hostname setting or the device name as a DNS label. With an imported
+    // certificate, the name it covers instead (issue #833).
     final hostUrl = widget.container.fleet.hostUrl;
+    final byCertificate = widget.container.fleet.certificateName.isNotEmpty;
     final style = Theme.of(context).textTheme.bodyMedium?.copyWith(
       color: Theme.of(context).colorScheme.primary,
       fontWeight: FontWeight.w600,
@@ -7579,11 +7632,16 @@ class _AdminAddressCardState extends State<_AdminAddressCard> {
               ListTile(
                 title: Text(deviceText(context, 'By name')),
                 subtitle: Text(
-                  deviceText(
-                    context,
-                    'The same address by hostname, on networks that resolve '
-                    '.local names.',
-                  ),
+                  byCertificate
+                      ? deviceText(
+                          context,
+                          'The same address by the name on its certificate.',
+                        )
+                      : deviceText(
+                          context,
+                          'The same address by hostname, on networks that '
+                          'resolve .local names.',
+                        ),
                 ),
                 trailing: Text(hostUrl, style: style),
               ),
@@ -8783,7 +8841,8 @@ class _MicChannelTileState extends State<MicChannelTile> {
     final c = widget.container;
     final selected = c.settings.get(audioMicDevice);
     var channels = 0;
-    if (selected.isNotEmpty) {
+    // Only a USB microphone array: capture ignores a pick on any other.
+    if (isUsbInput(selected)) {
       final result = await c.commands.execute('getAudioDevices', const {});
       final data = result.data;
       final list = data is Map ? data['inputs'] : null;
@@ -8826,6 +8885,14 @@ class _MicChannelTileState extends State<MicChannelTile> {
       },
     );
   }
+}
+
+/// A microphone selector ("type|address|name") of a USB input, the only
+/// kind a channel pick applies to (MicRecorder.kt).
+bool isUsbInput(String selector) {
+  final type = int.tryParse(selector.split('|').first);
+  // AudioDeviceInfo.TYPE_USB_DEVICE, TYPE_USB_ACCESSORY, TYPE_USB_HEADSET.
+  return type == 11 || type == 12 || type == 22;
 }
 
 /// Every OS grant the app can use, in one list, on the Device page (issue
@@ -10453,8 +10520,12 @@ class _SliderTileState extends State<_SliderTile> {
     // Hold mode's auto-release reads as a clock, not a raw minute count:
     // 0 is "Never" (the description carries the meaning; a bare "0" did
     // not) and 90 is "1 h 30 min". Wording mirrored in the remote admin.
-    if (def.key == haHoldReleaseMinutes.key) {
-      final minutes = v.round();
+    // The realtime session duration, in half hours, reads the same way.
+    if (def.key == haHoldReleaseMinutes.key ||
+        def.key == voiceRealtimeHistoryHours.key) {
+      final minutes = def.key == voiceRealtimeHistoryHours.key
+          ? (v * 60).round()
+          : v.round();
       if (minutes <= 0) return haText(context, 'Never');
       final h = minutes ~/ 60;
       final m = minutes % 60;

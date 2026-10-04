@@ -181,10 +181,10 @@ void main() {
       expect(native.lastWhere((c) => c.method == 'duck').arguments, {
         'factor': .1,
       });
-      await settings.set(defs.sendspinDuckPercent, 20);
+      await settings.set(defs.sendspinDuckPercent, 5);
       await pumpEventQueue();
       expect(native.lastWhere((c) => c.method == 'duck').arguments, {
-        'factor': .2,
+        'factor': .05,
       });
       await voice(false);
       expect(native.lastWhere((c) => c.method == 'duck').arguments, {
@@ -200,14 +200,14 @@ void main() {
       await boot('ma');
       final remote = remotes.single;
       await voice(true);
-      await settings.set(defs.sendspinDuckPercent, 20);
+      await settings.set(defs.sendspinDuckPercent, 5);
       await pumpEventQueue();
-      expect(remote.writes, [4, 8]);
+      expect(remote.writes, [4, 2]);
       expect(await manager.setVolume(60), isTrue);
-      expect(remote.writes, [4, 8, 12]);
+      expect(remote.writes, [4, 2, 3]);
       expect(manager.nowPlaying.value?['volume'], 60);
       await voice(false);
-      expect(remote.writes, [4, 8, 12, 60]);
+      expect(remote.writes, [4, 2, 3, 60]);
     },
   );
 
@@ -264,6 +264,13 @@ void main() {
     expect(defs.sendspinDuckPercent.section, isNull);
     final index = defs.allSettings.indexOf(defs.sendspinPlayer);
     expect(defs.allSettings[index + 1], same(defs.sendspinDuckPercent));
+    expect(settings.get(defs.sendspinDuckPercent), 10);
+    // Past 10% the echo canceller cannot keep the music out: a value from
+    // an older backup or fleet leader comes down to the ceiling.
+    expect(
+      await settings.setFromJson(defs.sendspinDuckPercent.key, 25),
+      isTrue,
+    );
     expect(settings.get(defs.sendspinDuckPercent), 10);
   });
 }

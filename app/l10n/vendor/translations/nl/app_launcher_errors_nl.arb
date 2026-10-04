@@ -1,0 +1,5 @@
+{
+  "@@locale": "nl",
+  "launcherErrorAndroidOnly": "apps weergeven wordt alleen op Android ondersteund",
+  "launcherErrorListDetail": "kon apps niet ophalen: {error}"
+}

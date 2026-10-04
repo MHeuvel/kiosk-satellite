@@ -951,6 +951,97 @@ void main() {
       expect(good.ok, isTrue);
     });
 
+    test('Maximum call duration hangs up a live call', () async {
+      await build();
+      intercom.maxCallOverride = () => const Duration(milliseconds: 100);
+      answers['POST /api/intercom/call/c1'] = (_) => {'ok': true};
+      await commands.execute('intercomIncoming', {
+        'call': 'c1',
+        'kind': 'call',
+        'from': {'id': 'kitchen', 'name': 'Kitchen', 'port': 2324},
+        'address': '192.168.1.70',
+        'token': tokenFor('c1'),
+      });
+      // Ringing does not count toward the limit.
+      await settle(120);
+      expect(intercom.state, 'ringing');
+      await commands.execute('intercomAnswer', const {});
+      expect(intercom.state, 'in_call');
+      await settle(150);
+      expect(intercom.state, 'ended');
+      expect(intercom.call?.reason, 'time_limit');
+      final told = sent.lastWhere((r) => r.url.path.endsWith('/call/c1'));
+      expect(jsonDecode(told.body)['action'], 'hangup');
+    });
+
+    test('Unlimited leaves a live call running', () async {
+      await build();
+      expect(settings.get(defs.intercomMaxCallMinutes), '0');
+      answers['POST /api/intercom/call/c1'] = (_) => {'ok': true};
+      await commands.execute('intercomIncoming', {
+        'call': 'c1',
+        'kind': 'call',
+        'from': {'id': 'kitchen', 'name': 'Kitchen', 'port': 2324},
+        'address': '192.168.1.70',
+        'token': tokenFor('c1'),
+      });
+      await commands.execute('intercomAnswer', const {});
+      await settle(200);
+      expect(intercom.state, 'in_call');
+    });
+
+    test(
+      'the hang up button is armed only during a call and ends it',
+      () async {
+        await build(prefs: {'ks.intercom.hangup_key': 'volume_down'});
+        final armed = <int>[];
+        bus.on<IntercomHangupKeyArmed>().listen((e) => armed.add(e.keyCode));
+        answers['POST /api/intercom/call/c1'] = (_) => {'ok': true};
+        await commands.execute('intercomIncoming', {
+          'call': 'c1',
+          'kind': 'call',
+          'from': {'id': 'kitchen', 'name': 'Kitchen', 'port': 2324},
+          'address': '192.168.1.70',
+          'token': tokenFor('c1'),
+        });
+        await pumpEventQueue();
+        // A ringing call is answered or declined on the screen.
+        expect(armed, isEmpty);
+        bus.publish(const IntercomHangupKeyPressed());
+        await pumpEventQueue();
+        expect(intercom.state, 'ringing');
+        await commands.execute('intercomAnswer', const {});
+        await pumpEventQueue();
+        expect(armed, [25]);
+        bus.publish(const IntercomHangupKeyPressed());
+        await settle(20);
+        expect(intercom.state, 'ended');
+        expect(intercom.call?.reason, 'ended');
+        expect(armed, [25, 0]);
+      },
+    );
+
+    test('Disabled never arms the hang up button', () async {
+      await build();
+      final armed = <int>[];
+      bus.on<IntercomHangupKeyArmed>().listen((e) => armed.add(e.keyCode));
+      answers['POST /api/intercom/call/c1'] = (_) => {'ok': true};
+      await commands.execute('intercomIncoming', {
+        'call': 'c1',
+        'kind': 'call',
+        'from': {'id': 'kitchen', 'name': 'Kitchen', 'port': 2324},
+        'address': '192.168.1.70',
+        'token': tokenFor('c1'),
+      });
+      await commands.execute('intercomAnswer', const {});
+      await pumpEventQueue();
+      expect(armed, isEmpty);
+      // Picked mid call, the button arms at once.
+      await settings.set(defs.intercomHangupKey, 'volume_mute');
+      await pumpEventQueue();
+      expect(armed, [164]);
+    });
+
     test('Answer automatically counts down and opens on its own', () async {
       await build(prefs: {'ks.intercom.answer_mode': 'auto'});
       answers['POST /api/intercom/call/c1'] = (_) => {'ok': true};
@@ -1177,6 +1268,10 @@ void main() {
         expect(intercom.call?.since, isNotNull);
         expect(audioCalls, contains('start'));
         // Push to talk: nothing goes out until the button is held.
+        expect(
+          (audioArgs.lastWhere((e) => e.$1 == 'start').$2 as Map)['handsFree'],
+          isFalse,
+        );
         final chunk = Uint8List.fromList(List.filled(2560, 3));
         mic.add(chunk);
         await settle(50);
@@ -1190,10 +1285,18 @@ void main() {
           texts.any((t) => t['type'] == 'talk' && t['on'] == true),
           isTrue,
         );
+        // Holding PTT must preserve a continuous quiet source even after
+        // a send gate would have learned that source as its noise floor.
+        for (var i = 0; i < 60; i++) {
+          mic.add(chunk);
+        }
+        await settle(100);
+        expect(received.whereType<List<int>>(), hasLength(61));
+        expect(received.whereType<List<int>>().last, chunk);
         await commands.execute('intercomTalk', {'on': false});
         mic.add(chunk);
         await settle(50);
-        expect(received.whereType<List<int>>(), hasLength(1));
+        expect(received.whereType<List<int>>(), hasLength(61));
         // Hang up: the end frame goes out, then the socket closes.
         await commands.execute('intercomHangup', const {});
         await settle(100);
@@ -1249,7 +1352,7 @@ void main() {
       await server.close(force: true);
     });
 
-    test('hands free sends without the button and mute stops it', () async {
+    test('hands free keeps quiet audio during playback', () async {
       await build(prefs: {'ks.intercom.talk_mode': 'handsfree'});
       await settle();
       final server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
@@ -1274,14 +1377,51 @@ void main() {
       });
       final ws = await gotSocket.future.timeout(const Duration(seconds: 3));
       await settle(100);
+      expect(
+        (audioArgs.lastWhere((e) => e.$1 == 'start').$2 as Map)['handsFree'],
+        isTrue,
+      );
       final chunk = Uint8List.fromList(List.filled(2560, 3));
       mic.add(chunk);
       await settle(50);
       expect(received.whereType<List<int>>(), hasLength(1));
+      // The peer speaks while a quieter source continues at this kiosk.
+      // Keep sending beyond the old floor gate's four-second window.
+      ws.add(jsonEncode({'type': 'talk', 'on': true}));
+      ws.add(chunk);
+      final quiet = Uint8List(2560);
+      final samples = ByteData.sublistView(quiet);
+      for (var i = 0; i < quiet.length ~/ 2; i++) {
+        samples.setInt16(i * 2, i.isEven ? 100 : -100, Endian.little);
+      }
+      for (var i = 0; i < 75; i++) {
+        mic.add(quiet);
+      }
+      await settle(100);
+      expect(intercom.call?.farTalking, isTrue);
+      expect(audioWritten.last, chunk);
+      expect(received.whereType<List<int>>(), hasLength(76));
+      for (final sent in received.whereType<List<int>>().skip(1)) {
+        expect(sent, quiet);
+      }
       await commands.execute('intercomMute', {'on': true});
       mic.add(chunk);
       await settle(50);
-      expect(received.whereType<List<int>>(), hasLength(1));
+      expect(received.whereType<List<int>>(), hasLength(76));
+      await settings.set(defs.intercomTalkMode, 'ptt');
+      await settle(20);
+      expect(
+        (audioArgs.lastWhere((e) => e.$1 == 'setHandsFree').$2
+            as Map)['enabled'],
+        isFalse,
+      );
+      await settings.set(defs.intercomTalkMode, 'handsfree');
+      await settle(20);
+      expect(
+        (audioArgs.lastWhere((e) => e.$1 == 'setHandsFree').$2
+            as Map)['enabled'],
+        isTrue,
+      );
       await ws.close();
       await settle(100);
       // The far side closing the socket ends the call here too.
@@ -1332,6 +1472,243 @@ void main() {
         await server.close(force: true);
       },
     );
+  });
+
+  group('calls asked for by voice', () {
+    late List<String> voice;
+
+    Future<Map<String, Object?>> ask(Map<String, Object?> p) async {
+      final r = await commands.execute('intercomVoiceRequest', p);
+      expect(r.ok, isTrue, reason: r.error);
+      return (r.data! as Map).cast<String, Object?>();
+    }
+
+    void turn({required bool active}) => bus.publish(
+      VoiceInteractionChanged(
+        active: active,
+        reason: 'voice',
+        source: InteractionSource.native,
+      ),
+    );
+
+    Future<void> buildVoice() async {
+      await build();
+      voice = [];
+      for (final name in ['voiceEndAfterAnswer', 'voiceCancel']) {
+        commands.register(
+          Command(
+            name: name,
+            description: 'stub',
+            handler: (_) async {
+              voice.add(name);
+              if (name == 'voiceCancel') turn(active: false);
+              return const CommandResult.ok();
+            },
+          ),
+        );
+      }
+      answers['POST /api/intercom/call'] = (_) => {'status': 'ringing'};
+      await settle();
+    }
+
+    bool rang() => sent.any((r) => r.url.path == '/api/intercom/call');
+
+    test('list names the kiosks and whether they can be called', () async {
+      await buildVoice();
+      final r = await ask({'action': 'list'});
+      expect(r['ok'], isTrue);
+      expect(r['kiosk'], 'Living Room');
+      expect(r['kiosks'], [
+        {'name': 'Bedroom', 'status': 'ready'},
+        {'name': 'Kitchen', 'status': 'ready'},
+      ]);
+    });
+
+    test('a call in a voice turn rings once the turn is over', () async {
+      await buildVoice();
+      turn(active: true);
+      await pumpEventQueue();
+      final r = await ask({
+        'action': 'call',
+        'kiosk': "the kitchen's kiosk",
+        'voiceTurn': true,
+      });
+      expect(r, {
+        'ok': true,
+        'kiosk': 'Living Room',
+        'result': 'calling',
+        'calling': 'Kitchen',
+      });
+      await settle(100);
+      // The answer that says the call is coming plays first.
+      expect(rang(), isFalse);
+      expect(voice, ['voiceEndAfterAnswer']);
+      turn(active: false);
+      await settle(100);
+      final req = sent.lastWhere((r) => r.url.path == '/api/intercom/call');
+      expect(req.url.host, '192.168.1.70');
+      expect(intercom.state, 'calling');
+      expect(voice, ['voiceEndAfterAnswer']);
+    });
+
+    test('a conversation that goes on is ended for the call', () async {
+      await buildVoice();
+      intercom.voiceTurnWait = const Duration(milliseconds: 100);
+      turn(active: true);
+      await pumpEventQueue();
+      await ask({'action': 'call', 'kiosk': 'Bedroom', 'voiceTurn': true});
+      await settle(300);
+      expect(voice, ['voiceEndAfterAnswer', 'voiceCancel']);
+      expect(intercom.state, 'calling');
+    });
+
+    test('an automation naming the caller rings at once', () async {
+      await buildVoice();
+      final r = await ask({'action': 'call', 'kiosk': 'bedroom'});
+      expect(r['ok'], isTrue);
+      expect(r['calling'], 'Bedroom');
+      expect(intercom.state, 'calling');
+      expect(voice, isEmpty);
+    });
+
+    test('a name that matches several kiosks asks which one', () async {
+      peers.add({
+        'id': 'den',
+        'name': 'Bedroom Echo',
+        'version': '2026.9.50',
+        'address': '192.168.1.72',
+        'port': 2324,
+        'self': false,
+      });
+      await buildVoice();
+      const rooms = [
+        {'name': 'Kitchen', 'alias': '', 'area': 'Upstairs'},
+        {'name': 'Bedroom Echo', 'alias': '', 'area': 'Upstairs'},
+      ];
+      // The exact name wins.
+      var r = await ask({'action': 'call', 'kiosk': 'Bedroom', 'rooms': rooms});
+      expect(r['calling'], 'Bedroom');
+      await commands.execute('intercomHangup', const {});
+      await commands.execute('intercomDismiss', const {});
+      r = await ask({'action': 'call', 'kiosk': 'upstairs', 'rooms': rooms});
+      expect(r['ok'], isFalse);
+      expect(r['error'], 'several kiosks match, ask which one');
+      expect(r['kiosks'], [
+        {'name': 'Kitchen', 'area': 'Upstairs', 'status': 'ready'},
+        {'name': 'Bedroom Echo', 'area': 'Upstairs', 'status': 'ready'},
+      ]);
+    });
+
+    test('the room Home Assistant puts a kiosk in finds it', () async {
+      await buildVoice();
+      final r = await ask({
+        'action': 'call',
+        'kiosk': 'the master bedroom intercom',
+        'rooms': [
+          {'name': 'Bedroom', 'alias': '', 'area': 'Master Bedroom'},
+          {'name': 'HA Voice 09f458', 'alias': '', 'area': 'Master Bedroom'},
+        ],
+      });
+      expect(r['calling'], 'Bedroom');
+    });
+
+    test('an unknown name or this kiosk is refused with the roster', () async {
+      await buildVoice();
+      var r = await ask({'action': 'call', 'kiosk': 'Garage'});
+      expect(r['ok'], isFalse);
+      expect(r['error'], 'no kiosk goes by that name');
+      expect(r['kiosks'], hasLength(2));
+      r = await ask({'action': 'call', 'kiosk': 'living room'});
+      expect(r['error'], 'that is this kiosk');
+      r = await ask({
+        'action': 'call',
+        'kiosk': 'balcony',
+        'rooms': [
+          {'name': 'Living Room', 'alias': '', 'area': 'Balcony'},
+        ],
+      });
+      expect(r['error'], 'that is this kiosk');
+      expect(rang(), isFalse);
+    });
+
+    test('a kiosk on do not disturb is refused before it rings', () async {
+      await buildVoice();
+      final ready = answers['GET /api/intercom/identity']!;
+      answers['GET /api/intercom/identity'] = (req) => {
+        ...(ready(req)! as Map<String, Object?>),
+        if (req.url.host == '192.168.1.70') 'dnd': true,
+      };
+      final r = await ask({
+        'action': 'call',
+        'kiosk': 'Kitchen',
+        'voiceTurn': true,
+      });
+      expect(r['ok'], isFalse);
+      expect(r['error'], 'Kitchen: do not disturb');
+      await settle(100);
+      expect(rang(), isFalse);
+    });
+
+    test('the intercom off here is said so', () async {
+      await buildVoice();
+      await settings.set(defs.intercomEnabled, false);
+      final r = await ask({'action': 'call', 'kiosk': 'Kitchen'});
+      expect(r['error'], 'the intercom is off on this kiosk');
+    });
+  });
+
+  group('matching a spoken name', () {
+    // The household on the test bench: kiosk names and their areas.
+    const kiosks = [
+      'KS Echo Show 8 Bedroom',
+      'KS Echo Show 8 Office',
+      'KS Entrance Tablet',
+      'KS Living Room Tablet',
+      'Meta PortalGo Kitchen',
+    ];
+    final rooms = voiceRooms([
+      {'name': 'KS Echo Show 8 Bedroom', 'alias': '', 'area': 'Master Bedroom'},
+      {'name': 'KS Echo Show 8 Office', 'alias': '', 'area': 'Office'},
+      {'name': 'KS Entrance Tablet', 'alias': '', 'area': 'Hallway'},
+      {'name': 'KS Living Room Tablet', 'alias': '', 'area': 'Living Room'},
+      {'name': 'Meta PortalGo Kitchen', 'alias': '', 'area': 'Kitchen'},
+    ]);
+    List<String> match(String said) =>
+        matchKiosks(said, kiosks, name: (k) => k, rooms: rooms);
+
+    test('by area, name or the words they share', () {
+      for (final said in [
+        'master bedroom',
+        'the master bedroom intercom',
+        'bedroom',
+        'Echo Show 8 Bedroom',
+        'bedroom echo',
+      ]) {
+        expect(match(said), ['KS Echo Show 8 Bedroom'], reason: said);
+      }
+      expect(match('kitchen'), ['Meta PortalGo Kitchen']);
+      expect(match('the portal'), isEmpty);
+      expect(match('hallway'), ['KS Entrance Tablet']);
+      expect(match('living room'), ['KS Living Room Tablet']);
+    });
+
+    test('a name that fits several asks which one', () {
+      expect(match('echo show'), [
+        'KS Echo Show 8 Bedroom',
+        'KS Echo Show 8 Office',
+      ]);
+    });
+
+    test('whole words only', () {
+      final garden = voiceRooms([
+        {'name': 'Den', 'alias': '', 'area': 'Den'},
+      ]);
+      expect(
+        matchKiosks('garden', ['Den'], name: (k) => k, rooms: garden),
+        isEmpty,
+      );
+      expect(match('garage'), isEmpty);
+    });
   });
 
   group('announcements', () {
@@ -1386,6 +1763,10 @@ void main() {
       expect(intercom.call?.peer['name'], 'Home Assistant');
       expect(intercom.call?.automated, isTrue);
       expect(audioCalls, containsAll(['decode', 'chimePcm', 'start']));
+      expect(
+        (audioArgs.lastWhere((e) => e.$1 == 'start').$2 as Map)['handsFree'],
+        isFalse,
+      );
       expect(executed.map((e) => e.$1), contains('screenOn'));
       // The chime, then the second of clip, then the card closes.
       await settle(2600);

@@ -14,5 +14,8 @@
   "announcements.tts_voice": "esphomeTtsDefault",
   "alarms.tts_engine": "esphomeTtsFirst",
   "alarms.tts_language": "esphomeTtsDefault",
-  "alarms.tts_voice": "esphomeTtsDefault"
+  "alarms.tts_voice": "esphomeTtsDefault",
+  "voice.realtime_openai_endpoint": "voiceRealtimeProviderDefault",
+  "voice.realtime_xai_endpoint": "voiceRealtimeProviderDefault",
+  "voice.realtime_gemini_endpoint": "voiceRealtimeProviderDefault"
 }

@@ -858,6 +858,10 @@ String? resolveSearchAnchor(
   if (entry.defKey == null) return entry.anchorId;
   final byKey = {for (final d in allSettings) d.key: d};
   var def = byKey[entry.defKey];
+  // A realtime provider's settings live in its dialog: land on its row.
+  for (final list in realtimeProviderSettings.values) {
+    if (list.any((d) => d.key == entry.defKey)) def = byKey[list.first.key];
+  }
   // Hidden gates (bookkeeping flags like media_is_folder) never render, so
   // the walk skips them the same as an unsatisfied dependency.
   while (def != null && (def.hidden || !isVisible(def))) {

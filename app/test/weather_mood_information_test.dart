@@ -45,6 +45,7 @@ void main() {
         (defs.screensaverWeatherClockDate, defs.screensaverClockDate),
         (defs.screensaverWeatherClockScale, defs.screensaverClockScale),
         (defs.screensaverWeatherClockColor, defs.screensaverClockColor),
+        (defs.screensaverWeatherClockVertical, defs.screensaverClockVertical),
       ]) {
         expect(mood.defaultValue, clock.defaultValue);
         expect(mood.titleMessageId, clock.titleMessageId);

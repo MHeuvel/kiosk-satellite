@@ -79,9 +79,14 @@ try:
         assert ('haListDashboardViews', dict(url_path='other-dashboard')) in commands
         assert root.locator('b').count() == 0
         page.locator('#wizardNext').click()
-        # The kiosk is its own satellite: no detection, the step always shows.
+        # The kiosk is its own satellite, so the step always shows. Detection
+        # runs once when it does, only to offer the migration, and finding
+        # no integration leaves the satellite's basics without the offer.
         expect(page.locator('#wizardTitle')).to_have_text('Voice Satellite')
-        assert not any(name == 'haDetectVoiceSatellite' for name, _ in commands)
+        expect(root.get_by_text(label('Wake word engine'), exact=True)).to_be_visible()
+        assert [name for name, _ in commands].count('haDetectVoiceSatellite') == 1
+        assert page.evaluate("async()=>(await import('/static/app.js')).wizard.vsInstalled") is False
+        expect(root.get_by_role('button', name=label('Migrate'), exact=True)).to_have_count(0)
         assert state()['voice'] is True
         expect(root).to_contain_text(label('After setup, add this kiosk in Home Assistant under Settings, Devices & services, where it shows up as discovered.'))
         master = root.locator('.row').filter(has=page.get_by_text(label('Apply all recommended settings'), exact=True))
@@ -102,6 +107,7 @@ try:
         page.locator('#wizardNext').click()
         expect(page.locator('#wizardTitle')).to_have_text('Voice Satellite')
         assert state() == selected
+        assert [name for name, _ in commands].count('haDetectVoiceSatellite') == 1
         # Off, background listening goes with it.
         voice = root.locator('.row').filter(has=page.get_by_text(label('Enable Voice Satellite'), exact=True))
         voice.locator('label.switch').click()

@@ -4,6 +4,7 @@ import { $, depSatisfied, state } from './core.js';
 import { permissionSpecs } from './permissions.js';
 import { loadPlugins, pluginSearchState, refreshPluginSearchState } from './plugins.js';
 import { TABS, TAB_TITLES, currentPath, setNav, showTab } from './tabs.js';
+import { REALTIME_PROVIDERS, providerKeys } from './vs_native.js';
 
 /* ---- Settings search ---- */
 // Mirrors the device's settings search (settings_search.dart): one index
@@ -366,6 +367,11 @@ export function resolveSearchAnchor(e) {
   const byKey = Object.fromEntries((state.settings || []).map((s) => [s.key, s]));
   const shown = (s) => !s.hidden && depSatisfied(s, byKey);
   let s = byKey[e.key];
+  // A realtime provider's settings live in its dialog: land on its row.
+  for (const provider of Object.keys(REALTIME_PROVIDERS)) {
+    const keys = providerKeys(provider);
+    if (keys.includes(e.key)) s = byKey[keys[0]];
+  }
   while (s && !shown(s)) s = s.dependsOn ? byKey[s.dependsOn] : null;
   // The subpage comes from the row actually landed on: a gated row resolves
   // up to its parent, which may sit on a different page than the hit did.

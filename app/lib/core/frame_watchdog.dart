@@ -94,9 +94,159 @@ class FrameWatchdog {
     _checking = true;
     try {
       await _checkOnce();
+      if (!_tripped) await _checkRender();
     } finally {
       _checking = false;
     }
+  }
+
+  /// Strikes in a row before the render wedge restarts the process, paced
+  /// like the WebView strikes: ten seconds from the first to the last.
+  static const _renderStrikesToTrip = 3;
+
+  /// A quiet raster thread with the context on the main thread is either
+  /// a merged, healthy frame loop or a wedge with nothing to draw. A forced
+  /// frame tells them apart: merged, it rasterizes on the main thread and
+  /// the raster thread stays asleep. Tested this often, and on every tick
+  /// once a strike is pending.
+  static const _forcedFrameEvery = Duration(seconds: 30);
+  static const _forcedFrameWait = Duration(milliseconds: 300);
+
+  int? _rasterSwitches;
+  int _renderStrikes = 0;
+  DateTime? _firstRenderStrikeAt;
+  DateTime? _lastForcedFrame;
+  int _teardownReleases = 0;
+
+  /// The render wedge (issue #465, #830): Impeller's OpenGL ES context
+  /// left current on the main thread, so every frame the raster thread
+  /// tries fails with EGL_BAD_ACCESS. Dart, the WebView and every service
+  /// keep running behind a black screen, and the WebView check above never
+  /// notices, because the WebView is still attached.
+  ///
+  /// Recovery is a process restart. Releasing the context in place was
+  /// tried and segfaulted the raster thread in the GPU driver on its first
+  /// draw: Impeller marks a thread ready for GL work even when its
+  /// make-current fails, so every buffer it set up during the wedge is a
+  /// dead handle.
+  Future<void> _checkRender() async {
+    final probe = await _renderProbe();
+    if (probe == null) return;
+    if (probe.teardownReleases > _teardownReleases) {
+      _teardownReleases = probe.teardownReleases;
+      _container.log.info(
+        'watchdog',
+        'released the EGL context a surface teardown left on the main thread '
+            '($_teardownReleases since start)',
+      );
+    }
+    final previous = _rasterSwitches;
+    _rasterSwitches = probe.switches;
+    var state = readRenderProbe(
+      mainContext: probe.mainContext,
+      switches: probe.switches,
+      previous: previous,
+    );
+    // The reading spans the whole interval, so the tick after a screensaver
+    // ends still counts its frames from before the threads merged. Only the
+    // forced frame, measured right now, can strike.
+    final tested =
+        state == RenderProbe.lockedOut ||
+        (state == RenderProbe.quiet && _forcedFrameDue());
+    if (tested) state = await _forcedFrameTest(probe.switches);
+    switch (state) {
+      case RenderProbe.clear:
+        _renderStrikes = 0;
+        _firstRenderStrikeAt = null;
+        return;
+      case RenderProbe.quiet:
+        // A forced frame that left the raster thread asleep drew fine.
+        if (tested) {
+          _renderStrikes = 0;
+          _firstRenderStrikeAt = null;
+        }
+        return;
+      case RenderProbe.lockedOut:
+        _renderStrikes++;
+    }
+    final now = DateTime.now();
+    final first = _firstRenderStrikeAt ??= now;
+    final strike = pacedStrike(
+      strikes: _renderStrikes,
+      sinceFirst: now.difference(first),
+      interval: _interval,
+    );
+    _container.log.warn(
+      'watchdog',
+      'render strike $strike/$_renderStrikesToTrip: Flutter cannot make its '
+          'EGL context current, the main thread holds it',
+    );
+    if (strike < _renderStrikesToTrip) return;
+    _tripped = true;
+    final seconds = now.difference(first).inSeconds;
+    _container.log.error(
+      'watchdog',
+      'Flutter has been unable to draw for ${seconds}s: restarting the '
+          'process',
+    );
+    final reason = describeRenderWedge(
+      seconds: seconds,
+      impellerDisabled: _container.settings.get(defs.disableImpeller),
+      recentLog: _container.log.recent,
+    );
+    await Future<void>.delayed(const Duration(milliseconds: 300));
+    try {
+      await _channel.invokeMethod<void>('restartProcess', {'reason': reason});
+    } catch (e) {
+      _container.log.error('watchdog', 'restart failed: $e');
+      _tripped = false;
+    }
+  }
+
+  Future<({bool mainContext, int switches, int teardownReleases})?>
+  _renderProbe() async {
+    try {
+      final probe = await _channel.invokeMethod<Map<Object?, Object?>>(
+        'renderProbe',
+      );
+      if (probe == null) return null;
+      // Only a resumed Activity is expected to draw. Elsewhere the
+      // surface may be on its way down or up, which proves nothing.
+      return (
+        mainContext: probe['resumed'] == true && probe['mainContext'] == true,
+        switches: (probe['rasterSwitches'] as num?)?.toInt() ?? -1,
+        teardownReleases: (probe['teardownReleases'] as num?)?.toInt() ?? 0,
+      );
+    } catch (_) {
+      // No bridge (iOS, a test): nothing to probe.
+      return null;
+    }
+  }
+
+  bool _forcedFrameDue() {
+    if (_renderStrikes > 0) return true;
+    final last = _lastForcedFrame;
+    return last == null || DateTime.now().difference(last) >= _forcedFrameEvery;
+  }
+
+  /// Ask for a frame and watch whether the raster thread wakes up for it.
+  Future<RenderProbe> _forcedFrameTest(int before) async {
+    _lastForcedFrame = DateTime.now();
+    try {
+      SchedulerBinding.instance.scheduleForcedFrame();
+    } catch (_) {
+      return RenderProbe.quiet;
+    }
+    await Future<void>.delayed(_forcedFrameWait);
+    final after = await _renderProbe();
+    if (after == null) return RenderProbe.quiet;
+    _rasterSwitches = after.switches;
+    return readRenderProbe(
+      mainContext: after.mainContext,
+      switches: after.switches,
+      previous: before,
+      minWakes: 1,
+    );
   }
 
   void _clear() {
@@ -214,6 +364,69 @@ int pacedStrike({
   return strikes < byClock ? strikes : byClock;
 }
 
+enum RenderProbe {
+  /// No context on the main thread: nothing can lock the raster thread out.
+  clear,
+
+  /// The main thread holds a context and the raster thread is quiet: a
+  /// merged frame loop drawing fine, or a wedge with nothing to draw.
+  quiet,
+
+  /// The main thread holds a context while the raster thread keeps waking
+  /// up to draw: every one of those frames fails to make it current.
+  lockedOut,
+}
+
+/// What one render probe says. [switches] is the raster thread's
+/// scheduling count now and [previous] the one a tick earlier, either -1
+/// when the thread could not be read. Merged into the main thread, the
+/// raster thread does not wake at all, so [minWakes] only has to clear
+/// the odd stray wakeup.
+RenderProbe readRenderProbe({
+  required bool mainContext,
+  required int switches,
+  required int? previous,
+  int minWakes = 3,
+}) {
+  if (!mainContext) return RenderProbe.clear;
+  if (switches < 0 || previous == null || previous < 0) {
+    return RenderProbe.quiet;
+  }
+  return switches - previous >= minWakes
+      ? RenderProbe.lockedOut
+      : RenderProbe.quiet;
+}
+
+/// The note a render wedge restart leaves in the crash journal. Line one
+/// is the failure's name and stays word for word, so reports group, and it
+/// carries the watchdog marker so it is reported as a watchdog restart.
+String describeRenderWedge({
+  required int seconds,
+  required bool impellerDisabled,
+  required List<LogEntry> recentLog,
+  int logLines = 12,
+}) {
+  final lines = <String>[
+    'the frame watchdog found Flutter locked out of its EGL context for '
+        '${seconds}s (held by the main thread)',
+    'renderer: impeller ${impellerDisabled ? 'off' : 'on'}',
+    'recent log:',
+    ...logTail(recentLog, renderLogTags, logLines),
+  ];
+  return lines.join('\n');
+}
+
+/// The tags whose recent lines say what led up to a render wedge: the
+/// screensaver and the browser's freeze and resume are the usual suspects.
+const renderLogTags = {
+  'watchdog',
+  'screensaver',
+  'browser',
+  'kiosk',
+  'device',
+  'flutter',
+};
+
 /// The tags whose recent lines say what the WebView was doing when the
 /// watchdog gave up on it.
 const watchdogLogTags = {
@@ -267,13 +480,19 @@ String describeWatchdogTrip({
         'screen ${screen == null ? '?' : (screen == true ? 'on' : 'off')}, '
         'uptime ${uptime(device['uptime'])}',
     'recent log:',
+    ...logTail(recentLog, watchdogLogTags, logLines),
   ];
-  // A run of one line repeating (an Activity attaching twice a second
-  // pushed everything else out of a 12-line tail) folds into one entry
-  // with its count, so the tail still shows what happened around it.
+  return lines.join('\n');
+}
+
+/// The last [count] log lines under [tags], one per line, indented. A run
+/// of one line repeating (an Activity attaching twice a second pushed
+/// everything else out of a 12-line tail) folds into one entry with its
+/// count, so the tail still shows what happened around it.
+List<String> logTail(List<LogEntry> log, Set<String> tags, int count) {
   final tail = <(LogEntry, int)>[];
-  for (final e in recentLog) {
-    if (!watchdogLogTags.contains(e.tag)) continue;
+  for (final e in log) {
+    if (!tags.contains(e.tag)) continue;
     if (tail.isNotEmpty &&
         tail.last.$1.tag == e.tag &&
         tail.last.$1.message == e.message) {
@@ -282,14 +501,13 @@ String describeWatchdogTrip({
       tail.add((e, 1));
     }
   }
-  final from = tail.length > logLines ? tail.length - logLines : 0;
-  for (final (e, n) in tail.sublist(from)) {
-    final t = e.time.toIso8601String().substring(11, 19);
-    final msg = e.message.replaceAll('\n', ' ');
-    lines.add(
-      '  $t ${e.tag}: ${msg.length > 160 ? msg.substring(0, 160) : msg}'
-      '${n > 1 ? ' (x$n)' : ''}',
-    );
-  }
-  return lines.join('\n');
+  final from = tail.length > count ? tail.length - count : 0;
+  return [
+    for (final (e, n) in tail.sublist(from))
+      '  ${e.time.toIso8601String().substring(11, 19)} ${e.tag}: '
+          '${_clip(e.message.replaceAll('\n', ' '))}'
+          '${n > 1 ? ' (x$n)' : ''}',
+  ];
 }
+
+String _clip(String msg) => msg.length > 160 ? msg.substring(0, 160) : msg;

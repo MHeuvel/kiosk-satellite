@@ -130,4 +130,13 @@ void main() {
     expect(document, contains("connect-src 'none'"));
     expect(document, contains("form-action 'none'"));
   });
+
+  test('inline updates swap in a sandboxed frame once it has painted', () {
+    final document = pluginScreensaverDocument('<h1>first</h1>');
+    expect(document, contains('window.ksUpdateDocument'));
+    expect(document, contains("next.setAttribute('sandbox', 'allow-scripts')"));
+    expect(document, contains("next.style.opacity = '0'"));
+    expect(document, contains('if (pending !== next) return;'));
+    expect(document, isNot(contains('allow-same-origin')));
+  });
 }

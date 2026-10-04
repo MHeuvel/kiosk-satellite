@@ -1,0 +1,9 @@
+{
+  "@@locale": "nl",
+  "offlineDashboard": "Dashboard is niet beschikbaar",
+  "offlineNetwork": "Geen netwerkverbinding",
+  "offlinePageHelp": "De pagina kon niet geladen worden.",
+  "offlineNetworkHelp": "Het dashboard wordt hersteld zodra de netwerkverbinding terug is.",
+  "offlineLost": "Netwerkverbinding verloren",
+  "offlineRestored": "Netwerkverbinding hersteld"
+}

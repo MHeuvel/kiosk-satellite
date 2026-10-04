@@ -1,0 +1,9 @@
+{
+  "@@locale": "nl",
+  "mediaCacheTitle": "Cache voor albumhoezen",
+  "mediaCacheReadFailed": "Kon cachegrootte niet lezen.",
+  "mediaCacheClearFailed": "Kon de cache niet wissen.",
+  "mediaCacheChecking": "Cachegrootte controleren...",
+  "mediaCacheClearing": "Wissen...",
+  "mediaCacheUsage": "{used} van {limit} gebruikt. Miniaturen in de wachtrij worden automatisch in de cache opgeslagen."
+}

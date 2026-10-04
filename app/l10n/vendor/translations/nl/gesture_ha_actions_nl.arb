@@ -1,0 +1,22 @@
+{
+  "@@locale": "nl",
+  "gestureValid": "Ziet er goed uit.",
+  "gestureValidationFailed": "Kon niet controleren.",
+  "gestureDomainMissing": "Domein {value} niet gevonden.",
+  "gestureServiceMissing": "Service {value} niet gevonden.",
+  "gestureEntityMissing": "Entiteit {value} niet gevonden.",
+  "gestureEntityRequired": "Voer een {domain}.* entiteit in.",
+  "gestureScriptEntity": "Script-entiteit",
+  "gestureAutomationEntity": "Automatiseringsentiteit",
+  "gestureDomain": "Domein",
+  "gestureEntityOptional": "Entiteit (optioneel)",
+  "gestureServiceData": "Servicegegevens (optioneel)",
+  "gestureServiceTitle": "Een Home Assistant-service aanroepen",
+  "gestureServiceRequired": "Domein en service zijn vereist.",
+  "gestureServiceJson": "Servicegegevens moeten een JSON-object zijn.",
+  "gestureEventType": "Gebeurtenistype",
+  "gestureEventData": "Gebeurtenisgegevens (optioneel)",
+  "gestureEventTitle": "Een Home Assistant-gebeurtenis activeren",
+  "gestureEventRequired": "Gebeurtenistype is vereist.",
+  "gestureEventJson": "Gebeurtenisgegevens moeten een JSON-object zijn."
+}

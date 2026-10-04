@@ -1,0 +1,20 @@
+{
+  "@@locale": "nl",
+  "settingScreensaverGlanceEnabledTitle": "In één oogopslag",
+  "settingScreensaverGlanceEnabledDescription": "Toon een rij met statussen van Home Assistant-entiteiten op de schermbeveiliging.",
+  "settingScreensaverGlanceEntitiesTitle": "Entiteiten",
+  "settingScreensaverGlanceEntitiesDescription": "Toon maximaal vier entiteiten, elk eventueel met een aangepaste naam.",
+  "settingScreensaverGlanceNowPlayingTitle": "Tonen bij Speelt nu",
+  "settingScreensaverGlanceNowPlayingDescription": "Toon de rij op de schermvullende weergave van Speelt nu. De rij blijft verborgen wanneer songteksten worden getoond.",
+  "screensaverOverlayShowing": "Wordt getoond",
+  "screensaverOverlayReorder": "Wordt getoond (sleep om de volgorde te wijzigen)",
+  "screensaverOverlayFull": "De rij kan niet meer entiteiten tonen. Verwijder er een om een andere toe te voegen.",
+  "screensaverOverlayPickerTitle": "Entiteiten voor 'In één oogopslag'",
+  "screensaverOverlayGlanceEmpty": "Nog geen entiteiten. Je kunt er maximaal {count} toevoegen.",
+  "screensaverOverlayNone": "Nog geen entiteiten",
+  "screensaverOverlayLimit": "Maximaal {count} entiteiten.",
+  "screensaverOverlayGlancePage": "In één oogopslag",
+  "screensaverOverlayGlanceHint": "Entiteiten die over de schermbeveiliging worden getoond",
+  "glanceUnavailable": "Niet beschikbaar",
+  "glanceUnknown": "Onbekend"
+}

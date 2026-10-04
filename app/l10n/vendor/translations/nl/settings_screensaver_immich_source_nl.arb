@@ -1,0 +1,19 @@
+{
+  "@@locale": "nl",
+  "settingScreensaverImmichAlbumTitle": "Mediabron",
+  "settingScreensaverImmichAlbumDescription": "De volledige bibliotheek of de albums die je selecteert.",
+  "settingScreensaverImmichPhotosOnlyTitle": "Alleen foto's",
+  "settingScreensaverImmichPhotosOnlyDescription": "Sla video's in de diavoorstelling over.",
+  "settingScreensaverImmichCacheTitle": "Media lokaal opslaan",
+  "settingScreensaverImmichCacheDescription": "Bewaar kopieën op het apparaat zodat afbeeldingen direct worden geladen.",
+  "settingScreensaverImmichCacheMaxTitle": "Cachegrootte (items)",
+  "settingScreensaverImmichCacheMaxDescription": "De oudste items worden verwijderd zodra de cache vol is.",
+  "screensaverMediaAll": "Alle media",
+  "screensaverMediaAllDevice": "Alle media.",
+  "screensaverMediaNoAlbums": "Nog geen albums. Maak er eerst een in Immich.",
+  "screensaverMediaAlbumsFailed": "De albums konden niet worden opgehaald",
+  "screensaverMediaListError": "De lijst kon niet worden opgehaald: {error}",
+  "screensaverMediaListingFailed": "lijst ophalen mislukt",
+  "screensaverMediaItems": "{count} items",
+  "screensaverMediaCached": "{count} in cache, {size}"
+}

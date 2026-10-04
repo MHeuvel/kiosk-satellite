@@ -20,5 +20,9 @@
   "fleetNameRemoteAdministrationRendererWorkaroundsScale": "el nombre, la administración remota, los ajustes de compatibilidad del renderizador y la escala",
   "fleetHomeAssistantToken": "Token de Home Assistant",
   "fleetMusicAssistantToken": "Token de Music Assistant",
-  "fleetImmichApiKey": "Clave de API de Immich"
+  "fleetImmichApiKey": "Clave de API de Immich",
+  "fleetOpenAiApiKey": "Clave de API de OpenAI",
+  "fleetXaiApiKey": "Clave de API de xAI",
+  "fleetGeminiApiKey": "Clave de API de Gemini",
+  "fleetMcpServerToken": "Token del servidor MCP"
 }

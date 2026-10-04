@@ -1,0 +1,12 @@
+{
+  "@@locale": "nl",
+  "overviewNoScreenshot": "Geen schermafdruk",
+  "overviewStill": "Stilstaand beeld",
+  "overviewLive": "Live",
+  "overviewFullSize": "Volledige grootte",
+  "overviewLiveInterval": "Live, elke 5 seconden",
+  "overviewTaken": "Vastgelegd: {age}",
+  "overviewCameraViewNamed": "Cameraweergave: {name}",
+  "overviewCameraView": "Cameraweergave",
+  "overviewScreenOffState": "Scherm is uit"
+}

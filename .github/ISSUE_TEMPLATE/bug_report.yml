@@ -19,7 +19,7 @@ body:
           required: true
         - label: I have **searched the existing issues** and this has not been reported already.
           required: true
-        - label: If the issue is voice related, the **Voice Satellite integration** is installed in Home Assistant and my Assist pipeline works independently (e.g. via the Assist dialog in the HA sidebar).
+        - label: If the issue is voice related, my Assist pipeline works on its own (e.g. via the Assist dialog in the HA sidebar).
           required: false
 
   - type: dropdown
@@ -30,11 +30,11 @@ body:
       options:
         - Voice / wake word (Voice Satellite)
         - Crash, freeze, white screen, or restart
-        - Browser / dashboard display
+        - Dashboard page (loading, rendering, scrolling)
         - Screensaver (clock, photos, Immich, media)
         - Audio output (chimes, TTS, Bluetooth, speaker/mic selection)
         - MQTT / Home Assistant entities
-        - Media (SendSpin, DLNA, cameras)
+        - Media and cameras (SendSpin, DLNA, camera views)
         - Remote administration
         - Setup wizard / configuration import
         - Other
@@ -79,7 +79,7 @@ body:
         - Device (exact model, e.g. Fire HD 8 2020, Echo Show 5 2nd gen, Galaxy Tab A8):
         - Android version (and OS flavor if not stock, e.g. Fire OS, LineageOS):
         - Home Assistant version:
-        - Voice Satellite version (if installed):
+        - Voice Satellite integration version (only if you use it instead of the built-in Voice Satellite):
         - Dashboard URL scheme (https, or http with the secure context proxy):
         - Relevant settings (wake word on/off, WebSocket filter on/off, screensaver mode, Bluetooth devices in use):
     validations:
@@ -90,7 +90,7 @@ body:
     attributes:
       label: App logs
       description: |
-        On the device: **Settings > App Logs**. From a browser: enable Remote Administration, open `http://<device-ip>:2324`, **Logs** tab. Paste the lines around the time the problem happened.
+        On the device: **Settings > App Logs**. From a browser: enable Remote Administration, open `http://<device-ip>:2324`, **Logs** tab. Paste the lines around the time the problem happened. For a voice issue, include a full attempt from the wake word onward.
       render: text
     validations:
       required: true
@@ -98,9 +98,9 @@ body:
   - type: textarea
     id: console-logs
     attributes:
-      label: Web console logs (required for voice or dashboard issues)
+      label: Web console logs (required for dashboard issues)
       description: |
-        The dashboard page's own JavaScript console, where the Voice Satellite integration logs everything it does (lines prefixed `[VS]`). For a voice issue, first enable **Debug Logging** in the Voice Satellite sidepanel in Home Assistant. From a browser: remote admin at `http://<device-ip>:2324`, **Console** tab. Reproduce the issue, then paste the lines around it. For a voice issue, include a full attempt from the wake word onward.
+        The dashboard page's own JavaScript console. From a browser: remote admin at `http://<device-ip>:2324`, **Console** tab. Reproduce the issue, then paste the lines around it. The built-in Voice Satellite logs to the app log above, not here. If you run the Voice Satellite integration on the dashboard instead, enable **Debug Logging** in its sidepanel in Home Assistant first and paste a full attempt from the wake word onward (lines prefixed `[VS]`).
       render: text
     validations:
       required: false

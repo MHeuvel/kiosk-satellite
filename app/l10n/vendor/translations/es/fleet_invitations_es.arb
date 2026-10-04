@@ -1,7 +1,7 @@
 {
   "@@locale": "es",
   "fleetAddAKiosk": "Añadir un kiosko",
-  "fleetKiosksMemberOfTheFleetAFollowerMustConfirm": "Añade un kiosko encontrado o introduce su dirección IP. El seguidor debe aceptar la invitación en su pantalla.",
+  "fleetAddAKioskFollowerAcceptsOnScreenOrRemoteAdmin": "Añade un kiosko encontrado o introduce su dirección IP. El seguidor acepta la invitación en su pantalla o en su administración remota.",
   "fleetSendInvitation": "Enviar invitación",
   "fleetInviteAgain": "Volver a invitar",
   "fleetRemoveName": "¿Eliminar {name}?",
@@ -9,7 +9,6 @@
   "fleetNameWantsToLeadThisKiosk": "{name} quiere dirigir este kiosko",
   "fleetItsSettingsReplaceThisKioskSInTheCategories": "A partir de ahora, su configuración sustituye a la de este kiosko en las categorías que sincroniza. Este kiosko conserva su nombre e identidad.",
   "fleetItsSettingsReplaceThisKioskSInTheCategoriesDetail": "A partir de ahora, su configuración sustituye a la de este kiosko en las categorías que sincroniza. Este kiosko conserva su nombre, sus identidades en Home Assistant, Music Assistant y ESPHome y sus dispositivos seleccionados. Puedes salir de la flota cuando quieras desde Configuración > Gestión de flota.",
-  "fleetConfirmOnTheKioskItselfTheInvitationIsWaiting": "Confirma en el propio kiosko. La invitación aparece en su pantalla y en Configuración > Gestión de flota.",
   "fleetAccept": "Aceptar",
   "fleetLookingForOtherKiosks": "Buscando otros kioskos…",
   "fleetNoOtherKioskFoundOnThisNetworkAKiosk": "No se encontraron kioskos. Usa Añadir por IP para buscar uno en una dirección conocida.",

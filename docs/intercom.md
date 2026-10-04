@@ -47,11 +47,15 @@ The **Ring sound** is a built-in telephone ring by default, or a file from the s
 | Talk mode | How it works |
 | --- | --- |
 | Push to talk | The default. One wide **Hold to talk** button and End. Held, this kiosk sends and the far kiosk hears you. Released, this kiosk listens. It never needs echo cancellation to work, so it is the safe choice on every device. |
-| Hands free | The microphone stays open for the whole call with a Mute button. It leans on the same echo canceller the wake word capture runs on. Some devices do their echo cancellation without saying so, so the choice is always there. If the other kiosk hears itself back, use push to talk. |
+| Hands free | The microphone stays open for the whole call with a Mute button. It leans on the kiosk's echo canceller, the same one the wake word listens through. Sound near this kiosk can come through quieter while the other side talks, more so at a high intercom volume. If the other kiosk hears itself back, use push to talk. |
 
-Each kiosk picks its own talk mode. **Intercom volume** under Screen & Audio, beside the media and assistant volumes, is the share of the master volume the other kiosk's voice and announcements play at.
+Each kiosk picks its own talk mode. **Intercom volume** under Screen & Audio, beside the media and assistant volumes, is the share of the master volume the other kiosk's voice and announcements play at, 60% by default. Hands free calls work better at a lower intercom volume: the other side's voice leaves less echo for this kiosk to remove.
 
 During a call the kiosk holds the screensaver, the dashboard rotation and the return to home timer the way a voice turn does, ducks the music the same way and pauses wake word detection, so neither voice triggers the assistant. End on either side closes both. The screen shows the call's length for ten seconds with Call again and Close.
+
+**Maximum call duration** ends a live call or announcement after 1 to 60 minutes, Unlimited by default. Each kiosk counts on its own, so the shorter limit ends the call for both, and the call screen reads Maximum call duration reached.
+
+**Hang up call when pressing this button** picks a hardware button that ends the call: Volume up, Volume down, Mute or Help. It ends a call being placed, a live call and either end of an announcement. A ringing call still needs Decline on the screen. Outside a call the button keeps its usual job. It is a pick of this device's hardware, so Fleet Management never syncs it. A button only works when Android sees it: `adb shell getevent -l` lists the keys a device reports, and a key the device's key layout leaves unmapped never reaches the app.
 
 Voice is raw 16 kHz audio over one WebSocket per call, about 256 kbit/s each way on the local network, and reaches the other kiosk in roughly a quarter of a second.
 
@@ -87,6 +91,38 @@ Two ESPHome actions put a call through from an automation or a dashboard button.
 ```
 
 Home Assistant cannot talk on a call: the kiosks hold the microphones. To speak on a kiosk from Home Assistant, use the [announce action](esphome.md#announcements) under ESPHome. On the [remote API](remote-api.md) the same two are `intercomCall {kiosk}` and `intercomHangup`.
+
+## Calling by voice
+
+Ask the kiosk you are talking to for a call, like "call the kitchen" or "call the Echo Show 8", and it rings that kiosk. This goes through an LLM conversation agent (Qwen, Gemma, Gemini, Claude, OpenAI or any other agent that can control Home Assistant) and a script that Kiosk Satellite ships as a blueprint, so it works in any language the agent speaks.
+
+The built-in **Home Assistant** conversation agent does not work for this, since it cannot fill in the script's fields. An LLM agent with **Prefer handling commands locally** turned on works fine.
+
+1. Import the blueprint:
+
+    [![Open your Home Assistant instance and show the blueprint import dialog with a specific blueprint pre-filled.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgithub.com%2Fjxlarrea%2Fkiosk-satellite%2Fblob%2Fmain%2Fblueprints%2Fscript%2Fkiosk_satellite_intercom.yaml)
+
+2. Create a script from it. It has no settings.
+3. Expose the script to Assist under **Settings, Voice assistants, Expose**.
+
+Name the kiosk the way you think of it: its name, the name its device has in Home Assistant or the area Home Assistant puts it in. "Call the master bedroom" finds the kiosk in the Master Bedroom area. The kiosk checks the other kiosk first, and the agent tells you when it is on Do not disturb, has its intercom off or cannot be reached. When the name fits several kiosks, like two kiosks in one room, the agent asks which one, and "which kiosks can I call?" lists them with their areas. The call rings once the agent has finished its answer, so the reply is never cut off. A [realtime conversation](voice-satellite.md#realtime-conversations) ends right after its answer instead of waiting out its closing silence.
+
+Hanging up stays on the screen. Wake word detection pauses for the whole call, so the kiosk cannot hear "hang up".
+
+The call goes out from the kiosk you are talking to. A request typed into Home Assistant's own chat reaches no kiosk until it names the one that should call, as in "call the kitchen from the bedroom kiosk", which matches the kiosk's device name or ESPHome name.
+
+The kiosk listens for the script over its own Home Assistant connection and it needs the Home Assistant long-lived token under **Settings, Home Assistant** to belong to an administrator user. Home Assistant only lets administrators fire and follow the events the script runs on. With any other token the kiosk leaves voice calls off and asks Home Assistant nothing. [Voice alarms](alarms.md#setting-alarms-by-voice) work the same way and need the same token.
+
+The script works from automations too. Set `caller` to the kiosk that should place the call, and the call rings at once:
+
+```yaml
+action: script.kiosk_satellite_intercom
+data:
+  action: call
+  kiosk: Kitchen
+  caller: Bedroom
+response_variable: result
+```
 
 ## Fleet Management
 

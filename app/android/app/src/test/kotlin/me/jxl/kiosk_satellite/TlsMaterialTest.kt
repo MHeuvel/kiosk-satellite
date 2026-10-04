@@ -29,6 +29,12 @@ class TlsMaterialTest {
         assertNotEquals(original.certificate.subjectAlternativeNames, renewed.certificate.subjectAlternativeNames)
     }
 
+    @Test fun dnsNamesListOnlyTheDnsEntriesInOrder() {
+        val material = TlsMaterial.generate(listOf("kitchen.example.com", "kitchen.local"), listOf("127.0.0.1"))
+        assertEquals(listOf("kitchen.example.com", "kitchen.local"), material.dnsNames)
+        assertEquals(material.dnsNames, material.toMap()["dnsNames"])
+    }
+
     @Test fun mismatchedPrivateKeyIsRejected() {
         val a = material().toMap()
         val b = material().toMap()

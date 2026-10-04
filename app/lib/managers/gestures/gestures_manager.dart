@@ -399,6 +399,11 @@ class GesturesManager extends Manager {
         return _run('openUri', {'uri': a['uri']});
       case 'android_settings':
         return _run('openSystemSettings', const {});
+      case 'alarms':
+        // Open only: the list's own close button hides it. Not behind the
+        // kiosk menu's Show in the kiosk menu or Allowed Action switches,
+        // the same as the other links.
+        return _run('openAlarms', const {});
       case 'ha_script':
         return _runHa(a, 'haCallService', {
           'domain': 'script',

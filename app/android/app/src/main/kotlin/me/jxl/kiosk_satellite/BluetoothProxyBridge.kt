@@ -61,6 +61,8 @@ class BluetoothProxyBridge(private val context: Context, messenger: BinaryMessen
                                     call.argument<Int>("minConnectRssi") ?: 0,
                                 scanDuty = call.argument<String>("scanDuty")
                                     ?: "balanced",
+                                screenOffScan =
+                                    call.argument<Boolean>("screenOffScan") ?: false,
                                 entities = entities,
                                 services = services,
                                 macOverride = call.argument<String>("macOverride"),
@@ -142,6 +144,11 @@ class BluetoothProxyBridge(private val context: Context, messenger: BinaryMessen
                     BluetoothProxyRuntime.setScanDuty(call.argument<String>("duty"))
                     result.success(null)
                 }
+                "screenOffScan" -> {
+                    BluetoothProxyRuntime.setScreenOffScan(
+                        call.argument<Boolean>("enabled") ?: false)
+                    result.success(null)
+                }
                 "status" -> result.success(BluetoothProxyRuntime.status())
                 "voiceSubscribed" ->
                     result.success(BluetoothProxyRuntime.voiceSubscribed())
@@ -160,6 +167,12 @@ class BluetoothProxyBridge(private val context: Context, messenger: BinaryMessen
                 "voiceAnnounceFinished" -> result.success(
                     BluetoothProxyRuntime.sendAnnounceFinished(
                         call.argument<Boolean>("success") ?: true))
+                "fireEvent" -> result.success(
+                    BluetoothProxyRuntime.fireEvent(
+                        call.argument<String>("name") ?: "",
+                        call.argument<Map<String, String>>("data") ?: emptyMap(),
+                        call.argument<Map<String, String>>("typed") ?: emptyMap(),
+                    ))
                 "nearby" -> result.success(BluetoothProxyRuntime.nearbyDevices())
                 "entityState" -> {
                     BluetoothProxyRuntime.updateEntityState(

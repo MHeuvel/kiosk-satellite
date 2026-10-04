@@ -57,6 +57,21 @@ class _AssistOverlayState extends State<AssistOverlay>
   /// An opened result: ('image', url) or ('video', YouTube id).
   (String, String)? _lightbox;
 
+  /// Where the docked bubble sits, fractions of the room around it.
+  double _dockX = .5, _dockY = 1;
+  final _dockKey = GlobalKey();
+
+  void _readDockPosition() {
+    final parts = c.settings.get(defs.voiceDockPosition).split(',');
+    double part(int i, double fallback) {
+      final v = i < parts.length ? double.tryParse(parts[i]) : null;
+      return v != null && v.isFinite ? v.clamp(0, 1) : fallback;
+    }
+
+    _dockX = part(0, .5);
+    _dockY = part(1, 1);
+  }
+
   /// What was under the overlay when it opened, blurred once: the
   /// see-through skins' backdrop-filter. The browser keeps a blurred
   /// backdrop until what is under it changes; Impeller would blur the
@@ -115,8 +130,12 @@ class _AssistOverlayState extends State<AssistOverlay>
     super.initState();
     _clock = ArtClock(this, running: false);
     c.voice.view.addListener(_onView);
+    _readDockPosition();
     _settingsSub = c.bus.on<SettingChanged>().listen((e) {
-      if (e.key.startsWith('voice.') && mounted) setState(() {});
+      if (!e.key.startsWith('voice.') || !mounted) return;
+      setState(() {
+        if (e.key == defs.voiceDockPosition.key) _readDockPosition();
+      });
     });
     _errorSub = c.voice.notices.stream.listen(_onNotice);
     _clearedSub = c.voice.clearedNotices.stream.listen(_onCleared);
@@ -141,7 +160,8 @@ class _AssistOverlayState extends State<AssistOverlay>
     if (!mounted) return;
     _watchFrames(next.visible);
     if (next.visible) _clock.running = true;
-    if (next.visible && !_shown.visible) {
+    // A docked conversation has no backdrop to blur.
+    if (next.visible && !_shown.visible && !next.docked) {
       unawaited(_freezeBackdrop());
     } else if (!next.visible) {
       _frozenGen++;
@@ -257,13 +277,17 @@ class _AssistOverlayState extends State<AssistOverlay>
             });
           }
         },
-        child: _shown.visible
-            ? GestureDetector(
+        child: !_shown.visible
+            ? const SizedBox.shrink()
+            // Docked, touches reach the screen under it: only the caption
+            // and the close button take them.
+            : _shown.docked
+            ? _docked(context, _shown)
+            : GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onDoubleTap: c.voice.dismiss,
                 child: _content(context, _localizedPreview(context, _shown)),
-              )
-            : const SizedBox.shrink(),
+              ),
       ),
     );
   }
@@ -299,6 +323,7 @@ class _AssistOverlayState extends State<AssistOverlay>
     );
     final scale = settings.get(defs.voiceTextScale).toDouble() / 100;
     final mode = switch (view.phase) {
+      _ when view.lingering => ArtMode.idle,
       AssistPhase.thinking => ArtMode.thinking,
       AssistPhase.speaking || AssistPhase.announcement => ArtMode.speaking,
       AssistPhase.listening => ArtMode.listening,
@@ -366,6 +391,225 @@ class _AssistOverlayState extends State<AssistOverlay>
         if (_lightbox case (final kind, final value))
           Positioned.fill(child: _lightboxView(context, kind, value)),
       ],
+    );
+  }
+
+  /// A realtime conversation: the skin's bar along the edge for the whole
+  /// of it, a caption card with the current exchange that fades while the
+  /// room is quiet, and a close button. No backdrop, no art: the dashboard
+  /// under it stays visible and usable.
+  Widget _docked(BuildContext context, AssistView view) {
+    final settings = c.settings;
+    final skin = assistSkinById(settings.get(defs.voiceSkin));
+    final theme = settings.get(defs.voiceTheme);
+    final dark =
+        skin.darkOnly ||
+        switch (theme) {
+          'dark' => true,
+          'light' => false,
+          _ => Theme.of(context).brightness == Brightness.dark,
+        };
+    final palette = skin.palette(dark);
+    final scale =
+        settings.get(defs.voiceTextScale).toDouble() / 100 * dockedTextScale;
+    final mode = switch (view.phase) {
+      AssistPhase.thinking => ArtMode.thinking,
+      AssistPhase.speaking || AssistPhase.announcement => ArtMode.speaking,
+      AssistPhase.listening => ArtMode.listening,
+      AssistPhase.hidden => ArtMode.idle,
+    };
+    final reactive =
+        settings.get(defs.voiceReactiveBar) &&
+        view.reactive &&
+        mode != ArtMode.thinking;
+    final size = MediaQuery.sizeOf(context);
+    final padding = MediaQuery.paddingOf(context);
+    // The skin's backdrop, which its text colors are made for, solid
+    // enough to read over any dashboard.
+    final bubble = palette.backdrop.withValues(
+      alpha: math.max(0.94, palette.opacity),
+    );
+    final width = math.min(560.0, size.width - 32);
+    final showCommand = settings.get(defs.voiceShowCommand);
+    final showAnswer = settings.get(defs.voiceShowAnswer);
+    final tools = settings.get(defs.voiceShowTools) ? view.tools : const [];
+    final thinking = view.phase == AssistPhase.thinking && view.answer.isEmpty;
+    final said =
+        (showCommand && view.command.isNotEmpty) ||
+        (showAnswer && view.answer.isNotEmpty) ||
+        tools.isNotEmpty;
+    final lines = <Widget>[
+      // The bubble says it hears before anything is said.
+      if (!said && !thinking && view.phase == AssistPhase.listening)
+        Text(
+          voiceText(context, 'Listening…'),
+          style: _text(
+            skin,
+            palette.user,
+            skin.userSize * scale,
+            skin.userWeight,
+            palette.userShadows,
+          ),
+        ),
+      if (showCommand && view.command.isNotEmpty)
+        Text(
+          '${skin.prefix}${view.command}',
+          style: _text(
+            skin,
+            palette.user,
+            skin.userSize * scale,
+            skin.userWeight,
+            palette.userShadows,
+          ),
+        ),
+      for (final tool in tools) _toolLine(skin, palette, scale, tool),
+      if (thinking && tools.isEmpty)
+        ThinkingDots(
+          skin: skin,
+          colors: palette.dots,
+          shadows: palette.toolShadows,
+          scale: scale,
+          clock: _clock,
+        ),
+      if (showAnswer && view.answer.isNotEmpty)
+        ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight:
+                MediaQuery.textScalerOf(
+                  context,
+                ).scale(skin.answerSize * scale) *
+                1.3 *
+                4,
+          ),
+          child: _RevealText(
+            text: view.answer,
+            streaming: view.streaming,
+            current: true,
+            playback: () => null,
+            style: _text(
+              skin,
+              palette.answer,
+              skin.answerSize * scale,
+              skin.answerWeight,
+              palette.answerShadows,
+            ),
+            textAlign: TextAlign.left,
+          ),
+        ),
+    ];
+    // The bubble: the exchange, and the skin's bar docked along its
+    // bottom. Up for the whole conversation, a slim pill with just the bar
+    // while nothing has been said.
+    final card = AnimatedSize(
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.ease,
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        width: width,
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+          color: bubble,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: palette.answer.withValues(alpha: 0.16)),
+          boxShadow: const [
+            BoxShadow(
+              color: Color(0x33000000),
+              blurRadius: 16,
+              offset: Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (lines.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 14, 20, 0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 6,
+                  children: lines,
+                ),
+              ),
+            IgnorePointer(
+              child: DockedBarLayer(
+                bar: skin.barDocked,
+                mode: mode,
+                reactive: reactive,
+                level: _glide,
+                clock: _clock,
+                countdown: c.voice.dockCountdown,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+    // Anywhere on screen, where it was last dragged: its position is a
+    // fraction of the room left around it, so a bubble that grows as the
+    // answer comes in keeps to the edge it was put against.
+    final placed = Padding(
+      padding: EdgeInsets.fromLTRB(
+        16 + padding.left,
+        16 + padding.top,
+        16 + padding.right,
+        24 + padding.bottom,
+      ),
+      child: LayoutBuilder(
+        builder: (context, box) => Stack(
+          children: [
+            Align(
+              alignment: Alignment(_dockX * 2 - 1, _dockY * 2 - 1),
+              child: GestureDetector(
+                key: _dockKey,
+                behavior: HitTestBehavior.opaque,
+                // Ends it, as a double tap on the full screen overlay does.
+                onDoubleTap: c.voice.dismiss,
+                onPanUpdate: (d) {
+                  final size = _dockKey.currentContext?.size;
+                  if (size == null) return;
+                  final freeX = box.maxWidth - size.width;
+                  final freeY = box.maxHeight - size.height;
+                  setState(() {
+                    if (freeX > 0) {
+                      _dockX = (_dockX + d.delta.dx / freeX).clamp(0, 1);
+                    }
+                    if (freeY > 0) {
+                      _dockY = (_dockY + d.delta.dy / freeY).clamp(0, 1);
+                    }
+                  });
+                },
+                onPanEnd: (_) => c.settings.set(
+                  defs.voiceDockPosition,
+                  '${_dockX.toStringAsFixed(4)},${_dockY.toStringAsFixed(4)}',
+                ),
+                child: card,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+    // What is under it holds its last frame while the conversation runs.
+    // A touch there wants it back: the first one wakes it and goes no
+    // further, since a paused screensaver would let it through to the
+    // dashboard and a paused page would take it without redrawing.
+    return ValueListenableBuilder<bool>(
+      valueListenable: c.voice.underlayPaused,
+      child: placed,
+      builder: (context, paused, child) => Stack(
+        fit: StackFit.expand,
+        children: [
+          if (paused)
+            Listener(
+              behavior: HitTestBehavior.opaque,
+              onPointerDown: (_) => c.voice.wakeUnderlay(),
+            ),
+          child!,
+        ],
+      ),
     );
   }
 
@@ -821,6 +1065,9 @@ class _AssistOverlayState extends State<AssistOverlay>
     );
   }
 }
+
+/// The docked caption's text against the skin's full-screen sizes.
+const dockedTextScale = 0.55;
 
 /// A line's entry, as the skins animate new messages: opacity 0 to 1 while
 /// it rises [dy] px, over [ms] with CSS's ease.

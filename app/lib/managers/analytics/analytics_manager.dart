@@ -19,6 +19,7 @@ import '../voice/wake_catalog.dart';
 import '../wake_word/engine.dart';
 import 'analytics_scrub.dart';
 import 'crash_journal.dart';
+import 'usage_counters.dart';
 
 /// Kiosk Satellite Analytics: what the three switches under Settings >
 /// Device > Kiosk Satellite Analytics let leave the device, and when.
@@ -56,6 +57,10 @@ class AnalyticsManager extends Manager {
   static const _lastSnapshotKey = 'analytics_last_snapshot';
   static const _sentCrashesKey = 'analytics_sent_crashes';
   static const _vsSeenKey = 'analytics_vs_seen';
+
+  /// The counts the snapshot being built reports, taken off once it is
+  /// sent. Empty when Usage is off or nothing counted applies.
+  Map<String, int> _reportedCounts = const {};
 
   /// How long a Voice Satellite sighting keeps a dashboard runtime reading
   /// 'integration' while the page hook is not answering.
@@ -215,6 +220,7 @@ class AnalyticsManager extends Manager {
       if (body == null) return false;
       final ok = await _post(body);
       if (ok) {
+        await UsageCounters.consume(_settings, _reportedCounts);
         await _settings.setInternal(
           _lastSnapshotKey,
           '${_now().toUtc().millisecondsSinceEpoch}',
@@ -295,6 +301,7 @@ class AnalyticsManager extends Manager {
   /// or null when neither is.
   Future<Map<String, Object?>?> buildSnapshot() async {
     if (!basicOn && !usageOn) return null;
+    _reportedCounts = const {};
     return {
       'schema': schema,
       'kind': 'snapshot',
@@ -502,6 +509,7 @@ class AnalyticsManager extends Manager {
     // answers play on and Home Assistant's Assistant picks are names, so
     // they read as kinds and a yes or no.
     var customWakeWords = 0;
+    var answers = const ['assist', 'assist'];
     if (nativeOn) {
       try {
         final r = await commands.execute('customWakeModels', const {});
@@ -510,7 +518,42 @@ class AnalyticsManager extends Manager {
           customWakeWords = (data['models'] as List).length;
         }
       } catch (_) {}
+      try {
+        final r = await commands.execute('voiceStatus', const {});
+        final data = r.data;
+        if (data is Map && data['answers'] is List) {
+          final list = data['answers'] as List;
+          if (list.length == 2) answers = [for (final a in list) '$a'];
+        }
+      } catch (_) {}
     }
+    // What answers each wake word: Home Assistant's Assist pipeline or a
+    // realtime provider. The second one only counts with a second wake
+    // word to answer.
+    final answering = [answers[0], if (wakeWord2.isNotEmpty) answers[1]];
+    final realtime = {
+      for (final a in answering)
+        if (a != 'assist') a,
+    };
+    // How often each one answered since the last snapshot, and how often
+    // arbitration settled a wake other kiosks heard too.
+    final arbitration = nativeOn && s.get(defs.voiceWakeArbitration);
+    final counts = UsageCounters.read(s);
+    _reportedCounts = {
+      'duraspeed_blocked': counts['duraspeed_blocked'] ?? 0,
+      if (nativeOn)
+        for (final k in [
+          'vs_turns_assist',
+          'vs_turns_openai',
+          'vs_turns_xai',
+          'vs_turns_gemini',
+        ])
+          k: counts[k] ?? 0,
+      if (arbitration)
+        for (final k in ['vs_arbitration_won', 'vs_arbitration_lost'])
+          k: counts[k] ?? 0,
+    };
+    String pick(String v) => v.trim().isEmpty ? 'default' : v;
     final nativeVoice = <String, Object?>{
       if (nativeOn) ...{
         'vs_muted': s.get(defs.voiceMute),
@@ -540,6 +583,47 @@ class AnalyticsManager extends Manager {
         'vs_show_tools': s.get(defs.voiceShowTools),
         'vs_timer_pills': s.get(defs.voiceTimerPills),
         'vs_timer_speak': s.get(defs.voiceTimerSpeak),
+        'vs_overlay_mode': s.get(defs.voiceOverlayMode),
+        // Which edge the docked overlay sits on, never its exact place.
+        if (s.get(defs.voiceOverlayMode) == 'docked')
+          'vs_dock_position': dockEdge(s.get(defs.voiceDockPosition)),
+        'vs_answers_1': answers[0],
+        if (wakeWord2.isNotEmpty) 'vs_answers_2': answers[1],
+        if (realtime.isNotEmpty) ...{
+          'vs_realtime_tools': s.get(defs.voiceRealtimeTools),
+          'vs_realtime_talk_over': s.get(defs.voiceRealtimeTalkOver),
+          'vs_realtime_instructions': s
+              .get(defs.voiceRealtimeInstructions)
+              .trim()
+              .isNotEmpty,
+        },
+        if (realtime.contains('openai')) ...{
+          'vs_realtime_openai_model': pick(
+            s.get(defs.voiceRealtimeOpenAiModel),
+          ),
+          'vs_realtime_openai_voice': pick(
+            s.get(defs.voiceRealtimeOpenAiVoice),
+          ),
+        },
+        if (realtime.contains('xai')) ...{
+          'vs_realtime_xai_model': pick(s.get(defs.voiceRealtimeXaiModel)),
+          'vs_realtime_xai_voice': pick(s.get(defs.voiceRealtimeXaiVoice)),
+        },
+        if (realtime.contains('gemini')) ...{
+          'vs_realtime_gemini_model': pick(
+            s.get(defs.voiceRealtimeGeminiModel),
+          ),
+          'vs_realtime_gemini_voice': pick(
+            s.get(defs.voiceRealtimeGeminiVoice),
+          ),
+        },
+        'vs_wake_arbitration': arbitration,
+        if (arbitration)
+          'vs_wake_arbitration_window_ms': s
+              .get(defs.voiceWakeArbitrationWindowMs)
+              .toInt(),
+        for (final e in _reportedCounts.entries)
+          if (e.key.startsWith('vs_')) e.key: UsageCounters.bucket(e.value),
       },
     };
 
@@ -596,6 +680,22 @@ class AnalyticsManager extends Manager {
       'wake_word_2': wakeWord2,
       'vs_skin': vs.skin,
       ...nativeVoice,
+      // The kiosk's own echo canceller, for everything that listens.
+      'software_echo_cancellation': s.get(defs.micSoftwareEchoCancellation),
+      // MediaTek's DuraSpeed refused the dashboard's renderer since the
+      // last report.
+      'duraspeed_blocked': (_reportedCounts['duraspeed_blocked'] ?? 0) > 0,
+      'clock_vertical':
+          s.get(defs.screensaverClockVertical) &&
+          ['digital', 'flip'].contains(s.get(defs.screensaverClockStyle)),
+      'weather_clock_vertical':
+          s.get(defs.screensaverWeatherClock) &&
+          s.get(defs.screensaverWeatherClockVertical),
+      'clock_night_mode': s.get(defs.screensaverClockNight),
+      if (s.get(defs.screensaverClockNight))
+        'clock_night_hide_widgets': s.get(
+          defs.screensaverClockNightHideWidgets,
+        ),
       'alarms': alarms.length,
       'alarms_on': alarms.where((a) => a.on).length,
       'alarms_repeating': alarms.where((a) => a.repeats).length,
@@ -739,4 +839,20 @@ class AnalyticsManager extends Manager {
       client.close();
     }
   }
+}
+
+/// The docked overlay's place, an 'x,y' fraction of the screen, as the
+/// edge or corner it is nearest to.
+@visibleForTesting
+String dockEdge(String position) {
+  final parts = position.split(',');
+  final x = parts.isNotEmpty ? double.tryParse(parts[0].trim()) : null;
+  final y = parts.length > 1 ? double.tryParse(parts[1].trim()) : null;
+  if (x == null || y == null) return 'bottom';
+  String axis(double v, String low, String high) =>
+      v <= 1 / 3 ? low : (v >= 2 / 3 ? high : '');
+  final v = axis(y, 'top', 'bottom');
+  final h = axis(x, 'left', 'right');
+  if (v.isEmpty && h.isEmpty) return 'center';
+  return [v, h].where((e) => e.isNotEmpty).join('_');
 }

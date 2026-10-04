@@ -252,13 +252,6 @@ export function settingRow(s) {
       await loadSettings({ cached: true });
       return;
     }
-    // AGC hides the gain slider next to it without gating it (the row is
-    // always rendered, so there is nothing for syncGatedRows to place).
-    if (s.key === 'audio.mic_agc') {
-      const gain = document.querySelector('[data-key="audio.mic_gain_db"]');
-      if (gain) gain.style.display = value ? 'none' : '';
-      return;
-    }
     // Three keys genuinely need the device's answer again: the rotation
     // switch reveals a hand-built section, and editing either Immich
     // credential resets immich_validated on the device, which the dependent
@@ -1544,8 +1537,8 @@ export function settingRow(s) {
       }
       // Hold mode's auto-release reads as a clock: 0 is "Never" and 90 is
       // "1 h 30 min". Kept identical to the device's copy.
-      if (s.key === 'ha.hold_release_minutes') {
-        const minutes = Math.round(v);
+      if (s.key === 'ha.hold_release_minutes' || s.key === 'voice.realtime_history_hours') {
+        const minutes = Math.round(s.key === 'voice.realtime_history_hours' ? v * 60 : v);
         if (minutes <= 0) return haText('Never');
         const h = Math.floor(minutes / 60), m = minutes % 60;
         if (h === 0) return t('haMinutes', {minutes: String(m)});
@@ -1623,27 +1616,35 @@ export function settingRow(s) {
     bindUpdate(cb, () => { cb.checked = !!s.value; });
   } else if (s.type === 'select') {
     const sel = document.createElement('select');
-    let opts = s.options || [];
-    if (s.key === 'camera.rtsp.resolution' && !opts.length) {
-      const opt = document.createElement('option');
-      opt.textContent = cameraText('No supported sizes available');
-      sel.appendChild(opt);
-      sel.disabled = true;
-    }
-    if (s.key === 'screensaver.mode' && !state.haConfigured)
-      opts = opts.filter((o) => o !== 'media' && o !== 'weather_mood' && o !== 'dashboard');
-    opts.forEach((o) => {
-      const opt = document.createElement('option');
-      opt.value = o;
-      // The declared label ('media' → "Home Assistant Media"), or
-      // Capitalised as a fallback, stored values are lowercase identifiers.
-      opt.textContent = (s.optionLabels && s.optionLabels[o]) ||
-        (o ? o[0].toUpperCase() + o.slice(1) : o);
-      opt.selected = o === s.value; sel.appendChild(opt);
-    });
+    const fill = () => {
+      sel.replaceChildren();
+      sel.disabled = false;
+      let opts = s.options || [];
+      if (s.key === 'camera.rtsp.resolution' && !opts.length) {
+        const opt = document.createElement('option');
+        opt.textContent = cameraText('No supported sizes available');
+        sel.appendChild(opt);
+        sel.disabled = true;
+      }
+      if (s.key === 'screensaver.mode' && !state.haConfigured)
+        opts = opts.filter((o) => o !== 'media' && o !== 'weather_mood' && o !== 'dashboard');
+      opts.forEach((o) => {
+        const opt = document.createElement('option');
+        opt.value = o;
+        // The declared label ('media' → "Home Assistant Media"), or
+        // Capitalised as a fallback, stored values are lowercase identifiers.
+        opt.textContent = (s.optionLabels && s.optionLabels[o]) ||
+          (o ? o[0].toUpperCase() + o.slice(1) : o);
+        opt.selected = o === s.value; sel.appendChild(opt);
+      });
+    };
+    fill();
     sel.addEventListener('change', () => save(sel.value));
     row.appendChild(sel);
     bindUpdate(sel, () => { sel.value = s.value ?? ''; });
+    // New choices from the device (a provider's models, a camera's sizes)
+    // land in place: the page is not rebuilt under whatever is being typed.
+    row.updateOptions = () => { if (!row.contains(sel)) return false; fill(); return true; };
   } else if (s.multiline) {
     // Pasted code gets a real editor, not a one-line field.
     const ta = document.createElement('textarea');

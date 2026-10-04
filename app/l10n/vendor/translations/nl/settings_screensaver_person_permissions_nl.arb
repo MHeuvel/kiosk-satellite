@@ -1,0 +1,16 @@
+{
+  "@@locale": "nl",
+  "screensaverDetectionPermissions": "Vereiste systeemtoestemmingen",
+  "screensaverDetectionLogAccess": "Logtoegang",
+  "screensaverDetectionChecking": "Controleren...",
+  "screensaverDetectionReadable": "De persoonssensor van het apparaat kan worden gelezen.",
+  "screensaverDetectionRestartRequired": "Toegestaan. Herstart Kiosk Satellite om het toe te passen.",
+  "screensaverDetectionGrantHelp": "Deze toestemming kan alleen via ADB worden verleend. De documentatie van Meta Portal bevat de volledige opdracht. Start Kiosk Satellite daarna opnieuw.",
+  "screensaverDetectionGrantRemoteHelp": "Deze toestemming kan alleen via ADB worden verleend. Hieronder staat de volledige opdracht, klaar om te kopiëren. Start Kiosk Satellite daarna opnieuw.",
+  "screensaverDetectionGranted": "Toegestaan",
+  "screensaverDetectionMissing": "Ontbrekend",
+  "screensaverDetectionRestart": "Herstarten",
+  "screensaverDetectionRestartRemote": "Op apparaat opnieuw starten",
+  "screensaverDetectionLogRestart": "Logtoegang is verleend, maar wordt pas actief nadat Kiosk Satellite opnieuw is gestart.",
+  "screensaverDetectionLogMissing": "Logtoegang is niet verleend."
+}

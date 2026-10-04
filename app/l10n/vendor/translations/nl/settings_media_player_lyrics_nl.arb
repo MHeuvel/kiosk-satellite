@@ -1,0 +1,13 @@
+{
+  "@@locale": "nl",
+  "settingSendspinLyricsEnabledTitle": "Songteksten inschakelen",
+  "settingSendspinLyricsEnabledDescription": "Gesynchroniseerde songteksten in de weergave Speelt nu, voor iedere spelerbron.",
+  "settingSendspinLyricsSourceTitle": "Bron van songteksten",
+  "settingSendspinLyricsSourceDescription": "De bron waaruit songteksten worden opgehaald. Voor Music Assistant zijn het serveradres en token op de bijbehorende pagina vereist.",
+  "settingSendspinLyricsFallbackTitle": "Music Assistant als terugvaloptie",
+  "settingSendspinLyricsFallbackDescription": "Vraag Music Assistant om songteksten wanneer LRCLIB onbereikbaar is. Hiervoor is een verbinding met Music Assistant vereist.",
+  "settingSendspinLyricsOffsetTitle": "Timing van songtekst",
+  "settingSendspinLyricsOffsetDescription": "Verschuif de songtekst ten opzichte van de muziek. Een positieve waarde toont iedere regel eerder, een negatieve waarde later. Pas dit aan voor nummers waarvan de tekst steeds niet gelijkloopt.",
+  "mediaLyricsPage": "Songteksten",
+  "mediaLyricsHint": "Gesynchroniseerde songteksten, bron en timing"
+}

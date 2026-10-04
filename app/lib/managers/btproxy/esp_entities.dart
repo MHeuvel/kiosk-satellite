@@ -576,6 +576,18 @@ class EspEntitySurface {
           'name': 'Voice Satellite',
           'icon': 'mdi:account-voice',
         },
+      // The turn in Home Assistant's assist_satellite states, for Assist
+      // turns and realtime conversations alike. A realtime conversation
+      // runs no pipeline, so the satellite entity Home Assistant keeps
+      // stays idle through it. Never beside the switch above, which only
+      // the dashboard runtime lists.
+      if (_voiceNative)
+        {
+          'type': 'text_sensor',
+          'objectId': 'voice_satellite_state',
+          'name': 'Voice Satellite',
+          'icon': 'mdi:account-voice',
+        },
       button(
         'postpone_screensaver',
         'Postpone screensaver',
@@ -1729,6 +1741,11 @@ class EspEntitySurface {
         if (InteractionStamp.countsAsVoice(e)) _interaction.mark();
       }),
     );
+    _subs.add(
+      bus.on<VoiceSatelliteStateChanged>().listen((e) {
+        if (_voiceNative) _send('voice_satellite_state', e.state);
+      }),
+    );
     // A person waking the panel by hand counts too (issue #348); see the
     // ScreenStateChanged listener below for why only the OS-reported wake
     // qualifies.
@@ -2185,6 +2202,13 @@ class EspEntitySurface {
       'clock_background',
       _settings.get(defs.screensaverClockBackground),
     );
+    if (_voiceNative) {
+      final voice = await commands.execute('voiceStatus', const {});
+      final state = voice.ok && voice.data is Map
+          ? (voice.data as Map)['state']
+          : null;
+      await _send('voice_satellite_state', '${state ?? 'idle'}');
+    }
     if (_settings.get(defs.intercomEnabled)) {
       final intercom = await commands.execute('intercomStatus', const {});
       if (intercom.ok && intercom.data is Map) {
@@ -2312,7 +2336,7 @@ class EspEntitySurface {
       'current': current,
       'latest': data['availableVersion'] as String? ?? current,
       'title': 'Kiosk Satellite',
-      'summary': notes.length > 250 ? notes.substring(0, 250) : notes,
+      'summary': _fitNotes(notes),
       'url': data['releaseUrl'] is String ? data['releaseUrl'] : '',
       // UpdateStateResponse's progress field is a 0-100 percentage; the
       // manager's notifier is a 0..1 fraction.
@@ -2320,6 +2344,30 @@ class EspEntitySurface {
         'progress': progress.toDouble().clamp(0.0, 1.0) * 100,
       'inProgress': progress != null,
     });
+  }
+
+  /// Home Assistant serves the update entity's summary in full as its
+  /// release notes, so the notes go whole. A device many versions behind
+  /// gets every missed release joined, which can outgrow the API's 64 KB
+  /// frame, so long notes stop at the last whole release that fits.
+  static const _maxNotesBytes = 30 * 1024;
+
+  static String _fitNotes(String notes) {
+    final bytes = utf8.encode(notes);
+    if (bytes.length <= _maxNotesBytes) return notes;
+    const more = '\n\nThe rest of the notes are on the GitHub releases page.';
+    var cut = utf8.decode(
+      bytes.sublist(0, _maxNotesBytes - more.length),
+      allowMalformed: true,
+    );
+    // A cut inside a multi-byte character decodes to a replacement mark.
+    if (cut.endsWith('�')) cut = cut.substring(0, cut.length - 1);
+    // Each missed release opens with "# Version" (UpdateManager's
+    // _combinedNotes). Failing that, stop at a line end.
+    var end = cut.lastIndexOf('\n\n# Version ');
+    if (end <= 0) end = cut.lastIndexOf('\n');
+    if (end > 0) cut = cut.substring(0, end);
+    return '${cut.trimRight()}$more';
   }
 
   /// The person sensor's state onto the Person binary sensor.

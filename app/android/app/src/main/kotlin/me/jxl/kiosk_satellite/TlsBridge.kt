@@ -5,12 +5,14 @@ import android.os.Handler
 import android.os.Looper
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
+import android.util.Base64
 import android.util.AtomicFile
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
 import java.io.File
 import java.net.NetworkInterface
 import java.security.KeyStore
+import java.security.cert.X509Certificate
 import java.util.Collections
 import java.util.concurrent.Executors
 import javax.crypto.Cipher
@@ -28,6 +30,15 @@ class TlsBridge(context: Context, messenger: BinaryMessenger) {
     init {
         MethodChannel(messenger, "kiosk_satellite/tls").setMethodCallHandler { call, result ->
             worker.execute {
+                if (call.method == "userAuthorities") {
+                    val reply: Map<String, Any?> = try {
+                        mapOf("authorities" to userAuthorities())
+                    } catch (e: Exception) {
+                        mapOf("authorities" to emptyList<Any>(), "error" to (e.message ?: e.javaClass.simpleName))
+                    }
+                    main.post { result.success(reply) }
+                    return@execute
+                }
                 try {
                     val old = if (call.method == "replace" || call.method == "import") null else load()
                     val material = when (call.method) {
@@ -49,6 +60,29 @@ class TlsBridge(context: Context, messenger: BinaryMessenger) {
                 }
             }
         }
+    }
+
+    /**
+     * Certificate authorities the user installed under Android's security
+     * settings, as PEM with the subject and expiry for the app log. dart:io
+     * reads only the system store, so without
+     * these a server signed by a private CA fails every Dart connection
+     * while the WebView, which follows the network security config, trusts it.
+     */
+    private fun userAuthorities(): List<Map<String, Any>> {
+        val store = KeyStore.getInstance("AndroidCAStore").apply { load(null) }
+        return Collections.list(store.aliases())
+            .filter { it.startsWith("user:") }
+            .mapNotNull { store.getCertificate(it) as? X509Certificate }
+            .map { cert ->
+                val body = Base64.encodeToString(cert.encoded, Base64.NO_WRAP)
+                    .chunked(64).joinToString("\n")
+                mapOf(
+                    "pem" to "-----BEGIN CERTIFICATE-----\n$body\n-----END CERTIFICATE-----\n",
+                    "subject" to cert.subjectX500Principal.name,
+                    "notAfter" to cert.notAfter.time,
+                )
+            }
     }
 
     private fun generate(hostname: String?, old: TlsMaterial?): TlsMaterial {

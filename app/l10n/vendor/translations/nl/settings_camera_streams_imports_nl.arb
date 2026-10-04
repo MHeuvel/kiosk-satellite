@@ -1,0 +1,8 @@
+{
+  "@@locale": "nl",
+  "cameraStreamsImportHa": "Camera's importeren van Home Assistant",
+  "cameraStreamsImportHaHelp": "Voeg alle camera's van de verbonden Home Assistant-instantie toe en speel ze af via WebRTC, HLS of MJPEG. Bij opnieuw importeren worden nieuwe camera's toegevoegd.",
+  "cameraStreamsImportFailed": "Importeren mislukt",
+  "cameraStreamsImportComplete": "Importeren voltooid",
+  "cameraStreamsImportCounts": "{added} toegevoegd, {missing} ontbreken."
+}

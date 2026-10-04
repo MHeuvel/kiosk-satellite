@@ -472,7 +472,9 @@ void main() {
   testWidgets('playback ending expands the existing screensaver', (
     tester,
   ) async {
-    await boot(tester);
+    // A screensaver already up when the music started, not one playback
+    // launched: that one ends with the view.
+    await boot(tester, prefs: {'ks.sendspin.fullscreen_on_play': false});
     final state = tester.state(find.byType(ClockScreensaver));
     c.sendspin.fullscreenActive.value = false;
     c.bus.publish(const SendspinNowPlayingChanged(active: false));
@@ -772,6 +774,7 @@ void main() {
         prefs: {
           'ks.screensaver.brightness_enabled': true,
           'ks.screensaver.brightness_level': 0.2,
+          'ks.sendspin.fullscreen_on_play': false,
         },
       );
       expect(brightness.last, 0.2);

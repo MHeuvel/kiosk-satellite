@@ -248,6 +248,24 @@ internal class ApiServer(
         return true
     }
 
+    /**
+     * Fire a Home Assistant event (see ServiceCodec.event) on every session
+     * that subscribed to actions. False when none did.
+     */
+    fun fireEvent(
+        name: String,
+        data: Map<String, String>,
+        typed: Map<String, String>,
+    ): Boolean {
+        val targets = sessions.filter { it.wantsActions }
+        if (targets.isEmpty()) return false
+        val payload = ServiceCodec.event(name, data, typed)
+        for (session in targets) {
+            session.enqueue(Msg.HOMEASSISTANT_ACTION_REQUEST, payload)
+        }
+        return true
+    }
+
     fun hasAdvertisementSubscribers(): Boolean = sessions.any { it.wantsAdvertisements }
 
     /**
@@ -540,6 +558,8 @@ internal class ApiServer(
             private set
         @Volatile var wantsConnectionsFree = false
         @Volatile var wantsStates = false
+        /** Home Assistant takes actions and events from this session. */
+        @Volatile var wantsActions = false
         /**
          * Camera keys with a CameraImageRequest outstanding. The request
          * names no camera, so one request pends every listed camera; each
@@ -974,12 +994,12 @@ internal class ApiServer(
                     Msg.VOICE_ASSISTANT_SET_CONFIGURATION ->
                         voice?.onSetConfiguration(
                             VoiceCodec.parseSetConfiguration(frame.payload))
+                    // The channel the timer and alarm events go out on.
+                    Msg.SUBSCRIBE_HOMEASSISTANT_SERVICES_REQUEST -> wantsActions = true
                     // Required-ack subscriptions with nothing behind them:
-                    // this device streams no logs and calls nothing back on
-                    // Home Assistant (its own actions are served above, in
-                    // the entity listing).
+                    // this device streams no logs and reads no Home
+                    // Assistant states.
                     Msg.SUBSCRIBE_LOGS_REQUEST,
-                    Msg.SUBSCRIBE_HOMEASSISTANT_SERVICES_REQUEST,
                     Msg.SUBSCRIBE_HOME_ASSISTANT_STATES_REQUEST -> Unit
                     else -> Unit // unknown type: HA is newer than us; skip
                 }

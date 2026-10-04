@@ -75,7 +75,9 @@
     <!-- Keeps GPS fixes arriving while the app is not on screen: Android 10+
          only delivers location to a backgrounded app through a location-type
          foreground service; attached while Report location is on and the
-         location permission granted. -->
+         location permission granted. Also attached while the Bluetooth
+         proxy is on: a scan started off screen gets no results without
+         it. -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION"/>
     <!-- The service's notification. Denied, the service still runs; it just says
          nothing, which is worse for the person in the room than for us. -->
@@ -83,6 +85,11 @@
     <!-- Starting our Activity from behind another app on Android 10+. -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+    <!-- The System UI guard's shade collapse below Android 12
+         (KioskAccessibilityService). Normal protection: granted at
+         install. -->
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR"
+        android:maxSdkVersion="30"/>
     <!-- The kiosk's own alarms: setAlarmClock rings exactly and in Doze.
          USE_EXACT_ALARM is granted at install to an alarm clock app from
          Android 13; SCHEDULE_EXACT_ALARM covers 12 and 12L, where it is
@@ -128,6 +135,7 @@
         android:icon="@mipmap/ic_launcher"
         android:banner="@drawable/tv_banner"
         android:requestLegacyExternalStorage="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:usesCleartextTraffic="true">
         <!-- Android 16 ignores an app's orientation request on any display
              of sw600dp or more once the app targets API 36, so a Screen

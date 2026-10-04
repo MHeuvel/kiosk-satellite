@@ -89,6 +89,7 @@ const cameraTextMessageIds = <String, String>{
   "Password": "settingCameraRtspPasswordTitle",
   "Set a password to start the authenticated stream.": "settingCameraRtspPasswordDescription",
   "Front": "cameraFront",
+  "External": "cameraExternal",
   "The only camera this device has.": "cameraOnlyCamera",
   "Motion Sensor": "cameraMotionPage",
   "Home Assistant motion sensor and shared detection settings": "cameraMotionHint",

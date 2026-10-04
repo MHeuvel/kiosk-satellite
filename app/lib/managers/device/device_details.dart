@@ -227,6 +227,9 @@ class DeviceDetails {
   /// where the platform cannot say.
   bool? get webviewAvailable => _map('webview')?['available'] as bool?;
 
+  /// MediaTek's DuraSpeed is installed and on (see DeviceDetails.kt).
+  bool get duraSpeed => _map('webview')?['duraSpeed'] == true;
+
   Map<String, Object?> toJson() => {
     'brand': brand,
     'manufacturer': manufacturer,

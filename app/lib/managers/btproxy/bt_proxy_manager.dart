@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io' show Platform;
 import 'dart:math' show Random;
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
@@ -50,6 +52,34 @@ class BleSupport {
   };
 }
 
+/// [fields] as Home Assistant's event data takes them: strings as plain
+/// data, everything else as a data template, which Home Assistant renders
+/// into a number, a boolean, a list or None. Those values are literals
+/// with no template markup, so no text a user spoke can be run as one.
+({Map<String, String> data, Map<String, String> typed}) haEventFields(
+  Map<String, Object?> fields,
+) {
+  final data = <String, String>{};
+  final typed = <String, String>{};
+  fields.forEach((key, value) {
+    switch (value) {
+      case String():
+        data[key] = value;
+      case null:
+        typed[key] = 'None';
+      case bool():
+        typed[key] = value ? 'True' : 'False';
+      case num() when value.isFinite:
+        typed[key] = '$value';
+      case List() when value.every((v) => v is String || v is num):
+        typed[key] = jsonEncode(value);
+      default:
+        data[key] = '$value';
+    }
+  });
+  return (data: data, typed: typed);
+}
+
 class BtProxyManager extends Manager {
   BtProxyManager(super.bus, super.commands, super.log, this._settings);
 
@@ -59,6 +89,7 @@ class BtProxyManager extends Manager {
 
   StreamSubscription<SettingChanged>? _settingsSub;
   StreamSubscription<ShizukuStateChanged>? _shizukuSub;
+  StreamSubscription<HaEventRequested>? _eventSub;
   Timer? _restartDebounce;
   Future<void> _transition = Future.value();
   String _appVersion = '0';
@@ -206,6 +237,15 @@ class BtProxyManager extends Manager {
 
   @override
   Future<void> init() async {
+    // Keep scanning with the screen off needs Android 13's data type
+    // filters. Below that the switch could do nothing, so neither UI shows
+    // it. Settled before any page renders.
+    if (Platform.isAndroid) {
+      try {
+        final sdk = (await DeviceInfoPlugin().androidInfo).version.sdkInt;
+        if (sdk < 33) defs.deviceHiddenKeys.add(defs.btproxyScreenOffScan.key);
+      } catch (_) {}
+    }
     commands.register(
       Command(
         name: 'getEspHomeEntities',
@@ -320,6 +360,21 @@ class BtProxyManager extends Manager {
         _scheduleRestart();
       }
     });
+    // Timer and alarm events for Home Assistant's bus (issue #765). With
+    // the server off there is no one to tell.
+    _eventSub = bus.on<HaEventRequested>().listen((e) async {
+      if (!_running) return;
+      final fields = haEventFields(e.data);
+      try {
+        await _channel.invokeMethod<bool>('fireEvent', {
+          'name': 'esphome.${e.name}',
+          'data': fields.data,
+          'typed': fields.typed,
+        });
+      } catch (err) {
+        log.warn(name, 'event ${e.name} not sent: $err');
+      }
+    });
     _settingsSub = bus.on<SettingChanged>().listen((e) {
       // Real MAC turned off: forget the adopted address, so turning it
       // back on reads the hardware again (issue #736). Falls through to
@@ -365,6 +420,10 @@ class BtProxyManager extends Manager {
       // Assistant's session.
       if (e.key == defs.btproxyScanDuty.key) {
         if (_running) unawaited(_pushScanDuty());
+        return;
+      }
+      if (e.key == defs.btproxyScreenOffScan.key) {
+        if (_running) unawaited(_pushScreenOffScan());
         return;
       }
       // The first start writes the generated key into settings; restarting
@@ -555,6 +614,8 @@ class BtProxyManager extends Manager {
     _settingsSub = null;
     await _shizukuSub?.cancel();
     _shizukuSub = null;
+    await _eventSub?.cancel();
+    _eventSub = null;
     await _stop();
   }
 
@@ -684,6 +745,7 @@ class BtProxyManager extends Manager {
         'bluetoothProxy': _settings.get(defs.btproxyEnabled),
         'connections': _settings.get(defs.btproxyConnections),
         'scanDuty': _settings.get(defs.btproxyScanDuty),
+        'screenOffScan': _settings.get(defs.btproxyScreenOffScan),
         'minConnectRssi':
             int.tryParse(_settings.get(defs.btproxyMinConnectRssi)) ?? 0,
         'entities': _settings.get(defs.esphomeEntities)
@@ -745,6 +807,16 @@ class BtProxyManager extends Manager {
       });
     } catch (e) {
       log.warn(name, 'scan intensity not applied: $e');
+    }
+  }
+
+  Future<void> _pushScreenOffScan() async {
+    try {
+      await _channel.invokeMethod('screenOffScan', {
+        'enabled': _settings.get(defs.btproxyScreenOffScan),
+      });
+    } catch (e) {
+      log.warn(name, 'screen-off scanning not applied: $e');
     }
   }
 

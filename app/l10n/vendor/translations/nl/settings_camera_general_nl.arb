@@ -1,0 +1,19 @@
+{
+  "@@locale": "nl",
+  "settingCameraEnabledTitle": "Camera inschakelen",
+  "settingCameraEnabledDescription": "Het gebruik van de camera verhoogt de CPU-belasting en warmteontwikkeling. Hierdoor kan de levensduur van de batterij en het apparaat afnemen.",
+  "settingCameraDeviceTitle": "Camera",
+  "settingCameraDeviceDescription": "De camera die moet worden gebruikt.",
+  "settingCameraSnapshotResolutionTitle": "Resolutie van momentopnamen",
+  "settingCameraSnapshotResolutionDescription": "Een hogere resolutie is scherper, maar gebruikt meer CPU-capaciteit en bandbreedte.",
+  "settingCameraDisableDetectionSnapshotsTitle": "Momentopnamen bij detectie uitschakelen",
+  "settingCameraDisableDetectionSnapshotsDescription": "Voorkom automatische momentopnamen bij detectie. Bewegings-, gezichts-, aanwezigheids- en gebarendetectie blijven werken. Handmatige verzoeken en doorlopende momentopnamen kunnen nog steeds beelden vastleggen.",
+  "settingCameraSnapshotsTitle": "Doorlopende momentopnamen",
+  "settingCameraSnapshotsDescription": "Publiceer met een vast interval een nieuwe momentopname van de camera in Home Assistant.",
+  "settingCameraSnapshotIntervalTitle": "Interval voor momentopnamen",
+  "settingCameraSnapshotIntervalDescription": "Aantal seconden tussen momentopnamen.",
+  "cameraFront": "Voorzijde",
+  "cameraBack": "Achterzijde",
+  "cameraExternal": "Extern",
+  "cameraOnlyCamera": "De enige camera die dit apparaat heeft."
+}

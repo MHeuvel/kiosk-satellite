@@ -413,6 +413,14 @@ class VoiceInteractionChanged extends AppEvent {
   final String reason;
 }
 
+/// Native Voice Satellite moved between Home Assistant's assist_satellite
+/// states: idle, listening, processing or responding. Covers Assist turns
+/// and realtime conversations alike.
+class VoiceSatelliteStateChanged extends AppEvent {
+  const VoiceSatelliteStateChanged(this.state);
+  final String state;
+}
+
 // ── Alarms ─────────────────────────────────────────────────────────────
 
 /// The alarms or their ringing state changed: an alarm added, edited or
@@ -444,6 +452,20 @@ class IntercomStateChanged extends AppEvent {
 
   @override
   Map<String, Object?> toJson() => status;
+}
+
+/// The hardware button that hangs up the intercom call, as an Android
+/// key code, or 0 for none. Published while a call is placed or live and
+/// set back to 0 when it ends, so the button keeps its usual job the rest
+/// of the time. The kiosk manager hands it to the native key handler.
+class IntercomHangupKeyArmed extends AppEvent {
+  const IntercomHangupKeyArmed(this.keyCode);
+  final int keyCode;
+}
+
+/// The armed hang up button was pressed.
+class IntercomHangupKeyPressed extends AppEvent {
+  const IntercomHangupKeyPressed();
 }
 
 /// The intercom wants the microphone the page holds, or is done with it.
@@ -773,8 +795,19 @@ class CameraConfigurationChanged extends AppEvent {
 /// holds its idle countdown while the overlay shows an answer or results,
 /// which linger after the turn itself has ended.
 class AssistOverlayVisibility extends AppEvent {
-  const AssistOverlayVisibility(this.visible);
+  const AssistOverlayVisibility(this.visible, {bool? covers, bool? pauses})
+    : covers = covers ?? visible,
+      pauses = pauses ?? visible;
   final bool visible;
+
+  /// It covers the screen (full screen). Docked, it is a bubble over the
+  /// screen, which shows around it.
+  final bool covers;
+
+  /// What is under it stops rendering: the dashboard, a camera view and an
+  /// expensive screensaver hold their last frame. Under both modes, until
+  /// a touch outside the docked bubble wakes them for the rest of it.
+  final bool pauses;
 }
 
 class CameraViewStateChanged extends AppEvent {
@@ -995,6 +1028,17 @@ class RemoteObserversChanged extends AppEvent {
 /// The dashboard document was replaced or detached.
 class VoiceTimersCleared extends AppEvent {
   const VoiceTimersCleared();
+}
+
+/// An event for Home Assistant to fire on its bus, sent over the ESPHome
+/// API while that server runs. [name] goes out under `esphome.`, the only
+/// namespace Home Assistant fires device events in. Strings stay strings;
+/// numbers, booleans, lists and nulls arrive in Home Assistant as their
+/// own types.
+class HaEventRequested extends AppEvent {
+  const HaEventRequested(this.name, this.data);
+  final String name;
+  final Map<String, Object?> data;
 }
 
 /// A gesture on a native timer pill, routed to its owning integration.

@@ -1,0 +1,12 @@
+{
+  "@@locale": "nl",
+  "screensaverMediaTransitionNone": "Geen",
+  "screensaverMediaTransitionFade": "Vloeiende overgang",
+  "screensaverMediaTransitionSlide": "Schuiven",
+  "screensaverMediaTransitionZoom": "Zoomen",
+  "screensaverMediaTransitionKenBurns": "Ken Burns",
+  "screensaverMediaTransitionRandom": "Willekeurig",
+  "screensaverMediaFillOff": "Uit",
+  "screensaverMediaFillSmart": "Slim",
+  "screensaverMediaFillAlways": "Altijd vullen"
+}

@@ -250,6 +250,31 @@ class CameraRtspServerTest {
         }
     }
 
+    @Test fun pathOnlyDigestUriIsAccepted() {
+        val server = CameraRtspServer(0, "viewer", "secret", { Base64.getEncoder().encodeToString(it) },
+            {}, {}, audioEnabled = true)
+        try {
+            server.config(listOf(sps, pps))
+            Peer(server.localPort).use { peer ->
+                val challenge = peer.request("DESCRIBE")
+                val nonce = Regex("nonce=\"([^\"]+)\"").find(challenge)!!.groupValues[1]
+                assertTrue(peer.request("DESCRIBE", digest("DESCRIBE", "/camera", nonce)).startsWith("RTSP/1.0 200"))
+                val transport = "Transport: RTP/AVP/TCP;interleaved=0-1\r\n"
+                assertTrue(peer.request("SETUP", digest("SETUP", "/camera/trackID=0", nonce) + transport,
+                    peer.uri + "/trackID=0").startsWith("RTSP/1.0 200"))
+                for (auth in listOf(
+                    digest("DESCRIBE", "/camera", nonce, "wrong"),
+                    digest("DESCRIBE", "/other", nonce),
+                    digest("DESCRIBE", "", nonce),
+                )) {
+                    assertTrue(peer.request("DESCRIBE", auth).startsWith("RTSP/1.0 401"))
+                }
+                assertTrue(peer.request("SETUP", digest("SETUP", "/camera", nonce) +
+                    "Transport: RTP/AVP/TCP;interleaved=2-3\r\n", peer.uri + "/trackID=1").startsWith("RTSP/1.0 200"))
+            }
+        } finally { server.close() }
+    }
+
     @Test fun baseDigestCompatibilityStillRejectsInvalidAuthentication() {
         val server = server(LinkedBlockingQueue(), true)
         try {

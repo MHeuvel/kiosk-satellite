@@ -1,0 +1,14 @@
+{
+  "@@locale": "nl",
+  "voiceMicHeld": "Wekwoorddetectie kan je horen.",
+  "voiceMicBlocked": "Geblokkeerd. Android zal er niet opnieuw om vragen. Sta de toestemming toe via de appinstellingen.",
+  "voiceMicMissing": "Zonder deze toestemming luistert niets naar het wekwoord.",
+  "voiceForegroundHeld": "Kiosk Satellite kan naar de voorgrond komen wanneer het je hoort.",
+  "voiceForegroundMissing": "Zonder deze toestemming wordt het wekwoord wel gehoord, maar gebeurt er niets.",
+  "voiceNotificationHeld": "De permanente melding die luisteren op de achtergrond mogelijk maakt.",
+  "voiceNotificationMissing": "Nodig om betrouwbaar op de achtergrond te kunnen luisteren.",
+  "voiceBatteryHeld": "Android laat het luisterproces actief.",
+  "voiceBatteryMissing": "Zonder deze toestemming wordt het luisterproces na enkele uren gestopt.",
+  "voicePermissionDirections": "Verleen deze toestemmingen op het apparaat zelf: veeg vanaf de linkerrand naar binnen → Instellingen → Voice Satellite → Vereiste systeemtoestemmingen.",
+  "voicePermissionsSearch": "Microfoontoegang en andere toestemmingen die nodig zijn voor wekwoorddetectie."
+}

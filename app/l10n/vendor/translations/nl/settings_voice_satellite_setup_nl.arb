@@ -1,0 +1,12 @@
+{
+  "@@locale": "nl",
+  "voiceDisconnected": "Home Assistant niet verbonden",
+  "voiceValidate": "Controleer eerst de verbinding bij Home Assistant-instellingen.",
+  "voiceChecking": "Controleren op Voice Satellite…",
+  "voiceMissing": "Voice Satellite is niet geïnstalleerd in Home Assistant",
+  "voiceInstallHelp": "Voice Satellite maakt van deze kiosk een volledige handsfree spraakassistent voor Home Assistant, met wekwoorddetectie, gesprekken, timers en aankondigingen rechtstreeks op het dashboard.\n\nJe vindt de integratie in de standaardrepository van HACS. Installeer deze op je Home Assistant-instantie en kom daarna hier terug.",
+  "voiceLearnMore": "Meer informatie over ",
+  "voiceGithub": "Voice Satellite op GitHub",
+  "voiceHacs": "HACS-repository openen",
+  "voiceLoading": "Voice Satellite-bediening laden…"
+}

@@ -1,0 +1,13 @@
+{
+  "@@locale": "nl",
+  "settingEsphomeRealMacTitle": "Echt wifi-MAC-adres gebruiken",
+  "settingEsphomeRealMacDescription": "Home Assistant koppelt deze kiosk aan hetzelfde apparaat dat al door je netwerkintegraties wordt gevolgd. Als je dit wijzigt, wordt in Home Assistant een nieuw ESPHome-apparaat aangemaakt.",
+  "settingEsphomeMacOverrideTitle": "Wifi-MAC-adres nabootsen",
+  "settingEsphomeMacOverrideDescription": "Omdat het MAC-adres niet kan worden achterhaald, kun je hier zelf een adres invoeren. Als je dit wijzigt, wordt in Home Assistant een nieuw ESPHome-apparaat aangemaakt.",
+  "esphomeAdvanced": "Geavanceerde instellingen",
+  "esphomeAdvancedHelp": "Werkelijk of nagebootst wifi-MAC-adres",
+  "esphomeMacInvalid": "Vul een geldig MAC-adres in.",
+  "esphomeMacHardware": "Rapporteert {mac}.",
+  "esphomeMacManual": "Rapporteert het hieronder ingevoerde adres {mac}.",
+  "esphomeMacUnavailable": "Android geeft het hardwareadres van dit apparaat niet vrij."
+}

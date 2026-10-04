@@ -95,4 +95,32 @@ class CaptureWalkTest {
         walk.exhausted(70 * second)
         assertEquals(120, walk.waitSeconds)
     }
+
+    @Test
+    fun aHealthyRateIsHonestWithOrWithoutASound() {
+        for (played in listOf(false, true)) {
+            assertEquals(CaptureWalk.RateVerdict.HONEST, CaptureWalk.rateVerdict(0.98, played))
+            assertEquals(CaptureWalk.RateVerdict.HONEST, CaptureWalk.rateVerdict(0.6, played))
+            assertEquals(CaptureWalk.RateVerdict.HONEST, CaptureWalk.rateVerdict(1.6, played))
+        }
+    }
+
+    @Test
+    fun tooManyFramesIsALieEvenUnderASound() {
+        // The MT8167 panel's 16 kHz mono open: its 48 kHz stereo misread
+        // arrives at twice the rate, and playback cannot add frames.
+        assertEquals(CaptureWalk.RateVerdict.LIE, CaptureWalk.rateVerdict(2.0, played = false))
+        assertEquals(CaptureWalk.RateVerdict.LIE, CaptureWalk.rateVerdict(2.0, played = true))
+        assertEquals(CaptureWalk.RateVerdict.LIE, CaptureWalk.rateVerdict(6.0, played = true))
+    }
+
+    @Test
+    fun tooFewFramesIsALieOnlyInAQuietWindow() {
+        // Mono under a stereo label delivers half the frames all the time.
+        assertEquals(CaptureWalk.RateVerdict.LIE, CaptureWalk.rateVerdict(0.5, played = false))
+        // The same panel starved under its chime (54%) and an answer (6%):
+        // measured again, not a reason to leave a working format.
+        assertEquals(CaptureWalk.RateVerdict.MEASURE_AGAIN, CaptureWalk.rateVerdict(0.54, played = true))
+        assertEquals(CaptureWalk.RateVerdict.MEASURE_AGAIN, CaptureWalk.rateVerdict(0.06, played = true))
+    }
 }

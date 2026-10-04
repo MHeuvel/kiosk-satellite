@@ -212,14 +212,17 @@ export async function appendAudioDeviceRows(card, wakeWordOn, watching = false) 
 export async function updateMicChannelRow() {
   const root = document.getElementById('tab-screenaudio');
   const micCard = root && [...root.querySelectorAll('.card')]
-    .find((c) => c.querySelector('[data-key="audio.mic_source"]'));
+    .find((c) => c.querySelector('[data-key="audio.mic_gain_db"]'));
   if (!micCard) return;
   const old = micCard.querySelector('[data-key="audio.mic_channel"]');
   const setting = (state.settings || []).find((o) => o.key === 'audio.mic_channel');
   const selected = (state.settings || [])
     .find((o) => o.key === 'audio.mic_device')?.value || '';
   let channels = 0;
-  if (setting && selected) {
+  // Only a USB microphone array (types 11, 12 and 22): capture ignores a
+  // pick on any other.
+  const usb = [11, 12, 22].includes(Number(`${selected}`.split('|')[0]));
+  if (setting && selected && usb) {
     try {
       const r = await cmd('getAudioDevices');
       if (r.ok) {

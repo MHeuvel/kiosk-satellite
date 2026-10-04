@@ -42,6 +42,7 @@ import 'managers/settings/provisioning.dart';
 import 'managers/settings/settings_manager.dart';
 import 'managers/update/update_manager.dart';
 import 'managers/voice/voice_manager.dart';
+import 'managers/voice/voice_requests_manager.dart';
 import 'managers/voice_timers/voice_timer_manager.dart';
 import 'managers/wake_word/wake_word_manager.dart';
 
@@ -130,6 +131,7 @@ class AppContainer {
     fleetSync = FleetSyncManager(bus, commands, log, settings);
     intercom = IntercomManager(bus, commands, log, settings);
     alarms = AlarmManager(bus, commands, log, settings);
+    voiceRequests = VoiceRequestsManager(bus, commands, log, settings);
   }
 
   final bus = EventBus();
@@ -178,6 +180,7 @@ class AppContainer {
   late final FleetSyncManager fleetSync;
   late final IntercomManager intercom;
   late final AlarmManager alarms;
+  late final VoiceRequestsManager voiceRequests;
 
   /// Built after [device.init] so it can carry the app version.
   late final JsApiManager jsApi;
@@ -240,9 +243,11 @@ class AppContainer {
     // After fleet too: the roster is the switcher's list. After sound: it
     // chimes through it.
     intercom,
-    // Last: its first check can ring at once, and a ring reaches for the
+    // Its first check can ring at once, and a ring reaches for the
     // screen, the screensaver, the kiosk and the wake word's stop word.
     alarms,
+    // After intercom and alarms: it runs their commands.
+    voiceRequests,
   ];
 
   Future<void> init() async {

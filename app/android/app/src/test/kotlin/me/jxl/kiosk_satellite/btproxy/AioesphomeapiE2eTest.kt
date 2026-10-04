@@ -594,4 +594,100 @@ class AioesphomeapiE2eTest {
             server.stop()
         }
     }
+
+    private val eventScript = """
+        import asyncio, sys
+
+        async def main():
+            from aioesphomeapi import APIClient
+            port = int(sys.argv[1]); psk = sys.argv[2]
+            cli = APIClient("127.0.0.1", port, None, noise_psk=psk)
+            await cli.connect(login=True)
+            loop = asyncio.get_running_loop()
+            got = loop.create_future()
+
+            def on_call(call):
+                if not got.done():
+                    got.set_result(call)
+
+            # What Home Assistant's ESPHome integration subscribes with.
+            cli.subscribe_home_assistant_states_and_services(
+                on_state=lambda state: None,
+                on_service_call=on_call,
+                on_state_sub=lambda entity, attribute: None,
+            )
+            call = await asyncio.wait_for(got, 15)
+            assert call.is_event, call
+            assert call.service == "esphome.kiosk_satellite_timer", call.service
+            assert dict(call.data) == {"event_type": "finished", "name": "pizza"}, call.data
+            assert dict(call.data_template) == {
+                "total_seconds": "300", "is_active": "False",
+            }, call.data_template
+            print("EVENT_OK", flush=True)
+            await cli.disconnect()
+
+        asyncio.run(main())
+    """.trimIndent()
+
+    /** A timer event reaches Home Assistant's client as an esphome. event,
+     *  and only once it subscribed to actions (issue #765). */
+    @Test
+    fun realClientReceivesEvents() {
+        val python = System.getenv("KS_AIOESPHOME_PYTHON") ?: "python3"
+        val available = runCatching {
+            ProcessBuilder(python, "-c", "import aioesphomeapi")
+                .redirectErrorStream(true).start()
+                .let { it.waitFor(30, TimeUnit.SECONDS) && it.exitValue() == 0 }
+        }.getOrDefault(false)
+        assumeTrue("aioesphomeapi not available for $python; skipping", available)
+
+        val psk = ByteArray(32) { (it * 3 + 9).toByte() }
+        val identity = ProxyIdentity(
+            name = "kiosk-satellite-test",
+            friendlyName = "Test Kiosk",
+            macAddress = "02:11:22:33:44:55",
+            esphomeVersion = "2026.8.0",
+            model = "Test",
+            manufacturer = "KS",
+            projectName = "kiosk_satellite.bluetooth_proxy",
+            projectVersion = "1.0",
+        )
+        val backend = object : ScannerBackend {
+            override fun onScanDemand(mode: ScannerMode) {}
+            override fun onScanRelease() {}
+        }
+        val server = ApiServer(identity, "02:AA:BB:CC:DD:EE", 0, psk, backend, log = {})
+        server.start()
+        val fire = {
+            server.fireEvent(
+                "esphome.kiosk_satellite_timer",
+                mapOf("event_type" to "finished", "name" to "pizza"),
+                mapOf("total_seconds" to "300", "is_active" to "False"),
+            )
+        }
+        assertEquals(false, fire(), "an event with nobody subscribed")
+        try {
+            val scriptFile = File.createTempFile("btproxy_event_e2e", ".py").apply {
+                writeText(eventScript)
+                deleteOnExit()
+            }
+            val process = ProcessBuilder(
+                python, scriptFile.absolutePath,
+                server.boundPort.toString(),
+                Base64.getEncoder().encodeToString(psk),
+            ).redirectErrorStream(true).start()
+            // Fired once the client subscribes, as a timer would be.
+            val deadline = System.currentTimeMillis() + 15_000
+            while (process.isAlive && System.currentTimeMillis() < deadline && !fire()) {
+                Thread.sleep(50)
+            }
+            val finished = process.waitFor(60, TimeUnit.SECONDS)
+            val output = process.inputStream.bufferedReader().readText()
+            if (!finished) process.destroyForcibly()
+            assertEquals(0, if (finished) process.exitValue() else -1,
+                "aioesphomeapi event round trip failed:\n$output")
+        } finally {
+            server.stop()
+        }
+    }
 }

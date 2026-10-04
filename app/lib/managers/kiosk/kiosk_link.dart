@@ -72,6 +72,8 @@ Map<String, Object?>? kioskLinkAction(String url) {
       return arg == null ? const {'type': 'ha_kiosk'} : null;
     case 'android-settings':
       return arg == null ? const {'type': 'android_settings'} : null;
+    case 'alarms':
+      return arg == null ? const {'type': 'alarms'} : null;
   }
   return null;
 }

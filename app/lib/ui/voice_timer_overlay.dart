@@ -37,6 +37,7 @@ class _VoiceTimerOverlayState extends State<VoiceTimerOverlay> {
     _readScale();
     c.voiceTimers.timers.addListener(_changed);
     c.voiceTimers.alerts.addListener(_changed);
+    c.voiceTimers.alertHidden.addListener(_changed);
     c.voiceTimers.error.addListener(_error);
     _settings = c.bus.on<SettingChanged>().listen((e) {
       if (e.key == defs.voiceTimerPosition.key) {
@@ -90,6 +91,7 @@ class _VoiceTimerOverlayState extends State<VoiceTimerOverlay> {
   void dispose() {
     c.voiceTimers.timers.removeListener(_changed);
     c.voiceTimers.alerts.removeListener(_changed);
+    c.voiceTimers.alertHidden.removeListener(_changed);
     c.voiceTimers.error.removeListener(_error);
     _settings?.cancel();
     _tick?.cancel();
@@ -99,7 +101,7 @@ class _VoiceTimerOverlayState extends State<VoiceTimerOverlay> {
   @override
   Widget build(BuildContext context) {
     final timers = [
-      ...c.voiceTimers.alerts.value,
+      if (!c.voiceTimers.alertHidden.value) ...c.voiceTimers.alerts.value,
       ...c.voiceTimers.timers.value.where(
         (t) => !c.voiceTimers.alerts.value.any((a) => a.id == t.id),
       ),

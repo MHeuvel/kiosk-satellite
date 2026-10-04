@@ -13,6 +13,7 @@
   "deviceAdminAddressHelp": "Öffne diese Adresse in einem Browser auf deinem Computer.",
   "deviceByName": "Über Namen",
   "deviceByNameHelp": "Dieselbe Adresse über den Gerätenamen in Netzwerken, die .local-Namen auflösen.",
+  "deviceByCertificateNameHelp": "Dieselbe Adresse über den Namen aus ihrem Zertifikat.",
   "devicePasswordNeeded": "Lege unten ein Administrationspasswort fest, um den Server zu starten.",
   "deviceServerStopped": "Der Server wird nicht ausgeführt.",
   "devicePortError": "Der Port {port} konnte nicht geöffnet werden: {error}",

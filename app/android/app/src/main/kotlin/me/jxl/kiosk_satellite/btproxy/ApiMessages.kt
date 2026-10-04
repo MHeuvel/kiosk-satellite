@@ -69,6 +69,9 @@ internal object Msg {
     const val UPDATE_COMMAND_REQUEST = 118
     const val SUBSCRIBE_LOGS_REQUEST = 28
     const val SUBSCRIBE_HOMEASSISTANT_SERVICES_REQUEST = 34
+    /** An action or, with is_event, an event for Home Assistant to fire;
+     *  see ServiceCodec.event. */
+    const val HOMEASSISTANT_ACTION_REQUEST = 35
     const val GET_TIME_REQUEST = 36
     const val GET_TIME_RESPONSE = 37
     const val SUBSCRIBE_HOME_ASSISTANT_STATES_REQUEST = 38

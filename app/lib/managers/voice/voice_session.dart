@@ -968,7 +968,10 @@ class VoiceSession {
     }
     if (keep == 0) {
       _show(AssistView.hidden);
-    } else if (keep != null) {
+      return;
+    }
+    _show(_view.copyWith(lingering: true));
+    if (keep != null) {
       _linger = Timer(Duration(seconds: keep), () {
         if (ended == _gen) _show(AssistView.hidden);
       });

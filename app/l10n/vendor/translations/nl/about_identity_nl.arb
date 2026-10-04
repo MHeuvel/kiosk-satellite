@@ -1,0 +1,13 @@
+{
+  "@@locale": "nl",
+  "aboutApp": "App",
+  "aboutVersion": "Appversie",
+  "aboutBuild": "Build",
+  "aboutPackage": "Pakket-ID",
+  "aboutAttribution": "Naamsvermelding",
+  "aboutAuthor": "Auteur",
+  "aboutWebsite": "Website",
+  "aboutSourceCode": "Broncode",
+  "aboutLicense": "Licentie",
+  "aboutLicenseSummary": "Kiosk Satellite is gratis voor persoonlijk, niet-commercieel gebruik. De app valt onder de licentie CC BY-NC-ND 4.0: je mag de app gebruiken en delen, maar commercieel gebruik en de verspreiding van aangepaste builds zijn niet toegestaan. Voor onafhankelijke plug-ins geldt aanvullende toestemming volgens PLUGIN-EXCEPTION.md."
+}

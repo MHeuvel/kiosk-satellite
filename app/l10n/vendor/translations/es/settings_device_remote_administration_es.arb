@@ -13,6 +13,7 @@
   "deviceAdminAddressHelp": "Abre esta dirección en un navegador de tu computadora.",
   "deviceByName": "Por nombre",
   "deviceByNameHelp": "La misma dirección mediante el nombre del equipo, en redes que resuelven nombres .local.",
+  "deviceByCertificateNameHelp": "La misma dirección mediante el nombre de su certificado.",
   "devicePasswordNeeded": "Define una contraseña de administración abajo para iniciar el servidor.",
   "deviceServerStopped": "El servidor no está en ejecución.",
   "devicePortError": "No se pudo escuchar en el puerto {port}: {error}",

@@ -1,0 +1,16 @@
+{
+  "@@locale": "nl",
+  "esphomeLocation": "Locatie",
+  "esphomeLocationSearch": "De locatietoestemming die de locatiesensoren nodig hebben.",
+  "esphomeBluetoothSearch": "De toestemming voor apparaten in de buurt die de Bluetooth-proxy nodig heeft om te scannen.",
+  "esphomeLocationMissing": "Zonder dit kan de GPS-ontvanger niet worden gelezen en blijven de locatiesensoren onbekend.",
+  "esphomeLocationServicesOff": "Locatie is uitgeschakeld in de apparaatinstellingen, waardoor de ontvanger geen gegevens levert.",
+  "esphomeLocationGranted": "De locatiesensoren kunnen de GPS-ontvanger lezen.",
+  "esphomeBluetoothGranted": "De proxy kan naar Bluetooth-apparaten in de buurt scannen.",
+  "esphomeBluetoothMissing": "Zonder dit kan de proxy niet naar apparaten scannen.",
+  "esphomeBluetoothLocationMissing": "Android levert alleen Bluetooth-scanresultaten, waaronder bakens, wanneer locatietoegang is verleend. De proxy leest de locatie van het apparaat zelf nooit uit.",
+  "esphomeBluetoothLocationOff": "Locatie is uitgeschakeld in de apparaatinstellingen. Bluetooth-scans leveren daardoor geen resultaten op.",
+  "esphomeBluetoothBeacons": "Bluetooth-scans kunnen bakens detecteren.",
+  "esphomeSent": "Verzonden",
+  "esphomeNotsaved": "Niet opgeslagen"
+}

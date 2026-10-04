@@ -1,0 +1,15 @@
+{
+  "@@locale": "nl",
+  "intercomKiosks": "Kiosken",
+  "intercomRosterHelp": "Gevonden kiosken en opgeslagen vlootleden. Een kiosk is beschikbaar wanneer deze bereikbaar is, de intercom is ingeschakeld en de sleutel en versleutelingsinstellingen overeenkomen.",
+  "intercomNoOther": "Geen andere kiosken gevonden",
+  "intercomRosterDeviceHelp": "Kiosken waarop Beheer op afstand en Andere kiosken zoeken zijn ingeschakeld, verschijnen hier.",
+  "intercomNoneHeard": "Geen kiosken gevonden",
+  "intercomRosterRemoteHelp": "Kiosken verschijnen via netwerkdetectie of een opgeslagen vlootlidmaatschap. Beheer op afstand en Andere kiosken zoeken moeten zijn ingeschakeld.",
+  "intercomReady": "Beschikbaar",
+  "intercomOff": "Intercom uit",
+  "intercomDifferentKey": "Andere intercomsleutel",
+  "intercomUnreachable": "Onbereikbaar",
+  "intercomOffline": "Offline",
+  "intercomChecking": "Controleren…"
+}

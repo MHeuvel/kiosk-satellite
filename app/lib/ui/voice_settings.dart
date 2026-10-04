@@ -6,6 +6,8 @@ import '../app_container.dart';
 import '../core/events.dart';
 import '../l10n/messages.dart';
 import '../managers/settings/definitions.dart' as defs;
+import '../managers/voice/realtime/openai_realtime_backend.dart';
+import '../managers/voice/voice_manager.dart';
 import 'assist/assist_skins.dart';
 import 'kit.dart';
 import 'theme.dart';
@@ -240,7 +242,8 @@ const _reloadHint =
     'Restarting Home Assistant also works.';
 
 /// One of Home Assistant's selects on the kiosk's device (the Assistant
-/// and Wake word pickers), as a dropdown row that writes it live.
+/// and Wake word pickers), as a dropdown row that writes it live. The
+/// Assistant selects also offer the validated realtime provider.
 class VoiceHaSelects extends StatefulWidget {
   const VoiceHaSelects({
     super.key,
@@ -260,11 +263,16 @@ class VoiceHaSelects extends StatefulWidget {
 class _VoiceHaSelectsState extends State<VoiceHaSelects> {
   Map<String, Object?>? _data;
   Timer? _poll;
+  StreamSubscription<RemoteStatusChanged>? _optionsSub;
 
   @override
   void initState() {
     super.initState();
     unawaited(_load());
+    // Home Assistant has new choices, a custom model added or deleted.
+    _optionsSub = widget.container.bus.on<RemoteStatusChanged>().listen((e) {
+      if (e.topic == 'voice-selects' && mounted) unawaited(_load());
+    });
     // Home Assistant, a voice command or the remote admin can change them.
     _poll = Timer.periodic(const Duration(seconds: 10), (_) {
       if (mounted && ModalRoute.of(context)?.isCurrent != false) {
@@ -276,6 +284,7 @@ class _VoiceHaSelectsState extends State<VoiceHaSelects> {
   @override
   void dispose() {
     _poll?.cancel();
+    _optionsSub?.cancel();
     super.dispose();
   }
 
@@ -299,9 +308,28 @@ class _VoiceHaSelectsState extends State<VoiceHaSelects> {
     return option;
   }
 
+  /// The realtime choice as voiceHaSelects reports it.
+  Map<String, Object?> get _realtime =>
+      (_data?['realtime'] as Map?)?.cast<String, Object?>() ?? const {};
+
   Future<void> _set(String key, String option) async {
-    final entity = (_data?[key] as Map?)?.cast<String, Object?>();
-    if (entity != null) setState(() => entity['state'] = option);
+    final realtime = _realtime;
+    final provider = [
+      for (final o in (realtime['options'] as List? ?? const []))
+        if (o is Map && o['value'] == option) option,
+    ].firstOrNull;
+    setState(() {
+      if (realtime.containsKey(key)) {
+        _data = {
+          ...?_data,
+          'realtime': {...realtime, key: provider},
+        };
+      }
+      if (provider == null) {
+        final entity = (_data?[key] as Map?)?.cast<String, Object?>();
+        if (entity != null) entity['state'] = option;
+      }
+    });
     await widget.container.commands.execute('voiceSelectOption', {
       'key': key,
       'option': option,
@@ -352,16 +380,289 @@ class _VoiceHaSelectsState extends State<VoiceHaSelects> {
       );
     }
     final state = '${entity['state'] ?? ''}';
+    // An Assistant select also offers every realtime provider whose
+    // connection is validated.
+    final realtime = _realtime;
+    final offers = realtime.containsKey(key)
+        ? [
+            for (final o in (realtime['options'] as List? ?? const []))
+              if (o is Map) ('${o['value']}', '${o['provider']}'),
+          ]
+        : const <(String, String)>[];
+    final picked = realtime[key];
+    final current = picked is String && offers.any((o) => o.$1 == picked)
+        ? picked
+        : state;
     return DropdownRow<String>(
       title: voiceText(context, title),
       description: voiceText(context, description),
-      value: options.contains(state) ? state : null,
-      options: [for (final o in options) (o, _label(key, o))],
+      value: options.contains(current) || offers.any((o) => o.$1 == current)
+          ? current
+          : null,
+      options: [
+        for (final o in options) (o, _label(key, o)),
+        for (final (value, provider) in offers)
+          (value, l10n(context).voiceRealtimeOption(provider)),
+      ],
       onChanged: (v) {
-        if (v != null && v != state) unawaited(_set(key, v));
+        if (v != null && v != current) unawaited(_set(key, v));
       },
     );
   }
+}
+
+/// A realtime provider's row in the Providers group: its status under its
+/// name and Configure, which opens its settings. Mirrored on the remote
+/// (realtimeProviderRow in vs_native.js).
+class RealtimeProviderRow extends StatelessWidget {
+  const RealtimeProviderRow({
+    super.key,
+    required this.container,
+    required this.provider,
+    required this.onChanged,
+  });
+
+  final AppContainer container;
+  final RealtimeProvider provider;
+  final VoidCallback onChanged;
+
+  @override
+  Widget build(BuildContext context) => ValueListenableBuilder<int>(
+    valueListenable: container.voice.realtimeStatusRevision,
+    builder: (context, _, _) {
+      final status = container.voice.realtimeStatus(provider);
+      final messages = l10n(context);
+      return SettingsRow(
+        title: Text(VoiceManager.providerName(provider)),
+        subtitle: Text(switch (status.status) {
+          RealtimeStatus.unconfigured => voiceText(context, 'Not configured'),
+          RealtimeStatus.unvalidated => voiceText(context, 'Not validated'),
+          RealtimeStatus.validated => voiceText(
+            context,
+            'Connection validated',
+          ),
+          RealtimeStatus.failed when status.tools =>
+            messages.voiceRealtimeToolsUnavailable(
+              voiceText(context, status.error),
+            ),
+          RealtimeStatus.failed => messages.voiceRealtimeConnectFailed(
+            status.error,
+          ),
+        }),
+        trailing: OutlinedButton(
+          onPressed: () async {
+            final saved = await showRealtimeProviderDialog(
+              context,
+              container,
+              provider,
+            );
+            if (saved) onChanged();
+          },
+          child: Text(voiceText(context, 'Configure')),
+        ),
+      );
+    },
+  );
+}
+
+/// A provider's settings in a dialog. Save & Validate connects with them
+/// first: a connection the provider takes saves them and closes, a refused
+/// one shows why and keeps the dialog and the stored settings as they
+/// were. Answers true when it saved.
+Future<bool> showRealtimeProviderDialog(
+  BuildContext context,
+  AppContainer container,
+  RealtimeProvider provider,
+) async {
+  final settings = container.settings;
+  // OpenAI's and Gemini's lists end with Reasoning effort, which xAI has
+  // no say in. Gemini's switches follow.
+  final [keyDef, modelDef, voiceDef, endpointDef, ...more] =
+      defs.realtimeProviderSettings[provider.id]!;
+  final reasoningDef = more.firstOrNull;
+  final switchDefs = defs.realtimeProviderSwitches[provider.id] ?? const [];
+  final switches = {for (final def in switchDefs) def: settings.get(def)};
+  // A switch's name in voiceRealtimeSave: its key after the provider's.
+  String param(defs.SettingDef<bool> def) =>
+      def.key.substring('voice.realtime_${provider.id}_'.length);
+  final apiKey = TextEditingController(text: settings.get(keyDef));
+  final endpoint = TextEditingController(text: settings.get(endpointDef));
+  var model = settings.get(modelDef);
+  var voice = settings.get(voiceDef);
+  var reasoning = reasoningDef == null ? '' : settings.get(reasoningDef);
+  var saving = false;
+  String? error;
+
+  Widget picker(
+    BuildContext ctx,
+    defs.SettingDef<String> def,
+    String value,
+    ValueChanged<String> onChanged,
+  ) {
+    final options = [
+      ...settings.optionsFor(def),
+      if (!settings.optionsFor(def).contains(value)) value,
+    ];
+    String label(String option) => def.localizedOption(
+      ctx,
+      option,
+      settings.optionLabel(def, option) ?? option,
+    );
+    return LabeledField(
+      label: def.localizedTitle(ctx),
+      helper: def.localizedDescription(ctx),
+      child: DropdownButtonFormField<String>(
+        initialValue: value,
+        isExpanded: true,
+        decoration: const InputDecoration(),
+        items: [
+          for (final option in options)
+            DropdownMenuItem(value: option, child: Text(label(option))),
+        ],
+        onChanged: saving ? null : (v) => onChanged(v ?? ''),
+      ),
+    );
+  }
+
+  final route = DialogRoute<bool>(
+    context: context,
+    barrierDismissible: false,
+    builder: (ctx) => StatefulBuilder(
+      builder: (ctx, setDialogState) {
+        final scheme = Theme.of(ctx).colorScheme;
+        Future<void> save() async {
+          setDialogState(() {
+            saving = true;
+            error = null;
+          });
+          final result = await container.commands.execute('voiceRealtimeSave', {
+            'provider': provider.id,
+            'apiKey': apiKey.text,
+            'endpoint': endpoint.text,
+            'model': model,
+            'voice': voice,
+            'reasoning': reasoning,
+            for (final MapEntry(:key, :value) in switches.entries)
+              param(key): value,
+          });
+          if (!ctx.mounted) return;
+          final data = result.data is Map
+              ? (result.data as Map).cast<String, Object?>()
+              : const <String, Object?>{};
+          if (result.ok && data['connected'] == true) {
+            Navigator.pop(ctx, true);
+            return;
+          }
+          setDialogState(() {
+            saving = false;
+            error = l10n(ctx).voiceRealtimeConnectFailed(
+              '${data['error'] ?? result.error ?? ''}',
+            );
+          });
+        }
+
+        return AlertDialog(
+          title: Text(VoiceManager.providerName(provider)),
+          content: SizedBox(
+            width: 480,
+            child: EdgeFade(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  spacing: 16,
+                  children: [
+                    LabeledField(
+                      label: keyDef.localizedTitle(ctx),
+                      helper: keyDef.localizedDescription(ctx),
+                      child: TextField(
+                        controller: apiKey,
+                        enabled: !saving,
+                        obscureText: true,
+                        autocorrect: false,
+                        enableSuggestions: false,
+                        decoration: const InputDecoration(),
+                      ),
+                    ),
+                    picker(
+                      ctx,
+                      modelDef,
+                      model,
+                      (v) => setDialogState(() => model = v),
+                    ),
+                    picker(
+                      ctx,
+                      voiceDef,
+                      voice,
+                      (v) => setDialogState(() => voice = v),
+                    ),
+                    if (reasoningDef != null)
+                      picker(
+                        ctx,
+                        reasoningDef,
+                        reasoning,
+                        (v) => setDialogState(() => reasoning = v),
+                      ),
+                    for (final def in switchDefs)
+                      SwitchListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text(def.localizedTitle(ctx)),
+                        subtitle: Text(def.localizedDescription(ctx)),
+                        value: switches[def]!,
+                        onChanged: saving
+                            ? null
+                            : (v) => setDialogState(() => switches[def] = v),
+                      ),
+                    LabeledField(
+                      label: endpointDef.localizedTitle(ctx),
+                      helper: endpointDef.localizedDescription(ctx),
+                      child: TextField(
+                        controller: endpoint,
+                        enabled: !saving,
+                        keyboardType: TextInputType.url,
+                        autocorrect: false,
+                        decoration: InputDecoration(
+                          hintText: endpointDef.localizedPlaceholder(ctx),
+                        ),
+                      ),
+                    ),
+                    if (error != null)
+                      Text(
+                        error!,
+                        style: Theme.of(
+                          ctx,
+                        ).textTheme.bodyMedium?.copyWith(color: scheme.error),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: saving ? null : () => Navigator.pop(ctx, false),
+              child: Text(voiceText(ctx, 'Cancel')),
+            ),
+            FilledButton(
+              onPressed: saving ? null : save,
+              child: saving
+                  ? const SizedBox(
+                      width: 18,
+                      height: 18,
+                      child: CircularProgressIndicator(strokeWidth: 2.2),
+                    )
+                  : Text(voiceText(ctx, 'Save & Validate')),
+            ),
+          ],
+        );
+      },
+    ),
+  );
+  final saved = await Navigator.of(context, rootNavigator: true).push(route);
+  await route.completed;
+  apiKey.dispose();
+  endpoint.dispose();
+  return saved ?? false;
 }
 
 /// The Skin row: the current skin's name, opening the picker.

@@ -372,7 +372,7 @@ void main() {
       expect(settings.get(defs.screensaverMode), 'black');
       final denied = matching(client.messages, (m) => m['id'] == 4);
       client.socket.add(
-        jsonEncode({'type': 'command', 'id': 4, 'name': 'fleetAccept'}),
+        jsonEncode({'type': 'command', 'id': 4, 'name': 'intercomAnswer'}),
       );
       expect((await denied)['ok'], false);
     },

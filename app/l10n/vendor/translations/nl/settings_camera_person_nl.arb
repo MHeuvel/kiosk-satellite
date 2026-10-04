@@ -1,0 +1,7 @@
+{
+  "@@locale": "nl",
+  "settingPersonSensorTitle": "Persoonssensor inschakelen",
+  "settingPersonSensorDescription": "Stel de persoonssensor van het apparaat beschikbaar aan Home Assistant als aanwezigheidssensor. Hiervoor is de onderstaande toestemming voor logtoegang vereist.",
+  "cameraPersonPage": "Persoonssensor",
+  "cameraPersonHint": "Aanwezigheidssensor in Home Assistant op basis van de persoonssensor van het apparaat"
+}

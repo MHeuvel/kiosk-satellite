@@ -187,13 +187,20 @@ class CameraRtspServer(
     }
 
     private fun digestUriMatches(digestUri: String, method: String, uri: String): Boolean {
-        if (digestUri == uri) return true
+        if (sameResource(digestUri, uri)) return true
         // LIVE555 signs SETUP with the presentation URL instead of the track URL.
         // Accept only the same camera base so other resources cannot share a digest.
         if (method != "SETUP" || !(uri.endsWith("/camera/trackID=0") ||
                 (audioEnabled && uri.endsWith("/camera/trackID=1")))) return false
         val base = uri.substringBeforeLast('/')
-        return digestUri == base || digestUri == "$base/"
+        return sameResource(digestUri, base) || sameResource(digestUri, "$base/")
+    }
+
+    // SecuritySpy signs with the request path instead of the absolute URL.
+    private fun sameResource(digestUri: String, url: String): Boolean {
+        if (digestUri == url) return true
+        val path = try { java.net.URI(url).rawPath } catch (_: Exception) { null }
+        return !path.isNullOrEmpty() && digestUri == path
     }
 
     private fun md5(text: String) = MessageDigest.getInstance("MD5").digest(text.toByteArray())

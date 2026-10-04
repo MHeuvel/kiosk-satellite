@@ -80,6 +80,11 @@ class HomeAssistantManager extends Manager {
 
   /// Validate the connection and remember the verdict for the UIs.
   Future<String?> validateConnection() async {
+    // Only this check's own handshake counts. The flag is process-wide, so
+    // a certificate refused earlier in the run (an older HA URL behind a
+    // private CA) would otherwise flip the setting back on with every
+    // validation of a host that verifies fine (issue #776).
+    HaHttpOverrides.sawSelfSigned = false;
     final error = await checkConnection();
     connectionOk.value = error == null;
     // The API side tolerates the self-signed certificate by policy (see

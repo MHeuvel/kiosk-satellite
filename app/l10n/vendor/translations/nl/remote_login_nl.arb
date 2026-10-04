@@ -1,0 +1,6 @@
+{
+  "@@locale": "nl",
+  "remoteLogin": "Aanmelden",
+  "remoteInvalidPassword": "Ongeldig wachtwoord",
+  "remoteLoginThrottled": "Te veel pogingen. Wacht 5 minuten en probeer het opnieuw."
+}

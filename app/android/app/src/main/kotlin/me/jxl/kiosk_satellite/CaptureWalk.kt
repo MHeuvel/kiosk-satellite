@@ -29,7 +29,32 @@ internal class CaptureWalk(private val rungs: Int, start: Int) {
 
         const val BACKOFF_FIRST_NS = 60_000_000_000L
         const val BACKOFF_MAX_NS = 600_000_000_000L
+
+        /**
+         * Bounds on the delivered rate against the rate opened, wide enough
+         * that no healthy device trips them (see [rateVerdict]).
+         */
+        const val RATE_RATIO_MIN = 0.6
+        const val RATE_RATIO_MAX = 1.6
+
+        /**
+         * What a delivered-rate measurement says about the format, given
+         * [ratio] (frames delivered against the rate opened) and whether
+         * the device [played] a sound during the window. Too many frames
+         * is a format lie whatever plays. Too few is one only in a window
+         * without a sound: some HALs starve the capture while the device
+         * plays (an MT8167 panel read 6% of the rate under an answer),
+         * which says nothing about the format, so that window is measured
+         * again.
+         */
+        fun rateVerdict(ratio: Double, played: Boolean): RateVerdict = when {
+            ratio > RATE_RATIO_MAX -> RateVerdict.LIE
+            ratio < RATE_RATIO_MIN -> if (played) RateVerdict.MEASURE_AGAIN else RateVerdict.LIE
+            else -> RateVerdict.HONEST
+        }
     }
+
+    enum class RateVerdict { HONEST, LIE, MEASURE_AGAIN }
 
     /** The rung capture is open at. */
     var step = start

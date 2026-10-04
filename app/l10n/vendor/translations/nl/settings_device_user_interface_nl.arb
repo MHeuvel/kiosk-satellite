@@ -1,0 +1,13 @@
+{
+  "@@locale": "nl",
+  "settingUiLanguageTitle": "Taal",
+  "settingUiLanguageDescription": "Taal voor Kiosk Satellite en beheer op afstand. Home Assistant gebruikt een eigen taalinstelling.",
+  "settingUiThemeTitle": "App-thema",
+  "settingUiThemeDescription": "Licht of donker voor de eigen schermen van de app, zoals het menu, de instellingen en dialoogvensters. Systeem volgt de Android-instelling.",
+  "settingUiScaleTitle": "UI schalen",
+  "settingUiScaleDescription": "Grootte van de eigen schermen van de app, zoals het menu, de instellingen en dialoogvensters. Bedoeld voor beeldschermen met een hoge pixeldichtheid. Webinhoud behoudt dezelfde grootte.",
+  "deviceUserInterface": "Gebruikersinterface",
+  "deviceThemeDark": "Donker",
+  "deviceThemeLight": "Licht",
+  "deviceThemeSystem": "Systeem"
+}

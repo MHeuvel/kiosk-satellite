@@ -6,6 +6,7 @@
         <item>de</item>
         <item>es</item>
         <item>fr</item>
+        <item>nl</item>
         <item>uk</item>
     </string-array>
     <string name="ks_service_title" formatted="false">"Kiosk Satellite Service"</string>

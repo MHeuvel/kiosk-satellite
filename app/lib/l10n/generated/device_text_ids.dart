@@ -64,6 +64,7 @@ const deviceTextMessageIds = <String, String>{
   "Open this address in a browser on your computer.": "deviceAdminAddressHelp",
   "By name": "deviceByName",
   "The same address by hostname, on networks that resolve .local names.": "deviceByNameHelp",
+  "The same address by the name on its certificate.": "deviceByCertificateNameHelp",
   "Kiosk Satellite Analytics": "deviceAnalyticsPage",
   "Share anonymized information from your installation to help make Kiosk Satellite better and guide which devices and features get attention.": "deviceAnalyticsIntro",
   "Learn how we process your data": "deviceAnalyticsLearn",

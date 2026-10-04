@@ -1,0 +1,10 @@
+{
+  "@@locale": "nl",
+  "settingAudioMicDeviceTitle": "Microfoon",
+  "settingAudioMicDeviceDescription": "De microfoon waarmee wekwoorddetectie en spraakinteracties audio opnemen.",
+  "settingAudioSpeakerDeviceTitle": "Luidspreker",
+  "settingAudioSpeakerDeviceDescription": "Uitvoerapparaat voor Voice Satellite-geluiden. Mediaweergave volgt het audioapparaat van het systeem.",
+  "screenAudioDevices": "Audioapparaten",
+  "screenAudioSelectedDevice": "Geselecteerd apparaat",
+  "screenAudioDisconnected": "{name} (niet verbonden)"
+}

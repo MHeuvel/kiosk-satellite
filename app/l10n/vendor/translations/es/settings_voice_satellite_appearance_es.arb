@@ -25,5 +25,10 @@
   "settingVoiceReactiveBarTitle": "Barra de actividad reactiva",
   "settingVoiceReactiveBarDescription": "La barra sigue tu voz y la respuesta.",
   "voicePreviewCommand": "¿Qué tiempo hace?",
-  "voicePreviewAnswer": "Ahora mismo está soleado y hace 22°, con una brisa ligera."
+  "voicePreviewAnswer": "Ahora mismo está soleado y hace 22°, con una brisa ligera.",
+  "settingVoiceOverlayModeTitle": "Modo del overlay",
+  "settingVoiceOverlayModeDescription": "Acoplado muestra una pequeña burbuja sobre el panel de control. No muestra resultados enriquecidos como imágenes, el tiempo o videos.",
+  "voiceOverlayFullScreen": "Pantalla completa",
+  "voiceOverlayDocked": "Acoplado",
+  "voiceListeningEllipsis": "Escuchando…"
 }

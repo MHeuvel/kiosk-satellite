@@ -15,5 +15,7 @@
   "kioskUnknownLink": "Unbekannter Kiosk-Link",
   "kioskOpenAppFailed": "Die App konnte nicht geöffnet werden",
   "kioskWebViewMissing": "Android System WebView ist nicht installiert",
-  "kioskWebViewMissingHelp": "Auf diesem Gerät ist kein WebView-Anbieter installiert, daher kann Home Assistant nicht angezeigt werden. Installiere Android System WebView oder Chrome und starte Kiosk Satellite neu."
+  "kioskWebViewMissingHelp": "Auf diesem Gerät ist kein WebView-Anbieter installiert, daher kann Home Assistant nicht angezeigt werden. Installiere Android System WebView oder Chrome und starte Kiosk Satellite neu.",
+  "kioskDuraSpeedBlocking": "DuraSpeed blockiert das Dashboard",
+  "kioskDuraSpeedBlockingHelp": "DuraSpeed auf diesem Tablet verhindert den Start des Dashboard-Renderers, und manche Tablets bieten dafür keine Einstellungsseite. Schalte es einmalig per adb aus und starte Kiosk Satellite dann neu:"
 }

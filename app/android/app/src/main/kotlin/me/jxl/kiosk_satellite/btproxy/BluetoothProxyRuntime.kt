@@ -29,6 +29,8 @@ internal object BluetoothProxyRuntime {
         val minConnectRssi: Int = 0,
         /** The scan duty cycle, by the setting's key (see [ScanDuty]). */
         val scanDuty: String = ScanDuty.BALANCED.key,
+        /** Use the filter list that keeps scanning with the screen off. */
+        val screenOffScan: Boolean = false,
         /** The ESPHome node name to answer as: the mDNS instance, the
          *  <name>.local host, and what Home Assistant builds this
          *  device's action names from. Empty keeps the generated
@@ -111,6 +113,7 @@ internal object BluetoothProxyRuntime {
                 },
                 onLog = { line -> log("scan: $line") },
                 scanDuty = ScanDuty.fromKey(config.scanDuty),
+                screenOffScan = config.screenOffScan,
             )
         } else {
             null
@@ -249,9 +252,20 @@ internal object BluetoothProxyRuntime {
     fun sendAnnounceFinished(success: Boolean): Boolean =
         server?.sendAnnounceFinished(success) == true
 
+    fun fireEvent(
+        name: String,
+        data: Map<String, String>,
+        typed: Map<String, String>,
+    ): Boolean = server?.fireEvent(name, data, typed) == true
+
     /** A new scan duty cycle for the running scanner; nothing without one. */
     fun setScanDuty(key: String?) {
         engine?.setScanDuty(ScanDuty.fromKey(key))
+    }
+
+    /** Switch the screen-off filter list. Does nothing without a scanner. */
+    fun setScreenOffScan(enabled: Boolean) {
+        engine?.setScreenOffScan(enabled)
     }
 
     /** Push one entity's new value; ignored while stopped or unknown ids. */

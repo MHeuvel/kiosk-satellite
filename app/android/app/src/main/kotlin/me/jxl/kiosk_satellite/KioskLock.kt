@@ -115,6 +115,14 @@ class KioskLock(private val activity: Activity, messenger: BinaryMessenger) {
      */
     @Volatile private var volumeToPlayer = false
 
+    /**
+     * The key code that hangs up the intercom call, 0 for none. Pushed
+     * from Dart only while a call is placed or live, so the button keeps
+     * its usual job the rest of the time. Checked ahead of the volume
+     * routing: during a call the hang up wins.
+     */
+    @Volatile private var hangupKey = 0
+
     /** With the home role held, screen pinning is skipped on non-owner
      *  devices (HOME already lands on the kiosk, and the consent dialog
      *  is the one thing pinning still buys there); the home.keep_pinning
@@ -190,6 +198,10 @@ class KioskLock(private val activity: Activity, messenger: BinaryMessenger) {
                 }
                 "volumeKeys" -> {
                     volumeToPlayer = call.arguments as? Boolean ?: false
+                    result.success(null)
+                }
+                "hangupKey" -> {
+                    hangupKey = (call.arguments as? Number)?.toInt() ?: 0
                     result.success(null)
                 }
                 "navCapture" -> {
@@ -288,6 +300,14 @@ class KioskLock(private val activity: Activity, messenger: BinaryMessenger) {
 
     /** Forwarded from MainActivity.dispatchKeyEvent. True = consumed. */
     fun onKey(event: KeyEvent): Boolean {
+        if (hangupKey != 0 && event.keyCode == hangupKey) {
+            // The whole press is swallowed and fires once, however long
+            // the button is held.
+            if (event.action == KeyEvent.ACTION_DOWN && event.repeatCount == 0) {
+                main.post { channel.invokeMethod("hangupKey", null) }
+            }
+            return true
+        }
         when (event.keyCode) {
             KeyEvent.KEYCODE_VOLUME_UP,
             KeyEvent.KEYCODE_VOLUME_DOWN,

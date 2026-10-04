@@ -11,7 +11,7 @@ Once a kiosk joins, its membership survives missing mDNS advertisements. The lea
 | Role | How to Assign | Limitations |
 | --- | --- | --- |
 | Leader | Select **Lead this fleet** on the Fleet Management page. | Cannot follow another kiosk. |
-| Follower | Accept a leader's invitation directly on the screen. | Limited to one leader; cannot lead. |
+| Follower | Accept a leader's invitation on the kiosk screen or in its remote admin. | Limited to one leader; cannot lead. |
 | Standalone | The default state. | None. |
 
 It is perfectly fine to have multiple fleets on a single network. A kiosk that needs to share a different set of settings can simply lead its own distinct fleet.
@@ -20,12 +20,12 @@ It is perfectly fine to have multiple fleets on a single network. A kiosk that n
 
 1. On the leader device, tap **Add a kiosk** to view discovered devices. If the kiosk is not discovered, choose **Add by IP**, enter its IP address and remote admin port (2324 by default) then tap **Find kiosk**. This option is also available in remote administration and works without mDNS advertisements. The leader verifies the kiosk before you continue. Kiosks already following another leader must leave that fleet first. A kiosk on a different version can join but settings sync waits until its version matches.
 2. Select a kiosk, assign it a profile, and tap **Send invitation**.
-3. The invitation will overlay on the target kiosk's screen, staying under its Settings, Fleet Management until answered. You must tap **Accept** directly on that device. (While the remote admin shows the invite, it cannot accept it. No passwords are required.)
+3. The invitation will overlay on the target kiosk's screen, staying under its Settings, Fleet Management until answered. Tap **Accept** on that device, or in its remote admin under Overview, Needs attention or on its Fleet Management page. No passwords are required.
 4. The leader's dashboard will display **Waiting for its OK** until accepted, after which it syncs immediately.
 
 Accepting an invitation grants the leader a token valid only for fleet endpoints, which is honored as long as the kiosk remains in the fleet. Tapping **Leave the fleet** forgets the leader and revokes the token.
 
-To keep each follower's settings, choose the **Updates only** profile before sending its invitation. Entering an IP address does not bypass the on-device acceptance step or make an unreachable address accessible. Both kiosks must be able to reach each other's remote admin ports. IPv4 and IPv6 addresses are supported.
+To keep each follower's settings, choose the **Updates only** profile before sending its invitation. Entering an IP address does not skip the follower's acceptance step or make an unreachable address accessible. Both kiosks must be able to reach each other's remote admin ports. IPv4 and IPv6 addresses are supported.
 
 ## Profiles
 
@@ -47,7 +47,12 @@ A profile consists of:
 | Home Assistant token | Off | Kiosk keeps its own (stays as its local user). | Token syncs across fleet. |
 | Music Assistant token | On | Kiosk keeps its own. | Token syncs across fleet. |
 | Immich API key | On | Kiosk keeps its own. | Token syncs across fleet. |
+| OpenAI API key | Off | Kiosk keeps its own. | Key syncs across fleet, and each follower validates it on its own. |
+| xAI API key | Off | Kiosk keeps its own. | Key syncs across fleet, and each follower validates it on its own. |
+| MCP server token | Off | Kiosk keeps its own. | Token syncs across fleet. |
 | Include the dashboard | Off | Kiosk keeps its local start page and dashboard. | Start page and dashboard sync. |
+
+The realtime keys are off by default because each provider bills per use. A profile saved before they became credentials keeps them on where it syncs Voice Satellite, as they were before. When a follower receives a realtime key or endpoint, it runs the same connection test as **Save & Validate**. The provider becomes a choice for its wake words once that passes, and the provider's row shows the error if it fails.
 
 ### Excluded by Default
 
@@ -110,15 +115,15 @@ Certain settings remain unique to each kiosk regardless of the profile configura
 | Shizuku | `shizuku.install_updates` |
 | Interface language | `ui.language` |
 | Remote admin & fleet | `remote.enabled`, `remote.port`, `remote.tls`, `remote.password`, `remote.fleet_discovery`, `fleet.*` |
-| Intercom encryption | `intercom.tls` |
+| Intercom encryption and hang up button | `intercom.tls`, `intercom.hangup_key` |
 | Alarms | `alarms.list`, `alarms.runtime` |
-| Hardware picks | `camera.device`, `camera.rtsp.tls`, `camera.rtsp.resolution`, `camera.rtsp.analysis`, `motion.camera`, `audio.mic_device`, `audio.speaker_device`, `audio.mic_channel`, `audio.mic_source`, `audio.mic_echo_cancellation`, `audio.mic_gain_db`, `audio.mic_agc`, `audio.mic_noise_suppression`, `audio.mic_capture_format`, `render.disable_impeller`, `render.legacy_webview`, `ui.scale`, `screen.ambient_display` |
+| Hardware picks | `camera.device`, `camera.rtsp.tls`, `camera.rtsp.resolution`, `camera.rtsp.analysis`, `motion.camera`, `audio.mic_device`, `audio.speaker_device`, `audio.mic_channel`, `audio.mic_capture_mode`, `audio.software_echo_cancellation`, `audio.mic_noise_suppression`, `audio.mic_gain_db`, `audio.mic_capture_format`, `render.disable_impeller`, `render.legacy_webview`, `ui.scale`, `screen.ambient_display` |
 | Followed player | `sendspin.player`, `sendspin.player_source`, `sendspin.player_name` |
 | Weather preview | `screensaver.weather_preview`, `screensaver.weather_preview_condition`, `screensaver.weather_preview_period` |
 | Voice Satellite chimes | `voice_chimes.wake`, `voice_chimes.done`, `voice_chimes.error`, `voice_chimes.alert`, `voice_chimes.announce` |
 | Diagnostics | `wake_word.diagnostics` |
 | Wake words this kiosk listens for | `voice.wake_words`, `voice.pending_selects` |
-| Local state | `voice.runtime`, `voice.timer_position`, `screensaver.saved_brightness`, `screensaver.immich_validated`, `sendspin.player_active`, `sendspin.player_pos`, `sendspin.sonos_hosts` |
+| Local state | `voice.runtime`, `voice.timer_position`, `voice.dock_position`, `voice.realtime_openai_validated`, `voice.realtime_xai_validated`, `voice.realtime_gemini_validated`, `screensaver.saved_brightness`, `screensaver.immich_validated`, `sendspin.player_active`, `sendspin.player_pos`, `sendspin.sonos_hosts` |
 
 Plugin Manager stays entirely local. Runtime chart data, history and plugin entity declarations and readings are never synchronized. Plugin entity exclusions stay local even when ordinary ESPHome exclusions are synced. Fleet sync does not copy installed plugins, packages, plugin settings, per-plugin enabled states, drawer or Home Assistant action placements or the **Enable Plugins** master switch. A fleet token cannot call plugin management commands.
 
@@ -149,7 +154,7 @@ The status response includes `rosterRevision` on releases that support the direc
 
 For manual invitations, call `fleetLookup` with `{address, port}` to verify the target. It returns the kiosk identity and normalized endpoint without saving a member. Pass its `id`, `address` and `port` to `fleetInvite` with the chosen `profile`. The leader verifies the identity again before sending the invitation. Omitting `address` keeps the discovered or saved address path.
 
-A fleet token also grants access to `getUpdateStatus`, `checkUpdateNow`, `installUpdate` and `installUploadedApk` under `/api/commands/`, to `POST /api/update/upload` and to `GET /api/config/export` for the fleet export, but nothing else. Both pages utilize commands like: `fleetStatus`, `fleetCandidates`, `fleetInvite`, `fleetSetProfile`, `fleetDeleteProfile`, `fleetAssignProfile`, `fleetSyncable`, `fleetRemove`, `fleetSyncNow`, `fleetUpdate`, `fleetInstallUploaded`, `fleetExport`, and `fleetLeave`. Note that `fleetAccept` and `fleetDecline` are rejected if sent over the remote API. The WebSocket broadcast includes a `fleetsync` event upon any change.
+A fleet token also grants access to `getUpdateStatus`, `checkUpdateNow`, `installUpdate` and `installUploadedApk` under `/api/commands/`, to `POST /api/update/upload` and to `GET /api/config/export` for the fleet export, but nothing else. Both pages utilize commands like: `fleetStatus`, `fleetCandidates`, `fleetInvite`, `fleetSetProfile`, `fleetDeleteProfile`, `fleetAssignProfile`, `fleetSyncable`, `fleetRemove`, `fleetSyncNow`, `fleetUpdate`, `fleetInstallUploaded`, `fleetExport`, `fleetAccept`, `fleetDecline` and `fleetLeave`. A fleet token cannot run `fleetAccept` or `fleetDecline`, only an admin session can. The WebSocket broadcast includes a `fleetsync` event upon any change.
 
 ## Encrypted kiosk connections
 

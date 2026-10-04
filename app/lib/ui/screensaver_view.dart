@@ -59,6 +59,7 @@ import 'glance_row.dart';
 import 'sendspin_player_overlay.dart' show SendspinFullscreenView;
 import 'ui_scale.dart' show UiScaleExempt;
 import 'video_surface.dart';
+import 'webview_server_trust.dart';
 
 export 'photo_frames.dart' show photoCovers;
 
@@ -146,6 +147,7 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
       defs.screensaverGlanceScale.key,
       defs.screensaverGlanceFont.key,
       defs.screensaverGlanceFontWeight.key,
+      defs.screensaverClockNightHideWidgets.key,
       // The Now Playing transport, read at build by the full-screen view.
       defs.sendspinFullscreenControls.key,
       defs.sendspinFullscreenSplit.key,
@@ -203,6 +205,14 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
       threshold: s.get(defs.screensaverClockNightLux).toDouble(),
     );
   }
+
+  /// Whether Night mode clears the corner widgets off the Clock
+  /// screensaver (issue #784). The face drops its own At a Glance row on
+  /// the same switch.
+  bool _widgetsNightHidden(String view) =>
+      view == 'clock' &&
+      _night &&
+      container.settings.get(defs.screensaverClockNightHideWidgets);
 
   /// The color Night mode imposes on the corner widgets over the Clock
   /// screensaver, or null: on any other view the widgets keep their own,
@@ -409,7 +419,8 @@ class _ScreensaverOverlayState extends State<ScreensaverOverlay> {
                             child: Stack(
                               fit: StackFit.expand,
                               children: [
-                                if (scheduled ?? true)
+                                if ((scheduled ?? true) &&
+                                    !_widgetsNightHidden(view))
                                   for (final spec in decodeScreensaverWidgets(
                                     container.settings.get(
                                       defs.screensaverWidgets,
@@ -757,8 +768,10 @@ class _ClockScreensaverState extends State<ClockScreensaver>
     defs.screensaverClockBackground.key,
     defs.screensaverClockBackgroundRefresh.key,
     defs.screensaverClockNightHideBackground.key,
+    defs.screensaverClockNightHideWidgets.key,
     defs.screensaverClockFont.key,
     defs.screensaverClockFontWeight.key,
+    defs.screensaverClockVertical.key,
     defs.screensaverClockColor.key,
     defs.screensaverClockBgColor.key,
     defs.screensaverFlipDigitColor.key,
@@ -784,9 +797,10 @@ class _ClockScreensaverState extends State<ClockScreensaver>
     }
     // The face only rebuilds on clock ticks, a minute apart with seconds
     // off — a background pushed over ESPHome (issue #150) must not wait out
-    // the minute. The Font key rides the same listener so it can be tuned
-    // from the remote admin against the live face; the Night mode keys
-    // reach the face through the overlay, which owns that decision.
+    // the minute. The Font and Vertical mode keys ride the same listener
+    // so they can be tuned from the remote admin against the live face;
+    // the Night mode keys reach the face through the overlay, which owns
+    // that decision.
     _bgSub = widget.container.bus.on<SettingChanged>().listen((e) {
       if (!mounted) return;
       if (e.key == defs.screensaverClockBackground.key ||
@@ -1096,7 +1110,12 @@ class _ClockScreensaverState extends State<ClockScreensaver>
   /// The center of the face for the non-digital styles (issue #56). The
   /// shell around it — glance row, pixel shift, anchor — is shared, so the
   /// style only swaps what sits in the middle.
-  Widget _styledFace(String style, double scale, String? fontFamily) {
+  Widget _styledFace(
+    String style,
+    double scale,
+    String? fontFamily, {
+    required bool vertical,
+  }) {
     final weight = clockWeightOverride(
       widget.container.settings.get(defs.screensaverClockFontWeight),
     );
@@ -1121,6 +1140,7 @@ class _ClockScreensaverState extends State<ClockScreensaver>
         fontFamily: fontFamily,
         weight: weight,
         opticalSize: opticalSize,
+        vertical: vertical,
       );
     }
     return RollerClockFace(
@@ -1159,16 +1179,29 @@ class _ClockScreensaverState extends State<ClockScreensaver>
         widget.container.screensaver.alarmTakeover.value == 'ringing';
     // The At a Glance row sits under the clock and needs room for itself,
     // so the clock gives some back rather than pushing the row off a short
-    // panel. Only when the row actually has something to show.
+    // panel. Only when the row actually has something to show, and not
+    // at night when Night mode is asked to leave the clock alone.
     final glance =
-        !ringing && widget.container.glance.entities.value.isNotEmpty;
+        !ringing &&
+        !(widget.night && s.get(defs.screensaverClockNightHideWidgets)) &&
+        widget.container.glance.entities.value.isNotEmpty;
     final glanceScale = min(1.0, size.height / 480).clamp(0.75, 1.0);
     final clockShrink = glance ? 0.72 : 1.0;
-    // min(20vw, 30vh), the same basis Voice Satellite uses, then scaled.
+    // Vertical mode (issue #767) stacks the digital and flip faces; the
+    // roller has nothing to stack, so a switch left on from another style
+    // does nothing there.
+    final vertical = style != 'roller' && s.get(defs.screensaverClockVertical);
+    final lines = DigitalClockFace.linesFor(
+      seconds: s.get(defs.screensaverClockSeconds),
+    );
     final clockSize =
-        min(size.width * 0.20, size.height * 0.30) * scale * clockShrink;
+        DigitalClockFace.sizeFor(size, vertical: vertical, lines: lines) *
+        scale *
+        clockShrink;
     final dateSize =
-        min(size.width * 0.05, size.height * 0.07) * scale * clockShrink;
+        DigitalClockFace.dateSizeFor(size, vertical: vertical, lines: lines) *
+        scale *
+        clockShrink;
     final backdrop =
         nightBg ??
         switch (style) {
@@ -1177,9 +1210,10 @@ class _ClockScreensaverState extends State<ClockScreensaver>
           _ => _rgb(defs.screensaverClockBgColor, Colors.black),
         };
     final Widget face = style != 'digital'
-        ? _styledFace(style, scale * clockShrink, font)
+        ? _styledFace(style, scale * clockShrink, font, vertical: vertical)
         : DigitalClockFace(
             time: _time(),
+            vertical: vertical,
             date: !ringing && s.get(defs.screensaverClockDate) ? _date() : null,
             fontFamily: font,
             color: color,
@@ -2911,18 +2945,14 @@ setInterval(function () {
         mediaPlaybackRequiresUserGesture: false,
         allowsInlineMediaPlayback: true,
       ),
-      onReceivedServerTrustAuthRequest: (controller, challenge) async {
-        // Same policy as the kiosk WebView: the media screensaver talks to
-        // the same self-signed Home Assistant.
-        if (widget.container.settings.get(defs.ignoreSslErrors)) {
-          return ServerTrustAuthResponse(
-            action: ServerTrustAuthResponseAction.PROCEED,
-          );
-        }
-        return ServerTrustAuthResponse(
-          action: ServerTrustAuthResponseAction.CANCEL,
-        );
-      },
+      // Same policy as the kiosk WebView: the media screensaver talks to
+      // the same self-signed Home Assistant.
+      onReceivedServerTrustAuthRequest: (controller, challenge) async =>
+          webViewServerTrust(
+            'screensaver',
+            widget.container.settings,
+            challenge,
+          ),
       // The user's pasted JavaScript for external pages, after every load
       // (issue #224). Only the website mode has a page of theirs to run it
       // on; the bundled screensaver is ours.

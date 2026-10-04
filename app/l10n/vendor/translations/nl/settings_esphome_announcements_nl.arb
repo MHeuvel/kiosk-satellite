@@ -1,0 +1,23 @@
+{
+  "@@locale": "nl",
+  "settingAnnouncementsEnabledTitle": "Aankondigingen inschakelen",
+  "settingAnnouncementsEnabledDescription": "Speel aankondigingen af die Home Assistant met de actie 'announce' verstuurt.",
+  "esphomeTtsSection": "Tekst-naar-spraak",
+  "settingAnnouncementsTtsEngineTitle": "Tekst-naar-spraakengine",
+  "settingAnnouncementsTtsEngineDescription": "De tekst-naar-spraakentiteit van Home Assistant die de aankondigingen uitspreekt.",
+  "settingAnnouncementsTtsLanguageTitle": "Taal",
+  "settingAnnouncementsTtsLanguageDescription": "De taal waarin de aankondigingen worden uitgesproken.",
+  "settingAnnouncementsTtsVoiceTitle": "Stem",
+  "settingAnnouncementsTtsVoiceDescription": "De stem die aankondigingen spreekt.",
+  "esphomeTtsFirst": "Eerste beschikbare",
+  "esphomeTtsDefault": "Standaard",
+  "settingAnnouncementsChimeTitle": "Eerst een meldingsgeluid",
+  "settingAnnouncementsChimeDescription": "Speel vóór de aankondiging een meldingsgeluid af.",
+  "settingAnnouncementsChimeFileTitle": "Meldingsgeluid",
+  "settingAnnouncementsChimeFileDescription": "Wordt op hetzelfde volume als de aankondiging afgespeeld.",
+  "esphomeAnnouncements": "Aankondigingen",
+  "esphomeAnnouncementsHelp": "Gesproken aankondigingen van Home Assistant",
+  "esphomeChime": "Meldingsgeluid",
+  "esphomeTtsUnavailable": "Kon Home Assistant niet bereiken",
+  "esphomeTtsNoVoices": "Geen stemmen beschikbaar"
+}

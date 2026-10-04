@@ -1,0 +1,13 @@
+{
+  "@@locale": "nl",
+  "androidServiceChannelHelp": "Wordt getoond wanneer de Kiosk Satellite Service de app actief houdt terwijl het scherm uitstaat of een andere app op de voorgrond staat.",
+  "androidServiceListening": "luisteren naar een wekwoord",
+  "androidServiceRtspAudio": "RTSP-microfoonaudio ingeschakeld",
+  "androidServiceEsphome": "ESPHome beschikbaar stellen",
+  "androidServiceBluetooth": "Bluetooth-apparaten doorgeven",
+  "androidServiceCamera": "camera bewaken",
+  "androidServiceLocation": "locatie doorgeven",
+  "androidServiceRemote": "beheer op afstand beschikbaar stellen",
+  "androidServiceKiosk": "kioskmodus bewaken",
+  "androidServiceSessions": "Home Assistant verbonden houden"
+}

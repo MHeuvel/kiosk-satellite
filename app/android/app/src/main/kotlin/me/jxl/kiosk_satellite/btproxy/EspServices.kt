@@ -157,6 +157,33 @@ internal object ServiceCodec {
         toByteArray()
     }
 
+    /**
+     * HomeassistantActionRequest with is_event set: 1=service (the event
+     * name, which Home Assistant only fires under `esphome.`),
+     * 2=repeated data and 3=repeated data_template, each a
+     * HomeassistantServiceMap {1=key, 2=value}. Home Assistant renders
+     * data_template values as templates, which turns a plain "300" or
+     * "True" into a number or a boolean; plain data stays a string. The
+     * device id is added on the Home Assistant side.
+     */
+    fun event(
+        name: String,
+        data: Map<String, String>,
+        typed: Map<String, String>,
+    ): ByteArray = ProtoWriter().run {
+        string(1, name)
+        for ((key, value) in data) message(2, pair(key, value))
+        for ((key, value) in typed) message(3, pair(key, value))
+        bool(5, true)
+        toByteArray()
+    }
+
+    private fun pair(key: String, value: String): ByteArray = ProtoWriter().run {
+        string(1, key)
+        string(2, value)
+        toByteArray()
+    }
+
     private fun parseArgument(payload: ByteArray): Any? {
         var value: Any? = null
         val r = ProtoReader(payload)

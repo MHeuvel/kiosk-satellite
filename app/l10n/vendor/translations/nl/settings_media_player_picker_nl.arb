@@ -1,0 +1,18 @@
+{
+  "@@locale": "nl",
+  "mediaPickPlayer": "Kies een speler",
+  "mediaMaPlayer": "Music Assistant-speler",
+  "mediaHaPlayer": "Home Assistant-mediaspeler",
+  "mediaSonosRoom": "Sonos-ruimte",
+  "mediaSearchPlayers": "Spelers zoeken",
+  "mediaOffline": "Offline",
+  "mediaOfflineName": "{name} (offline)",
+  "mediaSetUpMa": "Stel Music Assistant in om de spelers te tonen.",
+  "mediaSetUpHa": "Maak verbinding met Home Assistant om de mediaspelers te tonen.",
+  "mediaSetUpSonos": "Er zijn nog geen Sonos-luidsprekers bekend. Zoek of voeg een luidspreker toe op de Sonos-pagina.",
+  "mediaHaFailed": "Home Assistant antwoordde niet: {error}",
+  "mediaSaveFailed": "Kon de speler niet opslaan.",
+  "mediaSelectFailed": "Kon speler niet selecteren",
+  "mediaNotificationAccessRemote": "Zonder deze toestemming vermeldt Android geen mediasessies en kan Speelt nu de apps die media op dit apparaat afspelen niet volgen. Het toestemmingsscherm verschijnt op de tablet.",
+  "mediaLocalMediaSession": "Lokale mediasessie"
+}

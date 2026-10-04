@@ -55,6 +55,8 @@ class AssistView {
     this.tools = const [],
     this.results = const [],
     this.reactive = true,
+    this.docked = false,
+    this.lingering = false,
   });
 
   static const hidden = AssistView();
@@ -83,6 +85,14 @@ class AssistView {
   /// chime plays and while the assistant thinks.
   final bool reactive;
 
+  /// A realtime conversation: the bar along the edge and a small caption,
+  /// with the screen under it visible and usable.
+  final bool docked;
+
+  /// The turn is over and its answer or results stay on screen. Nothing
+  /// listens or speaks, so the skin's bar is down.
+  final bool lingering;
+
   bool get visible => phase != AssistPhase.hidden;
 
   /// The turn in progress, as it would be kept once the next one starts.
@@ -98,6 +108,8 @@ class AssistView {
     List<String>? tools,
     List<AssistResult>? results,
     bool? reactive,
+    bool? docked,
+    bool? lingering,
   }) => AssistView(
     phase: phase ?? this.phase,
     earlier: earlier ?? this.earlier,
@@ -107,7 +119,23 @@ class AssistView {
     tools: tools ?? this.tools,
     results: results ?? this.results,
     reactive: reactive ?? this.reactive,
+    docked: docked ?? this.docked,
+    lingering: lingering ?? this.lingering,
   );
+}
+
+/// The turn in Home Assistant's assist_satellite states (idle, listening,
+/// processing, responding), for the Voice Satellite sensor. [busy] is
+/// whether a turn or a conversation runs: a preview or an answer left on
+/// screen after its turn reads idle.
+String satelliteState(AssistView view, {required bool busy}) {
+  if (!busy || view.lingering) return 'idle';
+  return switch (view.phase) {
+    AssistPhase.hidden => 'idle',
+    AssistPhase.listening => 'listening',
+    AssistPhase.thinking => 'processing',
+    AssistPhase.speaking || AssistPhase.announcement => 'responding',
+  };
 }
 
 /// Voice Satellite's estimate of how long [text] takes to say, in seconds:

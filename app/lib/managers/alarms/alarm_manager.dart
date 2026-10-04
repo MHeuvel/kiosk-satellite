@@ -16,7 +16,6 @@ import '../screensaver/screensaver_manager.dart'
     show currentScreensaverScheduleEntry;
 import '../settings/definitions.dart' as defs;
 import '../settings/settings_manager.dart';
-import '../voice/ha_socket.dart';
 import 'alarm_model.dart';
 import 'alarm_requests.dart';
 
@@ -131,14 +130,12 @@ class AlarmManager extends Manager {
     this._settings, {
     DateTime Function()? clock,
     MethodChannel? channel,
-    this._haSocket,
   }) : _clock = clock ?? DateTime.now,
        _channel = channel ?? const MethodChannel('kiosk_satellite/alarms');
 
   final SettingsManager _settings;
   final DateTime Function() _clock;
   final MethodChannel _channel;
-  final HaSocket? _haSocket;
 
   /// The full screen alarm list is up.
   final visible = ValueNotifier<bool>(false);
@@ -151,14 +148,7 @@ class AlarmManager extends Manager {
   final _subs = <StreamSubscription<Object?>>[];
 
   /// Alarms asked for by voice through Home Assistant.
-  late final requests = AlarmRequests(
-    bus,
-    log,
-    _settings,
-    this,
-    clock: _clock,
-    socket: _haSocket,
-  );
+  late final requests = AlarmRequests(_settings, this, clock: _clock);
   Timer? _tick;
   Timer? _precise;
   Timer? _ramp;
@@ -252,13 +242,11 @@ class AlarmManager extends Manager {
         }),
       );
     _tick = Timer.periodic(const Duration(seconds: 15), (_) => _check());
-    requests.start();
     await _check();
   }
 
   @override
   Future<void> dispose() async {
-    await requests.dispose();
     _tick?.cancel();
     _precise?.cancel();
     _ramp?.cancel();
@@ -287,8 +275,61 @@ class AlarmManager extends Manager {
   // ── The list ──────────────────────────────────────────────────────────
 
   void _readAlarms() {
+    final before = {for (final a in alarms.value) a.id: a};
     alarms.value = sortAlarms(decodeAlarms(_settings.get(defs.alarmsList)));
+    // Every change to the list, from any surface, goes to Home Assistant;
+    // the first read at start is not a change.
+    if (!_listRead) {
+      _listRead = true;
+      return;
+    }
+    _gone = {
+      for (final a in before.values)
+        if (!alarms.value.any((b) => b.id == a.id)) a.id: a,
+    };
+    for (final alarm in alarms.value) {
+      final old = before[alarm.id];
+      if (old == null) {
+        _alarmEvent('created', [alarm.id]);
+      } else if (jsonEncode(old.toJson()) != jsonEncode(alarm.toJson())) {
+        _alarmEvent('updated', [alarm.id]);
+      }
+    }
+    if (_gone.isNotEmpty) _alarmEvent('deleted', _gone.keys.toList());
   }
+
+  bool _listRead = false;
+
+  /// The alarms the last change took out of the list, so a ring stopped
+  /// by their deletion can still say which alarm it was.
+  Map<String, Alarm> _gone = const {};
+
+  /// Puts an alarm change on Home Assistant's bus as
+  /// `esphome.kiosk_satellite_alarm`, one event per alarm (issue #765).
+  void _alarmEvent(
+    String event,
+    List<String> ids, [
+    Map<String, Object?> extra = const {},
+  ]) {
+    for (final id in ids) {
+      final alarm =
+          alarms.value.where((a) => a.id == id).firstOrNull ?? _gone[id];
+      bus.publish(
+        HaEventRequested('kiosk_satellite_alarm', {
+          'event_type': event,
+          'alarm_id': id,
+          'label': alarm?.label ?? '',
+          'time': alarm?.time ?? '',
+          'days': [for (final d in alarm?.days ?? const <int>[]) _dayNames[d]],
+          'enabled': alarm?.on ?? false,
+          ...extra,
+        }),
+      );
+    }
+  }
+
+  /// Weekdays as Home Assistant's time condition names them, 0 = Sunday.
+  static const _dayNames = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
   Future<void> _write(List<Alarm> list) async {
     await _settings.set(defs.alarmsList, encodeAlarms(list));
@@ -378,7 +419,10 @@ class AlarmManager extends Manager {
     if (phase == AlarmPhase.ringing) {
       final started = _ringStarted;
       if (started != null && !now.isBefore(started.add(_silenceAfter))) {
-        await _finish('silenced after ${_silenceAfter.inMinutes} minutes');
+        await _finish(
+          'silenced after ${_silenceAfter.inMinutes} minutes',
+          event: 'silenced',
+        );
       }
     } else if (phase == AlarmPhase.snoozed) {
       final until = _s.snoozedUntil;
@@ -534,6 +578,7 @@ class AlarmManager extends Manager {
       sunriseStart: start,
       next: _s.next,
     );
+    _alarmEvent('sunrise', ids);
     await _comeForward();
     await _hold(native: takeover != null);
     await _setFullscreen(true);
@@ -618,6 +663,7 @@ class AlarmManager extends Manager {
       takeover: takeover,
       next: _s.next,
     );
+    _alarmEvent('ringing', known);
     visible.value = false;
     await _comeForward();
     await _hold(native: takeover != null);
@@ -788,6 +834,9 @@ class AlarmManager extends Manager {
       snoozedUntil: until,
       next: _s.next,
     );
+    _alarmEvent('snoozed', _s.ids, {
+      'snoozed_until': until.toUtc().toIso8601String(),
+    });
     _persist();
     _publish();
     await _schedule(_clock());
@@ -805,12 +854,15 @@ class AlarmManager extends Manager {
       }
       await _spend(s.ids);
     }
-    await _finish('stopped ($source)');
+    await _finish('stopped ($source)', event: 'stopped');
     return true;
   }
 
-  Future<void> _finish(String why) async {
-    if (_s.active) log.info(name, '${_describe(_s.ids)}: $why');
+  Future<void> _finish(String why, {String? event}) async {
+    if (_s.active) {
+      log.info(name, '${_describe(_s.ids)}: $why');
+      if (event != null) _alarmEvent(event, _s.ids);
+    }
     await _quiet();
     status.value = AlarmStatus(next: _s.next);
     _persist();
@@ -1149,6 +1201,23 @@ class AlarmManager extends Manager {
               'snoozedUntil, takeover, next, alarms: [...]}.',
           quiet: true,
           handler: (_) async => CommandResult.ok(statusJson),
+        ),
+      )
+      ..register(
+        Command(
+          name: 'alarmsVoiceRequest',
+          description:
+              'What the Kiosk Satellite alarms script asks for, answered in '
+              'the shape the script hands back to the LLM.',
+          params: const {
+            'action': 'set, list, turn_off, turn_on or delete',
+            'time': 'HH:MM, 24 hour',
+            'days': 'Repeat days: mon to sun, weekdays, weekends or daily',
+            'label': 'The alarm\'s name',
+          },
+          // The voice requests manager logs each one with its outcome.
+          quiet: true,
+          handler: (p) async => CommandResult.ok(await requests.handle(p)),
         ),
       )
       ..register(

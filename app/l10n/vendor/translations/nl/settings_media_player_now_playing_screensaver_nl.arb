@@ -1,0 +1,16 @@
+{
+  "@@locale": "nl",
+  "settingSendspinFullscreenTitle": "Speelt nu in plaats van de schermbeveiliging",
+  "settingSendspinFullscreenDescription": "Tijdens het afspelen van muziek verandert de schermbeveiliging in een schermvullende weergave Speelt nu met albumhoes. Als er niets wordt afgespeeld, blijft de gewone schermbeveiliging actief.",
+  "settingSendspinFullscreenSplitTitle": "Toon naast schermbeveiliging",
+  "settingSendspinFullscreenSplitDescription": "Houd de schermbeveiliging zichtbaar naast Speelt nu. Op staande schermen staat de schermbeveiliging boven de speler. Kleine schermen behouden de speler op volledig scherm.",
+  "settingSendspinFullscreenPhotoFillTitle": "Het scherm vullen",
+  "settingSendspinFullscreenPhotoFillDescription": "Overschrijf hoe foto's worden gevuld wanneer de schermbeveiliging het scherm deelt met Speelt nu. Standaard gebruikt de instelling van iedere schermbeveiliging. Uit toont de hele foto tussen zwarte balken. Slim vergroot foto's die ongeveer dezelfde verhouding als het scherm hebben en toont de rest tegen een vervaagde achtergrond. Altijd vergroot iedere foto en snijdt weg wat niet past.",
+  "settingSendspinFullscreenOverrideBrightnessTitle": "Helderheid van schermbeveiliging overschrijven",
+  "settingSendspinFullscreenOverrideBrightnessDescription": "Gebruik de normale schermhelderheid in plaats van de helderheid van de schermbeveiliging wanneer Speelt nu ernaast wordt getoond. Dit overschrijft ook de geplande helderheid van de schermbeveiliging.",
+  "mediaScreensaverHeading": "Schermbeveiliging",
+  "mediaDefaultFill": "Standaard",
+  "mediaFillOff": "Uit",
+  "mediaFillSmart": "Slim",
+  "mediaFillAlways": "Altijd"
+}

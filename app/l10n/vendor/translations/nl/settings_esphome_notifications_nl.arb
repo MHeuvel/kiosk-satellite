@@ -1,0 +1,19 @@
+{
+  "@@locale": "nl",
+  "settingNotificationsTransparencyTitle": "Transparantie",
+  "settingNotificationsTransparencyDescription": "Laat het onderliggende scherm door de meldingskaarten heen schijnen. Tekst en pictogrammen blijven ondoorzichtig.",
+  "settingNotificationsBlurTitle": "Achtergrondvervaging",
+  "settingNotificationsBlurDescription": "Vervaagt wat door een transparante meldingskaart heen zichtbaar is. Let op: vervaging kan niet over het Home Assistant-dashboard worden toegepast.",
+  "settingNotificationsChimeFileTitle": "Meldingsgeluid",
+  "settingNotificationsChimeFileDescription": "Geluidsbestanden worden op het apparaat gelezen uit Android/data/me.jxl.kiosk_satellite/files/sounds. Deze map is ook bereikbaar via Bestandsbeheer.",
+  "settingNotificationsVolumeTitle": "Meldingsvolume",
+  "settingNotificationsVolumeDescription": "Bepaalt hoe luid het meldingsgeluid wordt afgespeeld, onafhankelijk van het media- en assistentvolume.",
+  "esphomeNotifications": "Meldingen",
+  "esphomeNotificationsHelp": "Transparantie, vervaging, meldingsgeluid, testmelding",
+  "esphomeAppearance": "Uiterlijk",
+  "esphomeSound": "Geluid",
+  "esphomeNotificationTest": "Testmelding",
+  "esphomeNotificationHelp": "Meldingen worden vanuit Home Assistant verzonden met de actie {action}. Met de testknop toon je een melding over het dashboard.",
+  "esphomeNotificationBody": "Dit is hoe een melding van Home Assistant eruitziet en klinkt.",
+  "esphomeNotificationSearch": "De Home Assistant-actie waarmee je meldingen verstuurt en een knop om een testmelding te tonen."
+}

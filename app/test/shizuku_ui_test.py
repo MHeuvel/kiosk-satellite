@@ -70,9 +70,9 @@ try:
         assert saves == [{'shizuku.install_updates': True}], saves
         page.evaluate("async () => (await import('/static/shizuku.js')).renderShizukuPage(document.querySelector('#tab-device [data-subpage=Shizuku]'))")
         expect(root.locator('[data-key="shizuku.install_updates"] input')).to_be_checked()
-        expect(root.locator('[data-shizuku-action]')).to_have_count(15)
+        expect(root.locator('[data-shizuku-action]')).to_have_count(16)
         expect(root.get_by_text('Grant all permissions', exact=True)).to_be_visible()
-        for name in ['Microphone', 'Camera', 'Nearby devices', 'Notifications', 'System UI guard', 'Device admin', 'Location']:
+        for name in ['Microphone', 'Camera', 'Nearby devices', 'Notifications', 'System UI guard', 'Device admin', 'Notification access', 'Location']:
             expect(root.get_by_text(name, exact=True)).to_have_count(1)
         state = dict(status='permission_required', available=True, granted=False)
         page.evaluate("async () => (await import('/static/live.js')).receiveUpdate('shizuku')")

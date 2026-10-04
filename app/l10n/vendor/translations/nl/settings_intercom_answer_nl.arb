@@ -1,0 +1,19 @@
+{
+  "@@locale": "nl",
+  "settingIntercomAnswerModeTitle": "Antwoordmodus",
+  "settingIntercomAnswerModeDescription": "Overgaan toont een vraag op het scherm. Automatisch opnemen opent het gesprek na een beltoon.",
+  "settingIntercomRingSecondsTitle": "Overgaan gedurende",
+  "settingIntercomRingSecondsDescription": "Hoelang een oproep overgaat voordat deze als gemist wordt beschouwd.",
+  "settingIntercomRingSoundTitle": "Beltoon",
+  "settingIntercomRingSoundDescription": "Speelt af bij het meldingsvolume.",
+  "settingIntercomAcceptAnnouncementsTitle": "Omroepberichten toestaan",
+  "settingIntercomAcceptAnnouncementsDescription": "Speel berichten af die vanaf andere kiosken naar alle kiosken worden omgeroepen.",
+  "intercomOptionAnswerRing": "Overgaan",
+  "intercomOptionAnswerAuto": "Automatisch opnemen",
+  "intercomOptionAnswerDnd": "Niet storen",
+  "intercomOptionAnswer15": "15 seconden",
+  "intercomOptionAnswer30": "30 seconden",
+  "intercomOptionAnswer45": "45 seconden",
+  "intercomOptionAnswer60": "60 seconden",
+  "intercomAnswerSection": "Opnemen"
+}

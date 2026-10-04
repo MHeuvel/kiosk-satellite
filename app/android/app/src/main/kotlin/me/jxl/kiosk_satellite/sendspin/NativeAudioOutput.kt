@@ -9,6 +9,7 @@ import android.os.SystemClock
 import android.util.Log
 import java.nio.ByteBuffer
 import java.util.concurrent.atomic.AtomicLong
+import me.jxl.kiosk_satellite.TrackTap
 
 /**
  * AudioTrack output for the native SendSpin engine.
@@ -41,6 +42,9 @@ class NativeAudioOutput {
     private val lock = Any()
 
     @Volatile private var track: AudioTrack? = null
+
+    /** What the track plays, for the software echo canceller. */
+    @Volatile private var tap: TrackTap? = null
     @Volatile private var started = false
 
     private var sampleRate = 48000
@@ -85,6 +89,7 @@ class NativeAudioOutput {
                     resetProgressLocked()
                     beginSoftStartLocked(existing)
                     existing.play()
+                    tap?.flushed()
                     started = true
                     Log.i(TAG, "AudioTrack reused for new stream")
                     return true
@@ -157,6 +162,11 @@ class NativeAudioOutput {
             beginSoftStartLocked(newTrack)
             newTrack.play()
             track = newTrack
+            // The canceller's reference follows this output's own clock,
+            // the one rooms are synced by.
+            tap = TrackTap(newTrack, sampleRate, channels, bitDepth / 8, clock = ::presentedFrames).also {
+                it.gain = mediaGain * duckGain
+            }
             started = true
             Log.i(
                 TAG,
@@ -210,6 +220,11 @@ class NativeAudioOutput {
             }
             zeroWrites = 0
             framesWritten.addAndGet((n / frameBytes).toLong())
+            tap?.let { tap ->
+                val written = buffer.duplicate()
+                written.position(buffer.position() - n)
+                tap.wrote(written, n)
+            }
         }
 
         // Frame-align the report: the native sync task counts played frames
@@ -313,6 +328,7 @@ class NativeAudioOutput {
             try {
                 t.pause()
                 t.flush()
+                tap?.flushed()
                 resetProgressLocked()
             } catch (e: Exception) {
                 Log.w(TAG, "AudioTrack pause failed, releasing", e)
@@ -329,6 +345,9 @@ class NativeAudioOutput {
     }
 
     // ------------------------------------------------------------------
+
+    /** Frames presented since the stream (re)started, for the echo canceller. */
+    private fun presentedFrames(): Long = synchronized(lock) { presentedFramesLocked() }
 
     private fun presentedFramesLocked(nowNs: Long = System.nanoTime()): Long {
         val t = track ?: return 0
@@ -403,6 +422,7 @@ class NativeAudioOutput {
     }
 
     private fun applyGain() {
+        tap?.gain = mediaGain * duckGain
         if (softStartBeganMs != 0L) return
         val t = track ?: return
         runCatching { t.setVolume(mediaGain * duckGain) }
@@ -420,6 +440,8 @@ class NativeAudioOutput {
     private fun releaseLocked() {
         val t = track ?: return
         track = null
+        tap?.close()
+        tap = null
         runCatching { t.pause() }
         runCatching { t.flush() }
         runCatching { t.stop() }

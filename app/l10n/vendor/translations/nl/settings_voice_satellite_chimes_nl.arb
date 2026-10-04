@@ -1,0 +1,20 @@
+{
+  "@@locale": "nl",
+  "voiceChimesPage": "Geluiden",
+  "voiceChimesHint": "Wek-, gereed-, fout-, timer- en aankondigingsgeluiden",
+  "voiceChimesPreview": "Voorbeeld op kiosk",
+  "voiceChimesPreviewFailed": "Kon het geluid niet afspelen.",
+  "voiceChimesHelp": "Kies geluiden voor deze kiosk en upload hier aangepaste bestanden. Geluiden die in Home Assistant zijn opgeslagen, worden niet gebruikt voor lokale meldingsgeluiden.",
+  "voiceChimeWakeTitle": "Wekgeluid",
+  "voiceChimeWakeDescription": "Speelt af wanneer Voice Satellite begint te luisteren.",
+  "voiceChimeDoneTitle": "Gereedgeluid",
+  "voiceChimeDoneDescription": "Wordt afgespeeld wanneer een spraakinteractie is voltooid.",
+  "voiceChimeErrorTitle": "Foutgeluid",
+  "voiceChimeErrorDescription": "Wordt afgespeeld wanneer een spraakinteractie mislukt.",
+  "voiceChimeTimerTitle": "Timergeluid",
+  "voiceChimeTimerDescription": "Wordt herhaald wanneer een timer afloopt, totdat je de melding sluit.",
+  "voiceChimeAnnounceTitle": "Aankondigingsgeluid",
+  "voiceChimeAnnounceDescription": "Wordt afgespeeld vóór een Voice Satellite-aankondiging, tenzij die een eigen geluid bevat.",
+  "settingVoiceWakeSoundTitle": "Meldingsgeluiden afspelen",
+  "settingVoiceWakeSoundDescription": "De wek-, gereed- en foutgeluiden."
+}

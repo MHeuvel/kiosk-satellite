@@ -1,0 +1,16 @@
+{
+  "@@locale": "nl",
+  "settingLockdownEnabledTitle": "Vergrendelingsmodus inschakelen",
+  "settingLockdownEnabledDescription": "Blokkeer interacties met het scherm totdat de modus via Home Assistant of met het afsluitgebaar wordt uitgeschakeld.",
+  "settingLockdownMenuTitle": "Toon in het kioskmenu",
+  "settingLockdownMenuDescription": "Voeg een optie voor de vergrendelingsmodus toe aan het kioskmenu. Ontgrendel het scherm met het afsluitgebaar, via beheer op afstand of via Home Assistant.",
+  "settingLockdownBlackoutTitle": "Scherm zwart maken",
+  "settingLockdownBlackoutDescription": "Maakt het scherm zwart zolang het is vergrendeld.",
+  "settingLockdownAllowScreensaverTitle": "Schermbeveiliging toestaan",
+  "settingLockdownAllowScreensaverDescription": "Laat de schermbeveiliging actief zijn terwijl het scherm is vergrendeld. Sluiten bij beweging blijft uitgeschakeld totdat de vergrendeling wordt opgeheven.",
+  "settingLockdownExitGestureTitle": "Afsluitgebaar voor vergrendelingsmodus",
+  "settingLockdownExitGestureDescription": "Tik snel ergens op het scherm om de vergrendelingsmodus uit te schakelen, zo nodig na het invoeren van de kiosk-pincode. Bij varianten met vasthouden moet de laatste tik ingedrukt blijven. Als dit is uitgeschakeld, kan de modus alleen via beheer op afstand of Home Assistant worden beëindigd.",
+  "lockdownGestureNone": "Uitgeschakeld (alleen op afstand)",
+  "lockdownExplanation": "De vergrendelingsmodus maakt het dashboard niet-interactief, activeert alle beveiligingen van de kioskmodus zonder de kioskmodusinstellingen te wijzigen en dempt de wekwoorddetectie. Als de System UI-beveiliging hierboven is ingeschakeld, worden ook het meldingenpaneel en de recente apps geblokkeerd. Home Assistant krijgt via ESPHome een schakelaar voor de vergrendelingsmodus.",
+  "lockdownSearch": "Aanraakbeveiliging die alleen op afstand kan worden ingesteld. Configureer deze via beheer op afstand. De benodigde toestemmingen staan onder Vereiste systeemtoestemmingen."
+}

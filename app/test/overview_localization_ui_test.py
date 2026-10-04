@@ -16,11 +16,12 @@ translated = {k: 'TEST ' + v for k, v in english.items()}
 if os.environ.get('KS_TEST_SPANISH'):
     translated = {k: v for p in (APP.parents[1] / 'kiosk-satellite-localization/translations/es').glob('*.arb') for k, v in json.loads(p.read_text()).items() if not k.startswith('@')}
 ids = json.loads((APP / 'l10n/overview_text.json').read_text())
-settings = [dict(key=k, value=v) for k, v in {'ui.language': 'es', 'browser.ws_filter': True, 'wake_word.enabled': True, 'esphome.entities': True, 'btproxy.enabled': True, 'camera.enabled': True, 'screen.set_brightness_on_launch': True}.items()]
+settings = [dict(key=k, value=v) for k, v in {'ui.language': 'es', 'browser.ws_filter': True, 'wake_word.enabled': True, 'esphome.entities': True, 'btproxy.enabled': True, 'camera.enabled': True, 'screen.set_brightness_on_launch': True, 'voice.runtime': 'native', 'voice.enabled': True, 'esphome.enabled': True}.items()]
 commands = []
 status = {
     'haStatus': dict(configured=True, connected=True),
     'getWakeWordState': dict(listening=True, models=[dict(wakeWord='<b>Original wake word</b>')]),
+    'voiceStatus': dict(subscribed=True, busy=False, listening=True),
     'esphomeStatus': dict(running=True, clients=1),
     'sendspinStatus': dict(enabled=True, playing=True, title='Original track', artist='Original artist'),
     'getServiceStatus': dict(running=True, reasons=['a', 'b']),

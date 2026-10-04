@@ -1,0 +1,11 @@
+{
+  "@@locale": "nl",
+  "cameraNoCamera": "Geen camera gedetecteerd",
+  "cameraNoCameraHelp": "Dit apparaat rapporteert geen bruikbare camera.",
+  "cameraCameraPermission": "Toestemming voor camera ontbreekt",
+  "cameraCameraPermissionHelp": "Zonder deze toestemming kan de camera niet worden gebruikt. Het toestemmingsvenster verschijnt op de tablet.",
+  "cameraGrantOnDevice": "Toestaan op apparaat",
+  "cameraCameraBlocked": "Geblokkeerd. Android vraagt niet opnieuw om toestemming. Sta cameratoegang toe via de app-instellingen.",
+  "cameraCameraNeeded": "Zonder deze toestemming kan de camera niet worden gebruikt.",
+  "cameraAppSettings": "App-instellingen"
+}

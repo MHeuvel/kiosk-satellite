@@ -56,5 +56,6 @@
   "intercomInCallName": "Im Gespräch mit {name}",
   "intercomNameAnnouncing": "{name} macht eine Durchsage",
   "intercomHaMessage": "Home Assistant: {message}",
-  "intercomEndCall": "Anruf beenden"
+  "intercomEndCall": "Anruf beenden",
+  "intercomMaxDurationReached": "Maximale Anrufdauer erreicht"
 }

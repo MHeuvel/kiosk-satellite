@@ -168,14 +168,21 @@ export function clampPoint(p, i, want, domain) {
   };
 }
 
-/* The chart's light range: whole decades around the ends, from 1 lx or
-   lower, with room past the ends to drag. The live reading has no say: a
-   dark room's sensor flapping between 0 and 1 lx would redraw the axis on
-   every sample. A reading outside the range sits on the chart's edge. */
+/* The chart's light range: whole decades around the ends, with room past
+   them to drag, but never past 1 lx or 10k lx (issue #793). Without the
+   cap every drag to an edge earned another decade, down to 0.01 lx and up
+   to 1M lx. An end typed outside that range still gets its decade. The
+   live reading has no say: a dark room's sensor flapping between 0 and
+   1 lx would redraw the axis on every sample. A reading outside the range
+   sits on the chart's edge. */
+const DRAG_LO = 1;
+const DRAG_HI = 10000;
+
 export function curveDomain(p) {
-  let lo = Math.min(1, p[0].lux / 2);
-  const hi = Math.max(10, p[p.length - 1].lux * 2);
-  lo = Math.max(lo, LUX_FLOOR);
+  const first = p[0].lux;
+  const last = p[p.length - 1].lux;
+  const lo = Math.max(Math.min(DRAG_LO, first), LUX_FLOOR);
+  const hi = Math.max(10, Math.min(last * 2, DRAG_HI), last);
   return {
     lo: 10 ** Math.floor(Math.log10(lo) + 1e-9),
     hi: 10 ** Math.ceil(Math.log10(hi) - 1e-9),

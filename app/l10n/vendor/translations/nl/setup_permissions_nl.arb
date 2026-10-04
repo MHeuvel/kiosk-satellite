@@ -1,0 +1,16 @@
+{
+  "@@locale": "nl",
+  "setupPermissionLead": "Android zal om deze toestemmingen vragen. Alles wordt vooraf gevraagd, zodat de kiosk je later nooit onderbreekt.",
+  "setupRemotePermissionLead": "Android vraagt op de tablet zelf om deze toestemmingen. Ga naar de tablet, accepteer de verzoeken en rond de installatie daarna hier af.",
+  "setupMicrophoneHelp": "Voice Satellite en de intercom hebben microfoontoegang nodig",
+  "setupNotificationListening": "Maakt de permanente melding van de Kiosk Satellite Service mogelijk. Daarin staat welke functies actief worden gehouden en wanneer de kiosk luistert.",
+  "setupBatteryService": "Hiermee kan de Kiosk Satellite Service op de achtergrond blijven draaien zonder te worden gepauzeerd of beëindigd.",
+  "setupOverlayBoot": "Hiermee kan Kiosk Satellite na een crash terugkeren en bij het opstarten van je apparaat worden gestart.",
+  "setupOverlayCrash": "Hiermee kan Kiosk Satellite na een crash weer op het scherm verschijnen.",
+  "setupBrightnessHelp": "Hiermee kan Kiosk Satellite de werkelijke helderheid van het paneel instellen (systeeminstellingen wijzigen).",
+  "setupScreenControl": "Schermbediening",
+  "setupScreenControlHelp": "Hiermee kan Kiosk Satellite het scherm op verzoek uitschakelen via apparaatbeheer.",
+  "setupGrantPermissions": "Toestemmingen verlenen op het apparaat",
+  "setupRequestingPermissions": "Toestemmingen aanvragen op het apparaat…",
+  "setupPermissionsRequested": "Toestemmingen zijn aangevraagd op het apparaat"
+}

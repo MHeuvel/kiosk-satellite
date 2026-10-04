@@ -1,0 +1,20 @@
+{
+  "@@locale": "nl",
+  "settingScreensaverWidgetsTitle": "Widgets",
+  "settingScreensaverWidgetsDescription": "Kleine elementen in de hoeken van de schermbeveiliging.",
+  "settingScreensaverWidgetScaleTitle": "Globale widgetschaal",
+  "settingScreensaverWidgetScaleDescription": "Schaal alle widgets tegelijk zodat ze beter op het scherm passen. De onderlinge grootteverhouding blijft behouden.",
+  "settingScreensaverWidgetFontTitle": "Algemene lettertypefamilie",
+  "settingScreensaverWidgetFontDescription": "Het lettertype voor alle widgets. Per widget kan een ander lettertype worden gekozen.",
+  "settingScreensaverWidgetFontWeightTitle": "Algemene tekstdikte",
+  "settingScreensaverWidgetFontWeightDescription": "Bepaalt hoe vet de tekst van alle widgets wordt weergegeven. Standaard gebruikt elke regel zijn eigen dikte. Per widget kan hiervan worden afgeweken.",
+  "settingScreensaverWidgetTextShadowTitle": "Tekstschaduw",
+  "settingScreensaverWidgetTextShadowDescription": "Voeg een schaduw toe aan widgettekst zodat deze op foto's beter leesbaar is.",
+  "settingScreensaverVignetteStrengthTitle": "Vignettesterkte",
+  "settingScreensaverVignetteStrengthDescription": "Bepaalt hoe donker de schaduw achter de widgets is, zodat ze op lichte foto's leesbaar blijven. Stel 0 in om dit uit te schakelen.",
+  "screensaverOverlayWidgetsEmpty": "Nog geen widgets",
+  "screensaverOverlayRemove": "Widget verwijderen",
+  "screensaverOverlayAdd": "Widget toevoegen",
+  "screensaverOverlayAddHelp": "Voeg in een hoek een kleine klok, het weer, de batterijstatus of een entiteit toe.",
+  "screensaverOverlayWidgetsHint": "Widgets in de hoeken en hun schaal"
+}

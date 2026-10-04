@@ -21,6 +21,7 @@ void main() {
       expect(kioskLinkAction('ks://android-settings'), {
         'type': 'android_settings',
       });
+      expect(kioskLinkAction('ks://alarms'), {'type': 'alarms'});
     });
 
     test('camera links pick a view, the default view or close', () {
@@ -74,6 +75,7 @@ void main() {
       expect(kioskLinkAction('ks://restart'), isNull);
       expect(kioskLinkAction('ks://settings'), isNull);
       expect(kioskLinkAction('ks://apps/extra'), isNull);
+      expect(kioskLinkAction('ks://alarms/new'), isNull);
       expect(kioskLinkAction('ks://screensaver/pause'), isNull);
       expect(kioskLinkAction('ks://camera/a/b'), isNull);
       expect(kioskLinkAction('ks://apps?x=1'), isNull);

@@ -15,6 +15,7 @@ import 'webview_snapshot_width.dart';
 import '../../core/command_registry.dart';
 import '../../core/events.dart';
 import '../../core/manager.dart';
+import '../analytics/usage_counters.dart';
 import '../device/device_details.dart';
 import '../device/screen_capture.dart';
 import '../device/webview_freeze.dart';
@@ -261,9 +262,10 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
     // through its backdrop: the page is paused (its own onPause, which
     // stops its scripts, animations and video) and keeps its last frame on
     // screen, instead of repainting under every overlay frame.
+    // Docked, it is a bubble and the page stays live under it.
     bus.on<AssistOverlayVisibility>().listen((e) {
-      if (e.visible == _underAssist) return;
-      _underAssist = e.visible;
+      if (e.covers == _underAssist) return;
+      _underAssist = e.covers;
       unawaited(_syncAssistPause());
     });
     bus.on<ScreensaverViewChanged>().listen((e) {
@@ -853,7 +855,32 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
     _rendererRecovery = null;
     _unresponsiveStrikes = 0;
     _rendererDeadChecks = 0;
+    if (duraSpeedBlocking.value) {
+      duraSpeedBlocking.value = false;
+      log.info(name, 'the dashboard renderer answers again');
+    }
   }
+
+  /// MediaTek's DuraSpeed is refusing the dashboard's renderer, as far as
+  /// the kiosk can tell: a renderer that never answered, now being
+  /// rebuilt, on a device with DuraSpeed installed and on. Android logs the
+  /// refusal ("Unable to launch app ... SandboxedProcessService ... process
+  /// is bad") but the app is never told, and some tablets ship DuraSpeed
+  /// with no settings page, so the dashboard shows what to do instead. One
+  /// rebuild is enough there: it means the page never answered the health
+  /// probe twice over, and the first renderer that answers clears it.
+  final duraSpeedBlocking = ValueNotifier<bool>(false);
+
+  /// Whether DuraSpeed is installed and on; the device details, unless a
+  /// test says otherwise.
+  @visibleForTesting
+  Future<bool> Function() duraSpeedInstalled = () async =>
+      (await DeviceDetails.read()).duraSpeed;
+
+  /// The command the notice shows: the only way to turn DuraSpeed off on a
+  /// tablet that hides it.
+  static const duraSpeedCommand =
+      'adb shell settings put global setting.duraspeed.enabled 0';
 
   Future<void> rebuildFailedRenderer(String reason) async {
     if (_rendererRebuildPending) return;
@@ -866,6 +893,16 @@ class BrowserManager extends Manager with WidgetsBindingObserver {
     _rendererDeadChecks = 0;
     _unresponsiveStrikes = 0;
     log.warn(name, '$reason; rebuilding the WebView');
+    if (!duraSpeedBlocking.value && await duraSpeedInstalled()) {
+      duraSpeedBlocking.value = true;
+      unawaited(UsageCounters.bump(_settings, 'duraspeed_blocked'));
+      log.error(
+        name,
+        'the dashboard renderer never answers and this device runs '
+        "MediaTek's DuraSpeed, which refuses to start it: turn DuraSpeed "
+        'off with `$duraSpeedCommand` and restart Kiosk Satellite',
+      );
+    }
     final generation = _webViewGeneration;
     if (viewId is int) await WebViewRecovery.prepare(viewId);
     if (generation != _webViewGeneration) return;

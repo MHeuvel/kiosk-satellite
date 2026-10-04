@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart'
     show Uint8List, ValueNotifier, mapEquals, visibleForTesting;
 import 'package:flutter/services.dart';
 
+import '../../core/certificate_log.dart';
 import '../../core/command_registry.dart';
 import '../../core/events.dart';
 import '../../core/logging.dart';
@@ -256,8 +257,14 @@ class SendspinManager extends Manager {
           )?.host ??
           '';
       client = HttpClient()
-        ..badCertificateCallback = (cert, host, port) =>
-            host.isNotEmpty && (host == serverHost || host == maHost);
+        ..badCertificateCallback = (cert, host, port) => CertificateLog.dart(
+          'sendspin artwork',
+          host,
+          cert,
+          host.isNotEmpty && (host == serverHost || host == maHost)
+              ? 'it is the Sendspin or Music Assistant host'
+              : null,
+        );
       final http = client;
       Future<Uint8List?> download() async {
         final request = await http.getUrl(Uri.parse(url));
@@ -735,7 +742,8 @@ class SendspinManager extends Manager {
   /// the way a pause made on the view holds it, so the view opens paused
   /// with its play button instead of the regular screensaver. The
   /// screensaver start itself goes through the same command the menu's
-  /// Start Screensaver uses, with every refusal that has.
+  /// Start Screensaver uses, with every refusal that has, marked as a
+  /// session for the view so it ends when the view does.
   Future<void> showFullscreen() async {
     final now = nowPlaying.value;
     if (now == null) return;
@@ -759,7 +767,7 @@ class SendspinManager extends Manager {
       // before the session starts.
       await Future<void>.delayed(const Duration(milliseconds: 50));
     }
-    await commands.execute('startScreensaver', const {});
+    await commands.execute('startScreensaver', const {'nowPlaying': true});
   }
 
   /// Nothing to show any more: take the paused track off the card and
@@ -873,19 +881,24 @@ class SendspinManager extends Manager {
             _sessionArtUrl = art;
             unawaited(_pushSessionArtwork(art));
           }
-          // Metadata arrives as deltas: a progress-only update carries no
-          // title, and the server may send literal "null" strings. Absent
-          // fields must not clobber what an earlier message established.
+          // A progress-only update carries no title, and the server may
+          // send literal "null" strings: absent fields must not clobber
+          // what an earlier message established. A message with a title
+          // is the whole track, as the engine keeps it, so a track with no
+          // album or cover clears the one before's.
           // The engine's own position stands aside for a while after
           // the server's queue time was taken instead (see
           // _rebaseFromQueue): its extrapolation is the thing that
           // drifts, and every push would drag the bar back to it.
           final title = map['title'];
-          if (title is String &&
-              title.isNotEmpty &&
-              title != 'null' &&
-              title != _status['title']) {
-            _maPositionAt = 0;
+          final track = title is String && title.isNotEmpty && title != 'null';
+          if (track && title != _status['title']) _maPositionAt = 0;
+          if (track) {
+            _status = {
+              for (final e in _status.entries)
+                if (!const {'artist', 'album', 'artworkUrl'}.contains(e.key))
+                  e.key: e.value,
+            };
           }
           // A paused queue has no more progress polls. Keep its corrected
           // position until playback resumes or a different item arrives.
@@ -1366,8 +1379,13 @@ class SendspinManager extends Manager {
             'source: Music Assistant players, Home Assistant media players, '
             'Sonos rooms. Returns id, name, group and availability per '
             'player and a note per group that could not be listed. With '
-            'source set, only that group.',
-        params: const {'source': 'ma | ha | sonos, default all'},
+            'source set, only that group. With speakers true, the Home '
+            'Assistant group keeps Music Assistant\'s own entities, for '
+            'pickers that play sounds on a player.',
+        params: const {
+          'source': 'ma | ha | sonos, default all',
+          'speakers': 'true to keep Music Assistant entities in ha',
+        },
         handler: (p) async {
           final only = '${p['source'] ?? ''}'.trim();
           bool want(String group) => only.isEmpty || only == group;
@@ -1392,7 +1410,13 @@ class SendspinManager extends Manager {
             notes['ha'] = 'Connect Home Assistant to list its media players.';
           } else {
             try {
-              players.addAll(await _haPlayers(haUrl, haToken));
+              players.addAll(
+                await _haPlayers(
+                  haUrl,
+                  haToken,
+                  withMusicAssistant: p['speakers'] == true,
+                ),
+              );
             } catch (e) {
               notes['ha'] = 'Home Assistant did not answer: $e';
             }
@@ -1812,8 +1836,9 @@ class SendspinManager extends Manager {
   /// player both wear the device's name.
   Future<List<Map<String, Object?>>> _haPlayers(
     String baseUrl,
-    String token,
-  ) async {
+    String token, {
+    bool withMusicAssistant = false,
+  }) async {
     final own = {
       _settings.get(defs.deviceName).trim().toLowerCase(),
       _settings.get(defs.sendspinLocalPlayerName).trim().toLowerCase(),
@@ -1821,6 +1846,7 @@ class SendspinManager extends Manager {
     final players = await HaRemotePlayer.listMediaPlayers(
       baseUrl: baseUrl,
       token: token,
+      withMusicAssistant: withMusicAssistant,
     );
     return [
       for (final p in players)

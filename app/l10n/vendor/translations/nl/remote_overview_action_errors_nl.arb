@@ -1,0 +1,10 @@
+{
+  "@@locale": "nl",
+  "deviceScreenOffPermission": "Voor het uitschakelen van het scherm is eenmalig toestemming nodig. De tablet toont nu het toestemmingsscherm voor apparaatbeheer. Verleen daar toestemming en probeer het opnieuw.",
+  "deviceAdminInactive": "De toestemming voor apparaatbeheer is niet actief.",
+  "deviceRestartOverlay": "Voor opnieuw starten is toestemming nodig om over andere apps weer te geven, anders kan de app zichzelf niet opnieuw openen. Het toestemmingsscherm wordt op het apparaat geopend. Verleen daar toestemming en probeer het opnieuw.",
+  "deviceRebootPermission": "Om het apparaat opnieuw te starten, moet Kiosk Satellite als apparaateigenaar zijn ingesteld of moet er een Shizuku-verbinding met toestemming zijn.",
+  "deviceRestartAndroidOnly": "Opnieuw starten is alleen beschikbaar op Android.",
+  "deviceRestartShizukuRefused": "Shizuku heeft de herstart geweigerd",
+  "deviceRestartFailed": "Opnieuw starten mislukt: {error}"
+}

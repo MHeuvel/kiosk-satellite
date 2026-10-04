@@ -54,7 +54,7 @@ Repeat it for each new release. The kiosk notices at its next check, or right aw
 
 How the custom source behaves:
 
-* Plain `http://` works. An `https://` server with a self-signed certificate needs **Ignore SSL errors** on the Home Assistant page, the same setting the dashboard uses. GitHub downloads always verify certificates and ignore that setting.
+* Plain `http://` works. An `https://` server with a certificate from your own CA works once the CA is [installed on the device](tls.md#private-certificate-authorities). A self-signed certificate needs **Ignore SSL errors** on the Home Assistant page, the same setting the dashboard uses. GitHub downloads always verify certificates and ignore that setting.
 * The URL may end in `/releases.json`. The kiosk keeps the folder.
 * While Custom Repository is picked, the kiosk never falls back to GitHub. An unreachable folder keeps whatever the kiosk last knew and the app log names the host and the HTTP status.
 * A folder holding only the running version, or an older one, reports up to date. Android verifies the signing certificate at install, so the folder can only ever serve a real Kiosk Satellite release.

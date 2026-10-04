@@ -1,0 +1,21 @@
+{
+  "@@locale": "nl",
+  "voiceNoticeError": "Voice Satellite-fout",
+  "voiceNoticeWarning": "Voice Satellite-waarschuwing",
+  "voiceNoticeNotice": "Voice Satellite-melding",
+  "voiceNoticeTts": "Tekst-naar-spraak",
+  "voiceNoticeAssistPipeline": "Assist-pijplijn",
+  "voiceNoticePipeline": "Pijplijn \"{name}\"",
+  "voiceNoticeMicUnavailable": "De microfoon is niet beschikbaar.",
+  "voiceNoticeNotConnected": "Home Assistant is niet verbonden met deze kiosk.",
+  "voiceNoticeConnectionLost": "De verbinding met Home Assistant is verbroken. Er wordt automatisch opnieuw verbinding gemaakt.",
+  "voiceNoticePlayback": "Audio kon niet op het apparaat worden afgespeeld.",
+  "voiceNoticeWatchdog": "Home Assistant reageerde niet nadat je klaar was met spreken. Mogelijk is de pijplijn vastgelopen.",
+  "voiceNoticeRefused": "Home Assistant kon de assistent niet starten.",
+  "voiceNoticeUnexpected": "Er is een onverwachte fout in de pijplijn opgetreden.",
+  "voiceNoticeMicBlocked": "Microfoontoegang is geblokkeerd. Sta deze voor Kiosk Satellite toe in de Android-instellingen.",
+  "voiceNoticeMicDeclined": "Microfoontoegang is geweigerd, waardoor het wekwoord niet kan worden gehoord.",
+  "voiceNoticeMicLost": "De microfoon werkt niet meer.",
+  "voiceNoticeModels": "De wekwoordmodellen konden niet worden geladen.",
+  "voiceNoticeCrashed": "De wekwoorddetector crashte herhaaldelijk op dit apparaat en is daarom gestopt."
+}

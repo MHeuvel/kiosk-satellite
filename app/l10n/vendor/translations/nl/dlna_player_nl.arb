@@ -1,0 +1,10 @@
+{
+  "@@locale": "nl",
+  "dlnaCannotDecode": "Dit apparaat kan deze video niet decoderen.",
+  "dlnaCannotRead": "Dit bestand kon niet worden gelezen.",
+  "dlnaCannotPlay": "Dit mediabestand kon niet worden afgespeeld.",
+  "dlnaSeeLogs": "Bekijk de app-logboeken voor meer informatie",
+  "dlnaLoading": "Media laden",
+  "dlnaImageFailed": "Deze afbeelding kon niet worden weergegeven.",
+  "dlnaStop": "Afspelen stoppen"
+}

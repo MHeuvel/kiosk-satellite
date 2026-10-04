@@ -94,10 +94,15 @@ class FlipClockFace extends StatelessWidget {
     required this.fontFamily,
     this.weight,
     this.opticalSize,
+    this.vertical = false,
   });
 
   final DateTime now;
   final bool use24h;
+
+  /// Whether the hours card sits above the minutes card instead of beside
+  /// it (issue #767), so a portrait screen's height sizes the cards.
+  final bool vertical;
   final Color digitColor;
   final Color cardColor;
   final Color backdropColor;
@@ -110,9 +115,11 @@ class FlipClockFace extends StatelessWidget {
   /// The font's optical size to ask for, where it has the axis.
   final double? opticalSize;
 
+  // Stacked, the hours card shows two digits like the minutes card under
+  // it, 05 over 38.
   String get _hours {
     final h = use24h ? now.hour : (now.hour % 12 == 0 ? 12 : now.hour % 12);
-    return use24h ? h.toString().padLeft(2, '0') : h.toString();
+    return use24h || vertical ? h.toString().padLeft(2, '0') : h.toString();
   }
 
   String get _minutes => now.minute.toString().padLeft(2, '0');
@@ -120,15 +127,18 @@ class FlipClockFace extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    // Noticeably taller than wide, as the reference cards are.
-    final cardH = (min(size.height * 0.72, size.width * 0.46) * scale).clamp(
-      60.0,
-      2000.0,
-    );
+    // Noticeably taller than wide, as the reference cards are. Stacked,
+    // the two cards and the gap between them share the height, and a card
+    // may take most of the width.
+    final fit = vertical
+        ? min(size.height * 0.43, size.width * 0.9 / 0.84)
+        : min(size.height * 0.72, size.width * 0.46);
+    final cardH = (fit * scale).clamp(60.0, 2000.0);
     final cardW = cardH * 0.84;
     final gap = cardH * 0.08;
     final fontSize = _fontSize(cardW, cardH);
-    return Row(
+    return Flex(
+      direction: vertical ? Axis.vertical : Axis.horizontal,
       mainAxisSize: MainAxisSize.min,
       children: [
         _FlipCard(
@@ -143,7 +153,7 @@ class FlipClockFace extends StatelessWidget {
           weight: weight,
           opticalSize: opticalSize,
         ),
-        SizedBox(width: gap),
+        SizedBox(width: gap, height: gap),
         _FlipCard(
           value: _minutes,
           width: cardW,

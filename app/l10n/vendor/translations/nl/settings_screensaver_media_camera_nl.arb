@@ -1,0 +1,20 @@
+{
+  "@@locale": "nl",
+  "settingScreensaverCameraViewsTitle": "Cameraweergaven",
+  "settingScreensaverCameraViewsDescription": "De cameraweergaven die de schermbeveiliging toont, in deze volgorde.",
+  "settingScreensaverCameraViewSecondsTitle": "Seconden per cameraweergave",
+  "settingScreensaverCameraViewSecondsDescription": "Hoelang elke weergave op het scherm blijft voordat de volgende verschijnt. Als je één weergave selecteert, wordt er niet gewisseld.",
+  "settingScreensaverCameraMuteTitle": "Alle weergaven dempen",
+  "settingScreensaverCameraMuteDescription": "Dempt alle weergaven, ook als er maar één camera is geselecteerd.",
+  "screensaverMediaCameraPage": "Camerastreams als schermbeveiliging",
+  "screensaverMediaCameraHint": "Weergaven te tonen, seconden per weergave, geluid",
+  "screensaverMediaNoCameras": "Er zijn nog geen camera's. Voeg er een toe bij Camerastreams.",
+  "screensaverMediaNoCamerasRemote": "Er zijn nog geen cameraweergaven met camera's.",
+  "screensaverMediaAddCameras": "Voeg een camera toe bij Camerastreams.",
+  "screensaverMediaNoViews": "Nog geen weergaven. Selecteer welke weergaven de schermbeveiliging afwisselt.",
+  "screensaverMediaRotation": "In de afspeelvolgorde (sleep om de volgorde te wijzigen)",
+  "screensaverMediaAvailable": "Beschikbaar",
+  "screensaverMediaOneCamera": "{count} camera",
+  "screensaverMediaCameras": "{count} camera's",
+  "screensaverMediaPosition": "Positie {index} · {cameras}"
+}

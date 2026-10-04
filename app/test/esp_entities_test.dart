@@ -789,6 +789,49 @@ void main() {
     },
   );
 
+  group('the Voice Satellite sensor', () {
+    test('is listed only while Voice Satellite runs natively', () async {
+      Future<List<String>> ids() async => [
+        for (final d in await surface.build()) '${d['objectId']}',
+      ];
+      await settings.set(defs.haSatelliteEntity, 'assist_satellite.office');
+      await settings.set(defs.voiceRuntime, 'dashboard');
+      await settings.set(defs.voiceEnabled, true);
+      expect(await ids(), isNot(contains('voice_satellite_state')));
+      expect(await ids(), contains('voice_satellite'));
+      await settings.set(defs.voiceRuntime, 'native');
+      final catalog = await surface.build();
+      final sensor = catalog.singleWhere(
+        (d) => d['objectId'] == 'voice_satellite_state',
+      );
+      expect(sensor['type'], 'text_sensor');
+      expect(sensor['name'], 'Voice Satellite');
+      expect(
+        catalog.map((d) => d['objectId']),
+        isNot(contains('voice_satellite')),
+      );
+    });
+
+    test('is seeded at attach and follows the turn', () async {
+      await settings.set(defs.voiceRuntime, 'native');
+      await settings.set(defs.voiceEnabled, true);
+      commands.register(
+        Command(
+          name: 'voiceStatus',
+          description: 'stub',
+          handler: (_) async => const CommandResult.ok({'state': 'listening'}),
+        ),
+      );
+      await attach();
+      expect(pushed, contains(('voice_satellite_state', 'listening')));
+      for (final state in ['processing', 'responding', 'idle']) {
+        bus.publish(VoiceSatelliteStateChanged(state));
+        await Future<void>.delayed(const Duration(milliseconds: 20));
+        expect(pushed.last, ('voice_satellite_state', state));
+      }
+    });
+  });
+
   test('the catalog carries the full entity set', () async {
     final catalog = await surface.build();
     final ids = [for (final d in catalog) '${d['objectId']}'];
@@ -1034,6 +1077,11 @@ void main() {
 
     // Single-camera hardware (Echo Show 5): no choice, no dropdown.
     cameraFacings = ['front'];
+    ids = [for (final d in await surface.build()) '${d['objectId']}'];
+    expect(ids, isNot(contains('camera_device')));
+
+    // A USB or monitor webcam as the only camera (Raspberry Pi).
+    cameraFacings = ['external'];
     ids = [for (final d in await surface.build()) '${d['objectId']}'];
     expect(ids, isNot(contains('camera_device')));
 
@@ -1356,6 +1404,44 @@ void main() {
         pushed.lastWhere((p) => p.$1 == 'update').$2 as Map<String, Object?>;
     expect(state['inProgress'], true);
     expect(state['progress'], closeTo(42, 1e-9));
+  });
+
+  // Issue #819: Home Assistant shows the summary as the full release
+  // notes, so it must not be cut to the 255 characters of the old MQTT
+  // attribute.
+  Future<String> pushedSummary() async {
+    await surface.build();
+    await attach();
+    pushed.clear();
+    bus.publish(const UpdateStateChanged());
+    await Future<void>.delayed(const Duration(milliseconds: 20));
+    final state =
+        pushed.lastWhere((p) => p.$1 == 'update').$2 as Map<String, Object?>;
+    return state['summary'] as String;
+  }
+
+  test('the update entity carries the full release notes', () async {
+    final notes = '## What is new\n\n${'- **A change.** Details.\n' * 200}';
+    updateStatus['availableNotes'] = notes;
+    expect(await pushedSummary(), notes.trim());
+  });
+
+  test('notes past the frame budget stop at a whole release', () async {
+    final body = '- **A change.** Détails über ünïcode.\n' * 300;
+    final releases = [
+      for (var i = 9; i > 0; i--) '# Version 2026.8.$i\n\n$body',
+    ];
+    updateStatus['availableNotes'] = releases.join('\n\n');
+    final summary = await pushedSummary();
+    expect(utf8.encode(summary).length, lessThanOrEqualTo(30 * 1024));
+    expect(summary, startsWith(releases.first));
+    expect(
+      summary,
+      endsWith('\n\nThe rest of the notes are on the GitHub releases page.'),
+    );
+    final kept = summary.split('# Version ').length - 1;
+    expect(summary, contains(releases[kept - 1].trimRight()));
+    expect(kept, lessThan(releases.length));
   });
 
   test('setting-backed entities write settings and echo real state', () async {

@@ -20,5 +20,9 @@
   "fleetNameRemoteAdministrationRendererWorkaroundsScale": "nom, administration à distance, contournements de rendu, échelle",
   "fleetHomeAssistantToken": "Jeton Home Assistant",
   "fleetMusicAssistantToken": "Jeton Music Assistant",
-  "fleetImmichApiKey": "Clé API Immich"
+  "fleetImmichApiKey": "Clé API Immich",
+  "fleetOpenAiApiKey": "Clé API OpenAI",
+  "fleetXaiApiKey": "Clé API xAI",
+  "fleetGeminiApiKey": "Clé API Gemini",
+  "fleetMcpServerToken": "Jeton du serveur MCP"
 }

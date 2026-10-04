@@ -2,7 +2,7 @@
 
 Kiosk Satellite has alarms of its own. They live on the kiosk and ring without Home Assistant, a network or the dashboard. You get a list with a switch per alarm, a scroll wheel to pick the time, one page for the details and a full screen with Snooze and Stop when an alarm rings.
 
-Open the list from **Alarms** in the kiosk menu, from **Manage alarms** under **Settings, Alarms**, from the **Next alarm** screensaver widget or from the **Alarms** page of the remote admin.
+Open the list from **Alarms** in the kiosk menu, from **Manage alarms** under **Settings, Alarms**, from the **Next alarm** screensaver widget, from the **Alarms** page of the remote admin or from a dashboard button pointed at `ks://alarms` (see [Dashboard Links](dashboard-links.md)).
 
 ## Setting an alarm
 
@@ -95,9 +95,31 @@ Then ask the kiosk: "wake me up at 6:30 on weekdays", "set an alarm called Gym f
 
 It works in any language your agent speaks, with no sentences to set up per language. Ask in Spanish, German, French, Ukrainian or anything else the same way, like "despiértame a las seis y media de lunes a viernes", and the agent answers in that language.
 
+[Realtime conversations](voice-satellite.md#realtime-conversations) set alarms the same way: with **Tools** on **Home Assistant**, the model sees the exposed script and calls it while the conversation runs.
+
 The alarm goes to the kiosk you are talking to. A request typed into Home Assistant's own chat reaches no kiosk until it names one, as in "set an alarm on the bedroom kiosk", which matches the kiosk's device name or ESPHome name.
 
-The kiosk listens for the script over its own Home Assistant connection, so it needs the Home Assistant address and token under **Settings, Home Assistant**, and the token has to belong to an administrator. With any other token the kiosk leaves voice alarms off and asks Home Assistant nothing. Nothing new appears in ESPHome.
+The kiosk listens for the script over its own Home Assistant connection, so it needs the Home Assistant long lived token under **Settings, Home Assistant** to belong to an administrator user. With any other token the kiosk leaves voice alarms off and asks Home Assistant nothing. [Calling another kiosk by voice](intercom.md#calling-by-voice) works the same way and needs the same token. Nothing new appears in ESPHome.
+
+### Good to know
+
+- **Countdowns.** "Set an alarm in 20 minutes called Pizza" works as a kitchen countdown. The agent turns it into a clock time, and the alarm rings once, full screen and on the alarm stream, with the label on screen. It is accurate to the minute. For a countdown accurate to the second that you can pause, ask for a timer instead: "set a timer for 20 minutes". [Voice Satellite](voice-satellite.md#timers-announcements-and-conversations) shows it as a pill, and timers work with the built-in Home Assistant agent too.
+- **Another room.** Name a kiosk to set its alarm from anywhere: tell the kitchen kiosk "set an alarm on the bedroom kiosk for 6:30 tomorrow" and the bedroom kiosk takes it.
+- **One specific day.** A one time alarm rings the next time the clock reads its time, so "set an alarm for Friday at 7" usually becomes an alarm that repeats every Friday. Turn it off or delete it after it rings if you only needed it once.
+- **Skipping a morning.** Turning off a repeating alarm stops it on every day until you turn it back on, with "turn my 6:30 alarm back on". There is no skip for one day only.
+- **Moving an alarm.** There is no edit, so ask for both steps in one sentence: "delete my 6:30 alarm and set one for 7".
+- **Automations.** The script works outside Assist too. Call it from an automation or a script with `kiosk` set, for example to set tomorrow's wake up from a calendar event. With a response variable, `action: list` returns the kiosk's alarms and when each rings next.
+
+    ```yaml
+    action: script.kiosk_satellite_alarms
+    data:
+      action: set
+      time: "06:30"
+      days: [mon, tue, wed, thu, fri]
+      label: Work
+      kiosk: Bedroom
+    response_variable: result
+    ```
 
 **Manage alarms using Voice Satellite** under **Settings, Alarms, Voice Alarms** and on the remote admin's **Alarms** page opens this guide.
 
@@ -119,3 +141,47 @@ The kiosk's alarms reach Home Assistant through [ESPHome](esphome.md):
 | **Stop alarm**, **Snooze alarm** | button | The same as the buttons on screen. |
 
 A morning routine is an automation that triggers when **Alarm ringing** turns off.
+
+### Alarm events
+
+Every alarm also fires an `esphome.kiosk_satellite_alarm` event on the Home Assistant bus, one per alarm, whenever it changes or rings. Home Assistant only fires device events under `esphome.`, hence the prefix.
+
+```yaml
+event_type: esphome.kiosk_satellite_alarm
+data:
+  device_id: 5f1c...
+  event_type: ringing
+  alarm_id: k3v9x2qa
+  label: Wake up
+  time: "07:00"
+  days: [mon, tue, wed, thu, fri]
+  enabled: true
+```
+
+| `event_type` | When |
+| --- | --- |
+| `created` | An alarm was added, on the kiosk, by voice, in the remote admin or by a settings import. |
+| `updated` | An alarm changed or was switched on or off. A one time alarm switches itself off once it rings. |
+| `deleted` | An alarm was removed. |
+| `sunrise` | Its sunrise started. |
+| `ringing` | It rings, again after each snooze. |
+| `snoozed` | It was snoozed. `snoozed_until` holds when it rings again, in UTC. |
+| `stopped` | It was stopped during a ring, a snooze or a sunrise. |
+| `silenced` | Nobody stopped it before **Silence after** ran out. |
+
+`time` is the alarm's local time and `days` lists the days it repeats on, empty for a one time alarm. `device_id` is the kiosk's ESPHome device, added by Home Assistant.
+
+```yaml
+# Turn on the bedroom lights when the bedroom kiosk's alarm is stopped.
+triggers:
+  - trigger: event
+    event_type: esphome.kiosk_satellite_alarm
+    event_data:
+      event_type: stopped
+      # The bedroom kiosk's device ID, from its device page URL.
+      device_id: 5f1c...
+actions:
+  - action: light.turn_on
+    target:
+      entity_id: light.bedroom
+```
