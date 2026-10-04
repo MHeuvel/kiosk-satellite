@@ -529,6 +529,22 @@ class DlnaManager extends Manager {
   /// renderer is still playing) is made from its evented view of us, and a
   /// notify that races the SOAP response loses — the controller then acts
   /// on the state we just left.
+  ///
+  /// The wait is capped (issue #847). Some controllers, foobar2000 among
+  /// them, cannot take a notify while one of their own requests is still
+  /// open, so an uncapped wait deadlocks until the controller gives up on
+  /// the request. Home Assistant answers a notify in milliseconds, well
+  /// inside the cap, and a late notify still goes out after the reply.
+  static const _deliveryWait = Duration(milliseconds: 300);
+
+  Future<void> _awaitDelivery(Future<void> delivered) async {
+    try {
+      await delivered.timeout(_deliveryWait);
+    } on TimeoutException {
+      // Delivery carries on in the subscription's queue.
+    }
+  }
+
   Future<Map<String, String>?> _avTransport(
     String action,
     Map<String, String> args,
@@ -558,7 +574,7 @@ class DlnaManager extends Manager {
         // playback is the in-place switch semantic — the overlay swaps
         // players immediately, no Play follows.
         if (transportState.value != 'PLAYING') _setPending(true);
-        await _notifyAvt();
+        await _awaitDelivery(_notifyAvt());
         return const {};
       case 'Play':
         if (media.value == null) {
@@ -569,16 +585,16 @@ class DlnaManager extends Manager {
         _setPending(false);
         transportState.value = 'PLAYING';
         _onPlaybackStarted();
-        await _notifyAvt();
+        await _awaitDelivery(_notifyAvt());
         return const {};
       case 'Pause':
         if (transportState.value == 'PLAYING') {
           transportState.value = 'PAUSED_PLAYBACK';
-          await _notifyAvt();
+          await _awaitDelivery(_notifyAvt());
         }
         return const {};
       case 'Stop':
-        await stopPlayback();
+        await _awaitDelivery(stopPlayback());
         return const {};
       case 'Seek':
         final target = parseUpnpTime(args['Target'] ?? '');
@@ -885,7 +901,8 @@ class DlnaManager extends Manager {
   /// The state event goes out on every stop: a controller-initiated Stop
   /// being echoed back is harmless, and a local stop (tap, media end) MUST
   /// be pushed or HA's entity goes stale. Returns when the event is
-  /// delivered (the Stop action awaits it; local callers need not).
+  /// delivered (the Stop action awaits it up to [_deliveryWait]; local
+  /// callers need not).
   Future<void> stopPlayback() {
     if (transportState.value == 'STOPPED' && media.value == null) {
       return Future.value();
