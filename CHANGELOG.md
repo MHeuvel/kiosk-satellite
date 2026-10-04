@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.10.7 - 2026-10-04
 
 ### Added
 - **Voice Only skin.** **Voice Satellite > Appearance > Skin** gains Voice Only for screens too small to read. It shows no command, answer, tool lines or results, only the Kiosk Satellite logo filling the screen, or on its own over the dashboard in docked mode, with its four bars stretching and shrinking to the microphone and the spoken answer. The bars follow the answer as far as they follow your voice. With **Reactive activity bar** off, the bars run their own animation for listening, thinking and speaking instead. In the light theme the full screen overlay sits on the same background gradient as the app launcher and the intercom. Skin names in the on-device picker are now translated too, and the remote admin's skin picker checks for updated pictures instead of keeping old ones for a day. Translated into Spanish, German, French, Ukrainian and Dutch.
