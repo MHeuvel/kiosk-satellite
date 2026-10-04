@@ -476,7 +476,7 @@ Future<bool> showRealtimeProviderDialog(
 ) async {
   final settings = container.settings;
   // OpenAI's and Gemini's lists end with Reasoning effort, which xAI has
-  // no say in. Gemini's switches follow.
+  // no say in. xAI's and Gemini's switches follow.
   final [keyDef, modelDef, voiceDef, endpointDef, ...more] =
       defs.realtimeProviderSettings[provider.id]!;
   final reasoningDef = more.firstOrNull;

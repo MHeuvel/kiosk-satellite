@@ -11838,6 +11838,20 @@ class UiStringsEn extends UiStrings {
       'The model stays quiet when what it hears is not addressed to it. Experimental at Google.';
 
   @override
+  String get settingVoiceRealtimeXaiWebSearchTitle => 'Web Search';
+
+  @override
+  String get settingVoiceRealtimeXaiWebSearchDescription =>
+      'Lets the model look things up on the web.';
+
+  @override
+  String get settingVoiceRealtimeXaiXSearchTitle => 'X Search';
+
+  @override
+  String get settingVoiceRealtimeXaiXSearchDescription =>
+      'Lets the model search posts on X.';
+
+  @override
   String get voiceRealtimeReasoningDefault => 'Model default';
 
   @override

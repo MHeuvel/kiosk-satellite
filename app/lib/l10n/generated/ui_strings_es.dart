@@ -12081,6 +12081,20 @@ class UiStringsEs extends UiStrings {
       'El modelo se queda callado cuando lo que oye no va dirigido a él. Experimental en Google.';
 
   @override
+  String get settingVoiceRealtimeXaiWebSearchTitle => 'Búsqueda web';
+
+  @override
+  String get settingVoiceRealtimeXaiWebSearchDescription =>
+      'Permite que el modelo busque información en la web.';
+
+  @override
+  String get settingVoiceRealtimeXaiXSearchTitle => 'Búsqueda en X';
+
+  @override
+  String get settingVoiceRealtimeXaiXSearchDescription =>
+      'Permite que el modelo busque publicaciones en X.';
+
+  @override
   String get voiceRealtimeReasoningDefault => 'Predeterminado del modelo';
 
   @override

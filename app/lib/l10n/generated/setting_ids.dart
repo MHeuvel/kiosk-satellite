@@ -1884,6 +1884,14 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingVoiceRealtimeVoiceTitle",
     "description": "settingVoiceRealtimeVoiceDescription",
   },
+  "voice.realtime_xai_search": {
+    "title": "settingVoiceRealtimeXaiWebSearchTitle",
+    "description": "settingVoiceRealtimeXaiWebSearchDescription",
+  },
+  "voice.realtime_xai_x_search": {
+    "title": "settingVoiceRealtimeXaiXSearchTitle",
+    "description": "settingVoiceRealtimeXaiXSearchDescription",
+  },
   "voice.realtime_gemini_api_key": {
     "title": "settingVoiceRealtimeApiKeyTitle",
     "description": "settingVoiceRealtimeApiKeyDescription",

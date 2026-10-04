@@ -12073,6 +12073,20 @@ class UiStringsFr extends UiStrings {
       'Le modèle reste silencieux quand ce qu\'il entend ne lui est pas adressé. Expérimental chez Google.';
 
   @override
+  String get settingVoiceRealtimeXaiWebSearchTitle => 'Recherche web';
+
+  @override
+  String get settingVoiceRealtimeXaiWebSearchDescription =>
+      'Permet au modèle de chercher des informations sur le web.';
+
+  @override
+  String get settingVoiceRealtimeXaiXSearchTitle => 'Recherche X';
+
+  @override
+  String get settingVoiceRealtimeXaiXSearchDescription =>
+      'Permet au modèle de chercher des publications sur X.';
+
+  @override
   String get voiceRealtimeReasoningDefault => 'Par défaut du modèle';
 
   @override

@@ -43356,6 +43356,26 @@
     "context": "Settings > Voice Satellite > Realtime",
     "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   },
+  "settingVoiceRealtimeXaiWebSearchTitle": "Websuche",
+  "@settingVoiceRealtimeXaiWebSearchTitle": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeXaiWebSearchDescription": "Lässt das Modell im Web nachschlagen.",
+  "@settingVoiceRealtimeXaiWebSearchDescription": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeXaiXSearchTitle": "X-Suche",
+  "@settingVoiceRealtimeXaiXSearchTitle": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeXaiXSearchDescription": "Lässt das Modell Beiträge auf X durchsuchen.",
+  "@settingVoiceRealtimeXaiXSearchDescription": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
   "voiceRealtimeReasoningDefault": "Modellstandard",
   "@voiceRealtimeReasoningDefault": {
     "context": "Settings > Voice Satellite > Realtime",

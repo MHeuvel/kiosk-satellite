@@ -59,6 +59,7 @@ class RealtimeConfig {
     this.speed = 1,
     this.reasoning = '',
     this.search = false,
+    this.xSearch = false,
     this.proactive = false,
   });
 
@@ -81,8 +82,12 @@ class RealtimeConfig {
   /// refuses the field.
   final String reasoning;
 
-  /// Gemini only: its Google Search tool.
+  /// The provider's own web search: Google Search on Gemini, web_search
+  /// on xAI. OpenAI has none.
   final bool search;
+
+  /// xAI only: its X search tool.
+  final bool xSearch;
 
   /// Gemini only: proactive audio, which only Google's v1alpha API has.
   final bool proactive;
@@ -206,6 +211,10 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
   /// VAD it cancels the answer itself, so the kiosk does not.
   bool _serverInterrupted = false;
 
+  /// The names of the tools the session was given. Any other call is one
+  /// the provider ran itself.
+  final _toolNames = <String>{};
+
   /// Tool calls of the current answer still running, and whether the
   /// answer ended with outputs the model has not answered yet.
   int _calls = 0;
@@ -250,6 +259,7 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
       tools = const [];
       _emit(RealtimeWarning('tools: $e'));
     }
+    _toolNames.addAll(tools.map((t) => t.name));
     if (toolbox case final CombinedToolbox box when box.problems.isNotEmpty) {
       for (final problem in box.problems) {
         _emit(RealtimeWarning(problem));
@@ -324,6 +334,11 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
     const format = {'type': 'audio/pcm', 'rate': rate};
     final language = start.language.split(RegExp('[-_]')).first.toLowerCase();
     final toolList = [for (final tool in tools) tool.toJson()];
+    final xaiTools = [
+      ...toolList,
+      if (config.search) {'type': 'web_search'},
+      if (config.xSearch) {'type': 'x_search'},
+    ];
     final turnDetection = {
       'type': 'server_vad',
       'silence_duration_ms': 500,
@@ -375,7 +390,7 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
             if (config.speed != 1) 'speed': config.speed,
           },
         },
-        if (toolList.isNotEmpty) 'tools': toolList,
+        if (xaiTools.isNotEmpty) 'tools': xaiTools,
       },
       RealtimeProvider.gemini => throw UnsupportedError(
         'Gemini speaks the Live API (GeminiLiveBackend)',
@@ -557,8 +572,20 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
     _emit(RealtimeWarning(message));
   }
 
+  /// xAI runs its web and X searches itself and still reports each one
+  /// as a function call, after the answer that used it: web_search,
+  /// x_keyword_search and the like. They need no output.
+  bool _providerTool(String name) =>
+      config.provider == RealtimeProvider.xai &&
+      (config.search || config.xSearch) &&
+      !_toolNames.contains(name);
+
   Future<void> _runTool(String callId, String name, String arguments) async {
     if (callId.isEmpty || name.isEmpty) return;
+    if (_providerTool(name)) {
+      log?.call('provider ran $name');
+      return;
+    }
     _calls++;
     final display = toolbox.originalName(name);
     _emit(RealtimeToolActivity(display));

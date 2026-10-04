@@ -12122,6 +12122,20 @@ class UiStringsDe extends UiStrings {
       'Das Modell bleibt still, wenn das Gehörte nicht an es gerichtet ist. Bei Google experimentell.';
 
   @override
+  String get settingVoiceRealtimeXaiWebSearchTitle => 'Websuche';
+
+  @override
+  String get settingVoiceRealtimeXaiWebSearchDescription =>
+      'Lässt das Modell im Web nachschlagen.';
+
+  @override
+  String get settingVoiceRealtimeXaiXSearchTitle => 'X-Suche';
+
+  @override
+  String get settingVoiceRealtimeXaiXSearchDescription =>
+      'Lässt das Modell Beiträge auf X durchsuchen.';
+
+  @override
   String get voiceRealtimeReasoningDefault => 'Modellstandard';
 
   @override

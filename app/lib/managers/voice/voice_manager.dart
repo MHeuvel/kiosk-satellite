@@ -547,7 +547,8 @@ class VoiceManager extends Manager {
                 'OpenAI: minimal, low, medium, high or xhigh. Gemini: '
                 'minimal, low, medium or high. Empty for the model\'s '
                 'default',
-            'search': 'Gemini only: true for its Google Search tool',
+            'search': 'Gemini and xAI: true for the provider\'s own web search',
+            'x_search': 'xAI only: true for its X search',
             'proactive':
                 'Gemini only: true for proactive audio (talk not meant '
                 'for it gets no answer)',
@@ -562,6 +563,7 @@ class VoiceManager extends Manager {
               voice: '${p['voice'] ?? ''}',
               reasoning: '${p['reasoning'] ?? ''}',
               search: p['search'] == true || p['search'] == 'true',
+              xSearch: p['x_search'] == true || p['x_search'] == 'true',
               proactive: p['proactive'] == true || p['proactive'] == 'true',
             ),
           ),
@@ -1797,6 +1799,7 @@ class VoiceManager extends Manager {
     SettingDef<String> voice,
     SettingDef<String>? reasoning,
     SettingDef<bool>? search,
+    SettingDef<bool>? xSearch,
     SettingDef<bool>? proactive,
     SettingDef<String> validated,
   })
@@ -1808,6 +1811,7 @@ class VoiceManager extends Manager {
       voice: defs.voiceRealtimeOpenAiVoice,
       reasoning: defs.voiceRealtimeOpenAiReasoning,
       search: null,
+      xSearch: null,
       proactive: null,
       validated: defs.voiceRealtimeOpenAiValidated,
     ),
@@ -1817,7 +1821,8 @@ class VoiceManager extends Manager {
       model: defs.voiceRealtimeXaiModel,
       voice: defs.voiceRealtimeXaiVoice,
       reasoning: null,
-      search: null,
+      search: defs.voiceRealtimeXaiSearch,
+      xSearch: defs.voiceRealtimeXaiXSearch,
       proactive: null,
       validated: defs.voiceRealtimeXaiValidated,
     ),
@@ -1828,6 +1833,7 @@ class VoiceManager extends Manager {
       voice: defs.voiceRealtimeGeminiVoice,
       reasoning: defs.voiceRealtimeGeminiReasoning,
       search: defs.voiceRealtimeGeminiSearch,
+      xSearch: null,
       proactive: defs.voiceRealtimeGeminiProactive,
       validated: defs.voiceRealtimeGeminiValidated,
     ),
@@ -2031,11 +2037,13 @@ class VoiceManager extends Manager {
     String? voice,
     String? reasoning,
     bool? search,
+    bool? xSearch,
     bool? proactive,
   }) {
     final d = _realtimeDefs(provider);
     final effort = d.reasoning;
     final searchDef = d.search;
+    final xSearchDef = d.xSearch;
     final proactiveDef = d.proactive;
     return RealtimeConfig(
       provider: provider,
@@ -2047,6 +2055,7 @@ class VoiceManager extends Manager {
       speed: _settings.get(defs.voiceRealtimeSpeed).toDouble(),
       reasoning: effort == null ? '' : reasoning ?? _settings.get(effort),
       search: searchDef != null && (search ?? _settings.get(searchDef)),
+      xSearch: xSearchDef != null && (xSearch ?? _settings.get(xSearchDef)),
       proactive:
           proactiveDef != null && (proactive ?? _settings.get(proactiveDef)),
     );
@@ -2107,6 +2116,7 @@ class VoiceManager extends Manager {
     required String voice,
     String reasoning = '',
     bool search = false,
+    bool xSearch = false,
     bool proactive = false,
   }) async {
     final d = _realtimeDefs(provider);
@@ -2141,6 +2151,7 @@ class VoiceManager extends Manager {
         voice: voice,
         reasoning: reasoning,
         search: search,
+        xSearch: xSearch,
         proactive: proactive,
       ),
     );
@@ -2155,6 +2166,9 @@ class VoiceManager extends Manager {
     }
     if (d.search case final def?) {
       await _settings.set(def, search, source: 'voice');
+    }
+    if (d.xSearch case final def?) {
+      await _settings.set(def, xSearch, source: 'voice');
     }
     if (d.proactive case final def?) {
       await _settings.set(def, proactive, source: 'voice');

@@ -3951,6 +3951,14 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingVoiceRealtimeGeminiProactiveTitle,
       'settingVoiceRealtimeGeminiProactiveDescription' =>
         strings.settingVoiceRealtimeGeminiProactiveDescription,
+      'settingVoiceRealtimeXaiWebSearchTitle' =>
+        strings.settingVoiceRealtimeXaiWebSearchTitle,
+      'settingVoiceRealtimeXaiWebSearchDescription' =>
+        strings.settingVoiceRealtimeXaiWebSearchDescription,
+      'settingVoiceRealtimeXaiXSearchTitle' =>
+        strings.settingVoiceRealtimeXaiXSearchTitle,
+      'settingVoiceRealtimeXaiXSearchDescription' =>
+        strings.settingVoiceRealtimeXaiXSearchDescription,
       'voiceRealtimeReasoningDefault' => strings.voiceRealtimeReasoningDefault,
       'voiceRealtimeReasoningMinimal' => strings.voiceRealtimeReasoningMinimal,
       'voiceRealtimeReasoningLow' => strings.voiceRealtimeReasoningLow,

@@ -11969,6 +11969,20 @@ class UiStringsUk extends UiStrings {
       'Модель мовчить, коли те, що вона чує, звернено не до неї. Експериментальна функція Google.';
 
   @override
+  String get settingVoiceRealtimeXaiWebSearchTitle => 'Пошук в інтернеті';
+
+  @override
+  String get settingVoiceRealtimeXaiWebSearchDescription =>
+      'Дозволяє моделі шукати інформацію в інтернеті.';
+
+  @override
+  String get settingVoiceRealtimeXaiXSearchTitle => 'Пошук в X';
+
+  @override
+  String get settingVoiceRealtimeXaiXSearchDescription =>
+      'Дозволяє моделі шукати дописи в X.';
+
+  @override
   String get voiceRealtimeReasoningDefault => 'Типово для моделі';
 
   @override
