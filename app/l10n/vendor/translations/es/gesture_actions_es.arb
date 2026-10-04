@@ -10,6 +10,7 @@
   "gestureScreensaver": "Iniciar el protector de pantalla",
   "gestureScreensaverStop": "Detener el protector de pantalla",
   "gestureHoldMode": "Activar o desactivar el modo de pausa",
+  "gestureMediaPlayPause": "Reproducir o pausar el contenido multimedia",
   "gestureHaKiosk": "Activar o desactivar el modo kiosko de HA",
   "gesturePluginRun": "Ejecutar una acción de un plugin",
   "gestureLaunchApp": "Abrir otra aplicación",

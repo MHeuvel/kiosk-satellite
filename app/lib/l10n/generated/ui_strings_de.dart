@@ -1531,6 +1531,9 @@ class UiStringsDe extends UiStrings {
   String get gestureHoldMode => 'Pausenmodus ein- oder ausschalten';
 
   @override
+  String get gestureMediaPlayPause => 'Medien abspielen oder pausieren';
+
+  @override
   String get gestureHaKiosk => 'HA-Kioskmodus ein- oder ausschalten';
 
   @override

@@ -10,6 +10,7 @@
   "gestureScreensaver": "Start de schermbeveiliging",
   "gestureScreensaverStop": "Stop de schermbeveiliging",
   "gestureHoldMode": "Wachtstand aan/uit",
+  "gestureMediaPlayPause": "Media afspelen of pauzeren",
   "gestureHaKiosk": "HA-kioskmodus in- of uitschakelen",
   "gesturePluginRun": "Een plug-inactie uitvoeren",
   "gestureLaunchApp": "Een andere app openen",

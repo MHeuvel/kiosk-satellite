@@ -1522,6 +1522,9 @@ class UiStringsFr extends UiStrings {
   String get gestureHoldMode => 'Basculer le mode maintien';
 
   @override
+  String get gestureMediaPlayPause => 'Lire ou mettre en pause le média';
+
+  @override
   String get gestureHaKiosk => 'Basculer le mode kiosque HA';
 
   @override

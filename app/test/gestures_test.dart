@@ -208,6 +208,7 @@ void main() {
         'showAppLauncher',
         'showNowPlaying',
         'showMusicAssistant',
+        'sendspinControl',
         'launchApp',
         'openUri',
         'openSystemSettings',
@@ -478,6 +479,22 @@ void main() {
         expect(executed.single.$2, isEmpty);
       },
     );
+
+    test('media_play_pause toggles the player through one command', () async {
+      await build(
+        '[{"id":"g1","trigger":{"type":"claps","claps":2},'
+        '"action":{"type":"media_play_pause"}}]',
+      );
+      await fire('g1');
+      expect(executed, hasLength(1));
+      expect(executed.single.$1, 'sendspinControl');
+      expect(executed.single.$2, {'command': 'toggle'});
+      expect(outcomes, isEmpty);
+      expect(
+        describeGestureAction(const {'type': 'media_play_pause'}),
+        'Play or pause media',
+      );
+    });
 
     test('camera_view show and hide pick the right command', () async {
       await build(

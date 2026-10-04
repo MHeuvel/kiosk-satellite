@@ -2731,6 +2731,12 @@ abstract class UiStrings {
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:
+  /// **'Play or pause media'**
+  String get gestureMediaPlayPause;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
   /// **'Toggle HA kiosk mode'**
   String get gestureHaKiosk;
 

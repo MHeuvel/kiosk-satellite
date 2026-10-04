@@ -1513,6 +1513,9 @@ class UiStringsUk extends UiStrings {
   String get gestureHoldMode => 'Перемкнути режим блокування';
 
   @override
+  String get gestureMediaPlayPause => 'Відтворити або призупинити медіа';
+
+  @override
   String get gestureHaKiosk => 'Перемкнути режим кіоска HA';
 
   @override

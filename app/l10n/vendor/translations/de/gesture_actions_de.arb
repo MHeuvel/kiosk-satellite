@@ -10,6 +10,7 @@
   "gestureScreensaver": "Bildschirmschoner starten",
   "gestureScreensaverStop": "Bildschirmschoner beenden",
   "gestureHoldMode": "Pausenmodus ein- oder ausschalten",
+  "gestureMediaPlayPause": "Medien abspielen oder pausieren",
   "gestureHaKiosk": "HA-Kioskmodus ein- oder ausschalten",
   "gesturePluginRun": "Eine Plugin-Aktion ausführen",
   "gestureLaunchApp": "Eine andere App öffnen",

@@ -1509,6 +1509,9 @@ class UiStringsEn extends UiStrings {
   String get gestureHoldMode => 'Toggle hold mode';
 
   @override
+  String get gestureMediaPlayPause => 'Play or pause media';
+
+  @override
   String get gestureHaKiosk => 'Toggle HA kiosk mode';
 
   @override

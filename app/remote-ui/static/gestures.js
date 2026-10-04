@@ -42,6 +42,7 @@ export const GESTURE_ACTION_GROUPS = [
     ['sendspin_player', 'Show the floating player', 'speaker'],
     ['now_playing', 'Show Now Playing', 'playCircle'],
     ['music_assistant', 'Open Music Assistant', 'music'],
+    ['media_play_pause', 'Play or pause media', 'playPause'],
     ['app_launcher', 'Open the app launcher', 'apps'],
     ['intercom_open', 'Open Call a kiosk', 'speaker'],
     ['intercom_call', 'Call a kiosk', 'speaker'],
@@ -101,6 +102,7 @@ export function describeGestureAction(a) {
     case 'sendspin_player': return gestureText('Show the floating player');
     case 'now_playing': return gestureText('Show Now Playing');
     case 'music_assistant': return gestureText('Open Music Assistant');
+    case 'media_play_pause': return gestureText('Play or pause media');
     case 'app_launcher': return gestureText('Open the app launcher');
     case 'intercom_open': return gestureText('Open Call a kiosk');
     case 'intercom_call': return t('gestureCall', {value: a.kioskName || a.kioskId});
@@ -446,7 +448,7 @@ export async function pickGestureAction(current) {
     case 'android_settings': case 'sendspin_player': case 'app_launcher':
     case 'screensaver': case 'screensaver_stop': case 'hold_mode':
     case 'ha_kiosk': case 'now_playing': case 'music_assistant':
-    case 'intercom_open':
+    case 'media_play_pause': case 'intercom_open':
       return { type };
     case 'navigate': return configureGestureNavigate(carried);
     case 'url': return configureGestureText(carried, {

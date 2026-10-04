@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "f91f5183e2a66f539b9132f5ed0de2482ed9efd5",
+  "revision": "417fed515f9d4a1ac6399cab08a163f183e06e62",
   "workingTree": true,
   "files": {
     "about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
@@ -27,7 +27,7 @@
     "fleet_switcher_en.arb": "5991593bdda40d6869f6e2c3402a626b4b2ed8846c3c74135a0b7608cdd374d0",
     "fleet_sync_selection_en.arb": "8635dd198f45f4b4172dfdf2110571f758950bde9ffb7f6e5a856ba03d7a6336",
     "fleet_updates_en.arb": "3b5463bf3e7e96ff4554b313bcfdf836e38df61b1a0a848dc8d386a55615c954",
-    "gesture_actions_en.arb": "0f1e0e2ead29519b92ba491a61144d54284ceb53622f5a2f0eae4703c9b681d2",
+    "gesture_actions_en.arb": "9f03d8c8e2dfc7176464e0bb3482508e393cf3630c5e5fb5203fa20ad01ce7b9",
     "gesture_descriptions_en.arb": "62e19ccb44fdbbd1bba1d738de9a5f25716920a896774c11e9fc2177aa253f8c",
     "gesture_ha_actions_en.arb": "b9debbaac45b8e2cb7c1dd688d5e064e1f6c53942c584509fb09ca470fd50017",
     "gesture_hand_tester_en.arb": "fe0cd4b66d32658f05ca0f2eb0e1fe3ccadecdd9b277407ee317c4aa4e2aab27",

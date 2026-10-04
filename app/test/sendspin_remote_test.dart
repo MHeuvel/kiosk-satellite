@@ -468,6 +468,15 @@ void main() {
       expect(nativeCalls.map((c) => c.method), isNot(contains('control')));
     });
 
+    test('toggle pauses a playing player and plays a paused one', () async {
+      await build();
+      fake!.onSnapshot({'title': 'Song', 'playing': true});
+      expect(await sendspin.control('toggle'), isTrue);
+      fake!.onSnapshot({'title': 'Song', 'playing': false});
+      expect(await sendspin.control('toggle'), isTrue);
+      expect(fake!.sent, ['pause', 'play']);
+    });
+
     test('local metadata stays off screen while following', () async {
       await build();
       await messenger.handlePlatformMessage(

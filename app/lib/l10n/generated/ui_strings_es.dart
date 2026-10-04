@@ -1522,6 +1522,10 @@ class UiStringsEs extends UiStrings {
   String get gestureHoldMode => 'Activar o desactivar el modo de pausa';
 
   @override
+  String get gestureMediaPlayPause =>
+      'Reproducir o pausar el contenido multimedia';
+
+  @override
   String get gestureHaKiosk => 'Activar o desactivar el modo kiosko de HA';
 
   @override

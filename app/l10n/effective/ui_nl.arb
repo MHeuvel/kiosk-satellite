@@ -5418,6 +5418,19 @@
       ]
     }
   },
+  "gestureMediaPlayPause": "Media afspelen of pauzeren",
+  "@gestureMediaPlayPause": {
+    "context": "Settings > Gestures > Add gesture > Choose an action",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action"
+      ]
+    }
+  },
   "gestureHaKiosk": "HA-kioskmodus in- of uitschakelen",
   "@gestureHaKiosk": {
     "context": "Settings > Gestures > Add gesture > Choose an action",

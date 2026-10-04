@@ -368,7 +368,7 @@ Two actions follow a player from an automation, the way the Media Player page's 
 
 A name that two players share goes to the available one. On the [remote API](remote-api.md) the same two are the `mediaPlayers` and `mediaPlayerSet` commands.
 
-The followed player's buttons and sensors (see [Controls](#controls)) have remote API twins too: `sendspinControl` with a `command` of `play`, `pause`, `next` or `previous`, and `mediaPlayerState` for the state, title, artist and source.
+The followed player's buttons and sensors (see [Controls](#controls)) have remote API twins too: `sendspinControl` with a `command` of `play`, `pause`, `toggle`, `next` or `previous`, and `mediaPlayerState` for the state, title, artist and source.
 
 ## Announcements
 

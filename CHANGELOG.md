@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Added
+- **Play or pause media gesture.** **Gestures** gains a **Play or pause media** action that pauses the media player when it plays and plays it when it is paused, so claps or a hand showing fingers can stop the music without asking the voice assistant (#843). It controls the player picked under **Media Player > Player**, the Local Media Session and followed players included. The remote API's `sendspinControl` takes a `toggle` command for the same thing. Translated into Spanish, German, French, Ukrainian and Dutch.
+
 ## v2026.10.6 - 2026-10-03
 
 ### Added

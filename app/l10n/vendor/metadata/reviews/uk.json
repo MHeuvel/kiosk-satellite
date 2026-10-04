@@ -22859,5 +22859,11 @@
     "translation": "2b3f476dd932e18f589ffba8f921fbfdbb6981b00aae5ef3a1b9080e5ca3c79d",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "gestureMediaPlayPause": {
+    "source": "bc43ecb9d90e0d9b6744546c7832c9e7f812f6be7102f18b8de2e52168131f64",
+    "translation": "b701613b2d4c325286087af44d8acfb63192dc79a2ffac8b18dc22fb14522410",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

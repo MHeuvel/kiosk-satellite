@@ -23004,5 +23004,11 @@
     "translation": "a537c28783e23e38e7a257ed638e266e02e7c08a5d61df1170cb9f38d0514d56",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "gestureMediaPlayPause": {
+    "source": "bc43ecb9d90e0d9b6744546c7832c9e7f812f6be7102f18b8de2e52168131f64",
+    "translation": "82ba0664859f380e6e2d3a723db1e17796cf08021964aa742e915264bd0b918f",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }
