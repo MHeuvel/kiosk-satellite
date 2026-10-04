@@ -5152,6 +5152,19 @@
       ]
     }
   },
+  "fleetGeminiApiKey": "Gemini-API-sleutel",
+  "@fleetGeminiApiKey": {
+    "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
+    "description": "Visible label, help or status in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ],
+      "remoteAdmin": [
+        "Fleet Management > a profile > Categories, Credentials or Excluded settings"
+      ]
+    }
+  },
   "fleetMcpServerToken": "MCP-servertoken",
   "@fleetMcpServerToken": {
     "context": "Settings > Fleet Management > a profile > Categories, Credentials or Excluded settings",
@@ -43220,8 +43233,8 @@
     "context": "Settings > Voice Satellite > Realtime",
     "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   },
-  "voiceRealtimeHint": "OpenAI, xAI Grok, tools en antwoorden onderbreken",
-  "@voiceRealtimeHint": {
+  "voiceRealtimeProvidersHint": "OpenAI, xAI Grok, Gemini, tools en antwoorden onderbreken",
+  "@voiceRealtimeProvidersHint": {
     "context": "Settings > Voice Satellite > Realtime",
     "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   },
@@ -43297,6 +43310,31 @@
   },
   "settingVoiceRealtimeReasoningDescription": "Meer inspanning beantwoordt moeilijke vragen beter. Vereist een gpt-realtime-2-model.",
   "@settingVoiceRealtimeReasoningDescription": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeGeminiReasoningDescription": "Meer inspanning beantwoordt moeilijke vragen beter. Vereist een model dat nadenkt, zoals gemini-3.8-live-extended-thinking.",
+  "@settingVoiceRealtimeGeminiReasoningDescription": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeGeminiSearchTitle": "Google Zoeken",
+  "@settingVoiceRealtimeGeminiSearchTitle": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeGeminiSearchBillingDescription": "Laat het model dingen opzoeken op het web. Hiervoor moet facturering voor de API-sleutel aan staan.",
+  "@settingVoiceRealtimeGeminiSearchBillingDescription": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeGeminiProactiveTitle": "Negeren wat niet voor het model bedoeld is",
+  "@settingVoiceRealtimeGeminiProactiveTitle": {
+    "context": "Settings > Voice Satellite > Realtime",
+    "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
+  },
+  "settingVoiceRealtimeGeminiProactiveDescription": "Het model blijft stil wanneer wat het hoort niet tot het model gericht is. Experimenteel bij Google.",
+  "@settingVoiceRealtimeGeminiProactiveDescription": {
     "context": "Settings > Voice Satellite > Realtime",
     "description": "Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged."
   },

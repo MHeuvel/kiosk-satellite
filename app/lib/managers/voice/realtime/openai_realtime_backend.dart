@@ -7,9 +7,9 @@ import 'package:web_socket_channel/io.dart';
 import 'realtime_backend.dart';
 import 'realtime_tools.dart';
 
-/// The providers a direct backend talks to. Both speak OpenAI's realtime
-/// protocol; they differ in where the session puts the voice and the turn
-/// detection.
+/// The providers a direct backend talks to. OpenAI and xAI speak OpenAI's
+/// realtime protocol and differ in where the session puts the voice and the
+/// turn detection. Gemini speaks Google's Live API (gemini_live_backend).
 enum RealtimeProvider {
   openai(
     id: 'openai',
@@ -22,6 +22,14 @@ enum RealtimeProvider {
     endpoint: 'wss://api.x.ai/v1/realtime',
     model: 'grok-voice-latest',
     voice: 'eve',
+  ),
+  gemini(
+    id: 'gemini',
+    endpoint:
+        'wss://generativelanguage.googleapis.com/ws/google.ai.'
+        'generativelanguage.v1beta.GenerativeService.BidiGenerateContent',
+    model: 'gemini-3.8-live',
+    voice: 'Puck',
   );
 
   const RealtimeProvider({
@@ -50,6 +58,8 @@ class RealtimeConfig {
     this.instructions = '',
     this.speed = 1,
     this.reasoning = '',
+    this.search = false,
+    this.proactive = false,
   });
 
   final RealtimeProvider provider;
@@ -62,13 +72,20 @@ class RealtimeConfig {
   final String voice;
   final String instructions;
 
-  /// How fast the answers play, 1 for the provider's normal pace. Both
-  /// dialects take it as `audio.output.speed`.
+  /// How fast the answers play, 1 for the provider's normal pace. OpenAI's
+  /// protocol takes it as `audio.output.speed`. Gemini has no such setting.
   final double speed;
 
-  /// OpenAI's reasoning effort (minimal to xhigh), empty for the model's
-  /// own. xAI has none and refuses the field.
+  /// OpenAI's reasoning effort (minimal to xhigh) or Gemini's thinking
+  /// level (minimal to high), empty for the model's own. xAI has none and
+  /// refuses the field.
   final String reasoning;
+
+  /// Gemini only: its Google Search tool.
+  final bool search;
+
+  /// Gemini only: proactive audio, which only Google's v1alpha API has.
+  final bool proactive;
 
   String get effectiveModel =>
       model.trim().isEmpty ? provider.model : model.trim();
@@ -76,15 +93,24 @@ class RealtimeConfig {
       voice.trim().isEmpty ? provider.voice : voice.trim();
 
   /// The WebSocket address, with the model in the query unless the
-  /// address already names one.
+  /// address already names one. Gemini names the model in its setup
+  /// message instead, and proactive audio takes its v1alpha API.
   Uri get url {
-    final base = endpoint.trim().isEmpty ? provider.endpoint : endpoint.trim();
+    var base = endpoint.trim().isEmpty ? provider.endpoint : endpoint.trim();
+    if (provider == RealtimeProvider.gemini &&
+        proactive &&
+        endpoint.trim().isEmpty) {
+      base = base.replaceFirst('.v1beta.', '.v1alpha.');
+    }
     final uri = Uri.parse(
       base
           .replaceFirst(RegExp('^https://'), 'wss://')
           .replaceFirst(RegExp('^http://'), 'ws://'),
     );
-    if (uri.queryParameters.containsKey('model')) return uri;
+    if (provider == RealtimeProvider.gemini ||
+        uri.queryParameters.containsKey('model')) {
+      return uri;
+    }
     return uri.replace(
       queryParameters: {...uri.queryParameters, 'model': effectiveModel},
     );
@@ -126,7 +152,10 @@ class _ChannelSocket implements RealtimeSocket {
   }
 }
 
-Future<RealtimeSocket> _connect(Uri url, Map<String, String> headers) async {
+Future<RealtimeSocket> connectRealtimeSocket(
+  Uri url,
+  Map<String, String> headers,
+) async {
   final channel = IOWebSocketChannel.connect(
     url,
     headers: headers,
@@ -146,7 +175,7 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
     RealtimeConnector? connector,
     this.log,
     this.readyTimeout = const Duration(seconds: 10),
-  }) : _connector = connector ?? _connect;
+  }) : _connector = connector ?? connectRealtimeSocket;
 
   final RealtimeConfig config;
   final RealtimeToolbox toolbox;
@@ -230,21 +259,7 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
     try {
       _socket = await _connector(url, _authHeaders(url, config.apiKey.trim()));
     } catch (e) {
-      // The provider turning the connection down answers the upgrade with
-      // an HTTP status: say what that usually means.
-      final status = RegExp(r'status code: (\d+)').firstMatch('$e')?.group(1);
-      _finish(
-        error: switch (status) {
-          '400' || '401' || '403' =>
-            'The provider refused the connection (HTTP $status). Check the '
-                'API key.',
-          '404' => 'The endpoint has no realtime service (HTTP 404).',
-          '429' =>
-            'The provider is limiting requests (HTTP 429). Check the '
-                'account\'s quota.',
-          _ => _describe(e),
-        },
-      );
+      _finish(error: realtimeConnectError(e));
       return;
     }
     if (_closing) {
@@ -253,7 +268,7 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
     }
     _sub = _socket!.messages.listen(
       _onMessage,
-      onError: (Object e) => _finish(error: _describe(e)),
+      onError: (Object e) => _finish(error: describeRealtimeError(e)),
       onDone: () {
         final reason = _socket?.closeReason;
         _finish(
@@ -362,6 +377,9 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
         },
         if (toolList.isNotEmpty) 'tools': toolList,
       },
+      RealtimeProvider.gemini => throw UnsupportedError(
+        'Gemini speaks the Live API (GeminiLiveBackend)',
+      ),
     };
     return {'type': 'session.update', 'session': session};
   }
@@ -599,21 +617,6 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
     return {'Authorization': 'Bearer $key'};
   }
 
-  static String _describe(Object e) {
-    // The socket's wrapper adds nothing a person needs to read. A failed
-    // redirect quotes the address it went to, which can carry a key.
-    final text = '$e'
-        .replaceFirst('WebSocketChannelException: ', '')
-        .replaceAllMapped(
-          RegExp(
-            r'([?&](?:api[-_]?key|key|token|access_token)=)[^&\s]+',
-            caseSensitive: false,
-          ),
-          (m) => '${m[1]}***',
-        );
-    return text.length > 200 ? '${text.substring(0, 200)}...' : text;
-  }
-
   @override
   Future<void> close() async {
     if (_closing) return;
@@ -624,4 +627,36 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
     toolbox.close();
     if (!_events.isClosed) await _events.close();
   }
+}
+
+/// Why a connection was not made, for the provider's row. The provider
+/// turning it down answers the upgrade with an HTTP status: say what that
+/// usually means.
+String realtimeConnectError(Object e) {
+  final status = RegExp(r'status code: (\d+)').firstMatch('$e')?.group(1);
+  return switch (status) {
+    '400' || '401' || '403' =>
+      'The provider refused the connection (HTTP $status). Check the '
+          'API key.',
+    '404' => 'The endpoint has no realtime service (HTTP 404).',
+    '429' =>
+      'The provider is limiting requests (HTTP 429). Check the '
+          'account\'s quota.',
+    _ => describeRealtimeError(e),
+  };
+}
+
+String describeRealtimeError(Object e) {
+  // The socket's wrapper adds nothing a person needs to read. A failed
+  // redirect quotes the address it went to, which can carry a key.
+  final text = '$e'
+      .replaceFirst('WebSocketChannelException: ', '')
+      .replaceAllMapped(
+        RegExp(
+          r'([?&](?:api[-_]?key|key|token|access_token)=)[^&\s]+',
+          caseSensitive: false,
+        ),
+        (m) => '${m[1]}***',
+      );
+  return text.length > 200 ? '${text.substring(0, 200)}...' : text;
 }

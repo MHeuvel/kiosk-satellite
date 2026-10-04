@@ -542,7 +542,12 @@ class AnalyticsManager extends Manager {
     _reportedCounts = {
       'duraspeed_blocked': counts['duraspeed_blocked'] ?? 0,
       if (nativeOn)
-        for (final k in ['vs_turns_assist', 'vs_turns_openai', 'vs_turns_xai'])
+        for (final k in [
+          'vs_turns_assist',
+          'vs_turns_openai',
+          'vs_turns_xai',
+          'vs_turns_gemini',
+        ])
           k: counts[k] ?? 0,
       if (arbitration)
         for (final k in ['vs_arbitration_won', 'vs_arbitration_lost'])
@@ -603,6 +608,14 @@ class AnalyticsManager extends Manager {
         if (realtime.contains('xai')) ...{
           'vs_realtime_xai_model': pick(s.get(defs.voiceRealtimeXaiModel)),
           'vs_realtime_xai_voice': pick(s.get(defs.voiceRealtimeXaiVoice)),
+        },
+        if (realtime.contains('gemini')) ...{
+          'vs_realtime_gemini_model': pick(
+            s.get(defs.voiceRealtimeGeminiModel),
+          ),
+          'vs_realtime_gemini_voice': pick(
+            s.get(defs.voiceRealtimeGeminiVoice),
+          ),
         },
         'vs_wake_arbitration': arbitration,
         if (arbitration)

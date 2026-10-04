@@ -123,7 +123,7 @@ Certain settings remain unique to each kiosk regardless of the profile configura
 | Voice Satellite chimes | `voice_chimes.wake`, `voice_chimes.done`, `voice_chimes.error`, `voice_chimes.alert`, `voice_chimes.announce` |
 | Diagnostics | `wake_word.diagnostics` |
 | Wake words this kiosk listens for | `voice.wake_words`, `voice.pending_selects` |
-| Local state | `voice.runtime`, `voice.timer_position`, `voice.dock_position`, `voice.realtime_openai_validated`, `voice.realtime_xai_validated`, `screensaver.saved_brightness`, `screensaver.immich_validated`, `sendspin.player_active`, `sendspin.player_pos`, `sendspin.sonos_hosts` |
+| Local state | `voice.runtime`, `voice.timer_position`, `voice.dock_position`, `voice.realtime_openai_validated`, `voice.realtime_xai_validated`, `voice.realtime_gemini_validated`, `screensaver.saved_brightness`, `screensaver.immich_validated`, `sendspin.player_active`, `sendspin.player_pos`, `sendspin.sonos_hosts` |
 
 Plugin Manager stays entirely local. Runtime chart data, history and plugin entity declarations and readings are never synchronized. Plugin entity exclusions stay local even when ordinary ESPHome exclusions are synced. Fleet sync does not copy installed plugins, packages, plugin settings, per-plugin enabled states, drawer or Home Assistant action placements or the **Enable Plugins** master switch. A fleet token cannot call plugin management commands.
 

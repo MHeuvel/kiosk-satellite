@@ -400,6 +400,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'fleetImmichApiKey' => strings.fleetImmichApiKey,
       'fleetOpenAiApiKey' => strings.fleetOpenAiApiKey,
       'fleetXaiApiKey' => strings.fleetXaiApiKey,
+      'fleetGeminiApiKey' => strings.fleetGeminiApiKey,
       'fleetMcpServerToken' => strings.fleetMcpServerToken,
       'fleetUpdateTheFleet' => strings.fleetUpdateTheFleet,
       'fleetUpdateTheWholeFleetToTheKioskSatelliteVersion' =>
@@ -3910,7 +3911,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'voicePermissionDirections' => strings.voicePermissionDirections,
       'voicePermissionsSearch' => strings.voicePermissionsSearch,
       'voiceRealtime' => strings.voiceRealtime,
-      'voiceRealtimeHint' => strings.voiceRealtimeHint,
+      'voiceRealtimeProvidersHint' => strings.voiceRealtimeProvidersHint,
       'voiceRealtimeToolsSection' => strings.voiceRealtimeToolsSection,
       'voiceRealtimeProviderDefault' => strings.voiceRealtimeProviderDefault,
       'voiceRealtimeToolsCustom' => strings.voiceRealtimeToolsCustom,
@@ -3938,6 +3939,16 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingVoiceRealtimeReasoningTitle,
       'settingVoiceRealtimeReasoningDescription' =>
         strings.settingVoiceRealtimeReasoningDescription,
+      'settingVoiceRealtimeGeminiReasoningDescription' =>
+        strings.settingVoiceRealtimeGeminiReasoningDescription,
+      'settingVoiceRealtimeGeminiSearchTitle' =>
+        strings.settingVoiceRealtimeGeminiSearchTitle,
+      'settingVoiceRealtimeGeminiSearchBillingDescription' =>
+        strings.settingVoiceRealtimeGeminiSearchBillingDescription,
+      'settingVoiceRealtimeGeminiProactiveTitle' =>
+        strings.settingVoiceRealtimeGeminiProactiveTitle,
+      'settingVoiceRealtimeGeminiProactiveDescription' =>
+        strings.settingVoiceRealtimeGeminiProactiveDescription,
       'voiceRealtimeReasoningDefault' => strings.voiceRealtimeReasoningDefault,
       'voiceRealtimeReasoningMinimal' => strings.voiceRealtimeReasoningMinimal,
       'voiceRealtimeReasoningLow' => strings.voiceRealtimeReasoningLow,

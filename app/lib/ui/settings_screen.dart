@@ -3365,6 +3365,8 @@ class _CategoryContentState extends State<_CategoryContent> {
       final inDialog = {
         for (final list in realtimeProviderSettings.values)
           for (final def in list.skip(1)) def.key,
+        for (final list in realtimeProviderSwitches.values)
+          for (final def in list) def.key,
       };
       return [
         ...sectioned(

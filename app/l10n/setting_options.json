@@ -364,5 +364,18 @@
   },
   "voice.realtime_xai_voice": {
     "": "voiceRealtimeProviderDefault"
+  },
+  "voice.realtime_gemini_model": {
+    "": "voiceRealtimeProviderDefault"
+  },
+  "voice.realtime_gemini_voice": {
+    "": "voiceRealtimeProviderDefault"
+  },
+  "voice.realtime_gemini_reasoning": {
+    "": "voiceRealtimeReasoningDefault",
+    "minimal": "voiceRealtimeReasoningMinimal",
+    "low": "voiceRealtimeReasoningLow",
+    "medium": "voiceRealtimeReasoningMedium",
+    "high": "voiceRealtimeReasoningHigh"
   }
 }

@@ -910,7 +910,7 @@ void main() {
             'categories': [],
             'credentials': ['ha.token', 'bogus'],
           })!.describe(),
-          'Categories: 0 of 18. Credentials: 1 of 7. Excluded: 34.',
+          'Categories: 0 of 18. Credentials: 1 of 8. Excluded: 34.',
         );
         expect(
           withCreds['browser.start_url'],

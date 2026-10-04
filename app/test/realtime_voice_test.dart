@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:kiosk_satellite/managers/voice/assist_view.dart';
+import 'package:kiosk_satellite/managers/voice/realtime/gemini_live_backend.dart';
 import 'package:kiosk_satellite/managers/voice/realtime/mcp_client.dart';
 import 'package:kiosk_satellite/managers/voice/realtime/openai_realtime_backend.dart';
 import 'package:kiosk_satellite/managers/voice/realtime/pcm_resampler.dart';
@@ -56,8 +57,11 @@ class _Socket implements RealtimeSocket {
     await incoming.close();
   }
 
+  /// What the peer gave when it closed.
+  String? reason;
+
   @override
-  String? get closeReason => null;
+  String? get closeReason => reason;
 
   void server(Map<String, Object?> event) => incoming.add(jsonEncode(event));
 
@@ -475,7 +479,7 @@ void main() {
     });
 
     test('speech speed goes in audio.output, left out at 1', () async {
-      for (final provider in RealtimeProvider.values) {
+      for (final provider in [RealtimeProvider.openai, RealtimeProvider.xai]) {
         var backend = make(RealtimeConfig(provider: provider, speed: 1.25));
         await backend.start(const RealtimeStart());
         var audio = (socket.sent.first['session'] as Map)['audio'] as Map;
@@ -529,7 +533,7 @@ void main() {
         RealtimeTurn(user: true, text: 'Dim the kitchen'),
         RealtimeTurn(user: false, text: 'Done.'),
       ];
-      for (final provider in RealtimeProvider.values) {
+      for (final provider in [RealtimeProvider.openai, RealtimeProvider.xai]) {
         final backend = make(
           RealtimeConfig(provider: provider, instructions: 'Be brief.'),
         );
@@ -868,6 +872,471 @@ void main() {
         events.whereType<RealtimeClosed>().single.error,
         'Incorrect API key',
       );
+    });
+  });
+
+  group('GeminiLiveBackend', () {
+    late _Socket socket;
+    late _Tools tools;
+    late List<RealtimeEvent> events;
+    Uri? url;
+    Map<String, String>? headers;
+
+    GeminiLiveBackend make(RealtimeConfig config) {
+      socket = _Socket();
+      tools = _Tools();
+      events = [];
+      final backend = GeminiLiveBackend(
+        config: config,
+        toolbox: tools,
+        connector: (u, h) async {
+          url = u;
+          headers = h;
+          return socket;
+        },
+      );
+      backend.events.listen(events.add);
+      return backend;
+    }
+
+    Map<String, Object?> setup() =>
+        (socket.sent.first['setup'] as Map).cast<String, Object?>();
+
+    Future<GeminiLiveBackend> ready() async {
+      final backend = make(
+        const RealtimeConfig(provider: RealtimeProvider.gemini, apiKey: 'g'),
+      );
+      await backend.start(const RealtimeStart());
+      socket.server({'setupComplete': <String, Object?>{}});
+      await pumpEventQueue();
+      return backend;
+    }
+
+    String audio(List<int> samples) => base64Encode(_pcm(samples));
+
+    test('the key in a header, the model and voice in the setup', () async {
+      final backend = make(
+        const RealtimeConfig(
+          provider: RealtimeProvider.gemini,
+          apiKey: 'g',
+          instructions: 'Be brief.',
+        ),
+      );
+      await backend.start(
+        const RealtimeStart(
+          context: 'This kiosk is in the Kitchen area.',
+          history: [
+            RealtimeTurn(user: true, text: 'Dim the kitchen'),
+            RealtimeTurn(user: false, text: 'Done.'),
+          ],
+        ),
+      );
+      // No model in the address, and the key never in it either.
+      expect(url.toString(), RealtimeProvider.gemini.endpoint);
+      expect(headers, {'x-goog-api-key': 'g'});
+      final s = setup();
+      expect(s['model'], 'models/gemini-3.8-live');
+      final generation = s['generationConfig'] as Map;
+      expect(generation['responseModalities'], ['AUDIO']);
+      expect(
+        (((generation['speechConfig'] as Map)['voiceConfig']
+                as Map)['prebuiltVoiceConfig']
+            as Map)['voiceName'],
+        'Puck',
+      );
+      final text =
+          (((s['systemInstruction'] as Map)['parts'] as List).single
+              as Map)['text'];
+      expect(text, startsWith('Be brief.\n\nThis kiosk is in the Kitchen'));
+      expect(text, endsWith('User: Dim the kitchen\nAssistant: Done.'));
+      expect(s['inputAudioTranscription'], isEmpty);
+      expect(s['outputAudioTranscription'], isEmpty);
+      // Tools without arguments declare no parameters: Gemini refuses an
+      // object with no properties.
+      final declarations =
+          ((s['tools'] as List).single as Map)['functionDeclarations'] as List;
+      expect(declarations, hasLength(2));
+      expect((declarations.first as Map).containsKey('parameters'), isFalse);
+      // Nothing streams before the setup is confirmed.
+      backend.sendAudio(_pcm([1, 2]));
+      expect(socket.sent, hasLength(1));
+      await backend.close();
+    });
+
+    test('reasoning, Google Search and proactive audio when set', () async {
+      var backend = make(
+        const RealtimeConfig(
+          provider: RealtimeProvider.gemini,
+          reasoning: 'low',
+          search: true,
+          proactive: true,
+        ),
+      );
+      await backend.start(const RealtimeStart());
+      // Only Google's v1alpha API has proactive audio.
+      expect(
+        url.toString(),
+        RealtimeProvider.gemini.endpoint.replaceFirst('v1beta', 'v1alpha'),
+      );
+      var s = setup();
+      expect((s['generationConfig'] as Map)['thinkingConfig'], {
+        'thinkingLevel': 'low',
+      });
+      final tools = s['tools'] as List;
+      expect(tools.first, {'googleSearch': <String, Object?>{}});
+      expect((tools.last as Map).containsKey('functionDeclarations'), isTrue);
+      expect(s['proactivity'], {'proactiveAudio': true});
+      await backend.close();
+
+      backend = make(const RealtimeConfig(provider: RealtimeProvider.gemini));
+      await backend.start(const RealtimeStart());
+      expect(url.toString(), RealtimeProvider.gemini.endpoint);
+      s = setup();
+      expect(
+        (s['generationConfig'] as Map).containsKey('thinkingConfig'),
+        isFalse,
+      );
+      expect((s['tools'] as List), hasLength(1));
+      expect(s.containsKey('proactivity'), isFalse);
+      await backend.close();
+
+      // A relay keeps its own address.
+      backend = make(
+        const RealtimeConfig(
+          provider: RealtimeProvider.gemini,
+          endpoint: 'ws://relay.local:8099/live',
+          proactive: true,
+        ),
+      );
+      await backend.start(const RealtimeStart());
+      expect(url.toString(), 'ws://relay.local:8099/live');
+      await backend.close();
+    });
+
+    test('a relay endpoint without a key, a model named in full', () async {
+      final backend = make(
+        const RealtimeConfig(
+          provider: RealtimeProvider.gemini,
+          endpoint: 'http://relay.local:8099/live',
+          model: 'models/gemini-3.1-flash-live-preview',
+          voice: 'Kore',
+        ),
+      );
+      await backend.start(const RealtimeStart());
+      expect(url.toString(), 'ws://relay.local:8099/live');
+      expect(headers, isEmpty);
+      expect(setup()['model'], 'models/gemini-3.1-flash-live-preview');
+      await backend.close();
+    });
+
+    test('tool schemas are rewritten into what Gemini takes', () {
+      final schema = GeminiLiveBackend.geminiSchema({
+        r'$schema': 'http://json-schema.org/draft-07/schema#',
+        'type': 'object',
+        'additionalProperties': false,
+        'properties': {
+          'name': {'type': 'string', 'description': 'The name'},
+          'area': {
+            'type': ['string', 'null'],
+          },
+          'brightness': {'type': 'integer', 'minimum': 0, 'maximum': 100},
+          'domain': {
+            'type': 'array',
+            'items': {
+              'type': 'string',
+              'enum': ['light', 'switch'],
+            },
+          },
+          'tags': {'type': 'array'},
+          'level': {
+            'type': 'string',
+            'enum': [1, 2],
+          },
+          'url': {'type': 'string', 'format': 'uri'},
+          'empty': {'type': 'object', 'properties': <String, Object?>{}},
+          'either': {
+            'anyOf': [
+              {'type': 'string'},
+              {'type': 'number'},
+            ],
+          },
+        },
+        'required': ['name', 'empty'],
+      });
+      expect(schema, {
+        'type': 'OBJECT',
+        'properties': {
+          'name': {'type': 'STRING', 'description': 'The name'},
+          'area': {'type': 'STRING', 'nullable': true},
+          'brightness': {'type': 'INTEGER', 'minimum': 0, 'maximum': 100},
+          'domain': {
+            'type': 'ARRAY',
+            'items': {
+              'type': 'STRING',
+              'enum': ['light', 'switch'],
+              'format': 'enum',
+            },
+          },
+          'tags': {
+            'type': 'ARRAY',
+            'items': {'type': 'STRING'},
+          },
+          'level': {
+            'type': 'STRING',
+            'enum': ['1', '2'],
+            'format': 'enum',
+          },
+          'url': {'type': 'STRING'},
+          'either': {
+            'anyOf': [
+              {'type': 'STRING'},
+              {'type': 'NUMBER'},
+            ],
+          },
+        },
+        'required': ['name'],
+      });
+      expect(
+        GeminiLiveBackend.geminiSchema({
+          'type': 'object',
+          'properties': <String, Object?>{},
+        }),
+        isNull,
+      );
+    });
+
+    test('16 kHz in, 24 kHz out, the turns kept by Gemini', () async {
+      final backend = await ready();
+      expect(events.whereType<RealtimeReady>(), hasLength(1));
+      expect(backend.capabilities.inputRate, 16000);
+      expect(backend.capabilities.outputRate, 24000);
+      expect(backend.capabilities.clientTurns, isFalse);
+      backend.sendAudio(_pcm([1, 2]));
+      expect(socket.sent.last, {
+        'realtimeInput': {
+          'audio': {
+            'data': audio([1, 2]),
+            'mimeType': 'audio/pcm;rate=16000',
+          },
+        },
+      });
+      await backend.close();
+    });
+
+    test('an exchange: the transcript, the answer, then the turn', () async {
+      final backend = await ready();
+      events.clear();
+      socket.server({
+        'serverContent': {
+          'inputTranscription': {'text': 'Turn on '},
+        },
+      });
+      socket.server({
+        'serverContent': {
+          'modelTurn': {
+            'parts': [
+              {
+                'inlineData': {
+                  'mimeType': 'audio/pcm;rate=24000',
+                  'data': audio([5, 6]),
+                },
+              },
+            ],
+          },
+        },
+      });
+      // The rest of what the user said comes after the answer started.
+      socket.server({
+        'serverContent': {
+          'inputTranscription': {'text': 'the lights'},
+        },
+      });
+      socket.server({
+        'serverContent': {
+          'outputTranscription': {'text': 'Done.'},
+        },
+      });
+      socket.server({
+        'serverContent': {'turnComplete': true},
+      });
+      await pumpEventQueue();
+      expect(events[0], isA<RealtimeSpeechStarted>());
+      expect((events[1] as RealtimeUserText).complete, isFalse);
+      expect(events[2], isA<RealtimeSpeechStopped>());
+      expect(events[3], isA<RealtimeResponseStarted>());
+      final pcm = events[4] as RealtimeAudio;
+      expect(pcm.itemId, 'answer-1');
+      expect(_samples(pcm.pcm), [5, 6]);
+      final heard = events.whereType<RealtimeUserText>().where(
+        (e) => e.complete,
+      );
+      expect(heard.single.text, 'Turn on the lights');
+      final answer = events.whereType<RealtimeAnswerText>().last;
+      expect(answer.text, 'Done.');
+      expect(answer.complete, isTrue);
+      expect(events.last, isA<RealtimeResponseDone>());
+      // A transcript right after the turn is late, not the user again.
+      expect(events.whereType<RealtimeSpeechStarted>(), hasLength(1));
+
+      events.clear();
+      socket.server({
+        'serverContent': {
+          'outputTranscription': {'text': 'More.'},
+        },
+      });
+      socket.server({
+        'serverContent': {
+          'modelTurn': {
+            'parts': [
+              {
+                'inlineData': {
+                  'data': audio([7]),
+                },
+              },
+            ],
+          },
+        },
+      });
+      await pumpEventQueue();
+      expect(events.whereType<RealtimeAudio>().single.itemId, 'answer-2');
+      await backend.close();
+    });
+
+    test('Gemini stopping an answer the user talked over', () async {
+      final backend = await ready();
+      socket.server({
+        'serverContent': {
+          'outputTranscription': {'text': 'It is a long'},
+        },
+      });
+      await pumpEventQueue();
+      events.clear();
+      socket.server({
+        'serverContent': {'interrupted': true},
+      });
+      await pumpEventQueue();
+      final cut = events.whereType<RealtimeAnswerText>().single;
+      expect(cut.text, 'It is a long');
+      expect(cut.complete, isTrue);
+      expect(events.last, isA<RealtimeSpeechStarted>());
+      // No truncate in Gemini's protocol: nothing goes out.
+      final sent = socket.sent.length;
+      backend.interrupted('answer-1', 300);
+      expect(socket.sent, hasLength(sent));
+      await backend.close();
+    });
+
+    test('the user counts as done once the transcript goes quiet', () {
+      fakeAsync((async) {
+        final backend = make(
+          const RealtimeConfig(provider: RealtimeProvider.gemini),
+        );
+        unawaited(backend.start(const RealtimeStart()));
+        async.flushMicrotasks();
+        socket.server({'setupComplete': <String, Object?>{}});
+        socket.server({
+          'serverContent': {
+            'inputTranscription': {'text': 'Hello'},
+          },
+        });
+        async.flushMicrotasks();
+        expect(events.last, isA<RealtimeUserText>());
+        async.elapse(GeminiLiveBackend.speechQuiet);
+        expect(events.last, isA<RealtimeSpeechStopped>());
+        unawaited(backend.close());
+        async.flushMicrotasks();
+      });
+    });
+
+    test('tools run with the call\'s arguments and answer by id', () async {
+      final backend = await ready();
+      events.clear();
+      // The calls are still running when Gemini takes one back.
+      tools.gate = Completer<void>();
+      socket.server({
+        'toolCall': {
+          'functionCalls': [
+            {
+              'id': 'c1',
+              'name': 'intent__HassTurnOn',
+              'args': {'name': 'kitchen'},
+            },
+            {
+              'id': 'c2',
+              'name': 'intent__HassTurnOn',
+              'args': <String, Object?>{},
+            },
+          ],
+        },
+      });
+      socket.server({
+        'toolCallCancellation': {
+          'ids': ['c2'],
+        },
+      });
+      await pumpEventQueue();
+      tools.gate!.complete();
+      await pumpEventQueue();
+      expect(tools.calls.first.$1, 'intent__HassTurnOn');
+      expect(tools.calls.first.$2, {'name': 'kitchen'});
+      expect(events.first, isA<RealtimeResponseStarted>());
+      expect(events.whereType<RealtimeToolActivity>(), hasLength(4));
+      final responses = [
+        for (final m in socket.sent)
+          if (m['toolResponse'] case final Map r)
+            (r['functionResponses'] as List).single as Map,
+      ];
+      // The cancelled call is not answered.
+      expect(responses, [
+        {
+          'id': 'c1',
+          'name': 'intent__HassTurnOn',
+          'response': {'result': '{"success": true}'},
+        },
+      ]);
+      await backend.close();
+    });
+
+    test('ending the conversation answers the call and ends the turn', () {
+      fakeAsync((async) {
+        final backend = make(
+          const RealtimeConfig(provider: RealtimeProvider.gemini),
+        );
+        unawaited(backend.start(const RealtimeStart()));
+        async.flushMicrotasks();
+        socket.server({'setupComplete': <String, Object?>{}});
+        socket.server({
+          'toolCall': {
+            'functionCalls': [
+              {'id': 'e', 'name': LocalToolbox.endConversation},
+            ],
+          },
+        });
+        async.flushMicrotasks();
+        expect(events.whereType<RealtimeEndRequested>(), hasLength(1));
+        // Gemini waits for every output before it completes the turn.
+        expect(socket.sent.last.containsKey('toolResponse'), isTrue);
+        expect(events.whereType<RealtimeResponseDone>(), isEmpty);
+        async.elapse(GeminiLiveBackend.endGrace);
+        expect(events.whereType<RealtimeResponseDone>(), hasLength(1));
+        unawaited(backend.close());
+        async.flushMicrotasks();
+      });
+    });
+
+    test('a refused key reads as Gemini words it', () async {
+      final backend = make(
+        const RealtimeConfig(provider: RealtimeProvider.gemini, apiKey: 'bad'),
+      );
+      socket.reason = '1007 API key not valid. Please pass a valid API key.';
+      await backend.start(const RealtimeStart());
+      await socket.incoming.close();
+      await pumpEventQueue();
+      expect(
+        events.whereType<RealtimeClosed>().single.error,
+        'API key not valid. Please pass a valid API key.',
+      );
+      await backend.close();
     });
   });
 

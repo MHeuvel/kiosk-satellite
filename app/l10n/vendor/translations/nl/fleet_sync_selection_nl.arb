@@ -23,5 +23,6 @@
   "fleetImmichApiKey": "Immich-API-sleutel",
   "fleetOpenAiApiKey": "OpenAI-API-sleutel",
   "fleetXaiApiKey": "xAI-API-sleutel",
+  "fleetGeminiApiKey": "Gemini-API-sleutel",
   "fleetMcpServerToken": "MCP-servertoken"
 }

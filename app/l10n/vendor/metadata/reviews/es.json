@@ -18938,5 +18938,45 @@
     "source": "e1fc6326d174f29289ec77fe2f967d8bb2ad58e326f64126ad523185581870a1",
     "translation": "5cdd70fc48e8331bdab5aa3ae542795d5a238890cdc41a976e20eca7ae7f1bee",
     "author": "Xavier Larrea"
+  },
+  "voiceRealtimeProvidersHint": {
+    "source": "8334804f29fed5651758ce92db43bd840103bac4c2dac2136a4476c030a950d8",
+    "translation": "e14fd2c54475ca301969ac47134e2bd149e8e74a6cb20e79ee4e396692d35887",
+    "author": "Xavier Larrea"
+  },
+  "fleetGeminiApiKey": {
+    "source": "12ceab2bd0a896fbcaffb7db2a4a778de6509d37a6cf7d466508b2d8ddb94dab",
+    "translation": "4778b9591d3ae10ff94329254a561ab03f6dcaf5090e6bc7886c2bfcca837d6f",
+    "author": "Xavier Larrea"
+  },
+  "settingVoiceRealtimeGeminiReasoningDescription": {
+    "source": "e10f3811ccca5a8cbc4f30bde9e5123e6786474585fde8ca146837652af17218",
+    "translation": "962a1919ea47e0a4030c566f27b429de7c037648affa9d2735b524127d2feb5e",
+    "author": "Xavier Larrea"
+  },
+  "settingVoiceRealtimeGeminiSearchTitle": {
+    "source": "1b7a48ab9f136c9c9ef607ea5252aa8788bbea6be91f9f80ccff1ecac799e1ee",
+    "translation": "1624f2a81f6adc1a97cd736046a41e4d7f8c2126ade1a09adbeb9b8a226ffc05",
+    "author": "Xavier Larrea"
+  },
+  "settingVoiceRealtimeGeminiProactiveTitle": {
+    "source": "01f3f5d0a8fcedd47d6a1da08e1e130338828e1278753a470d0abeac08900732",
+    "translation": "74715b6cba69b188dfcea066406210a5d108169b17638aa91c64f14ad06bc732",
+    "author": "Xavier Larrea"
+  },
+  "settingVoiceRealtimeGeminiProactiveDescription": {
+    "source": "59041c2f353ac7858f1706b4bc6615b5bdbba690ebfcfdbe7e0bdfc341d1046c",
+    "translation": "294d7c883104ff94a624b6113b6dfa50d53051757cce115a125ff27e7ee24932",
+    "author": "Xavier Larrea"
+  },
+  "settingVoiceRealtimeGeminiSearchDescription": {
+    "source": "f10d2129b786c6095dc385bb02a036e72af251a8ba725419b6389e315c9d7775",
+    "translation": "7ca81ee3600e704c46534f318db15a76369ec0f9e7edf653b7690c7c1c21dbed",
+    "author": "Xavier Larrea"
+  },
+  "settingVoiceRealtimeGeminiSearchBillingDescription": {
+    "source": "28b32baf518f97b71e86655b98ec4ac23d12a7cc4b68f1f8acbeb25e36a2b006",
+    "translation": "4f65f01e9544a9325515588a378b852ddfbbb971deda2903ce06e4f085bb4446",
+    "author": "Xavier Larrea"
   }
 }

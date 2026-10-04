@@ -21,6 +21,7 @@ import 'chat_log.dart';
 import 'custom_wake_models.dart';
 import 'ha_socket.dart';
 import 'migration.dart';
+import 'realtime/gemini_live_backend.dart';
 import 'realtime/mcp_client.dart';
 import 'realtime/openai_realtime_backend.dart';
 import 'realtime/realtime_backend.dart';
@@ -513,7 +514,7 @@ class VoiceManager extends Manager {
               'A realtime provider\'s status as its row reads it: {status '
               '(unconfigured, unvalidated, validated or failed), error, '
               'toolsError (the error is about the tools), ready, provider}',
-          params: const {'provider': 'openai or xai'},
+          params: const {'provider': 'openai, xai or gemini'},
           quiet: true,
           handler: (p) async {
             final provider = RealtimeProvider.byId('${p['provider'] ?? ''}');
@@ -537,14 +538,19 @@ class VoiceManager extends Manager {
               'the session: {connected, error, tools, toolsError}. A saved '
               'provider is a choice in the Assistant selects',
           params: const {
-            'provider': 'openai or xai',
+            'provider': 'openai, xai or gemini',
             'apiKey': 'optional, the key to use (left out keeps the saved one)',
             'endpoint': 'the endpoint, empty for the provider\'s own',
             'model': 'the model, empty for the provider\'s default',
             'voice': 'the voice, empty for the provider\'s default',
             'reasoning':
-                'OpenAI only: minimal, low, medium, high or xhigh, empty '
-                'for the model\'s default',
+                'OpenAI: minimal, low, medium, high or xhigh. Gemini: '
+                'minimal, low, medium or high. Empty for the model\'s '
+                'default',
+            'search': 'Gemini only: true for its Google Search tool',
+            'proactive':
+                'Gemini only: true for proactive audio (talk not meant '
+                'for it gets no answer)',
           },
           secretParams: const {'apiKey'},
           handler: (p) async => CommandResult.ok(
@@ -555,6 +561,8 @@ class VoiceManager extends Manager {
               model: '${p['model'] ?? ''}',
               voice: '${p['voice'] ?? ''}',
               reasoning: '${p['reasoning'] ?? ''}',
+              search: p['search'] == true || p['search'] == 'true',
+              proactive: p['proactive'] == true || p['proactive'] == 'true',
             ),
           ),
         ),
@@ -1788,6 +1796,8 @@ class VoiceManager extends Manager {
     SettingDef<String> model,
     SettingDef<String> voice,
     SettingDef<String>? reasoning,
+    SettingDef<bool>? search,
+    SettingDef<bool>? proactive,
     SettingDef<String> validated,
   })
   _realtimeDefs(RealtimeProvider provider) => switch (provider) {
@@ -1797,6 +1807,8 @@ class VoiceManager extends Manager {
       model: defs.voiceRealtimeOpenAiModel,
       voice: defs.voiceRealtimeOpenAiVoice,
       reasoning: defs.voiceRealtimeOpenAiReasoning,
+      search: null,
+      proactive: null,
       validated: defs.voiceRealtimeOpenAiValidated,
     ),
     RealtimeProvider.xai => (
@@ -1805,7 +1817,19 @@ class VoiceManager extends Manager {
       model: defs.voiceRealtimeXaiModel,
       voice: defs.voiceRealtimeXaiVoice,
       reasoning: null,
+      search: null,
+      proactive: null,
       validated: defs.voiceRealtimeXaiValidated,
+    ),
+    RealtimeProvider.gemini => (
+      apiKey: defs.voiceRealtimeGeminiApiKey,
+      endpoint: defs.voiceRealtimeGeminiEndpoint,
+      model: defs.voiceRealtimeGeminiModel,
+      voice: defs.voiceRealtimeGeminiVoice,
+      reasoning: defs.voiceRealtimeGeminiReasoning,
+      search: defs.voiceRealtimeGeminiSearch,
+      proactive: defs.voiceRealtimeGeminiProactive,
+      validated: defs.voiceRealtimeGeminiValidated,
     ),
   };
 
@@ -1904,8 +1928,11 @@ class VoiceManager extends Manager {
   }
 
   /// A provider's name, for the Assistant selects' choice.
-  static String providerName(RealtimeProvider provider) =>
-      provider == RealtimeProvider.xai ? 'xAI Grok' : 'OpenAI';
+  static String providerName(RealtimeProvider provider) => switch (provider) {
+    RealtimeProvider.openai => 'OpenAI',
+    RealtimeProvider.xai => 'xAI Grok',
+    RealtimeProvider.gemini => 'Google Gemini',
+  };
 
   /// Who answers the realtime conversation starting now.
   RealtimeProvider _activeProvider = RealtimeProvider.openai;
@@ -2003,9 +2030,13 @@ class VoiceManager extends Manager {
     String? model,
     String? voice,
     String? reasoning,
+    bool? search,
+    bool? proactive,
   }) {
     final d = _realtimeDefs(provider);
     final effort = d.reasoning;
+    final searchDef = d.search;
+    final proactiveDef = d.proactive;
     return RealtimeConfig(
       provider: provider,
       endpoint: endpoint ?? _settings.get(d.endpoint),
@@ -2015,6 +2046,9 @@ class VoiceManager extends Manager {
       instructions: _settings.get(defs.voiceRealtimeInstructions),
       speed: _settings.get(defs.voiceRealtimeSpeed).toDouble(),
       reasoning: effort == null ? '' : reasoning ?? _settings.get(effort),
+      search: searchDef != null && (search ?? _settings.get(searchDef)),
+      proactive:
+          proactiveDef != null && (proactive ?? _settings.get(proactiveDef)),
     );
   }
 
@@ -2072,6 +2106,8 @@ class VoiceManager extends Manager {
     required String model,
     required String voice,
     String reasoning = '',
+    bool search = false,
+    bool proactive = false,
   }) async {
     final d = _realtimeDefs(provider);
     final String saved = _settings.get(d.apiKey);
@@ -2104,6 +2140,8 @@ class VoiceManager extends Manager {
         model: model,
         voice: voice,
         reasoning: reasoning,
+        search: search,
+        proactive: proactive,
       ),
     );
     await listing;
@@ -2115,6 +2153,13 @@ class VoiceManager extends Manager {
     if (d.reasoning case final effort?) {
       await _settings.set(effort, reasoning, source: 'voice');
     }
+    if (d.search case final def?) {
+      await _settings.set(def, search, source: 'voice');
+    }
+    if (d.proactive case final def?) {
+      await _settings.set(def, proactive, source: 'voice');
+    }
+
     await _settings.set(
       d.validated,
       _signature(provider, endpoint: endpoint, apiKey: key),
@@ -2137,10 +2182,10 @@ class VoiceManager extends Manager {
   /// Whether [config] gets a session: null when the provider takes it, the
   /// reason otherwise.
   Future<String?> _realtimeConnects(RealtimeConfig config) async {
-    final backend = OpenAiRealtimeBackend(
-      config: config,
-      toolbox: const LocalToolbox(),
-      log: (line) => log.info(name, 'realtime test: $line'),
+    final backend = _backendFor(
+      config,
+      const LocalToolbox(),
+      (line) => log.info(name, 'realtime test: $line'),
     );
     final done = Completer<String?>();
     final sub = backend.events.listen((e) {
@@ -2213,7 +2258,8 @@ class VoiceManager extends Manager {
   }
 
   // What each provider offers when it cannot be asked: xAI documents these
-  // voices by name, and OpenAI lists no voices over its API at all.
+  // voices by name, and neither OpenAI nor Gemini lists voices over its API
+  // at all.
   static const _openAiModels = ['gpt-realtime', 'gpt-realtime-mini'];
   static const _openAiVoices = [
     'alloy',
@@ -2229,22 +2275,84 @@ class VoiceManager extends Manager {
   ];
   static const _xaiModels = ['grok-voice-latest', 'grok-voice-think-fast-2.0'];
   static const _xaiVoices = ['ara', 'eve', 'rex'];
+  static const _geminiModels = [
+    'gemini-3.8-live',
+    'gemini-3.8-live-extended-thinking',
+    'gemini-3.1-flash-live-preview',
+  ];
+  static const _geminiVoices = [
+    'Achernar',
+    'Achird',
+    'Algenib',
+    'Algieba',
+    'Alnilam',
+    'Aoede',
+    'Autonoe',
+    'Callirrhoe',
+    'Charon',
+    'Despina',
+    'Enceladus',
+    'Erinome',
+    'Fenrir',
+    'Gacrux',
+    'Iapetus',
+    'Kore',
+    'Laomedeia',
+    'Leda',
+    'Orus',
+    'Puck',
+    'Pulcherrima',
+    'Rasalgethi',
+    'Sadachbia',
+    'Sadaltager',
+    'Schedar',
+    'Sulafat',
+    'Umbriel',
+    'Vindemiatrix',
+    'Zephyr',
+    'Zubenelgenubi',
+  ];
 
   final _catalogTimers = <RealtimeProvider, Timer>{};
 
   /// A provider's Model and Voice choices: its own lists when the kiosk
-  /// talks to it directly with a key (OpenAI's realtime models, xAI's
-  /// voices), the ones above otherwise. A relay has no such lists to ask.
+  /// talks to it directly with a key (OpenAI's and Gemini's realtime
+  /// models, xAI's voices), the ones above otherwise. A relay has no such
+  /// lists to ask.
   Future<void> refreshRealtimeCatalog(RealtimeProvider provider) async {
     final d = _realtimeDefs(provider);
     final xai = provider == RealtimeProvider.xai;
-    var models = xai ? _xaiModels : _openAiModels;
-    var voices = xai ? _xaiVoices : _openAiVoices;
+    var (models, voices) = switch (provider) {
+      RealtimeProvider.openai => (_openAiModels, _openAiVoices),
+      RealtimeProvider.xai => (_xaiModels, _xaiVoices),
+      RealtimeProvider.gemini => (_geminiModels, _geminiVoices),
+    };
     final key = _settings.get(d.apiKey).trim();
     if (_settings.get(d.endpoint).trim().isEmpty && key.isNotEmpty) {
       final headers = {'Authorization': 'Bearer $key'};
       try {
-        if (xai) {
+        if (provider == RealtimeProvider.gemini) {
+          final response = await http
+              .get(
+                Uri.parse(
+                  'https://generativelanguage.googleapis.com/v1beta/models'
+                  '?pageSize=1000',
+                ),
+                headers: {'x-goog-api-key': key},
+              )
+              .timeout(const Duration(seconds: 10));
+          final list = (jsonDecode(response.body) as Map)['models'];
+          final ids = [
+            for (final m in (list as List? ?? const []))
+              // The models the Live API serves.
+              if (m is Map &&
+                  (m['supportedGenerationMethods'] as List? ?? const [])
+                      .contains('bidiGenerateContent') &&
+                  RegExp('live|native-audio').hasMatch('${m['name']}'))
+                '${m['name']}'.replaceFirst('models/', ''),
+          ]..sort();
+          if (ids.isNotEmpty) models = ids;
+        } else if (xai) {
           final response = await http
               .get(
                 Uri.parse('https://api.x.ai/v1/tts/voices'),
@@ -2288,11 +2396,20 @@ class VoiceManager extends Manager {
     );
   }
 
-  RealtimeBackend _realtimeBackend() => OpenAiRealtimeBackend(
-    config: realtimeConfig(_activeProvider),
-    toolbox: realtimeToolbox(),
-    log: (line) => log.info(name, 'realtime: $line'),
+  RealtimeBackend _realtimeBackend() => _backendFor(
+    realtimeConfig(_activeProvider),
+    realtimeToolbox(),
+    (line) => log.info(name, 'realtime: $line'),
   );
+
+  /// The backend that speaks [config]'s provider's protocol.
+  static RealtimeBackend _backendFor(
+    RealtimeConfig config,
+    RealtimeToolbox toolbox,
+    void Function(String line) log,
+  ) => config.provider == RealtimeProvider.gemini
+      ? GeminiLiveBackend(config: config, toolbox: toolbox, log: log)
+      : OpenAiRealtimeBackend(config: config, toolbox: toolbox, log: log);
 
   /// The phrase of the wake word in [slot], what pipeline 1 or 2 is
   /// picked by.

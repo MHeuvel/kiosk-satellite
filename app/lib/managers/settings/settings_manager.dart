@@ -72,6 +72,8 @@ class SettingsManager extends Manager {
     voiceRealtimeOpenAiVoice.key: ('openai', false),
     voiceRealtimeXaiModel.key: ('xai', true),
     voiceRealtimeXaiVoice.key: ('xai', false),
+    voiceRealtimeGeminiModel.key: ('gemini', true),
+    voiceRealtimeGeminiVoice.key: ('gemini', false),
   };
 
   void updateRealtimeCatalog(

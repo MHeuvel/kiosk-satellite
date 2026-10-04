@@ -1456,6 +1456,9 @@ class UiStringsFr extends UiStrings {
   String get fleetXaiApiKey => 'Clé API xAI';
 
   @override
+  String get fleetGeminiApiKey => 'Clé API Gemini';
+
+  @override
   String get fleetMcpServerToken => 'Jeton du serveur MCP';
 
   @override
@@ -11990,8 +11993,8 @@ class UiStringsFr extends UiStrings {
   String get voiceRealtime => 'Temps réel';
 
   @override
-  String get voiceRealtimeHint =>
-      'OpenAI, xAI Grok, outils, parler pendant les réponses';
+  String get voiceRealtimeProvidersHint =>
+      'OpenAI, xAI Grok, Gemini, outils, parler pendant les réponses';
 
   @override
   String get voiceRealtimeToolsSection => 'Outils Home Assistant';
@@ -12043,6 +12046,25 @@ class UiStringsFr extends UiStrings {
   @override
   String get settingVoiceRealtimeReasoningDescription =>
       'Plus d\'effort répond mieux aux questions difficiles. Nécessite un modèle gpt-realtime-2.';
+
+  @override
+  String get settingVoiceRealtimeGeminiReasoningDescription =>
+      'Plus d\'effort répond mieux aux questions difficiles. Nécessite un modèle qui réfléchit, comme gemini-3.8-live-extended-thinking.';
+
+  @override
+  String get settingVoiceRealtimeGeminiSearchTitle => 'Recherche Google';
+
+  @override
+  String get settingVoiceRealtimeGeminiSearchBillingDescription =>
+      'Permet au modèle de chercher des informations sur le web. Nécessite d\'activer la facturation pour la clé API.';
+
+  @override
+  String get settingVoiceRealtimeGeminiProactiveTitle =>
+      'Ignorer ce qui ne lui est pas destiné';
+
+  @override
+  String get settingVoiceRealtimeGeminiProactiveDescription =>
+      'Le modèle reste silencieux quand ce qu\'il entend ne lui est pas adressé. Expérimental chez Google.';
 
   @override
   String get voiceRealtimeReasoningDefault => 'Par défaut du modèle';

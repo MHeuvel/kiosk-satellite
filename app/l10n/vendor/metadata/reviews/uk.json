@@ -22811,5 +22811,53 @@
     "translation": "287a8f2be06580e08878982009ba40a18f0e300b4da6c8227aa9b44a9f53cdba",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "voiceRealtimeProvidersHint": {
+    "source": "8334804f29fed5651758ce92db43bd840103bac4c2dac2136a4476c030a950d8",
+    "translation": "b26c37aaab0e1046af11f94c2f4b352989bd307d2de245d2f1979e09c17af079",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "fleetGeminiApiKey": {
+    "source": "12ceab2bd0a896fbcaffb7db2a4a778de6509d37a6cf7d466508b2d8ddb94dab",
+    "translation": "32f77eef877a6ed20133dc4b510516d628003330f9094072c22c98f1102dd2f3",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingVoiceRealtimeGeminiSearchDescription": {
+    "source": "f10d2129b786c6095dc385bb02a036e72af251a8ba725419b6389e315c9d7775",
+    "translation": "e528014cda0d0a46b63e1c228da69ed8344a3c3404c27b21b0599eb00935e408",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingVoiceRealtimeGeminiProactiveDescription": {
+    "source": "59041c2f353ac7858f1706b4bc6615b5bdbba690ebfcfdbe7e0bdfc341d1046c",
+    "translation": "c69a3422dbc9ff04acdc140764a2240e680e8ecb6d4b2a77eb9c0de8639f7db0",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingVoiceRealtimeGeminiReasoningDescription": {
+    "source": "e10f3811ccca5a8cbc4f30bde9e5123e6786474585fde8ca146837652af17218",
+    "translation": "9bed90f40738343770f3517b8ab7e74d2de3f3287efa32837e1fb68bec72fb1f",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingVoiceRealtimeGeminiSearchTitle": {
+    "source": "1b7a48ab9f136c9c9ef607ea5252aa8788bbea6be91f9f80ccff1ecac799e1ee",
+    "translation": "fabe35dbd438a6a2b421d277d54d374a692cd51f5defc772d5235761a6d64612",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingVoiceRealtimeGeminiProactiveTitle": {
+    "source": "01f3f5d0a8fcedd47d6a1da08e1e130338828e1278753a470d0abeac08900732",
+    "translation": "f1e1c3ec4fb1a52f88806cfb792bf662ef2d197a6545f700923172934b34dc8b",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "settingVoiceRealtimeGeminiSearchBillingDescription": {
+    "source": "28b32baf518f97b71e86655b98ec4ac23d12a7cc4b68f1f8acbeb25e36a2b006",
+    "translation": "2b3f476dd932e18f589ffba8f921fbfdbb6981b00aae5ef3a1b9080e5ca3c79d",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

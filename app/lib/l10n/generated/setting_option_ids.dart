@@ -365,6 +365,19 @@ const settingOptionMessageIds = <String, Map<String, String>>{
   },
   "voice.realtime_xai_voice": {
     "": "voiceRealtimeProviderDefault"
+  },
+  "voice.realtime_gemini_model": {
+    "": "voiceRealtimeProviderDefault"
+  },
+  "voice.realtime_gemini_voice": {
+    "": "voiceRealtimeProviderDefault"
+  },
+  "voice.realtime_gemini_reasoning": {
+    "": "voiceRealtimeReasoningDefault",
+    "minimal": "voiceRealtimeReasoningMinimal",
+    "low": "voiceRealtimeReasoningLow",
+    "medium": "voiceRealtimeReasoningMedium",
+    "high": "voiceRealtimeReasoningHigh"
   }
 };
 const settingPlaceholderMessageIds = <String, String>{
@@ -385,5 +398,6 @@ const settingPlaceholderMessageIds = <String, String>{
   "alarms.tts_language": "esphomeTtsDefault",
   "alarms.tts_voice": "esphomeTtsDefault",
   "voice.realtime_openai_endpoint": "voiceRealtimeProviderDefault",
-  "voice.realtime_xai_endpoint": "voiceRealtimeProviderDefault"
+  "voice.realtime_xai_endpoint": "voiceRealtimeProviderDefault",
+  "voice.realtime_gemini_endpoint": "voiceRealtimeProviderDefault"
 };

@@ -1452,6 +1452,9 @@ class UiStringsNl extends UiStrings {
   String get fleetXaiApiKey => 'xAI-API-sleutel';
 
   @override
+  String get fleetGeminiApiKey => 'Gemini-API-sleutel';
+
+  @override
   String get fleetMcpServerToken => 'MCP-servertoken';
 
   @override
@@ -11908,8 +11911,8 @@ class UiStringsNl extends UiStrings {
   String get voiceRealtime => 'Realtime';
 
   @override
-  String get voiceRealtimeHint =>
-      'OpenAI, xAI Grok, tools en antwoorden onderbreken';
+  String get voiceRealtimeProvidersHint =>
+      'OpenAI, xAI Grok, Gemini, tools en antwoorden onderbreken';
 
   @override
   String get voiceRealtimeToolsSection => 'Home Assistant-tools';
@@ -11960,6 +11963,25 @@ class UiStringsNl extends UiStrings {
   @override
   String get settingVoiceRealtimeReasoningDescription =>
       'Meer inspanning beantwoordt moeilijke vragen beter. Vereist een gpt-realtime-2-model.';
+
+  @override
+  String get settingVoiceRealtimeGeminiReasoningDescription =>
+      'Meer inspanning beantwoordt moeilijke vragen beter. Vereist een model dat nadenkt, zoals gemini-3.8-live-extended-thinking.';
+
+  @override
+  String get settingVoiceRealtimeGeminiSearchTitle => 'Google Zoeken';
+
+  @override
+  String get settingVoiceRealtimeGeminiSearchBillingDescription =>
+      'Laat het model dingen opzoeken op het web. Hiervoor moet facturering voor de API-sleutel aan staan.';
+
+  @override
+  String get settingVoiceRealtimeGeminiProactiveTitle =>
+      'Negeren wat niet voor het model bedoeld is';
+
+  @override
+  String get settingVoiceRealtimeGeminiProactiveDescription =>
+      'Het model blijft stil wanneer wat het hoort niet tot het model gericht is. Experimenteel bij Google.';
 
   @override
   String get voiceRealtimeReasoningDefault => 'Standaard van het model';

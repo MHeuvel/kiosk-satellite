@@ -475,10 +475,16 @@ Future<bool> showRealtimeProviderDialog(
   RealtimeProvider provider,
 ) async {
   final settings = container.settings;
-  // OpenAI's list ends with Reasoning effort, which xAI has no say in.
+  // OpenAI's and Gemini's lists end with Reasoning effort, which xAI has
+  // no say in. Gemini's switches follow.
   final [keyDef, modelDef, voiceDef, endpointDef, ...more] =
       defs.realtimeProviderSettings[provider.id]!;
   final reasoningDef = more.firstOrNull;
+  final switchDefs = defs.realtimeProviderSwitches[provider.id] ?? const [];
+  final switches = {for (final def in switchDefs) def: settings.get(def)};
+  // A switch's name in voiceRealtimeSave: its key after the provider's.
+  String param(defs.SettingDef<bool> def) =>
+      def.key.substring('voice.realtime_${provider.id}_'.length);
   final apiKey = TextEditingController(text: settings.get(keyDef));
   final endpoint = TextEditingController(text: settings.get(endpointDef));
   var model = settings.get(modelDef);
@@ -536,6 +542,8 @@ Future<bool> showRealtimeProviderDialog(
             'model': model,
             'voice': voice,
             'reasoning': reasoning,
+            for (final MapEntry(:key, :value) in switches.entries)
+              param(key): value,
           });
           if (!ctx.mounted) return;
           final data = result.data is Map
@@ -594,6 +602,16 @@ Future<bool> showRealtimeProviderDialog(
                         reasoningDef,
                         reasoning,
                         (v) => setDialogState(() => reasoning = v),
+                      ),
+                    for (final def in switchDefs)
+                      SwitchListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text(def.localizedTitle(ctx)),
+                        subtitle: Text(def.localizedDescription(ctx)),
+                        value: switches[def]!,
+                        onChanged: saving
+                            ? null
+                            : (v) => setDialogState(() => switches[def] = v),
                       ),
                     LabeledField(
                       label: endpointDef.localizedTitle(ctx),

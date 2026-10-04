@@ -2611,6 +2611,12 @@ abstract class UiStrings {
   /// Visible label, help or status in this section.
   ///
   /// In en, this message translates to:
+  /// **'Gemini API key'**
+  String get fleetGeminiApiKey;
+
+  /// Visible label, help or status in this section.
+  ///
+  /// In en, this message translates to:
   /// **'MCP server token'**
   String get fleetMcpServerToken;
 
@@ -20463,8 +20469,8 @@ abstract class UiStrings {
   /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
   ///
   /// In en, this message translates to:
-  /// **'OpenAI, xAI Grok, tools, talk over answers'**
-  String get voiceRealtimeHint;
+  /// **'OpenAI, xAI Grok, Gemini, tools, talk over answers'**
+  String get voiceRealtimeProvidersHint;
 
   /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
   ///
@@ -20555,6 +20561,36 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'More effort answers harder questions better. Needs a gpt-realtime-2 model.'**
   String get settingVoiceRealtimeReasoningDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'More effort answers harder questions better. Needs a model that thinks, such as gemini-3.8-live-extended-thinking.'**
+  String get settingVoiceRealtimeGeminiReasoningDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Google Search'**
+  String get settingVoiceRealtimeGeminiSearchTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Lets the model look things up on the web. Needs billing turned on for the API key.'**
+  String get settingVoiceRealtimeGeminiSearchBillingDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Ignore talk not meant for it'**
+  String get settingVoiceRealtimeGeminiProactiveTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The model stays quiet when what it hears is not addressed to it. Experimental at Google.'**
+  String get settingVoiceRealtimeGeminiProactiveDescription;
 
   /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
   ///

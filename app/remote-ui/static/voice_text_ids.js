@@ -310,7 +310,7 @@ export const voiceTextMessageIds = {
   "Checking…": "haChecking",
   "Connected": "haConnected",
   "Listening…": "voiceListeningEllipsis",
-  "OpenAI, xAI Grok, tools, talk over answers": "voiceRealtimeHint",
+  "OpenAI, xAI Grok, Gemini, tools, talk over answers": "voiceRealtimeProvidersHint",
   "Providers": "voiceRealtimeProviders",
   "Configure": "voiceRealtimeConfigure",
   "Save & Validate": "voiceRealtimeSaveValidate",
