@@ -7,6 +7,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ### Added
 - **Remote admin behind a reverse proxy.** The remote admin now works when a reverse proxy serves it under a sub-path, such as Home Assistant ingress or an nginx location like `/kiosk/` (#850). Its API calls and websocket go to the page's own path instead of the root of the address, where they reached the proxy itself. Behind a proxy each tablet keeps its own login, so tablets served from the same address no longer log each other out. Opened directly on the tablet, the page sends the same requests and keeps the same login as before. Behind a proxy, turning HTTPS on or off no longer sends the browser to the proxy's address with the other protocol.
 
+### Fixed
+- **Dashboard cameras no longer get stuck on still images.** A Home Assistant camera card with a live view could play as a slideshow after the screensaver, while the same dashboard played smoothly in a browser. Pausing dashboard cameras under the screensaver rebuilds the camera's player when the screensaver closes, and if one of those starts failed, Home Assistant switched the card to its still image fallback for good and never tried the live stream again. The kiosk now asks Home Assistant to look for the camera's live stream again every time the cameras resume, so one failed start no longer sticks, and a camera picks WebRTC back up once Home Assistant offers it again.
+
 ## v2026.10.7 - 2026-10-04
 
 ### Added

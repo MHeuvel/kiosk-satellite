@@ -2,6 +2,12 @@
 /// Rendering an empty Lit template disconnects the players through their own
 /// lifecycle, closing WebRTC and HLS connections. Restoring the template creates
 /// fresh players. The page's visibility, microphone and other media stay live.
+///
+/// Restoring also asks HA to detect the camera's stream types again. HA records
+/// a failed HLS or WebRTC attempt on the camera component, not the player, and
+/// never retries it: one failed start after a screensaver left the camera on
+/// its MJPEG fallback for good, a still every second or so. Detecting again
+/// clears that record, and picks up WebRTC once HA can offer it again.
 const dashboardCameraScript = r'''
 (function () {
   if (window.__ksDashboardCameras || !window.customElements) return;
@@ -10,11 +16,29 @@ const dashboardCameraScript = r'''
   var watched = new WeakSet();
   var patched = new WeakSet();
 
-  function refresh(root) {
+  // HA's own capability fetch, which also clears the recorded stream results.
+  // A fetch that fails (the socket still reconnecting after a wake) leaves the
+  // camera blank, so it tries again a few times while the cameras stay live.
+  function redetect(el, attempt) {
+    Promise.resolve(el._getCapabilities()).catch(function () {
+      if (attempt >= 3) return;
+      setTimeout(function () {
+        if (!paused && el.isConnected) redetect(el, attempt + 1);
+      }, 5000);
+    });
+  }
+
+  function refresh(root, resuming) {
     root.querySelectorAll('*').forEach(function (el) {
-      if (el.localName === 'ha-camera-stream' &&
-          typeof el.requestUpdate === 'function') el.requestUpdate();
-      if (el.shadowRoot) refresh(el.shadowRoot);
+      if (el.localName === 'ha-camera-stream') {
+        if (resuming && el.muted === true && el.stateObj &&
+            typeof el._getCapabilities === 'function') {
+          redetect(el, 1);
+        } else if (typeof el.requestUpdate === 'function') {
+          el.requestUpdate();
+        }
+      }
+      if (el.shadowRoot) refresh(el.shadowRoot, resuming);
     });
   }
 
@@ -24,7 +48,7 @@ const dashboardCameraScript = r'''
       value = !!value;
       if (paused === value) return;
       paused = value;
-      if (ready) refresh(document);
+      if (ready) refresh(document, !value);
     },
     get paused() { return paused; },
     get supported() { return ready; }
