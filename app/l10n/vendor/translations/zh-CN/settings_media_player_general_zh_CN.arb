@@ -1,0 +1,22 @@
+{
+  "@@locale": "zh_CN",
+  "settingSendspinPlayerSourceTitle": "播放器来源",
+  "settingSendspinPlayerSourceDescription": "悬浮播放器和“正在播放”显示并控制的对象：此设备或其他位置的播放器。",
+  "settingSendspinPlayerTitle": "播放器",
+  "settingSendspinPlayerDescription": "此来源中要显示和控制的播放器。",
+  "settingSendspinDuckPercentTitle": "语音交互时降低音量",
+  "settingSendspinDuckPercentDescription": "语音交互和对讲通话期间，将音乐音量降为原音量的设定比例，结束后恢复。",
+  "settingSendspinEsphomeEntitiesTitle": "提供 ESPHome 实体",
+  "settingSendspinEsphomeEntitiesDescription": "在 Home Assistant 中提供所选播放器的播放、暂停、下一曲和上一曲按钮，以及状态、曲目标题、艺人和来源传感器。",
+  "settingSendspinVolumeKeysTitle": "用设备音量键控制播放器",
+  "settingSendspinVolumeKeysDescription": "此设备的音量键改为调整所选播放器的音量，而非设备自身音量。可仅在“正在播放”页面显示时生效，或在播放器播放时生效。",
+  "settingSendspinVolumeKeyStepTitle": "音量键步长",
+  "settingSendspinVolumeKeyStepDescription": "每次按音量键时，播放器音量的变化幅度。",
+  "mediaIntro": "仅在所选播放器正在播放曲目或已加载播放队列时，才显示悬浮播放器和“正在播放”。无播放内容或队列时，两者均不显示。",
+  "mediaThisDevice": "此设备",
+  "mediaOff": "关闭",
+  "mediaKeysNowPlaying": "显示“正在播放”时",
+  "mediaKeysPlaying": "播放器正在播放时",
+  "mediaAnotherPlayer": "其他播放器",
+  "mediaLocalOffline": "控制 {player} 时，此设备自身的 Sendspin 播放器保持离线。"
+}

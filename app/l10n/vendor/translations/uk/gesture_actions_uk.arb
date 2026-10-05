@@ -10,6 +10,7 @@
   "gestureScreensaver": "Запустити заставку",
   "gestureScreensaverStop": "Зупинити заставку",
   "gestureHoldMode": "Перемкнути режим блокування",
+  "gestureMediaPlayPause": "Відтворити або призупинити медіа",
   "gestureHaKiosk": "Перемкнути режим кіоска HA",
   "gesturePluginRun": "Виконати дію плагіна",
   "gestureLaunchApp": "Відкрити іншу програму",

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kiosk_satellite/ui/assist/art_lens_flares.dart';
+import 'package:kiosk_satellite/ui/assist/art_logo.dart';
 import 'package:kiosk_satellite/ui/assist/art_waveform.dart';
 import 'package:kiosk_satellite/ui/assist/assist_art.dart';
 import 'package:kiosk_satellite/ui/assist/assist_skins.dart';
@@ -113,6 +114,17 @@ void main() {
                               level: level,
                             ),
                           ),
+                        if (skin.voiceOnly)
+                          for (final reactive in [false, true])
+                            Positioned.fill(
+                              child: LogoArt(
+                                mode: mode,
+                                reactive: reactive,
+                                level: level,
+                                clock: clock,
+                                fade: level,
+                              ),
+                            ),
                         for (final reactive in [false, true])
                           Positioned.fill(
                             child: SkinBarLayer(

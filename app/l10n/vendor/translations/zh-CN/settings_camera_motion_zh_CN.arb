@@ -1,0 +1,15 @@
+{
+  "@@locale": "zh_CN",
+  "settingMotionSensorTitle": "运动传感器",
+  "settingMotionSensorDescription": "将运动检测结果作为传感器提供给 Home Assistant。注意：摄像头会持续运行，即使屏幕已关闭。",
+  "settingMotionSensorOffDelayTitle": "运动状态复位延迟",
+  "settingMotionSensorOffDelayDescription": "连续未检测到运动达到设定秒数后，传感器恢复为“未检测到运动”。",
+  "settingMotionFpsTitle": "运动检测帧率",
+  "settingMotionFpsDescription": "摄像头每秒用于运动检测的帧数。数值越低，CPU 负载越小；每秒 2 帧已足以检测到有人靠近。",
+  "settingMotionStartDelayTitle": "启动延迟",
+  "settingMotionStartDelayDescription": "摄像头启动后，先忽略设定时间内的运动检测结果，避免摄像头启动时的物理移动造成误触发。",
+  "settingMotionSensitivityTitle": "运动检测灵敏度",
+  "settingMotionSensitivityDescription": "数值越高，越容易检测到细微运动。设为 1 时，需要画面发生大范围变化才会触发；设为 100 时，轻微运动也会触发。",
+  "cameraMotionPage": "运动传感器",
+  "cameraMotionHint": "Home Assistant 运动传感器及共用检测设置"
+}

@@ -315,7 +315,7 @@ class DeviceCamera(
             }
             val selector = resolveCameraSelector(provider, facing)
             if (selector == null) {
-                done(null, rejectedCamerasMessage(context))
+                done(null, rejectedCamerasMessage(context, provider))
                 return@addListener
             }
             val capture = buildCapture(target)
@@ -496,14 +496,37 @@ internal fun describeCamera(
  *  listed one (else [cameraFacings] answered first, with
  *  [NO_CAMERA_MESSAGE]): the inventory is the reason, and it travels in
  *  the message so it reaches the app log and the remote admin on a
- *  device whose logcat cannot be read. */
-internal fun rejectedCamerasMessage(context: Context): String {
-    val message =
+ *  device whose logcat cannot be read. Restarts CameraX when it lost a
+ *  camera it had (see [cameraXHadCamera]). */
+internal fun rejectedCamerasMessage(context: Context, provider: ProcessCameraProvider): String {
+    var message =
         "the camera library accepts none of the cameras Android lists " +
             "(${cameraInventory(context)})"
+    if (cameraXHadCamera) {
+        cameraXHadCamera = false
+        provider.shutdownAsync()
+        message += "; it had a camera earlier, so it is restarting"
+    }
     Log.w("DeviceCamera", message)
     return message
 }
+
+/**
+ * Whether CameraX accepted a camera since it last started. CameraX 1.5
+ * cannot take a camera back once it dropped one: when the camera HAL
+ * restarts and CameraX re-reads the camera list while the HAL is down, it
+ * removes the camera, and when the camera returns, re-adding it throws
+ * ("Cannot invoke removeObserver on a background thread", the cached
+ * camera info relinking off the main thread). CameraX rolls the update
+ * back and never retries, because the camera id list it compares against
+ * did not change since. 1.5.3 has the same code. A Fire HD 10 lost its
+ * camera this way until the app restarted. Shutting CameraX down drops
+ * the stale state, and the next getInstance builds it fresh from
+ * [KioskApplication]'s config. Only after a camera was accepted, so
+ * hardware whose cameras CameraX never takes (issue #471) is not
+ * restarted on every retry. Main thread only.
+ */
+private var cameraXHadCamera = false
 
 /** The cameras whose lens facing CameraX can read, as the selector for
  *  [KioskApplication]'s availableCamerasLimiter. Some HALs pad the camera
@@ -557,9 +580,13 @@ internal fun resolveCameraSelector(
     } catch (_: Exception) {
         false
     }
-    if (hasRequested) return requested
+    if (hasRequested) {
+        cameraXHadCamera = true
+        return requested
+    }
     val fallback = provider.availableCameraInfos.firstOrNull()?.cameraSelector
     if (fallback != null) {
+        cameraXHadCamera = true
         Log.w("DeviceCamera", "configured camera missing; using the camera present")
     }
     return fallback

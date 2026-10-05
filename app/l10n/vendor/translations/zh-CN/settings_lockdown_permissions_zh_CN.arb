@@ -1,0 +1,6 @@
+{
+  "@@locale": "zh_CN",
+  "lockdownOverlayHeld": "锁定保护层可覆盖整个屏幕。",
+  "lockdownOverlayMissing": "若无此权限，保护层仅覆盖应用。授权页面会显示在平板上。",
+  "lockdownPermissionsSearch": "锁定保护功能所依赖的权限。"
+}

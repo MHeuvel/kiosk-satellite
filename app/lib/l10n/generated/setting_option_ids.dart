@@ -314,7 +314,8 @@ const settingOptionMessageIds = <String, Map<String, String>>{
     "dark": "deviceThemeDark"
   },
   "voice.skin": {
-    "default": "voiceVadDefault"
+    "default": "voiceVadDefault",
+    "voice-only": "voiceSkinVoiceOnly"
   },
   "alarms.snooze_minutes": {
     "5": "alarmsOption5Minutes",

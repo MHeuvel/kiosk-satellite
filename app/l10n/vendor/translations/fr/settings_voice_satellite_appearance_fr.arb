@@ -30,5 +30,6 @@
   "settingVoiceOverlayModeDescription": "Ancré affiche une petite bulle au-dessus du tableau de bord. Les résultats enrichis comme les images, la météo ou les vidéos ne s'affichent pas.",
   "voiceOverlayFullScreen": "Plein écran",
   "voiceOverlayDocked": "Ancré",
-  "voiceListeningEllipsis": "À l'écoute…"
+  "voiceListeningEllipsis": "À l'écoute…",
+  "voiceSkinVoiceOnly": "Voix seule"
 }

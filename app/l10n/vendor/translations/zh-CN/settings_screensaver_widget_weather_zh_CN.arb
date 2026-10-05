@@ -1,0 +1,22 @@
+{
+  "@@locale": "zh_CN",
+  "screensaverOverlayWeatherEntity": "天气实体",
+  "screensaverOverlayNoWeather": "没有天气实体",
+  "screensaverOverlayNoWeatherHelp": "Home Assistant 未报告任何天气实体。",
+  "screensaverOverlayPickWeather": "选择天气实体…",
+  "screensaverOverlayWeatherRequired": "请选择天气实体。",
+  "screensaverOverlayLocationName": "地点名称",
+  "screensaverOverlayLocationHelp": "留空以隐藏地点名称行。",
+  "screensaverOverlayLocation": "地点",
+  "screensaverOverlayLocationDetail": "温度上方显示的地点名称。",
+  "screensaverOverlayFeelsLike": "体感温度",
+  "screensaverOverlayFeelsLikeHelp": "在实际温度下方，以带标签的一行显示体感温度。",
+  "screensaverOverlayFeelsLikeOnly": "仅体感温度",
+  "screensaverOverlayFeelsLikeOnlyHelp": "使用带“体感温度”标签的体感温度替代实际温度。",
+  "screensaverOverlayForecast": "天气预报",
+  "screensaverOverlayForecastHelp": "天气状况及对应图标。",
+  "screensaverOverlayHumidity": "湿度",
+  "screensaverOverlayWind": "风速",
+  "screensaverOverlayVisibility": "能见度",
+  "screensaverWeatherFeelsLikeValue": "体感温度 {temperature}"
+}

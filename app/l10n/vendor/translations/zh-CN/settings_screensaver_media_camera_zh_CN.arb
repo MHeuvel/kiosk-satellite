@@ -1,0 +1,20 @@
+{
+  "@@locale": "zh_CN",
+  "settingScreensaverCameraViewsTitle": "摄像头画面",
+  "settingScreensaverCameraViewsDescription": "屏保按此顺序显示的摄像头画面。",
+  "settingScreensaverCameraViewSecondsTitle": "每个摄像头画面的显示时长（秒）",
+  "settingScreensaverCameraViewSecondsDescription": "每个画面切换前停留的时长。仅选择一个画面时不会轮播。",
+  "settingScreensaverCameraMuteTitle": "所有画面静音",
+  "settingScreensaverCameraMuteDescription": "所有画面均保持静音，即使只有一个摄像头。",
+  "screensaverMediaCameraPage": "摄像头视频流屏保",
+  "screensaverMediaCameraHint": "显示的画面、每个画面的时长和声音",
+  "screensaverMediaNoCameras": "尚无包含摄像头的画面。请在“摄像头视频流”中添加。",
+  "screensaverMediaNoCamerasRemote": "尚无包含摄像头的画面",
+  "screensaverMediaAddCameras": "请在“摄像头视频流”中添加。",
+  "screensaverMediaNoViews": "暂无。请选择屏保轮播的画面。",
+  "screensaverMediaRotation": "轮播中的画面（拖动排序）",
+  "screensaverMediaAvailable": "可用",
+  "screensaverMediaOneCamera": "{count} 个摄像头",
+  "screensaverMediaCameras": "{count} 个摄像头",
+  "screensaverMediaPosition": "位置 {index} · {cameras}"
+}

@@ -2,6 +2,26 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## v2026.10.8 - 2026-10-04
+
+### Added
+- **Remote admin behind a reverse proxy.** The remote admin now works when a reverse proxy serves it under a sub-path, such as Home Assistant ingress or an nginx location like `/kiosk/` (#850). Its API calls and websocket go to the page's own path instead of the root of the address, where they reached the proxy itself. Behind a proxy each tablet keeps its own login, so tablets served from the same address no longer log each other out. Opened directly on the tablet, the page sends the same requests and keeps the same login as before. Behind a proxy, turning HTTPS on or off no longer sends the browser to the proxy's address with the other protocol.
+
+### Fixed
+- **Dashboard cameras no longer get stuck on still images.** A Home Assistant camera card with a live view could play as a slideshow after the screensaver, while the same dashboard played smoothly in a browser. Pausing dashboard cameras under the screensaver rebuilds the camera's player when the screensaver closes, and if one of those starts failed, Home Assistant switched the card to its still image fallback for good and never tried the live stream again. The kiosk now asks Home Assistant to look for the camera's live stream again every time the cameras resume, so one failed start no longer sticks, and a camera picks WebRTC back up once Home Assistant offers it again.
+
+## v2026.10.7 - 2026-10-04
+
+### Added
+- **Voice Only skin.** **Voice Satellite > Appearance > Skin** gains Voice Only for screens too small to read. It shows no command, answer, tool lines or results, only the Kiosk Satellite logo filling the screen, or on its own over the dashboard in docked mode, with its four bars stretching and shrinking to the microphone and the spoken answer. The bars follow the answer as far as they follow your voice. With **Reactive activity bar** off, the bars run their own animation for listening, thinking and speaking instead. In the light theme the full screen overlay sits on the same background gradient as the app launcher and the intercom. Skin names in the on-device picker are now translated too, and the remote admin's skin picker checks for updated pictures instead of keeping old ones for a day. Translated into Spanish, German, French, Ukrainian and Dutch.
+- **Play or pause media gesture.** **Gestures** gains a **Play or pause media** action that pauses the media player when it plays and plays it when it is paused, so claps or a hand showing fingers can stop the music without asking the voice assistant (#843). It controls the player picked under **Media Player > Player**, the Local Media Session and followed players included. The remote API's `sendspinControl` takes a `toggle` command for the same thing. Translated into Spanish, German, French, Ukrainian and Dutch.
+- **Web and X search for xAI Grok realtime conversations.** The xAI provider's **Configure** dialog gains **Web Search** and **X Search** switches, both off by default. They let the model look things up on the web and in posts on X, next to the Home Assistant tools. xAI runs the searches itself and bills them as part of the conversation, so the key needs no extra setup. xAI reports its searches as tool calls, and the kiosk leaves those to xAI instead of answering them. Translated into Spanish, German, French, Ukrainian and Dutch.
+- **Simplified Chinese localization.** 简体中文 is available during onboarding and in Settings on the device and in Remote Admin. All 3,778 current messages are translated. Localization Credits lists panda-star357 with a GitHub profile link. Chinese text uses the system font with Simplified Chinese character shapes, so no font ships with the app.
+
+### Fixed
+- **DLNA renderer plays from foobar2000.** Playing to a kiosk from foobar2000 timed out and never started (#847). The renderer held its answer to Set URI, Play, Pause and Stop until the controller had taken the matching state update, and foobar2000 cannot take an update while it still waits for an answer, so each side waited on the other until foobar2000 gave up. The renderer now waits at most 300 ms before answering and sends the update right after. Home Assistant takes the update in milliseconds, so it still gets it before the answer as before.
+- **The device camera comes back after the camera driver restarts.** When the camera driver stalled and restarted, motion detection, snapshots and RTSP could stop until the app restarted, with "the camera library accepts none of the cameras Android lists" in the log (#848). The camera library drops a camera it catches missing while the driver is down and then fails to add it back when the driver returns. The kiosk now restarts the camera library when that happens, and the camera works again on the next try, about 10 seconds later.
+
 ## v2026.10.6 - 2026-10-03
 
 ### Added

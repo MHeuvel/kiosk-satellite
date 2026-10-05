@@ -1,0 +1,20 @@
+{
+  "@@locale": "zh_CN",
+  "drawerVersion": "版本 {version}",
+  "drawerUpdateAvailable": "有可用更新",
+  "drawerUpdateInstall": "版本 {version} · 点击安装",
+  "drawerUpdateChecking": "正在检查更新…",
+  "drawerUpdateCurrent": "已是最新版本",
+  "drawerUpdateCurrentHelp": "你正在使用最新版本。",
+  "drawerUpdateCheckFailed": "检查更新失败",
+  "drawerUpdateOffline": "设备是否在线？",
+  "drawerUpdateTo": "更新至 {version}",
+  "drawerUpdateInstructions": "点击“更新”后开始下载。Android 会要求你确认安装。",
+  "drawerUpdateRelaunch": "没有“显示在其他应用上层”权限，应用更新后无法自动重新打开。",
+  "drawerUpdate": "更新",
+  "drawerUpdateDownloading": "正在下载更新",
+  "drawerUpdateStarting": "正在开始…",
+  "drawerUpdateFailed": "更新失败",
+  "drawerUpdates": "更新",
+  "drawerNoReleaseNotes": "暂无更新说明。"
+}

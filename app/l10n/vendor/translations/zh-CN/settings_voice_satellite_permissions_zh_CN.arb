@@ -1,0 +1,14 @@
+{
+  "@@locale": "zh_CN",
+  "voiceMicHeld": "麦克风权限已开启，可用于唤醒词检测。",
+  "voiceMicBlocked": "麦克风权限被拒绝，系统不会再次弹出请求。请在 Android 应用设置中开启此权限。",
+  "voiceMicMissing": "没有此权限，不会有任何引擎监听唤醒词。",
+  "voiceForegroundHeld": "Kiosk Satellite 听到你的声音时可以返回前台。",
+  "voiceForegroundMissing": "没有此权限，即使听到唤醒词也不会响应。",
+  "voiceNotificationHeld": "用于启用后台监听的持续通知。",
+  "voiceNotificationMissing": "后台监听可靠运行需要此权限。",
+  "voiceBatteryHeld": "Android 会保持监听器运行。",
+  "voiceBatteryMissing": "没有此权限，监听器会在几小时后停止。",
+  "voicePermissionDirections": "请在设备本身上授权：从左边缘滑入 → 设置 → Voice Satellite → 所需系统权限。",
+  "voicePermissionsSearch": "麦克风及唤醒词检测所需的其他权限。"
+}

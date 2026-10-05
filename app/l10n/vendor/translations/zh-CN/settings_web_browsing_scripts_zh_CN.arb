@@ -1,0 +1,9 @@
+{
+  "@@locale": "zh_CN",
+  "settingBrowserInjectJsTitle": "在 HA 仪表盘注入 JavaScript",
+  "settingBrowserInjectJsDescription": "每次仪表盘页面加载后运行此 JavaScript 代码，可用于隐藏干扰元素或调整无法自行修改的仪表盘。",
+  "settingBrowserInjectJsExternalTitle": "在外部页面注入 JavaScript",
+  "settingBrowserInjectJsExternalDescription": "各外部页面加载后运行此 JavaScript 代码，包括仪表盘链接打开的页面、轮播页面和网站屏保。不影响 Music Assistant 页面。",
+  "browserInjectJsPlaceholder": "// 示例：隐藏干扰元素\ndocument.querySelector('#banner').style.display = 'none';",
+  "browserInjectJsExternalPlaceholder": "// 示例：缩放不遵循仪表盘缩放级别的网站\ndocument.documentElement.style.zoom = '1.25';"
+}

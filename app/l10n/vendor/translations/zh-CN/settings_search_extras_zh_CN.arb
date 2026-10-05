@@ -1,0 +1,20 @@
+{
+  "@@locale": "zh_CN",
+  "searchInstallApk": "通过远程管理上传 Kiosk Satellite APK 并安装。",
+  "searchPermissionsHelp": "应用可使用的所有 Android 权限及其状态：麦克风、摄像头、通知、不限制电池使用、显示在其他应用上层、修改系统设置、系统界面保护、设备管理器、所有文件访问、使用情况访问和位置。",
+  "searchServiceStatus": "服务状态",
+  "searchServiceHelp": "Kiosk Satellite 服务是否运行，以及正在维持哪些功能运行。",
+  "searchServicePermissions": "Kiosk Satellite 服务所需的权限。",
+  "searchIntercomKiosks": "已知 Kiosk 设备及各设备是否可接听通话。",
+  "searchHaValidate": "使用你的 Home Assistant 验证地址和令牌。",
+  "searchHaProxy": "通过应用内安全代理提供普通 http 的 Home Assistant。",
+  "searchHaDashboard": "选择 Kiosk 显示的仪表盘和页面。",
+  "searchKioskPermissions": "Kiosk 和锁定保护功能所依赖的权限。",
+  "searchHomeStatus": "主屏幕状态",
+  "searchHomeHelp": "查看 Kiosk Satellite 是否已设为默认主屏幕，以及完成设置的入口。",
+  "searchMasterVolume": "设备的整体音量，媒体和助手音量在此基础上按比例调整。",
+  "searchSmallClock": "屏保角落中的时钟小组件。",
+  "searchBattery": "屏保角落中的电池小组件，显示此设备自身电量。",
+  "searchPersonPermission": "设备人体传感器所需的日志访问权限。",
+  "searchSonosSpeakers": "此设备已知的 Sonos 扬声器、网络搜索及地址输入框。"
+}

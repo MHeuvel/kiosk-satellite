@@ -6,3 +6,4 @@
 - Limoniak (fr)
 - rononline (nl)
 - kdinya (uk)
+- panda-star357 (zh-CN)

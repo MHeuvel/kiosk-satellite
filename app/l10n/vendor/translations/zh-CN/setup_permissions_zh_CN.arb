@@ -1,0 +1,16 @@
+{
+  "@@locale": "zh_CN",
+  "setupPermissionLead": "Android 会请求这些权限。提前请求所有权限，避免 Kiosk 以后打断使用。",
+  "setupRemotePermissionLead": "Android 会在平板本身上请求这些权限。请前往平板接受提示，然后在此完成设置。",
+  "setupMicrophoneHelp": "Voice Satellite 和对讲需要麦克风权限",
+  "setupNotificationListening": "允许 Kiosk Satellite 服务显示持续通知，说明正在维持哪些功能运行，以及 Kiosk 何时正在监听。",
+  "setupBatteryService": "允许 Kiosk Satellite 服务在后台运行，不被暂停或终止。",
+  "setupOverlayBoot": "允许 Kiosk Satellite 在崩溃后重新打开，并在设备开机时启动。",
+  "setupOverlayCrash": "允许 Kiosk Satellite 在崩溃后重新显示在屏幕上。",
+  "setupBrightnessHelp": "允许 Kiosk Satellite 设置屏幕的实际亮度（修改系统设置）。",
+  "setupScreenControl": "屏幕控制",
+  "setupScreenControlHelp": "允许 Kiosk Satellite 按请求关闭屏幕（设备管理器）。",
+  "setupGrantPermissions": "在设备上授予权限",
+  "setupRequestingPermissions": "正在设备上请求…",
+  "setupPermissionsRequested": "已在设备上请求权限"
+}

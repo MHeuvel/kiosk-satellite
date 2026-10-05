@@ -1,0 +1,23 @@
+{
+  "@@locale": "zh_CN",
+  "setupRemoteHeading": "远程管理",
+  "setupTitle": "设置\nKiosk Satellite",
+  "setupWelcomeLead": "将此平板设置为 Home Assistant Kiosk。只需几分钟，按向导逐步完成即可。",
+  "setupDeviceName": "设备名称",
+  "setupDeviceNameHelp": "此 Kiosk 在 Home Assistant、远程管理和网络中的名称。可随时在“设置 > 设备”中更改。",
+  "setupEnableRemote": "启用远程管理",
+  "setupEnableRemoteHelp": "设置后可继续通过浏览器管理此 Kiosk，粘贴 Home Assistant 访问令牌也更方便。",
+  "setupRemotePassword": "远程管理密码",
+  "setupRestoreHeading": "恢复备份",
+  "setupRestore": "从配置文件恢复",
+  "setupRestoreHelp": "导入 Kiosk Satellite 导出的配置，并跳过向导其余步骤。设置、仪表盘和登录状态都会恢复。",
+  "setupServicePermissions": "推荐服务权限",
+  "setupPasswordShort": "密码过短",
+  "setupPasswordMinimum": "请至少使用 4 个字符。",
+  "setupRemoteAddress": "无论上方开关是否开启，都可以通过浏览器访问 {address}，继续完成设置。",
+  "remoteWelcomeTitle": "欢迎使用 Kiosk Satellite",
+  "remoteWelcomePassword": "此平板等待设置。请先设置密码以保护远程管理。",
+  "remoteWelcomeReady": "此平板等待设置。远程管理密码已设置，可在此输入新密码以更改。",
+  "remoteInitialPassword": "管理密码（至少 4 个字符）",
+  "remoteNewPassword": "新管理密码（留空以保留当前密码）"
+}

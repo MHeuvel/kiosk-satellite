@@ -30,5 +30,6 @@
   "settingVoiceOverlayModeDescription": "In de compacte modus verschijnt een kleine bubbel over het dashboard. Deze toont geen uitgebreide resultaten zoals afbeeldingen, weer of video's.",
   "voiceOverlayFullScreen": "Volledig scherm",
   "voiceOverlayDocked": "Compact",
-  "voiceListeningEllipsis": "Luisteren…"
+  "voiceListeningEllipsis": "Luisteren…",
+  "voiceSkinVoiceOnly": "Alleen spraak"
 }

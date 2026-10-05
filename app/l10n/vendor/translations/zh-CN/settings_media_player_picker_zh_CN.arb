@@ -1,0 +1,18 @@
+{
+  "@@locale": "zh_CN",
+  "mediaPickPlayer": "选择播放器",
+  "mediaMaPlayer": "Music Assistant 播放器",
+  "mediaHaPlayer": "Home Assistant 媒体播放器",
+  "mediaSonosRoom": "Sonos 房间",
+  "mediaSearchPlayers": "搜索播放器",
+  "mediaOffline": "离线",
+  "mediaOfflineName": "{name}（离线）",
+  "mediaSetUpMa": "配置 Music Assistant 后，即可查看其播放器列表。",
+  "mediaSetUpHa": "请先连接 Home Assistant，再查看媒体播放器列表。",
+  "mediaSetUpSonos": "尚未发现 Sonos 扬声器。请在 Sonos 页面查找或添加。",
+  "mediaHaFailed": "Home Assistant 未响应：{error}",
+  "mediaSaveFailed": "无法保存播放器。",
+  "mediaSelectFailed": "无法选择播放器",
+  "mediaNotificationAccessRemote": "缺少此权限时，系统无法提供媒体会话信息，“正在播放”也无法显示本机应用的播放信息。请在平板上显示的授权页面中授予此权限。",
+  "mediaLocalMediaSession": "本地媒体会话"
+}

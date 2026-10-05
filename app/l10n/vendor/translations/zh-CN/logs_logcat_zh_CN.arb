@@ -1,0 +1,11 @@
+{
+  "@@locale": "zh_CN",
+  "logsSystemLog": "此应用的 Android 系统日志（包含崩溃信息）",
+  "logsErrors": "错误与崩溃",
+  "logsWarnings": "警告",
+  "logsInfo": "信息与调试",
+  "logsNoMatches": "没有匹配的日志行。启用上方更多类型以查看完整日志。",
+  "logsUnavailable": "logcat 不可用",
+  "logsReadFailed": "无法读取 logcat：{error}",
+  "logsUnknown": "未知"
+}

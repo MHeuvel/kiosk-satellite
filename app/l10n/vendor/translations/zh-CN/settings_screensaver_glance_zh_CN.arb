@@ -1,0 +1,20 @@
+{
+  "@@locale": "zh_CN",
+  "settingScreensaverGlanceEnabledTitle": "速览",
+  "settingScreensaverGlanceEnabledDescription": "在屏保上显示一行 Home Assistant 实体状态。",
+  "settingScreensaverGlanceEntitiesTitle": "实体",
+  "settingScreensaverGlanceEntitiesDescription": "最多显示四个实体，每个实体可自定义名称。",
+  "settingScreensaverGlanceNowPlayingTitle": "在“正在播放”中显示",
+  "settingScreensaverGlanceNowPlayingDescription": "在全屏“正在播放”页面中显示此行。显示歌词时隐藏。",
+  "screensaverOverlayShowing": "显示内容",
+  "screensaverOverlayReorder": "显示内容（拖动排序）",
+  "screensaverOverlayFull": "此行已达到显示上限。请先移除一项再添加。",
+  "screensaverOverlayPickerTitle": "速览实体",
+  "screensaverOverlayGlanceEmpty": "暂无。最多 {count} 个实体。",
+  "screensaverOverlayNone": "暂无",
+  "screensaverOverlayLimit": "最多 {count} 个实体。",
+  "screensaverOverlayGlancePage": "速览",
+  "screensaverOverlayGlanceHint": "显示在屏保上的实体",
+  "glanceUnavailable": "不可用",
+  "glanceUnknown": "未知"
+}

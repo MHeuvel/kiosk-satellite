@@ -1,0 +1,18 @@
+{
+  "@@locale": "zh_CN",
+  "intercomBuiltinRing": "内置铃声",
+  "intercomBuiltinChime": "内置提示音",
+  "intercomMissingFile": "{file}（缺失）",
+  "intercomAddSound": "添加声音",
+  "intercomCopySoundHelp": "将此设备上的声音文件复制到声音文件夹。",
+  "intercomUploadSoundHelp": "将此电脑上的声音文件上传到声音文件夹。",
+  "intercomUpload": "上传",
+  "intercomUploading": "正在上传…",
+  "intercomUnsupportedSound": "不支持此声音格式",
+  "intercomChooseSound": "不支持此声音格式：请选择 MP3、OGG、WAV、FLAC、M4A 或 AAC 文件。",
+  "intercomCopyFailed": "无法复制文件",
+  "intercomUploadFailed": "上传失败：{error}",
+  "intercomSaveFailed": "未保存：{error}",
+  "intercomSoundFilename": "请输入文件名，而非路径。",
+  "intercomSoundFormats": "请选择 MP3、OGG、WAV、FLAC、M4A 或 AAC 文件。"
+}

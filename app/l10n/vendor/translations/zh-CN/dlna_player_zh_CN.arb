@@ -1,0 +1,10 @@
+{
+  "@@locale": "zh_CN",
+  "dlnaCannotDecode": "此设备无法解码此视频。",
+  "dlnaCannotRead": "无法读取此文件。",
+  "dlnaCannotPlay": "无法播放此媒体。",
+  "dlnaSeeLogs": "请查看应用日志了解详情",
+  "dlnaLoading": "正在加载媒体",
+  "dlnaImageFailed": "无法显示此图片。",
+  "dlnaStop": "停止播放"
+}

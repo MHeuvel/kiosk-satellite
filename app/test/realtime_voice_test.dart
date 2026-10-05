@@ -805,6 +805,71 @@ void main() {
       await backend.close();
     });
 
+    test('xAI: the web and X searches go in the tools when on', () async {
+      final off = make(const RealtimeConfig(provider: RealtimeProvider.xai));
+      await off.start(const RealtimeStart());
+      final plain = (socket.sent.first['session'] as Map)['tools'] as List;
+      expect(plain.map((t) => (t as Map)['type']), everyElement('function'));
+      await off.close();
+      final on = make(
+        const RealtimeConfig(
+          provider: RealtimeProvider.xai,
+          search: true,
+          xSearch: true,
+        ),
+      );
+      await on.start(const RealtimeStart());
+      final listed = (socket.sent.first['session'] as Map)['tools'] as List;
+      expect(listed.map((t) => (t as Map)['type']), [
+        'function',
+        'function',
+        'web_search',
+        'x_search',
+      ]);
+      await on.close();
+    });
+
+    test('xAI: its own search calls are not run, the app\'s are', () async {
+      final backend = make(
+        const RealtimeConfig(provider: RealtimeProvider.xai, search: true),
+      );
+      await backend.start(const RealtimeStart());
+      socket
+        ..server({'type': 'session.updated'})
+        ..server({'type': 'response.created'})
+        ..server({
+          'type': 'response.function_call_arguments.done',
+          'call_id': 'c1',
+          'name': 'web_search',
+          'arguments': '{"query":"weather"}',
+        })
+        ..server({
+          'type': 'response.function_call_arguments.done',
+          'call_id': 'c2',
+          'name': 'x_keyword_search',
+          'arguments': '{"query":"from:xai"}',
+        })
+        ..server({'type': 'response.done'});
+      await pumpEventQueue();
+      expect(tools.calls, isEmpty);
+      expect(events.whereType<RealtimeToolActivity>(), isEmpty);
+      expect(socket.types, isNot(contains('conversation.item.create')));
+      expect(socket.types, isNot(contains('response.create')));
+      socket
+        ..server({'type': 'response.created'})
+        ..server({
+          'type': 'response.function_call_arguments.done',
+          'call_id': 'c3',
+          'name': 'intent__HassTurnOn',
+          'arguments': '{}',
+        })
+        ..server({'type': 'response.done'});
+      await pumpEventQueue();
+      expect(tools.calls.single.$1, 'intent__HassTurnOn');
+      expect(socket.types.last, 'response.create');
+      await backend.close();
+    });
+
     test('xAI: talking over it leaves the cancel to the server', () async {
       final backend = make(
         const RealtimeConfig(provider: RealtimeProvider.xai),

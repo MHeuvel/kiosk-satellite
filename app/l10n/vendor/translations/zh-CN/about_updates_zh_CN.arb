@@ -1,0 +1,12 @@
+{
+  "@@locale": "zh_CN",
+  "aboutCheckNow": "检查更新",
+  "aboutChecking": "正在检查…",
+  "aboutCheckFailed": "检查更新失败，请确认设备能访问 GitHub。",
+  "aboutOverlayMissing": "未授予“显示在其他应用上层”权限",
+  "aboutOverlayHelp": "缺少此权限，应用更新后无法自动打开。请在平板上显示的授权页面中开启此权限。",
+  "aboutDownloadProgress": "正在下载… {percent}%",
+  "aboutDownloadFailed": "更新失败：{error}",
+  "aboutAlreadyCurrent": "已是最新版本",
+  "aboutInstallHelp": "更新会在平板上下载，安装时请在平板上确认。"
+}

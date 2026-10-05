@@ -1,0 +1,16 @@
+{
+  "@@locale": "zh_CN",
+  "settingSendspinFullscreenTitle": "用“正在播放”替代屏保",
+  "settingSendspinFullscreenDescription": "播放音乐时，显示带专辑封面的全屏“正在播放”页面，替代普通屏保。没有音乐播放时，仍显示普通屏保。",
+  "settingSendspinFullscreenSplitTitle": "与屏保并排显示",
+  "settingSendspinFullscreenSplitDescription": "同时显示屏保和“正在播放”。横屏时左右排列，竖屏时屏保在播放器上方；小屏幕仍使用全屏播放器。",
+  "settingSendspinFullscreenPhotoFillTitle": "填满屏幕",
+  "settingSendspinFullscreenPhotoFillDescription": "屏保与“正在播放”同时显示时，可单独设置照片填充方式。“默认”沿用各屏保的设置。“关闭”：完整显示照片，空白处显示黑边。“智能”：照片宽高比与屏幕接近时放大填充；其余照片完整显示，空白处使用模糊背景。“始终”：放大照片填满屏幕，超出部分会被裁掉。",
+  "settingSendspinFullscreenOverrideBrightnessTitle": "覆盖屏保亮度",
+  "settingSendspinFullscreenOverrideBrightnessDescription": "与屏保并排显示“正在播放”时，使用正常屏幕亮度，而非屏保亮度，也会覆盖计划中的屏保亮度。",
+  "mediaScreensaverHeading": "屏保",
+  "mediaDefaultFill": "默认",
+  "mediaFillOff": "关闭",
+  "mediaFillSmart": "智能",
+  "mediaFillAlways": "始终"
+}

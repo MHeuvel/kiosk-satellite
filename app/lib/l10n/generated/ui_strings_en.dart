@@ -1509,6 +1509,9 @@ class UiStringsEn extends UiStrings {
   String get gestureHoldMode => 'Toggle hold mode';
 
   @override
+  String get gestureMediaPlayPause => 'Play or pause media';
+
+  @override
   String get gestureHaKiosk => 'Toggle HA kiosk mode';
 
   @override
@@ -11134,6 +11137,9 @@ class UiStringsEn extends UiStrings {
   String get voiceListeningEllipsis => 'Listening…';
 
   @override
+  String get voiceSkinVoiceOnly => 'Voice Only';
+
+  @override
   String get voiceAssistant1 => 'Assistant 1';
 
   @override
@@ -11830,6 +11836,20 @@ class UiStringsEn extends UiStrings {
   @override
   String get settingVoiceRealtimeGeminiProactiveDescription =>
       'The model stays quiet when what it hears is not addressed to it. Experimental at Google.';
+
+  @override
+  String get settingVoiceRealtimeXaiWebSearchTitle => 'Web Search';
+
+  @override
+  String get settingVoiceRealtimeXaiWebSearchDescription =>
+      'Lets the model look things up on the web.';
+
+  @override
+  String get settingVoiceRealtimeXaiXSearchTitle => 'X Search';
+
+  @override
+  String get settingVoiceRealtimeXaiXSearchDescription =>
+      'Lets the model search posts on X.';
 
   @override
   String get voiceRealtimeReasoningDefault => 'Model default';

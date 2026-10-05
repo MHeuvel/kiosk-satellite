@@ -1,0 +1,23 @@
+{
+  "@@locale": "zh_CN",
+  "esphomeIdentityBthome": "BTHome 传感器",
+  "esphomeIdentityXiaomi": "Xiaomi 传感器",
+  "esphomeIdentityQingping": "Qingping 传感器",
+  "esphomeIdentityGoogleNest": "Google/Nest 设备",
+  "esphomeIdentityEddystone": "Eddystone 信标",
+  "esphomeIdentityGoogleFastPair": "Google Fast Pair 设备",
+  "esphomeIdentityAppleFindMy": "Apple Find My 设备",
+  "esphomeIdentityExposure": "接触通知服务（手机）",
+  "esphomeIdentityAugustYale": "August/Yale 门锁",
+  "esphomeIdentityAmazon": "Amazon 设备",
+  "esphomeIdentityTile": "Tile 追踪器",
+  "esphomeIdentityInput": "输入设备（遥控器/键盘）",
+  "esphomeIdentityHeartRate": "心率传感器",
+  "esphomeIdentityEnvironmental": "环境传感器",
+  "esphomeIdentityApple": "Apple 设备",
+  "esphomeIdentityWindows": "Windows 电脑",
+  "esphomeIdentitySamsung": "Samsung 设备",
+  "esphomeIdentityGoogle": "Google 设备",
+  "esphomeIdentityUnknown": "未知设备",
+  "esphomeIdentityVendor": "{vendor} 设备"
+}

@@ -13,6 +13,19 @@ import 'package:kiosk_satellite/ui/kit.dart';
 import 'package:kiosk_satellite/ui/settings_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// The catalogs the picker offers. gen-l10n also needs a base fallback such
+/// as zh next to zh-CN, but that fallback is not a choice.
+List<String> pickerLanguageTags() => [
+  for (final locale in UiStrings.supportedLocales)
+    if (locale.countryCode != null ||
+        !UiStrings.supportedLocales.any(
+          (other) =>
+              other.languageCode == locale.languageCode &&
+              other.countryCode != null,
+        ))
+      locale.toLanguageTag(),
+];
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -27,19 +40,16 @@ void main() {
           .toList();
       expect(group.first, uiLanguage);
       expect(uiLanguage.perDevice, isTrue);
-      expect(
-        uiLanguage.options,
-        unorderedEquals(
-          UiStrings.supportedLocales.map((locale) => locale.toLanguageTag()),
-        ),
-      );
+      expect(uiLanguage.options, unorderedEquals(pickerLanguageTags()));
       expect(uiLanguage.optionLabels!['es'], 'Español');
       expect(uiLanguage.optionLabels!['de'], 'Deutsch');
       expect(uiLanguage.optionLabels!['fr'], 'Français');
       expect(uiLanguage.optionLabels!['nl'], 'Nederlands');
       expect(uiLanguage.optionLabels!['uk'], 'Українська');
+      expect(uiLanguage.optionLabels!['zh-CN'], '简体中文');
       expect(appLocaleForLanguage('nl'), const Locale('nl'));
       expect(appLocaleForLanguage('uk'), const Locale('uk'));
+      expect(appLocaleForLanguage('zh-CN'), const Locale('zh', 'CN'));
       expect(appLocaleForLanguage('de'), const Locale('de'));
       expect(appLocaleForLanguage('fr'), const Locale('fr'));
       expect(appLocaleForLanguage('es'), const Locale('es'));
@@ -227,12 +237,7 @@ void main() {
         final definition = container.settings.describe().firstWhere(
           (def) => def['key'] == 'ui.language',
         );
-        expect(
-          definition['options'],
-          unorderedEquals(
-            UiStrings.supportedLocales.map((locale) => locale.toLanguageTag()),
-          ),
-        );
+        expect(definition['options'], unorderedEquals(pickerLanguageTags()));
         expect((definition['optionLabels'] as Map)['es'], 'Español');
         await tester.pumpWidget(const SizedBox.shrink());
       },

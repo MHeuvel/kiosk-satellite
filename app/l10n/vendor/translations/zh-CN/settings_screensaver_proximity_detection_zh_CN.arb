@@ -1,0 +1,14 @@
+{
+  "@@locale": "zh_CN",
+  "settingScreensaverDismissOnProximityTitle": "检测到接近时关闭屏保",
+  "settingScreensaverDismissOnProximityDescription": "屏保显示期间监测距离传感器，有物体靠近设备时唤醒屏幕。仅配备通话专用传感器（“palm”“touch”）的设备不适用。",
+  "settingScreensaverDismissOnProximityScreenOffOnlyTitle": "仅屏幕关闭时",
+  "settingScreensaverDismissOnProximityScreenOffOnlyDescription": "屏幕开启时，有物体靠近仍保持屏保显示。屏幕关闭后，检测会唤醒仪表盘。触屏仍可关闭屏保。",
+  "settingScreensaverPostponeOnProximityTitle": "检测到接近时延迟启动屏保",
+  "settingScreensaverPostponeOnProximityDescription": "有物体靠近传感器时延迟启动屏保。",
+  "screensaverDetectionProximityPage": "接近检测",
+  "screensaverDetectionProximityHint": "根据距离传感器关闭或延迟启动屏保",
+  "screensaverDetectionNoProximity": "此设备没有距离传感器，不支持此功能。",
+  "screensaverDetectionSensor": "传感器",
+  "screensaverDetectionSensorHelp": "设备提供的距离传感器。名为“palm”或“touch”的通话专用传感器不适用。"
+}

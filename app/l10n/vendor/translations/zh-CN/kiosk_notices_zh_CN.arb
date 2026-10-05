@@ -1,0 +1,21 @@
+{
+  "@@locale": "zh_CN",
+  "kioskBackClose": "再按一次返回键关闭应用",
+  "kioskBackAgain": "再按一次返回键返回",
+  "kioskHoldOn": "页面保持模式已开启",
+  "kioskHoldOff": "页面保持模式已关闭",
+  "kioskHoldNotice": "当前页面将保持显示，直到关闭页面保持模式。",
+  "kioskDownloadComplete": "下载完成",
+  "kioskDownloadFailed": "下载失败",
+  "kioskDownload": "下载",
+  "kioskDownloading": "正在下载",
+  "kioskOpen": "打开",
+  "kioskTip": "提示",
+  "kioskMenuHint": "从屏幕左边缘滑动以打开菜单。",
+  "kioskUnknownLink": "未知的 Kiosk 链接",
+  "kioskOpenAppFailed": "无法打开应用",
+  "kioskWebViewMissing": "未安装 Android System WebView",
+  "kioskWebViewMissingHelp": "此设备没有可用的 WebView，无法显示 Home Assistant。请安装 Android System WebView 或 Chrome，然后重启 Kiosk Satellite。",
+  "kioskDuraSpeedBlocking": "DuraSpeed 导致仪表盘无法启动",
+  "kioskDuraSpeedBlockingHelp": "DuraSpeed 阻止了仪表盘启动。部分平板没有关闭它的设置入口，请通过 adb 将它关闭，然后重启 Kiosk Satellite："
+}

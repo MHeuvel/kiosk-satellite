@@ -7,9 +7,11 @@ from threading import Thread
 from playwright.sync_api import sync_playwright, expect
 APP=Path(__file__).resolve().parents[1]
 ROOT=APP/'remote-ui'
-catalogs={p.stem.removeprefix('ui_'):{k:v for k,v in json.loads(p.read_text()).items() if not k.startswith('@')} for p in (APP/'l10n/effective').glob('ui_*.arb')}
+catalogs={p.stem.removeprefix('ui_').replace('_','-'):{k:v for k,v in json.loads(p.read_text()).items() if not k.startswith('@')} for p in (APP/'l10n/effective').glob('ui_*.arb')}
 names=json.loads((APP/'l10n/vendor/metadata/languages.json').read_text())
-languages=[{'value':tag,'label':names[tag]} for tag in sorted(catalogs)]
+# A regional language such as zh-CN also has a base catalog (zh) for
+# gen-l10n. It has no name and is not a choice in the picker.
+languages=[{'value':tag,'label':names[tag]} for tag in sorted(catalogs) if tag in names]
 en=catalogs['en'];es=catalogs['es']
 requests=[];saved='en';failure=False
 class Handler(SimpleHTTPRequestHandler):

@@ -353,6 +353,11 @@ class GesturesManager extends Manager {
         return _run('showNowPlaying', const {});
       case 'music_assistant':
         return _run('showMusicAssistant', const {});
+      case 'media_play_pause':
+        // A toggle, so one gesture covers both (issue #843): it goes to
+        // the player Now Playing shows, the followed one when one is
+        // picked, and the music stopping or starting is the confirmation.
+        return _run('sendspinControl', const {'command': 'toggle'});
       case 'app_launcher':
         // Open only: the overlay's close button and its scrim already close
         // it. The command carries the launcher's own gates (master switch

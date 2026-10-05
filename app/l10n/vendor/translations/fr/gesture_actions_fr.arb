@@ -10,6 +10,7 @@
   "gestureScreensaver": "Démarrer l'économiseur d'écran",
   "gestureScreensaverStop": "Arrêter l'économiseur d'écran",
   "gestureHoldMode": "Basculer le mode maintien",
+  "gestureMediaPlayPause": "Lire ou mettre en pause le média",
   "gestureHaKiosk": "Basculer le mode kiosque HA",
   "gesturePluginRun": "Exécuter une action de plugin",
   "gestureLaunchApp": "Ouvrir une autre application",

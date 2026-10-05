@@ -1,0 +1,9 @@
+{
+  "@@locale": "zh_CN",
+  "voiceFinancialOpen": "开盘：{value}",
+  "voiceFinancialHigh": "最高：{value}",
+  "voiceFinancialLow": "最低：{value}",
+  "voiceFinancialHigh24h": "24 小时最高：{value}",
+  "voiceFinancialLow24h": "24 小时最低：{value}",
+  "voiceFinancialMarketCap": "市值：{value}"
+}

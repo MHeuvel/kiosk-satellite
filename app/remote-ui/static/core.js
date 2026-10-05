@@ -7,7 +7,34 @@ import { localizeSetting, setLanguagePreference, themeLabel, t } from './localiz
 // level and sit in import cycles with this one, and only hoisted function
 // bindings are initialized before evaluation starts.
 export function $(s) { return document.querySelector(s); }
-export const state = { token: localStorage.getItem('ks_token'), ws: null };
+
+// The path the page is served under: "/" from the tablet itself, a longer
+// one behind a reverse proxy such as Home Assistant ingress (issue #850).
+// The page keeps its "/api/..." paths as names, since the socket transport
+// matches on them, and apiUrl() resolves one against this path only when
+// it leaves the browser.
+export const BASE = new URL('.', location.href).pathname;
+export function apiUrl(path) {
+  return path.startsWith('/api/') ? BASE + path.slice(1) : path;
+}
+
+// Behind a proxy every tablet shares the proxy's origin, so the login is
+// kept per path there. One key would let each login overwrite the last.
+// The plain key stays a fallback a proxy may set itself. From the tablet
+// itself the key is unchanged.
+const TOKEN_KEY = BASE === '/' ? 'ks_token' : `ks_token:${BASE}`;
+export function saveToken(token) {
+  state.token = token;
+  localStorage.setItem(TOKEN_KEY, token);
+}
+function clearToken() {
+  if (localStorage.getItem('ks_token') === state.token) localStorage.removeItem('ks_token');
+  localStorage.removeItem(TOKEN_KEY);
+  state.token = null;
+}
+export const state = {
+  token: localStorage.getItem(TOKEN_KEY) ?? localStorage.getItem('ks_token'), ws: null,
+};
 
 // Controls retain their setting definitions between renders. Refresh their
 // values in place so a page visit cannot leave other pages on old objects.
@@ -70,7 +97,9 @@ export async function api(path, opts = {}) {
       if (response.ok && result.ok !== false && !result.rejected?.includes('remote.tls')) {
         const target = new URL(location.href);
         target.protocol = changes['remote.tls'] ? 'https:' : 'http:';
-        if (target.protocol !== location.protocol) redirectAfterProtocolChange(target);
+        // Behind a proxy the page is not on the tablet's own origin, so
+        // switching this page's protocol would not reach the tablet.
+        if (target.protocol !== location.protocol && BASE === '/') redirectAfterProtocolChange(target);
       }
     }
   }
@@ -93,7 +122,7 @@ function redirectAfterProtocolChange(target) {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), 1500);
       try {
-        await fetch('/api/commands', { method: 'HEAD', cache: 'no-store',
+        await fetch(apiUrl('/api/commands'), { method: 'HEAD', cache: 'no-store',
           headers: { Authorization: `Bearer ${state.token}` }, signal: controller.signal });
       } catch (error) {
         if (error.name !== 'AbortError') { navigate(); return; }
@@ -121,7 +150,7 @@ async function requestApi(path, opts = {}) {
     if (!result.ok) throw new Error(result.error || 'Device read failed');
     return new Response(JSON.stringify(result.data), { headers: { 'content-type': 'application/json' } });
   }
-  const res = await fetch(path, {
+  const res = await fetch(apiUrl(path), {
     ...opts,
     headers: { ...(opts.headers || {}), Authorization: `Bearer ${state.token}` },
   });
@@ -210,7 +239,7 @@ export function showView(which) {
 export async function login() {
   $('#loginError').textContent = '';
   delete $('#loginError').dataset.messageId;
-  const res = await fetch('/api/login', {
+  const res = await fetch(apiUrl('/api/login'), {
     method: 'POST', body: JSON.stringify({ password: $('#password').value }),
   });
   if (!res.ok) {
@@ -222,15 +251,14 @@ export async function login() {
     paintLogin();
     return;
   }
-  state.token = (await res.json()).token;
-  localStorage.setItem('ks_token', state.token);
+  saveToken((await res.json()).token);
   // Back on the splash while start() gathers the app's data, rather than
   // a login card that sits frozen with the password still in it.
   showView('splash');
   start();
 }
 export function logout() {
-  state.token = null; localStorage.removeItem('ks_token');
+  clearToken();
   detachSocket();
   document.dispatchEvent(new CustomEvent('ks-logout'));
   if (state.ws) { state.ws.onclose = null; state.ws.close(); state.ws = null; }

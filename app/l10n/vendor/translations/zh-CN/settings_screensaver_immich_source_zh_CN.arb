@@ -1,0 +1,19 @@
+{
+  "@@locale": "zh_CN",
+  "settingScreensaverImmichAlbumTitle": "媒体来源",
+  "settingScreensaverImmichAlbumDescription": "整个媒体库或所选相册。",
+  "settingScreensaverImmichPhotosOnlyTitle": "仅照片",
+  "settingScreensaverImmichPhotosOnlyDescription": "在幻灯片中跳过视频。",
+  "settingScreensaverImmichCacheTitle": "本地缓存媒体",
+  "settingScreensaverImmichCacheDescription": "在设备上保留副本，使图片即时加载。",
+  "settingScreensaverImmichCacheMaxTitle": "缓存大小（项）",
+  "settingScreensaverImmichCacheMaxDescription": "缓存满后删除最旧的项目。",
+  "screensaverMediaAll": "所有媒体",
+  "screensaverMediaAllDevice": "所有媒体。",
+  "screensaverMediaNoAlbums": "暂无相册。请先在 Immich 中创建。",
+  "screensaverMediaAlbumsFailed": "无法获取相册列表",
+  "screensaverMediaListError": "无法获取列表：{error}",
+  "screensaverMediaListingFailed": "获取列表失败",
+  "screensaverMediaItems": "{count} 项",
+  "screensaverMediaCached": "已缓存 {count} 项，{size}"
+}

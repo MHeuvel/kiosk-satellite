@@ -1,0 +1,23 @@
+{
+  "@@locale": "zh_CN",
+  "settingAnnouncementsEnabledTitle": "启用播报",
+  "settingAnnouncementsEnabledDescription": "播放 Home Assistant 通过 announce 操作发送的播报。",
+  "esphomeTtsSection": "文本转语音",
+  "settingAnnouncementsTtsEngineTitle": "文本转语音引擎",
+  "settingAnnouncementsTtsEngineDescription": "用于语音播报的 Home Assistant 文本转语音实体。",
+  "settingAnnouncementsTtsLanguageTitle": "语言",
+  "settingAnnouncementsTtsLanguageDescription": "播报使用的语言。",
+  "settingAnnouncementsTtsVoiceTitle": "声音",
+  "settingAnnouncementsTtsVoiceDescription": "语音播报时使用的声音。",
+  "esphomeTtsFirst": "自动选择首个可用引擎",
+  "esphomeTtsDefault": "默认",
+  "settingAnnouncementsChimeTitle": "先播放提示音",
+  "settingAnnouncementsChimeDescription": "播报前播放提示音。",
+  "settingAnnouncementsChimeFileTitle": "提示音",
+  "settingAnnouncementsChimeFileDescription": "提示音与语音播报使用相同音量。",
+  "esphomeAnnouncements": "播报",
+  "esphomeAnnouncementsHelp": "来自 Home Assistant 的语音播报",
+  "esphomeChime": "提示音",
+  "esphomeTtsUnavailable": "无法连接 Home Assistant",
+  "esphomeTtsNoVoices": "没有可选择的声音"
+}

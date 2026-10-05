@@ -1,0 +1,19 @@
+{
+  "@@locale": "zh_CN",
+  "settingCameraAllowH265Title": "允许 H.265 视频流",
+  "settingCameraAllowH265Description": "直接播放 H.265 摄像头视频流。无法解码 H.265 的设备会显示空白画面。",
+  "settingCameraPreferMseTitle": "优先使用 MSE 而非 WebRTC",
+  "settingCameraPreferMseDescription": "优先通过 MSE 播放 Go2RTC 摄像头视频流，适用于无法播放 WebRTC 的设备，会增加一至两秒延迟。",
+  "settingCameraPreferHlsTitle": "优先使用 HLS 而非 WebRTC",
+  "settingCameraPreferHlsDescription": "优先通过 HLS 播放 Home Assistant 摄像头视频流，适用于无法播放 WebRTC 的设备，会增加数秒延迟。",
+  "settingCameraSingleAudioTitle": "单个摄像头时播放声音",
+  "settingCameraSingleAudioDescription": "只显示单个摄像头画面时播放声音，同时显示多个摄像头时保持静音。",
+  "settingCameraPinchZoomTitle": "双指缩放单个摄像头画面",
+  "settingCameraPinchZoomDescription": "只显示单个摄像头画面时，可用双指缩放，拖动画面查看不同位置，双击恢复原状。",
+  "settingCameraAutoDismissSecondsTitle": "摄像头画面自动关闭时间",
+  "settingCameraAutoDismissSecondsDescription": "在设定时间后自动关闭已打开的摄像头画面。设为 0 时一直显示，不影响摄像头屏保。",
+  "cameraStreamsPlayback": "播放",
+  "cameraStreamsOff": "关闭",
+  "cameraStreamsSeconds": "{seconds} 秒",
+  "cameraStreamsGridHelp": "多摄像头网格仅播放视频。低性能设备可在画面中使用较低分辨率的 Go2RTC 视频流，并可另设全屏视频流。"
+}

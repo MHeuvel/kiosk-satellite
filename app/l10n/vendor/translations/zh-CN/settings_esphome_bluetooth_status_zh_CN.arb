@@ -1,0 +1,13 @@
+{
+  "@@locale": "zh_CN",
+  "esphomeNearby": "附近的设备",
+  "esphomeNearbySearch": "此 Kiosk 设备接收到的蓝牙设备，已知名称会一并显示。",
+  "esphomeNearbyEmpty": "尚未发现设备。",
+  "esphomeNearbyWaiting": "尚未发现设备。代理开始扫描后，设备会显示在此处。",
+  "esphomeRotating": "（轮换地址）",
+  "esphomeNearbyCount": "显示 {total} 项中的前 {count} 项。",
+  "esphomeSlots": "最多可通过此代理同时连接 {count} 台设备。Home Assistant 会通过其他代理连接更多设备。",
+  "esphomeSecondsAgo": "{count} 秒前",
+  "esphomeMinutesAgo": "{count} 分钟前",
+  "esphomeHoursAgo": "{count} 小时前"
+}

@@ -1,0 +1,19 @@
+{
+  "@@locale": "zh_CN",
+  "pluginAddPlugin": "添加插件",
+  "pluginInstallFromAGithubRepository": "从 GitHub 仓库安装",
+  "pluginMakeSureYouTrustThePluginSAuthorAnd": "安装前请确认你信任插件作者及其代码。",
+  "pluginPreview": "预览",
+  "pluginInstalledVersion": "已安装版本",
+  "pluginAuthor": "作者",
+  "pluginLicense": "许可证",
+  "pluginPluginsRunCodeInsideKioskSatelliteAndCanAccess": "插件在 Kiosk Satellite 内运行代码，可访问应用数据及已授予的 Android 权限。有缺陷或恶意的插件可能泄露隐私信息或导致应用无法正常工作。请只安装来自可信作者的插件。",
+  "pluginNewPluginsStartDisabledUpdatesPreserveTheEnabledState": "新插件默认禁用。更新会保留启用状态，并自动重启正在运行的插件。",
+  "pluginTrustAndUpdate": "信任并更新",
+  "pluginTrustAndInstall": "信任并安装",
+  "pluginInstallFromZip": "从 ZIP 安装",
+  "pluginForDevelopersOnlyTestALocalBuild": "仅供开发者使用：测试本地构建",
+  "pluginPluginZip": "插件 ZIP",
+  "pluginPluginZipMustBeAtMost4Mb": "插件 ZIP 最大为 4 MB",
+  "pluginCouldNotReadTheSelectedZip": "无法读取所选 ZIP"
+}

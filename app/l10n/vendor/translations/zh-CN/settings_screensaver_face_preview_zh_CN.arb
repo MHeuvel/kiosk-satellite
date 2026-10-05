@@ -1,0 +1,12 @@
+{
+  "@@locale": "zh_CN",
+  "settingFacePreviewTitle": "显示摄像头预览",
+  "settingFacePreviewDescription": "人脸唤醒 Kiosk 后，在屏幕角落显示圆形摄像头实时预览数秒。",
+  "settingFacePreviewSecondsTitle": "预览时长",
+  "settingFacePreviewSecondsDescription": "预览在屏幕上保留的时长。",
+  "settingFacePreviewScaleTitle": "预览缩放",
+  "settingFacePreviewScaleDescription": "调整预览大小以适应屏幕尺寸。",
+  "settingFacePreviewPositionTitle": "预览位置",
+  "settingFacePreviewPositionDescription": "预览显示的屏幕角落。",
+  "screensaverDetectionPreviewSection": "摄像头预览"
+}

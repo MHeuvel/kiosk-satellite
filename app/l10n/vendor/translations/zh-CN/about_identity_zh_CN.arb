@@ -1,0 +1,13 @@
+{
+  "@@locale": "zh_CN",
+  "aboutApp": "应用",
+  "aboutVersion": "应用版本",
+  "aboutBuild": "构建模式",
+  "aboutPackage": "包名",
+  "aboutAttribution": "署名",
+  "aboutAuthor": "作者",
+  "aboutWebsite": "官方网站",
+  "aboutSourceCode": "源代码",
+  "aboutLicense": "许可证",
+  "aboutLicenseSummary": "Kiosk Satellite 可免费用于个人非商业用途，采用 CC BY-NC-ND 4.0 许可证。你可以使用和分享本应用，但不得将其用于商业用途或重新分发修改后的应用版本。独立插件享有 PLUGIN-EXCEPTION.md 所述的额外许可。"
+}

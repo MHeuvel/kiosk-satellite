@@ -1,0 +1,16 @@
+{
+  "@@locale": "zh_CN",
+  "settingScreensaverGlanceScaleTitle": "行缩放",
+  "settingScreensaverGlanceScaleDescription": "调整此行大小以适应屏幕尺寸。",
+  "settingScreensaverGlanceFontTitle": "字体",
+  "settingScreensaverGlanceFontDescription": "此行使用的字体。",
+  "settingScreensaverGlanceFontWeightTitle": "字体粗细",
+  "settingScreensaverGlanceFontWeightDescription": "此行文字的粗细。“默认”使用原有粗细：名称为常规，数值为半粗。",
+  "settingScreensaverGlanceHideNamesTitle": "隐藏名称",
+  "settingScreensaverGlanceHideNamesDescription": "仅显示图标和数值，并放大数值。",
+  "settingScreensaverGlanceBwIconsTitle": "单色图标",
+  "settingScreensaverGlanceBwIconsDescription": "所有图标保持中性灰色，而非状态颜色。",
+  "settingScreensaverGlanceTextOnlyTitle": "悬浮文字样式",
+  "settingScreensaverGlanceTextOnlyDescription": "将实体显示为悬浮文字，而非信息标签。",
+  "screensaverOverlayAppearance": "外观"
+}

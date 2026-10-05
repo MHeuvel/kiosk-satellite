@@ -1,0 +1,10 @@
+{
+  "@@locale": "zh_CN",
+  "settingScreensaverWebsiteUrlTitle": "网站地址",
+  "settingScreensaverWebsiteUrlDescription": "全屏显示此网页。网页需支持在其他页面中嵌入显示。",
+  "settingScreensaverWebsiteZoomTitle": "缩放级别",
+  "settingScreensaverWebsiteZoomDescription": "缩放整个外部屏保 WebView。",
+  "settingScreensaverWebsiteDoubleTapTitle": "双击关闭",
+  "settingScreensaverWebsiteDoubleTapDescription": "单击与网站交互，而非关闭屏保。",
+  "screensaverWebsiteSection": "网站屏保"
+}

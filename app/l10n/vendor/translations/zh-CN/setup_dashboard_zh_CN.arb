@@ -1,0 +1,7 @@
+{
+  "@@locale": "zh_CN",
+  "setupChooseDashboard": "选择仪表盘",
+  "setupDashboardHelp": "Kiosk 启动时会显示此内容。",
+  "setupSelectDashboard": "选择仪表盘",
+  "setupSelectDashboardHelp": "选择 Kiosk 显示的仪表盘，之后可在设置中更改。"
+}

@@ -66,7 +66,7 @@ When Home Assistant runs the integration, onboarding offers the same migration i
 | | Talk right after the wake word | Skips the wake sound and keeps what you say right after the wake word. |
 | | Follow-up delay, Chime before a follow-up | A pause and a chime before listening for the answer to a question. |
 | | Play sounds on, Play as | Where answers and chimes play. See [below](#play-sounds-on-a-media-player). |
-| Realtime | Providers | A row per provider with its status. **Configure** opens its API key, model, voice and endpoint, plus **Reasoning effort** for OpenAI and Gemini and Gemini's **Google Search** and **Ignore talk not meant for it** switches, and **Save & Validate** stores them once the provider connects. |
+| Realtime | Providers | A row per provider with its status. **Configure** opens its API key, model, voice and endpoint, plus **Reasoning effort** for OpenAI and Gemini, xAI's **Web Search** and **X Search** switches and Gemini's **Google Search** and **Ignore talk not meant for it** switches, and **Save & Validate** stores them once the provider connects. |
 | | Instructions, End after silence, Speech speed, Session duration, Talk over answers | How the conversation behaves, sounds, ends and carries over, for every provider. |
 | | Tools | What the model can control. See [Realtime conversations](#realtime-conversations). |
 | Wake Word | Wake word engine | vsWakeWord (default), microWakeWord or openWakeWord. All models ship with the app. |
@@ -75,7 +75,7 @@ When Home Assistant runs the integration, onboarding offers the same migration i
 | | Stop word interruption | Say "stop" to cut off an answer, a timer alert or an announcement. It also closes a result panel. |
 | | Wake Word Arbitration | When several kiosks hear the wake word, only the closest one answers. See [Wake word arbitration](#wake-word-arbitration). |
 | | Custom Models | Your own wake word models. See [Custom wake word models](custom-wake-words.md). |
-| Appearance | Skin | Kiosk Satellite, Default, Google Home, Home Assistant, Alexa, Siri, Retro Terminal, Waveform, Lens Flares or Ink Blobs. **Preview** shows it for five seconds. |
+| Appearance | Skin | Kiosk Satellite, Default, Google Home, Home Assistant, Alexa, Siri, Retro Terminal, Waveform, Lens Flares, Ink Blobs or Voice Only. Voice Only shows no text, only the Kiosk Satellite logo with its bars moving to your voice and the answer, for screens too small to read. **Preview** shows it for five seconds. |
 | | Theme, Background, Text size, Reactive activity bar | Light or dark, how much of the dashboard shows through, the text size and the bar that follows your voice and the answer. |
 | Conversation | Show what you said, Show the answer, Show tool use, Hide sentiment tags | What the overlay shows. |
 | | Keep the answer on screen, Keep results on screen, Announcement time | How long each stays. Results at 0 stay until dismissed. |
@@ -127,6 +127,8 @@ A wake word answered by a realtime provider starts a conversation with a speech 
 **Speech speed** sets how fast the model talks, from 0.5x to 1.5x. OpenAI does not go faster than 1.5x. Gemini has no such setting and always talks at its own pace.
 
 **Google Search** (Gemini only) lets the model look things up on the web, next to the Home Assistant tools. It needs billing turned on for the key's Google Cloud project: on the free tier, Save & Validate fails with "You exceeded your current quota".
+
+**Web Search** and **X Search** (xAI only) let the model look things up on the web and in posts on X, next to the Home Assistant tools. xAI runs the searches itself and bills them as part of the conversation, with no extra setup on the key.
 
 **Ignore talk not meant for it** (Gemini only) turns on Gemini's proactive audio: the model stays quiet when what it hears is not addressed to it, such as a TV or people talking to each other. Google offers it only on its experimental API, which the kiosk connects to while the switch is on, so it may change or go away.
 

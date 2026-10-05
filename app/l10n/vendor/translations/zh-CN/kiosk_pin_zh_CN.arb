@@ -1,0 +1,7 @@
+{
+  "@@locale": "zh_CN",
+  "kioskPinTitle": "Kiosk PIN 码",
+  "kioskPinHint": "PIN 码",
+  "kioskWrongPin": "PIN 码错误",
+  "kioskUnlock": "解锁"
+}

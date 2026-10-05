@@ -1,0 +1,9 @@
+{
+  "@@locale": "zh_CN",
+  "offlineDashboard": "仪表盘不可用",
+  "offlineNetwork": "没有网络连接",
+  "offlinePageHelp": "无法加载页面。",
+  "offlineNetworkHelp": "网络恢复后仪表盘会重新显示。",
+  "offlineLost": "网络连接已断开",
+  "offlineRestored": "网络连接已恢复"
+}

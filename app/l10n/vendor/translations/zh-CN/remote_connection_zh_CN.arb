@@ -1,0 +1,11 @@
+{
+  "@@locale": "zh_CN",
+  "remoteReconnecting": "正在重新连接…",
+  "remoteConnectionLost": "与 {name} 的连接已断开，连接恢复后此页面会自动继续运行。",
+  "remoteConnectionLostUnnamed": "与 Kiosk 设备的连接已断开，连接恢复后此页面会自动继续运行。",
+  "remoteReloadPage": "重新加载页面",
+  "remoteUpdated": "Kiosk Satellite 已更新",
+  "remoteUpdatedHelp": "设备现已运行 {version}{build} 版本。此页面属于上一版本，将在 {seconds} 秒后重新加载。",
+  "remoteBuild": " （构建版本 {build}）",
+  "remoteReloadNow": "立即重新加载"
+}

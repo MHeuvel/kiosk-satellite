@@ -1297,8 +1297,9 @@ class SendspinManager extends Manager {
         description:
             'Send a transport command to the Sendspin group this player '
             'belongs to or to the followed player when one is set (play, '
-            'pause, next, previous).',
-        params: const {'command': 'play | pause | next | previous'},
+            'pause, toggle, next, previous). Toggle pauses a playing '
+            'player and plays a paused one.',
+        params: const {'command': 'play | pause | toggle | next | previous'},
         handler: (p) async {
           final ok = await control('${p['command'] ?? ''}');
           return ok
@@ -2121,8 +2122,13 @@ class SendspinManager extends Manager {
   /// Group transport control (the controller role). False when the server
   /// does not support the command or nothing is connected. With a remote
   /// player followed, the command goes to Music Assistant for that player
-  /// instead of into the local Sendspin group.
+  /// instead of into the local Sendspin group. `toggle` pauses what plays
+  /// and plays what does not (issue #843), read from the same state the
+  /// Now Playing button reads.
   Future<bool> control(String command) async {
+    if (command == 'toggle') {
+      command = nowPlaying.value?['playing'] == true ? 'pause' : 'play';
+    }
     if (_remote case final remote?) return remote.control(command);
     try {
       return await _channel.invokeMethod<bool>('control', {

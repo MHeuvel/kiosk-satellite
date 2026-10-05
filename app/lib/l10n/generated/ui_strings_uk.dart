@@ -1513,6 +1513,9 @@ class UiStringsUk extends UiStrings {
   String get gestureHoldMode => 'Перемкнути режим блокування';
 
   @override
+  String get gestureMediaPlayPause => 'Відтворити або призупинити медіа';
+
+  @override
   String get gestureHaKiosk => 'Перемкнути режим кіоска HA';
 
   @override
@@ -11257,6 +11260,9 @@ class UiStringsUk extends UiStrings {
   String get voiceListeningEllipsis => 'Слухає…';
 
   @override
+  String get voiceSkinVoiceOnly => 'Лише голос';
+
+  @override
   String get voiceAssistant1 => 'Асистент 1';
 
   @override
@@ -11961,6 +11967,20 @@ class UiStringsUk extends UiStrings {
   @override
   String get settingVoiceRealtimeGeminiProactiveDescription =>
       'Модель мовчить, коли те, що вона чує, звернено не до неї. Експериментальна функція Google.';
+
+  @override
+  String get settingVoiceRealtimeXaiWebSearchTitle => 'Пошук в інтернеті';
+
+  @override
+  String get settingVoiceRealtimeXaiWebSearchDescription =>
+      'Дозволяє моделі шукати інформацію в інтернеті.';
+
+  @override
+  String get settingVoiceRealtimeXaiXSearchTitle => 'Пошук в X';
+
+  @override
+  String get settingVoiceRealtimeXaiXSearchDescription =>
+      'Дозволяє моделі шукати дописи в X.';
 
   @override
   String get voiceRealtimeReasoningDefault => 'Типово для моделі';

@@ -1,0 +1,7 @@
+{
+  "@@locale": "zh_CN",
+  "settingsSearchHint": "搜索设置",
+  "settingsSearchClear": "清除搜索",
+  "settingsSearchResults": "搜索结果",
+  "settingsSearchEmpty": "没有与“{query}”匹配的设置。"
+}

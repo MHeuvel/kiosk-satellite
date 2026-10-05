@@ -1,0 +1,9 @@
+{
+  "@@locale": "zh_CN",
+  "pluginShizuku13OrLaterIsRequiredTapForSetup": "需要 Shizuku 13 或更新版本。点击查看设置说明。",
+  "pluginStartShizukuOnThisDeviceTapForSetupInstructions": "请在此设备上启动 Shizuku。点击查看设置说明。",
+  "pluginShizukuGrantsKioskSatelliteShellOrRootAccessInstalled": "Shizuku 会授予 Kiosk Satellite shell 或 root 访问权限。已安装插件在 KS 内运行，请仅在信任这些插件时授权。",
+  "pluginSetUp": "设置",
+  "pluginGrantAccess": "授予访问权限",
+  "pluginApproveThePermissionRequestOnTheKiosk": "请在 Kiosk 设备上批准权限请求。"
+}

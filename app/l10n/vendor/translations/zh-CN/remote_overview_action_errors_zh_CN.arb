@@ -1,0 +1,10 @@
+{
+  "@@locale": "zh_CN",
+  "deviceScreenOffPermission": "关闭屏幕需要一次性授权。平板正在显示“设备管理器”授权页面，请在平板上批准，然后重试。",
+  "deviceAdminInactive": "设备管理器权限未生效。",
+  "deviceRestartOverlay": "重启需要“显示在其他应用上层”权限，否则应用无法自行重新打开。授权页面正在设备上打开，请在设备上授权后重试。",
+  "deviceRebootPermission": "重启设备需要将 Kiosk Satellite 配置为设备所有者，或已授权的 Shizuku 连接。",
+  "deviceRestartAndroidOnly": "仅 Android 支持重启。",
+  "deviceRestartShizukuRefused": "Shizuku 拒绝了重启请求",
+  "deviceRestartFailed": "重启失败：{error}"
+}

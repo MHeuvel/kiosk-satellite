@@ -36,6 +36,8 @@
 ///  - sendspin_player:  show the floating player card (a fling hides it)
 ///  - now_playing:      show the full-screen Now Playing view
 ///  - music_assistant:  open the Music Assistant web interface
+///  - media_play_pause: pause the media player when it plays, play it
+///                      when it does not (issue #843)
 ///  - app_launcher:     open the app launcher overlay (issue #318)
 ///  - intercom_open:    open the intercom's Call a kiosk sheet
 ///  - intercom_call:    kioskId, kioskName: call that kiosk straight away
@@ -204,6 +206,8 @@ String describeGestureAction(Map<String, Object?> action) {
       return 'Show Now Playing';
     case 'music_assistant':
       return 'Open Music Assistant';
+    case 'media_play_pause':
+      return 'Play or pause media';
     case 'app_launcher':
       return 'Open the app launcher';
     case 'intercom_open':

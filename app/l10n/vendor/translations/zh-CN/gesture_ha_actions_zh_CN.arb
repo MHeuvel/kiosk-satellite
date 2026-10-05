@@ -1,0 +1,22 @@
+{
+  "@@locale": "zh_CN",
+  "gestureValid": "检查通过。",
+  "gestureValidationFailed": "无法验证。",
+  "gestureDomainMissing": "未找到域 {value}。",
+  "gestureServiceMissing": "未找到服务 {value}。",
+  "gestureEntityMissing": "未找到实体 {value}。",
+  "gestureEntityRequired": "请输入 {domain}.* 实体。",
+  "gestureScriptEntity": "脚本实体",
+  "gestureAutomationEntity": "自动化实体",
+  "gestureDomain": "域",
+  "gestureEntityOptional": "实体（可选）",
+  "gestureServiceData": "服务数据（可选）",
+  "gestureServiceTitle": "调用 Home Assistant 服务",
+  "gestureServiceRequired": "必须填写域和服务。",
+  "gestureServiceJson": "服务数据必须是 JSON 对象。",
+  "gestureEventType": "事件类型",
+  "gestureEventData": "事件数据（可选）",
+  "gestureEventTitle": "触发 Home Assistant 事件",
+  "gestureEventRequired": "必须填写事件类型。",
+  "gestureEventJson": "事件数据必须是 JSON 对象。"
+}

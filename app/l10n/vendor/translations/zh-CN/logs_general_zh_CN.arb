@@ -1,0 +1,10 @@
+{
+  "@@locale": "zh_CN",
+  "logsEntries": "{count} 条记录",
+  "logsCopyLog": "复制日志",
+  "logsShareLog": "分享日志",
+  "logsCopied": "已复制",
+  "logsCopyFailed": "无法复制",
+  "logsOnClipboard": "日志已复制到剪贴板。",
+  "logsConsoleOnClipboard": "控制台日志已复制到剪贴板。"
+}

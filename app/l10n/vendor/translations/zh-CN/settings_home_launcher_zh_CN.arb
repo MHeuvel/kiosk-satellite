@@ -1,0 +1,7 @@
+{
+  "@@locale": "zh_CN",
+  "settingHomeLauncherEnabledTitle": "设为主屏幕",
+  "settingHomeLauncherEnabledDescription": "将 Kiosk Satellite 注册为设备主屏幕：开机启动 Kiosk，每次按主页键都返回此应用。若应用反复启动失败，会自动关闭此项并恢复原启动器。",
+  "settingHomeKeepPinningTitle": "保持屏幕固定",
+  "settingHomeKeepPinningDescription": "Kiosk Satellite 已设为主屏幕时，仍启用屏幕固定，阻止返回和打开最近任务。未配置设备所有者模式时，系统会再次弹出屏幕固定确认框。"
+}

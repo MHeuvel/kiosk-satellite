@@ -1,0 +1,18 @@
+{
+  "@@locale": "zh_CN",
+  "screensaverOverlayEntity": "实体",
+  "screensaverOverlayNotSet": "未设置",
+  "screensaverOverlayName": "名称",
+  "screensaverOverlayNameHelp": "留空以使用 Home Assistant 中的名称。",
+  "screensaverOverlayValue": "显示值",
+  "screensaverOverlayState": "状态",
+  "screensaverOverlayEntityRequired": "请选择实体。",
+  "screensaverOverlaySearchHint": "名称或实体 ID",
+  "screensaverOverlaySearchHintRemote": "按名称或实体 ID 搜索",
+  "screensaverOverlaySearchEmpty": "输入文字以搜索实体。",
+  "screensaverOverlayNoMatches": "没有匹配项。",
+  "screensaverOverlaySearching": "正在搜索…",
+  "screensaverOverlayUnreachable": "无法连接 Home Assistant",
+  "screensaverOverlayNoAnswer": "设备未响应。",
+  "screensaverOverlaySearchError": "无法搜索实体：{error}"
+}

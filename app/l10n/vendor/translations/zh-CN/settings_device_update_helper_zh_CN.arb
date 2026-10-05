@@ -1,0 +1,15 @@
+{
+  "@@locale": "zh_CN",
+  "deviceHelperPage": "可选更新辅助程序",
+  "deviceHelperStatus": "辅助程序状态",
+  "deviceHelperError": "无法检查更新辅助程序。",
+  "deviceHelperUnneeded": "Android 现在可以静默安装更新，不再需要辅助程序。",
+  "deviceHelperIntro": "此设备安装应用更新时，需要在屏幕上确认。启用更新辅助程序后，Kiosk Satellite 可自动安装更新，无需点击确认。",
+  "deviceHelperBusy": "正在安装更新。",
+  "deviceHelperReady": "已就绪。更新无需确认即可安装。",
+  "deviceHelperUnavailable": "辅助程序不可用。请通过 ADB 启动它，之后安装更新就无需在设备上确认。",
+  "deviceHelperLifetime": "更新辅助程序可在应用重启或更新后继续运行，重启设备后则需重新启动。请在装有 ADB 的电脑上运行命令，启动后即可断开电脑。",
+  "deviceHelperStart": "通过 ADB 启动",
+  "deviceHelperGuide": "设置指南",
+  "deviceHelperGuideHelp": "阅读更新辅助程序的使用说明和要求。"
+}

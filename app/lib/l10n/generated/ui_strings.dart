@@ -11,6 +11,7 @@ import 'ui_strings_es.dart';
 import 'ui_strings_fr.dart';
 import 'ui_strings_nl.dart';
 import 'ui_strings_uk.dart';
+import 'ui_strings_zh.dart';
 
 // ignore_for_file: type=lint
 
@@ -103,6 +104,8 @@ abstract class UiStrings {
     Locale('fr'),
     Locale('nl'),
     Locale('uk'),
+    Locale('zh'),
+    Locale('zh', 'CN'),
   ];
 
   /// App information group heading.
@@ -2727,6 +2730,12 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Toggle hold mode'**
   String get gestureHoldMode;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Play or pause media'**
+  String get gestureMediaPlayPause;
 
   /// Label or guidance in this section.
   ///
@@ -19356,6 +19365,12 @@ abstract class UiStrings {
   /// **'Listening…'**
   String get voiceListeningEllipsis;
 
+  /// The name of a voice assistant overlay skin that shows no text, only the app logo whose bars move with the voice. Title case like the other skin names.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Only'**
+  String get voiceSkinVoiceOnly;
+
   /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
   ///
   /// In en, this message translates to:
@@ -20591,6 +20606,30 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'The model stays quiet when what it hears is not addressed to it. Experimental at Google.'**
   String get settingVoiceRealtimeGeminiProactiveDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Web Search'**
+  String get settingVoiceRealtimeXaiWebSearchTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Lets the model look things up on the web.'**
+  String get settingVoiceRealtimeXaiWebSearchDescription;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'X Search'**
+  String get settingVoiceRealtimeXaiXSearchTitle;
+
+  /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Lets the model search posts on X.'**
+  String get settingVoiceRealtimeXaiXSearchDescription;
 
   /// Translate the visible label or help. Keep Voice Satellite, Kiosk Satellite, Home Assistant, ESPHome, HACS and model names unchanged.
   ///
@@ -22769,6 +22808,7 @@ class _UiStringsDelegate extends LocalizationsDelegate<UiStrings> {
     'fr',
     'nl',
     'uk',
+    'zh',
   ].contains(locale.languageCode);
 
   @override
@@ -22776,6 +22816,18 @@ class _UiStringsDelegate extends LocalizationsDelegate<UiStrings> {
 }
 
 UiStrings lookupUiStrings(Locale locale) {
+  // Lookup logic when language+country codes are specified.
+  switch (locale.languageCode) {
+    case 'zh':
+      {
+        switch (locale.countryCode) {
+          case 'CN':
+            return UiStringsZhCn();
+        }
+        break;
+      }
+  }
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'de':
@@ -22790,6 +22842,8 @@ UiStrings lookupUiStrings(Locale locale) {
       return UiStringsNl();
     case 'uk':
       return UiStringsUk();
+    case 'zh':
+      return UiStringsZh();
   }
 
   throw FlutterError(

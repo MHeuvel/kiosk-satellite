@@ -1,0 +1,6 @@
+{
+  "@@locale": "zh_CN",
+  "fleetSwitchKiosk": "切换 Kiosk 设备",
+  "fleetKiosksOnThisNetworkWithTheRemoteAdminOn": "已发现的 Kiosk 设备和保存的设备群成员。选择设备后，会在当前页面打开其远程管理。",
+  "fleetNoOtherKioskFoundOnThisNetworkAKioskDetail": "未找到其他 Kiosk 设备。设备会通过网络发现或已保存的设备群成员记录显示。"
+}

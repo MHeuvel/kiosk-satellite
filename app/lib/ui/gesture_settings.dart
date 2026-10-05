@@ -40,6 +40,7 @@ const _actionGroups = <(String, List<(String, String, IconData)>)>[
       ('sendspin_player', 'Show the floating player', Icons.speaker_outlined),
       ('now_playing', 'Show Now Playing', Icons.play_circle_outline),
       ('music_assistant', 'Open Music Assistant', Icons.library_music_outlined),
+      ('media_play_pause', 'Play or pause media', Icons.play_arrow_outlined),
       ('app_launcher', 'Open the app launcher', Icons.apps_outlined),
       ('intercom_open', 'Open Call a kiosk', Icons.speaker_phone_outlined),
       ('intercom_call', 'Call a kiosk', Icons.phone_outlined),
@@ -720,6 +721,7 @@ class _GestureSettingsPanelState extends State<GestureSettingsPanel> {
       'sendspin_player' ||
       'now_playing' ||
       'music_assistant' ||
+      'media_play_pause' ||
       'app_launcher' ||
       'intercom_open' ||
       'screensaver' ||

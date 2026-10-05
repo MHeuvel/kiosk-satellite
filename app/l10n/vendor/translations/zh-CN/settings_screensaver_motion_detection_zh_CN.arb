@@ -1,0 +1,12 @@
+{
+  "@@locale": "zh_CN",
+  "settingScreensaverDismissOnMotionTitle": "检测到运动时关闭屏保",
+  "settingScreensaverDismissOnMotionDescription": "屏保显示期间监测摄像头，有人靠近时唤醒屏幕。摄像头仅在屏保期间运行。",
+  "settingScreensaverDismissOnMotionScreenOffOnlyTitle": "仅屏幕关闭时",
+  "settingScreensaverDismissOnMotionScreenOffOnlyDescription": "屏幕开启时检测到运动不会关闭屏保；屏幕关闭后，检测到运动会唤醒仪表盘。触屏仍可关闭屏保。",
+  "settingScreensaverPostponeOnMotionTitle": "检测到运动时延迟启动屏保",
+  "settingScreensaverPostponeOnMotionDescription": "检测到运动时，延迟启动屏保。注意：开启后，摄像头会持续运行。",
+  "screensaverDetectionMotionPage": "运动检测",
+  "screensaverDetectionMotionHint": "检测到运动时关闭或延迟启动屏保",
+  "screensaverDetectionMotionTuning": "运动检测功能可在摄像头设置中调整。"
+}

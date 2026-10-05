@@ -1,0 +1,23 @@
+{
+  "@@locale": "zh_CN",
+  "overviewAttention": "需要处理",
+  "overviewUpdate": "更新",
+  "overviewInvitation": "{name} 想要管理此 Kiosk 设备",
+  "overviewOutdatedOne": "1 台从设备运行其他版本",
+  "overviewOutdatedMany": "{count} 台从设备运行其他版本",
+  "overviewSyncWaiting": "{names}。同步需等待版本 {version}。",
+  "overviewThisRelease": "此版本",
+  "overviewUpdateAvailable": "有可用更新",
+  "overviewInstallHelp": "Kiosk Satellite {version} 已可安装。安装需在平板屏幕上确认。",
+  "overviewHaSetup": "尚未设置 Home Assistant",
+  "overviewHaSetupHelp": "将 Kiosk 设备连接到 Home Assistant 以加载仪表盘。",
+  "overviewSetUp": "设置",
+  "overviewHaNotValidated": "Home Assistant 尚未验证",
+  "overviewHaNotValidatedHelp": "本次运行中，地址和令牌尚未通过连接检查。Kiosk 设备每 30 秒重试一次。",
+  "overviewOpenSetup": "打开设置向导",
+  "overviewWakeStopped": "唤醒词检测已停止",
+  "overviewWakeReleased": "检测引擎已释放。",
+  "overviewOpenVoice": "打开 Voice Satellite",
+  "overviewOpenService": "打开服务",
+  "overviewPermissionMissing": "缺少权限：{permission}"
+}

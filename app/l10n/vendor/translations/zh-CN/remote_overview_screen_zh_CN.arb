@@ -1,0 +1,12 @@
+{
+  "@@locale": "zh_CN",
+  "overviewNoScreenshot": "暂无截图",
+  "overviewStill": "静态",
+  "overviewLive": "实时",
+  "overviewFullSize": "原始尺寸",
+  "overviewLiveInterval": "实时，每 5 秒更新",
+  "overviewTaken": "截取于 {age}",
+  "overviewCameraViewNamed": "摄像头画面：{name}",
+  "overviewCameraView": "摄像头画面",
+  "overviewScreenOffState": "屏幕已关闭"
+}

@@ -52,6 +52,7 @@ try:
             languages.insert(0, ("Deutsch", "Dee-san"))
         languages.append(("Nederlands", "rononline"))
         languages.append(("Українська", "kdinya"))
+        languages.append(("简体中文", "panda-star357"))
         expect(credits.locator("h2")).to_have_text([name for name, _ in languages])
         for index, (_, login) in enumerate(languages):
             names = ["Xavier Larrea"] if login == "jxlarrea" else [login]
@@ -68,6 +69,7 @@ try:
             locales.append(("de", "Mitwirkende an der Übersetzung"))
         locales.append(("nl", "Vertalers"))
         locales.append(("uk", "Автори перекладу"))
+        locales.append(("zh-CN", "翻译贡献者"))
         locales.append(("fr", "Crédits de traduction"))
         for locale, title in locales:
             page.evaluate("""async locale => {

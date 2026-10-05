@@ -1,0 +1,9 @@
+{
+  "@@locale": "zh_CN",
+  "overviewGoView": "切换仪表盘页面",
+  "overviewLoadingViews": "正在加载仪表盘页面…",
+  "overviewPickView": "选择仪表盘页面…",
+  "overviewDefaultView": "默认页面",
+  "overviewNoDashboards": "未找到仪表盘",
+  "overviewViewsUnavailable": "页面不可用"
+}

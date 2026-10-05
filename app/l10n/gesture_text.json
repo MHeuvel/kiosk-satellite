@@ -125,6 +125,7 @@
   "Start the screensaver": "gestureScreensaver",
   "Stop the screensaver": "gestureScreensaverStop",
   "Toggle hold mode": "gestureHoldMode",
+  "Play or pause media": "gestureMediaPlayPause",
   "Toggle HA kiosk mode": "gestureHaKiosk",
   "Run a plugin action": "gesturePluginRun",
   "Open another app": "gestureLaunchApp",

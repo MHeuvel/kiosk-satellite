@@ -1,0 +1,13 @@
+{
+  "@@locale": "zh_CN",
+  "settingAnalyticsBasicTitle": "基础分析",
+  "settingAnalyticsBasicDescription": "设备信息，例如型号、Android 版本、应用版本、屏幕尺寸和语言。",
+  "settingAnalyticsUsageTitle": "使用情况",
+  "settingAnalyticsUsageDescription": "你使用 Kiosk Satellite 各项功能的详情。",
+  "settingAnalyticsDiagnosticsTitle": "诊断",
+  "settingAnalyticsDiagnosticsDescription": "发生意外错误时分享崩溃报告。",
+  "deviceAnalyticsPage": "Kiosk Satellite 使用分析",
+  "deviceAnalyticsIntro": "分享本次安装的匿名化使用信息，帮助改进 Kiosk Satellite，并确定需要优先改进的设备和功能。",
+  "deviceAnalyticsLearn": "了解我们如何处理你的数据",
+  "deviceAnalyticsLearnHelp": "了解 Kiosk Satellite 使用分析会发送哪些信息，以及哪些信息绝不会发送。"
+}

@@ -30,5 +30,6 @@
   "settingVoiceOverlayModeDescription": "Acoplado muestra una pequeña burbuja sobre el panel de control. No muestra resultados enriquecidos como imágenes, el tiempo o videos.",
   "voiceOverlayFullScreen": "Pantalla completa",
   "voiceOverlayDocked": "Acoplado",
-  "voiceListeningEllipsis": "Escuchando…"
+  "voiceListeningEllipsis": "Escuchando…",
+  "voiceSkinVoiceOnly": "Solo voz"
 }

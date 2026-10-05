@@ -1522,6 +1522,10 @@ class UiStringsEs extends UiStrings {
   String get gestureHoldMode => 'Activar o desactivar el modo de pausa';
 
   @override
+  String get gestureMediaPlayPause =>
+      'Reproducir o pausar el contenido multimedia';
+
+  @override
   String get gestureHaKiosk => 'Activar o desactivar el modo kiosko de HA';
 
   @override
@@ -11361,6 +11365,9 @@ class UiStringsEs extends UiStrings {
   String get voiceListeningEllipsis => 'Escuchando…';
 
   @override
+  String get voiceSkinVoiceOnly => 'Solo voz';
+
+  @override
   String get voiceAssistant1 => 'Asistente 1';
 
   @override
@@ -12072,6 +12079,20 @@ class UiStringsEs extends UiStrings {
   @override
   String get settingVoiceRealtimeGeminiProactiveDescription =>
       'El modelo se queda callado cuando lo que oye no va dirigido a él. Experimental en Google.';
+
+  @override
+  String get settingVoiceRealtimeXaiWebSearchTitle => 'Búsqueda web';
+
+  @override
+  String get settingVoiceRealtimeXaiWebSearchDescription =>
+      'Permite que el modelo busque información en la web.';
+
+  @override
+  String get settingVoiceRealtimeXaiXSearchTitle => 'Búsqueda en X';
+
+  @override
+  String get settingVoiceRealtimeXaiXSearchDescription =>
+      'Permite que el modelo busque publicaciones en X.';
 
   @override
   String get voiceRealtimeReasoningDefault => 'Predeterminado del modelo';

@@ -1,0 +1,22 @@
+{
+  "@@locale": "zh_CN",
+  "settingIntercomEnabledTitle": "启用对讲",
+  "settingIntercomEnabledDescription": "呼叫此网络中的其他 Kiosk 设备并接听其来电。",
+  "settingIntercomKeyTitle": "对讲密钥",
+  "settingIntercomKeyDescription": "使用相同密钥的 Kiosk 设备可互相呼叫。设备群管理可同步此密钥。",
+  "settingIntercomKeyPlaceholder": "启用对讲时生成",
+  "settingIntercomMenuTitle": "在 Kiosk 菜单中显示",
+  "settingIntercomMenuDescription": "在 Kiosk 菜单中添加“对讲”入口。",
+  "intercomNeedsAdmin": "对讲需要远程管理功能",
+  "intercomAdminHelp": "Kiosk 设备通过远程管理发现并连接彼此。请在“设备”中开启“远程管理”和“查找其他 Kiosk 设备”，然后返回此处。",
+  "intercomChangeKey": "更改密钥",
+  "intercomChangeKeyHelp": "粘贴其他 Kiosk 设备的密钥，或生成新密钥。",
+  "intercomChange": "更改",
+  "intercomKeyWarning": "使用相同密钥的 Kiosk 设备可互相呼叫。更换密钥后，需给其他设备设置相同密钥，才能继续互相呼叫。",
+  "intercomRegenerate": "重新生成",
+  "intercomKeyChanged": "密钥已更改",
+  "intercomNotSet": "未设置",
+  "intercomOpen": "打开",
+  "settingIntercomTlsTitle": "加密通信",
+  "settingIntercomTlsDescription": "使用 TLS 加密 Kiosk 设备之间的对讲通话。所有参与通话的设备都需开启此项。"
+}

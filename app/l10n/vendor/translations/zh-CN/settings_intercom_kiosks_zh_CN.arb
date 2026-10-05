@@ -1,0 +1,15 @@
+{
+  "@@locale": "zh_CN",
+  "intercomKiosks": "Kiosk 设备",
+  "intercomRosterHelp": "已发现的 Kiosk 设备及保存的设备群成员。设备可连接、对讲已开启、密钥和加密设置相同时，才处于就绪状态。",
+  "intercomNoOther": "未找到其他 Kiosk 设备",
+  "intercomRosterDeviceHelp": "开启“远程管理”和“查找其他 Kiosk 设备”的设备会显示在此处。",
+  "intercomNoneHeard": "未找到 Kiosk 设备",
+  "intercomRosterRemoteHelp": "设备通过网络发现或已保存的设备群成员记录显示。必须开启“远程管理”和“查找其他 Kiosk 设备”。",
+  "intercomReady": "已就绪",
+  "intercomOff": "对讲已关闭",
+  "intercomDifferentKey": "密钥不同",
+  "intercomUnreachable": "无法连接",
+  "intercomOffline": "离线",
+  "intercomChecking": "正在检查…"
+}

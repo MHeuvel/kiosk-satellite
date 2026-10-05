@@ -1,0 +1,16 @@
+{
+  "@@locale": "zh_CN",
+  "esphomeLocation": "位置",
+  "esphomeLocationSearch": "位置传感器需要的位置权限。",
+  "esphomeBluetoothSearch": "蓝牙代理扫描需要的附近设备权限。",
+  "esphomeLocationMissing": "没有此权限，无法读取 GPS 接收器，位置传感器会保持未知状态。",
+  "esphomeLocationServicesOff": "设备设置中的位置功能已关闭，接收器无法提供数据。",
+  "esphomeLocationGranted": "位置传感器可读取 GPS 接收器。",
+  "esphomeBluetoothGranted": "代理可扫描附近的蓝牙设备。",
+  "esphomeBluetoothMissing": "没有此权限，代理无法扫描设备。",
+  "esphomeBluetoothLocationMissing": "Android 仅在授予位置权限后提供蓝牙扫描结果，包括信标。代理不会读取设备位置。",
+  "esphomeBluetoothLocationOff": "设备设置中的位置功能已关闭，蓝牙扫描无法发现设备。",
+  "esphomeBluetoothBeacons": "蓝牙扫描可接收信标。",
+  "esphomeSent": "已发送",
+  "esphomeNotsaved": "未保存"
+}

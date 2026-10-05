@@ -1,0 +1,17 @@
+{
+  "@@locale": "zh_CN",
+  "settingVoiceShowCommandTitle": "显示你说的内容",
+  "settingVoiceShowCommandDescription": "在回复上方显示你的指令。",
+  "settingVoiceShowAnswerTitle": "显示回复",
+  "settingVoiceShowAnswerDescription": "播报时显示回复。",
+  "settingVoiceShowToolsTitle": "显示工具调用",
+  "settingVoiceShowToolsDescription": "助手每执行一项操作显示一行。",
+  "settingVoiceHideSentimentTagsTitle": "隐藏情绪标签",
+  "settingVoiceHideSentimentTagsDescription": "省略部分助手添加的 [happy] 等标签。",
+  "settingVoiceAnswerLingerTitle": "回复保留时长",
+  "settingVoiceAnswerLingerDescription": "回复播报完成后在屏幕上保留的时长。",
+  "settingVoiceResultsLingerTitle": "结果保留时长",
+  "settingVoiceResultsLingerDescription": "图片、天气及其他结果在屏幕上保留的时间。设为 0 时，一直显示到手动关闭。",
+  "settingVoiceAnnouncementLingerTitle": "播报保留时长",
+  "settingVoiceAnnouncementLingerDescription": "播报完成后在屏幕上保留的时长。"
+}

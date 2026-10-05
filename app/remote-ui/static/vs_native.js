@@ -301,7 +301,7 @@ const PROVIDER_FIELDS = ['api_key', 'model', 'voice', 'endpoint'];
 const providerFields = (provider) => provider === 'xai'
   ? PROVIDER_FIELDS : [...PROVIDER_FIELDS, 'reasoning'];
 // The switches after them (the device's realtimeProviderSwitches).
-const PROVIDER_SWITCHES = { gemini: ['search', 'proactive'] };
+const PROVIDER_SWITCHES = { xai: ['search', 'x_search'], gemini: ['search', 'proactive'] };
 export const providerKeys = (provider) => [...providerFields(provider), ...(PROVIDER_SWITCHES[provider] || [])]
   .map((name) => `voice.realtime_${provider}_${name}`);
 

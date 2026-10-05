@@ -1,0 +1,19 @@
+{
+  "@@locale": "zh_CN",
+  "settingIntercomAnswerModeTitle": "接听模式",
+  "settingIntercomAnswerModeDescription": "“响铃”会在屏幕上请求接听。“自动接听”会在提示音后接通。",
+  "settingIntercomRingSecondsTitle": "响铃时长",
+  "settingIntercomRingSecondsDescription": "来电响铃多久后记为未接。",
+  "settingIntercomRingSoundTitle": "来电铃声",
+  "settingIntercomRingSoundDescription": "以通知音量播放。",
+  "settingIntercomAcceptAnnouncementsTitle": "接收广播",
+  "settingIntercomAcceptAnnouncementsDescription": "播放其他 Kiosk 设备发来的“向所有设备广播”。",
+  "intercomOptionAnswerRing": "响铃",
+  "intercomOptionAnswerAuto": "自动接听",
+  "intercomOptionAnswerDnd": "勿扰",
+  "intercomOptionAnswer15": "15 秒",
+  "intercomOptionAnswer30": "30 秒",
+  "intercomOptionAnswer45": "45 秒",
+  "intercomOptionAnswer60": "60 秒",
+  "intercomAnswerSection": "接听"
+}

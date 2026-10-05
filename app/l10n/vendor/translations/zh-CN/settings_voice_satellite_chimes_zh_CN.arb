@@ -1,0 +1,20 @@
+{
+  "@@locale": "zh_CN",
+  "voiceChimesPage": "提示音",
+  "voiceChimesHint": "唤醒、完成、错误、计时器和播报声音",
+  "voiceChimesPreview": "在 Kiosk 上预览",
+  "voiceChimesPreviewFailed": "无法播放声音。",
+  "voiceChimesHelp": "为此 Kiosk 选择声音，可在此上传自定义文件。Home Assistant 中存储的声音不用于本地提示音。",
+  "voiceChimeWakeTitle": "唤醒提示音",
+  "voiceChimeWakeDescription": "Voice Satellite 开始聆听时播放。",
+  "voiceChimeDoneTitle": "完成提示音",
+  "voiceChimeDoneDescription": "语音交互结束时播放。",
+  "voiceChimeErrorTitle": "错误提示音",
+  "voiceChimeErrorDescription": "语音交互失败时播放。",
+  "voiceChimeTimerTitle": "计时器提示音",
+  "voiceChimeTimerDescription": "计时器结束后循环播放，直到你关闭提醒。",
+  "voiceChimeAnnounceTitle": "播报提示音",
+  "voiceChimeAnnounceDescription": "在 Voice Satellite 播报前播放提示音。播报自带提示音时，不再播放此提示音。",
+  "settingVoiceWakeSoundTitle": "播放提示音",
+  "settingVoiceWakeSoundDescription": "唤醒、完成和错误提示音。"
+}

@@ -4,7 +4,7 @@ import { receiveUpdate, syncSubscriptions } from './live.js';
 import { applySettingsUpdate } from './settings.js';
 import { setDeviceName } from './fleet.js';
 import { renderMicLevel } from './audio.js';
-import { $, api, logout, state } from './core.js';
+import { $, api, apiUrl, logout, state } from './core.js';
 import { appendLine, logView, updateConsoleMeta } from './logs.js';
 import { showLightLevel } from './notices.js';
 import { applyFullscreenView, applyQuickEvent, applyQuickState, loadScreenshot, quickStateOf } from './panels.js';
@@ -74,8 +74,9 @@ export function socketSettled(timeoutMs = 3000) {
 export function connectWs() {
   clearTimeout(reconnectTimer);
   if (!state.token || (state.ws && state.ws.readyState < 2)) return;
-  const proto = location.protocol === 'https:' ? 'wss' : 'ws';
-  const ws = new WebSocket(`${proto}://${location.host}/api/ws?token=${state.token}`);
+  const url = new URL(apiUrl(`/api/ws?token=${state.token}`), location.href);
+  url.protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+  const ws = new WebSocket(url);
   state.ws = ws;
   settled = new Promise((r) => { settle = r; });
   // The connect-time `state` snapshot is read across several awaits on the

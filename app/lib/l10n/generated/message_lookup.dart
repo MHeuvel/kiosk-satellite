@@ -422,6 +422,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'gestureScreensaver' => strings.gestureScreensaver,
       'gestureScreensaverStop' => strings.gestureScreensaverStop,
       'gestureHoldMode' => strings.gestureHoldMode,
+      'gestureMediaPlayPause' => strings.gestureMediaPlayPause,
       'gestureHaKiosk' => strings.gestureHaKiosk,
       'gesturePluginRun' => strings.gesturePluginRun,
       'gestureLaunchApp' => strings.gestureLaunchApp,
@@ -3704,6 +3705,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'voiceOverlayFullScreen' => strings.voiceOverlayFullScreen,
       'voiceOverlayDocked' => strings.voiceOverlayDocked,
       'voiceListeningEllipsis' => strings.voiceListeningEllipsis,
+      'voiceSkinVoiceOnly' => strings.voiceSkinVoiceOnly,
       'voiceAssistant1' => strings.voiceAssistant1,
       'voiceAssistant1Help' => strings.voiceAssistant1Help,
       'voiceAssistant2' => strings.voiceAssistant2,
@@ -3949,6 +3951,14 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingVoiceRealtimeGeminiProactiveTitle,
       'settingVoiceRealtimeGeminiProactiveDescription' =>
         strings.settingVoiceRealtimeGeminiProactiveDescription,
+      'settingVoiceRealtimeXaiWebSearchTitle' =>
+        strings.settingVoiceRealtimeXaiWebSearchTitle,
+      'settingVoiceRealtimeXaiWebSearchDescription' =>
+        strings.settingVoiceRealtimeXaiWebSearchDescription,
+      'settingVoiceRealtimeXaiXSearchTitle' =>
+        strings.settingVoiceRealtimeXaiXSearchTitle,
+      'settingVoiceRealtimeXaiXSearchDescription' =>
+        strings.settingVoiceRealtimeXaiXSearchDescription,
       'voiceRealtimeReasoningDefault' => strings.voiceRealtimeReasoningDefault,
       'voiceRealtimeReasoningMinimal' => strings.voiceRealtimeReasoningMinimal,
       'voiceRealtimeReasoningLow' => strings.voiceRealtimeReasoningLow,

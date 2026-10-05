@@ -119,3 +119,54 @@ test('follows the HA registry polyfill installed after document start', async ()
   p.api.setPaused(false);
   assert.equal(camera.output, 'live player');
 });
+
+test('detects stream types again on resume so a failed attempt does not stick', async () => {
+  const p = page();
+  const camera = new p.Camera();
+  camera.stateObj = { entity_id: 'camera.door' };
+  camera.detections = 0;
+  camera._getCapabilities = async function () { this.detections++; this.requestUpdate(); };
+  const unmuted = new p.Camera();
+  unmuted.muted = false;
+  unmuted.stateObj = { entity_id: 'camera.yard' };
+  unmuted._getCapabilities = () => { throw Error('unmuted camera re-detected'); };
+  p.elements.push(camera, unmuted);
+  await p.define();
+  p.api.setPaused(true);
+  assert.equal(camera.detections, 0);
+  p.api.setPaused(false);
+  assert.equal(camera.detections, 1);
+  assert.equal(camera.output, 'live player');
+  assert.equal(unmuted.output, 'live player');
+});
+
+test('retries a failed detection while the cameras stay live', async () => {
+  const p = page();
+  const timers = [];
+  p.context.setTimeout = (callback) => { timers.push(callback); };
+  const camera = new p.Camera();
+  camera.stateObj = { entity_id: 'camera.door' };
+  camera.detections = 0;
+  camera._getCapabilities = async function () { this.detections++; throw Error('socket down'); };
+  p.elements.push(camera);
+  await p.define();
+  p.api.setPaused(true);
+  p.api.setPaused(false);
+  const settle = () => new Promise(resolve => setImmediate(resolve));
+  await settle();
+  assert.equal(timers.length, 1);
+  timers.shift()();
+  await settle();
+  assert.equal(camera.detections, 2);
+  timers.shift()();
+  await settle();
+  assert.equal(camera.detections, 3);
+  assert.equal(timers.length, 0);
+  p.api.setPaused(true);
+  p.api.setPaused(false);
+  await settle();
+  p.api.setPaused(true);
+  timers.shift()();
+  await settle();
+  assert.equal(camera.detections, 4);
+});

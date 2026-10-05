@@ -1,0 +1,13 @@
+{
+  "@@locale": "zh_CN",
+  "settingEsphomeRealMacTitle": "使用真实 Wi-Fi MAC 地址",
+  "settingEsphomeRealMacDescription": "Home Assistant 将此 Kiosk 与网络集成已追踪的同一设备关联。更改此项会在 Home Assistant 中创建新的 ESPHome 设备。",
+  "settingEsphomeMacOverrideTitle": "自定义 Wi-Fi MAC 地址",
+  "settingEsphomeMacOverrideDescription": "无法解析 MAC 地址时，可在此输入自定义地址。更改此项会在 Home Assistant 中创建新的 ESPHome 设备。",
+  "esphomeAdvanced": "高级设置",
+  "esphomeAdvancedHelp": "真实或自定义 Wi-Fi MAC 地址",
+  "esphomeMacInvalid": "请输入有效的 MAC 地址。",
+  "esphomeMacHardware": "正在报告 {mac}。",
+  "esphomeMacManual": "正在报告下方输入的 {mac}。",
+  "esphomeMacUnavailable": "Android 不允许读取此设备的硬件地址。"
+}
