@@ -42,7 +42,7 @@ adb shell am force-stop me.jxl.kiosk_satellite
 adb shell monkey -p me.jxl.kiosk_satellite -c android.intent.category.LAUNCHER 1
 ```
 
-Optional: Enable the System UI guard behind Kiosk Mode's protections. Because a Portal already has two Meta accessibility services active, append Kiosk Satellite to the existing list rather than overwriting it:
+Optional: Enable the System UI guard behind Kiosk Mode's protections. Under Lockdown Mode it keeps Meta's Control Center from taking touches, both the swipe up from the bottom edge and the volume panel. Because a Portal already has two Meta accessibility services active, append Kiosk Satellite to the existing list rather than overwriting it:
 
 ```
 adb shell settings put secure enabled_accessibility_services "com.facebook.aloha.system.device/com.facebook.aloha.system.device.accessibility.KeyEventAccessibilityService:com.facebook.alohaservices.presence/com.facebook.aloha.system.presence.touch.TouchEventAccessibilityService:me.jxl.kiosk_satellite/me.jxl.kiosk_satellite.KioskAccessibilityService"
