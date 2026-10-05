@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.10.9 - 2026-10-05
 
 ### Added
 - **Volume control for plugins.** Plugins with `host.control` can call `setVolume` to change the master volume or the media, assistant or intercom share of it, and `getVolume` takes the same `channel` to read each one. A plugin can now turn hardware key presses into volume changes on devices whose volume buttons do nothing (#855). The `device.volume` event also fires when the media, assistant or intercom slider moves, so a plugin can keep its levels current. The remote API's `getVolume` and `setVolume` take the same `channel`.
