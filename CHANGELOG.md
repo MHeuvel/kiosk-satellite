@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Added
+- **Remote admin behind a reverse proxy.** The remote admin now works when a reverse proxy serves it under a sub-path, such as Home Assistant ingress or an nginx location like `/kiosk/` (#850). Its API calls and websocket go to the page's own path instead of the root of the address, where they reached the proxy itself. Behind a proxy each tablet keeps its own login, so tablets served from the same address no longer log each other out. Opened directly on the tablet, the page sends the same requests and keeps the same login as before. Behind a proxy, turning HTTPS on or off no longer sends the browser to the proxy's address with the other protocol.
+
 ## v2026.10.7 - 2026-10-04
 
 ### Added

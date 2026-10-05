@@ -1,7 +1,7 @@
 import { deviceTextMessageIds } from './device_text_ids.js';
 import { supportTextMessageIds } from './support_text_ids.js';
 import { voiceText, deviceText, deviceOperationError, supportText, t } from './localization.js';
-import { $, api, cmd, state } from './core.js';
+import { $, api, apiUrl, cmd, state } from './core.js';
 import { watchUpdates } from './live.js';
 import { subpageEntry } from './tabs.js';
 import { localizationCredits, localizationLanguageNames } from './localization_credits.js';
@@ -363,7 +363,7 @@ function settleInstall(btn, st, idleLabel) {
 function uploadApk(file, onProgress) {
   return new Promise((resolve) => {
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/api/update/upload');
+    xhr.open('POST', apiUrl('/api/update/upload'));
     xhr.setRequestHeader('Authorization', `Bearer ${state.token}`);
     xhr.upload.onprogress = (e) => {
       if (e.lengthComputable) onProgress(e.loaded / e.total);

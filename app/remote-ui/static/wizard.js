@@ -1,6 +1,6 @@
 import { setupText, setupImportError, themeLabel, messageLanguage, setLanguagePreference, t } from './localization.js';
 import { WIZ_OPTIONAL, wizard } from './app.js';
-import { $, THEME_ICONS, api, cmd, showView, state } from './core.js';
+import { $, THEME_ICONS, api, cmd, saveToken, showView, state } from './core.js';
 import { readOnlyRow } from './device.js';
 import { askImportOptions } from './pickers.js';
 import { fetchViews, pickView, radioRow, viewPath } from './views.js';
@@ -346,8 +346,7 @@ export async function wizardRestore(file, btn) {
       const res = await fetch('api/setup/password', { method: 'POST', body: JSON.stringify({ password }) });
       const out = await res.json();
       if (!res.ok) throw wizFail(setupText("Could not set the password"), out.error || '');
-      state.token = out.token;
-      localStorage.setItem('ks_token', state.token);
+      saveToken(out.token);
     }
     const res = await api(
       `/api/config/import?adoptIdentity=${opts.adopt ? 1 : 0}&importLocalStorage=${opts.local ? 1 : 0}`,
@@ -499,7 +498,7 @@ function wizardLanguageRow(body) {
     const wasDisabled = next.disabled;
     next.disabled = true;
     try {
-      const res = await fetch('/api/setup/language', {
+      const res = await fetch('api/setup/language', {
         method: 'POST', headers: {'Content-Type':'application/json',
           ...(state.token ? {Authorization: 'Bearer ' + state.token} : {})},
         body: JSON.stringify({language: select.value}),
@@ -598,7 +597,7 @@ export function wizardSteps() {
         }
         throw wizFail(setupText("Could not set the password"), out.error || '');
       }
-      state.token = out.token; localStorage.setItem('ks_token', state.token);
+      saveToken(out.token);
     },
   });
   steps.push({
