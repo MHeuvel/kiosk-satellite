@@ -400,8 +400,20 @@ class DeviceManager extends Manager {
     commands.register(
       Command(
         name: 'getVolume',
-        description: 'Media volume as a percentage (0-100)',
-        handler: (_) async {
+        description:
+            'Volume as a percentage (0-100). The master volume is the '
+            "device's media volume; media, assistant and intercom are their "
+            'shares of it',
+        params: const {
+          'channel': 'master (default), media, assistant or intercom',
+        },
+        handler: (p) async {
+          final channel = p['channel'] ?? 'master';
+          if (channel != 'master') {
+            final def = volumeChannels[channel];
+            if (def == null) return CommandResult.fail(_badChannel);
+            return CommandResult.ok(_settings.get(def).round());
+          }
           final raw = await background.invokeMethod<Map>('getVolume');
           final level = (raw?['level'] as num?)?.toInt() ?? 0;
           final max = (raw?['max'] as num?)?.toInt() ?? 1;
@@ -412,15 +424,34 @@ class DeviceManager extends Manager {
     commands.register(
       Command(
         name: 'setVolume',
-        description: 'Set the media volume',
-        params: const {'percent': 'target volume, 0-100'},
+        description:
+            'Set the master volume, or the media, assistant or intercom '
+            'share of it',
+        params: const {
+          'percent': 'target volume, 0-100',
+          'channel': 'master (default), media, assistant or intercom',
+        },
         handler: (p) async {
-          final percent = ((p['percent'] as num?)?.toDouble() ?? 0).clamp(
-            0.0,
-            100.0,
-          );
-          final raw = await background.invokeMethod<Map>('getVolume');
-          final max = (raw?['max'] as num?)?.toInt() ?? 15;
+          final raw = p['percent'];
+          // Plugins can only pass strings, so a numeric string counts too.
+          final value = raw is num
+              ? raw.toDouble()
+              : raw is String
+              ? double.tryParse(raw.trim())
+              : null;
+          if (value == null || !value.isFinite) {
+            return const CommandResult.fail('percent must be a number');
+          }
+          final percent = value.clamp(0.0, 100.0);
+          final channel = p['channel'] ?? 'master';
+          if (channel != 'master') {
+            final def = volumeChannels[channel];
+            if (def == null) return CommandResult.fail(_badChannel);
+            await _settings.set(def, percent.round());
+            return const CommandResult.ok();
+          }
+          final current = await background.invokeMethod<Map>('getVolume');
+          final max = (current?['max'] as num?)?.toInt() ?? 15;
           await background.invokeMethod('setVolume', {
             'level': (percent / 100 * max).round(),
           });
@@ -773,6 +804,16 @@ class DeviceManager extends Manager {
       log.warn(name, 'light sensor unavailable: $e');
     }
   }
+
+  /// The volume sliders that play at a share of the master volume, by the
+  /// channel name getVolume and setVolume take.
+  static const volumeChannels = {
+    'media': defs.mediaVolume,
+    'assistant': defs.assistantVolume,
+    'intercom': defs.intercomVolume,
+  };
+  static const _badChannel =
+      'channel must be master, media, assistant or intercom';
 
   Future<void> _refreshMediaGain() async {
     try {

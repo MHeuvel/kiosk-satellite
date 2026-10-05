@@ -56,6 +56,7 @@ class PluginHostApi {
     'showNowPlaying',
     'hideNowPlaying',
     'sendspinControl',
+    'setVolume',
     'showAppLauncher',
     'hideAppLauncher',
     'showOverlayPage',
@@ -68,6 +69,15 @@ class PluginHostApi {
     'haNavigate',
     'reload',
   ];
+
+  static bool _volumeChannel(Map params) =>
+      !params.containsKey('channel') ||
+      const [
+        'master',
+        'media',
+        'assistant',
+        'intercom',
+      ].contains(params['channel']);
 
   static bool validArguments(String name, Map params) {
     if (params.length > 2 ||
@@ -104,6 +114,16 @@ class PluginHostApi {
       case 'focusCamera':
         return keys({'cameraId'}) &&
             (params.isEmpty || text('cameraId', empty: true));
+      case 'getVolume':
+        return keys({'channel'}) && _volumeChannel(params);
+      case 'setVolume':
+        final percent = params['percent'];
+        final value = percent is String ? num.tryParse(percent.trim()) : null;
+        return keys({'percent', 'channel'}) &&
+            _volumeChannel(params) &&
+            value != null &&
+            value >= 0 &&
+            value <= 100;
       case 'sendspinControl':
         return keys({'command'}) &&
             const [
@@ -465,6 +485,11 @@ class PluginHostApi {
     PowerChanged e => ('device.power', {'charging': e.charging}),
     NetworkStateChanged e => ('device.network', {'up': e.up}),
     VolumeChanged _ => ('device.volume', {}),
+    SettingChanged e
+        when e.key == defs.mediaVolume.key ||
+            e.key == defs.assistantVolume.key ||
+            e.key == defs.intercomVolume.key =>
+      ('device.volume', {}),
     LightLevelChanged e => ('device.light', {'lux': e.lux}),
     MotionDetected _ => ('detection.motion', {}),
     FaceDetected _ => ('detection.face', {}),

@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Added
+- **Volume control for plugins.** Plugins with `host.control` can call `setVolume` to change the master volume or the media, assistant or intercom share of it, and `getVolume` takes the same `channel` to read each one. A plugin can now turn hardware key presses into volume changes on devices whose volume buttons do nothing (#855). The `device.volume` event also fires when the media, assistant or intercom slider moves, so a plugin can keep its levels current. The remote API's `getVolume` and `setVolume` take the same `channel`.
 - **Hardware keys for plugins.** Plugins with `host.read` can subscribe to the new `device.key` event and receive the hardware keys that reach the kiosk, such as volume, media and remote buttons (#855). Each down, up and repeat arrives on its own with the key name, key code, scan code and repeat count. A plugin sees the press even when the kiosk swallows it, so pairing a plugin with **Disable volume buttons** lets it take over the volume keys. Printing and modifier keys are never sent, so typed text does not reach plugins.
 
 ## v2026.10.8 - 2026-10-04

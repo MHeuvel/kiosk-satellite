@@ -113,6 +113,7 @@ void main() {
         'showCameraView': {'viewId': 'front-door', 'toggle': true},
         'focusCamera': {'cameraId': 'front'},
         'sendspinControl': {'command': 'pause'},
+        'setVolume': {'percent': '40', 'channel': 'assistant'},
         'showOverlayPage': {'url': 'https://example.com'},
         'showLinkPage': {'url': 'http://example.com'},
         'loadUrl': {'url': 'https://example.com'},
@@ -147,7 +148,6 @@ void main() {
       for (final name in [
         'setSettings',
         'setBrightness',
-        'setVolume',
         'cameraDeleteView',
         'evalJs',
         'haCallService',
@@ -172,6 +172,19 @@ void main() {
         'sendspinControl': [
           {'command': 'delete'},
           {'command': 'volume'},
+        ],
+        'setVolume': [
+          {},
+          {'percent': 40},
+          {'percent': '101'},
+          {'percent': '-1'},
+          {'percent': 'loud'},
+          {'percent': '40', 'channel': 'alarm'},
+          {'percent': '40', 'channel': 'master', 'extra': true},
+        ],
+        'getVolume': [
+          {'channel': 'alarm'},
+          {'channel': true},
         ],
         'haNavigate': [
           {'path': '../config'},
@@ -376,6 +389,47 @@ void main() {
       expect(sent, isEmpty);
     },
   );
+
+  test('volume reads and writes pass the channel through', () async {
+    api.open({
+      ...session,
+      'capabilities': ['host.read', 'host.control'],
+    });
+    final seen = <Map<String, Object?>>[];
+    register('getVolume', (p) async {
+      seen.add(p);
+      return const CommandResult.ok(35);
+    });
+    register('setVolume', (p) async {
+      seen.add(p);
+      return const CommandResult.ok();
+    });
+    expect((await read('getVolume'))['data'], 35);
+    expect(
+      (await read('getVolume', params: {'channel': 'intercom'}))['data'],
+      35,
+    );
+    expect(
+      (await read('setVolume', params: {'percent': ' 12.5 '}))['ok'],
+      true,
+    );
+    expect(seen, [
+      {},
+      {'channel': 'intercom'},
+      {'percent': ' 12.5 '},
+    ]);
+    final projected = PluginHostApi.project(
+      const SettingChanged(key: 'audio.assistant_volume', value: 40),
+    );
+    expect(projected?.$1, 'device.volume');
+    expect(projected?.$2, isEmpty);
+    expect(
+      PluginHostApi.project(
+        const SettingChanged(key: 'audio.duck_volume', value: 40),
+      ),
+      isNull,
+    );
+  });
 
   test('errors do not expose internal response details', () async {
     register(
