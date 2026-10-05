@@ -330,6 +330,9 @@ class MainActivity : FlutterActivity() {
     // swallowed, and fast taps are counted toward the exit gesture. Touches
     // are observed, never consumed.
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        // Plugins observe the press whatever KS then does with it, so a
+        // swallowed volume key still reaches them.
+        me.jxl.kiosk_satellite.plugins.PluginBridge.onKey(event)
         if (kioskLock?.onKey(event) == true) return true
         // Dpad, arrow and select keys are routed by hand, whichever native
         // view holds focus (issue #377): left unrouted they sink into

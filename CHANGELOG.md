@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Added
+- **Hardware keys for plugins.** Plugins with `host.read` can subscribe to the new `device.key` event and receive the hardware keys that reach the kiosk, such as volume, media and remote buttons (#855). Each down, up and repeat arrives on its own with the key name, key code, scan code and repeat count. A plugin sees the press even when the kiosk swallows it, so pairing a plugin with **Disable volume buttons** lets it take over the volume keys. Printing and modifier keys are never sent, so typed text does not reach plugins.
+
 ## v2026.10.8 - 2026-10-04
 
 ### Added

@@ -141,6 +141,7 @@ class PluginHostApi {
     'device.network',
     'device.volume',
     'device.light',
+    'device.key',
     'detection.motion',
     'detection.face',
     'detection.proximity',

@@ -4,17 +4,23 @@ import android.content.Context
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.view.KeyEvent
 import dalvik.system.DexClassLoader
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
 import java.io.File
+import java.text.SimpleDateFormat
 import java.util.Collections
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.Callable
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicInteger
 import me.jxl.kiosk.plugins.KioskPlugin
 import me.jxl.kiosk.plugins.PluginHost
 import org.json.JSONObject
@@ -42,6 +48,11 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
          */
         internal fun startupStrikes(pending: Boolean, startedUpdatedAt: Long, updatedAt: Long, strikes: Int): Int =
             if (!pending || startedUpdatedAt != updatedAt) 0 else strikes + 1
+
+        @Volatile private var current: PluginBridge? = null
+
+        /** Forwarded from MainActivity.dispatchKeyEvent before KS handles the key. */
+        fun onKey(event: KeyEvent) { current?.hardwareKey(event) }
     }
 
     private val channel = MethodChannel(messenger, "kiosk_satellite/plugins")
@@ -322,6 +333,7 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
     }
 
     init {
+        current = this
         channel.setMethodCallHandler { call, result ->
             worker.execute {
                 try {
@@ -749,6 +761,33 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
         val session = sessions[id] ?: return
         try { session.call { session.plugin!!.onEvent(event, emptyMap()) } }
         catch (error: Throwable) { fail(id, error); throw error }
+    }
+
+    private val keysQueued = AtomicInteger()
+
+    /**
+     * Every press goes out on its own, never coalesced: a down and its up
+     * are separate occurrences. A plugin too slow to keep up loses presses
+     * past 16 queued, so a held key cannot pile up work on the worker.
+     */
+    private fun hardwareKey(event: KeyEvent) {
+        if (event.action != KeyEvent.ACTION_DOWN && event.action != KeyEvent.ACTION_UP) return
+        val time = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
+            .apply { timeZone = TimeZone.getTimeZone("UTC") }.format(Date())
+        val payload = PluginHostPolicy.keyPayload(
+            KeyEvent.keyCodeToString(event.keyCode), event.keyCode, event.scanCode,
+            event.action == KeyEvent.ACTION_DOWN, event.repeatCount,
+            event.isPrintingKey, KeyEvent.isModifierKey(event.keyCode), time
+        ) ?: return
+        if (keysQueued.incrementAndGet() > 16) { keysQueued.decrementAndGet(); return }
+        worker.execute {
+            try {
+                sessions.values.toList().filter { it.alive.get() && "device.key" in it.subscriptions }.forEach { session ->
+                    try { session.call { session.plugin?.onEvent("ks.device.key", payload) } }
+                    catch (error: Throwable) { fail(session.id, error); emit("changed", snapshot()) }
+                }
+            } finally { keysQueued.decrementAndGet() }
+        }
     }
 
     private fun emit(method: String, value: Any?, alive: AtomicBoolean? = null) {

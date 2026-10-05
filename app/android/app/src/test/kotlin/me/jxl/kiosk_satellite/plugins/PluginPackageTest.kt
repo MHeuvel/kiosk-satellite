@@ -36,6 +36,18 @@ class PluginPackageTest {
         assertFalse(PluginHostPolicy.validEvent("ha.entity."))
     }
 
+    @Test fun keyEventsSkipTypedText() {
+        val time = "2026-10-05T17:00:00.000Z"
+        assertEquals(
+            mapOf("key" to "VOLUME_UP", "code" to 24, "scanCode" to 115, "action" to "down", "repeat" to 2, "time" to time),
+            PluginHostPolicy.keyPayload("KEYCODE_VOLUME_UP", 24, 115, true, 2, false, false, time)
+        )
+        assertEquals("up", PluginHostPolicy.keyPayload("KEYCODE_UNKNOWN", 0, 240, false, 0, false, false, time)!!["action"])
+        assertNull(PluginHostPolicy.keyPayload("KEYCODE_A", 29, 30, true, 0, true, false, time))
+        assertNull(PluginHostPolicy.keyPayload("KEYCODE_SHIFT_LEFT", 59, 42, true, 0, false, true, time))
+        assertTrue(PluginHostPolicy.validEvent("device.key"))
+    }
+
     @Test fun firstPublicSdkSupportsAllExplicitCapabilities() {
         for (capability in listOf("overlay", "native", "entities", "host.read", "host.control", "shizuku")) {
             assertTrue(capability in PluginManifest(manifest().put("capabilities", org.json.JSONArray(listOf(capability)))).capabilities)
