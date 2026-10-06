@@ -12,6 +12,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 - **Wake word listening does less idle work.** vsWakeWord reuses each model's decoded output for its cross-window matcher, and all three engines now track near misses only when diagnostics are enabled. Detection scores remain unchanged.
 
 ### Fixed
+- **Weather Mood keeps moving when Android animations are off.** Weather Mood no longer treats Android's transition animation scale as a request to freeze its clouds, rain, snow and stars. It still pauses when the display turns off or the app goes into the background (#864).
 - **Bluetooth proxy scans no longer accumulate after app updates.** Kiosk Satellite now closes its BLE scanner before Shizuku, the ADB update helper or Android's package installer commits an update. Android confirmation installs close it before showing the confirmation screen. A failed or declined install resumes the existing scan demand, while a successful update starts with one clean scanner registration instead of leaving the previous app process registered in the Bluetooth stack. This was confirmed on Meta Portal firmware, which retained every scanner from a replaced app process.
 
 ## v2026.10.9 - 2026-10-05

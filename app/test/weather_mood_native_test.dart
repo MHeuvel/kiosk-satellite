@@ -403,6 +403,8 @@ void main() {
       await render('rainy', true, active: true),
       isNot(equals(pausedRain)),
     );
+    // Android's reduced-animation preference must not freeze an animated
+    // screensaver.
     final reducedRain = await render(
       'rainy',
       true,
@@ -411,7 +413,7 @@ void main() {
     );
     expect(
       await render('rainy', true, active: true, reduced: true),
-      equals(reducedRain),
+      isNot(equals(reducedRain)),
     );
     await tester.pumpWidget(const SizedBox.shrink());
     await tester.runAsync(

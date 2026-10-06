@@ -225,7 +225,6 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
   bool _ready = false,
       _busy = false,
       _failed = false,
-      _reducedMotion = false,
       _requested = false,
           // Shows the current clouds at once instead of fading to them.
           _snap =
@@ -292,11 +291,11 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
     }
   }
 
-  bool get _animate => widget.active && !_reducedMotion && !_paused;
+  bool get _animate => widget.active && !_paused;
 
   /// Tickers off (under the native voice overlay, which shows a still of
-  /// the screensaver): nothing renders, not even the one frame reduced
-  /// motion draws, and the scene carries on from where it stopped.
+  /// the screensaver): nothing renders and the scene carries on from where
+  /// it stopped.
   bool _paused = false;
 
   void _timings(List<FrameTiming> timings) {
@@ -327,13 +326,6 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
       } else {
         _request();
       }
-    }
-    final reduced = MediaQuery.disableAnimationsOf(context);
-    if (reduced != _reducedMotion) {
-      _reducedMotion = reduced;
-      _lastTime = null;
-      _snap = true;
-      _request();
     }
   }
 
