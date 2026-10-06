@@ -22856,5 +22856,11 @@
     "translation": "6a8f9473f9ffbe88e53443d68eefacf1a805a25aeb0f1368ea37177c7653c639",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "gestureIntercomHangup": {
+    "source": "0df23f74eb1bca20b947c55f03aac4966cae785d8725bed5ac592f021027a935",
+    "translation": "c1f6d5f4be45718966ad454a5bf7680c715436b480f0bcf9c7d2649128525afc",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

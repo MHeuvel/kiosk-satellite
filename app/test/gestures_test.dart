@@ -496,6 +496,24 @@ void main() {
       );
     });
 
+    test('intercom_hangup asks the intercom to hang up', () async {
+      await build(
+        '[{"id":"g1","trigger":{"type":"fingers","fingers":3},'
+        '"action":{"type":"intercom_hangup"}}]',
+      );
+      var requests = 0;
+      bus.on<IntercomHangupRequested>().listen((_) => requests++);
+      await fire('g1');
+      await pumpEventQueue();
+      expect(requests, 1);
+      expect(executed, isEmpty);
+      expect(outcomes, isEmpty);
+      expect(
+        describeGestureAction(const {'type': 'intercom_hangup'}),
+        'End the intercom call',
+      );
+    });
+
     test('camera_view show and hide pick the right command', () async {
       await build(
         '[{"id":"g1","trigger":{"type":"corner_taps","corner":"tl",'

@@ -107,7 +107,7 @@ The built-in **Home Assistant** conversation agent does not work for this, since
 
 Name the kiosk the way you think of it: its name, the name its device has in Home Assistant or the area Home Assistant puts it in. "Call the master bedroom" finds the kiosk in the Master Bedroom area. The kiosk checks the other kiosk first, and the agent tells you when it is on Do not disturb, has its intercom off or cannot be reached. When the name fits several kiosks, like two kiosks in one room, the agent asks which one, and "which kiosks can I call?" lists them with their areas. The call rings once the agent has finished its answer, so the reply is never cut off. A [realtime conversation](voice-satellite.md#realtime-conversations) ends right after its answer instead of waiting out its closing silence.
 
-Hanging up stays on the screen. Wake word detection pauses for the whole call, so the kiosk cannot hear "hang up".
+Wake word detection pauses for the whole call, so the kiosk cannot hear "hang up". To end a call without touching the screen, map claps or Show fingers to the **End the intercom call** [gesture action](gestures.md), or pick a hardware button under **Hang up call when pressing this button**.
 
 The call goes out from the kiosk you are talking to. A request typed into Home Assistant's own chat reaches no kiosk until it names the one that should call, as in "call the kitchen from the bedroom kiosk", which matches the kiosk's device name or ESPHome name.
 

@@ -44,6 +44,7 @@ const _actionGroups = <(String, List<(String, String, IconData)>)>[
       ('app_launcher', 'Open the app launcher', Icons.apps_outlined),
       ('intercom_open', 'Open Call a kiosk', Icons.speaker_phone_outlined),
       ('intercom_call', 'Call a kiosk', Icons.phone_outlined),
+      ('intercom_hangup', 'End the intercom call', Icons.call_end_outlined),
       ('screensaver', 'Start the screensaver', Icons.nightlight_outlined),
       ('screensaver_stop', 'Stop the screensaver', Icons.light_mode_outlined),
       ('hold_mode', 'Toggle hold mode', Icons.pause_circle_outline),
@@ -724,6 +725,7 @@ class _GestureSettingsPanelState extends State<GestureSettingsPanel> {
       'media_play_pause' ||
       'app_launcher' ||
       'intercom_open' ||
+      'intercom_hangup' ||
       'screensaver' ||
       'screensaver_stop' ||
       'hold_mode' ||

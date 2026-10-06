@@ -2716,6 +2716,12 @@ abstract class UiStrings {
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:
+  /// **'End the intercom call'**
+  String get gestureIntercomHangup;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
   /// **'Start the screensaver'**
   String get gestureScreensaver;
 

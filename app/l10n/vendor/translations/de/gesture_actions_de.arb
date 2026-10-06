@@ -7,6 +7,7 @@
   "gestureLauncher": "Den App-Launcher öffnen",
   "gestureIntercomOpen": "„Kiosk anrufen“ öffnen",
   "gestureIntercomCall": "Einen Kiosk anrufen",
+  "gestureIntercomHangup": "Gegensprechanruf beenden",
   "gestureScreensaver": "Bildschirmschoner starten",
   "gestureScreensaverStop": "Bildschirmschoner beenden",
   "gestureHoldMode": "Pausenmodus ein- oder ausschalten",

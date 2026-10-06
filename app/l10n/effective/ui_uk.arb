@@ -5379,6 +5379,19 @@
       ]
     }
   },
+  "gestureIntercomHangup": "Завершити виклик інтеркому",
+  "@gestureIntercomHangup": {
+    "context": "Settings > Gestures > Add gesture > Choose an action",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action"
+      ]
+    }
+  },
   "gestureScreensaver": "Запустити заставку",
   "@gestureScreensaver": {
     "context": "Settings > Gestures > Add gesture > Choose an action",

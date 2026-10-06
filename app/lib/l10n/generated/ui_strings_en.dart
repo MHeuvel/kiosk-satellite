@@ -1500,6 +1500,9 @@ class UiStringsEn extends UiStrings {
   String get gestureIntercomCall => 'Call a kiosk';
 
   @override
+  String get gestureIntercomHangup => 'End the intercom call';
+
+  @override
   String get gestureScreensaver => 'Start the screensaver';
 
   @override

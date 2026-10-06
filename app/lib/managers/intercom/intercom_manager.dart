@@ -565,7 +565,7 @@ class IntercomManager extends Manager {
     // the call: the page holds the microphone exclusively.
     micHub.browserCapturing.addListener(_onBrowserCapture);
     _subs.add(
-      bus.on<IntercomHangupKeyPressed>().listen((_) {
+      bus.on<IntercomHangupRequested>().listen((_) {
         if (_hangupStates.contains(_state)) unawaited(hangup());
       }),
     );

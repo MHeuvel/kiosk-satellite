@@ -1007,13 +1007,13 @@ void main() {
         await pumpEventQueue();
         // A ringing call is answered or declined on the screen.
         expect(armed, isEmpty);
-        bus.publish(const IntercomHangupKeyPressed());
+        bus.publish(const IntercomHangupRequested());
         await pumpEventQueue();
         expect(intercom.state, 'ringing');
         await commands.execute('intercomAnswer', const {});
         await pumpEventQueue();
         expect(armed, [25]);
-        bus.publish(const IntercomHangupKeyPressed());
+        bus.publish(const IntercomHangupRequested());
         await settle(20);
         expect(intercom.state, 'ended');
         expect(intercom.call?.reason, 'ended');

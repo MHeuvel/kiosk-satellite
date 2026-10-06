@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Added
+- **End the intercom call gesture.** **Gestures** gains an **End the intercom call** action, so claps or a hand showing fingers can end a call from across the room. It ends what the hang up button ends: a call being placed, a live call and either end of an announcement. A ringing call still needs Answer or Decline on the screen. Gestures stay armed during a call. Translated into Spanish, German, French, Ukrainian, Dutch and Simplified Chinese.
+
 ## v2026.10.9 - 2026-10-05
 
 ### Added

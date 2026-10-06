@@ -419,6 +419,7 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'gestureLauncher' => strings.gestureLauncher,
       'gestureIntercomOpen' => strings.gestureIntercomOpen,
       'gestureIntercomCall' => strings.gestureIntercomCall,
+      'gestureIntercomHangup' => strings.gestureIntercomHangup,
       'gestureScreensaver' => strings.gestureScreensaver,
       'gestureScreensaverStop' => strings.gestureScreensaverStop,
       'gestureHoldMode' => strings.gestureHoldMode,

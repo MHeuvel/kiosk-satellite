@@ -1513,6 +1513,10 @@ class UiStringsEs extends UiStrings {
   String get gestureIntercomCall => 'Llamar a un kiosko';
 
   @override
+  String get gestureIntercomHangup =>
+      'Finalizar la llamada del intercomunicador';
+
+  @override
   String get gestureScreensaver => 'Iniciar el protector de pantalla';
 
   @override

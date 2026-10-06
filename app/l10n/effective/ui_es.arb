@@ -5379,6 +5379,19 @@
       ]
     }
   },
+  "gestureIntercomHangup": "Finalizar la llamada del intercomunicador",
+  "@gestureIntercomHangup": {
+    "context": "Settings > Gestures > Add gesture > Choose an action",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action"
+      ]
+    }
+  },
   "gestureScreensaver": "Iniciar el protector de pantalla",
   "@gestureScreensaver": {
     "context": "Settings > Gestures > Add gesture > Choose an action",

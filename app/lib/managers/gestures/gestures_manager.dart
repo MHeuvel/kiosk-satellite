@@ -378,6 +378,13 @@ class GesturesManager extends Manager {
         // Allowed Action is not consulted, which makes a secret gesture
         // possible.
         return _run('intercomOpen', const {});
+      case 'intercom_hangup':
+        // The hang up button's path: ends a call being placed, a live
+        // call or an announcement, so a call can end from across the room
+        // with claps or a hand. A ringing call is left to Answer and
+        // Decline, and with no call the gesture does nothing.
+        bus.publish(const IntercomHangupRequested());
+        return const CommandResult.ok();
       case 'screensaver':
         return _run('startScreensaver', const {});
       case 'screensaver_stop':

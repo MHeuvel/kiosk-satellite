@@ -7,6 +7,7 @@
   "gestureLauncher": "De appstarter openen",
   "gestureIntercomOpen": "Een kiosk bellen openen",
   "gestureIntercomCall": "Bel een kiosk",
+  "gestureIntercomHangup": "Intercomgesprek beëindigen",
   "gestureScreensaver": "Start de schermbeveiliging",
   "gestureScreensaverStop": "Stop de schermbeveiliging",
   "gestureHoldMode": "Wachtstand aan/uit",

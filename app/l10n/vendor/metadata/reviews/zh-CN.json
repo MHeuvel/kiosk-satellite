@@ -22791,5 +22791,11 @@
     "translation": "7bf68259dd345c42f2d557f514bea18952d6d01ee0c79baa2ed9f0a6226c51ce",
     "author": "panda-star357",
     "provenance": "864e9c0589edb3ed13d90d41de78d2a4e48b25a2b5a1ed919db45e139ab47b1f"
+  },
+  "gestureIntercomHangup": {
+    "source": "0df23f74eb1bca20b947c55f03aac4966cae785d8725bed5ac592f021027a935",
+    "translation": "7bf00c88d37ce2ecc325f0692a17a8893193e53fcd4add3859fab1bb7462017f",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

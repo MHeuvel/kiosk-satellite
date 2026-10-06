@@ -106,6 +106,11 @@ export const CAMERA_ICONS = {
   pauseCircle: '<circle cx="12" cy="12" r="9"/>'
     + '<path d="M10 9v6M14 9v6"/>',
   playPause: '<path d="m3 6 8 6-8 6z"/><path d="M15 6v12M20 6v12"/>',
+  // A handset laid on its side: the hang up action.
+  callEnd: '<path transform="rotate(135 12 12)" d="M22 16.9v3a2 2 0 0 1-2.2 2'
+    + 'A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7'
+    + ' 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4'
+    + 'c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>',
   fullscreen: '<path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/>',
   announce: '<path d="M4 9v6h4l5 4V5L8 9z"/>'
     + '<path d="M16.5 8.5a5 5 0 0 1 0 7"/>',

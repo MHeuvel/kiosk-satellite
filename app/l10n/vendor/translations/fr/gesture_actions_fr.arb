@@ -7,6 +7,7 @@
   "gestureLauncher": "Ouvrir le lanceur d'applications",
   "gestureIntercomOpen": "Ouvrir Appeler un kiosque",
   "gestureIntercomCall": "Appeler un kiosque",
+  "gestureIntercomHangup": "Terminer l'appel d'interphone",
   "gestureScreensaver": "Démarrer l'économiseur d'écran",
   "gestureScreensaverStop": "Arrêter l'économiseur d'écran",
   "gestureHoldMode": "Basculer le mode maintien",

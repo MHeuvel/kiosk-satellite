@@ -1504,6 +1504,9 @@ class UiStringsUk extends UiStrings {
   String get gestureIntercomCall => 'Викликати кіоск';
 
   @override
+  String get gestureIntercomHangup => 'Завершити виклик інтеркому';
+
+  @override
   String get gestureScreensaver => 'Запустити заставку';
 
   @override

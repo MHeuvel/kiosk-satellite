@@ -1513,6 +1513,9 @@ class UiStringsFr extends UiStrings {
   String get gestureIntercomCall => 'Appeler un kiosque';
 
   @override
+  String get gestureIntercomHangup => 'Terminer l\'appel d\'interphone';
+
+  @override
   String get gestureScreensaver => 'Démarrer l\'économiseur d\'écran';
 
   @override

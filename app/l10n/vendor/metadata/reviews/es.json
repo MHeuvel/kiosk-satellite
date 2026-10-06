@@ -19008,5 +19008,10 @@
     "source": "0645809152d8d057d8a1349415dbfdab595854528a457db6eb9403161da0eb95",
     "translation": "4f50fb45580d9b0357c8e054c23d125f41add3e197789a4e683050e5527d17cb",
     "author": "Xavier Larrea"
+  },
+  "gestureIntercomHangup": {
+    "source": "0df23f74eb1bca20b947c55f03aac4966cae785d8725bed5ac592f021027a935",
+    "translation": "419eb258ad6704f0baebbb7b5ec600a0c51e7c343dd14d45ffd587502d0f7205",
+    "author": "Xavier Larrea"
   }
 }

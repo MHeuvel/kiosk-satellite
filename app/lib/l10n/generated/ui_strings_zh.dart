@@ -1460,6 +1460,9 @@ class UiStringsZh extends UiStrings {
   String get gestureIntercomCall => '呼叫 Kiosk 设备';
 
   @override
+  String get gestureIntercomHangup => '结束对讲通话';
+
+  @override
   String get gestureScreensaver => '启动屏保';
 
   @override
@@ -13891,6 +13894,9 @@ class UiStringsZhCn extends UiStringsZh {
 
   @override
   String get gestureIntercomCall => '呼叫 Kiosk 设备';
+
+  @override
+  String get gestureIntercomHangup => '结束对讲通话';
 
   @override
   String get gestureScreensaver => '启动屏保';

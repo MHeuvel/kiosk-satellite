@@ -463,9 +463,11 @@ class IntercomHangupKeyArmed extends AppEvent {
   final int keyCode;
 }
 
-/// The armed hang up button was pressed.
-class IntercomHangupKeyPressed extends AppEvent {
-  const IntercomHangupKeyPressed();
+/// The armed hang up button was pressed or a hang up gesture fired. Only
+/// a call being placed, a live call or an announcement ends: a ringing
+/// call is answered or declined on the screen.
+class IntercomHangupRequested extends AppEvent {
+  const IntercomHangupRequested();
 }
 
 /// The intercom wants the microphone the page holds, or is done with it.

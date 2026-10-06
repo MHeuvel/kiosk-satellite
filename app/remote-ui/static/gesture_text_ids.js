@@ -122,6 +122,7 @@ export const gestureTextMessageIds = {
   "Show a camera view": "gestureCameraView",
   "Open the app launcher": "gestureLauncher",
   "Open Call a kiosk": "gestureIntercomOpen",
+  "End the intercom call": "gestureIntercomHangup",
   "Call a kiosk": "gestureIntercomCall",
   "Start the screensaver": "gestureScreensaver",
   "Stop the screensaver": "gestureScreensaverStop",

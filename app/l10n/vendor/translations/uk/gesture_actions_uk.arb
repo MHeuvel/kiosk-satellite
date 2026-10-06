@@ -7,6 +7,7 @@
   "gestureLauncher": "Відкрити панель запуску програм",
   "gestureIntercomOpen": "Відкрити \"Виклик кіоска\"",
   "gestureIntercomCall": "Викликати кіоск",
+  "gestureIntercomHangup": "Завершити виклик інтеркому",
   "gestureScreensaver": "Запустити заставку",
   "gestureScreensaverStop": "Зупинити заставку",
   "gestureHoldMode": "Перемкнути режим блокування",

@@ -1508,6 +1508,9 @@ class UiStringsNl extends UiStrings {
   String get gestureIntercomCall => 'Bel een kiosk';
 
   @override
+  String get gestureIntercomHangup => 'Intercomgesprek beëindigen';
+
+  @override
   String get gestureScreensaver => 'Start de schermbeveiliging';
 
   @override

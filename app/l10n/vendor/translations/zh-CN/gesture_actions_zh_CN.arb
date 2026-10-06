@@ -7,6 +7,7 @@
   "gestureLauncher": "打开应用启动器",
   "gestureIntercomOpen": "打开“呼叫 Kiosk 设备”",
   "gestureIntercomCall": "呼叫 Kiosk 设备",
+  "gestureIntercomHangup": "结束对讲通话",
   "gestureScreensaver": "启动屏保",
   "gestureScreensaverStop": "停止屏保",
   "gestureHoldMode": "切换页面保持模式",

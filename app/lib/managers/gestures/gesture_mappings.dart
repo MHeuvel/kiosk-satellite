@@ -41,6 +41,7 @@
 ///  - app_launcher:     open the app launcher overlay (issue #318)
 ///  - intercom_open:    open the intercom's Call a kiosk sheet
 ///  - intercom_call:    kioskId, kioskName: call that kiosk straight away
+///  - intercom_hangup:  end the intercom call, like the hang up button
 ///  - screensaver:      start the screensaver
 ///  - screensaver_stop: stop it (redundant for touch, made for claps)
 ///  - hold_mode:        toggle hold mode (pin the current view, issue #266)
@@ -214,6 +215,8 @@ String describeGestureAction(Map<String, Object?> action) {
       return 'Open Call a kiosk';
     case 'intercom_call':
       return 'Call ${action['kioskName'] ?? action['kioskId']}';
+    case 'intercom_hangup':
+      return 'End the intercom call';
     case 'screensaver':
       return 'Start the screensaver';
     case 'screensaver_stop':

@@ -1522,6 +1522,9 @@ class UiStringsDe extends UiStrings {
   String get gestureIntercomCall => 'Einen Kiosk anrufen';
 
   @override
+  String get gestureIntercomHangup => 'Gegensprechanruf beenden';
+
+  @override
   String get gestureScreensaver => 'Bildschirmschoner starten';
 
   @override
