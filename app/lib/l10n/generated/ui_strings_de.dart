@@ -1525,6 +1525,12 @@ class UiStringsDe extends UiStrings {
   String get gestureIntercomHangup => 'Gegensprechanruf beenden';
 
   @override
+  String get gestureAlarmStop => 'Wecker stoppen';
+
+  @override
+  String get gestureAlarmSnooze => 'Wecker schlummern lassen';
+
+  @override
   String get gestureScreensaver => 'Bildschirmschoner starten';
 
   @override

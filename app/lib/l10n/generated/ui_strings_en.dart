@@ -1503,6 +1503,12 @@ class UiStringsEn extends UiStrings {
   String get gestureIntercomHangup => 'End the intercom call';
 
   @override
+  String get gestureAlarmStop => 'Stop the alarm';
+
+  @override
+  String get gestureAlarmSnooze => 'Snooze the alarm';
+
+  @override
   String get gestureScreensaver => 'Start the screensaver';
 
   @override

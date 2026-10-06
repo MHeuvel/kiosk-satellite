@@ -1463,6 +1463,12 @@ class UiStringsZh extends UiStrings {
   String get gestureIntercomHangup => '结束对讲通话';
 
   @override
+  String get gestureAlarmStop => '停止闹钟';
+
+  @override
+  String get gestureAlarmSnooze => '闹钟稍后提醒';
+
+  @override
   String get gestureScreensaver => '启动屏保';
 
   @override
@@ -13904,6 +13910,12 @@ class UiStringsZhCn extends UiStringsZh {
 
   @override
   String get gestureIntercomHangup => '结束对讲通话';
+
+  @override
+  String get gestureAlarmStop => '停止闹钟';
+
+  @override
+  String get gestureAlarmSnooze => '闹钟稍后提醒';
 
   @override
   String get gestureScreensaver => '启动屏保';

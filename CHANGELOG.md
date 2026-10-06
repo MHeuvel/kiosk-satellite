@@ -5,6 +5,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ## Unreleased
 
 ### Added
+- **Stop and snooze alarms with a gesture.** **Gestures** gains **Stop the alarm** and **Snooze the alarm** actions, so claps or a hand showing fingers can silence an alarm without touching the screen (#872). Stop the alarm does what the Stop button does and also ends a snooze or a sunrise. Snooze the alarm works while an alarm rings. Translated into Spanish, German, French, Ukrainian, Dutch and Simplified Chinese.
 - **Follow Android animation settings.** **Settings > Screensaver** gains an opt-in switch that pauses Weather Mood on a still frame while Android's transition animation scale is off, as it did before 2026.10.10. It brings CPU usage back down on low-power devices with animations turned off in Developer options (#870). Translated into Spanish, German, French, Ukrainian, Dutch and Simplified Chinese.
 
 ### Fixed

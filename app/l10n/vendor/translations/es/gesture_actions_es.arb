@@ -8,6 +8,8 @@
   "gestureIntercomOpen": "Abrir Llamar a un kiosko",
   "gestureIntercomCall": "Llamar a un kiosko",
   "gestureIntercomHangup": "Finalizar la llamada del intercomunicador",
+  "gestureAlarmStop": "Detener la alarma",
+  "gestureAlarmSnooze": "Posponer la alarma",
   "gestureScreensaver": "Iniciar el protector de pantalla",
   "gestureScreensaverStop": "Detener el protector de pantalla",
   "gestureHoldMode": "Activar o desactivar el modo de pausa",

@@ -1517,6 +1517,12 @@ class UiStringsEs extends UiStrings {
       'Finalizar la llamada del intercomunicador';
 
   @override
+  String get gestureAlarmStop => 'Detener la alarma';
+
+  @override
+  String get gestureAlarmSnooze => 'Posponer la alarma';
+
+  @override
   String get gestureScreensaver => 'Iniciar el protector de pantalla';
 
   @override

@@ -1511,6 +1511,12 @@ class UiStringsNl extends UiStrings {
   String get gestureIntercomHangup => 'Intercomgesprek beëindigen';
 
   @override
+  String get gestureAlarmStop => 'Stop het alarm';
+
+  @override
+  String get gestureAlarmSnooze => 'Laat het alarm sluimeren';
+
+  @override
   String get gestureScreensaver => 'Start de schermbeveiliging';
 
   @override

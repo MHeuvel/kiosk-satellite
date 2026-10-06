@@ -1507,6 +1507,12 @@ class UiStringsUk extends UiStrings {
   String get gestureIntercomHangup => 'Завершити виклик інтеркому';
 
   @override
+  String get gestureAlarmStop => 'Зупинити будильник';
+
+  @override
+  String get gestureAlarmSnooze => 'Відкласти будильник';
+
+  @override
   String get gestureScreensaver => 'Запустити заставку';
 
   @override

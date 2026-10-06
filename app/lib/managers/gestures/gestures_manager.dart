@@ -385,6 +385,13 @@ class GesturesManager extends Manager {
         // Decline, and with no call the gesture does nothing.
         bus.publish(const IntercomHangupRequested());
         return const CommandResult.ok();
+      case 'alarm_stop':
+        // The Stop button's path (issue #872): ends a ring, a snooze or a
+        // sunrise, so claps or a hand can silence an alarm from bed.
+        return _run('alarmStop', const {'source': 'gesture'});
+      case 'alarm_snooze':
+        // The Snooze button's path: only a ringing alarm snoozes.
+        return _run('alarmSnooze', const {'source': 'gesture'});
       case 'screensaver':
         return _run('startScreensaver', const {});
       case 'screensaver_stop':

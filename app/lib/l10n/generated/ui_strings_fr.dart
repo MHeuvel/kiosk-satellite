@@ -1516,6 +1516,12 @@ class UiStringsFr extends UiStrings {
   String get gestureIntercomHangup => 'Terminer l\'appel d\'interphone';
 
   @override
+  String get gestureAlarmStop => 'Arrêter l\'alarme';
+
+  @override
+  String get gestureAlarmSnooze => 'Reporter l\'alarme';
+
+  @override
   String get gestureScreensaver => 'Démarrer l\'économiseur d\'écran';
 
   @override

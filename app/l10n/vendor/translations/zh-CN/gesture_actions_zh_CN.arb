@@ -8,6 +8,8 @@
   "gestureIntercomOpen": "打开“呼叫 Kiosk 设备”",
   "gestureIntercomCall": "呼叫 Kiosk 设备",
   "gestureIntercomHangup": "结束对讲通话",
+  "gestureAlarmStop": "停止闹钟",
+  "gestureAlarmSnooze": "闹钟稍后提醒",
   "gestureScreensaver": "启动屏保",
   "gestureScreensaverStop": "停止屏保",
   "gestureHoldMode": "切换页面保持模式",

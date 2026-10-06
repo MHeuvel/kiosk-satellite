@@ -22913,5 +22913,17 @@
     "translation": "f271b8764396ba61686da06369a7b12bebe27843c9d0157b16798b918fd993ce",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "gestureAlarmSnooze": {
+    "source": "4946b5decc6015ab8dbecb86a560e83bf6cd1c2a1abb02e4531fbdc2e9eb6a33",
+    "translation": "e8c5f6b26df97007a82d6c21d85ef6d007b3e2657ead75f2de6e40a009cc6b88",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "gestureAlarmStop": {
+    "source": "1dd35063b3ad7fcd30f57b58d07ba659846609ddf7aa3e6530da06b0e878ab9b",
+    "translation": "23e05827e062ff108a91c18d16747699c4ee9d304940dbf7240139aa91e53e93",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }

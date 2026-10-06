@@ -8,6 +8,8 @@
   "gestureIntercomOpen": "Een kiosk bellen openen",
   "gestureIntercomCall": "Bel een kiosk",
   "gestureIntercomHangup": "Intercomgesprek beëindigen",
+  "gestureAlarmStop": "Stop het alarm",
+  "gestureAlarmSnooze": "Laat het alarm sluimeren",
   "gestureScreensaver": "Start de schermbeveiliging",
   "gestureScreensaverStop": "Stop de schermbeveiliging",
   "gestureHoldMode": "Wachtstand aan/uit",

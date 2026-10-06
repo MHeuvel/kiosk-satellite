@@ -209,6 +209,8 @@ void main() {
         'showNowPlaying',
         'showMusicAssistant',
         'sendspinControl',
+        'alarmStop',
+        'alarmSnooze',
         'launchApp',
         'openUri',
         'openSystemSettings',
@@ -511,6 +513,31 @@ void main() {
       expect(
         describeGestureAction(const {'type': 'intercom_hangup'}),
         'End the intercom call',
+      );
+    });
+
+    test('alarm_stop and alarm_snooze run the alarm commands', () async {
+      await build(
+        '[{"id":"g1","trigger":{"type":"claps","claps":2},'
+        '"action":{"type":"alarm_stop"}},'
+        '{"id":"g2","trigger":{"type":"fingers","fingers":5},'
+        '"action":{"type":"alarm_snooze"}}]',
+      );
+      await fire('g1');
+      await fire('g2');
+      expect(executed.map((e) => e.$1), ['alarmStop', 'alarmSnooze']);
+      expect(executed.map((e) => e.$2), [
+        {'source': 'gesture'},
+        {'source': 'gesture'},
+      ]);
+      expect(outcomes, isEmpty);
+      expect(
+        describeGestureAction(const {'type': 'alarm_stop'}),
+        'Stop the alarm',
+      );
+      expect(
+        describeGestureAction(const {'type': 'alarm_snooze'}),
+        'Snooze the alarm',
       );
     });
 

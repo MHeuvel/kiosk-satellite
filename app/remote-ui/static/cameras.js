@@ -111,6 +111,9 @@ export const CAMERA_ICONS = {
     + 'A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7'
     + ' 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4'
     + 'c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>',
+  // The alarm clock struck through, and with a Z: the alarm actions.
+  alarmOff: '<circle cx="12" cy="13" r="8"/><path d="M5 3 2 6M19 3l3 3M4 5l16 16"/>',
+  snooze: '<circle cx="12" cy="13" r="8"/><path d="M5 3 2 6M19 3l3 3M9.5 10h5l-5 6h5"/>',
   fullscreen: '<path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/>',
   announce: '<path d="M4 9v6h4l5 4V5L8 9z"/>'
     + '<path d="M16.5 8.5a5 5 0 0 1 0 7"/>',

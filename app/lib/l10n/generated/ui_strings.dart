@@ -2722,6 +2722,18 @@ abstract class UiStrings {
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:
+  /// **'Stop the alarm'**
+  String get gestureAlarmStop;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Snooze the alarm'**
+  String get gestureAlarmSnooze;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
   /// **'Start the screensaver'**
   String get gestureScreensaver;
 
