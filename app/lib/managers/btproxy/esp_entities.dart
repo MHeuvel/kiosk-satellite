@@ -358,6 +358,13 @@ class EspEntitySurface {
       'mdi:music-note',
       defs.mediaVolume,
     ),
+    // Catalog-gated below on the intercom being on, like its answer mode
+    // (issue #869).
+    'intercom_volume': _percent(
+      'Intercom volume',
+      'mdi:phone-in-talk-outline',
+      defs.intercomVolume,
+    ),
     'vs_answer_linger': (
       name: 'VS Answer linger',
       icon: 'mdi:timer-outline',
@@ -855,7 +862,8 @@ class EspEntitySurface {
       },
       // ── Config ───────────────────────────────────────────────────────
       for (final e in _settingNumbers.entries)
-        if (!e.key.startsWith('vs_') || _voiceNative)
+        if ((e.key != 'intercom_volume' || intercomOn) &&
+            (!e.key.startsWith('vs_') || _voiceNative))
           {
             'type': 'number',
             'objectId': e.key,

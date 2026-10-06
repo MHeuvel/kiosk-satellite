@@ -1496,6 +1496,33 @@ void main() {
   );
 
   test(
+    'intercom volume is a percent slider listed while the intercom is on',
+    () async {
+      var catalog = await surface.build();
+      expect(catalog.where((e) => e['objectId'] == 'intercom_volume'), isEmpty);
+      await settings.set(defs.intercomEnabled, true);
+      catalog = await surface.build();
+      final volume = catalog.singleWhere(
+        (e) => e['objectId'] == 'intercom_volume',
+      );
+      expect(volume['type'], 'number');
+      expect(volume['name'], 'Intercom volume');
+      expect(volume['min'], 0);
+      expect(volume['max'], 100);
+      expect(volume['unit'], '%');
+      expect(volume['category'], 1);
+      await attach();
+      expect(pushed, contains(('intercom_volume', 60)));
+      await surface.handleCommand('intercom_volume', 35.0);
+      expect(settings.get(defs.intercomVolume), 35);
+      pushed.clear();
+      await settings.set(defs.intercomVolume, 80);
+      await Future<void>.delayed(Duration.zero);
+      expect(pushed, contains(('intercom_volume', 80)));
+    },
+  );
+
+  test(
     'RTSP configuration switch syncs both ways without changing the catalog',
     () async {
       final catalog = await surface.build();
