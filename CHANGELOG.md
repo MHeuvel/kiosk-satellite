@@ -10,6 +10,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 - **Follow Android animation settings.** **Settings > Screensaver** gains an opt-in switch that pauses Weather Mood on a still frame while Android's transition animation scale is off, as it did before 2026.10.10. It brings CPU usage back down on low-power devices with animations turned off in Developer options (#870). Translated into Spanish, German, French, Ukrainian, Dutch and Simplified Chinese.
 - **Intercom volume in Home Assistant.** The ESPHome device gains an **Intercom volume** number, so a dashboard or automation can set the share of the master volume the other kiosk's voice and announcements play at (#869). It is listed while the intercom is on.
 
+### Changed
+- **Tap sounds and haptics work on Bubble Card.** Kiosk Satellite now also responds to Home Assistant's haptic event, the one the companion apps vibrate on, so Bubble Card's horizontal buttons stack, pop-up buttons and sub-buttons click and buzz like other controls (#880). Any custom card that follows the same convention gets this too. Controls that already clicked still play once per tap. Haptics that only report whether an action succeeded or failed stay silent.
+
 ### Fixed
 - **Alarm buttons stay big on small screens.** On small displays such as the Lenovo Smart Clock 2, Snooze and Stop shrank to a fraction of the screen (#873). Weather Mood fitted them together with its clock, so they shrank along with the clock, and every alarm screen scaled its buttons down with the display. Snooze and Stop now keep their full size on small screens and shrink only when they would not fit across the width. Weather Mood shrinks only its clock to make room, the way the Clock screensaver already did. Tablets and larger screens look the same as before.
 

@@ -30,6 +30,16 @@
 /// the whole tap_action world; the shared tap throttle dedupes the mouse
 /// case where the click arrives alongside it.
 ///
+/// Custom cards with their own pointer handling produce neither signal.
+/// Bubble Card's button stacks, pop-up buttons and sub-buttons are plain
+/// divs, so their clicks never look button-shaped. What they do fire is
+/// HA's `haptic` event, the convention the companion apps vibrate on and
+/// the frontend itself uses for toggles and more-info controls. Every
+/// haptic type that marks a touch counts as a tap. `success` and
+/// `failure` report how a service call ended, often well after the
+/// finger lifted, so they stay quiet. The shared tap throttle dedupes
+/// controls that fire a haptic next to a recognized click or action.
+///
 /// What counts as a button: real form controls, HA's web-component zoo by
 /// name fragment (ha-icon-button, ha-switch, ha-control-*, mwc-*, chips,
 /// fabs), ARIA roles, and any element carrying HA's actionHandler
@@ -153,6 +163,19 @@ const buttonHapticsScript = '''
   addEventListener('action', function (e) {
     if (!on()) return;
     if (!e.detail || !e.detail.action) return;
+    var now = e.timeStamp || 0;
+    if (now - lastTap < TAP_MS) return;
+    lastTap = now;
+    send('tap');
+  }, { passive: true, capture: true });
+
+  // HA's haptic convention, for cards like Bubble Card whose buttons are
+  // invisible to both listeners above. Outcome types arrive after the
+  // service call settles, not under the finger.
+  var OUTCOME = /^(success|failure)\$/;
+  addEventListener('haptic', function (e) {
+    if (!on()) return;
+    if (typeof e.detail !== 'string' || OUTCOME.test(e.detail)) return;
     var now = e.timeStamp || 0;
     if (now - lastTap < TAP_MS) return;
     lastTap = now;
