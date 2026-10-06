@@ -26,7 +26,7 @@ class WakeMsg {
 
   /// A wake word that scored within reach of its threshold and fell back
   /// without firing, one per episode (see NearMissTracker): {id, wakeWord,
-  /// score, threshold, ...}. Always on; rare, so ungated.
+  /// score, threshold, ...}. Enabled only while diagnostics are recording.
   static const nearMiss = 'nearMiss';
 
   // main -> isolate (control; audio arrives as a bare Uint8List)
@@ -37,4 +37,7 @@ class WakeMsg {
 
   /// Turn per-inference [telemetry] on or off: {enabled}.
   static const setTelemetry = 'setTelemetry';
+
+  /// Turn near-miss tracking on or off: {enabled}.
+  static const setNearMisses = 'setNearMisses';
 }

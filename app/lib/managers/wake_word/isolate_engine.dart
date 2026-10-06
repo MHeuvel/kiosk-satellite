@@ -263,7 +263,13 @@ abstract class IsolateWakeEngine extends WakeWordEngine {
   @override
   set onNearMiss(
     void Function(WakeWordModelRef model, Map<String, Object?> detail)? sink,
-  ) => _onNearMiss = sink;
+  ) {
+    _onNearMiss = sink;
+    final enabled = sink != null;
+    _pendingInit?['nearMisses'] = enabled;
+    _isolatePort
+        ?.send({'type': WakeMsg.setNearMisses, 'enabled': enabled});
+  }
 
   @override
   Map<String, Object?>? get lastDetection => _lastDetection;
@@ -348,6 +354,7 @@ abstract class IsolateWakeEngine extends WakeWordEngine {
       'type': WakeMsg.init,
       'models': payload.models,
       'energyGate': config.energyGate.toJson(),
+      'nearMisses': _onNearMiss != null,
       ...payload.extraInit,
     };
 

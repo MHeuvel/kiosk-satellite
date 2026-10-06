@@ -1,5 +1,4 @@
 import 'dart:math' as math;
-import 'dart:typed_data';
 
 import 'ctc_decoder.dart';
 import 'manifest.dart';
@@ -58,31 +57,23 @@ class StreamMatcher {
     _lastMatchSamplesBack = 0;
   }
 
-  /// Feed one inference window's logits [tOut, vocab] plus the number of new
-  /// audio samples since the previous update.
-  void update(Float32List logits, int newSamples, int tOut, int vocab) {
+  /// Feed one inference window's greedy decode plus the number of new audio
+  /// samples since the previous update. The decoder already found each frame's
+  /// winning token, so repeating the full vocabulary scan here is pure waste.
+  void update(CtcDecode decode, int newSamples) {
+    final frameIds = decode.frameIds;
+    final frameLogits = decode.frameLogits;
+    if (frameIds == null || frameLogits == null) {
+      throw StateError('stream matching requires per-frame decode data');
+    }
+    final tOut = frameIds.length;
     final blank = manifest.ctc.blankId;
     final pad = manifest.ctc.padId;
 
-    int argAt(int t) {
-      final off = t * vocab;
-      var best = 0;
-      var bestVal = logits[off];
-      for (var v = 1; v < vocab; v++) {
-        if (logits[off + v] > bestVal) {
-          bestVal = logits[off + v];
-          best = v;
-        }
-      }
-      return best;
-    }
-
-    double logitAt(int t, int id) => logits[t * vocab + id];
-
     void push(int t) {
-      final id = argAt(t);
+      final id = frameIds[t];
       _ids.add(id);
-      _logits.add(logitAt(t, id));
+      _logits.add(frameLogits[t]);
       if (id != blank && id != pad) _dirtySinceAnalyze = true;
     }
 

@@ -7,6 +7,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ### Added
 - **End the intercom call gesture.** **Gestures** gains an **End the intercom call** action, so claps or a hand showing fingers can end a call from across the room. It ends what the hang up button ends: a call being placed, a live call and either end of an announcement. A ringing call still needs Answer or Decline on the screen. Gestures stay armed during a call. Translated into Spanish, German, French, Ukrainian, Dutch and Simplified Chinese.
 
+### Changed
+- **Wake word listening does less idle work.** vsWakeWord reuses each model's decoded output for its cross-window matcher, and all three engines now track near misses only when diagnostics are enabled. Detection scores remain unchanged.
+
 ### Fixed
 - **Bluetooth proxy scans no longer accumulate after app updates.** Kiosk Satellite now closes its BLE scanner before Shizuku, the ADB update helper or Android's package installer commits an update. Android confirmation installs close it before showing the confirmation screen. A failed or declined install resumes the existing scan demand, while a successful update starts with one clean scanner registration instead of leaving the previous app process registered in the Bluetooth stack. This was confirmed on Meta Portal firmware, which retained every scanner from a replaced app process.
 

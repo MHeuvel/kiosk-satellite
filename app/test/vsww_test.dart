@@ -169,6 +169,10 @@ void main() {
       expect(d.confidence.length, 3);
       // Each token's end frame is the last frame of its run: 18 spans 0-1.
       expect(d.endFrames, [1, 3, 5]);
+      expect(d.frameIds, hasLength(tOut));
+      expect(d.frameLogits, hasLength(tOut));
+      expect(d.frameIds!.sublist(0, 6), [18, 18, 1, 2, 0, 32]);
+      expect(d.frameLogits!.sublist(0, 6), everyElement(5.0));
     });
   });
 

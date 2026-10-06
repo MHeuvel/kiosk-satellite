@@ -38,6 +38,8 @@ void owwIsolateEntry(SendPort mainPort) {
             msg['enabled'] == true,
             tester: msg['tester'] == true,
           );
+        case WakeMsg.setNearMisses:
+          worker.setNearMisses(msg['enabled'] == true);
         case WakeMsg.stop:
           worker.stop();
           port.close();
@@ -114,6 +116,7 @@ class _OwwWorker {
         _wakeRms = (gate['wakeRms'] as num).toDouble();
         _sleepAfterChunks = (gate['sleepAfterChunks'] as num).toInt();
       }
+      _nearMisses = msg['nearMisses'] == true;
 
       final loader = OwwSessionLoader(
         onFallback: (error) =>
@@ -215,11 +218,20 @@ class _OwwWorker {
   /// stop classifier unarmed. Never set for the mic level meter — see the
   /// vsWakeWord isolate.
   bool _tester = false;
+  bool _nearMisses = false;
   double _chunkRms = 0;
 
   void setTelemetry(bool enabled, {bool tester = false}) {
     _telemetry = enabled;
     _tester = enabled && tester;
+  }
+
+  void setNearMisses(bool enabled) {
+    if (_nearMisses == enabled) return;
+    _nearMisses = enabled;
+    for (final k in _kws) {
+      k.nearMiss.reset();
+    }
   }
 
   void _ingest(Float32List chunk) {
@@ -252,7 +264,7 @@ class _OwwWorker {
       sw?.stop();
       if (probability == null) continue;
       final trigger = k.gate.update(probability, _absSamples ~/ 16);
-      if (!k.isStop) {
+      if (!k.isStop && _nearMisses) {
         final miss = k.nearMiss.update(
           score: probability,
           threshold: k.gate.cutoff,
