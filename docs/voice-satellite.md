@@ -118,7 +118,11 @@ A wake word answered by a realtime provider starts a conversation with a speech 
 
 **Picking up where you left off.** **Session duration** keeps what was said for 30 minutes up to 12 hours and gives it to the next conversation, so you can refer back to something after a conversation ended. Older exchanges are dropped, and nothing is kept across an app restart.
 
+**Started from Home Assistant.** With a provider on **Assistant 1**, `assist_satellite.start_conversation` opens a realtime conversation instead of an Assist turn. The model says the `start_message` in its own voice, word for word, and then listens for the reply. Home Assistant's own speech of the message is not played. `extra_system_prompt` does not reach the model, because Home Assistant does not send it to the kiosk. An automation that plays `start_media_id` with no message still gets an Assist turn.
+
 **Kiosks without internet access.** Set a provider's **Endpoint** to a relay on your network that speaks its realtime protocol. The kiosk only talks to the relay, and the API key can live there instead of on the kiosk.
+
+**OpenAI on Azure.** The bubble shows what you said through a separate transcription model, `gpt-4o-mini-transcribe`. On Azure it needs its own deployment, named exactly that, in the same resource as the realtime model. Without it the model still hears you and answers, but your words never show and the kiosk logs `transcription failed: DeploymentNotFound`.
 
 **On screen.** A conversation docks at the bottom of the screen in a bubble with the current exchange and the skin's bar along its bottom edge. It stays up until the conversation ends, and the dashboard stays visible and usable underneath. The bar drains in the last seconds before **End after silence** ends the conversation. Saying goodbye ends it too, and so does the close button. "Stop" cuts off an answer and keeps the conversation going.
 
@@ -159,7 +163,7 @@ These come from Home Assistant through the kiosk's satellite entity, as they do 
 | --- | --- |
 | Timers | Ask for one by voice. Pills show while it runs and an alert when it ends. Tap a pill to pause it, double tap to cancel. |
 | Announcements | `assist_satellite.announce` on the kiosk's satellite. |
-| Start a conversation | `assist_satellite.start_conversation`: the kiosk speaks, then listens for the reply. |
+| Start a conversation | `assist_satellite.start_conversation`: the kiosk speaks, then listens for the reply. With a realtime provider on Assistant 1, the provider takes the conversation. See [Realtime conversations](#realtime-conversations). |
 | Ask a question | `assist_satellite.ask_question`: the kiosk speaks, listens and hands the reply to Home Assistant, as a Voice PE does. |
 
 Double tap the overlay to end a turn or close what lingers. With **Stop word interruption** on, "stop" does the same while an answer, alert, announcement or result panel is up.

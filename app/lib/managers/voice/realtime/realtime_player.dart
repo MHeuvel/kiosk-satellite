@@ -24,7 +24,19 @@ abstract class RealtimePlayerPort {
 }
 
 class NativeRealtimePlayer implements RealtimePlayerPort {
+  NativeRealtimePlayer({this.log});
+
   static const _channel = MethodChannel('kiosk_satellite/realtime_audio');
+
+  final void Function(String line)? log;
+
+  /// Problems already logged since the track opened: a write that fails
+  /// fails for every chunk.
+  final _noted = <String>{};
+
+  void _note(String kind, String line) {
+    if (_noted.add(kind)) log?.call(line);
+  }
 
   bool _open = false;
 
@@ -38,13 +50,16 @@ class NativeRealtimePlayer implements RealtimePlayerPort {
   @override
   Future<bool> start(int sampleRate) async {
     _rate = sampleRate;
+    _noted.clear();
     try {
       final rate = await _channel.invokeMethod<num>('start', {
         'sampleRate': sampleRate,
       });
       _trackRate = rate?.toInt() ?? 0;
       _open = _trackRate > 0;
-    } catch (_) {
+      if (!_open) log?.call('the device opened no audio track');
+    } catch (e) {
+      log?.call('audio track failed to open: $e');
       _open = false;
     }
     _resampler = _open && _trackRate != _rate
@@ -60,7 +75,9 @@ class NativeRealtimePlayer implements RealtimePlayerPort {
     if (!_open) return;
     final out = _resampler?.convert(pcm) ?? pcm;
     unawaited(
-      _channel.invokeMethod<void>('write', out).catchError((Object _) {}),
+      _channel
+          .invokeMethod<void>('write', out)
+          .catchError((Object e) => _note('write', 'audio write failed: $e')),
     );
   }
 
@@ -70,7 +87,8 @@ class NativeRealtimePlayer implements RealtimePlayerPort {
     try {
       _resampler?.reset();
       return _toModel(await _channel.invokeMethod<num>('flush') ?? 0);
-    } catch (_) {
+    } catch (e) {
+      _note('flush', 'audio flush failed: $e');
       return 0;
     }
   }
@@ -81,7 +99,8 @@ class NativeRealtimePlayer implements RealtimePlayerPort {
     try {
       final status = await _channel.invokeMapMethod<String, Object?>('status');
       return _toModel((status?['played'] as num?) ?? 0);
-    } catch (_) {
+    } catch (e) {
+      _note('status', 'audio position unknown: $e');
       return 0;
     }
   }
@@ -92,6 +111,8 @@ class NativeRealtimePlayer implements RealtimePlayerPort {
     _open = false;
     try {
       await _channel.invokeMethod<void>('stop');
-    } catch (_) {}
+    } catch (e) {
+      log?.call('audio track failed to stop: $e');
+    }
   }
 }

@@ -219,21 +219,49 @@ class RealtimeSession {
   // ── start ───────────────────────────────────────────────────────────────
 
   /// The wake word fired ([phrase] names it), or a conversation was asked
-  /// for without one.
-  Future<void> wake(String phrase) async {
-    if (_busy) return;
+  /// for without one. With an [opening], the assistant speaks first: the
+  /// model says it in its own voice once connected, after the announcement
+  /// chime when [announceChime] is on, and [onOpened] runs once it has
+  /// played or the conversation ended first.
+  Future<void> wake(
+    String phrase, {
+    String opening = '',
+    bool announceChime = false,
+    void Function()? onOpened,
+  }) async {
+    if (_busy) {
+      onOpened?.call();
+      return;
+    }
     final gen = ++_gen;
     _reset();
     _busy = true;
     _started = _now();
     _activity = _started;
+    _opening = opening.trim();
+    _onOpened = onOpened;
     final opts = options();
-    onTrace?.call('realtime conversation, wake word "$phrase"');
+    if (_opening.isEmpty) {
+      onTrace?.call('realtime conversation, wake word "$phrase"');
+    } else {
+      onTrace?.call('realtime conversation, opening', text: _opening);
+    }
     onBusy(true, 'voice');
     // Listening shows with the wake chime, which holds its start until
-    // its track has settled (see LeadInProcessor); without one, now.
-    final wakeChime = opts.wakeSound && !opts.seamless;
-    if (!wakeChime) _showListening();
+    // its track has settled (see LeadInProcessor); without one, now. An
+    // opening has nothing to listen to until it is said.
+    final wakeChime = _opening.isEmpty && opts.wakeSound && !opts.seamless;
+    if (_opening.isNotEmpty) {
+      _show(
+        const AssistView(
+          phase: AssistPhase.thinking,
+          reactive: false,
+          docked: true,
+        ),
+      );
+    } else if (!wakeChime) {
+      _showListening();
+    }
     onCountdown(1);
 
     final opened = await mic.open((pcm, preRoll) => _onMic(gen, pcm, preRoll));
@@ -258,9 +286,27 @@ class RealtimeSession {
 
     // The chime plays while the connection comes up. What the microphone
     // hears over it is not part of what the user says.
-    final chime = wakeChime ? _chime(gen, 'wake') : Future<void>.value();
+    final chime = wakeChime
+        ? _chime(gen, 'wake')
+        : _opening.isNotEmpty && announceChime
+        ? _chime(gen, 'announce')
+        : Future<void>.value();
+    _chimed = chime;
     unawaited(_connect(gen, backend, phrase, opts));
     await chime;
+  }
+
+  /// The line the assistant opens with, empty when the user speaks first.
+  String _opening = '';
+  void Function()? _onOpened;
+
+  /// The chime the conversation started with, which the opening waits for.
+  Future<void> _chimed = Future<void>.value();
+
+  void _opened() {
+    final done = _onOpened;
+    _onOpened = null;
+    done?.call();
   }
 
   Future<void> _connect(
@@ -274,7 +320,10 @@ class RealtimeSession {
     if (lookup != null) {
       try {
         where = await lookup().timeout(locationWait);
-      } catch (_) {}
+      } catch (e) {
+        // The conversation goes on without the room in its instructions.
+        onTrace?.call('kiosk location lookup failed: $e');
+      }
     }
     if (gen != _gen) return;
     final minutes = (opts.historyHours * 60).round();
@@ -674,6 +723,22 @@ class RealtimeSession {
     _ready = true;
     _touch();
     onTrace?.call('connected');
+    if (_opening.isNotEmpty) {
+      // Nobody has spoken yet: what the microphone held is only the room.
+      _held.clear();
+      _heldBytes = 0;
+      // The chime has started by then. The line waits for it to end.
+      await _chimed;
+      final deaf = _deafUntil;
+      if (deaf != null && deaf.isAfter(_now())) {
+        await Future<void>.delayed(deaf.difference(_now()));
+      }
+      if (gen != _gen) return;
+      _awaiting = true;
+      _awaitingSince = _now();
+      _backend?.speak(_opening);
+      return;
+    }
     for (final pcm in _held) {
       _backend?.sendAudio(pcm);
     }
@@ -839,6 +904,7 @@ class RealtimeSession {
       _playEnded = now;
       _touch();
       _armStop(false);
+      _opened();
       if (!_userSpeaking && _view.phase == AssistPhase.speaking) {
         _show(_docked(phase: AssistPhase.listening, streaming: false));
       }
@@ -962,6 +1028,7 @@ class RealtimeSession {
     if (gen != _gen || !_busy) return;
     final ended = ++_gen;
     _busy = false;
+    _opened();
     _logEcho();
     _ticker?.cancel();
     _ticker = null;
@@ -996,6 +1063,9 @@ class RealtimeSession {
   }
 
   void _reset() {
+    _opening = '';
+    _onOpened = null;
+    _chimed = Future<void>.value();
     _recent.clear();
     _cut.clear();
     _talkingOver = false;
