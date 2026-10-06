@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **Alarm buttons stay big on small screens.** On small displays such as the Lenovo Smart Clock 2, Snooze and Stop shrank to a fraction of the screen (#873). Weather Mood fitted them together with its clock, so they shrank along with the clock, and every alarm screen scaled its buttons down with the display. Snooze and Stop now keep their full size on small screens and shrink only when they would not fit across the width. Weather Mood shrinks only its clock to make room, the way the Clock screensaver already did. Tablets and larger screens look the same as before.
+
 ## v2026.10.10 - 2026-10-06
 
 ### Added
