@@ -9247,6 +9247,14 @@ class UiStringsEn extends UiStrings {
       'Add a Start Screensaver entry to the kiosk menu.';
 
   @override
+  String get settingScreensaverFollowAnimationScaleTitle =>
+      'Follow Android animation settings';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleDescription =>
+      'Pause animated screensavers when Android animations are off.';
+
+  @override
   String get settingScreensaverDimLevelTitle => 'Dim level';
 
   @override

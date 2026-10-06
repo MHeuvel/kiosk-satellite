@@ -171,7 +171,8 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
         unawaited(_update(immediate: true));
       } else if (event.key == defs.screensaverWeatherLightning.key) {
         unawaited(_update());
-      } else if (event.key.startsWith('screensaver.weather_') ||
+      } else if (event.key == defs.screensaverFollowAnimationScale.key ||
+          event.key.startsWith('screensaver.weather_') ||
           event.key.startsWith('screensaver.glance_')) {
         if (event.key == defs.screensaverWeatherBar.key) {
           unawaited(_loadTranslations());
@@ -402,6 +403,9 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
               revealToken: _revealToken,
               onReady: _sceneFinished,
               lowPower: weatherMoodLowPower(widget.container),
+              followAnimationScale: widget.container.settings.get(
+                defs.screensaverFollowAnimationScale,
+              ),
               onError: (error) => widget.container.log.warn(
                 'screensaver',
                 'Weather Mood renderer stopped: $error',

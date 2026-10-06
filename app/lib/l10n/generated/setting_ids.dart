@@ -412,6 +412,10 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingScreensaverMenuTitle",
     "description": "settingScreensaverMenuDescription",
   },
+  "screensaver.follow_animation_scale": {
+    "title": "settingScreensaverFollowAnimationScaleTitle",
+    "description": "settingScreensaverFollowAnimationScaleDescription",
+  },
   "screensaver.dim_level": {
     "title": "settingScreensaverDimLevelTitle",
     "description": "settingScreensaverDimLevelDescription",

@@ -2908,6 +2908,10 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'settingScreensaverMenuTitle' => strings.settingScreensaverMenuTitle,
       'settingScreensaverMenuDescription' =>
         strings.settingScreensaverMenuDescription,
+      'settingScreensaverFollowAnimationScaleTitle' =>
+        strings.settingScreensaverFollowAnimationScaleTitle,
+      'settingScreensaverFollowAnimationScaleDescription' =>
+        strings.settingScreensaverFollowAnimationScaleDescription,
       'settingScreensaverDimLevelTitle' =>
         strings.settingScreensaverDimLevelTitle,
       'settingScreensaverDimLevelDescription' =>

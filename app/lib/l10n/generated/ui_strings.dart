@@ -16104,6 +16104,18 @@ abstract class UiStrings {
   /// Setting label.
   ///
   /// In en, this message translates to:
+  /// **'Follow Android animation settings'**
+  String get settingScreensaverFollowAnimationScaleTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause animated screensavers when Android animations are off.'**
+  String get settingScreensaverFollowAnimationScaleDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
   /// **'Dim level'**
   String get settingScreensaverDimLevelTitle;
 

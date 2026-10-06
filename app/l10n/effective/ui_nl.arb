@@ -34730,6 +34730,32 @@
       ]
     }
   },
+  "settingScreensaverFollowAnimationScaleTitle": "Android-animatie-instellingen volgen",
+  "@settingScreensaverFollowAnimationScaleTitle": {
+    "context": "Settings:Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverFollowAnimationScaleDescription": "Pauzeer geanimeerde schermbeveiligingen wanneer Android-animaties uit staan.",
+  "@settingScreensaverFollowAnimationScaleDescription": {
+    "context": "Settings:Screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
   "settingScreensaverDimLevelTitle": "Dimniveau",
   "@settingScreensaverDimLevelTitle": {
     "context": "Settings:Screensaver",

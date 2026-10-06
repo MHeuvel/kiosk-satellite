@@ -10,6 +10,8 @@
   "settingScreensaverPixelShiftDescription": "Зсувати зображення щохвилини для захисту матриць OLED. Не застосовується до чорної заставки, де пікселі вже вимкнено.",
   "settingScreensaverMenuTitle": "Показувати в меню кіоска",
   "settingScreensaverMenuDescription": "Додати пункт \"Запустити заставку\" до меню кіоска.",
+  "settingScreensaverFollowAnimationScaleTitle": "Дотримуватися налаштувань анімації Android",
+  "settingScreensaverFollowAnimationScaleDescription": "Призупиняти анімовані заставки, коли анімації Android вимкнено.",
   "settingScreensaverDimLevelTitle": "Рівень затемнення",
   "settingScreensaverDimLevelDescription": "Яскравість екрана в режимі затемнення.",
   "settingScreensaverBrightnessEnabledTitle": "Яскравість заставки",

@@ -9431,6 +9431,14 @@ class UiStringsEs extends UiStrings {
       'Añade la opción Iniciar protector de pantalla al menú del kiosko.';
 
   @override
+  String get settingScreensaverFollowAnimationScaleTitle =>
+      'Seguir los ajustes de animación de Android';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleDescription =>
+      'Pausa los protectores de pantalla animados cuando las animaciones de Android están desactivadas.';
+
+  @override
   String get settingScreensaverDimLevelTitle => 'Nivel de atenuación';
 
   @override

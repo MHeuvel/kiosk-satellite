@@ -22,6 +22,7 @@ class WeatherMoodRenderer extends StatefulWidget {
     this.immediate = false,
     this.revealed = true,
     this.revealToken = 0,
+    this.followAnimationScale = false,
     this.onReady,
     this.onError,
   });
@@ -32,6 +33,10 @@ class WeatherMoodRenderer extends StatefulWidget {
   /// Whether the scene is on screen yet. Hidden, a finished cloud image
   /// replaces the previous one instead of fading in over it.
   final bool revealed;
+
+  /// Holds a still frame while Android's animation scale is off. Off by
+  /// default, since the scene exists to move (#864, #870).
+  final bool followAnimationScale;
 
   /// Passed back through [onReady], so a caller can tell which change the
   /// finished scene reflects.
@@ -225,6 +230,7 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
   bool _ready = false,
       _busy = false,
       _failed = false,
+      _reducedMotion = false,
       _requested = false,
           // Shows the current clouds at once instead of fading to them.
           _snap =
@@ -291,11 +297,11 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
     }
   }
 
-  bool get _animate => widget.active && !_paused;
+  bool get _animate => widget.active && !_reducedMotion && !_paused;
 
   /// Tickers off (under the native voice overlay, which shows a still of
-  /// the screensaver): nothing renders and the scene carries on from where
-  /// it stopped.
+  /// the screensaver): nothing renders, not even the one frame reduced
+  /// motion draws, and the scene carries on from where it stopped.
   bool _paused = false;
 
   void _timings(List<FrameTiming> timings) {
@@ -327,6 +333,18 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
         _request();
       }
     }
+    _followReducedMotion();
+  }
+
+  void _followReducedMotion() {
+    final reduced =
+        widget.followAnimationScale && MediaQuery.disableAnimationsOf(context);
+    if (reduced != _reducedMotion) {
+      _reducedMotion = reduced;
+      _lastTime = null;
+      _snap = true;
+      _request();
+    }
   }
 
   @override
@@ -344,6 +362,9 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
     if (oldWidget.active != widget.active) {
       _lastTime = null;
       _snap = true;
+    }
+    if (oldWidget.followAnimationScale != widget.followAnimationScale) {
+      _followReducedMotion();
     }
     _request();
   }

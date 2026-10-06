@@ -34730,6 +34730,32 @@
       ]
     }
   },
+  "settingScreensaverFollowAnimationScaleTitle": "Suivre les paramètres d'animation d'Android",
+  "@settingScreensaverFollowAnimationScaleTitle": {
+    "context": "Settings:Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverFollowAnimationScaleDescription": "Met en pause les économiseurs d'écran animés quand les animations d'Android sont désactivées.",
+  "@settingScreensaverFollowAnimationScaleDescription": {
+    "context": "Settings:Screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
   "settingScreensaverDimLevelTitle": "Niveau de tamisage",
   "@settingScreensaverDimLevelTitle": {
     "context": "Settings:Screensaver",

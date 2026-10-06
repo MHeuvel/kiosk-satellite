@@ -284,6 +284,7 @@ void main() {
       bool lowPower = true,
       bool active = false,
       bool reduced = false,
+      bool follow = false,
     }) async {
       await tester.pumpWidget(
         MaterialApp(
@@ -300,6 +301,7 @@ void main() {
                 active: active,
                 lowPower: lowPower,
                 immediate: true,
+                followAnimationScale: follow,
                 onError: failures.add,
               ),
             ),
@@ -403,8 +405,8 @@ void main() {
       await render('rainy', true, active: true),
       isNot(equals(pausedRain)),
     );
-    // Android's reduced-animation preference must not freeze an animated
-    // screensaver.
+    // Android's reduced-animation preference does not freeze an animated
+    // screensaver by default.
     final reducedRain = await render(
       'rainy',
       true,
@@ -414,6 +416,18 @@ void main() {
     expect(
       await render('rainy', true, active: true, reduced: true),
       isNot(equals(reducedRain)),
+    );
+    // Unless the screensaver is set to follow it (#870).
+    final followedRain = await render(
+      'rainy',
+      true,
+      active: true,
+      reduced: true,
+      follow: true,
+    );
+    expect(
+      await render('rainy', true, active: true, reduced: true, follow: true),
+      equals(followedRain),
     );
     await tester.pumpWidget(const SizedBox.shrink());
     await tester.runAsync(

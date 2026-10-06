@@ -34730,6 +34730,32 @@
       ]
     }
   },
+  "settingScreensaverFollowAnimationScaleTitle": "Android-Animationseinstellungen folgen",
+  "@settingScreensaverFollowAnimationScaleTitle": {
+    "context": "Settings:Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverFollowAnimationScaleDescription": "Pausiert animierte Bildschirmschoner, wenn Android-Animationen ausgeschaltet sind.",
+  "@settingScreensaverFollowAnimationScaleDescription": {
+    "context": "Settings:Screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
   "settingScreensaverDimLevelTitle": "Dimmstufe",
   "@settingScreensaverDimLevelTitle": {
     "context": "Settings:Screensaver",

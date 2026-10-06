@@ -9364,6 +9364,14 @@ class UiStringsNl extends UiStrings {
       'Voeg de optie \'Schermbeveiliging starten\' toe aan het kioskmenu.';
 
   @override
+  String get settingScreensaverFollowAnimationScaleTitle =>
+      'Android-animatie-instellingen volgen';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleDescription =>
+      'Pauzeer geanimeerde schermbeveiligingen wanneer Android-animaties uit staan.';
+
+  @override
   String get settingScreensaverDimLevelTitle => 'Dimniveau';
 
   @override

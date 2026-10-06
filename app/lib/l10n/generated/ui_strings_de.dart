@@ -9473,6 +9473,14 @@ class UiStringsDe extends UiStrings {
       'Fügt dem Kiosk-Menü die Option „Bildschirmschoner starten“ hinzu.';
 
   @override
+  String get settingScreensaverFollowAnimationScaleTitle =>
+      'Android-Animationseinstellungen folgen';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleDescription =>
+      'Pausiert animierte Bildschirmschoner, wenn Android-Animationen ausgeschaltet sind.';
+
+  @override
   String get settingScreensaverDimLevelTitle => 'Dimmstufe';
 
   @override

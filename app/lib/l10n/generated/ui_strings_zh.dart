@@ -8815,6 +8815,13 @@ class UiStringsZh extends UiStrings {
   String get settingScreensaverMenuDescription => '在 Kiosk 菜单中添加“启动屏保”入口。';
 
   @override
+  String get settingScreensaverFollowAnimationScaleTitle => '跟随 Android 动画设置';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleDescription =>
+      'Android 动画关闭时暂停动态屏保。';
+
+  @override
   String get settingScreensaverDimLevelTitle => '调暗亮度';
 
   @override
@@ -21249,6 +21256,13 @@ class UiStringsZhCn extends UiStringsZh {
 
   @override
   String get settingScreensaverMenuDescription => '在 Kiosk 菜单中添加“启动屏保”入口。';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleTitle => '跟随 Android 动画设置';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleDescription =>
+      'Android 动画关闭时暂停动态屏保。';
 
   @override
   String get settingScreensaverDimLevelTitle => '调暗亮度';

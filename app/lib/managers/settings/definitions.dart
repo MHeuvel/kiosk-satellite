@@ -3810,6 +3810,19 @@ const screensaverMenu = SettingDef<bool>(
   category: 'Screensaver',
 );
 
+/// Off by default: an animated screensaver is meant to move, and kiosk
+/// setup guides often zero Android's animation scales for speed (#864).
+/// On, Weather Mood holds a still frame while Android's transition
+/// animation scale is off, which saves CPU on low-power devices (#870).
+const screensaverFollowAnimationScale = SettingDef<bool>(
+  key: 'screensaver.follow_animation_scale',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Follow Android animation settings',
+  description: 'Pause animated screensavers when Android animations are off.',
+  category: 'Screensaver',
+);
+
 // ── Camera Streams (mode: camera) ──
 // The views the screensaver cycles through, as a JSON array of view ids in
 // rotation order. Picked from the views configured under Camera Streams in
@@ -10178,6 +10191,7 @@ const List<SettingDef<Object>> allSettings = [
   // Pixel shift sits with the general controls: it applies to every mode.
   screensaverPixelShift,
   screensaverMenu,
+  screensaverFollowAnimationScale,
   // The legacy small clock rows, hidden since the Widgets group took over;
   // registered so old backups still import (then migrate on startup).
   screensaverMiniClock,

@@ -34730,6 +34730,32 @@
       ]
     }
   },
+  "settingScreensaverFollowAnimationScaleTitle": "跟随 Android 动画设置",
+  "@settingScreensaverFollowAnimationScaleTitle": {
+    "context": "Settings:Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverFollowAnimationScaleDescription": "Android 动画关闭时暂停动态屏保。",
+  "@settingScreensaverFollowAnimationScaleDescription": {
+    "context": "Settings:Screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
   "settingScreensaverDimLevelTitle": "调暗亮度",
   "@settingScreensaverDimLevelTitle": {
     "context": "Settings:Screensaver",

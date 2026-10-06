@@ -9423,6 +9423,14 @@ class UiStringsFr extends UiStrings {
       'Ajoute une entrée Démarrer l\'économiseur d\'écran au menu du kiosque.';
 
   @override
+  String get settingScreensaverFollowAnimationScaleTitle =>
+      'Suivre les paramètres d\'animation d\'Android';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleDescription =>
+      'Met en pause les économiseurs d\'écran animés quand les animations d\'Android sont désactivées.';
+
+  @override
   String get settingScreensaverDimLevelTitle => 'Niveau de tamisage';
 
   @override

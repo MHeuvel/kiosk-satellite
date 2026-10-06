@@ -9354,6 +9354,14 @@ class UiStringsUk extends UiStrings {
       'Додати пункт \"Запустити заставку\" до меню кіоска.';
 
   @override
+  String get settingScreensaverFollowAnimationScaleTitle =>
+      'Дотримуватися налаштувань анімації Android';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleDescription =>
+      'Призупиняти анімовані заставки, коли анімації Android вимкнено.';
+
+  @override
   String get settingScreensaverDimLevelTitle => 'Рівень затемнення';
 
   @override
