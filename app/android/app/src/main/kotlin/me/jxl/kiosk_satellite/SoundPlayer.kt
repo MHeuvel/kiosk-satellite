@@ -404,6 +404,15 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
             return
         }
         try {
+            // Pin before the write. A pin rebuilds the track, and a rebuilt
+            // streaming track starts empty, so a clip written first is lost
+            // and the chime plays silence (issue #868).
+            if (Build.VERSION.SDK_INT >= 28) {
+                target?.let {
+                    track.preferredDevice = it
+                    enforceRouting(id, track)
+                }
+            }
             // No lead-in for a chime (see LeadInProcessor): a chime is short,
             // what follows it places itself, and a chime that starts late
             // is what the user notices.
@@ -413,12 +422,6 @@ class SoundPlayer(context: Context, messenger: BinaryMessenger) {
             clipTaps[id] = TrackTap(track, clip.sampleRate, if (clip.channels >= 2) 2 else 1).also {
                 it.gain = effectiveVolume(id)
                 it.wrote(clip.pcm, 0, clip.pcm.size)
-            }
-            if (Build.VERSION.SDK_INT >= 28) {
-                target?.let {
-                    track.preferredDevice = it
-                    enforceRouting(id, track)
-                }
             }
             synchronized(tracks) {
                 if (requests[id] !== request) {
