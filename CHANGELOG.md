@@ -8,6 +8,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 - **End the intercom call gesture.** **Gestures** gains an **End the intercom call** action, so claps or a hand showing fingers can end a call from across the room. It ends what the hang up button ends: a call being placed, a live call and either end of an announcement. A ringing call still needs Answer or Decline on the screen. Gestures stay armed during a call. Translated into Spanish, German, French, Ukrainian, Dutch and Simplified Chinese.
 
 ### Changed
+- **Weather Mood uses less per-frame CPU.** The screensaver now reuses stable star geometry, rain-on-glass drop shapes, sunlight mote paths, shader paints and uniform storage instead of rebuilding them on every frame. Its weather animation, density and visual detail stay the same.
 - **Wake word listening does less idle work.** vsWakeWord reuses each model's decoded output for its cross-window matcher, and all three engines now track near misses only when diagnostics are enabled. Detection scores remain unchanged.
 
 ### Fixed

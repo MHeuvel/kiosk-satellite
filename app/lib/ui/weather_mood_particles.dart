@@ -16,6 +16,53 @@ class _Particle {
   final double x, y, depth, phase, variation, drift;
 }
 
+class _MoteCycle {
+  double cycle = double.nan;
+  double cellX = 0, cellY = 0, velocityX = 0, velocityY = 0;
+
+  void update(int index, double next) {
+    if (cycle == next) return;
+    cycle = next;
+    final heading = weatherMoodRandom(index * 3.7 + next * 5.3) * math.pi * 2;
+    final speed = 1.5 + weatherMoodRandom(index * 8.1 + next * 2.9) * 3;
+    cellX = weatherMoodRandom(index * 7.3 + next * 3.1);
+    cellY = weatherMoodRandom(index * 5.9 + next * 4.7);
+    velocityX = math.cos(heading) * speed;
+    velocityY = math.sin(heading) * speed;
+  }
+}
+
+class _GlassCycle {
+  double cycle = double.nan;
+  double seed = 0,
+      x = 0,
+      y = 0,
+      radius = 0,
+      slideChance = 0,
+      slideStart = 0,
+      aspect = 0;
+  int shape = 0;
+  final beadAt = List<double>.filled(4, 0);
+  final beadSize = List<double>.filled(4, 0);
+
+  void update(int index, double next, double period, int shapeCount) {
+    if (cycle == next) return;
+    cycle = next;
+    seed = index * 7.13 + next * 13.7;
+    x = weatherMoodRandom(seed + 1);
+    y = weatherMoodRandom(seed + 2);
+    radius = 2.6 + math.pow(weatherMoodRandom(seed + 3), 1.8) * 10.5;
+    slideChance = weatherMoodRandom(seed + 4);
+    slideStart = 1.2 + weatherMoodRandom(seed + 5) * period * .4;
+    shape = (weatherMoodRandom(seed + 6) * shapeCount).floor();
+    aspect = .86 + weatherMoodRandom(seed + 7) * .28;
+    for (var i = 0; i < 4; i++) {
+      beadAt[i] = weatherMoodRandom(seed + 20 + i);
+      beadSize[i] = weatherMoodRandom(seed + 30 + i);
+    }
+  }
+}
+
 /// Deterministic fields keep the approved spacing, speeds and depth layers.
 class WeatherMoodParticles {
   WeatherMoodParticles() {
@@ -39,6 +86,8 @@ class WeatherMoodParticles {
     _nearHail = field(32);
     _stars = field(700);
     _glass = field(140);
+    _moteCycles = List.generate(_motes.length, (_) => _MoteCycle());
+    _glassCycles = List.generate(_glass.length, (_) => _GlassCycle());
   }
   late final List<_Particle> _rain,
       _snow,
@@ -49,8 +98,13 @@ class WeatherMoodParticles {
       _wind,
       _nearHail;
   late final List<_Particle> _stars, _glass;
+  late final List<_MoteCycle> _moteCycles;
+  late final List<_GlassCycle> _glassCycles;
   Float32List _starTransforms = Float32List(0), _starRects = Float32List(0);
   Int32List _starColors = Int32List(0);
+  Int32List _starRgb = Int32List(0);
+  Float64List _starCenters = Float64List(0);
+  ui.Size _starGeometrySize = ui.Size.zero;
   final _starPaint = ui.Paint()..filterQuality = ui.FilterQuality.low;
   Float32List _rainPositions = Float32List(0),
       _rainTextureCoordinates = Float32List(0);
@@ -411,22 +465,37 @@ class WeatherMoodParticles {
       1,
       _stars.length,
     );
-    if (_starColors.length != count) {
+    if (_starColors.length != count || _starGeometrySize != size) {
       _starTransforms = Float32List(count * 4);
       _starRects = Float32List(count * 4);
       _starColors = Int32List(count);
+      _starRgb = Int32List(count);
+      _starCenters = Float64List(count * 2);
+      _starGeometrySize = size;
       for (var i = 0; i < count; i++) {
+        final p = _stars[i];
+        final radius = (.45 + math.pow(p.depth, 3) * .65) * scale;
+        final red = (166 + 89 * p.drift).round(),
+            green = (204 + 36 * p.drift).round(),
+            blue = (255 - 51 * p.drift).round();
         _starRects[i * 4 + 2] = 96;
         _starRects[i * 4 + 3] = 96;
+        _starTransforms[i * 4] = radius / 48;
+        _starTransforms[i * 4 + 1] = 0;
+        _starTransforms[i * 4 + 2] = p.x * size.width - radius;
+        _starTransforms[i * 4 + 3] = p.y * size.height - radius;
+        _starRgb[i] = (red << 16) | (green << 8) | blue;
+        _starCenters[i * 2] = p.x * size.width;
+        _starCenters[i * 2 + 1] = p.y * size.height;
       }
     }
     for (var i = 0; i < count; i++) {
       final p = _stars[i];
-      final radius = (.45 + math.pow(p.depth, 3) * .65) * scale;
       final twinkle = p.depth > .65
           ? .70 + .30 * math.sin(time * (.65 + p.variation * 1.1) + p.phase)
           : 1.0;
-      final dx = p.x * size.width - moonX, dy = p.y * size.height - moonY;
+      final dx = _starCenters[i * 2] - moonX,
+          dy = _starCenters[i * 2 + 1] - moonY;
       final hidden = dx * dx + dy * dy < moonClear * moonClear;
       final alpha = hidden
           ? 0
@@ -434,14 +503,7 @@ class WeatherMoodParticles {
               0,
               255,
             );
-      final red = (166 + 89 * p.drift).round(),
-          green = (204 + 36 * p.drift).round(),
-          blue = (255 - 51 * p.drift).round();
-      _starColors[i] = (alpha << 24) | (red << 16) | (green << 8) | blue;
-      _starTransforms[i * 4] = radius / 48;
-      _starTransforms[i * 4 + 1] = 0;
-      _starTransforms[i * 4 + 2] = p.x * size.width - radius;
-      _starTransforms[i * 4 + 3] = p.y * size.height - radius;
+      _starColors[i] = (alpha << 24) | _starRgb[i];
     }
     canvas.drawRawAtlas(
       _sprites[0],
@@ -725,6 +787,7 @@ class WeatherMoodParticles {
       final columns = math.max(1, math.sqrt(count * width / height).round());
       final rows = (count / columns).ceil();
       final cellWidth = width / columns, cellHeight = height / rows;
+      final sunX = width * .84, sunY = height * (.24 + .48 * twilight);
       for (var i = 0; i < count; i++) {
         final p = _motes[i];
         // Each mote glows for a few seconds, fades out, rests unseen and
@@ -732,6 +795,7 @@ class WeatherMoodParticles {
         final period = 10 + p.drift * 10;
         final cycle = t / period + p.phase / (math.pi * 2);
         final k = cycle.floorToDouble(), age = cycle - k;
+        final state = _moteCycles[i]..update(i, k);
         double smooth(double a, double b, double v) {
           final s = ((v - a) / (b - a)).clamp(0.0, 1.0);
           return s * s * (3 - 2 * s);
@@ -742,21 +806,18 @@ class WeatherMoodParticles {
         final seconds = age * period;
         // Each appearance drifts its own way, so the field as a whole never
         // slides toward one side.
-        final heading = weatherMoodRandom(i * 3.7 + k * 5.3) * math.pi * 2;
-        final speed = 1.5 + weatherMoodRandom(i * 8.1 + k * 2.9) * 3;
         final x =
-            (i % columns + .15 + weatherMoodRandom(i * 7.3 + k * 3.1) * .7) *
+            (i % columns + .15 + state.cellX * .7) *
                 cellWidth +
-            math.cos(heading) * speed * seconds +
+            state.velocityX * seconds +
             math.sin(t * .19 + p.phase) * 9;
         final y =
-            (i ~/ columns + .15 + weatherMoodRandom(i * 5.9 + k * 4.7) * .7) *
+            (i ~/ columns + .15 + state.cellY * .7) *
                 cellHeight +
-            math.sin(heading) * speed * seconds +
+            state.velocityY * seconds +
             math.sin(t * .23 + p.phase) * 8;
         // The sun's glare outshines motes that drift close to it. Matches
         // the sun position in the sky shader, lower at dawn and dusk.
-        final sunX = width * .84, sunY = height * (.24 + .48 * twilight);
         final light =
             1 -
             math.exp(-(math.pow(x - sunX, 2) + math.pow(y - sunY, 2)) / 14000);
@@ -829,13 +890,15 @@ class WeatherMoodParticles {
       final cycle = t + p.phase / (math.pi * 2) * period;
       final k = (cycle / period).floorToDouble();
       final age = cycle - k * period;
-      final seed = i * 7.13 + k * 13.7;
-      final x0 = weatherMoodRandom(seed + 1) * (width + 40) - 20;
-      final y0 = weatherMoodRandom(seed + 2) * (height - 40) + 10;
-      var radius = 2.6 + math.pow(weatherMoodRandom(seed + 3), 1.8) * 10.5;
+      final state = _glassCycles[i]
+        ..update(i, k, period, _dropShapes.length);
+      final seed = state.seed;
+      final x0 = state.x * (width + 40) - 20;
+      final y0 = state.y * (height - 40) + 10;
+      var radius = state.radius;
       final slides =
-          radius > 7 && weatherMoodRandom(seed + 4) < .45 + .35 * downpour;
-      final slideStart = 1.2 + weatherMoodRandom(seed + 5) * period * .4;
+          radius > 7 && state.slideChance < .45 + .35 * downpour;
+      final slideStart = state.slideStart;
       final pop = math.min(1.0, age / .12);
       final life =
           presence *
@@ -869,10 +932,10 @@ class WeatherMoodParticles {
         }
         // Small beads stay behind where the drop has already passed.
         for (var j = 0; j < 4; j++) {
-          final at = (j + .35 + weatherMoodRandom(seed + 20 + j) * .5) * 34;
+          final at = (j + .35 + state.beadAt[j] * .5) * 34;
           if (y0 + at > y - radius * 1.5) break;
           final along = at / math.max(1, y - y0);
-          final bead = radius * (.2 + weatherMoodRandom(seed + 30 + j) * .14);
+          final bead = radius * (.2 + state.beadSize[j] * .14);
           _batch.add(
             _dropCell,
             x0 + (x - x0) * along,
@@ -888,8 +951,8 @@ class WeatherMoodParticles {
       final size = radius * 2 * (.7 + .3 * pop);
       // Resting drops vary in outline and proportion. Sliding ones round
       // out as they run.
-      final shape = (weatherMoodRandom(seed + 6) * _dropShapes.length).floor();
-      final aspect = .86 + weatherMoodRandom(seed + 7) * .28;
+      final shape = state.shape;
+      final aspect = state.aspect;
       _batch.add(
         stretch > 1 ? _shapeCell(4) : _shapeCell(shape),
         x,
