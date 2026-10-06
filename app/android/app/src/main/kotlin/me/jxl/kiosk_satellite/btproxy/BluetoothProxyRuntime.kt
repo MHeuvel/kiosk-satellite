@@ -268,6 +268,19 @@ internal object BluetoothProxyRuntime {
         engine?.setScreenOffScan(enabled)
     }
 
+    /**
+     * Close the scan registration before a self-update commits. Package
+     * replacement kills the process without running ordinary cleanup, and
+     * some vendor Bluetooth stacks otherwise keep its scanner registered.
+     */
+    fun pauseScannerForPackageReplacement(): Boolean =
+        engine?.pauseForPackageReplacement() ?: true
+
+    /** Restore scanning when the attempted replacement failed or was declined. */
+    fun resumeScannerAfterPackageReplacementFailure() {
+        engine?.resumeAfterPackageReplacementFailure()
+    }
+
     /** Push one entity's new value; ignored while stopped or unknown ids. */
     fun updateEntityState(objectId: String, value: Any?) {
         entityHub?.updateState(objectId, value)

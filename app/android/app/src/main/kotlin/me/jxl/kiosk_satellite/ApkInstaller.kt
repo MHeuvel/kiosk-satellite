@@ -15,6 +15,7 @@ import android.os.StatFs
 import android.util.Log
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
+import me.jxl.kiosk_satellite.btproxy.BluetoothProxyRuntime
 import java.io.File
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.Executors
@@ -83,10 +84,15 @@ class ApkInstaller(private val context: Context, messenger: BinaryMessenger) {
                         Log.w(TAG, "pending user action without an intent")
                         return
                     }
+                    // A confirmed update kills us without ordinary teardown.
+                    // Stop BLE before the screen appears so even a quick tap
+                    // cannot strand this process's scanner in a vendor stack.
+                    pauseScannerForPackageReplacement()
                     confirm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     try {
                         ctx.startActivity(confirm)
                     } catch (e: Exception) {
+                        resumeScannerAfterPackageReplacementFailure()
                         Log.w(TAG, "could not show the install confirmation: $e")
                         channel.invokeMethod(
                             "installFailed",
@@ -113,6 +119,7 @@ class ApkInstaller(private val context: Context, messenger: BinaryMessenger) {
                     val aborted =
                         status == PackageInstaller.STATUS_FAILURE_ABORTED && !verifier
                     val silent = silentSessions.remove(sessionId)
+                    resumeScannerAfterPackageReplacementFailure()
                     Log.w(TAG, "install failed: $message")
                     channel.invokeMethod(
                         when {
@@ -230,65 +237,81 @@ class ApkInstaller(private val context: Context, messenger: BinaryMessenger) {
 
     /** A fallback asks Dart to release kiosk protections before creating a session. */
     private fun install(apk: File, useSystemInstaller: Boolean, useShizuku: Boolean): String {
-        if (useShizuku) {
-            Log.i(TAG, "installing through Shizuku")
-            return shizuku.install(apk)
-        }
-        val nativeSilent = canInstallNativelySilently()
-        if (!nativeSilent && !useSystemInstaller) {
-            Log.i(TAG, "trying the update helper")
-            if (helper.install(apk)) return "silent"
-            Log.i(TAG, "update helper unavailable before commit; requesting system installer fallback")
-            return "fallback"
-        }
-        Log.i(TAG, "using Android PackageInstaller (nativeSilent=$nativeSilent)")
-        val installer = context.packageManager.packageInstaller
-        val params = PackageInstaller.SessionParams(
-            PackageInstaller.SessionParams.MODE_FULL_INSTALL)
-        params.setAppPackageName(context.packageName)
-        // Session params default to INSTALL_LOCATION_INTERNAL_ONLY, and on a
-        // tablet whose SD card is formatted as internal (adopted storage)
-        // with this app living on it, that makes Android refuse the update
-        // outright: "Cannot automatically move <package> from <volume> to
-        // internal storage" (issue #424). AUTO keeps an update on whichever
-        // volume the app already occupies, which is what the system installer
-        // does too.
-        params.setInstallLocation(PackageInfo.INSTALL_LOCATION_AUTO)
-        params.setSize(apk.length())
-        // useSystemInstaller on a device that could install silently is
-        // the retry after the silent install was refused, so it asks for
-        // the confirm screen outright.
-        val silent = nativeSilent && !useSystemInstaller
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            params.setRequireUserAction(
-                if (silent) PackageInstaller.SessionParams.USER_ACTION_NOT_REQUIRED
-                else PackageInstaller.SessionParams.USER_ACTION_REQUIRED)
-        }
-        val sessionId = installer.createSession(params)
-        installer.openSession(sessionId).use { session ->
-            session.openWrite("app.apk", 0, apk.length()).use { out ->
-                apk.inputStream().use { it.copyTo(out) }
-                session.fsync(out)
+        try {
+            if (useShizuku) {
+                Log.i(TAG, "installing through Shizuku")
+                return shizuku.install(apk, ::pauseScannerForPackageReplacement)
             }
-            val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
-            } else {
-                PendingIntent.FLAG_UPDATE_CURRENT
+            val nativeSilent = canInstallNativelySilently()
+            if (!nativeSilent && !useSystemInstaller) {
+                Log.i(TAG, "trying the update helper")
+                if (helper.install(apk, ::pauseScannerForPackageReplacement)) return "silent"
+                Log.i(TAG, "update helper unavailable before commit; requesting system installer fallback")
+                return "fallback"
             }
-            val status = PendingIntent.getBroadcast(
-                context, sessionId,
-                Intent(ACTION_STATUS).setPackage(context.packageName), flags)
-            // Recorded before the commit: the outcome can arrive first.
-            if (silent) silentSessions.add(sessionId)
-            try {
-                session.commit(status.intentSender)
-            } catch (e: Exception) {
-                silentSessions.remove(sessionId)
-                throw e
+            Log.i(TAG, "using Android PackageInstaller (nativeSilent=$nativeSilent)")
+            val installer = context.packageManager.packageInstaller
+            val params = PackageInstaller.SessionParams(
+                PackageInstaller.SessionParams.MODE_FULL_INSTALL)
+            params.setAppPackageName(context.packageName)
+            // Session params default to INSTALL_LOCATION_INTERNAL_ONLY, and on a
+            // tablet whose SD card is formatted as internal (adopted storage)
+            // with this app living on it, that makes Android refuse the update
+            // outright: "Cannot automatically move <package> from <volume> to
+            // internal storage" (issue #424). AUTO keeps an update on whichever
+            // volume the app already occupies, which is what the system installer
+            // does too.
+            params.setInstallLocation(PackageInfo.INSTALL_LOCATION_AUTO)
+            params.setSize(apk.length())
+            // useSystemInstaller on a device that could install silently is
+            // the retry after the silent install was refused, so it asks for
+            // the confirm screen outright.
+            val silent = nativeSilent && !useSystemInstaller
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                params.setRequireUserAction(
+                    if (silent) PackageInstaller.SessionParams.USER_ACTION_NOT_REQUIRED
+                    else PackageInstaller.SessionParams.USER_ACTION_REQUIRED)
             }
+            val sessionId = installer.createSession(params)
+            installer.openSession(sessionId).use { session ->
+                session.openWrite("app.apk", 0, apk.length()).use { out ->
+                    apk.inputStream().use { it.copyTo(out) }
+                    session.fsync(out)
+                }
+                val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+                } else {
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                }
+                val status = PendingIntent.getBroadcast(
+                    context, sessionId,
+                    Intent(ACTION_STATUS).setPackage(context.packageName), flags)
+                // Recorded before the commit: the outcome can arrive first.
+                if (silent) silentSessions.add(sessionId)
+                try {
+                    if (silent) pauseScannerForPackageReplacement()
+                    session.commit(status.intentSender)
+                } catch (e: Exception) {
+                    silentSessions.remove(sessionId)
+                    throw e
+                }
+            }
+            Log.i(TAG, "session $sessionId committed (${if (silent) "silent" else "confirm"})")
+            return if (silent) "silent" else "confirm"
+        } catch (e: Exception) {
+            resumeScannerAfterPackageReplacementFailure()
+            throw e
         }
-        Log.i(TAG, "session $sessionId committed (${if (silent) "silent" else "confirm"})")
-        return if (silent) "silent" else "confirm"
+    }
+
+    private fun pauseScannerForPackageReplacement() {
+        if (!BluetoothProxyRuntime.pauseScannerForPackageReplacement()) {
+            Log.w(TAG, "BLE scanner did not stop before the install commit")
+        }
+    }
+
+    private fun resumeScannerAfterPackageReplacementFailure() {
+        BluetoothProxyRuntime.resumeScannerAfterPackageReplacementFailure()
     }
 
     fun dispose() {

@@ -26,7 +26,7 @@ class ShizukuUpdateClient(private val context: Context) {
     fun requireReady() {
         check(ready()) { "Shizuku updates are enabled. Start Shizuku and grant Kiosk Satellite access in Settings > Device > Shizuku, then try again." }
     }
-    fun install(apk: File): String {
+    fun install(apk: File, beforeCommit: () -> Unit = {}): String {
         requireReady()
         val args = Shizuku.UserServiceArgs(ComponentName(context, ShizukuUpdateService::class.java))
             .tag("kiosk-update-${UUID.randomUUID()}").daemon(true).version(1).processNameSuffix("shizuku_update")
@@ -54,6 +54,7 @@ class ShizukuUpdateClient(private val context: Context) {
             ParcelFileDescriptor.open(apk, ParcelFileDescriptor.MODE_READ_ONLY).use { target.prepare(it, apk.length()) }
             requireReady()
             // Never fall back or retry after this point, even if the Binder reply is lost.
+            beforeCommit()
             committed = true
             val result = target.commit()
             completed = true
