@@ -7521,6 +7521,26 @@ const sendspinSyncOffset = SettingDef<num>(
   dependsOn: 'sendspin.enabled',
 );
 
+/// Whether the Now Playing volume slider sets the whole group's volume
+/// while this device plays in a Music Assistant group (issue #867), the
+/// way Music Assistant's own group slider does, or only this device's.
+/// The group's level comes from Music Assistant's API, so the switch
+/// needs that connection.
+const sendspinGroupVolume = SettingDef<bool>(
+  key: 'sendspin.group_volume',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Adjust the group volume',
+  description:
+      'While this device plays in a group, the volume slider sets the '
+      "whole group's volume. Off, only this device's. Needs the Music "
+      'Assistant connection.',
+  category: 'Sendspin',
+  subpage: 'Sendspin Player',
+  section: 'Sendspin Player',
+  dependsOn: 'sendspin.enabled',
+);
+
 // ── Music Assistant (Sendspin section) ─────────────────────────────────
 // The Sendspin player speaks Music Assistant's player protocol, which
 // carries the track but nothing about it beyond title, artist and album.
@@ -10529,6 +10549,7 @@ const List<SettingDef<Object>> allSettings = [
   sendspinServer,
   sendspinCodec,
   sendspinSyncOffset,
+  sendspinGroupVolume,
   sendspinMaUrl,
   sendspinMaToken,
   sendspinMaShortcut,

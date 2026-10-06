@@ -297,6 +297,60 @@ void main() {
       expect(snap['receivedAt'], isNotNull);
     });
 
+    test('a leading player carries its group volume (issue #867)', () {
+      remote.publishQueue(_queue());
+      expect(emitted.last!.containsKey('groupVolume'), isFalse);
+      Map<String, Object?> leading(int group) => {
+        'player_id': 'p1',
+        'volume_level': 20,
+        'volume_muted': false,
+        'group_members': ['p1', 'p2'],
+        'group_volume': group,
+        'group_volume_muted': false,
+      };
+      remote.handleEvent('player_updated', 'p1', leading(45));
+      expect(emitted.last!['groupVolume'], 45);
+      expect(emitted.last!['groupMuted'], isFalse);
+      expect(emitted.last!['volume'], 20);
+      expect(remote.groupVolume, 45);
+      // Another room moved: the leader's next update carries the level.
+      remote.handleEvent('player_updated', 'p1', leading(60));
+      expect(emitted.last!['groupVolume'], 60);
+      // A queue event keeps the group volume on the snapshot.
+      remote.handleEvent('queue_updated', 'q1', _queue(state: 'paused'));
+      expect(emitted.last!['groupVolume'], 60);
+      // Left alone: no group volume.
+      remote.handleEvent('player_updated', 'p1', {
+        'player_id': 'p1',
+        'volume_level': 20,
+        'group_members': <String>[],
+        'group_volume': 20,
+      });
+      expect(emitted.last!.containsKey('groupVolume'), isFalse);
+      expect(remote.groupVolume, isNull);
+    });
+
+    test('a bare Sendspin leader counts itself in the group volume', () {
+      // Music Assistant leaves a protocol player out of its own group
+      // volume: 20 is the other member alone.
+      remote.publishQueue(_queue());
+      Map<String, Object?> leading({bool muted = false}) => {
+        'player_id': 'p1',
+        'type': 'protocol',
+        'volume_control': 'native',
+        'volume_level': 37,
+        'volume_muted': muted,
+        'group_members': ['p1', 'p2'],
+        'group_volume': 20,
+        'group_volume_muted': true,
+      };
+      remote.handleEvent('player_updated', 'p1', leading());
+      expect(emitted.last!['groupVolume'], 37);
+      expect(emitted.last!['groupMuted'], isFalse);
+      remote.handleEvent('player_updated', 'p1', leading(muted: true));
+      expect(emitted.last!['groupMuted'], isTrue);
+    });
+
     test('an idle queue at startup stays off screen', () {
       remote.publishQueue(_queue(state: 'idle'));
       expect(emitted, [null]);

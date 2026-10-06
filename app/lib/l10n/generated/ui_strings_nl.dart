@@ -8341,6 +8341,10 @@ class UiStringsNl extends UiStrings {
       'Een negatieve waarde laat dit apparaat eerder afspelen, voor luidsprekers die achterlopen op de groep, bijvoorbeeld via Bluetooth. Stel dit op gehoor af; wijzigingen worden direct toegepast.';
 
   @override
+  String get settingSendspinGroupVolumeDescription =>
+      'Wanneer dit apparaat in een groep afspeelt, regelt de volumeschuif het volume van de hele groep. Als dit uitstaat, wordt alleen het volume van dit apparaat aangepast. Vereist de verbinding met Music Assistant.';
+
+  @override
   String get mediaSendspinPage => 'Sendspin-speler';
 
   @override

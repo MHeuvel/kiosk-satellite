@@ -8446,6 +8446,10 @@ class UiStringsDe extends UiStrings {
       'Ein negativer Wert lässt dieses Gerät früher wiedergeben, um Lautsprecher auszugleichen, die gegenüber der Gruppe verzögert sind, beispielsweise Bluetooth-Lautsprecher. Nach Gehör anpassen. Wird sofort angewendet.';
 
   @override
+  String get settingSendspinGroupVolumeDescription =>
+      'Wenn dieses Gerät in einer Gruppe wiedergibt, steuert die Lautstärkeregelung die gesamte Gruppe. Ist diese Option deaktiviert, wird nur die Lautstärke dieses Geräts angepasst. Erfordert die Verbindung zu Music Assistant.';
+
+  @override
   String get mediaSendspinPage => 'Sendspin-Player';
 
   @override

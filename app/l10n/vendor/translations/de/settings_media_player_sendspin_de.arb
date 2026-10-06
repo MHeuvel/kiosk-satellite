@@ -8,6 +8,7 @@
   "settingSendspinCodecDescription": "FLAC ist verlustfrei und ideal für WLAN oder Ethernet. Der Server wählt den Codec aus den von diesem Gerät unterstützten Codecs aus.",
   "settingSendspinSyncOffsetTitle": "Audio-Synchronisationskorrektur (ms)",
   "settingSendspinSyncOffsetDescription": "Ein negativer Wert lässt dieses Gerät früher wiedergeben, um Lautsprecher auszugleichen, die gegenüber der Gruppe verzögert sind, beispielsweise Bluetooth-Lautsprecher. Nach Gehör anpassen. Wird sofort angewendet.",
+  "settingSendspinGroupVolumeDescription": "Wenn dieses Gerät in einer Gruppe wiedergibt, steuert die Lautstärkeregelung die gesamte Gruppe. Ist diese Option deaktiviert, wird nur die Lautstärke dieses Geräts angepasst. Erfordert die Verbindung zu Music Assistant.",
   "mediaSendspinPage": "Sendspin-Player",
   "mediaSendspinHint": "Verwandelt dieses Gerät in einen synchronisierten Music-Assistant-Player",
   "mediaFlac": "FLAC (verlustfrei)",

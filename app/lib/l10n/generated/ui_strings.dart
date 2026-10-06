@@ -14337,6 +14337,12 @@ abstract class UiStrings {
   /// **'Negative plays this device earlier, for speakers that lag behind the group (Bluetooth). Tune by ear; applies live.'**
   String get settingSendspinSyncOffsetDescription;
 
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'While this device plays in a group, the volume slider sets the whole group\'s volume. Off, only this device\'s. Needs the Music Assistant connection.'**
+  String get settingSendspinGroupVolumeDescription;
+
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:

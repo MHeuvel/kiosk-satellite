@@ -30824,6 +30824,19 @@
       ]
     }
   },
+  "settingSendspinGroupVolumeDescription": "Tant que cet appareil joue au sein d'un groupe, le curseur de volume règle le volume de tout le groupe. Si l'option est désactivée, seul le volume de cet appareil est modifié. Nécessite la connexion à Music Assistant.",
+  "@settingSendspinGroupVolumeDescription": {
+    "context": "Settings > Media Player > Sendspin Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sendspin Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sendspin Player"
+      ]
+    }
+  },
   "mediaSendspinPage": "Lecteur Sendspin",
   "@mediaSendspinPage": {
     "context": "Settings > Media Player > Sendspin Player",

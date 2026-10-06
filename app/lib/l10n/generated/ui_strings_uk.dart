@@ -8325,6 +8325,10 @@ class UiStringsUk extends UiStrings {
       'Від\'ємне значення відтворює на цьому пристрої раніше, для гучномовців, що відстають від групи (Bluetooth). Підлаштовуйте на слух; застосовується негайно.';
 
   @override
+  String get settingSendspinGroupVolumeDescription =>
+      'Поки цей пристрій грає у групі, повзунок гучності встановлює гучність усієї групи. Якщо вимкнено - лише цього пристрою. Потрібне підключення до Music Assistant.';
+
+  @override
   String get mediaSendspinPage => 'Плеєр Sendspin';
 
   @override

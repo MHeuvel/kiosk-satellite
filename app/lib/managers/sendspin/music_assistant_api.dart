@@ -321,6 +321,15 @@ class MusicAssistantApi {
     final leader = byId[leaderId] ?? me;
     String nameOf(Map<Object?, Object?> p) =>
         '${p['display_name'] ?? p['name'] ?? p['player_id'] ?? ''}';
+    // A player whose volume Music Assistant cannot set says so; an older
+    // server that does not is taken at its reported level.
+    int? volumeOf(Map<Object?, Object?> p) {
+      final level = p['volume_level'];
+      return p['volume_control'] == 'none' || level is! num
+          ? null
+          : level.round().clamp(0, 100);
+    }
+
     final children = (leader['group_members'] ?? leader['group_childs']);
     final inGroup = {
       leaderId,
@@ -351,6 +360,7 @@ class MusicAssistantApi {
           name: nameOf(p),
           inGroup: grouped,
           available: p['available'] != false,
+          volume: volumeOf(p),
         ),
       );
     }
@@ -359,6 +369,7 @@ class MusicAssistantApi {
       leaderId: leaderId,
       leaderName: nameOf(leader),
       members: RemoteGroup.ordered(members),
+      leaderVolume: volumeOf(leader),
     );
   }
 

@@ -61,6 +61,7 @@ const mediaTextMessageIds = <String, String>{
   "FLAC is lossless and ideal on WiFi or ethernet. The server makes the final choice from what this device offers.": "settingSendspinCodecDescription",
   "Audio sync offset (ms)": "settingSendspinSyncOffsetTitle",
   "Negative plays this device earlier, for speakers that lag behind the group (Bluetooth). Tune by ear; applies live.": "settingSendspinSyncOffsetDescription",
+  "While this device plays in a group, the volume slider sets the whole group's volume. Off, only this device's. Needs the Music Assistant connection.": "settingSendspinGroupVolumeDescription",
   "Server address": "settingSendspinMaUrlTitle",
   "The Music Assistant server's address, as its web interface shows it. Usually https and port 8095.": "settingSendspinMaUrlDescription",
   "Auth token": "settingSendspinMaTokenTitle",

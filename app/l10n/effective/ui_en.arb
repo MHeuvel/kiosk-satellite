@@ -30824,6 +30824,19 @@
       ]
     }
   },
+  "settingSendspinGroupVolumeDescription": "While this device plays in a group, the volume slider sets the whole group's volume. Off, only this device's. Needs the Music Assistant connection.",
+  "@settingSendspinGroupVolumeDescription": {
+    "context": "Settings > Media Player > Sendspin Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sendspin Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sendspin Player"
+      ]
+    }
+  },
   "mediaSendspinPage": "Sendspin Player",
   "@mediaSendspinPage": {
     "context": "Settings > Media Player > Sendspin Player",

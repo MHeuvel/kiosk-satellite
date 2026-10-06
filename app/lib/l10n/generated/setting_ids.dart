@@ -992,6 +992,10 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingSendspinSyncOffsetTitle",
     "description": "settingSendspinSyncOffsetDescription",
   },
+  "sendspin.group_volume": {
+    "title": "settingSendspinSonosGroupVolumeTitle",
+    "description": "settingSendspinGroupVolumeDescription",
+  },
   "sendspin.ma_url": {
     "title": "settingSendspinMaUrlTitle",
     "description": "settingSendspinMaUrlDescription",

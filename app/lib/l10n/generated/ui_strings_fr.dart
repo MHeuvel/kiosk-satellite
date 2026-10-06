@@ -8396,6 +8396,10 @@ class UiStringsFr extends UiStrings {
       'Une valeur négative fait jouer cet appareil plus tôt, pour les enceintes en retard sur le groupe (Bluetooth). Réglez à l\'oreille ; s\'applique en direct.';
 
   @override
+  String get settingSendspinGroupVolumeDescription =>
+      'Tant que cet appareil joue au sein d\'un groupe, le curseur de volume règle le volume de tout le groupe. Si l\'option est désactivée, seul le volume de cet appareil est modifié. Nécessite la connexion à Music Assistant.';
+
+  @override
   String get mediaSendspinPage => 'Lecteur Sendspin';
 
   @override

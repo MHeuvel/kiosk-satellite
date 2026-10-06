@@ -2507,6 +2507,8 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingSendspinSyncOffsetTitle,
       'settingSendspinSyncOffsetDescription' =>
         strings.settingSendspinSyncOffsetDescription,
+      'settingSendspinGroupVolumeDescription' =>
+        strings.settingSendspinGroupVolumeDescription,
       'mediaSendspinPage' => strings.mediaSendspinPage,
       'mediaSendspinHint' => strings.mediaSendspinHint,
       'mediaFlac' => strings.mediaFlac,

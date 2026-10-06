@@ -7874,6 +7874,10 @@ class UiStringsZh extends UiStrings {
       '设置为负值可让此设备提前播放，适用于蓝牙扬声器等播放滞后于组内其他设备的情况。请根据实际听到的效果调整，修改立即生效。';
 
   @override
+  String get settingSendspinGroupVolumeDescription =>
+      '此设备加入播放组时，音量控制会调整整个组的音量。关闭此项后，只调整此设备的音量。需要连接 Music Assistant。';
+
+  @override
   String get mediaSendspinPage => 'Sendspin 播放器';
 
   @override
@@ -20321,6 +20325,10 @@ class UiStringsZhCn extends UiStringsZh {
   @override
   String get settingSendspinSyncOffsetDescription =>
       '设置为负值可让此设备提前播放，适用于蓝牙扬声器等播放滞后于组内其他设备的情况。请根据实际听到的效果调整，修改立即生效。';
+
+  @override
+  String get settingSendspinGroupVolumeDescription =>
+      '此设备加入播放组时，音量控制会调整整个组的音量。关闭此项后，只调整此设备的音量。需要连接 Music Assistant。';
 
   @override
   String get mediaSendspinPage => 'Sendspin 播放器';

@@ -8241,6 +8241,10 @@ class UiStringsEn extends UiStrings {
       'Negative plays this device earlier, for speakers that lag behind the group (Bluetooth). Tune by ear; applies live.';
 
   @override
+  String get settingSendspinGroupVolumeDescription =>
+      'While this device plays in a group, the volume slider sets the whole group\'s volume. Off, only this device\'s. Needs the Music Assistant connection.';
+
+  @override
   String get mediaSendspinPage => 'Sendspin Player';
 
   @override

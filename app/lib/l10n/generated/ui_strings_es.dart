@@ -8403,6 +8403,10 @@ class UiStringsEs extends UiStrings {
       'Un valor negativo hace que este dispositivo reproduzca antes, para compensar altavoces que se retrasan respecto al grupo, como los Bluetooth. Ajusta de oído. Se aplica de inmediato.';
 
   @override
+  String get settingSendspinGroupVolumeDescription =>
+      'Cuando este dispositivo reproduce en un grupo, el control de volumen ajusta todo el grupo. Si está desactivado, solo ajusta este dispositivo. Necesita la conexión con Music Assistant.';
+
+  @override
   String get mediaSendspinPage => 'Reproductor Sendspin';
 
   @override

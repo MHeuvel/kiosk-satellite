@@ -153,6 +153,21 @@ class MaRemotePlayer implements RemotePlayer {
   int? _volume;
   bool? _muted;
 
+  /// The player whose group this one plays in (issue #867): the one it
+  /// is synced to, itself while it leads others, empty while it plays
+  /// alone. Its group volume and mute are Music Assistant's own: the
+  /// loudest member's level, and muted only when every member is.
+  String _groupLeader = '';
+  int? _groupVolume;
+  bool? _groupMuted;
+
+  /// The group volume, 0 to 100, while the player plays in a group; null
+  /// while it plays alone or the server has not said.
+  int? get groupVolume => _groupVolume;
+
+  /// Whether the group the player plays in is muted, null as above.
+  bool? get groupMuted => _groupMuted;
+
   @override
   void start() {
     unawaited(_connect());
@@ -193,6 +208,7 @@ class MaRemotePlayer implements RemotePlayer {
       if (player is Map) {
         _player = player;
         _readVolume(player);
+        await _readGroup(session, player);
       }
     } catch (e) {
       log.warn(_name, '$label player lookup failed: $e');
@@ -207,6 +223,115 @@ class MaRemotePlayer implements RemotePlayer {
     if (level is num) _volume = level.round().clamp(0, 100);
     final muted = player['volume_muted'];
     if (muted is bool) _muted = muted;
+  }
+
+  /// The leader of the group [player] plays in, or empty while it plays
+  /// alone. A player that leads lists itself among its group members.
+  String _leaderOf(Map player) {
+    final synced = '${player['synced_to'] ?? ''}';
+    if (synced.isNotEmpty) return synced;
+    final members = player['group_members'];
+    return members is List && members.any((m) => '$m' != playerId)
+        ? playerId
+        : '';
+  }
+
+  /// Follow the group volume of the group [player] plays in. A member
+  /// reports only its own level, so the leader is asked for the group's.
+  Future<void> _readGroup(MaSession session, Map player) async {
+    _groupLeader = _leaderOf(player);
+    Object? leader = player;
+    if (_groupLeader.isEmpty) {
+      leader = null;
+    } else if (_groupLeader != playerId) {
+      try {
+        leader = await session.send('players/get', {'player_id': _groupLeader});
+      } catch (e) {
+        log.warn(_name, '$label group leader lookup failed: $e');
+        leader = null;
+      }
+    }
+    _readGroupVolume(leader);
+  }
+
+  void _readGroupVolume(Object? leader) {
+    final level = leader is Map ? leader['group_volume'] : null;
+    final muted = leader is Map ? leader['group_volume_muted'] : null;
+    _groupVolume = level is num ? level.round().clamp(0, 100) : null;
+    _groupMuted = muted is bool ? muted : null;
+    // Music Assistant leaves the leader out of the group volume unless it
+    // is a plain player, so a bare Sendspin player under a universal one
+    // (type 'protocol') reports only the others: the loudest member and
+    // muted only with everyone muted, the leader included, is the group's.
+    if (leader is Map &&
+        leader['type'] == 'protocol' &&
+        leader['volume_control'] != 'none') {
+      final own = leader['volume_level'];
+      if (own is num && _groupVolume != null) {
+        _groupVolume = max(_groupVolume!, own.round().clamp(0, 100));
+      }
+      if (_groupMuted == true && leader['volume_muted'] == false) {
+        _groupMuted = false;
+      }
+    }
+  }
+
+  /// Set the volume of the group the player plays in (issue #867). Music
+  /// Assistant moves every member from its own level, keeping the rooms'
+  /// balance, the way its own group slider does, and takes a member's id
+  /// for its leader's.
+  Future<bool> setGroupVolume(int percent) async {
+    final session = _session;
+    if (session == null) return false;
+    final level = percent.clamp(0, 100);
+    try {
+      await session.send('players/cmd/group_volume', {
+        'player_id': playerId,
+        'volume_level': level,
+      });
+    } catch (e) {
+      log.warn(_name, '$label group volume failed: $e');
+      return false;
+    }
+    // The loudest member lands on the level asked for, so the group
+    // volume is known before the members report back.
+    if (_groupVolume != null) {
+      _groupVolume = level;
+      _reemit();
+    }
+    return true;
+  }
+
+  /// Mute or unmute every member of the group the player plays in.
+  Future<bool> setGroupMute(bool muted) async {
+    final session = _session;
+    if (session == null) return false;
+    try {
+      await session.send('players/cmd/group_volume_mute', {
+        'player_id': playerId,
+        'muted': muted,
+      });
+    } catch (e) {
+      log.warn(_name, '$label group mute failed: $e');
+      return false;
+    }
+    if (_groupMuted != null) {
+      _groupMuted = muted;
+      _reemit();
+    }
+    return true;
+  }
+
+  /// Publish the last snapshot again when the volume it carries changed.
+  void _reemit() {
+    final snap = _snapshot;
+    if (snap == null) return;
+    if (snap['volume'] != _volume ||
+        snap['muted'] != _muted ||
+        snap['groupVolume'] != _groupVolume ||
+        snap['groupMuted'] != _groupMuted) {
+      _emit({...snap, 'volume': ?_volume, 'muted': ?_muted});
+    }
   }
 
   /// Mute the followed player: a player command in Music Assistant,
@@ -384,6 +509,9 @@ class MaRemotePlayer implements RemotePlayer {
     _player = null;
     _queue = null;
     _queueId = '';
+    _groupLeader = '';
+    _groupVolume = null;
+    _groupMuted = null;
     try {
       await socket?.close();
     } catch (_) {}
@@ -418,24 +546,35 @@ class MaRemotePlayer implements RemotePlayer {
         // Publish their metadata now and refresh the queue for handoffs.
         if (data is Map) _player = data;
         _readVolume(data);
+        // A leader carries its group's volume itself and a player left
+        // alone has none; a member waits for the refresh below to ask its
+        // leader.
+        if (data is Map) {
+          final leader = _leaderOf(data);
+          if (leader.isEmpty || leader == playerId) {
+            _groupLeader = leader;
+            _readGroupVolume(leader.isEmpty ? null : data);
+          }
+        }
         if (_usingPlayerMedia ||
             _hasExternalSource ||
             _queue == null ||
             _radioQueueItem != null) {
           _publishSnapshot(preservePosition: true);
         } else {
-          final snap = _snapshot;
-          if (snap != null &&
-              ((_volume != null && snap['volume'] != _volume) ||
-                  (_muted != null && snap['muted'] != _muted))) {
-            _emit({...snap, 'volume': ?_volume, 'muted': ?_muted});
-          }
+          _reemit();
         }
         _refreshDebounce?.cancel();
         _refreshDebounce = Timer(
           const Duration(milliseconds: 400),
           () => unawaited(refresh()),
         );
+      case 'player_updated'
+          when objectId == _groupLeader && _groupLeader.isNotEmpty:
+        // The leader's own update carries the group volume, moved from
+        // another room or Music Assistant's own group slider.
+        _readGroupVolume(data);
+        _reemit();
       case 'player_removed' when objectId == playerId:
         _player = null;
         _queue = null;
@@ -613,6 +752,16 @@ class MaRemotePlayer implements RemotePlayer {
   }
 
   void _emit(Map<String, Object?>? snapshot) {
+    // Every snapshot carries the group volume as last read, whichever
+    // path built it.
+    if (snapshot != null) {
+      snapshot = {
+        for (final e in snapshot.entries)
+          if (e.key != 'groupVolume' && e.key != 'groupMuted') e.key: e.value,
+        'groupVolume': ?_groupVolume,
+        'groupMuted': ?_groupMuted,
+      };
+    }
     _snapshot = snapshot;
     if (!_stopped) onSnapshot(snapshot);
   }

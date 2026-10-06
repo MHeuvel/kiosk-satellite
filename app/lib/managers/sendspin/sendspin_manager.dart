@@ -448,6 +448,7 @@ class SendspinManager extends Manager {
             leaderId: group.leaderId,
             leaderName: playerChipName,
             members: group.members,
+            leaderVolume: group.leaderVolume,
           );
   }
 
@@ -475,6 +476,19 @@ class SendspinManager extends Manager {
     }
     log.info(name, '${grouped ? 'grouped' : 'ungrouped'} $id under $leader');
     return true;
+  }
+
+  /// Set one group member's own volume, from its slider in the group
+  /// menu (issue #867). Only Music Assistant reports the members' levels
+  /// the menu shows, so only its players get here.
+  Future<bool> setMemberVolume(String id, int percent) async {
+    if (!_maConfigured) return false;
+    final res = await _api().call(
+      'players/cmd/volume_set',
+      args: {'player_id': id, 'volume_level': percent.clamp(0, 100)},
+    );
+    if (!res.ok) log.warn(name, 'volume of $id: ${res.error}');
+    return res.ok;
   }
 
   /// Whether the playing track can be marked a favorite: Music
@@ -515,13 +529,25 @@ class SendspinManager extends Manager {
   /// session.
   bool get _deviceVolume => _remote == null || _remote is SessionPlayer;
 
+  /// Whether the view's volume slider and mute act on the whole group
+  /// this device plays in (issue #867): the local player, grouped in
+  /// Music Assistant, with the switch on. The group volume comes from
+  /// the queue watcher, which follows this device's player there.
+  bool get groupVolumeActive =>
+      _remote == null &&
+      _watcher != null &&
+      _settings.get(defs.sendspinGroupVolume) &&
+      nowPlaying.value?['groupVolume'] is num;
+
   /// The volume the view's slider shows, 0 to 100: the media volume
   /// setting locally, the followed player's last report otherwise, or
   /// the level the volume keys just asked for while the player has yet
   /// to report it back. Null while unknown.
   int? get volumeLevel =>
       _volumeTarget ??
-      (_deviceVolume
+      (groupVolumeActive
+          ? (nowPlaying.value!['groupVolume'] as num).toInt()
+          : _deviceVolume
           ? _settings.get(defs.mediaVolume).toInt()
           : (nowPlaying.value?['volume'] as num?)?.toInt());
 
@@ -700,6 +726,9 @@ class SendspinManager extends Manager {
         'mediaType': matches ? queue['mediaType'] : null,
         'mediaUri': matches ? queue['mediaUri'] : null,
         'chapters': matches ? queue['chapters'] : null,
+        // The group this device plays in, whatever the track.
+        'groupVolume': queue?['groupVolume'],
+        'groupMuted': queue?['groupMuted'],
       };
     }
     final wasPlaying = nowPlaying.value?['playing'] == true;
@@ -1140,6 +1169,7 @@ class SendspinManager extends Manager {
         'sendspin.player_name',
         'sendspin.sonos_hosts',
         'sendspin.sonos_group_volume',
+        'sendspin.group_volume',
         'sendspin.sonos_inputs',
         'sendspin.speaker_pill',
         'sendspin.queue_art',
@@ -2595,6 +2625,9 @@ class SendspinManager extends Manager {
   /// device's media volume for the local player. A level set by hand
   /// ends a local mute.
   Future<bool> setVolume(int percent) async {
+    if (_watcher case final watcher? when groupVolumeActive) {
+      return watcher.setGroupVolume(percent);
+    }
     if (_remote case final remote? when !_deviceVolume) {
       return _remoteDucker?.setVolume(
             percent.clamp(0, 100),
@@ -2614,13 +2647,18 @@ class SendspinManager extends Manager {
 
   /// Whether the shown player is muted: the followed player's own word or
   /// the local stand-in.
-  bool get muted => _deviceVolume
+  bool get muted => groupVolumeActive
+      ? (nowPlaying.value?['groupMuted'] == true)
+      : _deviceVolume
       ? _localMuteLevel != null
-      : nowPlaying.value?['muted'] == true;
+      : (nowPlaying.value?['muted'] == true);
 
   /// Mute or unmute the shown player: the view's speaker button beside
   /// the volume slider.
   Future<bool> toggleMute() async {
+    if (_watcher case final watcher? when groupVolumeActive) {
+      return watcher.setGroupMute(!muted);
+    }
     if (_remote case final remote? when !_deviceVolume) {
       return remote.setMute(!muted);
     }
