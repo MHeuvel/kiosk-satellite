@@ -2081,7 +2081,11 @@ class VoiceManager extends Manager {
         if (base.isNotEmpty && token.isNotEmpty) {
           boxes.add(
             McpToolbox(
-              McpClient(url: Uri.parse('$base/api/mcp'), token: token),
+              McpClient(
+                url: Uri.parse('$base/api/mcp'),
+                token: token,
+                deviceId: _deviceId,
+              ),
               notFound: mcpMissing,
             ),
           );

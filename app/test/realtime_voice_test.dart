@@ -420,6 +420,52 @@ void main() {
       },
     );
 
+    test('the device rides tools/list and tools/call as _meta', () async {
+      final params = <String, Map<String, Object?>>{};
+      final client = MockClient((request) async {
+        final json = (jsonDecode(request.body) as Map).cast<String, Object?>();
+        final method = '${json['method']}';
+        params[method] = ((json['params'] ?? {}) as Map)
+            .cast<String, Object?>();
+        if (method.startsWith('notifications/')) return http.Response('', 202);
+        final result = switch (method) {
+          'tools/list' => {'tools': <Object?>[]},
+          'tools/call' => {'content': <Object?>[]},
+          _ => <String, Object?>{},
+        };
+        return http.Response(
+          jsonEncode({'jsonrpc': '2.0', 'id': json['id'], 'result': result}),
+          200,
+          headers: {'content-type': 'application/json'},
+        );
+      });
+      final mcp = McpClient(
+        url: Uri.parse('http://ha/api/mcp'),
+        client: client,
+        deviceId: () async => 'dev1',
+      );
+      await mcp.listTools();
+      await mcp.callTool('HassStartTimer', {'minutes': 5});
+      const meta = {McpClient.deviceMetaKey: 'dev1'};
+      expect(params['tools/list']!['_meta'], meta);
+      expect(params['tools/call']!['_meta'], meta);
+      expect(params['initialize']!.containsKey('_meta'), isFalse);
+
+      // No device, or a failed lookup, sends no _meta.
+      for (final lookup in <Future<String?> Function()>[
+        () async => null,
+        () async => throw StateError('offline'),
+      ]) {
+        params.clear();
+        await McpClient(
+          url: Uri.parse('http://ha/api/mcp'),
+          client: client,
+          deviceId: lookup,
+        ).listTools();
+        expect(params['tools/list']!.containsKey('_meta'), isFalse);
+      }
+    });
+
     test('an HTTP error says so', () async {
       final mcp = McpClient(
         url: Uri.parse('http://ha/api/mcp'),
