@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "repository": "https://github.com/jxlarrea/kiosk-satellite",
-  "revision": "3cb97c22767cfe64ad218f30fbb9acf4946bc970",
+  "revision": "7bfbd2f2bcf5ea46db8a15752be101dce4705268",
   "workingTree": true,
   "files": {
     "about_identity_en.arb": "dd006567f69f846e2e3b73f09ad13784f0022d282ea3101fa9be7fc95175ec2d",
@@ -32,7 +32,7 @@
     "gesture_ha_actions_en.arb": "b9debbaac45b8e2cb7c1dd688d5e064e1f6c53942c584509fb09ca470fd50017",
     "gesture_hand_tester_en.arb": "fe0cd4b66d32658f05ca0f2eb0e1fe3ccadecdd9b277407ee317c4aa4e2aab27",
     "gesture_outcomes_en.arb": "b07e5b548782c4a0cdc825427972d996f0a12aac4e43b612fa25de222e6898c5",
-    "gesture_trigger_editor_en.arb": "39ca2a147b63eecc05ab3a6c8d5e9ea4a43489e69fdb478ec79cdb6178692de0",
+    "gesture_trigger_editor_en.arb": "bd5b6910190cc8534cbf57f22efab0cc2fd11d098b548408457f3fb724a8a10f",
     "intercom_calls_en.arb": "65aada62896734212830468223fd90e28bc990bc8d7c54f7f6f0edcf5465e840",
     "intercom_errors_en.arb": "f4f62075f5beb8bda139356df2baa08b2702b7a8990d0c9d24d253169efd936c",
     "kiosk_notices_en.arb": "3f473e9d4e9771f1fbf8055cb13d96fbe5be188a3814e4734925c2cbe53d0358",
@@ -54,7 +54,7 @@
     "plugins_repository_errors_en.arb": "309fb7158604edde3b1245684fc8f032e22d92cd60364925a2e024d6baeabae0",
     "plugins_runtime_errors_en.arb": "f9283ff429c86222a7b7af9644be7f35d2e0bc33ecba9572a7eb8683cd358a60",
     "plugins_shizuku_en.arb": "125d9b296f8445081d299072e5989553b3f39fd973b83390209840be07c06dce",
-    "plugins_validation_errors_en.arb": "7140288b0933b87f89a6cd4d4f7667752d8225a0afd7d91429c193cc59246773",
+    "plugins_validation_errors_en.arb": "2285de3be4a75a833ffec6bedc7060defe161902a01f6474e17144a0d068c419",
     "remote_action_notices_en.arb": "451564a1630a15d123233a90e97cfef33a6687095c4e7625b4eed21f21e2a0ee",
     "remote_connection_en.arb": "d438faa4ded295302c4ef4ffc76ef2725bd24cdf12aec5b1ed322ba9474c4c15",
     "remote_login_en.arb": "41f863e4bcc35fd32888b1098539a67b31c40f06f0bf9dbd27c754caf74f8fbf",

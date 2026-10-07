@@ -33,6 +33,7 @@ export const GESTURE_TRIGGERS = [
   ['corner_sequence', 'Corner sequence'],
   ['claps', 'Claps'],
   ['fingers', 'Show fingers'],
+  ['plugin', 'Plugin trigger'],
 ];
 export const GESTURE_ACTION_GROUPS = [
   ['Kiosk Satellite', [
@@ -73,6 +74,11 @@ export function gestureCorner(corner) {
   return name ? gestureText(name[0].toUpperCase() + name.slice(1) + ' corner') : corner;
 }
 
+// Both names come from the plugin's manifest, like a plugin action's.
+export function describePluginTrigger(trigger) {
+  return `${trigger.pluginName || trigger.pluginId}: ${trigger.title || trigger.trigger}`;
+}
+
 export function describeGestureTrigger(trigger) {
   const corner = gestureText(GESTURE_CORNERS[trigger.corner] || '');
   const seconds = () => {
@@ -90,6 +96,7 @@ export function describeGestureTrigger(trigger) {
       const count = Number(trigger.fingers) || 5;
       return count === 5 ? gestureText('Show an open hand') : t(count === 1 ? 'gestureDescribeOneFinger' : 'gestureDescribeFingers', {count});
     }
+    case 'plugin': return describePluginTrigger(trigger);
   }
   return gestureText('Gesture');
 }
@@ -545,6 +552,25 @@ export async function editGesture(existing) {
     ? gestureText('Requires the camera enabled and a well lit environment.')
     : gestureText(cameraText(state.visionSupport.hint || 'Not available on this device.'));
 
+  // Running plugins' triggers, plus the saved one so a mapping whose plugin
+  // is off still opens with its trigger selected.
+  const pluginKey = (trigger) => `${trigger.pluginId}/${trigger.trigger}`;
+  const pluginTriggers = new Map();
+  if (triggerValue.type === 'plugin') pluginTriggers.set(pluginKey(triggerValue), triggerValue);
+  const listed = await cmd('getPluginTriggers').catch(() => null);
+  for (const item of (listed?.ok ? listed.data || [] : []).filter((item) => item.available)) {
+    pluginTriggers.set(pluginKey(item), {
+      type: 'plugin', pluginId: item.pluginId, trigger: item.trigger,
+      pluginName: item.pluginName, title: item.title,
+    });
+  }
+  const pluginSel = cameraSelectField(gestureText('Trigger'),
+    [...pluginTriggers].map(([value, trigger]) => ({ value, label: describePluginTrigger(trigger) })),
+    triggerValue.type === 'plugin' ? pluginKey(triggerValue) : pluginTriggers.keys().next().value);
+  const pluginNote = document.createElement('span');
+  pluginNote.className = 'desc';
+  pluginNote.textContent = gestureText('Enable a plugin with triggers in Plugin Manager first.');
+
   const holdWrap = document.createElement('label');
   holdWrap.className = 'form-field';
   const holdLabel = document.createElement('span');
@@ -609,7 +635,7 @@ export async function editGesture(existing) {
 
   body.append(typeSel.wrap, cornerSel.wrap, tapsSel.wrap, fingersSel.wrap,
     fingerTapsSel.wrap, clapsSel.wrap, clapsNote, fingerCountSel.wrap,
-    holdWrap, palmNote, seqWrap, actionRow);
+    holdWrap, palmNote, pluginSel.wrap, pluginNote, seqWrap, actionRow);
   const update = () => {
     const type = typeSel.select.value;
     cornerSel.wrap.style.display =
@@ -625,6 +651,8 @@ export async function editGesture(existing) {
     holdWrap.style.display =
       type === 'corner_hold' || type === 'finger_hold' ? '' : 'none';
     seqWrap.style.display = type === 'corner_sequence' ? '' : 'none';
+    pluginSel.wrap.style.display = type === 'plugin' && pluginTriggers.size ? '' : 'none';
+    pluginNote.style.display = type === 'plugin' && !pluginTriggers.size ? '' : 'none';
   };
   typeSel.select.addEventListener('change', update);
   update();
@@ -638,7 +666,10 @@ export async function editGesture(existing) {
       if (type === 'corner_sequence' && sequence.length < 2) {
         return { ok: false, error: gestureText('Add at least two corners.') };
       }
-      const trigger = { type };
+      if (type === 'plugin' && !pluginTriggers.has(pluginSel.select.value)) {
+        return { ok: false, error: gestureText('Enable a plugin with triggers in Plugin Manager first.') };
+      }
+      const trigger = type === 'plugin' ? { ...pluginTriggers.get(pluginSel.select.value) } : { type };
       if (type === 'corner_taps' || type === 'corner_hold') {
         trigger.corner = cornerSel.select.value;
       }
@@ -721,7 +752,7 @@ export async function loadGestures() {
         }, false, 'delete'),
       ],
       {
-        icon: { claps: 'clap', fingers: 'hand' }[mapping.trigger?.type] || 'gesture',
+        icon: { claps: 'clap', fingers: 'hand', plugin: 'extension' }[mapping.trigger?.type] || 'gesture',
         onClick: async () => {
           if (await editGesture(mapping)) refresh();
         },

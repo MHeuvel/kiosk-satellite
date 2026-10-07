@@ -81,6 +81,7 @@ const _triggerTypes = <(String, String)>[
   ('corner_sequence', 'Corner sequence'),
   ('claps', 'Claps'),
   ('fingers', 'Show fingers'),
+  ('plugin', 'Plugin trigger'),
 ];
 
 class _GestureSettingsPanelState extends State<GestureSettingsPanel> {
@@ -144,6 +145,7 @@ class _GestureSettingsPanelState extends State<GestureSettingsPanel> {
                 leading: Icon(switch (mapping.triggerType) {
                   'claps' => Icons.sign_language_outlined,
                   'fingers' => Icons.waving_hand_outlined,
+                  'plugin' => Icons.extension_outlined,
                   _ => Icons.gesture,
                 }),
                 title: Text(localizedGestureTrigger(context, mapping.trigger)),
@@ -291,6 +293,25 @@ class _GestureSettingsPanelState extends State<GestureSettingsPanel> {
         '$s',
     ];
     Map<String, Object?>? action = existing?.action;
+    // Running plugins' triggers, plus the saved one so a mapping whose
+    // plugin is off still opens with its trigger selected.
+    String pluginKey(Map<String, Object?> t) =>
+        '${t['pluginId']}/${t['trigger']}';
+    final pluginTriggers = <String, Map<String, Object?>>{
+      if (type == 'plugin') pluginKey(existing!.trigger): existing.trigger,
+      for (final t in c.plugins.triggers)
+        if (t['available'] == true)
+          pluginKey(t): {
+            'type': 'plugin',
+            'pluginId': t['pluginId'],
+            'trigger': t['trigger'],
+            'pluginName': t['pluginName'],
+            'title': t['title'],
+          },
+    };
+    String? pluginTrigger = type == 'plugin'
+        ? pluginKey(existing!.trigger)
+        : pluginTriggers.keys.firstOrNull;
 
     if (!cornerNames.containsKey(corner)) corner = 'tl';
 
@@ -301,7 +322,8 @@ class _GestureSettingsPanelState extends State<GestureSettingsPanel> {
           final holdSeconds = holdMs / 1000;
           final canSave =
               action != null &&
-              (type != 'corner_sequence' || sequence.length >= 2);
+              (type != 'corner_sequence' || sequence.length >= 2) &&
+              (type != 'plugin' || pluginTrigger != null);
           return AlertDialog(
             title: Text(
               existing == null
@@ -530,6 +552,37 @@ class _GestureSettingsPanelState extends State<GestureSettingsPanel> {
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ],
+                      if (type == 'plugin')
+                        pluginTriggers.isEmpty
+                            ? Text(
+                                gestureText(
+                                  context,
+                                  'Enable a plugin with triggers in Plugin '
+                                  'Manager first.',
+                                ),
+                                style: Theme.of(context).textTheme.bodySmall,
+                              )
+                            : LabeledField(
+                                label: gestureText(context, 'Trigger'),
+                                child: DropdownButtonFormField<String>(
+                                  isExpanded: true,
+                                  initialValue: pluginTrigger,
+                                  decoration: const InputDecoration(),
+                                  items: [
+                                    for (final entry in pluginTriggers.entries)
+                                      DropdownMenuItem(
+                                        value: entry.key,
+                                        child: Text(
+                                          describePluginTrigger(entry.value),
+                                        ),
+                                      ),
+                                  ],
+                                  onChanged: (value) => setDialogState(
+                                    () =>
+                                        pluginTrigger = value ?? pluginTrigger,
+                                  ),
+                                ),
+                              ),
                       if (type == 'corner_sequence') ...[
                         Text(
                           sequence.isEmpty
@@ -616,6 +669,7 @@ class _GestureSettingsPanelState extends State<GestureSettingsPanel> {
     if (submitted != true || action == null) return;
 
     final trigger = <String, Object?>{
+      if (type == 'plugin') ...pluginTriggers[pluginTrigger]!,
       'type': type,
       if (type == 'corner_taps' || type == 'corner_hold') 'corner': corner,
       if (type == 'corner_taps') 'taps': taps,

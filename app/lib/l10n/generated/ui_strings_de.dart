@@ -2049,6 +2049,16 @@ class UiStringsDe extends UiStrings {
   String get gestureSequenceError => 'Füge mindestens zwei Ecken hinzu.';
 
   @override
+  String get gesturePluginTrigger => 'Plugin-Auslöser';
+
+  @override
+  String get gesturePluginTriggerField => 'Auslöser';
+
+  @override
+  String get gesturePluginTriggerHelp =>
+      'Aktiviere zuerst ein Plugin mit Auslösern im Plugin-Manager.';
+
+  @override
   String get intercomCall => 'Anrufen';
 
   @override
@@ -3271,6 +3281,13 @@ class UiStringsDe extends UiStrings {
   String pluginErrorInvalidField(String field) {
     return 'Das Feld $field ist ungültig';
   }
+
+  @override
+  String get pluginErrorTooManyTriggers => 'Zu viele Auslöser';
+
+  @override
+  String get pluginErrorTriggerId =>
+      'Die Auslöser-ID ist ungültig oder bereits vorhanden';
 
   @override
   String get remoteDisableTitle => 'Fernverwaltung deaktivieren?';

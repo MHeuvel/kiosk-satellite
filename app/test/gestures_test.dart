@@ -64,10 +64,13 @@ void main() {
           '{"id":"g4","trigger":{"type":"claps","claps":2},'
           '"action":{"type":"menu"}},'
           '{"id":"g5","trigger":{"type":"fingers","fingers":2},'
-          '"action":{"type":"menu"}}]',
+          '"action":{"type":"menu"}},'
+          '{"id":"g6","trigger":{"type":"plugin","pluginId":"hello-world",'
+          '"trigger":"hardwareKey"},"action":{"type":"menu"}}]',
         ),
       );
-      // Claps and hands are not touch: the native engine never sees them.
+      // Claps, hands and plugin triggers are not touch: the native engine
+      // never sees them.
       expect(triggers, [
         {'id': 'g1', 'type': 'corner_taps', 'corner': 'tl', 'taps': 3},
         {'id': 'g2', 'type': 'finger_hold', 'fingers': 2, 'holdMs': 1500},
@@ -116,6 +119,24 @@ void main() {
       expect(
         describeGestureTrigger({'type': 'fingers', 'fingers': 2}),
         'Show 2 fingers',
+      );
+      expect(
+        describeGestureTrigger({
+          'type': 'plugin',
+          'pluginId': 'hello-world',
+          'trigger': 'hardwareKey',
+          'pluginName': 'Hello World',
+          'title': 'Hardware key',
+        }),
+        'Hello World: Hardware key',
+      );
+      expect(
+        describeGestureTrigger({
+          'type': 'plugin',
+          'pluginId': 'hello-world',
+          'trigger': 'hardwareKey',
+        }),
+        'hello-world: hardwareKey',
       );
       expect(
         describeGestureTrigger({'type': 'fingers', 'fingers': 1}),
@@ -766,6 +787,61 @@ void main() {
       await settings.set(defs.kioskDisableGestures, false);
       await show();
       expect(executed, hasLength(1));
+    });
+
+    group('plugin triggers (issue #888)', () {
+      const mappings =
+          '[{"id":"key","trigger":{"type":"plugin","pluginId":"hello-world",'
+          '"trigger":"hardwareKey"},"action":{"type":"screensaver"}},'
+          '{"id":"also","trigger":{"type":"plugin","pluginId":"hello-world",'
+          '"trigger":"hardwareKey"},"action":{"type":"screensaver_stop"}},'
+          '{"id":"other","trigger":{"type":"plugin","pluginId":"other-plugin",'
+          '"trigger":"hardwareKey"},"action":{"type":"app_launcher"}}]';
+
+      Future<void> trigger(String pluginId, String name) async {
+        bus.publish(PluginTriggerFired(pluginId: pluginId, trigger: name));
+        await Future<void>.delayed(Duration.zero);
+        await Future<void>.delayed(Duration.zero);
+      }
+
+      test('runs every mapping bound to that plugin and trigger', () async {
+        await build(mappings);
+        await trigger('hello-world', 'hardwareKey');
+        expect(executed.map((e) => e.$1), [
+          'startScreensaver',
+          'stopScreensaver',
+        ]);
+        executed.clear();
+        await trigger('hello-world', 'somethingElse');
+        expect(executed, isEmpty, reason: 'another trigger of that plugin');
+        await trigger('other-plugin', 'hardwareKey');
+        expect(executed.map((e) => e.$1), ['showAppLauncher']);
+      });
+
+      test('lockdown and kiosk Disable Gestures silence them', () async {
+        await build(mappings);
+        await settings.set(defs.lockdownEnabled, true);
+        await trigger('other-plugin', 'hardwareKey');
+        expect(executed, isEmpty);
+        await settings.set(defs.lockdownEnabled, false);
+        await settings.set(defs.kioskEnabled, true);
+        await settings.set(defs.kioskDisableGestures, true);
+        await trigger('other-plugin', 'hardwareKey');
+        expect(executed, isEmpty);
+        await settings.set(defs.kioskDisableGestures, false);
+        await trigger('other-plugin', 'hardwareKey');
+        expect(executed, hasLength(1));
+      });
+
+      test('a voice interaction does not silence them', () async {
+        await build(mappings);
+        bus.publish(
+          const WakeWordStateChanged(active: false, listening: false),
+        );
+        await Future<void>.delayed(Duration.zero);
+        await trigger('other-plugin', 'hardwareKey');
+        expect(executed, hasLength(1));
+      });
     });
 
     test('hold_mode toggles the setting each time (issue #266)', () async {

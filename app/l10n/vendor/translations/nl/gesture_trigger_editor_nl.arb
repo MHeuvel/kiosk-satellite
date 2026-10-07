@@ -40,5 +40,8 @@
   "gestureActionHelp": "De actie die dit gebaar activeert.",
   "gestureChangeHelp": "Tik om te wijzigen.",
   "gestureChooseError": "Kies een actie.",
-  "gestureSequenceError": "Voeg minstens twee hoeken toe."
+  "gestureSequenceError": "Voeg minstens twee hoeken toe.",
+  "gesturePluginTrigger": "Plug-intrigger",
+  "gesturePluginTriggerField": "Trigger",
+  "gesturePluginTriggerHelp": "Schakel eerst een plug-in met triggers in via Plug-inbeheer."
 }

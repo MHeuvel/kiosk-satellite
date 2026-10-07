@@ -28,5 +28,7 @@
   "pluginErrorSettingType": "Dieser Einstellungstyp wird nicht unterstützt",
   "pluginErrorInvalidManifest": "Das Plugin-Manifest ist ungültig",
   "pluginErrorAndroidApi": "Das Plugin benötigt Android-API {version}",
-  "pluginErrorInvalidField": "Das Feld {field} ist ungültig"
+  "pluginErrorInvalidField": "Das Feld {field} ist ungültig",
+  "pluginErrorTooManyTriggers": "Zu viele Auslöser",
+  "pluginErrorTriggerId": "Die Auslöser-ID ist ungültig oder bereits vorhanden"
 }

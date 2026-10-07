@@ -3598,6 +3598,24 @@ abstract class UiStrings {
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:
+  /// **'Plugin trigger'**
+  String get gesturePluginTrigger;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Trigger'**
+  String get gesturePluginTriggerField;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable a plugin with triggers in Plugin Manager first.'**
+  String get gesturePluginTriggerHelp;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
   /// **'Call'**
   String get intercomCall;
 
@@ -5653,6 +5671,18 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Invalid {field}'**
   String pluginErrorInvalidField(String field);
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many triggers'**
+  String get pluginErrorTooManyTriggers;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid or duplicate trigger ID'**
+  String get pluginErrorTriggerId;
 
   /// Translate the visible message. Keep placeholders and any technical names unchanged.
   ///

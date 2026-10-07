@@ -131,6 +131,7 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
             if (statusTilePending.compareAndSet(false, true)) main.postDelayed(statusTileUpdate, 250)
         }
         fun closeStatusTiles() { statusTiles.close(); main.removeCallbacks(statusTileUpdate) }
+        val triggers = PluginTriggers(manifest::hasTrigger)
         var status = ""
         var statusError = false
         val lights = linkedMapOf<String, Map<String, Any?>>()
@@ -251,6 +252,10 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
             override fun removeStatusTile(key: String) {
                 statusTiles.remove(key)
                 notifyStatusTiles()
+            }
+            override fun fireTrigger(id: String) {
+                check(alive.get()) { "Plugin session has ended" }
+                if (triggers.fire(id)) emit("trigger", mapOf("id" to this@Session.id, "session" to token, "trigger" to id), alive)
             }
             override fun showWindow(title: String, message: String, buttonLabel: String) {
                 require("overlay" in manifest.capabilities) { "Plugin did not declare overlay access" }
@@ -529,7 +534,7 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
             // Revoke every host before waiting for stop callbacks from individual plugins.
             sessions.forEach { (id, session) ->
                 session.alive.set(false)
-                session.closeShizuku(); session.closeCharts(); session.closeStatusTiles(); session.closeEntities(); session.closeScreensavers()
+                session.closeShizuku(); session.closeCharts(); session.closeStatusTiles(); session.triggers.close(); session.closeEntities(); session.closeScreensavers()
                 emit("hideWindow", mapOf("id" to id))
             }
             for (id in sessions.keys.toList()) {
@@ -694,7 +699,7 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
     private fun stopSession(id: String) {
         val session = sessions.remove(id) ?: return
         session.alive.set(false)
-        session.closeShizuku(); session.closeCharts(); session.closeStatusTiles(); session.closeEntities(); session.closeScreensavers()
+        session.closeShizuku(); session.closeCharts(); session.closeStatusTiles(); session.triggers.close(); session.closeEntities(); session.closeScreensavers()
         session.subscriptions.clear()
         emit("hostSessionClosed", mapOf("id" to id, "session" to session.token))
         emit("hideWindow", mapOf("id" to id))

@@ -2032,6 +2032,16 @@ class UiStringsNl extends UiStrings {
   String get gestureSequenceError => 'Voeg minstens twee hoeken toe.';
 
   @override
+  String get gesturePluginTrigger => 'Plug-intrigger';
+
+  @override
+  String get gesturePluginTriggerField => 'Trigger';
+
+  @override
+  String get gesturePluginTriggerHelp =>
+      'Schakel eerst een plug-in met triggers in via Plug-inbeheer.';
+
+  @override
   String get intercomCall => 'Oproep';
 
   @override
@@ -3231,6 +3241,12 @@ class UiStringsNl extends UiStrings {
   String pluginErrorInvalidField(String field) {
     return 'Ongeldige $field';
   }
+
+  @override
+  String get pluginErrorTooManyTriggers => 'Te veel triggers';
+
+  @override
+  String get pluginErrorTriggerId => 'Ongeldige of dubbele trigger-ID';
 
   @override
   String get remoteDisableTitle => 'Beheer op afstand uitschakelen?';

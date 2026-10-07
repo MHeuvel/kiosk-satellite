@@ -40,5 +40,8 @@
   "gestureActionHelp": "Lo que ejecuta este gesto.",
   "gestureChangeHelp": "Toca para cambiar.",
   "gestureChooseError": "Elige una acción.",
-  "gestureSequenceError": "Añade al menos dos esquinas."
+  "gestureSequenceError": "Añade al menos dos esquinas.",
+  "gesturePluginTrigger": "Disparador de plugin",
+  "gesturePluginTriggerField": "Disparador",
+  "gesturePluginTriggerHelp": "Primero activa un plugin con disparadores en el administrador de plugins."
 }

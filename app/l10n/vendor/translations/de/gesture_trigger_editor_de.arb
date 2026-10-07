@@ -40,5 +40,8 @@
   "gestureActionHelp": "Legt fest, was diese Geste ausführt.",
   "gestureChangeHelp": "Tippen zum Ändern.",
   "gestureChooseError": "Bitte eine Aktion auswählen.",
-  "gestureSequenceError": "Füge mindestens zwei Ecken hinzu."
+  "gestureSequenceError": "Füge mindestens zwei Ecken hinzu.",
+  "gesturePluginTrigger": "Plugin-Auslöser",
+  "gesturePluginTriggerField": "Auslöser",
+  "gesturePluginTriggerHelp": "Aktiviere zuerst ein Plugin mit Auslösern im Plugin-Manager."
 }

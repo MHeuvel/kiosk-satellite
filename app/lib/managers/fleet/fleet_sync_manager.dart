@@ -1139,7 +1139,7 @@ class FleetSyncManager extends Manager {
     if (key != defs.gestureMappings.key) return value;
     return jsonEncode([
       for (final mapping in decodeGestureMappings(value is String ? value : ''))
-        if (mapping.actionType != 'plugin_action') mapping.toJson(),
+        if (!mapping.usesPlugin) mapping.toJson(),
     ]);
   }
 
@@ -1159,7 +1159,7 @@ class FleetSyncManager extends Manager {
   String _preservePluginGestures(Object? incoming) {
     final local = decodeGestureMappings(
       _settings.get(defs.gestureMappings),
-    ).where((mapping) => mapping.actionType == 'plugin_action').toList();
+    ).where((mapping) => mapping.usesPlugin).toList();
     final localIds = {for (final mapping in local) mapping.id};
     return jsonEncode([
       for (final mapping in decodeGestureMappings(incoming as String))

@@ -27,6 +27,10 @@
 /// proposes hands; HandLandmarker.kt judges them and counts fingers):
 ///  - fingers:         fingers (1..5): a hand showing that many
 ///
+/// One comes from a plugin (PluginBridge.kt relays host.fireTrigger, issue
+/// #888). The names are display copies of the manifest's:
+///  - plugin:          pluginId, trigger, pluginName, title
+///
 /// Action types (run in GesturesManager):
 ///  - plugin_action:    pluginId, command (a declared plugin command)
 ///  - navigate:         path (a dashboard view, via haNavigate)
@@ -73,6 +77,10 @@ class GestureMapping {
   String get triggerType => '${trigger['type'] ?? ''}';
   String get actionType => '${action['type'] ?? ''}';
 
+  /// Plugins are installed per kiosk, so these mappings never sync.
+  bool get usesPlugin =>
+      triggerType == 'plugin' || actionType == 'plugin_action';
+
   Map<String, Object?> toJson() => {
     'id': id,
     'trigger': trigger,
@@ -109,12 +117,13 @@ List<GestureMapping> decodeGestureMappings(String json) {
 }
 
 /// The flat trigger list KioskLock pushes to GestureEngine.configure.
-/// Claps and hands are not touch: they never reach the native engine.
+/// Claps, hands and plugin triggers are not touch: they never reach the
+/// native engine.
 List<Map<String, Object?>> nativeGestureTriggers(
   List<GestureMapping> mappings,
 ) => [
   for (final m in mappings)
-    if (m.triggerType != 'claps' && m.triggerType != 'fingers')
+    if (!const {'claps', 'fingers', 'plugin'}.contains(m.triggerType))
       {
         'id': m.id,
         'type': m.triggerType,
@@ -171,9 +180,17 @@ String describeGestureTrigger(Map<String, Object?> trigger) {
       return n == 5
           ? 'Show an open hand'
           : 'Show $n finger${n == 1 ? '' : 's'}';
+    case 'plugin':
+      return describePluginTrigger(trigger);
   }
   return 'Gesture';
 }
+
+/// "Hello World: Hardware key": both names come from the plugin's manifest
+/// and read the same in every language, like a plugin action's.
+String describePluginTrigger(Map<String, Object?> trigger) =>
+    '${trigger['pluginName'] ?? trigger['pluginId']}: '
+    '${trigger['title'] ?? trigger['trigger']}';
 
 /// The clap counts the configured mappings listen for: what ClapDetector is
 /// armed with, and empty when no clap mapping exists (no microphone use).

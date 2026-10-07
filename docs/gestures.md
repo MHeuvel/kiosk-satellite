@@ -25,6 +25,7 @@ Each entry on this page binds one specific gesture to one specific action. When 
 | Corner sequence | An ordered sequence of corner taps, functioning like a knock code. |
 | Claps | 2 to 4 distinct claps, detected through the device microphone. |
 | Show fingers | An open hand, or a hand showing 1 to 4 fingers, presented to the device camera. |
+| Plugin trigger | Fired by a plugin when it notices something, such as a hardware button press. See [Plugin triggers](#plugin-triggers). |
 
 The corner hitboxes are approximately 1.5 centimeters square. You can map two different gestures to the exact same corner using different tap counts; the system will automatically wait a beat after the shorter sequence to ensure you aren't simply entering the longer one.
 
@@ -98,6 +99,17 @@ Camera behavior for Show Fingers:
 * Once an action fires, the finger count must physically change (or the hand must drop out of frame) before that specific mapping can fire again. Simply holding the hand up will not repeat the action. However, smoothly switching from two fingers to an open hand will fire both associated actions in sequence. A second hand resting in view will not block detection.
 * Lockdown Mode and Kiosk Mode's Disable Gestures toggle will silence the hand gesture exactly as they do touch gestures. When silenced, the camera is not even bound for hand detection.
 * As long as a hand mapping exists, the camera's exposure is dynamically steered by the video frames themselves. Because a front camera typically meters for the whole room (which often leaves a person standing in front of it in silhouette), the app will ask the camera to step up the exposure for dark frames and step it down for bright ones, adjusting every couple of seconds. The motion analyzer and any snapshots taken simultaneously will use these same adjusted frames. Hands still require some ambient light to be read, though less than faces. A palm held up near a dim night light will be detected, though it may take a beat longer than in daylight. The gesture will not function in complete darkness.
+
+## Plugin Triggers
+
+A [plugin](plugins.md) can declare triggers and fire them when it notices something the app does not watch by itself, such as a hardware button press on a smart display or a proprietary sensor. Pick **Plugin trigger** as the gesture, then pick the trigger from the list. The list shows the triggers of running plugins.
+
+* The plugin decides when its trigger fires. Kiosk Satellite runs the mapped action each time it does, for up to four fires per second per plugin.
+* Lockdown Mode and Kiosk Mode's Disable Gestures silence plugin triggers just like the other gestures. A voice interaction does not.
+* A mapping keeps its trigger when the plugin is disabled, but nothing fires until the plugin runs again.
+* Plugins are installed per device, so Fleet Management never syncs a gesture that uses a plugin trigger or a plugin action.
+
+Plugin authors can find the manifest format and `host.fireTrigger` in the [plugin SDK documentation](https://github.com/jxlarrea/kiosk-satellite-plugin-hello-world/blob/main/docs/creating-plugins.md#gesture-triggers).
 
 ## Timing
 

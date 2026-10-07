@@ -43,6 +43,11 @@ import 'hand_gesture_hold.dart';
 /// changes or the hand goes. Like claps, a hand seen during a voice interaction fires
 /// nothing: the camera is idled for the turn's span on the motion side,
 /// and a report still crossing at its start is ignored here.
+///
+/// A plugin can be a trigger too (issue #888): a [PluginTriggerFired] runs
+/// every mapping bound to that plugin's trigger. Lockdown Mode and Disable
+/// Gestures silence it like the rest. A voice turn does not, because what
+/// the plugin noticed (a hardware key, say) is no accident of speech.
 class GesturesManager extends Manager {
   GesturesManager(
     super.bus,
@@ -65,6 +70,7 @@ class GesturesManager extends Manager {
 
   StreamSubscription<GestureDetected>? _sub;
   StreamSubscription<PalmDetected>? _palmSub;
+  StreamSubscription<PluginTriggerFired>? _pluginSub;
   StreamSubscription<Uint8List>? _micSub;
   StreamSubscription<SettingChanged>? _settingsSub;
   StreamSubscription<WakeWordStateChanged>? _wakeStateSub;
@@ -112,6 +118,7 @@ class GesturesManager extends Manager {
   Future<void> init() async {
     _sub = bus.on<GestureDetected>().listen(_onGesture);
     _palmSub = bus.on<PalmDetected>().listen(_onPalms);
+    _pluginSub = bus.on<PluginTriggerFired>().listen(_onPluginTrigger);
 
     _settingsSub = bus.on<SettingChanged>().listen((e) {
       if (e.key == defs.gestureMappings.key ||
@@ -161,6 +168,7 @@ class GesturesManager extends Manager {
     _resetHand();
     await _micSub?.cancel();
     await _palmSub?.cancel();
+    await _pluginSub?.cancel();
     await _sub?.cancel();
   }
 
@@ -288,6 +296,18 @@ class GesturesManager extends Manager {
     for (final m in mappings) {
       if (m.triggerType == 'claps' &&
           (m.trigger['claps'] as num?)?.toInt() == count) {
+        bus.publish(GestureDetected(id: m.id));
+      }
+    }
+  }
+
+  void _onPluginTrigger(PluginTriggerFired e) {
+    if (!_armed) return;
+    final mappings = decodeGestureMappings(_settings.get(defs.gestureMappings));
+    for (final m in mappings) {
+      if (m.triggerType == 'plugin' &&
+          m.trigger['pluginId'] == e.pluginId &&
+          m.trigger['trigger'] == e.trigger) {
         bus.publish(GestureDetected(id: m.id));
       }
     }

@@ -638,6 +638,9 @@ void main() {
         'commands': [
           {'id': 'show', 'title': 'Show window'},
         ],
+        'triggers': [
+          {'id': 'hardwareKey', 'title': 'Hardware key'},
+        ],
         'values': {'message': 'Hello'},
       },
     ];
@@ -1756,4 +1759,40 @@ void main() {
       );
     },
   );
+
+  test('fired triggers reach the bus only from the live session', () async {
+    final fired = <PluginTriggerFired>[];
+    final sub = bus.on<PluginTriggerFired>().listen(fired.add);
+    expect((await commands.execute('getPluginTriggers', {})).data, [
+      {
+        'pluginId': 'hello-world',
+        'pluginName': 'Hello World',
+        'trigger': 'hardwareKey',
+        'title': 'Hardware key',
+        'available': true,
+      },
+    ]);
+    await native('hostSession', {
+      'id': 'hello-world',
+      'session': 'live',
+      'capabilities': [],
+    });
+    await native('trigger', {
+      'id': 'hello-world',
+      'session': 'stale',
+      'trigger': 'hardwareKey',
+    });
+    await native('trigger', {
+      'id': 'hello-world',
+      'session': 'live',
+      'trigger': 'hardwareKey',
+    });
+    await Future<void>.delayed(Duration.zero);
+    expect(fired, hasLength(1));
+    expect(fired.single.pluginId, 'hello-world');
+    expect(fired.single.trigger, 'hardwareKey');
+    await plugins.update('disable', {'id': 'hello-world'});
+    expect(plugins.triggers.single['available'], isFalse);
+    await sub.cancel();
+  });
 }

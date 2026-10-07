@@ -1972,6 +1972,15 @@ class UiStringsZh extends UiStrings {
   String get gestureSequenceError => '请添加至少两个角落。';
 
   @override
+  String get gesturePluginTrigger => '插件触发器';
+
+  @override
+  String get gesturePluginTriggerField => '触发器';
+
+  @override
+  String get gesturePluginTriggerHelp => '请先在“插件管理器”中启用提供触发器的插件。';
+
+  @override
   String get intercomCall => '呼叫';
 
   @override
@@ -3096,6 +3105,12 @@ class UiStringsZh extends UiStrings {
   String pluginErrorInvalidField(String field) {
     return '$field 无效';
   }
+
+  @override
+  String get pluginErrorTooManyTriggers => '触发器过多';
+
+  @override
+  String get pluginErrorTriggerId => '触发器 ID 无效或重复';
 
   @override
   String get remoteDisableTitle => '要关闭远程管理吗？';
@@ -14425,6 +14440,15 @@ class UiStringsZhCn extends UiStringsZh {
   String get gestureSequenceError => '请添加至少两个角落。';
 
   @override
+  String get gesturePluginTrigger => '插件触发器';
+
+  @override
+  String get gesturePluginTriggerField => '触发器';
+
+  @override
+  String get gesturePluginTriggerHelp => '请先在“插件管理器”中启用提供触发器的插件。';
+
+  @override
   String get intercomCall => '呼叫';
 
   @override
@@ -15549,6 +15573,12 @@ class UiStringsZhCn extends UiStringsZh {
   String pluginErrorInvalidField(String field) {
     return '$field 无效';
   }
+
+  @override
+  String get pluginErrorTooManyTriggers => '触发器过多';
+
+  @override
+  String get pluginErrorTriggerId => '触发器 ID 无效或重复';
 
   @override
   String get remoteDisableTitle => '要关闭远程管理吗？';

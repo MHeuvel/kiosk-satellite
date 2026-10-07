@@ -40,5 +40,8 @@
   "gestureActionHelp": "Ce que ce geste déclenche.",
   "gestureChangeHelp": "Appuyez pour changer.",
   "gestureChooseError": "Choisissez une action.",
-  "gestureSequenceError": "Ajoutez au moins deux coins."
+  "gestureSequenceError": "Ajoutez au moins deux coins.",
+  "gesturePluginTrigger": "Déclencheur de plugin",
+  "gesturePluginTriggerField": "Déclencheur",
+  "gesturePluginTriggerHelp": "Activez d'abord un plugin proposant des déclencheurs dans le Gestionnaire de plugins."
 }

@@ -28,5 +28,7 @@
   "pluginErrorSettingType": "Niet ondersteund instellingstype",
   "pluginErrorInvalidManifest": "Ongeldig plug-inmanifest",
   "pluginErrorAndroidApi": "De plug-in vereist Android-API {version}",
-  "pluginErrorInvalidField": "Ongeldige {field}"
+  "pluginErrorInvalidField": "Ongeldige {field}",
+  "pluginErrorTooManyTriggers": "Te veel triggers",
+  "pluginErrorTriggerId": "Ongeldige of dubbele trigger-ID"
 }

@@ -2040,6 +2040,16 @@ class UiStringsFr extends UiStrings {
   String get gestureSequenceError => 'Ajoutez au moins deux coins.';
 
   @override
+  String get gesturePluginTrigger => 'Déclencheur de plugin';
+
+  @override
+  String get gesturePluginTriggerField => 'Déclencheur';
+
+  @override
+  String get gesturePluginTriggerHelp =>
+      'Activez d\'abord un plugin proposant des déclencheurs dans le Gestionnaire de plugins.';
+
+  @override
   String get intercomCall => 'Appeler';
 
   @override
@@ -3244,6 +3254,13 @@ class UiStringsFr extends UiStrings {
   String pluginErrorInvalidField(String field) {
     return '$field invalide';
   }
+
+  @override
+  String get pluginErrorTooManyTriggers => 'Trop de déclencheurs';
+
+  @override
+  String get pluginErrorTriggerId =>
+      'Identifiant de déclencheur invalide ou en double';
 
   @override
   String get remoteDisableTitle => 'Désactiver la gestion à distance ?';

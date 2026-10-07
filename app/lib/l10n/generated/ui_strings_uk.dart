@@ -2025,6 +2025,16 @@ class UiStringsUk extends UiStrings {
   String get gestureSequenceError => 'Додайте щонайменше два кути.';
 
   @override
+  String get gesturePluginTrigger => 'Тригер плагіна';
+
+  @override
+  String get gesturePluginTriggerField => 'Тригер';
+
+  @override
+  String get gesturePluginTriggerHelp =>
+      'Спочатку ввімкніть плагін із тригерами у менеджері плагінів.';
+
+  @override
   String get intercomCall => 'Виклик';
 
   @override
@@ -3218,6 +3228,13 @@ class UiStringsUk extends UiStrings {
   String pluginErrorInvalidField(String field) {
     return 'Недійсне поле $field';
   }
+
+  @override
+  String get pluginErrorTooManyTriggers => 'Занадто багато тригерів';
+
+  @override
+  String get pluginErrorTriggerId =>
+      'Недійсний або дубльований ідентифікатор тригера';
 
   @override
   String get remoteDisableTitle => 'Вимкнути віддалене керування?';

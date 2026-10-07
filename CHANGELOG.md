@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Added
+- **Plugins can trigger gestures.** **Settings > Gestures** gains a **Plugin trigger** gesture, so a plugin can start any gesture action, from a dashboard view to a Home Assistant script (#888). A plugin declares its triggers in its manifest and fires one with `host.fireTrigger` when it notices something, such as a hardware button press. Lockdown Mode and Disable Gestures silence plugin triggers like the other gestures. Mappings that use a plugin trigger stay on their kiosk and are not synced to the fleet.
+
 ## v2026.10.11 - 2026-10-06
 
 ### Added

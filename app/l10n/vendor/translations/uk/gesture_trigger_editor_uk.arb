@@ -40,5 +40,8 @@
   "gestureActionHelp": "Що саме активує цей жест.",
   "gestureChangeHelp": "Торкніться, щоб змінити.",
   "gestureChooseError": "Виберіть дію.",
-  "gestureSequenceError": "Додайте щонайменше два кути."
+  "gestureSequenceError": "Додайте щонайменше два кути.",
+  "gesturePluginTrigger": "Тригер плагіна",
+  "gesturePluginTriggerField": "Тригер",
+  "gesturePluginTriggerHelp": "Спочатку ввімкніть плагін із тригерами у менеджері плагінів."
 }

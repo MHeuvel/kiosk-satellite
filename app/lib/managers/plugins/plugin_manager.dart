@@ -83,6 +83,20 @@ class PluginManager extends Manager {
         },
   ];
 
+  /// Declared gesture triggers. Only a running plugin can fire one.
+  List<Map<String, Object?>> get triggers => [
+    for (final plugin in installed.value)
+      for (final trigger
+          in (plugin['triggers'] as List? ?? const []).whereType<Map>())
+        {
+          'pluginId': plugin['id'],
+          'pluginName': plugin['name'],
+          'trigger': trigger['id'],
+          'title': trigger['title'],
+          'available': enabled.value && plugin['running'] == true,
+        },
+  ];
+
   List<Map<String, Object?>> get drawerActions => actions
       .where(
         (action) => action['available'] == true && action['drawer'] == true,
@@ -172,6 +186,18 @@ class PluginManager extends Manager {
           if (_runtimeSessions[data['id']] == data['session'] &&
               data['session'] != null) {
             _setStatusTiles(data['id'] as String, data['statusTiles'] as List);
+          }
+        case 'trigger':
+          final data = call.arguments as Map;
+          if (_runtimeSessions[data['id']] == data['session'] &&
+              data['session'] != null &&
+              data['trigger'] is String) {
+            bus.publish(
+              PluginTriggerFired(
+                pluginId: data['id'] as String,
+                trigger: data['trigger'] as String,
+              ),
+            );
           }
         case 'screensavers':
           final data = call.arguments as Map;
@@ -269,6 +295,12 @@ class PluginManager extends Manager {
       'getPluginActions',
       'List declared plugin actions and their availability.',
       (_) async => actions,
+      const {},
+    );
+    register(
+      'getPluginTriggers',
+      'List declared plugin gesture triggers and their availability.',
+      (_) async => triggers,
       const {},
     );
     register(

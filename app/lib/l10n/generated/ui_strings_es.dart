@@ -2042,6 +2042,16 @@ class UiStringsEs extends UiStrings {
   String get gestureSequenceError => 'Añade al menos dos esquinas.';
 
   @override
+  String get gesturePluginTrigger => 'Disparador de plugin';
+
+  @override
+  String get gesturePluginTriggerField => 'Disparador';
+
+  @override
+  String get gesturePluginTriggerHelp =>
+      'Primero activa un plugin con disparadores en el administrador de plugins.';
+
+  @override
   String get intercomCall => 'Llamar';
 
   @override
@@ -3247,6 +3257,13 @@ class UiStringsEs extends UiStrings {
   String pluginErrorInvalidField(String field) {
     return 'El campo $field no es válido';
   }
+
+  @override
+  String get pluginErrorTooManyTriggers => 'Demasiados disparadores';
+
+  @override
+  String get pluginErrorTriggerId =>
+      'El ID del disparador no es válido o está duplicado';
 
   @override
   String get remoteDisableTitle => '¿Desactivar la administración remota?';

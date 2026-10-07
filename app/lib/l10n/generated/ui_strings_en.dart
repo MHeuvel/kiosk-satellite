@@ -2020,6 +2020,16 @@ class UiStringsEn extends UiStrings {
   String get gestureSequenceError => 'Add at least two corners.';
 
   @override
+  String get gesturePluginTrigger => 'Plugin trigger';
+
+  @override
+  String get gesturePluginTriggerField => 'Trigger';
+
+  @override
+  String get gesturePluginTriggerHelp =>
+      'Enable a plugin with triggers in Plugin Manager first.';
+
+  @override
   String get intercomCall => 'Call';
 
   @override
@@ -3194,6 +3204,12 @@ class UiStringsEn extends UiStrings {
   String pluginErrorInvalidField(String field) {
     return 'Invalid $field';
   }
+
+  @override
+  String get pluginErrorTooManyTriggers => 'Too many triggers';
+
+  @override
+  String get pluginErrorTriggerId => 'Invalid or duplicate trigger ID';
 
   @override
   String get remoteDisableTitle => 'Turn off remote management?';

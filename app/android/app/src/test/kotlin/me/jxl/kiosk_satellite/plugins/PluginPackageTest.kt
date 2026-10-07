@@ -217,6 +217,18 @@ class PluginPackageTest {
         commands.getJSONArray("commands").put(commands.getJSONArray("commands").getJSONObject(0))
         rejects { PluginManifest(commands) }
     }
+    @Test fun triggersAreOptionalAndValidated() {
+        assertFalse(PluginManifest(manifest()).hasTrigger("hardTap"))
+        val declared = PluginManifest(manifest().put("triggers", org.json.JSONArray("""[{"id":"hardTap","title":"Hard tap"}]""")))
+        assertTrue(declared.hasTrigger("hardTap"))
+        assertFalse(declared.hasTrigger("show"))
+        rejects { PluginManifest(manifest().put("triggers", org.json.JSONArray("""[{"id":"hardTap","title":"A"},{"id":"hardTap","title":"B"}]"""))) }
+        rejects { PluginManifest(manifest().put("triggers", org.json.JSONArray("""[{"id":"hard-tap","title":"Hard tap"}]"""))) }
+        rejects { PluginManifest(manifest().put("triggers", org.json.JSONArray("""[{"id":"hardTap","title":""}]"""))) }
+        val many = org.json.JSONArray()
+        repeat(21) { many.put(org.json.JSONObject().put("id", "t$it").put("title", "T$it")) }
+        rejects { PluginManifest(manifest().put("triggers", many)) }
+    }
     @Test fun sdkOneValidatesRichSettingsAndNativePackages() = inTemp { dir ->
         val metadata = manifest().put("apiVersion", 1).put("capabilities", org.json.JSONArray("[\"native\",\"entities\"]"))
         metadata.put("settings", org.json.JSONArray("""[

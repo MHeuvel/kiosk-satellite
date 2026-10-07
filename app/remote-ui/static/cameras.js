@@ -94,6 +94,8 @@ export const CAMERA_ICONS = {
     + 'M13.5 11V5a1.5 1.5 0 0 1 3 0v7"/>'
     + '<path d="M16.5 12V8.5a1.5 1.5 0 0 1 3 0V14c0 4-3 7-7.5 7-3 0-4.6-1.2'
     + '-6-3.3L3.3 13.6a1.5 1.5 0 0 1 2.5-1.6L7.5 14"/>',
+  // A puzzle piece, as on the Plugin Manager entry: the plugin trigger.
+  extension: '<path d="M4 7h4V5.5a2 2 0 0 1 4 0V7h4v4h1.5a2 2 0 0 1 0 4H16v4H4z"/>',
   apps: '<path d="M5 5h.01M12 5h.01M19 5h.01M5 12h.01M12 12h.01M19 12h.01'
     + 'M5 19h.01M12 19h.01M19 19h.01"/>',
   link: '<path d="M10 13a4 4 0 0 0 5.7.3l2-2a4 4 0 0 0-5.7-5.6l-1.1 1.1"/>'

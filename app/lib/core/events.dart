@@ -897,6 +897,14 @@ class GestureDetected extends AppEvent {
   final String id;
 }
 
+/// A running plugin fired one of its declared triggers (issue #888). The
+/// gestures manager runs every mapping bound to it.
+class PluginTriggerFired extends AppEvent {
+  const PluginTriggerFired({required this.pluginId, required this.trigger});
+  final String pluginId;
+  final String trigger;
+}
+
 /// A gesture's Home Assistant action (a service call, script, automation
 /// trigger or event) came back. Those actions leave nothing on screen by
 /// themselves, so the kiosk screen turns the outcome into a toast: what

@@ -661,7 +661,19 @@ void main() {
         await build();
         final regular = gesture('normal', 'screensaver');
         final plugin = gesture('plugin', 'plugin_action');
-        await settings.set(defs.gestureMappings, jsonEncode([regular, plugin]));
+        // A plugin trigger (issue #888) is just as local as a plugin action.
+        final pluginTrigger = {
+          ...gesture('trigger', 'screensaver'),
+          'trigger': {
+            'type': 'plugin',
+            'pluginId': 'hello-world',
+            'trigger': 'hardwareKey',
+          },
+        };
+        await settings.set(
+          defs.gestureMappings,
+          jsonEncode([regular, plugin, pluginTrigger]),
+        );
         final profile = SyncProfile(
           categories: {
             for (final category in defs.fleetSyncCategories) category.$1,

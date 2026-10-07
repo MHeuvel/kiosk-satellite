@@ -22896,5 +22896,35 @@
     "translation": "9432d7768310e464ff3008381d6064f738a4c369443e85d4d9bf60a13abe2fb8",
     "author": "Xavier Larrea",
     "ownerAuthored": true
+  },
+  "gesturePluginTriggerHelp": {
+    "source": "b98179ba2fc992d0765758de8919b4bb23b86ea7af5ef9def2f5082e20c3bbd1",
+    "translation": "393615059dfe42298e45bef08f09d7b25727dcfe7a290301c38eee9574e9fd47",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "gesturePluginTriggerField": {
+    "source": "bcad167ea4f35856f96dce735595f2236d218dfc1cf15c633b22d5426fd5e881",
+    "translation": "0bc8485e76c3a3bdfe28a56e2ddb496f26b8d845d1fb0fa80c8875ff0122dd05",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "pluginErrorTooManyTriggers": {
+    "source": "5d5d8de1cbecbc87b07ad0596b899a662854bc50d0f654a1b6567f26c995d499",
+    "translation": "4354730e070280b936ba4b722849ffb6ad88169afe0d441b89c9cbc17d1a85ba",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "gesturePluginTrigger": {
+    "source": "7f16845967bb2ac813d7443e56aff07dedb9e3dcb76985c8f698d0df2f0e72ea",
+    "translation": "614ba8578c83d1f4e65880ae3d74a832ae5a86b9a2884c29ad1c06af6b8b0c85",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
+  },
+  "pluginErrorTriggerId": {
+    "source": "1bd74af89f579a8b9708c106ce1e861498440f2b8b54a7f05013070cd5026bc1",
+    "translation": "14e3fc845fd3a99a886cc496ce819f07320e28f2b757f7f07143bb8c3eab7289",
+    "author": "Xavier Larrea",
+    "ownerAuthored": true
   }
 }
