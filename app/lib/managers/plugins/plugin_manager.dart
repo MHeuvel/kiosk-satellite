@@ -24,6 +24,62 @@ class PluginWindow {
   final String buttonLabel;
 }
 
+/// A native overlay a plugin shows through SDK 1 showOverlay. Sizes and the
+/// inset are in dp, or [wrap] and [fill]. [measured] is the wrapped view's
+/// size in physical pixels once Android has measured it.
+class PluginNativeOverlay {
+  const PluginNativeOverlay({
+    required this.pluginId,
+    required this.session,
+    required this.key,
+    required this.generation,
+    required this.anchor,
+    required this.width,
+    required this.height,
+    required this.inset,
+    required this.closeOnBack,
+    required this.onTop,
+    required this.touchable,
+    this.measured,
+  });
+
+  static const wrap = -1;
+  static const fill = -2;
+
+  final String pluginId;
+  final String session;
+  final String key;
+  final int generation;
+  final String anchor;
+  final int width;
+  final int height;
+  final int inset;
+  final bool closeOnBack;
+  final bool onTop;
+  final bool touchable;
+  final Size? measured;
+
+  /// A replaced overlay is a new view, so the generation is part of it.
+  String get id => '$pluginId/$key/$generation';
+
+  bool get wraps => width == wrap || height == wrap;
+
+  PluginNativeOverlay withMeasured(Size size) => PluginNativeOverlay(
+    pluginId: pluginId,
+    session: session,
+    key: key,
+    generation: generation,
+    anchor: anchor,
+    width: width,
+    height: height,
+    inset: inset,
+    closeOnBack: closeOnBack,
+    onTop: onTop,
+    touchable: touchable,
+    measured: size,
+  );
+}
+
 /// Owns the Flutter surface of the Android plugin runtime.
 class PluginManager extends Manager {
   PluginManager(
@@ -54,6 +110,14 @@ class PluginManager extends Manager {
           '${entry.value['title']} (${installed.value.where((p) => p['id'] == entry.value['pluginId']).firstOrNull?['name'] ?? entry.value['pluginId']})',
   };
   final windows = ValueNotifier<List<PluginWindow>>(const []);
+  // Bottom to top across plugins: a new or replaced overlay goes on top.
+  final overlays = ValueNotifier<List<PluginNativeOverlay>>(const []);
+  // Flutter keeps platform views across an Activity re-creation, still bound
+  // to the old Activity. A new epoch rebuilds every overlay view on the new
+  // one, so plugins get a live context and the old Activity can go.
+  final overlayEpoch = ValueNotifier<int>(0);
+  StreamSubscription<ActivityAttached>? _attachSub;
+  Map<String, Object?>? _overlayTheme;
   final shizuku = ValueNotifier<Map<String, Object?>>(const {
     'status': 'checking',
   });
@@ -139,6 +203,9 @@ class PluginManager extends Manager {
     statusTiles.addListener(publishTiles);
     installed.addListener(publishTiles);
     enabled.addListener(publishTiles);
+    _attachSub = bus.on<ActivityAttached>().listen((_) {
+      if (!_disposed && overlays.value.isNotEmpty) overlayEpoch.value++;
+    });
     _hostReads = PluginHostApi(
       commands,
       bus,
@@ -154,6 +221,7 @@ class PluginManager extends Manager {
           _setCharts(data['id'] as String, const []);
           _setStatusTiles(data['id'] as String, const []);
           _setEntities(data['id'] as String, const []);
+          _setOverlays(data['id'] as String, const []);
           _hostReads.open(call.arguments as Map);
         case 'hostSessionClosed':
           final data = call.arguments as Map;
@@ -163,6 +231,7 @@ class PluginManager extends Manager {
             _setCharts(data['id'] as String, const []);
             _setStatusTiles(data['id'] as String, const []);
             _setEntities(data['id'] as String, const []);
+            _setOverlays(data['id'] as String, const []);
           }
           _hostReads.close(call.arguments as Map);
         case 'hostSubscription':
@@ -207,6 +276,26 @@ class PluginManager extends Manager {
               data['id'] as String,
               data['screensavers'] as List,
             );
+          }
+        case 'overlays':
+          final data = call.arguments as Map;
+          if (_runtimeSessions[data['id']] == data['session'] &&
+              data['session'] != null) {
+            _setOverlays(data['id'] as String, data['overlays'] as List);
+          }
+        case 'overlaySize':
+          final data = call.arguments as Map;
+          final id =
+              '${data['id']}/${data['key']}/${(data['generation'] as num).toInt()}';
+          final size = Size(
+            (data['width'] as num).toDouble(),
+            (data['height'] as num).toDouble(),
+          );
+          if (_runtimeSessions[data['id']] == data['session']) {
+            overlays.value = [
+              for (final overlay in overlays.value)
+                overlay.id == id ? overlay.withMeasured(size) : overlay,
+            ];
           }
         case 'shizukuState':
           shizuku.value = Map<String, Object?>.from(call.arguments as Map);
@@ -702,6 +791,84 @@ class PluginManager extends Manager {
         .map((p) => p['id'])
         .toSet();
     windows.value = windows.value.where((w) => running.contains(w.id)).toList();
+    if (overlays.value.any((o) => !running.contains(o.pluginId))) {
+      overlays.value = overlays.value
+          .where((o) => running.contains(o.pluginId))
+          .toList();
+    }
+  }
+
+  /// Replaces one plugin's overlays and keeps the stacking order: overlays
+  /// already showing stay where they are, with their measured size, and new
+  /// or replaced ones go on top.
+  void _setOverlays(String pluginId, List value) {
+    final session = _runtimeSessions[pluginId];
+    final incoming = <String, PluginNativeOverlay>{
+      if (session != null)
+        for (final raw in value.whereType<Map>())
+          for (final overlay in [
+            PluginNativeOverlay(
+              pluginId: pluginId,
+              session: session,
+              key: raw['key'] as String,
+              generation: (raw['generation'] as num).toInt(),
+              anchor: raw['anchor'] as String,
+              width: (raw['width'] as num).toInt(),
+              height: (raw['height'] as num).toInt(),
+              inset: (raw['inset'] as num).toInt(),
+              closeOnBack: raw['closeOnBack'] == true,
+              onTop: raw['onTop'] == true,
+              touchable: raw['touchable'] != false,
+            ),
+          ])
+            overlay.id: overlay,
+    };
+    final showing = {for (final overlay in overlays.value) overlay.id};
+    final next = [
+      for (final overlay in overlays.value)
+        if (overlay.pluginId != pluginId || incoming.containsKey(overlay.id))
+          overlay,
+      for (final overlay in incoming.values)
+        if (!showing.contains(overlay.id)) overlay,
+    ];
+    if (next.length != overlays.value.length ||
+        incoming.values.any((o) => !showing.contains(o.id))) {
+      overlays.value = next;
+    }
+  }
+
+  /// The overlay a back press closes: the topmost that allows it.
+  PluginNativeOverlay? get backOverlay =>
+      overlays.value.where((o) => o.closeOnBack).lastOrNull;
+
+  /// Back closed an overlay. It goes at once, and the plugin hears
+  /// overlay.closed unless it replaced the overlay in the meantime.
+  Future<void> closeOverlay(PluginNativeOverlay overlay) async {
+    overlays.value = overlays.value.where((o) => o.id != overlay.id).toList();
+    try {
+      await channel
+          .invokeMethod<void>('overlayClosed', {
+            'id': overlay.pluginId,
+            'session': overlay.session,
+            'key': overlay.key,
+            'generation': overlay.generation,
+          })
+          .timeout(const Duration(seconds: 10));
+    } catch (error) {
+      log.warn('plugin:${overlay.pluginId}', _errorText(error));
+    }
+  }
+
+  /// The theme new overlay views start with, and live ones restyle to.
+  /// Native hears it only when it changes.
+  Map<String, Object?> overlayTheme(Map<String, Object?> next) {
+    if (jsonEncode(next) != jsonEncode(_overlayTheme)) {
+      _overlayTheme = next;
+      unawaited(
+        channel.invokeMethod<void>('overlayTheme', next).catchError((_) {}),
+      );
+    }
+    return _overlayTheme!;
   }
 
   void _refreshEntities() {
@@ -827,6 +994,7 @@ class PluginManager extends Manager {
   @override
   Future<void> dispose() async {
     _disposed = true;
+    await _attachSub?.cancel();
     await _hostReads.dispose();
     repository.close();
     channel.setMethodCallHandler(null);
@@ -841,6 +1009,8 @@ class PluginManager extends Manager {
     screensavers.dispose();
     installed.dispose();
     windows.dispose();
+    overlays.dispose();
+    overlayEpoch.dispose();
     shizuku.dispose();
     status.dispose();
     enabled.dispose();

@@ -217,6 +217,13 @@ class PluginPackageTest {
         commands.getJSONArray("commands").put(commands.getJSONArray("commands").getJSONObject(0))
         rejects { PluginManifest(commands) }
     }
+    @Test fun allowsUpToFiftySettings() {
+        fun withSettings(count: Int) = manifest().put("settings", org.json.JSONArray().apply {
+            repeat(count) { put(JSONObject().put("key", "s$it").put("title", "S$it").put("type", "boolean").put("default", false)) }
+        })
+        assertEquals(PluginManifest.MAX_SETTINGS, PluginManifest(withSettings(PluginManifest.MAX_SETTINGS)).settings.length())
+        rejects { PluginManifest(withSettings(PluginManifest.MAX_SETTINGS + 1)) }
+    }
     @Test fun triggersAreOptionalAndValidated() {
         assertFalse(PluginManifest(manifest()).hasTrigger("hardTap"))
         val declared = PluginManifest(manifest().put("triggers", org.json.JSONArray("""[{"id":"hardTap","title":"Hard tap"}]""")))

@@ -22,6 +22,8 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 import me.jxl.kiosk.plugins.KioskPlugin
+import me.jxl.kiosk.plugins.OverlayFactory
+import me.jxl.kiosk.plugins.OverlaySpec
 import me.jxl.kiosk.plugins.PluginHost
 import org.json.JSONObject
 
@@ -53,6 +55,25 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
 
         /** Forwarded from MainActivity.dispatchKeyEvent before KS handles the key. */
         fun onKey(event: KeyEvent) { current?.hardwareKey(event) }
+
+        /**
+         * The plugin whose class appears in the crash's stack, walking
+         * causes too. A class counts only when the plugin's own loader
+         * defined it, so KS and SDK classes on the way never take the blame.
+         */
+        internal fun culprit(error: Throwable, loaders: List<Pair<String, ClassLoader>>): String? {
+            if (loaders.isEmpty()) return null
+            val seen = HashSet<Throwable>()
+            var cause: Throwable? = error
+            while (cause != null && seen.add(cause)) {
+                for (frame in cause.stackTrace) for ((id, loader) in loaders) {
+                    val owner = try { Class.forName(frame.className, false, loader).classLoader } catch (_: Throwable) { null }
+                    if (owner === loader) return id
+                }
+                cause = cause.cause
+            }
+            return null
+        }
     }
 
     private val channel = MethodChannel(messenger, "kiosk_satellite/plugins")
@@ -63,7 +84,8 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
     private var records = JSONObject(prefs.getString("installed", "{}") ?: "{}")
     @Volatile private var pluginsEnabled = prefs.getBoolean("pluginsEnabled", records.length() > 0)
     private var startupGeneration = 0
-    private val sessions = mutableMapOf<String, Session>()
+    // Read from the main thread too, where Flutter asks for overlay views.
+    private val sessions = ConcurrentHashMap<String, Session>()
     private val loadedIds = mutableSetOf<String>()
     private val loadedHashes = mutableSetOf<String>()
     private val restartRequired = mutableSetOf<String>()
@@ -131,6 +153,8 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
             if (statusTilePending.compareAndSet(false, true)) main.postDelayed(statusTileUpdate, 250)
         }
         fun closeStatusTiles() { statusTiles.close(); main.removeCallbacks(statusTileUpdate) }
+        val overlays = PluginOverlays<OverlayFactory>()
+        fun notifyOverlays() = emit("overlays", mapOf("id" to id, "session" to token, "overlays" to overlays.snapshot()), alive)
         val triggers = PluginTriggers(manifest::hasTrigger)
         var status = ""
         var statusError = false
@@ -158,6 +182,7 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
             return shizukuClient ?: shizuku.client().also { shizukuClient = it }
         }
         val alive = AtomicBoolean(true)
+        @Volatile var loader: ClassLoader? = null
         val executor = Executors.newSingleThreadExecutor { task -> Thread(task, "plugin-$id").apply { isDaemon = true } }
         var plugin: KioskPlugin? = null
         val host = object : PluginHost {
@@ -263,6 +288,14 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
                 emit("window", mapOf("id" to id, "title" to title, "message" to message, "buttonLabel" to buttonLabel), alive)
             }
             override fun hideWindow() = emit("hideWindow", mapOf("id" to id), alive)
+            override fun showOverlay(key: String, spec: OverlaySpec, factory: OverlayFactory) {
+                check(alive.get() && "overlay" in manifest.capabilities) { "Plugin did not declare overlay access" }
+                overlays.show(key, spec.anchor(), spec.width(), spec.height(), spec.inset(), spec.closeOnBack(), spec.onTop(), spec.touchable(), factory)
+                notifyOverlays()
+            }
+            override fun hideOverlay(key: String) {
+                if (overlays.hide(key)) notifyOverlays()
+            }
             override fun log(message: String) = emit("log", mapOf("id" to id, "message" to message.take(1000)), alive)
             override fun nativeLibraryPath(name: String): String {
                 check(alive.get() && "native" in manifest.capabilities)
@@ -337,8 +370,27 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
         }
     }
 
+    /** Registered on the engine by KioskApplication. */
+    internal val overlayViews = PluginOverlayViews(
+        context.assets,
+        lookup = { id, token, key, generation ->
+            sessions[id]?.takeIf { it.alive.get() && it.token == token }?.overlays?.get(key, generation)?.factory
+        },
+        failed = { id, token, error ->
+            worker.execute {
+                val session = sessions[id]
+                if (session != null && session.alive.get() && session.token == token) {
+                    fail(id, error)
+                    emit("changed", snapshot())
+                }
+            }
+        },
+        measured = { size -> emit("overlaySize", size) },
+    )
+
     init {
         current = this
+        installCrashGuard()
         channel.setMethodCallHandler { call, result ->
             worker.execute {
                 try {
@@ -402,6 +454,8 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
                             null
                         }
                         "windowEvent" -> { windowEvent(id(args), args); null }
+                        "overlayClosed" -> { overlayClosed(args); null }
+                        "overlayTheme" -> { main.post { overlayViews.setTheme(args) }; null }
                         "stopAll" -> {
                             sessions.keys.toList().forEach { id ->
                                 try { stopSession(id) } catch (_: Throwable) { /* Continue stopping other plugins. */ }
@@ -534,7 +588,7 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
             // Revoke every host before waiting for stop callbacks from individual plugins.
             sessions.forEach { (id, session) ->
                 session.alive.set(false)
-                session.closeShizuku(); session.closeCharts(); session.closeStatusTiles(); session.triggers.close(); session.closeEntities(); session.closeScreensavers()
+                session.closeShizuku(); session.closeCharts(); session.closeStatusTiles(); session.triggers.close(); session.closeEntities(); session.closeScreensavers(); session.overlays.close()
                 emit("hideWindow", mapOf("id" to id))
             }
             for (id in sessions.keys.toList()) {
@@ -683,6 +737,7 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
             current.call {
                 val optimized = File(context.codeCacheDir, "plugins/${record.getString("hash")}").apply { mkdirs() }
                 val loader = DexClassLoader(jar.absolutePath, optimized.absolutePath, current.nativeDir.absolutePath, KioskPlugin::class.java.classLoader)
+                current.loader = loader
                 val plugin = loader.loadClass(manifest.entryClass).getDeclaredConstructor().newInstance() as KioskPlugin
                 current.plugin = plugin
                 plugin.start(current.host, Collections.unmodifiableMap(config))
@@ -699,7 +754,7 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
     private fun stopSession(id: String) {
         val session = sessions.remove(id) ?: return
         session.alive.set(false)
-        session.closeShizuku(); session.closeCharts(); session.closeStatusTiles(); session.triggers.close(); session.closeEntities(); session.closeScreensavers()
+        session.closeShizuku(); session.closeCharts(); session.closeStatusTiles(); session.triggers.close(); session.closeEntities(); session.closeScreensavers(); session.overlays.close()
         session.subscriptions.clear()
         emit("hostSessionClosed", mapOf("id" to id, "session" to session.token))
         emit("hideWindow", mapOf("id" to id))
@@ -766,6 +821,41 @@ class PluginBridge(private val context: Context, messenger: BinaryMessenger) {
         val session = sessions[id] ?: return
         try { session.call { session.plugin!!.onEvent(event, emptyMap()) } }
         catch (error: Throwable) { fail(id, error); throw error }
+    }
+
+    /** Back closed an overlay. Stale requests for a replaced overlay are ignored. */
+    private fun overlayClosed(args: Map<String, Any?>) {
+        val session = (args["id"] as? String)?.let { sessions[it] } ?: return
+        val key = args["key"] as? String ?: return
+        val generation = (args["generation"] as? Number)?.toInt() ?: return
+        if (!session.alive.get() || session.token != args["session"] || !session.overlays.closed(key, generation)) return
+        session.notifyOverlays()
+        try { session.call { session.plugin!!.onEvent("overlay.closed", mapOf("key" to key)) } }
+        catch (error: Throwable) { fail(session.id, error); emit("changed", snapshot()); throw error }
+    }
+
+    /**
+     * A plugin's own threads and its overlay views run outside the
+     * callbacks KS guards, so an exception there ends the process. Before
+     * the crash goes on to the journal and Android, the plugin whose class
+     * threw is switched off. Otherwise a broken overlay would crash the
+     * kiosk again on every start.
+     */
+    private fun installCrashGuard() {
+        val previous = Thread.getDefaultUncaughtExceptionHandler()
+        Thread.setDefaultUncaughtExceptionHandler { thread, error ->
+            try {
+                val loaders = sessions.values.mapNotNull { session -> session.loader?.let { session.id to it } }
+                culprit(error, loaders)?.let { id ->
+                    records.optJSONObject(id)?.put("enabled", false)
+                        ?.put("error", "Disabled after it crashed Kiosk Satellite: ${error.message ?: error.javaClass.simpleName}")
+                    prefs.edit().putString("installed", records.toString()).commit()
+                }
+            } catch (_: Throwable) {
+                // Never mask the crash itself.
+            }
+            previous?.uncaughtException(thread, error)
+        }
     }
 
     private val keysQueued = AtomicInteger()

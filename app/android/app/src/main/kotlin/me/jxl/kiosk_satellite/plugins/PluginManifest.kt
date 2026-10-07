@@ -32,7 +32,8 @@ class PluginManifest(val json: JSONObject) {
         text(json, "description", 1000)
         text(json, "author", 120)
         text(json, "license", 120)
-        require(settings.length() <= 20 && commands.length() <= 20) { "Too many settings or commands" }
+        require(settings.length() <= MAX_SETTINGS) { "Too many settings" }
+        require(commands.length() <= 20) { "Too many commands" }
         require(triggers.length() <= 20) { "Too many triggers" }
         val keys = mutableSetOf<String>()
         for (i in 0 until settings.length()) {
@@ -129,6 +130,9 @@ class PluginManifest(val json: JSONObject) {
     private data class GroupReferences(val kind: String, val used: MutableSet<String>, val pattern: String, val maximum: Int)
 
     companion object {
+        /** Settings per plugin. Display groups keep a long list navigable. */
+        const val MAX_SETTINGS = 50
+
         fun text(json: JSONObject, key: String, limit: Int): String {
             val value = json.get(key)
             require(value is String && value.isNotBlank() && value.length <= limit) { "Invalid $key" }
