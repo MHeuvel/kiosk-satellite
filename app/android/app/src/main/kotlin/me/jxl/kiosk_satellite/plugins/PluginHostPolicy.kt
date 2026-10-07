@@ -10,7 +10,7 @@ internal object PluginHostPolicy {
         "screen.state", "screen.brightness", "screen.ambient",
         "device.power", "device.network", "device.volume", "device.light", "device.key",
         "detection.motion", "detection.face", "detection.proximity",
-        "detection.person", "detection.presence", "voice.interaction", "voice.state",
+        "detection.person", "detection.presence", "voice.interaction", "voice.state", "intercom.state",
         "wakeword.state", "wakeword.detected", "stopword.detected", "camera.view", "browser.state",
     )
 

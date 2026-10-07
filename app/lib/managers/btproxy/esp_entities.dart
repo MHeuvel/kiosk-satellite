@@ -10,6 +10,7 @@ import '../../core/event_bus.dart';
 import '../../core/events.dart';
 import '../../core/logging.dart';
 import '../device/ip_addresses.dart';
+import '../intercom/intercom_sensors.dart';
 import 'dashboard_views.dart';
 import 'interaction_stamp.dart';
 import '../sendspin/music_assistant_api.dart';
@@ -1770,17 +1771,14 @@ class EspEntitySurface {
     _sendInitial();
   }
 
-  /// The intercom's three sensors from one status shape: the state word,
-  /// the other kiosk (the caller after a missed call, else nobody) and
-  /// whether Do not disturb holds.
+  /// The intercom's three sensors from one status shape. See
+  /// [intercomSensors].
   Future<void> _sendIntercom(Map<String, Object?> status) async {
     if (!_settings.get(defs.intercomEnabled)) return;
-    final call = status['call'];
-    final peer = call is Map ? call['peer'] : null;
-    final peerName = peer is Map ? '${peer['name'] ?? ''}' : '';
-    await _send('intercom', '${status['state'] ?? 'idle'}');
-    await _send('intercom_kiosk', peerName);
-    await _send('intercom_do_not_disturb', status['dnd'] == true);
+    final sensors = intercomSensors(status);
+    await _send('intercom', sensors['state']);
+    await _send('intercom_kiosk', sensors['kiosk']);
+    await _send('intercom_do_not_disturb', sensors['dnd']);
   }
 
   void detach() {

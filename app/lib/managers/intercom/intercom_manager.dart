@@ -27,6 +27,7 @@ import '../voice/voice_requests_manager.dart' show normalizeKioskName;
 import '../voice/voice_turns.dart';
 import 'intercom_audio.dart';
 import 'intercom_routes.dart';
+import 'intercom_sensors.dart';
 
 /// One kiosk on the roster, with what its identity probe said.
 class IntercomKiosk {
@@ -960,6 +961,19 @@ class IntercomManager extends Manager {
             if (enabled) unawaited(_probeAll());
             return CommandResult.ok(status());
           },
+        ),
+      )
+      ..register(
+        Command(
+          name: 'intercomSensors',
+          description:
+              'What the Intercom sensors report: enabled, state, the other '
+              'kiosk and Do not disturb. Probes nothing.',
+          quiet: true,
+          handler: (_) async => CommandResult.ok({
+            'enabled': enabled,
+            ...intercomSensors(status()),
+          }),
         ),
       )
       ..register(

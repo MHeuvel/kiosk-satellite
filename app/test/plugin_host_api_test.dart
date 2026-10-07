@@ -541,6 +541,57 @@ void main() {
   );
 
   test(
+    'intercom reads and events carry what the sensors show, once per change',
+    () async {
+      register(
+        'intercomSensors',
+        (_) async => const CommandResult.ok({
+          'enabled': true,
+          'state': 'ringing',
+          'kiosk': 'Kitchen',
+          'dnd': false,
+          'kiosks': [],
+        }),
+      );
+      final result = await read('getIntercomState');
+      expect(result['ok'], true);
+      expect(result['data'], {
+        'enabled': true,
+        'state': 'ringing',
+        'kiosk': 'Kitchen',
+        'dnd': false,
+      });
+      expect(executed, ['intercomSensors']);
+      subscribe('intercom.state');
+      Map<String, Object?> status(String state, {bool talking = false}) => {
+        'state': state,
+        'dnd': false,
+        'call': {
+          'peer': {'name': 'Kitchen', 'address': '10.0.0.2'},
+          'talking': talking,
+        },
+        'kiosks': [
+          {'name': 'Kitchen', 'address': '10.0.0.2'},
+        ],
+      };
+      bus.publish(IntercomStateChanged(status('in_call')));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
+      expect(sent, hasLength(1));
+      expect(sent.single['event'], 'intercom.state');
+      final payload = Map.of(sent.single['payload'] as Map)..remove('time');
+      expect(payload, {'state': 'in_call', 'kiosk': 'Kitchen', 'dnd': false});
+      sent.clear();
+      bus.publish(IntercomStateChanged(status('in_call', talking: true)));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
+      expect(sent, isEmpty);
+      bus.publish(const IntercomStateChanged({'state': 'idle', 'dnd': true}));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
+      expect((sent.single['payload'] as Map)['kiosk'], '');
+      expect((sent.single['payload'] as Map)['dnd'], true);
+    },
+  );
+
+  test(
     'HA reads validate IDs and project only the SDK entity fields',
     () async {
       register('haPluginReadEntity', (params) async {

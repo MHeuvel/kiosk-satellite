@@ -6,6 +6,7 @@ import '../../core/event_bus.dart';
 import '../../core/events.dart';
 import '../browser/dashboard_state.dart';
 import '../home_assistant/plugin_entities.dart';
+import '../intercom/intercom_sensors.dart';
 import '../settings/definitions.dart' as defs;
 
 /// Explicit SDK 1 host surface. Registry additions do not expand plugin access.
@@ -19,6 +20,7 @@ class PluginHostApi {
   late final StreamSubscription<AppEvent> _events;
   final _sessions = <String, _HostSession>{};
   bool _disposed = false;
+  String? _intercomSent;
 
   static const commandNames = [
     'getHostApi',
@@ -39,6 +41,7 @@ class PluginHostApi {
     'getCameraViewState',
     'getWakeWordState',
     'getVoiceState',
+    'getIntercomState',
     'haStatus',
     'getHaEntityState',
     'getDashboardState',
@@ -170,6 +173,7 @@ class PluginHostApi {
     'detection.presence',
     'voice.interaction',
     'voice.state',
+    'intercom.state',
     'wakeword.state',
     'wakeword.detected',
     'stopword.detected',
@@ -220,6 +224,7 @@ class PluginHostApi {
       'statusLabel',
     ],
     'getVoiceState': ['enabled', 'state'],
+    'getIntercomState': ['enabled', 'state', 'kiosk', 'dnd'],
     'haStatus': ['configured', 'connected'],
     'getDashboardState': [
       'homeAssistantUrl',
@@ -364,6 +369,7 @@ class PluginHostApi {
             switch (name) {
               'getHaEntityState' => 'haPluginReadEntity',
               'getVoiceState' => 'voiceStatus',
+              'getIntercomState' => 'intercomSensors',
               _ => name,
             },
             name == 'screenOff'
@@ -508,6 +514,7 @@ class PluginHostApi {
       {'active': e.active, 'source': e.source.name},
     ),
     VoiceSatelliteStateChanged e => ('voice.state', {'state': e.state}),
+    IntercomStateChanged e => ('intercom.state', intercomSensors(e.status)),
     WakeWordStateChanged e => (
       'wakeword.state',
       {'active': e.active, 'listening': e.listening, 'muted': e.muted},
@@ -551,6 +558,13 @@ class PluginHostApi {
     if (projected.$2.values.any((value) => !_scalar(value)) ||
         utf8.encode(jsonEncode(projected.$2)).length > 32000) {
       return;
+    }
+    // The intercom's status also changes with the roster and each talking
+    // flag. Plugins hear only what the sensors would show.
+    if (projected.$1 == 'intercom.state') {
+      final value = jsonEncode(projected.$2);
+      if (value == _intercomSent) return;
+      _intercomSent = value;
     }
     for (final session in _sessions.values) {
       if (!session.subscriptions.contains(projected.$1)) continue;
