@@ -6,6 +6,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Added
 - **Plugins can trigger gestures.** **Settings > Gestures** gains a **Plugin trigger** gesture, so a plugin can start any gesture action, from a dashboard view to a Home Assistant script (#888). A plugin declares its triggers in its manifest and fires one with `host.fireTrigger` when it notices something, such as a hardware button press. Lockdown Mode and Disable Gestures silence plugin triggers like the other gestures. Mappings that use a plugin trigger stay on their kiosk and are not synced to the fleet.
+- **Plugins can follow Voice Satellite.** Plugins with `host.read` can now read the Voice Satellite state with `getVoiceState` and subscribe to `voice.state` for each change between idle, listening, processing and responding (#887). It matches the Voice Satellite sensor on the ESPHome device, so it covers realtime conversations too, which Home Assistant's `assist_satellite` entity shows as idle. A plugin such as an LED ring can follow the kiosk's own turns with no entity to pick and no trip through Home Assistant. It applies to the native Voice Satellite runtime.
 
 ## v2026.10.11 - 2026-10-06
 

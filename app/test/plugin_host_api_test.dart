@@ -514,6 +514,33 @@ void main() {
   });
 
   test(
+    'voice state reads and events carry the turn state, never its words',
+    () async {
+      register(
+        'voiceStatus',
+        (_) async => const CommandResult.ok({
+          'enabled': true,
+          'state': 'responding',
+          'command': 'turn on the lights',
+          'answer': 'Turned on the lights',
+          'satelliteEntity': 'assist_satellite.kitchen',
+        }),
+      );
+      final result = await read('getVoiceState');
+      expect(result['ok'], true);
+      expect(result['data'], {'enabled': true, 'state': 'responding'});
+      expect(executed, ['voiceStatus']);
+      subscribe('voice.state');
+      bus.publish(const VoiceSatelliteStateChanged('listening'));
+      bus.publish(const VoiceSatelliteStateChanged('processing'));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
+      expect(sent, hasLength(1));
+      expect(sent.single['event'], 'voice.state');
+      expect((sent.single['payload'] as Map)['state'], 'processing');
+    },
+  );
+
+  test(
     'HA reads validate IDs and project only the SDK entity fields',
     () async {
       register('haPluginReadEntity', (params) async {

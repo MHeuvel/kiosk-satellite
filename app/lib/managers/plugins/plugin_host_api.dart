@@ -38,6 +38,7 @@ class PluginHostApi {
     'getProximityEnabled',
     'getCameraViewState',
     'getWakeWordState',
+    'getVoiceState',
     'haStatus',
     'getHaEntityState',
     'getDashboardState',
@@ -168,6 +169,7 @@ class PluginHostApi {
     'detection.person',
     'detection.presence',
     'voice.interaction',
+    'voice.state',
     'wakeword.state',
     'wakeword.detected',
     'stopword.detected',
@@ -217,6 +219,7 @@ class PluginHostApi {
       'status',
       'statusLabel',
     ],
+    'getVoiceState': ['enabled', 'state'],
     'haStatus': ['configured', 'connected'],
     'getDashboardState': [
       'homeAssistantUrl',
@@ -358,7 +361,11 @@ class PluginHostApi {
       final result = await commands
           .as('plugin:${session.id}')
           .execute(
-            name == 'getHaEntityState' ? 'haPluginReadEntity' : name,
+            switch (name) {
+              'getHaEntityState' => 'haPluginReadEntity',
+              'getVoiceState' => 'voiceStatus',
+              _ => name,
+            },
             name == 'screenOff'
                 ? {'prompt': false}
                 : Map<String, Object?>.from(params),
@@ -500,6 +507,7 @@ class PluginHostApi {
       'voice.interaction',
       {'active': e.active, 'source': e.source.name},
     ),
+    VoiceSatelliteStateChanged e => ('voice.state', {'state': e.state}),
     WakeWordStateChanged e => (
       'wakeword.state',
       {'active': e.active, 'listening': e.listening, 'muted': e.muted},
