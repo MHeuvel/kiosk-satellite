@@ -9,6 +9,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 - **Plugins can follow Voice Satellite.** Plugins with `host.read` can now read the Voice Satellite state with `getVoiceState` and subscribe to `voice.state` for each change between idle, listening, processing and responding (#887). It matches the Voice Satellite sensor on the ESPHome device, so it covers realtime conversations too, which Home Assistant's `assist_satellite` entity shows as idle. A plugin such as an LED ring can follow the kiosk's own turns with no entity to pick and no trip through Home Assistant. It applies to the native Voice Satellite runtime.
 - **Plugins can follow the intercom.** Plugins with `host.read` can now read the intercom with `getIntercomState` and subscribe to `intercom.state`. Both carry the same state, other kiosk and Do not disturb values as the Intercom entities on the ESPHome device, so a plugin can light up while a call rings or a kiosk misses one. The event fires only when one of those values changes.
 
+### Changed
+- **Voice Satellite errors close on their own.** An error toast, such as a failed speech-to-text step, now closes after 10 seconds instead of staying on screen until someone taps Close (#885). Close still dismisses it right away.
+
 ## v2026.10.11 - 2026-10-06
 
 ### Added

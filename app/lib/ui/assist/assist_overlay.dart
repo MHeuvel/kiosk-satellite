@@ -226,7 +226,7 @@ class _AssistOverlayState extends State<AssistOverlay>
     // one rather than re-animating it.
     if (error && currentToastTag == tag) return;
     // Voice Satellite's toasts: the title from the severity, the source
-    // before the message, errors up until closed.
+    // before the message, errors up for 10 seconds or until closed.
     // The kiosk's own wording is translated; an error Home Assistant sent
     // stays as it came.
     final pipeline = RegExp(r'^Pipeline "(.*)"$').firstMatch(notice.category);
@@ -246,10 +246,11 @@ class _AssistOverlayState extends State<AssistOverlay>
         VoiceSeverity.warning => ToastKind.warning,
         VoiceSeverity.notice => ToastKind.info,
       },
-      sticky: error,
-      duration: notice.severity == VoiceSeverity.warning
-          ? const Duration(seconds: 8)
-          : const Duration(seconds: 4),
+      duration: switch (notice.severity) {
+        VoiceSeverity.error => const Duration(seconds: 10),
+        VoiceSeverity.warning => const Duration(seconds: 8),
+        VoiceSeverity.notice => const Duration(seconds: 4),
+      },
       actionLabel: error ? 'Close' : null,
       onAction: error ? () {} : null,
       tag: tag,
