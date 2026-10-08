@@ -28,6 +28,7 @@ import android.system.Os
 import android.system.OsConstants
 import android.system.StructTimeval
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.Display
 import android.view.Surface
 import android.view.WindowManager
@@ -244,6 +245,9 @@ class DeviceDetails(
                 // sample buffers count against, so the screensaver can
                 // tell which videos it can afford to play.
                 "javaHeapMax" -> result.success(Runtime.getRuntime().maxMemory())
+                // Whether videos skip Flutter's texture for a SurfaceView
+                // from the start (issue #894).
+                "platformVideoFirst" -> result.success(platformVideoFirst())
                 // Language tags as names in the app's language, for the text
                 // to speech Language pickers. Engines write en_US as often as
                 // en-US, so both parse.
@@ -963,5 +967,36 @@ class DeviceDetails(
                 .getMethod("get", String::class.java, String::class.java)
                 .invoke(null, "persist.vendor.duraspeed.app.on", "1") as String
         }.getOrDefault("1") != "0"
+    }
+
+    /**
+     * Whether videos should start on a platform view rather than Flutter's
+     * texture (issue #894). Samsung's Exynos decoders hand out SBWC
+     * compressed frames, and importing those into Flutter's GPU context
+     * runs them through a gralloc decompression that leaks its output
+     * buffers: gigabytes of EGL memory on a Galaxy Tab S9 FE within the
+     * hour, never returned. A SurfaceView passes the frames straight to
+     * SurfaceFlinger, which reads SBWC natively. `Build.SOC_MANUFACTURER`
+     * exists from Android 12, which also covers every Exynos with SBWC that
+     * Samsung still updates. `adb shell setprop debug.ks.video_platform_view 1`
+     * forces the path on any device, to exercise it without one.
+     */
+    private fun platformVideoFirst(): Boolean {
+        val forced = runCatching {
+            Class.forName("android.os.SystemProperties")
+                .getMethod("get", String::class.java, String::class.java)
+                .invoke(null, "debug.ks.video_platform_view", "") as String
+        }.getOrDefault("") == "1"
+        val exynos = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
+            Build.SOC_MANUFACTURER.equals("Samsung", ignoreCase = true)
+        val first = forced || exynos
+        if (first) {
+            Log.i(
+                "DeviceDetails",
+                "videos play on a platform view (" +
+                    (if (forced) "forced" else "Exynos ${Build.SOC_MODEL}") + ")",
+            )
+        }
+        return first
     }
 }

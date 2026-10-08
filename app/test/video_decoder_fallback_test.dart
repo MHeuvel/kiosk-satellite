@@ -89,6 +89,31 @@ void main() {
       expect(asked, [VideoViewType.textureView]);
     });
 
+    // Issue #894: Samsung Exynos devices never touch the texture.
+    test('starts on a platform view when the device asks for it', () async {
+      final asked = <VideoViewType>[];
+      final controller = await openVideo((viewType) {
+        asked.add(viewType);
+        return FakeVideoController();
+      }, platformViewFirst: true);
+      expect(asked, [VideoViewType.platformView]);
+      expect((controller as FakeVideoController).disposed, isFalse);
+    });
+
+    test('a platform view first is not retried on a texture', () async {
+      final built = <FakeVideoController>[];
+      await expectLater(
+        openVideo((viewType) {
+          final c = FakeVideoController(failure: 'Decoder init failed');
+          built.add(c);
+          return c;
+        }, platformViewFirst: true),
+        throwsA(isA<String>()),
+      );
+      expect(built.length, 1);
+      expect(built.single.disposed, isTrue);
+    });
+
     test('gives up when the platform view fails too', () async {
       final built = <FakeVideoController>[];
       await expectLater(

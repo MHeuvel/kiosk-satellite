@@ -50,6 +50,18 @@ class DeviceDetails {
     }
   }
 
+  /// Whether videos should start on a platform view instead of Flutter's
+  /// texture: Samsung Exynos devices, whose compressed decoder frames leak
+  /// graphics memory through the texture (issue #894). False where the
+  /// platform cannot say.
+  static Future<bool> platformVideoFirst() async {
+    try {
+      return await _channel.invokeMethod<bool>('platformVideoFirst') ?? false;
+    } catch (_) {
+      return false;
+    }
+  }
+
   /// [tags] as language names in [display]'s language, for the text to
   /// speech Language pickers: en-US reads English (United States). A tag
   /// the platform cannot name, or no platform at all (tests), keeps the tag.

@@ -16,9 +16,20 @@
 /// the same decoder start fine through a platform view. The texture stays
 /// the default everywhere - it composites inside Flutter and costs less -
 /// and only a device that fails this way pays for the second attempt.
+///
+/// Samsung Exynos devices start on the platform view instead (issue #894).
+/// Their decoders hand out SBWC compressed frames, and importing those
+/// into Flutter's GPU context leaks the decompressed copies: a Galaxy Tab
+/// S9 FE grew by gigabytes of EGL memory and never gave it back. A
+/// SurfaceView passes the frames to SurfaceFlinger, which reads SBWC as is.
 library;
 
 import 'package:video_player/video_player.dart';
+
+import '../managers/device/device_details.dart';
+
+/// Asked once per process: the answer is a property of the device.
+Future<bool>? _platformVideoFirst;
 
 /// Whether a player error is the video decoder refusing to start, rather
 /// than a URL, a network or a container the device cannot read.
@@ -39,11 +50,24 @@ bool isVideoDecoderFailure(Object error) {
 /// [build] must return a fresh controller for the view type it is handed;
 /// the failed one is disposed before the retry. [onFallback] reports the
 /// first error when the retry happens, for the log. The returned controller
-/// is initialized and owned by the caller.
+/// is initialized and owned by the caller. [platformViewFirst] skips the
+/// texture altogether; left null, the device decides.
 Future<VideoPlayerController> openVideo(
   VideoPlayerController Function(VideoViewType viewType) build, {
   void Function(Object error)? onFallback,
+  bool? platformViewFirst,
 }) async {
+  if (platformViewFirst ??
+      await (_platformVideoFirst ??= DeviceDetails.platformVideoFirst())) {
+    final only = build(VideoViewType.platformView);
+    try {
+      await only.initialize();
+      return only;
+    } catch (_) {
+      await only.dispose();
+      rethrow;
+    }
+  }
   final first = build(VideoViewType.textureView);
   try {
     await first.initialize();

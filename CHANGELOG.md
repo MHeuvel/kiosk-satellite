@@ -12,6 +12,8 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ### Fixed
 - **iCloud albums work as a screensaver folder.** Picking an iCloud shared album with **Use this folder** saved the iCloud root instead of the album, so the screensaver stayed black (#896). The media picker now saves the folder you opened, on the device and in the remote admin. Pick the album again after updating.
+- **Videos no longer fill the memory on Samsung Exynos devices.** On a Galaxy Tab S9 FE, every video the Immich screensaver played left graphics memory behind until the tablet slowed down, showed green or corrupted frames and went black (#894). Samsung's Exynos video decoders hand out compressed frames that leak when Flutter draws them itself. Videos on Samsung Exynos devices running Android 12 or later now play on their own Android surface, which the display shows directly. This covers the Immich and local media screensavers and DLNA video.
+- **Screenshots show videos played on their own surface.** The remote admin preview and the Screenshot camera now capture a video that plays on an Android surface instead of showing black in its place. This applies to Samsung Exynos devices and to devices whose decoder cannot play into Flutter's texture.
 
 ## v2026.10.12 - 2026-10-07
 
