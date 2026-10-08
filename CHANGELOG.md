@@ -9,6 +9,7 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 - **Russian localization.** Русский is available during onboarding and in Settings on the device and in Remote Admin. All 3,789 current messages are translated. Localization Credits lists Iaroslav Iadryshnikov with a GitHub profile link.
 
 ### Changed
+- **Remote Admin draws Cyrillic in its own font.** Russian and Ukrainian text in Remote Admin now uses Google Sans like the rest of the page instead of the browser's fallback font, which looked heavier next to the Latin text. The Cyrillic subset adds 16 KB.
 - **Plugins can declare up to 50 settings.** The limit was 20.
 
 ### Fixed
