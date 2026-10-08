@@ -1640,10 +1640,20 @@ class HomeAssistantManager extends Manager {
   /// extra frame rather than a second connection (issue #74). States arrive
   /// raw; without this the row shows 69.44 where the entity's own card,
   /// honoring the Display precision setting, shows 69.
+  ///
+  /// [onTranslations] receives Home Assistant's own wording for the states
+  /// of [translationDomain], in the server's language, fetched over the same
+  /// socket (issue #268). A lookup on a separate socket could fail while the
+  /// states still arrived, and the widget then spoke English for the rest of
+  /// the run (issue #900). Riding the subscription means every reconnect
+  /// retries until it lands. Empty means an English server: the built-in
+  /// labels already speak it.
   Future<GlanceSubscription?> subscribeEntities(
     List<String> entityIds,
     void Function(String entityId, Map<String, Object?> state) onState, {
     void Function(Map<String, int> precisions)? onPrecision,
+    String? translationDomain,
+    void Function(Map<String, String> translations)? onTranslations,
   }) async {
     if (!configured || entityIds.isEmpty) return null;
     final wsBase = baseUrl
@@ -1657,6 +1667,24 @@ class HomeAssistantManager extends Manager {
       // so the future must not surface it again as an uncaught error.
       unawaited(channel.ready.catchError((_) {}));
       final subscription = GlanceSubscription._(channel).._expectSubscribed();
+      final domain = onTranslations != null ? translationDomain : null;
+      void askTranslations(String language) {
+        if (domain == null) return;
+        if (language.toLowerCase().startsWith('en')) {
+          onTranslations!(_stateTranslations[domain] = const {});
+          return;
+        }
+        channel.sink.add(
+          jsonEncode({
+            'id': 4,
+            'type': 'frontend/get_translations',
+            'language': language,
+            'category': 'entity_component',
+            'integration': [domain],
+          }),
+        );
+      }
+
       channel.stream.listen(
         (raw) {
           try {
@@ -1686,6 +1714,19 @@ class HomeAssistantManager extends Manager {
                     }),
                   );
                 }
+                if (domain != null) {
+                  final cached = _stateTranslations[domain];
+                  final language = _language;
+                  if (cached != null) {
+                    onTranslations!(cached);
+                  } else if (language != null) {
+                    askTranslations(language);
+                  } else {
+                    channel.sink.add(
+                      jsonEncode({'id': 3, 'type': 'get_config'}),
+                    );
+                  }
+                }
               case 'auth_invalid':
                 log.warn(name, 'glance subscription rejected: bad token');
                 subscription.close();
@@ -1693,12 +1734,30 @@ class HomeAssistantManager extends Manager {
                 // The subscribe command confirms itself here too; only the
                 // registry lookup's reply carries anything to read. A failure
                 // (an old Home Assistant without get_entries) just leaves
-                // states unrounded, which is what the row always did.
-                if (msg['id'] == 1 && msg['success'] == true) {
-                  subscription._startHeartbeat();
-                }
-                if (msg['id'] == 2 && msg['success'] == true) {
-                  onPrecision?.call(_displayPrecisions(msg['result']));
+                // states unrounded, which is what the row always did. A
+                // failed translation lookup caches nothing, so the next
+                // connection asks again.
+                if (msg['success'] != true) break;
+                switch (msg['id']) {
+                  case 1:
+                    subscription._startHeartbeat();
+                  case 2:
+                    onPrecision?.call(_displayPrecisions(msg['result']));
+                  case 3:
+                    final config = msg['result'];
+                    final language = config is Map
+                        ? '${config['language'] ?? ''}'.trim()
+                        : '';
+                    askTranslations(
+                      _language = language.isEmpty ? 'en' : language,
+                    );
+                  case 4:
+                    onTranslations!(
+                      _stateTranslations[domain!] = parseStateTranslations(
+                        msg['result'],
+                        domain,
+                      ),
+                    );
                 }
               case 'pong':
                 subscription._pong();
@@ -2517,66 +2576,14 @@ class HomeAssistantManager extends Manager {
   }
 
   /// The language Home Assistant itself is configured in ("it", "en-GB"),
-  /// from its core config. Cached for the run — it changes about as often
-  /// as the server moves house, and a failed read is not cached so the next
-  /// caller retries.
+  /// from its core config. Cached for the run once the server answers.
   String? _language;
 
   /// Per-domain state translations, keyed by domain. An empty map is a
   /// cached "nothing to translate" (an English server, or a domain Home
-  /// Assistant has no translations for), not a miss.
+  /// Assistant has no translations for), not a miss. Only an answer from
+  /// the server lands here, never a failed lookup.
   final _stateTranslations = <String, Map<String, String>>{};
-
-  Future<String> serverLanguage() async {
-    final cached = _language;
-    if (cached != null) return cached;
-    if (!configured) return 'en';
-    try {
-      final config = await _wsCommand({'type': 'get_config'});
-      final language = config is Map
-          ? '${config['language'] ?? ''}'.trim()
-          : '';
-      if (language.isEmpty) return 'en';
-      return _language = language;
-    } catch (e) {
-      log.debug(name, 'language lookup failed: $e');
-      return 'en';
-    }
-  }
-
-  /// Home Assistant's own translations for a domain's entity states, keyed
-  /// by state ("fog" -> "Nebbia"), in the server's language (issue #268).
-  /// This is exactly what the frontend renders states with, so a kiosk in a
-  /// Dutch or Italian house reads like the rest of the house.
-  ///
-  /// Empty when the server speaks English (the app's own wording already
-  /// is, and it is often the better wording), when the domain carries no
-  /// state translations, or when the lookup fails: every caller falls back
-  /// to its built-in labels.
-  Future<Map<String, String>> stateTranslations(String domain) async {
-    final cached = _stateTranslations[domain];
-    if (cached != null) return cached;
-    if (!configured) return const {};
-    final language = await serverLanguage();
-    if (language.toLowerCase().startsWith('en')) {
-      return _stateTranslations[domain] = const {};
-    }
-    try {
-      final result = await _wsCommand({
-        'type': 'frontend/get_translations',
-        'language': language,
-        'category': 'entity_component',
-        'integration': [domain],
-      });
-      return _stateTranslations[domain] = parseStateTranslations(
-        result,
-        domain,
-      );
-    } catch (e) {
-      log.debug(name, 'state translations for $domain failed: $e');
-      return const {};
-    }
-  }
 
   Future<Object?> _wsCommand(Map<String, Object?> command) async {
     final wsBase = baseUrl
@@ -2714,8 +2721,9 @@ class GlanceSubscription {
   final WebSocketChannel _channel;
   bool _closed = false;
   Timer? _heartbeat, _deadline, _connecting;
-  // Ids 1 and 2 are the subscribe and registry commands.
-  int _pingId = 3;
+  // Ids 1 to 4 are the subscribe, registry, config and translation
+  // commands.
+  int _pingId = 5;
 
   bool get isClosed => _closed;
 

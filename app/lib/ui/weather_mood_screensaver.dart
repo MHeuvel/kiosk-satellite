@@ -174,9 +174,6 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
       } else if (event.key == defs.screensaverFollowAnimationScale.key ||
           event.key.startsWith('screensaver.weather_') ||
           event.key.startsWith('screensaver.glance_')) {
-        if (event.key == defs.screensaverWeatherBar.key) {
-          unawaited(_loadTranslations());
-        }
         setState(() {});
       }
     });
@@ -185,15 +182,6 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
       (_) => unawaited(_update()),
     );
     unawaited(_subscribe());
-    unawaited(_loadTranslations());
-  }
-
-  Future<void> _loadTranslations() async {
-    if (!widget.container.settings.get(defs.screensaverWeatherBar)) return;
-    final translations = await widget.container.homeAssistant.stateTranslations(
-      'weather',
-    );
-    if (mounted) setState(() => _translations = translations);
   }
 
   Future<void> _subscribe({bool reset = false}) async {
@@ -248,6 +236,12 @@ class _WeatherMoodScreensaverState extends State<WeatherMoodScreensaver>
           // The sun usually follows at once; not every install has one.
           _sunGrace ??= Timer(const Duration(seconds: 1), _markDataReady);
         }
+      },
+      // For the weather bar's condition label.
+      translationDomain: 'weather',
+      onTranslations: (translations) {
+        if (!mounted || generation != _generation) return;
+        setState(() => _translations = translations);
       },
     );
     if (!mounted || generation != _generation) {
