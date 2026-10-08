@@ -8255,6 +8255,27 @@ class UiStringsFr extends UiStrings {
       'Permettre au mouvement de fermer Lecture en cours comme un économiseur d\'écran classique. Si l\'option est désactivée, seul un appui sur l\'écran la ferme, afin qu\'un simple passage n\'interrompe pas l\'affichage de la musique. Ignoré tant que Lecture en cours est affichée aux côtés d\'un économiseur d\'écran.';
 
   @override
+  String get settingSendspinFullscreenReturnTitle => 'Après la fermeture';
+
+  @override
+  String get settingSendspinFullscreenReturnDescription =>
+      'La vue du tableau de bord affichée après la fermeture de Lecture en cours. Par défaut suit Revenir à la vue d\'accueil du tableau de bord.';
+
+  @override
+  String get mediaReturnLastView => 'Dernière vue';
+
+  @override
+  String get mediaReturnChosenView => 'Vue choisie';
+
+  @override
+  String get settingSendspinFullscreenReturnViewTitle =>
+      'Vue du tableau de bord';
+
+  @override
+  String get settingSendspinFullscreenReturnViewDescription =>
+      'La vue affichée après la fermeture de Lecture en cours.';
+
+  @override
   String get settingSendspinFullscreenShortcutTitle =>
       'Afficher dans le menu du kiosque';
 

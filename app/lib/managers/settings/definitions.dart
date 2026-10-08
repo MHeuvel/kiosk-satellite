@@ -7967,6 +7967,45 @@ const sendspinFullscreenMotion = SettingDef<bool>(
   dependsOn: 'sendspin.fullscreen',
 );
 
+/// Where the dashboard lands once Now Playing goes away (issue #899).
+/// Default keeps Return to home dashboard view in charge, which goes home
+/// as the screensaver starts. Last view goes back to the view the kiosk
+/// showed when the screensaver started, Chosen view to a picked one.
+const sendspinFullscreenReturn = SettingDef<String>(
+  key: 'sendspin.fullscreen_return',
+  type: SettingType.select,
+  defaultValue: 'default',
+  title: 'After dismissing',
+  description:
+      'The dashboard view to show after Now Playing is dismissed. Default '
+      'follows Return to home dashboard view.',
+  category: 'Sendspin',
+  subpage: 'Now Playing',
+  section: 'User Interface',
+  options: ['default', 'last', 'custom'],
+  optionLabels: {
+    'default': 'Default',
+    'last': 'Last view',
+    'custom': 'Chosen view',
+  },
+  dependsOn: 'sendspin.fullscreen',
+);
+
+/// The view Chosen view goes to, picked from the instance's dashboards in
+/// both UIs like the Home Assistant Dashboard screensaver's.
+const sendspinFullscreenReturnView = SettingDef<String>(
+  key: 'sendspin.fullscreen_return_view',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Dashboard view',
+  description: 'The view to show after Now Playing is dismissed.',
+  category: 'Sendspin',
+  subpage: 'Now Playing',
+  section: 'User Interface',
+  dependsOn: 'sendspin.fullscreen_return',
+  dependsOnValue: 'custom',
+);
+
 /// The kiosk menu's way to the Now Playing view on demand, the twin of
 /// the floating player's entry: the entry shows while a track is loaded
 /// and brings the view up, paused with its play button if the music is.
@@ -10571,6 +10610,8 @@ const List<SettingDef<Object>> allSettings = [
   sendspinFullscreenHorizontal,
   sendspinFullscreenDoubleTap,
   sendspinFullscreenMotion,
+  sendspinFullscreenReturn,
+  sendspinFullscreenReturnView,
   sendspinFullscreenShortcut,
   sendspinSpeakerPill,
   sendspinQueueArt,

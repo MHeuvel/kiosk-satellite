@@ -8186,6 +8186,27 @@ class UiStringsUk extends UiStrings {
       'Дозволити руху закривати «Зараз грає», як звичайну заставку. Якщо вимкнено, закриває лише дотик, тож проходження повз не перериває показ музики. Ігнорується, коли «Зараз грає» показано поруч із заставкою.';
 
   @override
+  String get settingSendspinFullscreenReturnTitle => 'Після закриття';
+
+  @override
+  String get settingSendspinFullscreenReturnDescription =>
+      'Вигляд панелі керування, який з\'являється після закриття «Зараз грає». За замовчуванням діє «Повернення на головний вигляд панелі керування».';
+
+  @override
+  String get mediaReturnLastView => 'Останній вигляд';
+
+  @override
+  String get mediaReturnChosenView => 'Вибраний вигляд';
+
+  @override
+  String get settingSendspinFullscreenReturnViewTitle =>
+      'Вигляд панелі керування';
+
+  @override
+  String get settingSendspinFullscreenReturnViewDescription =>
+      'Вигляд, який з\'являється після закриття «Зараз грає».';
+
+  @override
   String get settingSendspinFullscreenShortcutTitle =>
       'Показувати в меню кіоска';
 

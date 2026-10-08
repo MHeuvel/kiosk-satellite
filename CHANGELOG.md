@@ -4,7 +4,11 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 
 ## Unreleased
 
+### Added
+- **Choose where Now Playing lands when dismissed.** **Settings > Media Player > Now Playing** gains **After dismissing** (#899). With **Return to home dashboard view** on, the kiosk went home as soon as the screensaver started, so dismissing Now Playing always showed the home view, even right after someone started a playlist on a music view. **Last view** goes back to the view the kiosk showed when the screensaver started. **Chosen view** always opens one view, picked with **Dashboard view**, for playback started from another kiosk, the Music Assistant app or a voice command. Both apply whenever the session ends on Now Playing, alongside a screensaver too, and when Now Playing closes because the music stopped. **Default** keeps the current behavior.
+
 ### Fixed
+- **Dashboard view pickers fit narrow screens.** The Home Assistant Dashboard screensaver's **Dashboard view** row cut the view path down to a few letters on a phone, on the device and in the remote admin. The button now shares the title's line and the full path shows beneath it.
 - **The DLNA language tests pass again.** Three DLNA localization tests timed out when run with the rest of the suite since 2026.10.13 (#898). The video surface check now keeps its answer instead of a Future, and the tests answer that check themselves. Devices were never affected.
 
 ## v2026.10.13 - 2026-10-08

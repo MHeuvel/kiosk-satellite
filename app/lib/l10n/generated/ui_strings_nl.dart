@@ -8202,6 +8202,26 @@ class UiStringsNl extends UiStrings {
       'Laat beweging Speelt nu sluiten zoals bij een gewone schermbeveiliging. Als dit uitstaat, sluit alleen een aanraking de weergave en onderbreekt voorbijlopen de muziekweergave niet. Wordt genegeerd als Speelt nu naast een schermbeveiliging staat.';
 
   @override
+  String get settingSendspinFullscreenReturnTitle => 'Na het sluiten';
+
+  @override
+  String get settingSendspinFullscreenReturnDescription =>
+      'De dashboardweergave die verschijnt nadat Speelt nu is gesloten. Standaard volgt Terugkeren naar de startweergave van het dashboard.';
+
+  @override
+  String get mediaReturnLastView => 'Laatste weergave';
+
+  @override
+  String get mediaReturnChosenView => 'Gekozen weergave';
+
+  @override
+  String get settingSendspinFullscreenReturnViewTitle => 'Dashboardweergave';
+
+  @override
+  String get settingSendspinFullscreenReturnViewDescription =>
+      'De weergave die verschijnt nadat Speelt nu is gesloten.';
+
+  @override
   String get settingSendspinFullscreenShortcutTitle => 'Toon in het kioskmenu';
 
   @override

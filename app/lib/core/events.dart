@@ -73,8 +73,15 @@ class BrightnessChanged extends AppEvent {
 // ── Screensaver ────────────────────────────────────────────────────────
 
 class ScreensaverStateChanged extends AppEvent {
-  const ScreensaverStateChanged({required this.active});
+  const ScreensaverStateChanged({
+    required this.active,
+    this.nowPlaying = false,
+  });
   final bool active;
+
+  /// The session starts with Now Playing up, so the return to the dashboard
+  /// can make way for the Now Playing dismissal target (issue #899).
+  final bool nowPlaying;
 
   @override
   String get wireName => active ? 'screensaverstart' : 'screensaverstop';

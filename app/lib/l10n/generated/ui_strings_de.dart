@@ -8306,6 +8306,26 @@ class UiStringsDe extends UiStrings {
       'Erlaubt das Schließen von „Jetzt läuft“ durch Bewegungserkennung, ähnlich wie bei einem normalen Bildschirmschoner. Wenn diese Option deaktiviert ist, wird die Ansicht nur durch Berührung geschlossen, sodass Vorbeigehen die Musikansicht nicht unterbricht. Gilt nicht, wenn „Jetzt läuft“ neben dem Bildschirmschoner angezeigt wird.';
 
   @override
+  String get settingSendspinFullscreenReturnTitle => 'Nach dem Schließen';
+
+  @override
+  String get settingSendspinFullscreenReturnDescription =>
+      'Die Dashboard-Ansicht, die nach dem Schließen von „Jetzt läuft“ angezeigt wird. Standard folgt „Zur Startansicht des Dashboards zurückkehren“.';
+
+  @override
+  String get mediaReturnLastView => 'Letzte Ansicht';
+
+  @override
+  String get mediaReturnChosenView => 'Gewählte Ansicht';
+
+  @override
+  String get settingSendspinFullscreenReturnViewTitle => 'Dashboard-Ansicht';
+
+  @override
+  String get settingSendspinFullscreenReturnViewDescription =>
+      'Die Ansicht, die nach dem Schließen von „Jetzt läuft“ angezeigt wird.';
+
+  @override
   String get settingSendspinFullscreenShortcutTitle => 'Im Kiosk-Menü anzeigen';
 
   @override

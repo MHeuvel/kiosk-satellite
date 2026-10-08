@@ -380,21 +380,18 @@ export function settingRow(s) {
     load();
     return row;
   }
-  // The Home Assistant Dashboard screensaver's view is picked from the
-  // instance's dashboards, the same modal the Go to a dashboard view
-  // gesture uses, mirroring the device's row.
-  if (s.key === 'screensaver.dashboard_view') {
+  // The Home Assistant Dashboard screensaver's view and Now Playing's
+  // chosen view are picked from the instance's dashboards, the same modal
+  // the Go to a dashboard view gesture uses, mirroring the device's row.
+  if (s.key === 'screensaver.dashboard_view' || s.key === 'sendspin.fullscreen_return_view') {
     // The live value: save() writes the confirmed pick into the cache.
     const current = () => (state.settings || []).find((o) => o.key === s.key)?.value ?? s.value ?? '';
     const val = document.createElement('span');
-    val.className = 'device';
-    val.style.cssText =
-      'flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap';
+    val.className = 'device picker-value';
     const paint = () => { val.textContent = current() || screensaverText('Not set'); };
     paint();
     const btn = document.createElement('button');
     btn.className = 'btn-ghost'; btn.textContent = screensaverText('Select dashboard');
-    btn.style.flex = 'none';
     btn.addEventListener('click', async () => {
       const entries = await dashboardViewEntries();
       if (!entries.length) {
@@ -411,10 +408,11 @@ export function settingRow(s) {
       paint();
     });
     bindUpdate(val, paint);
-    // One wrapper so the value + button occupy a single grid cell on mobile.
+    // On a phone the button shares the name's line and the view path
+    // takes the full width beneath it (app.css, .picker-row).
+    row.classList.add('picker-row');
     const controls = document.createElement('div');
-    controls.style.cssText =
-      'display:flex; gap:10px; align-items:center; min-width:0; max-width:60%; flex:0 1 auto';
+    controls.className = 'picker-controls';
     controls.append(val, btn);
     row.appendChild(controls);
     return row;

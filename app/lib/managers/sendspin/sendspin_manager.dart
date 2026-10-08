@@ -1139,6 +1139,10 @@ class SendspinManager extends Manager {
         'sendspin.fullscreen_split',
         'sendspin.fullscreen_photo_fill',
         'sendspin.fullscreen_override_brightness',
+        // Where the dashboard lands after Now Playing: read at the
+        // screensaver's edges by the Home Assistant manager.
+        'sendspin.fullscreen_return',
+        'sendspin.fullscreen_return_view',
         'sendspin.fullscreen_queue',
         'sendspin.fullscreen_double_tap',
         'sendspin.fullscreen_on_play',

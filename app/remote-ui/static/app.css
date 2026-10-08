@@ -591,6 +591,12 @@
      muted; inside a row it is the 13 description. */
   .desc { color: var(--muted); font-size: 12.5px; line-height: 1.4; }
   .row .info .desc { font-size: 13px; line-height: 1.35; margin-top: 3px; }
+  /* A value picked in a modal beside the button that opens it. */
+  .picker-controls { display: flex; gap: 10px; align-items: center;
+    min-width: 0; max-width: 60%; flex: 0 1 auto; }
+  .picker-controls > button { flex: none; }
+  .picker-value { flex: 1; min-width: 0; overflow: hidden;
+    text-overflow: ellipsis; white-space: nowrap; }
   .row.device-action-row { flex-wrap: wrap; gap: 12px; }
   .row.device-action-row .info { flex: 1 1 180px; }
   .device-actions { display: flex; flex-wrap: wrap; align-items: center;
@@ -976,6 +982,12 @@
       width: 100%; max-width: none; }
     .row input[type=number] { max-width: 90px; }
     .row.device-action-row .info { display: block; flex-basis: 100%; }
+    /* The button stays on the name's line and the picked value gets the
+       full width under it, above the description. */
+    .row .picker-controls { display: contents; }
+    .row .picker-value { flex: 1 1 100%; order: 1; white-space: normal;
+      overflow-wrap: anywhere; }
+    .row.picker-row .info .desc { order: 2; }
     .device-actions { flex: 1 1 100%; justify-content: center; }
   }
 

@@ -390,13 +390,17 @@ class HomeAssistantManager extends Manager {
       )
       ..register(
         Command(
-          name: 'leaveScreensaverDashboard',
+          name: 'leaveScreensaver',
           description:
-              'Take the dashboard back to where it was before the Home '
-              'Assistant Dashboard screensaver moved it. Called by the '
-              'screensaver as it ends.',
-          handler: (_) async {
-            await leaveScreensaverDashboard();
+              'Move the dashboard to where the screensaver dismissal lands: '
+              'the Now Playing target, back from the Home Assistant '
+              'Dashboard screensaver, or home. Called by the screensaver as '
+              'it ends.',
+          params: const {
+            'nowPlaying': 'true when the session showed Now Playing',
+          },
+          handler: (p) async {
+            await leaveScreensaver(nowPlaying: p['nowPlaying'] == true);
             return const CommandResult.ok();
           },
         ),
@@ -788,21 +792,9 @@ class HomeAssistantManager extends Manager {
     bus.on<ScreensaverStateChanged>().listen((e) {
       _screensaverActive = e.active;
       if (e.active) {
-        // The screensaver reached idle first: do the return now, quietly
-        // behind the cover, so the wake reveals the home dashboard with no
-        // visible navigation. Only rendering is frozen under the pause
-        // optimization — JS pushed from Dart still executes — so this
-        // works with the dashboard WebView hidden.
         _returnHomeTimer?.cancel();
         _returnHomeTimer = null;
-        // The Home Assistant Dashboard screensaver has just moved the page
-        // to its own view, which is what must show now. The return lands
-        // on its way out instead (leaveScreensaverDashboard).
-        if (_returnHomeConfigured &&
-            !_holdActive &&
-            _saverDashboardPath == null) {
-          unawaited(_returnHome());
-        }
+        unawaited(_onScreensaverStart(nowPlaying: e.nowPlaying));
       } else {
         _configureReturnHome();
       }
@@ -1110,10 +1102,111 @@ class HomeAssistantManager extends Manager {
   /// touches the screensaver (unlike haNavigate, which dismisses it — the
   /// behind-the-cover return must not wake the kiosk) and drops a
   /// forgotten link overlay on the way.
-  Future<void> _returnHome() async {
+  Future<void> _returnHome({bool awaitSelfHeal = true}) async {
     final path = homeViewPath();
     if (path == null) return;
-    await navigateToViewPath(path);
+    await navigateToViewPath(path, awaitSelfHeal: awaitSelfHeal);
+  }
+
+  // ── Where a screensaver dismissal lands ─────────────────────────────
+  // The screensaver reaching idle first does the return to the dashboard
+  // at its start, quietly behind the cover, so the wake reveals the home
+  // view with no visible navigation. Only rendering is frozen under the
+  // pause optimization (JS pushed from Dart still executes), so this works
+  // with the dashboard WebView hidden. Now Playing can ask for another
+  // landing (issue #899): the view the kiosk showed as the screensaver
+  // started, or a chosen one. A session that starts on Now Playing holds
+  // the return home back, and the dismissal settles the page while the
+  // overlay still covers it: the Now Playing target when the session ends
+  // on it, home otherwise.
+
+  /// Counts screensaver starts and dismissals, so a start still reading the
+  /// page when its dismissal lands stands down.
+  int _saverSeq = 0;
+
+  /// The view the page showed as the session started. Read for Last view
+  /// only.
+  String? _saverStartPath;
+
+  /// The session's start moved the page home.
+  bool _saverWentHome = false;
+
+  /// The session's start held the return home back for Now Playing.
+  bool _saverHomeHeld = false;
+
+  Future<void> _onScreensaverStart({required bool nowPlaying}) async {
+    final seq = ++_saverSeq;
+    _saverStartPath = null;
+    _saverWentHome = false;
+    _saverHomeHeld = false;
+    if (_settings.get(defs.sendspinFullscreenReturn) == 'last') {
+      // The Home Assistant Dashboard screensaver has already moved the
+      // page, and kept where it was.
+      _saverStartPath = _saverDashboardReturn ?? await _currentViewPath();
+      if (seq != _saverSeq) return;
+    }
+    // The Home Assistant Dashboard screensaver has just moved the page to
+    // its own view, which is what must show now. The return lands on its
+    // way out instead (leaveScreensaver).
+    if (!_returnHomeConfigured || _holdActive || _saverDashboardPath != null) {
+      return;
+    }
+    if (nowPlaying && _nowPlayingTarget() != null) {
+      _saverHomeHeld = true;
+      return;
+    }
+    _saverWentHome = true;
+    await _returnHome();
+  }
+
+  /// Where a dismissal that ends on Now Playing takes the page, or null to
+  /// leave it to Return to the dashboard.
+  String? _nowPlayingTarget() {
+    switch (_settings.get(defs.sendspinFullscreenReturn)) {
+      case 'last':
+        return _saverStartPath;
+      case 'custom':
+        final view = _settings
+            .get(defs.sendspinFullscreenReturnView)
+            .trim()
+            .replaceAll(RegExp(r'^/+|/+$'), '');
+        return view.isEmpty ? null : view;
+      default:
+        return null;
+    }
+  }
+
+  /// Settle the page as the screensaver ends, awaited by its dismissal
+  /// while the overlay still covers the dashboard.
+  Future<void> leaveScreensaver({required bool nowPlaying}) async {
+    _saverSeq++;
+    final target = nowPlaying ? _nowPlayingTarget() : null;
+    final wentHome = _saverWentHome;
+    final homeHeld = _saverHomeHeld;
+    _saverStartPath = null;
+    _saverWentHome = false;
+    _saverHomeHeld = false;
+    if (_saverDashboardPath != null) {
+      await leaveScreensaverDashboard(to: target);
+      return;
+    }
+    _saverDashboardUp = false;
+    _saverDashboardReturn = null;
+    if (!configured) return;
+    if (target != null) {
+      // Last view moves only a page the start moved: otherwise it is
+      // still where it was, and a link overlay up there stays.
+      if (_settings.get(defs.sendspinFullscreenReturn) == 'last' && !wentHome) {
+        return;
+      }
+      log.info(name, 'Now Playing dismissed; to "$target"');
+      await navigateToViewPath(target, awaitSelfHeal: false);
+      return;
+    }
+    if (homeHeld && _returnHomeConfigured && !_holdActive) {
+      log.info(name, 'screensaver ended; returning to the dashboard');
+      await _returnHome(awaitSelfHeal: false);
+    }
   }
 
   // ── The Home Assistant Dashboard screensaver ──────────────────────
@@ -1140,13 +1233,10 @@ class HomeAssistantManager extends Manager {
     return mapped.ok && mapped.data is String ? mapped.data as String : baseUrl;
   }
 
-  /// Move the page to [viewPath] for the screensaver. An empty path, or a
-  /// page that is not this Home Assistant, leaves the screen as it is.
-  /// A mode that comes back within one session (a schedule swapping it
-  /// out and in again) keeps the first return point.
-  Future<void> showScreensaverDashboard(String viewPath) async {
-    _saverDashboardUp = true;
-    if (!configured || baseUrl.isEmpty || viewPath.isEmpty) return;
+  /// The view the page shows ("url_path/view-route"), or null when it is
+  /// not this Home Assistant.
+  Future<String?> _currentViewPath() async {
+    if (!configured || baseUrl.isEmpty) return null;
     final base = await _pageBase();
     final where = await commands.execute('evalJs', {
       'code':
@@ -1157,13 +1247,23 @@ class HomeAssistantManager extends Manager {
 })();
 ''',
     });
-    if (!_saverDashboardUp) return;
     final page = '${where.data}';
-    final current = where.ok && page.startsWith('/')
-        ? page.replaceAll(RegExp(r'^/+|/+$'), '')
-        : '';
+    if (!where.ok || !page.startsWith('/')) return null;
+    final path = page.replaceAll(RegExp(r'^/+|/+$'), '');
+    return path.isEmpty ? null : path;
+  }
+
+  /// Move the page to [viewPath] for the screensaver. An empty path, or a
+  /// page that is not this Home Assistant, leaves the screen as it is.
+  /// A mode that comes back within one session (a schedule swapping it
+  /// out and in again) keeps the first return point.
+  Future<void> showScreensaverDashboard(String viewPath) async {
+    _saverDashboardUp = true;
+    if (!configured || baseUrl.isEmpty || viewPath.isEmpty) return;
+    final current = await _currentViewPath();
+    if (!_saverDashboardUp) return;
     if (_saverDashboardReturn == null) {
-      if (current.isEmpty) return;
+      if (current == null) return;
       _saverDashboardReturn = current;
     }
     _saverDashboardPath = viewPath;
@@ -1173,12 +1273,13 @@ class HomeAssistantManager extends Manager {
     await navigateToViewPath(viewPath, awaitSelfHeal: false);
   }
 
-  /// Take the page back as the screensaver ends: to the dashboard's home
-  /// view when Return to the dashboard is on (its return was handed to
-  /// this moment), otherwise to where it was. Only while the page still
-  /// shows the screensaver's view: a navigation from Home Assistant in the
-  /// meantime (browser_mod, a card) is where the person should land.
-  Future<void> leaveScreensaverDashboard() async {
+  /// Take the page back as the screensaver ends: to [to] when Now Playing
+  /// asks for a landing, else to the dashboard's home view when Return to
+  /// the dashboard is on (its return was handed to this moment), otherwise
+  /// to where it was. Only while the page still shows the screensaver's
+  /// view: a navigation from Home Assistant in the meantime (browser_mod,
+  /// a card) is where the person should land.
+  Future<void> leaveScreensaverDashboard({String? to}) async {
     _saverDashboardUp = false;
     final shown = _saverDashboardPath;
     final previous = _saverDashboardReturn;
@@ -1186,6 +1287,7 @@ class HomeAssistantManager extends Manager {
     _saverDashboardReturn = null;
     if (shown == null || previous == null) return;
     final back =
+        to ??
         (_returnHomeConfigured && !_holdActive ? homeViewPath() : null) ??
         previous;
     final base = await _pageBase();

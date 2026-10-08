@@ -8158,6 +8158,26 @@ class UiStringsRu extends UiStrings {
       'Позволить движению закрыть «Сейчас играет» как обычную заставку. Выключено: закрывает только касание, и проход мимо не прерывает показ музыки. Игнорируется рядом с заставкой.';
 
   @override
+  String get settingSendspinFullscreenReturnTitle => 'После закрытия';
+
+  @override
+  String get settingSendspinFullscreenReturnDescription =>
+      'Вид панели, который откроется после закрытия «Сейчас играет». «По умолчанию» следует настройке «Возвращаться к домашнему виду панели».';
+
+  @override
+  String get mediaReturnLastView => 'Последний вид';
+
+  @override
+  String get mediaReturnChosenView => 'Выбранный вид';
+
+  @override
+  String get settingSendspinFullscreenReturnViewTitle => 'Вид панели';
+
+  @override
+  String get settingSendspinFullscreenReturnViewDescription =>
+      'Вид, который откроется после закрытия «Сейчас играет».';
+
+  @override
   String get settingSendspinFullscreenShortcutTitle =>
       'Показывать в меню киоска';
 

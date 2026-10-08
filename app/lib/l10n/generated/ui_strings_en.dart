@@ -8104,6 +8104,26 @@ class UiStringsEn extends UiStrings {
       'Let motion dismiss Now Playing like a regular screensaver. Off, only touch dismisses it, so a walk-past does not interrupt the music display. Ignored while Now Playing is shown alongside a screensaver.';
 
   @override
+  String get settingSendspinFullscreenReturnTitle => 'After dismissing';
+
+  @override
+  String get settingSendspinFullscreenReturnDescription =>
+      'The dashboard view to show after Now Playing is dismissed. Default follows Return to home dashboard view.';
+
+  @override
+  String get mediaReturnLastView => 'Last view';
+
+  @override
+  String get mediaReturnChosenView => 'Chosen view';
+
+  @override
+  String get settingSendspinFullscreenReturnViewTitle => 'Dashboard view';
+
+  @override
+  String get settingSendspinFullscreenReturnViewDescription =>
+      'The view to show after Now Playing is dismissed.';
+
+  @override
   String get settingSendspinFullscreenShortcutTitle => 'Show in the kiosk menu';
 
   @override

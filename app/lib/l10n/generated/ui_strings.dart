@@ -14108,6 +14108,42 @@ abstract class UiStrings {
   /// Setting label.
   ///
   /// In en, this message translates to:
+  /// **'After dismissing'**
+  String get settingSendspinFullscreenReturnTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The dashboard view to show after Now Playing is dismissed. Default follows Return to home dashboard view.'**
+  String get settingSendspinFullscreenReturnDescription;
+
+  /// Option: go back to the dashboard view the kiosk showed before the screensaver started.
+  ///
+  /// In en, this message translates to:
+  /// **'Last view'**
+  String get mediaReturnLastView;
+
+  /// Option: go to a dashboard view picked below.
+  ///
+  /// In en, this message translates to:
+  /// **'Chosen view'**
+  String get mediaReturnChosenView;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard view'**
+  String get settingSendspinFullscreenReturnViewTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The view to show after Now Playing is dismissed.'**
+  String get settingSendspinFullscreenReturnViewDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
   /// **'Show in the kiosk menu'**
   String get settingSendspinFullscreenShortcutTitle;
 

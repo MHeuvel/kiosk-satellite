@@ -2452,6 +2452,16 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingSendspinFullscreenMotionTitle,
       'settingSendspinFullscreenMotionDescription' =>
         strings.settingSendspinFullscreenMotionDescription,
+      'settingSendspinFullscreenReturnTitle' =>
+        strings.settingSendspinFullscreenReturnTitle,
+      'settingSendspinFullscreenReturnDescription' =>
+        strings.settingSendspinFullscreenReturnDescription,
+      'mediaReturnLastView' => strings.mediaReturnLastView,
+      'mediaReturnChosenView' => strings.mediaReturnChosenView,
+      'settingSendspinFullscreenReturnViewTitle' =>
+        strings.settingSendspinFullscreenReturnViewTitle,
+      'settingSendspinFullscreenReturnViewDescription' =>
+        strings.settingSendspinFullscreenReturnViewDescription,
       'settingSendspinFullscreenShortcutTitle' =>
         strings.settingSendspinFullscreenShortcutTitle,
       'settingSendspinFullscreenShortcutDescription' =>

@@ -1433,8 +1433,20 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     _armScreenOffTimer();
     await _applyVisuals();
     if (!_active) return;
-    bus.publish(const ScreensaverStateChanged(active: true));
+    bus.publish(
+      ScreensaverStateChanged(active: true, nowPlaying: _nowPlayingSession),
+    );
   }
+
+  /// Whether this session counts as Now Playing for where the dashboard
+  /// lands after it (issue #899): the player has a track for the view, or
+  /// the session was opened for it. A panel switched off by Turn screen
+  /// off after still counts, since the music plays on under it.
+  bool get _nowPlayingSession =>
+      _startedForNowPlaying ||
+      (_sendspinNowPlaying &&
+          _settings.get(defs.sendspinFullscreen) &&
+          allowsNowPlaying);
 
   /// "Turn screen off after": once the screensaver has been up this long,
   /// cover the app at zero brightness when requested or power the panel
@@ -1724,6 +1736,7 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     _restoreForNowPlaying = false;
     _launchOnPlayPending = false;
     if (!_active) return;
+    final nowPlaying = _nowPlayingSession;
     _active = false;
     _startedForNowPlaying = false;
     alarmTakeover.value = null;
@@ -1740,12 +1753,12 @@ class ScreensaverManager extends Manager with WidgetsBindingObserver {
     // never shows a blank hole where the page is (a no-op unless the
     // rendering freeze optimization hid it).
     await commands.execute('unfreezeRendering', const {});
-    // Awaited, so a navigation commanded right after the dismissal (the
-    // ESPHome Dashboard select, haNavigate) lands after this return.
-    if (_dashboardShown != null) {
-      _dashboardShown = null;
-      await commands.execute('leaveScreensaverDashboard', const {});
-    }
+    // Move the page to where the dismissal lands while the overlay still
+    // covers it. Awaited, so a navigation commanded right after the
+    // dismissal (the ESPHome Dashboard select, haNavigate) lands after
+    // this return.
+    _dashboardShown = null;
+    await commands.execute('leaveScreensaver', {'nowPlaying': nowPlaying});
     _setView(null);
     await commands.execute('screenOn', const {});
     // Release the hold; the keep-awake setting (if any) still applies.

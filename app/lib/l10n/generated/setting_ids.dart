@@ -1064,6 +1064,14 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingSendspinFullscreenOverrideBrightnessTitle",
     "description": "settingSendspinFullscreenOverrideBrightnessDescription",
   },
+  "sendspin.fullscreen_return": {
+    "title": "settingSendspinFullscreenReturnTitle",
+    "description": "settingSendspinFullscreenReturnDescription",
+  },
+  "sendspin.fullscreen_return_view": {
+    "title": "settingSendspinFullscreenReturnViewTitle",
+    "description": "settingSendspinFullscreenReturnViewDescription",
+  },
   "sendspin.fullscreen_controls": {
     "title": "settingSendspinFullscreenControlsTitle",
     "description": "settingSendspinFullscreenControlsDescription",

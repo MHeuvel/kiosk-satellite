@@ -7742,6 +7742,26 @@ class UiStringsZh extends UiStrings {
       '开启后，检测到运动就会关闭“正在播放”页面，与普通屏保相同。关闭后，只能通过触屏关闭，避免有人路过时打断显示。“正在播放”与屏保同时显示时，此设置不生效。';
 
   @override
+  String get settingSendspinFullscreenReturnTitle => '关闭后';
+
+  @override
+  String get settingSendspinFullscreenReturnDescription =>
+      '关闭“正在播放”后显示的仪表盘页面。“默认”沿用“返回默认仪表盘页面”的设置。';
+
+  @override
+  String get mediaReturnLastView => '上次的页面';
+
+  @override
+  String get mediaReturnChosenView => '指定页面';
+
+  @override
+  String get settingSendspinFullscreenReturnViewTitle => '仪表盘页面';
+
+  @override
+  String get settingSendspinFullscreenReturnViewDescription =>
+      '关闭“正在播放”后显示的页面。';
+
+  @override
   String get settingSendspinFullscreenShortcutTitle => '在 Kiosk 菜单中显示';
 
   @override
@@ -20208,6 +20228,26 @@ class UiStringsZhCn extends UiStringsZh {
   @override
   String get settingSendspinFullscreenMotionDescription =>
       '开启后，检测到运动就会关闭“正在播放”页面，与普通屏保相同。关闭后，只能通过触屏关闭，避免有人路过时打断显示。“正在播放”与屏保同时显示时，此设置不生效。';
+
+  @override
+  String get settingSendspinFullscreenReturnTitle => '关闭后';
+
+  @override
+  String get settingSendspinFullscreenReturnDescription =>
+      '关闭“正在播放”后显示的仪表盘页面。“默认”沿用“返回默认仪表盘页面”的设置。';
+
+  @override
+  String get mediaReturnLastView => '上次的页面';
+
+  @override
+  String get mediaReturnChosenView => '指定页面';
+
+  @override
+  String get settingSendspinFullscreenReturnViewTitle => '仪表盘页面';
+
+  @override
+  String get settingSendspinFullscreenReturnViewDescription =>
+      '关闭“正在播放”后显示的页面。';
 
   @override
   String get settingSendspinFullscreenShortcutTitle => '在 Kiosk 菜单中显示';

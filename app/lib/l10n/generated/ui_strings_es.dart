@@ -8263,6 +8263,27 @@ class UiStringsEs extends UiStrings {
       'Permite cerrar Reproduciendo Ahora con movimiento, como un protector de pantalla normal. Si está desactivado, solo se cierra al tocar la pantalla, para que pasar cerca no interrumpa la vista de música. No se aplica cuando Reproduciendo Ahora se muestra junto al protector de pantalla.';
 
   @override
+  String get settingSendspinFullscreenReturnTitle => 'Al cerrar';
+
+  @override
+  String get settingSendspinFullscreenReturnDescription =>
+      'La vista del panel de control que se muestra al cerrar Reproduciendo Ahora. Predeterminado sigue Volver a la vista de inicio del panel de control.';
+
+  @override
+  String get mediaReturnLastView => 'Última vista';
+
+  @override
+  String get mediaReturnChosenView => 'Vista elegida';
+
+  @override
+  String get settingSendspinFullscreenReturnViewTitle =>
+      'Vista del panel de control';
+
+  @override
+  String get settingSendspinFullscreenReturnViewDescription =>
+      'La vista que se muestra al cerrar Reproduciendo Ahora.';
+
+  @override
   String get settingSendspinFullscreenShortcutTitle =>
       'Mostrar en el menú del kiosko';
 
