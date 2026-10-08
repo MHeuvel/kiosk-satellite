@@ -32,6 +32,8 @@ The alarm wakes the screen, comes in front of the dashboard or another app and p
 - **Snooze** holds it off for the snooze length, then it rings again. In the list a snoozed alarm says until when and carries a **Stop** button.
 - **Silence after** runs out and it goes quiet on its own. It counts as stopped, not snoozed.
 
+To stop or snooze without reaching for the screen, map claps or Show fingers to the **Stop the alarm** or **Snooze the alarm** [gesture action](gestures.md).
+
 A tap anywhere else does nothing, so a brush of the hand never ends an alarm. Two alarms set to the same minute ring as one and show both labels. Under Lockdown Mode the screen takes no touch, so the stop word, Home Assistant or the remote admin stop the alarm there.
 
 An alarm rings on its own full screen view, with one exception: when the screensaver is **Clock** or **Weather Mood** and its **Let alarms take over** switch is on (the default), the alarm rings on that screensaver instead. It keeps everything the screensaver is set to, including the font, colors, shadow, background, Night mode and corner widgets. The date line becomes the alarm's label and Snooze and Stop come in under the clock in the screensaver's own colors. A screensaver dimmed by its own brightness setting comes back to normal brightness while the alarm rings and dims again after Stop or Snooze. On Weather Mood the weather bar makes way for the two buttons. If something else is on screen, the alarm starts the screensaver first.

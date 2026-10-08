@@ -5379,6 +5379,45 @@
       ]
     }
   },
+  "gestureIntercomHangup": "Finalizar la llamada del intercomunicador",
+  "@gestureIntercomHangup": {
+    "context": "Settings > Gestures > Add gesture > Choose an action",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action"
+      ]
+    }
+  },
+  "gestureAlarmStop": "Detener la alarma",
+  "@gestureAlarmStop": {
+    "context": "Settings > Gestures > Add gesture > Choose an action",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action"
+      ]
+    }
+  },
+  "gestureAlarmSnooze": "Posponer la alarma",
+  "@gestureAlarmSnooze": {
+    "context": "Settings > Gestures > Add gesture > Choose an action",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action"
+      ]
+    }
+  },
   "gestureScreensaver": "Iniciar el protector de pantalla",
   "@gestureScreensaver": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
@@ -7364,6 +7403,45 @@
   },
   "gestureSequenceError": "Añade al menos dos esquinas.",
   "@gestureSequenceError": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gesturePluginTrigger": "Disparador de plugin",
+  "@gesturePluginTrigger": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gesturePluginTriggerField": "Disparador",
+  "@gesturePluginTriggerField": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gesturePluginTriggerHelp": "Primero activa un plugin con disparadores en el administrador de plugins.",
+  "@gesturePluginTriggerHelp": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
     "x-locations": {
@@ -11847,6 +11925,32 @@
         "type": "String",
         "example": "entryClass"
       }
+    }
+  },
+  "pluginErrorTooManyTriggers": "Demasiados disparadores",
+  "@pluginErrorTooManyTriggers": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorTriggerId": "El ID del disparador no es válido o está duplicado",
+  "@pluginErrorTriggerId": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
     }
   },
   "remoteDisableTitle": "¿Desactivar la administración remota?",
@@ -30201,6 +30305,84 @@
       ]
     }
   },
+  "settingSendspinFullscreenReturnTitle": "Al cerrar",
+  "@settingSendspinFullscreenReturnTitle": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenReturnDescription": "La vista del panel de control que se muestra al cerrar Reproduciendo Ahora. Predeterminado sigue Volver a la vista de inicio del panel de control.",
+  "@settingSendspinFullscreenReturnDescription": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "mediaReturnLastView": "Última vista",
+  "@mediaReturnLastView": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Option: go back to the dashboard view the kiosk showed before the screensaver started.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "mediaReturnChosenView": "Vista elegida",
+  "@mediaReturnChosenView": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Option: go to a dashboard view picked below.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenReturnViewTitle": "Vista del panel de control",
+  "@settingSendspinFullscreenReturnViewTitle": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenReturnViewDescription": "La vista que se muestra al cerrar Reproduciendo Ahora.",
+  "@settingSendspinFullscreenReturnViewDescription": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
   "settingSendspinFullscreenShortcutTitle": "Mostrar en el menú del kiosko",
   "@settingSendspinFullscreenShortcutTitle": {
     "context": "Settings > Media Player > Now Playing > User Interface",
@@ -30774,6 +30956,19 @@
   },
   "settingSendspinSyncOffsetDescription": "Un valor negativo hace que este dispositivo reproduzca antes, para compensar altavoces que se retrasan respecto al grupo, como los Bluetooth. Ajusta de oído. Se aplica de inmediato.",
   "@settingSendspinSyncOffsetDescription": {
+    "context": "Settings > Media Player > Sendspin Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sendspin Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sendspin Player"
+      ]
+    }
+  },
+  "settingSendspinGroupVolumeDescription": "Cuando este dispositivo reproduce en un grupo, el control de volumen ajusta todo el grupo. Si está desactivado, solo ajusta este dispositivo. Necesita la conexión con Music Assistant.",
+  "@settingSendspinGroupVolumeDescription": {
     "context": "Settings > Media Player > Sendspin Player",
     "description": "Help below this setting.",
     "x-locations": {
@@ -34706,6 +34901,32 @@
   },
   "settingScreensaverMenuDescription": "Añade la opción Iniciar protector de pantalla al menú del kiosko.",
   "@settingScreensaverMenuDescription": {
+    "context": "Settings:Screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverFollowAnimationScaleTitle": "Seguir los ajustes de animación de Android",
+  "@settingScreensaverFollowAnimationScaleTitle": {
+    "context": "Settings:Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverFollowAnimationScaleDescription": "Pausa los protectores de pantalla animados cuando las animaciones de Android están desactivadas.",
+  "@settingScreensaverFollowAnimationScaleDescription": {
     "context": "Settings:Screensaver",
     "description": "Help below the setting.",
     "x-locations": {

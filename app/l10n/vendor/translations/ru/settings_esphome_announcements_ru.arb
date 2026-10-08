@@ -1,0 +1,23 @@
+{
+  "@@locale": "ru",
+  "settingAnnouncementsEnabledTitle": "Включить объявления",
+  "settingAnnouncementsEnabledDescription": "Проигрывать объявления, которые Home Assistant отправляет действием announce.",
+  "esphomeTtsSection": "Синтез речи",
+  "settingAnnouncementsTtsEngineTitle": "Движок синтеза речи",
+  "settingAnnouncementsTtsEngineDescription": "Сущность синтеза речи Home Assistant, которая произносит объявления.",
+  "settingAnnouncementsTtsLanguageTitle": "Язык",
+  "settingAnnouncementsTtsLanguageDescription": "Язык, на котором произносятся объявления.",
+  "settingAnnouncementsTtsVoiceTitle": "Голос",
+  "settingAnnouncementsTtsVoiceDescription": "Голос, которым произносятся объявления.",
+  "esphomeTtsFirst": "Первый доступный",
+  "esphomeTtsDefault": "По умолчанию",
+  "settingAnnouncementsChimeTitle": "Сначала сигнал",
+  "settingAnnouncementsChimeDescription": "Проигрывать сигнал перед объявлением.",
+  "settingAnnouncementsChimeFileTitle": "Звук сигнала",
+  "settingAnnouncementsChimeFileDescription": "Проигрывается так же громко, как объявление.",
+  "esphomeAnnouncements": "Объявления",
+  "esphomeAnnouncementsHelp": "Голосовые объявления из Home Assistant",
+  "esphomeChime": "Сигнал",
+  "esphomeTtsUnavailable": "Home Assistant недоступен",
+  "esphomeTtsNoVoices": "Нет голосов для выбора"
+}

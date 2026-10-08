@@ -99,6 +99,48 @@ void main() {
     },
   );
 
+  test('a page lists and changes native timers', () async {
+    await build();
+    final timers = {
+      'timers': [
+        {'timer_id': 't1', 'name': 'pasta', 'is_active': true},
+      ],
+    };
+    var refuse = false;
+    commands
+      ..register(
+        Command(
+          name: 'voiceTimers',
+          description: 'test stub',
+          handler: (_) async => CommandResult.ok(timers),
+        ),
+      )
+      ..register(
+        Command(
+          name: 'voiceTimerControl',
+          description: 'test stub',
+          handler: (p) async {
+            seen = Map.of(p);
+            return refuse
+                ? const CommandResult.fail('no timer')
+                : const CommandResult.ok();
+          },
+        ),
+      );
+    expect(await api.handleCall(['getVoiceTimers']), timers);
+    final change = {
+      'timer_id': 't1',
+      'action': 'add',
+      'hours': 0,
+      'minutes': 5,
+      'seconds': 0,
+    };
+    expect(await api.handleCall(['controlVoiceTimer', change]), true);
+    expect(seen, change);
+    refuse = true;
+    expect(await api.handleCall(['controlVoiceTimer', change]), false);
+  });
+
   test('a page playSound loses its volume opinion, keeps the rest', () async {
     await build();
     await api.handleCall([

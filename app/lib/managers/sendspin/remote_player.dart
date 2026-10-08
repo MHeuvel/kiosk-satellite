@@ -97,6 +97,7 @@ class RemoteGroup {
     required this.leaderId,
     required this.leaderName,
     required this.members,
+    this.leaderVolume,
   });
 
   /// The shown player's id in the source, so its row can say so.
@@ -104,6 +105,10 @@ class RemoteGroup {
   final String leaderId;
   final String leaderName;
   final List<GroupMember> members;
+
+  /// The leader's own volume, 0 to 100, for its slider under the menu's
+  /// title (issue #867); null where the source does not say.
+  final int? leaderVolume;
 
   /// Whether the shown player leads, in which case the title is its own
   /// name and it has no row.
@@ -127,12 +132,17 @@ class GroupMember {
     required this.name,
     required this.inGroup,
     this.available = true,
+    this.volume,
   });
 
   final String id;
   final String name;
   final bool inGroup;
   final bool available;
+
+  /// The player's own volume, 0 to 100, for its slider in the menu while
+  /// it is in the group (issue #867); null where the source does not say.
+  final int? volume;
 }
 
 /// A queue as the Now Playing panel lists it: rows with index, id, title,

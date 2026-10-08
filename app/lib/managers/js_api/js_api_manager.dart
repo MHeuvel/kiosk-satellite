@@ -39,6 +39,8 @@ class JsApiManager extends Manager {
     'getVoiceChimeDurations': 'getVoiceChimeDurations',
     'setVoiceTimerAlert': 'setVoiceTimerAlert',
     'voiceTimerActionFailed': 'voiceTimerActionFailed',
+    'getVoiceTimers': 'voiceTimers',
+    'controlVoiceTimer': 'voiceTimerControl',
     'getDeviceInfo': 'getDeviceInfo',
     'getBrightness': 'getBrightness',
     'setBrightness': 'setBrightness',

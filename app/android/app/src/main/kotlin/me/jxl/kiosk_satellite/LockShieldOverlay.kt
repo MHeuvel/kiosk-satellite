@@ -29,6 +29,15 @@ import android.widget.TextView
  * (the bars, the shade, the pin consent) draw above it, and those have
  * their own answers: the shield band and the System UI guard.
  *
+ * On a Meta Portal with the System UI guard enabled, the shield is hosted
+ * by the guard instead, as a TYPE_ACCESSIBILITY_OVERLAY. Meta's Control
+ * Center draws its swipe-up strip and its panel as TYPE_KEYGUARD_DIALOG,
+ * above the draw-over-apps window, so they took touches through the lock
+ * (issue #857). The accessibility overlay sits above every system window.
+ * It is limited to the Portal so other devices keep the shield they were
+ * tested with. The shield moves between hosts as the guard connects and
+ * disconnects ([rehost]).
+ *
  * Owned by the process, not the Activity: the window is added with the
  * application context, so a task kill takes the kiosk Activity but never
  * the lock. The Activity-scoped KioskLock re-hooks [onTouch] on each
@@ -37,8 +46,9 @@ import android.widget.TextView
  *
  * [setPassThrough] briefly stops consuming touches so the exit gesture's
  * PIN dialog — ordinary Flutter UI underneath this window — can be typed
- * into. The window stays visible throughout (blackout included), it just
- * lets touches fall through to the app.
+ * into. The window stays up throughout, it just lets touches fall
+ * through to the app. Blackout stays black too, except on the guard's
+ * overlay ([paint]).
  */
 object LockShieldOverlay {
     private const val TAG = "LockShieldOverlay"
@@ -56,33 +66,45 @@ object LockShieldOverlay {
     private var blackout = false
     private var passThrough = false
 
+    /// The context the window was added with: the guard while it is
+    /// connected, the application context otherwise.
+    private var host: Context? = null
+    private var appContext: Context? = null
+    private var wanted = false
+    private val onPortal = Build.MANUFACTURER.equals("Facebook", true)
+
     /** KioskLock's exit-gesture counter; the Activity never sees these. */
     @Volatile
     var onTouch: ((MotionEvent) -> Unit)? = null
 
     /** Push the wanted state; adds, restyles or removes the window. */
     fun sync(context: Context, wanted: Boolean, black: Boolean) {
+        appContext = context.applicationContext
+        this.wanted = wanted
         if (!wanted) {
-            remove(context)
+            remove()
             return
         }
-        if (!Settings.canDrawOverlays(context)) return
         blackout = black
-        view?.let {
-            it.setBackgroundColor(if (black) Color.BLACK else Color.TRANSPARENT)
+        if (view != null) {
+            paint()
             return
         }
+        val guard =
+            if (onPortal) KioskAccessibilityService.instance else null
+        val hostContext: Context = guard ?: context.applicationContext
+        if (guard == null && !Settings.canDrawOverlays(context)) return
         passThrough = false
-        val dm = context.resources.displayMetrics
+        val dm = hostContext.resources.displayMetrics
         fun dp(v: Float) = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP, v, dm)
 
-        val root = FrameLayout(context)
+        val root = FrameLayout(hostContext)
         root.setBackgroundColor(if (black) Color.BLACK else Color.TRANSPARENT)
 
         // The acknowledgement pill, twin of the Flutter shield's: a tap on
         // a locked screen should read as locked, not broken.
-        val text = TextView(context)
+        val text = TextView(hostContext)
         text.text = lockedText
         text.setTextColor(Color.WHITE)
         text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.5f)
@@ -109,10 +131,11 @@ object LockShieldOverlay {
         }
 
         try {
-            context.getSystemService(WindowManager::class.java)
-                .addView(root, params())
+            hostContext.getSystemService(WindowManager::class.java)
+                .addView(root, params(guard != null))
             view = root
             pill = text
+            host = hostContext
         } catch (e: Exception) {
             // A racing grant revocation; the Flutter shield still holds
             // inside the app and the reclaim watchdog holds outside it.
@@ -121,18 +144,50 @@ object LockShieldOverlay {
     }
 
     /** Let touches through (the PIN dialog) without dropping the cover. */
-    fun setPassThrough(context: Context, value: Boolean) {
+    fun setPassThrough(value: Boolean) {
         val v = view ?: return
+        val h = host ?: return
         if (passThrough == value) return
         passThrough = value
         try {
-            context.getSystemService(WindowManager::class.java)
-                .updateViewLayout(v, params())
+            h.getSystemService(WindowManager::class.java)
+                .updateViewLayout(v, params(h is KioskAccessibilityService))
         } catch (_: Exception) {
+        }
+        paint()
+    }
+
+    /**
+     * Blackout's black, except while the PIN dialog is up on the guard's
+     * overlay: that window sits above the keyboard too, so a black shield
+     * would leave the PIN to be typed blind. The draw-over-apps window sits
+     * below the keyboard and keeps its black.
+     */
+    private fun paint() {
+        val clear = passThrough && host is KioskAccessibilityService
+        view?.setBackgroundColor(
+            if (blackout && !clear) Color.BLACK else Color.TRANSPARENT)
+    }
+
+    /**
+     * Move a standing shield to the host that now fits: onto the guard when
+     * it connects, back to a draw-over-apps window when it goes (the system
+     * drops the guard's windows with it). A shield that could not be added
+     * for want of the overlay grant comes up once the guard connects.
+     * Called by the guard.
+     */
+    fun rehost() {
+        main.post {
+            val ctx = appContext ?: return@post
+            if (!wanted) return@post
+            val keepPassThrough = passThrough
+            remove()
+            sync(ctx, true, blackout)
+            if (keepPassThrough) setPassThrough(true)
         }
     }
 
-    private fun params(): WindowManager.LayoutParams {
+    private fun params(accessibility: Boolean): WindowManager.LayoutParams {
         var flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
             WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
             WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
@@ -144,7 +199,11 @@ object LockShieldOverlay {
         val p = WindowManager.LayoutParams(
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.MATCH_PARENT,
-            overlayWindowType(),
+            if (accessibility) {
+                WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY
+            } else {
+                overlayWindowType()
+            },
             flags,
             PixelFormat.TRANSLUCENT,
         )
@@ -171,14 +230,16 @@ object LockShieldOverlay {
         main.postDelayed(hide, 1600)
     }
 
-    private fun remove(context: Context) {
+    private fun remove() {
         val v = view ?: return
+        val h = host
         view = null
         pill = null
+        host = null
         hidePill?.let { main.removeCallbacks(it) }
         hidePill = null
         try {
-            context.getSystemService(WindowManager::class.java).removeView(v)
+            h?.getSystemService(WindowManager::class.java)?.removeView(v)
         } catch (_: Exception) {
         }
     }

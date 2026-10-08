@@ -1,0 +1,19 @@
+{
+  "@@locale": "ru",
+  "settingEsphomeEnabledTitle": "Включить ESPHome",
+  "settingEsphomeEnabledDescription": "Отдавать этот киоск в Home Assistant как устройство ESPHome: его датчики и элементы управления как нативные сущности. Обнаруживается автоматически.",
+  "settingEsphomeEntitiesTitle": "Предоставить сущности киоска",
+  "settingEsphomeEntitiesDescription": "Отдавать датчики и элементы управления этого устройства как сущности ESPHome.",
+  "settingEsphomeExcludedEntitiesTitle": "Исключённые сущности",
+  "settingEsphomeExcludedEntitiesDescription": "Выберите сущности, исключаемые из Home Assistant. Все остальные доступные сущности предоставляются. Сохранение переподключает ESPHome.",
+  "settingEsphomeNodeNameTitle": "Имя узла",
+  "settingEsphomeNodeNameDescription": "Именует этот киоск в сети; Home Assistant строит из него имена действий. Переименование переименовывает и их.",
+  "settingEsphomeNodeNamePlaceholder": "Задаётся при первом старте",
+  "settingBtproxyKeyTitle": "Ключ шифрования",
+  "settingBtproxyKeyDescription": "Вставьте этот ключ в Home Assistant, когда он спросит ключ шифрования. Генерируется автоматически при первом старте.",
+  "settingBtproxyKeyPlaceholder": "Генерируется при первом старте",
+  "settingBtproxyPortTitle": "Порт API",
+  "settingBtproxyPortDescription": "Порт, к которому подключается Home Assistant. Оставьте пустым для стандарта ESPHome, 6053.",
+  "esphomeStartFailed": "Серверу ESPHome не удалось запуститься: {error}",
+  "esphomeExcludedInvalid": "Выберите список ID сущностей."
+}

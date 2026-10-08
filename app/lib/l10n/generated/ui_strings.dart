@@ -10,6 +10,7 @@ import 'ui_strings_en.dart';
 import 'ui_strings_es.dart';
 import 'ui_strings_fr.dart';
 import 'ui_strings_nl.dart';
+import 'ui_strings_ru.dart';
 import 'ui_strings_uk.dart';
 import 'ui_strings_zh.dart';
 
@@ -103,6 +104,7 @@ abstract class UiStrings {
     Locale('es'),
     Locale('fr'),
     Locale('nl'),
+    Locale('ru'),
     Locale('uk'),
     Locale('zh'),
     Locale('zh', 'CN'),
@@ -2716,6 +2718,24 @@ abstract class UiStrings {
   /// Label or guidance in this section.
   ///
   /// In en, this message translates to:
+  /// **'End the intercom call'**
+  String get gestureIntercomHangup;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop the alarm'**
+  String get gestureAlarmStop;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Snooze the alarm'**
+  String get gestureAlarmSnooze;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
   /// **'Start the screensaver'**
   String get gestureScreensaver;
 
@@ -3576,6 +3596,24 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Add at least two corners.'**
   String get gestureSequenceError;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Plugin trigger'**
+  String get gesturePluginTrigger;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Trigger'**
+  String get gesturePluginTriggerField;
+
+  /// Label or guidance in this section.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable a plugin with triggers in Plugin Manager first.'**
+  String get gesturePluginTriggerHelp;
 
   /// Label or guidance in this section.
   ///
@@ -5635,6 +5673,18 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Invalid {field}'**
   String pluginErrorInvalidField(String field);
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many triggers'**
+  String get pluginErrorTooManyTriggers;
+
+  /// Explain the failure. Keep technical identifiers, file names and product names unchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid or duplicate trigger ID'**
+  String get pluginErrorTriggerId;
 
   /// Translate the visible message. Keep placeholders and any technical names unchanged.
   ///
@@ -14058,6 +14108,42 @@ abstract class UiStrings {
   /// Setting label.
   ///
   /// In en, this message translates to:
+  /// **'After dismissing'**
+  String get settingSendspinFullscreenReturnTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The dashboard view to show after Now Playing is dismissed. Default follows Return to home dashboard view.'**
+  String get settingSendspinFullscreenReturnDescription;
+
+  /// Option: go back to the dashboard view the kiosk showed before the screensaver started.
+  ///
+  /// In en, this message translates to:
+  /// **'Last view'**
+  String get mediaReturnLastView;
+
+  /// Option: go to a dashboard view picked below.
+  ///
+  /// In en, this message translates to:
+  /// **'Chosen view'**
+  String get mediaReturnChosenView;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard view'**
+  String get settingSendspinFullscreenReturnViewTitle;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'The view to show after Now Playing is dismissed.'**
+  String get settingSendspinFullscreenReturnViewDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
   /// **'Show in the kiosk menu'**
   String get settingSendspinFullscreenShortcutTitle;
 
@@ -14318,6 +14404,12 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Negative plays this device earlier, for speakers that lag behind the group (Bluetooth). Tune by ear; applies live.'**
   String get settingSendspinSyncOffsetDescription;
+
+  /// Help below this setting.
+  ///
+  /// In en, this message translates to:
+  /// **'While this device plays in a group, the volume slider sets the whole group\'s volume. Off, only this device\'s. Needs the Music Assistant connection.'**
+  String get settingSendspinGroupVolumeDescription;
 
   /// Label or guidance in this section.
   ///
@@ -16094,6 +16186,18 @@ abstract class UiStrings {
   /// In en, this message translates to:
   /// **'Add a Start Screensaver entry to the kiosk menu.'**
   String get settingScreensaverMenuDescription;
+
+  /// Setting label.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow Android animation settings'**
+  String get settingScreensaverFollowAnimationScaleTitle;
+
+  /// Help below the setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause animated screensavers when Android animations are off.'**
+  String get settingScreensaverFollowAnimationScaleDescription;
 
   /// Setting label.
   ///
@@ -22807,6 +22911,7 @@ class _UiStringsDelegate extends LocalizationsDelegate<UiStrings> {
     'es',
     'fr',
     'nl',
+    'ru',
     'uk',
     'zh',
   ].contains(locale.languageCode);
@@ -22840,6 +22945,8 @@ UiStrings lookupUiStrings(Locale locale) {
       return UiStringsFr();
     case 'nl':
       return UiStringsNl();
+    case 'ru':
+      return UiStringsRu();
     case 'uk':
       return UiStringsUk();
     case 'zh':

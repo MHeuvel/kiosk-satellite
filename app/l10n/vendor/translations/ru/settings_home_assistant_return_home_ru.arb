@@ -1,0 +1,11 @@
+{
+  "@@locale": "ru",
+  "settingHaReturnHomeEnabledTitle": "Возвращаться к домашнему виду панели",
+  "settingHaReturnHomeEnabledDescription": "Возвращаться к настроенной выше панели после периода бездействия.",
+  "settingHaReturnHomeSecondsTitle": "Возврат через (с)",
+  "settingHaReturnHomeSecondsDescription": "Период бездействия до возврата киоска.",
+  "haReturnHint": "Возвращаться к домашнему виду при простое",
+  "haReturnDisabled": "Выключено, пока включена ротация видов панели.",
+  "haReturnNoPath": "У настроенной панели нет пути вида для возврата.",
+  "haReturnPath": "Возвращается к «{path}» по тайм-ауту."
+}

@@ -1,0 +1,14 @@
+{
+  "@@locale": "ru",
+  "pluginCharts": "Графики",
+  "pluginReadings": "Показания",
+  "pluginWaitingForSamples": "Ожидание замеров",
+  "pluginLatest": "Последнее",
+  "pluginSelected": "Выбранное",
+  "pluginNoDataYet": "Данных пока нет",
+  "pluginTapOrDragToInspectSamplesDoubleTapTo": "Коснитесь или потяните, чтобы рассмотреть замеры. Двойное касание: следить за последним.",
+  "pluginNoData": "Нет данных",
+  "pluginOn": "Включено",
+  "pluginEmpty": "Пусто",
+  "pluginChartKeyboardHelp": "Используйте стрелки для просмотра замеров и End для перехода к последнему."
+}

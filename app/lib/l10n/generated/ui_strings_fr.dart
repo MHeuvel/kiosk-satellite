@@ -1513,6 +1513,15 @@ class UiStringsFr extends UiStrings {
   String get gestureIntercomCall => 'Appeler un kiosque';
 
   @override
+  String get gestureIntercomHangup => 'Terminer l\'appel d\'interphone';
+
+  @override
+  String get gestureAlarmStop => 'Arrêter l\'alarme';
+
+  @override
+  String get gestureAlarmSnooze => 'Reporter l\'alarme';
+
+  @override
   String get gestureScreensaver => 'Démarrer l\'économiseur d\'écran';
 
   @override
@@ -2029,6 +2038,16 @@ class UiStringsFr extends UiStrings {
 
   @override
   String get gestureSequenceError => 'Ajoutez au moins deux coins.';
+
+  @override
+  String get gesturePluginTrigger => 'Déclencheur de plugin';
+
+  @override
+  String get gesturePluginTriggerField => 'Déclencheur';
+
+  @override
+  String get gesturePluginTriggerHelp =>
+      'Activez d\'abord un plugin proposant des déclencheurs dans le Gestionnaire de plugins.';
 
   @override
   String get intercomCall => 'Appeler';
@@ -3235,6 +3254,13 @@ class UiStringsFr extends UiStrings {
   String pluginErrorInvalidField(String field) {
     return '$field invalide';
   }
+
+  @override
+  String get pluginErrorTooManyTriggers => 'Trop de déclencheurs';
+
+  @override
+  String get pluginErrorTriggerId =>
+      'Identifiant de déclencheur invalide ou en double';
 
   @override
   String get remoteDisableTitle => 'Désactiver la gestion à distance ?';
@@ -8229,6 +8255,27 @@ class UiStringsFr extends UiStrings {
       'Permettre au mouvement de fermer Lecture en cours comme un économiseur d\'écran classique. Si l\'option est désactivée, seul un appui sur l\'écran la ferme, afin qu\'un simple passage n\'interrompe pas l\'affichage de la musique. Ignoré tant que Lecture en cours est affichée aux côtés d\'un économiseur d\'écran.';
 
   @override
+  String get settingSendspinFullscreenReturnTitle => 'Après la fermeture';
+
+  @override
+  String get settingSendspinFullscreenReturnDescription =>
+      'La vue du tableau de bord affichée après la fermeture de Lecture en cours. Par défaut suit Revenir à la vue d\'accueil du tableau de bord.';
+
+  @override
+  String get mediaReturnLastView => 'Dernière vue';
+
+  @override
+  String get mediaReturnChosenView => 'Vue choisie';
+
+  @override
+  String get settingSendspinFullscreenReturnViewTitle =>
+      'Vue du tableau de bord';
+
+  @override
+  String get settingSendspinFullscreenReturnViewDescription =>
+      'La vue affichée après la fermeture de Lecture en cours.';
+
+  @override
   String get settingSendspinFullscreenShortcutTitle =>
       'Afficher dans le menu du kiosque';
 
@@ -8385,6 +8432,10 @@ class UiStringsFr extends UiStrings {
   @override
   String get settingSendspinSyncOffsetDescription =>
       'Une valeur négative fait jouer cet appareil plus tôt, pour les enceintes en retard sur le groupe (Bluetooth). Réglez à l\'oreille ; s\'applique en direct.';
+
+  @override
+  String get settingSendspinGroupVolumeDescription =>
+      'Tant que cet appareil joue au sein d\'un groupe, le curseur de volume règle le volume de tout le groupe. Si l\'option est désactivée, seul le volume de cet appareil est modifié. Nécessite la connexion à Music Assistant.';
 
   @override
   String get mediaSendspinPage => 'Lecteur Sendspin';
@@ -9418,6 +9469,14 @@ class UiStringsFr extends UiStrings {
   @override
   String get settingScreensaverMenuDescription =>
       'Ajoute une entrée Démarrer l\'économiseur d\'écran au menu du kiosque.';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleTitle =>
+      'Suivre les paramètres d\'animation d\'Android';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleDescription =>
+      'Met en pause les économiseurs d\'écran animés quand les animations d\'Android sont désactivées.';
 
   @override
   String get settingScreensaverDimLevelTitle => 'Niveau de tamisage';

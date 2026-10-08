@@ -1,0 +1,23 @@
+{
+  "@@locale": "ru",
+  "overviewAttention": "Требует внимания",
+  "overviewUpdate": "Обновление",
+  "overviewInvitation": "{name} хочет вести этот киоск",
+  "overviewOutdatedOne": "Один ведомый работает на другом выпуске",
+  "overviewOutdatedMany": "Ведомых на другом выпуске: {count}",
+  "overviewSyncWaiting": "{names}. Синхронизация ждёт версию {version}.",
+  "overviewThisRelease": "этот выпуск",
+  "overviewUpdateAvailable": "Доступно обновление",
+  "overviewInstallHelp": "Kiosk Satellite {version} готов к установке. Установка подтверждается на экране планшета.",
+  "overviewHaSetup": "Home Assistant не настроен",
+  "overviewHaSetupHelp": "Подключите киоск к Home Assistant, чтобы загрузить панель.",
+  "overviewSetUp": "Настроить",
+  "overviewHaNotValidated": "Home Assistant не проверен",
+  "overviewHaNotValidatedHelp": "URL и токен не прошли проверку соединения в этом запуске. Киоск повторяет попытку каждые 30 с.",
+  "overviewOpenSetup": "Открыть настройку",
+  "overviewWakeStopped": "Определение слова пробуждения остановлено",
+  "overviewWakeReleased": "Движок был освобождён.",
+  "overviewOpenVoice": "Открыть Voice Satellite",
+  "overviewOpenService": "Открыть службу",
+  "overviewPermissionMissing": "Нет разрешения: {permission}"
+}

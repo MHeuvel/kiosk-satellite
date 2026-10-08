@@ -199,10 +199,15 @@ class _KioskScreenState extends State<KioskScreen>
         !c.alarms.visible.value &&
         c.camera.activeViewId.value == null &&
         !c.kiosk.lockdownActive &&
-        c.plugins.windows.value.isNotEmpty) {
-      unawaited(
-        c.plugins.windowEvent(c.plugins.windows.value.last.id, closed: true),
-      );
+        (c.plugins.windows.value.isNotEmpty || c.plugins.backOverlay != null)) {
+      // Windows float over the native overlays, so they close first.
+      if (c.plugins.windows.value.isNotEmpty) {
+        unawaited(
+          c.plugins.windowEvent(c.plugins.windows.value.last.id, closed: true),
+        );
+      } else {
+        unawaited(c.plugins.closeOverlay(c.plugins.backOverlay!));
+      }
       return;
     }
     final deadline = _backArmedUntil;
@@ -1666,6 +1671,12 @@ class _KioskScreenState extends State<KioskScreen>
                   // An announcement from Home Assistant: its own card, with
                   // the spoken text, in the same slot.
                   AnnouncementOverlay(container: c),
+                  // Plugin overlays that asked to be on top, in the voice
+                  // overlay's slot: over the screensaver, the menu and the
+                  // camera views, under a notification or call card, the
+                  // voice overlay itself and the lockdown shield. The rest
+                  // live in the kiosk plane.
+                  PluginNativeOverlays(plugins: c.plugins, onTop: true),
                   // The black timeout cover while a voice turn shows: the
                   // turn draws over it (issue #746). Outside a turn it
                   // sits above everything below.

@@ -5379,6 +5379,45 @@
       ]
     }
   },
+  "gestureIntercomHangup": "Завершити виклик інтеркому",
+  "@gestureIntercomHangup": {
+    "context": "Settings > Gestures > Add gesture > Choose an action",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action"
+      ]
+    }
+  },
+  "gestureAlarmStop": "Зупинити будильник",
+  "@gestureAlarmStop": {
+    "context": "Settings > Gestures > Add gesture > Choose an action",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action"
+      ]
+    }
+  },
+  "gestureAlarmSnooze": "Відкласти будильник",
+  "@gestureAlarmSnooze": {
+    "context": "Settings > Gestures > Add gesture > Choose an action",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action"
+      ]
+    }
+  },
   "gestureScreensaver": "Запустити заставку",
   "@gestureScreensaver": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
@@ -7364,6 +7403,45 @@
   },
   "gestureSequenceError": "Додайте щонайменше два кути.",
   "@gestureSequenceError": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gesturePluginTrigger": "Тригер плагіна",
+  "@gesturePluginTrigger": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gesturePluginTriggerField": "Тригер",
+  "@gesturePluginTriggerField": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gesturePluginTriggerHelp": "Спочатку ввімкніть плагін із тригерами у менеджері плагінів.",
+  "@gesturePluginTriggerHelp": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
     "x-locations": {
@@ -11847,6 +11925,32 @@
         "type": "String",
         "example": "entryClass"
       }
+    }
+  },
+  "pluginErrorTooManyTriggers": "Занадто багато тригерів",
+  "@pluginErrorTooManyTriggers": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorTriggerId": "Недійсний або дубльований ідентифікатор тригера",
+  "@pluginErrorTriggerId": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
     }
   },
   "remoteDisableTitle": "Вимкнути віддалене керування?",
@@ -30201,6 +30305,84 @@
       ]
     }
   },
+  "settingSendspinFullscreenReturnTitle": "Після закриття",
+  "@settingSendspinFullscreenReturnTitle": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenReturnDescription": "Вигляд панелі керування, який з'являється після закриття «Зараз грає». За замовчуванням діє «Повернення на головний вигляд панелі керування».",
+  "@settingSendspinFullscreenReturnDescription": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "mediaReturnLastView": "Останній вигляд",
+  "@mediaReturnLastView": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Option: go back to the dashboard view the kiosk showed before the screensaver started.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "mediaReturnChosenView": "Вибраний вигляд",
+  "@mediaReturnChosenView": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Option: go to a dashboard view picked below.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenReturnViewTitle": "Вигляд панелі керування",
+  "@settingSendspinFullscreenReturnViewTitle": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenReturnViewDescription": "Вигляд, який з'являється після закриття «Зараз грає».",
+  "@settingSendspinFullscreenReturnViewDescription": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
   "settingSendspinFullscreenShortcutTitle": "Показувати в меню кіоска",
   "@settingSendspinFullscreenShortcutTitle": {
     "context": "Settings > Media Player > Now Playing > User Interface",
@@ -30774,6 +30956,19 @@
   },
   "settingSendspinSyncOffsetDescription": "Від'ємне значення відтворює на цьому пристрої раніше, для гучномовців, що відстають від групи (Bluetooth). Підлаштовуйте на слух; застосовується негайно.",
   "@settingSendspinSyncOffsetDescription": {
+    "context": "Settings > Media Player > Sendspin Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sendspin Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sendspin Player"
+      ]
+    }
+  },
+  "settingSendspinGroupVolumeDescription": "Поки цей пристрій грає у групі, повзунок гучності встановлює гучність усієї групи. Якщо вимкнено - лише цього пристрою. Потрібне підключення до Music Assistant.",
+  "@settingSendspinGroupVolumeDescription": {
     "context": "Settings > Media Player > Sendspin Player",
     "description": "Help below this setting.",
     "x-locations": {
@@ -34706,6 +34901,32 @@
   },
   "settingScreensaverMenuDescription": "Додати пункт \"Запустити заставку\" до меню кіоска.",
   "@settingScreensaverMenuDescription": {
+    "context": "Settings:Screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverFollowAnimationScaleTitle": "Дотримуватися налаштувань анімації Android",
+  "@settingScreensaverFollowAnimationScaleTitle": {
+    "context": "Settings:Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverFollowAnimationScaleDescription": "Призупиняти анімовані заставки, коли анімації Android вимкнено.",
+  "@settingScreensaverFollowAnimationScaleDescription": {
     "context": "Settings:Screensaver",
     "description": "Help below the setting.",
     "x-locations": {

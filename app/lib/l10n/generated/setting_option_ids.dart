@@ -200,6 +200,11 @@ const settingOptionMessageIds = <String, Map<String, String>>{
     "smart": "mediaFillSmart",
     "always": "mediaFillAlways"
   },
+  "sendspin.fullscreen_return": {
+    "default": "mediaDefaultFill",
+    "last": "mediaReturnLastView",
+    "custom": "mediaReturnChosenView"
+  },
   "intercom.answer_mode": {
     "ring": "intercomOptionAnswerRing",
     "auto": "intercomOptionAnswerAuto",

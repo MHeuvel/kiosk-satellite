@@ -1460,6 +1460,15 @@ class UiStringsZh extends UiStrings {
   String get gestureIntercomCall => '呼叫 Kiosk 设备';
 
   @override
+  String get gestureIntercomHangup => '结束对讲通话';
+
+  @override
+  String get gestureAlarmStop => '停止闹钟';
+
+  @override
+  String get gestureAlarmSnooze => '闹钟稍后提醒';
+
+  @override
   String get gestureScreensaver => '启动屏保';
 
   @override
@@ -1961,6 +1970,15 @@ class UiStringsZh extends UiStrings {
 
   @override
   String get gestureSequenceError => '请添加至少两个角落。';
+
+  @override
+  String get gesturePluginTrigger => '插件触发器';
+
+  @override
+  String get gesturePluginTriggerField => '触发器';
+
+  @override
+  String get gesturePluginTriggerHelp => '请先在“插件管理器”中启用提供触发器的插件。';
 
   @override
   String get intercomCall => '呼叫';
@@ -3087,6 +3105,12 @@ class UiStringsZh extends UiStrings {
   String pluginErrorInvalidField(String field) {
     return '$field 无效';
   }
+
+  @override
+  String get pluginErrorTooManyTriggers => '触发器过多';
+
+  @override
+  String get pluginErrorTriggerId => '触发器 ID 无效或重复';
 
   @override
   String get remoteDisableTitle => '要关闭远程管理吗？';
@@ -7718,6 +7742,26 @@ class UiStringsZh extends UiStrings {
       '开启后，检测到运动就会关闭“正在播放”页面，与普通屏保相同。关闭后，只能通过触屏关闭，避免有人路过时打断显示。“正在播放”与屏保同时显示时，此设置不生效。';
 
   @override
+  String get settingSendspinFullscreenReturnTitle => '关闭后';
+
+  @override
+  String get settingSendspinFullscreenReturnDescription =>
+      '关闭“正在播放”后显示的仪表盘页面。“默认”沿用“返回默认仪表盘页面”的设置。';
+
+  @override
+  String get mediaReturnLastView => '上次的页面';
+
+  @override
+  String get mediaReturnChosenView => '指定页面';
+
+  @override
+  String get settingSendspinFullscreenReturnViewTitle => '仪表盘页面';
+
+  @override
+  String get settingSendspinFullscreenReturnViewDescription =>
+      '关闭“正在播放”后显示的页面。';
+
+  @override
   String get settingSendspinFullscreenShortcutTitle => '在 Kiosk 菜单中显示';
 
   @override
@@ -7863,6 +7907,10 @@ class UiStringsZh extends UiStrings {
   @override
   String get settingSendspinSyncOffsetDescription =>
       '设置为负值可让此设备提前播放，适用于蓝牙扬声器等播放滞后于组内其他设备的情况。请根据实际听到的效果调整，修改立即生效。';
+
+  @override
+  String get settingSendspinGroupVolumeDescription =>
+      '此设备加入播放组时，音量控制会调整整个组的音量。关闭此项后，只调整此设备的音量。需要连接 Music Assistant。';
 
   @override
   String get mediaSendspinPage => 'Sendspin 播放器';
@@ -8810,6 +8858,13 @@ class UiStringsZh extends UiStrings {
 
   @override
   String get settingScreensaverMenuDescription => '在 Kiosk 菜单中添加“启动屏保”入口。';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleTitle => '跟随 Android 动画设置';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleDescription =>
+      'Android 动画关闭时暂停动态屏保。';
 
   @override
   String get settingScreensaverDimLevelTitle => '调暗亮度';
@@ -13893,6 +13948,15 @@ class UiStringsZhCn extends UiStringsZh {
   String get gestureIntercomCall => '呼叫 Kiosk 设备';
 
   @override
+  String get gestureIntercomHangup => '结束对讲通话';
+
+  @override
+  String get gestureAlarmStop => '停止闹钟';
+
+  @override
+  String get gestureAlarmSnooze => '闹钟稍后提醒';
+
+  @override
   String get gestureScreensaver => '启动屏保';
 
   @override
@@ -14394,6 +14458,15 @@ class UiStringsZhCn extends UiStringsZh {
 
   @override
   String get gestureSequenceError => '请添加至少两个角落。';
+
+  @override
+  String get gesturePluginTrigger => '插件触发器';
+
+  @override
+  String get gesturePluginTriggerField => '触发器';
+
+  @override
+  String get gesturePluginTriggerHelp => '请先在“插件管理器”中启用提供触发器的插件。';
 
   @override
   String get intercomCall => '呼叫';
@@ -15520,6 +15593,12 @@ class UiStringsZhCn extends UiStringsZh {
   String pluginErrorInvalidField(String field) {
     return '$field 无效';
   }
+
+  @override
+  String get pluginErrorTooManyTriggers => '触发器过多';
+
+  @override
+  String get pluginErrorTriggerId => '触发器 ID 无效或重复';
 
   @override
   String get remoteDisableTitle => '要关闭远程管理吗？';
@@ -20151,6 +20230,26 @@ class UiStringsZhCn extends UiStringsZh {
       '开启后，检测到运动就会关闭“正在播放”页面，与普通屏保相同。关闭后，只能通过触屏关闭，避免有人路过时打断显示。“正在播放”与屏保同时显示时，此设置不生效。';
 
   @override
+  String get settingSendspinFullscreenReturnTitle => '关闭后';
+
+  @override
+  String get settingSendspinFullscreenReturnDescription =>
+      '关闭“正在播放”后显示的仪表盘页面。“默认”沿用“返回默认仪表盘页面”的设置。';
+
+  @override
+  String get mediaReturnLastView => '上次的页面';
+
+  @override
+  String get mediaReturnChosenView => '指定页面';
+
+  @override
+  String get settingSendspinFullscreenReturnViewTitle => '仪表盘页面';
+
+  @override
+  String get settingSendspinFullscreenReturnViewDescription =>
+      '关闭“正在播放”后显示的页面。';
+
+  @override
   String get settingSendspinFullscreenShortcutTitle => '在 Kiosk 菜单中显示';
 
   @override
@@ -20296,6 +20395,10 @@ class UiStringsZhCn extends UiStringsZh {
   @override
   String get settingSendspinSyncOffsetDescription =>
       '设置为负值可让此设备提前播放，适用于蓝牙扬声器等播放滞后于组内其他设备的情况。请根据实际听到的效果调整，修改立即生效。';
+
+  @override
+  String get settingSendspinGroupVolumeDescription =>
+      '此设备加入播放组时，音量控制会调整整个组的音量。关闭此项后，只调整此设备的音量。需要连接 Music Assistant。';
 
   @override
   String get mediaSendspinPage => 'Sendspin 播放器';
@@ -21243,6 +21346,13 @@ class UiStringsZhCn extends UiStringsZh {
 
   @override
   String get settingScreensaverMenuDescription => '在 Kiosk 菜单中添加“启动屏保”入口。';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleTitle => '跟随 Android 动画设置';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleDescription =>
+      'Android 动画关闭时暂停动态屏保。';
 
   @override
   String get settingScreensaverDimLevelTitle => '调暗亮度';

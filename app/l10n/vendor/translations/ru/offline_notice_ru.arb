@@ -1,0 +1,9 @@
+{
+  "@@locale": "ru",
+  "offlineDashboard": "Панель недоступна",
+  "offlineNetwork": "Нет сетевого соединения",
+  "offlinePageHelp": "Не удалось загрузить страницу.",
+  "offlineNetworkHelp": "Панель вернётся вместе с сетью.",
+  "offlineLost": "Сетевое соединение потеряно",
+  "offlineRestored": "Сетевое соединение восстановлено"
+}

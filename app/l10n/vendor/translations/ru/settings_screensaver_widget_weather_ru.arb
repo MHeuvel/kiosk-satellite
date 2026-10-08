@@ -1,0 +1,22 @@
+{
+  "@@locale": "ru",
+  "screensaverOverlayWeatherEntity": "Сущность погоды",
+  "screensaverOverlayNoWeather": "Нет сущностей погоды",
+  "screensaverOverlayNoWeatherHelp": "Home Assistant не сообщил ни одной.",
+  "screensaverOverlayPickWeather": "Выберите сущность погоды…",
+  "screensaverOverlayWeatherRequired": "Выберите сущность погоды.",
+  "screensaverOverlayLocationName": "Название места",
+  "screensaverOverlayLocationHelp": "Оставьте пустым, чтобы скрыть строку места.",
+  "screensaverOverlayLocation": "Место",
+  "screensaverOverlayLocationDetail": "Название места над температурой.",
+  "screensaverOverlayFeelsLike": "Ощущается как",
+  "screensaverOverlayFeelsLikeHelp": "Показывать ощущаемую температуру отдельной строкой с меткой под фактической.",
+  "screensaverOverlayFeelsLikeOnly": "Только «ощущается как»",
+  "screensaverOverlayFeelsLikeOnlyHelp": "Показывать ощущаемую температуру с меткой «Ощущается как» вместо фактической.",
+  "screensaverOverlayForecast": "Прогноз",
+  "screensaverOverlayForecastHelp": "Условия с подходящим значком.",
+  "screensaverOverlayHumidity": "Влажность",
+  "screensaverOverlayWind": "Скорость ветра",
+  "screensaverOverlayVisibility": "Видимость",
+  "screensaverWeatherFeelsLikeValue": "Ощущается как {temperature}"
+}

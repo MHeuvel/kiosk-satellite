@@ -73,7 +73,7 @@ The Intercom tab carries the same settings and the Kiosks card, without Call but
 
 ## Home Assistant
 
-The [ESPHome](esphome.md) device carries an **Intercom enabled** switch, and with the intercom on four more entities.
+The [ESPHome](esphome.md) device carries an **Intercom enabled** switch, and with the intercom on five more entities.
 
 | Entity | Type | Values |
 | --- | --- | --- |
@@ -81,6 +81,7 @@ The [ESPHome](esphome.md) device carries an **Intercom enabled** switch, and wit
 | **Intercom kiosk** | text sensor | The other kiosk's name during a call and the caller's during the minute of missed, else empty. |
 | **Intercom do not disturb** | switch | The answer mode's Do not disturb as a switch. |
 | **Intercom answer mode** | select | Ring, Answer automatically, Do not disturb. |
+| **Intercom volume** | number | 0 to 100%, the same slider as **Intercom volume** under Screen & Audio. A change during a call takes effect right away. |
 
 Two ESPHome actions put a call through from an automation or a dashboard button. `esphome.<node name>_intercom_call` rings another kiosk from this one, named by its `kiosk` argument, the kiosk's name as the Kiosks card lists it, any case, or its IP address. The call then runs the way one placed from the kiosk menu does: this kiosk's Talk mode, the other kiosk's Answer mode, and the Intercom sensor follows it. The action answers with the `id` and `kiosk` it rang through `response_variable`, and reports an error when the intercom is off here, no kiosk goes by that name, this kiosk is already in a call or the other kiosk refused with its reason (off, on another key, Do not disturb or busy). `esphome.<node name>_intercom_hangup` ends the call, cancels one still ringing or closes an announcement, and reports an error when there is none.
 
@@ -107,7 +108,7 @@ The built-in **Home Assistant** conversation agent does not work for this, since
 
 Name the kiosk the way you think of it: its name, the name its device has in Home Assistant or the area Home Assistant puts it in. "Call the master bedroom" finds the kiosk in the Master Bedroom area. The kiosk checks the other kiosk first, and the agent tells you when it is on Do not disturb, has its intercom off or cannot be reached. When the name fits several kiosks, like two kiosks in one room, the agent asks which one, and "which kiosks can I call?" lists them with their areas. The call rings once the agent has finished its answer, so the reply is never cut off. A [realtime conversation](voice-satellite.md#realtime-conversations) ends right after its answer instead of waiting out its closing silence.
 
-Hanging up stays on the screen. Wake word detection pauses for the whole call, so the kiosk cannot hear "hang up".
+Wake word detection pauses for the whole call, so the kiosk cannot hear "hang up". To end a call without touching the screen, map claps or Show fingers to the **End the intercom call** [gesture action](gestures.md), or pick a hardware button under **Hang up call when pressing this button**.
 
 The call goes out from the kiosk you are talking to. A request typed into Home Assistant's own chat reaches no kiosk until it names the one that should call, as in "call the kitchen from the bedroom kiosk", which matches the kiosk's device name or ESPHome name.
 

@@ -1,0 +1,20 @@
+{
+  "@@locale": "ru",
+  "settingScreensaverGlanceEnabledTitle": "Сводка",
+  "settingScreensaverGlanceEnabledDescription": "Показывать ряд состояний сущностей Home Assistant на заставке.",
+  "settingScreensaverGlanceEntitiesTitle": "Сущности",
+  "settingScreensaverGlanceEntitiesDescription": "До четырёх сущностей, каждая с необязательным собственным названием.",
+  "settingScreensaverGlanceNowPlayingTitle": "Показывать на «Сейчас играет»",
+  "settingScreensaverGlanceNowPlayingDescription": "Показывать ряд на полноэкранном виде «Сейчас играет». Скрывается, пока показан текст песни.",
+  "screensaverOverlayShowing": "Показываются",
+  "screensaverOverlayReorder": "Показываются (перетащите, чтобы изменить порядок)",
+  "screensaverOverlayFull": "Это максимум ряда. Уберите одну сущность, чтобы добавить другую.",
+  "screensaverOverlayPickerTitle": "Сущности «Сводки»",
+  "screensaverOverlayGlanceEmpty": "Пока пусто. До {count} сущностей.",
+  "screensaverOverlayNone": "Пока пусто",
+  "screensaverOverlayLimit": "До {count} сущностей.",
+  "screensaverOverlayGlancePage": "Сводка",
+  "screensaverOverlayGlanceHint": "Сущности поверх заставки",
+  "glanceUnavailable": "Недоступно",
+  "glanceUnknown": "Неизвестно"
+}

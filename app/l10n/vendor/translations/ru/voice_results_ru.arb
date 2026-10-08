@@ -1,0 +1,9 @@
+{
+  "@@locale": "ru",
+  "voiceFinancialOpen": "Открытие: {value}",
+  "voiceFinancialHigh": "Максимум: {value}",
+  "voiceFinancialLow": "Минимум: {value}",
+  "voiceFinancialHigh24h": "Максимум за 24 ч: {value}",
+  "voiceFinancialLow24h": "Минимум за 24 ч: {value}",
+  "voiceFinancialMarketCap": "Капитализация: {value}"
+}

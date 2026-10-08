@@ -1,0 +1,9 @@
+{
+  "@@locale": "ru",
+  "settingBrowserInjectJsTitle": "Внедрять JavaScript на панель HA",
+  "settingBrowserInjectJsDescription": "Выполнять этот код JavaScript после каждой загрузки страницы панели. Полезно, чтобы спрятать мешающие элементы или подправить панель, которой вы не управляете.",
+  "settingBrowserInjectJsExternalTitle": "Внедрять JavaScript на внешние страницы",
+  "settingBrowserInjectJsExternalDescription": "Выполнять этот код JavaScript после загрузки каждой внешней страницы: открытых ссылкой с панели, страниц ротации панели и заставки «Веб-сайт». Страница Music Assistant не трогается.",
+  "browserInjectJsPlaceholder": "// Пример: скрыть мешающий элемент\ndocument.querySelector('#banner').style.display = 'none';",
+  "browserInjectJsExternalPlaceholder": "// Пример: приблизить сайт, игнорирующий масштаб панели\ndocument.documentElement.style.zoom = '1.25';"
+}

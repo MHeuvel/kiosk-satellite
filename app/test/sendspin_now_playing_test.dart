@@ -192,6 +192,8 @@ void main() {
           defs.sendspinFullscreenHorizontal,
           defs.sendspinFullscreenDoubleTap,
           defs.sendspinFullscreenMotion,
+          defs.sendspinFullscreenReturn,
+          defs.sendspinFullscreenReturnView,
           defs.sendspinFullscreenShortcut,
           defs.sendspinSpeakerPill,
           defs.sendspinQueueArt,
@@ -518,6 +520,31 @@ void main() {
       await Future<void>.delayed(Duration.zero);
       addTearDown(sendspin.dispose);
     }
+
+    test('picking where Now Playing lands keeps the music going', () async {
+      // Issue #899: the two rows are read at the screensaver's edges, so
+      // changing them must not restart the player under the music.
+      await build(
+        extra: {
+          'ks.sendspin.player': '',
+          'ks.sendspin.player_source': '',
+          'ks.sendspin.enabled': true,
+          'ks.sendspin.client_id': 'abc123',
+        },
+      );
+      final calls = <String>[];
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (call) async {
+            calls.add(call.method);
+            return null;
+          });
+      await settings.set(defs.sendspinFullscreenReturn, 'custom');
+      await settings.set(defs.sendspinFullscreenReturnView, 'lovelace/radio');
+      // Past the one second restart debounce.
+      await Future<void>.delayed(const Duration(milliseconds: 1300));
+      expect(calls, isNot(contains('stop')));
+      expect(calls, isNot(contains('start')));
+    });
 
     test(
       'the local player watches its queue for shuffle set elsewhere',

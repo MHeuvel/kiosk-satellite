@@ -118,6 +118,8 @@
   "Too many group references": "pluginErrorGroupReferences",
   "Invalid or duplicate group reference": "pluginErrorDuplicateReference",
   "Invalid or duplicate command ID": "pluginErrorCommandId",
+  "Too many triggers": "pluginErrorTooManyTriggers",
+  "Invalid or duplicate trigger ID": "pluginErrorTriggerId",
   "Unknown plugin setting": "pluginErrorUnknownSetting",
   "Text settings must be at most 512 characters": "pluginErrorTextLength",
   "Expected a Home Assistant entity ID": "pluginErrorEntityId",

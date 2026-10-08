@@ -638,6 +638,9 @@ void main() {
         'commands': [
           {'id': 'show', 'title': 'Show window'},
         ],
+        'triggers': [
+          {'id': 'hardwareKey', 'title': 'Hardware key'},
+        ],
         'values': {'message': 'Hello'},
       },
     ];
@@ -1110,6 +1113,224 @@ void main() {
       expect(tester.takeException(), isNull);
     },
   );
+  Future<void> overlaySession(String token) => native('hostSession', {
+    'id': 'hello-world',
+    'session': token,
+    'capabilities': ['overlay'],
+  });
+  Map<String, Object?> overlay(
+    String key,
+    int generation, {
+    String anchor = 'top',
+    int width = PluginNativeOverlay.wrap,
+    int height = PluginNativeOverlay.wrap,
+    int inset = 0,
+    bool closeOnBack = true,
+    bool onTop = false,
+    bool touchable = true,
+  }) => {
+    'key': key,
+    'generation': generation,
+    'anchor': anchor,
+    'width': width,
+    'height': height,
+    'inset': inset,
+    'closeOnBack': closeOnBack,
+    'onTop': onTop,
+    'touchable': touchable,
+  };
+  Future<void> overlays(String token, List<Map<String, Object?>> list) =>
+      native('overlays', {
+        'id': 'hello-world',
+        'session': token,
+        'overlays': list,
+      });
+
+  test('native overlays are session scoped and keep their stacking', () async {
+    await overlaySession('first');
+    await overlays('first', [overlay('bar', 1), overlay('full', 2)]);
+    expect(plugins.overlays.value.map((o) => o.key), ['bar', 'full']);
+    await native('overlaySize', {
+      'id': 'hello-world',
+      'session': 'first',
+      'key': 'bar',
+      'generation': 1,
+      'width': 300,
+      'height': 64,
+    });
+    expect(plugins.overlays.value.first.measured, const Size(300, 64));
+    // A replacement is a new view on top. The others keep their place and
+    // their measured size.
+    await overlays('first', [overlay('bar', 1), overlay('full', 3)]);
+    expect(plugins.overlays.value.map((o) => o.id), [
+      'hello-world/bar/1',
+      'hello-world/full/3',
+    ]);
+    expect(plugins.overlays.value.first.measured, const Size(300, 64));
+    // A stale session changes nothing, and a new one starts empty.
+    await overlaySession('second');
+    expect(plugins.overlays.value, isEmpty);
+    await overlays('first', [overlay('bar', 1)]);
+    expect(plugins.overlays.value, isEmpty);
+    await overlays('second', [overlay('bar', 1)]);
+    await native('hostSessionClosed', {
+      'id': 'hello-world',
+      'session': 'second',
+    });
+    expect(plugins.overlays.value, isEmpty);
+  });
+
+  test('a re-created Activity rebuilds the overlay views', () async {
+    bus.publish(const ActivityAttached());
+    await pumpEventQueue();
+    // Nothing to rebuild without overlays.
+    expect(plugins.overlayEpoch.value, 0);
+    await overlaySession('first');
+    await overlays('first', [overlay('bar', 1)]);
+    bus.publish(const ActivityAttached());
+    await pumpEventQueue();
+    expect(plugins.overlayEpoch.value, 1);
+  });
+
+  test('back closes the topmost overlay that allows it', () async {
+    await overlaySession('first');
+    await overlays('first', [
+      overlay('bar', 1),
+      overlay('pinned', 2, closeOnBack: false),
+    ]);
+    final target = plugins.backOverlay!;
+    expect(target.key, 'bar');
+    calls.clear();
+    await plugins.closeOverlay(target);
+    expect(plugins.overlays.value.map((o) => o.key), ['pinned']);
+    expect(plugins.backOverlay, isNull);
+    final call = calls.singleWhere((c) => c.method == 'overlayClosed');
+    expect(call.arguments, {
+      'id': 'hello-world',
+      'session': 'first',
+      'key': 'bar',
+      'generation': 1,
+    });
+  });
+
+  testWidgets('native overlays wait for their size and follow their anchor', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(800, 600);
+    tester.view.devicePixelRatio = 2;
+    addTearDown(tester.view.reset);
+    final views = <MethodCall>[];
+    messenger.setMockMethodCallHandler(SystemChannels.platform_views, (
+      call,
+    ) async {
+      views.add(call);
+      final args = call.arguments;
+      return switch (call.method) {
+        'create' => 0,
+        'resize' => {'width': (args as Map)['width'], 'height': args['height']},
+        _ => null,
+      };
+    });
+    addTearDown(
+      () => messenger.setMockMethodCallHandler(
+        SystemChannels.platform_views,
+        null,
+      ),
+    );
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: ThemeData(brightness: Brightness.dark),
+        home: Stack(
+          fit: StackFit.expand,
+          children: [
+            PluginOverlay(plugins: plugins),
+            PluginNativeOverlays(plugins: plugins, onTop: true),
+          ],
+        ),
+      ),
+    );
+    await overlaySession('first');
+    await overlays('first', [
+      overlay('bar', 1, inset: 12),
+      overlay('full', 2, width: PluginNativeOverlay.fill, height: 100),
+      overlay(
+        'saver',
+        3,
+        anchor: 'bottom-right',
+        onTop: true,
+        touchable: false,
+      ),
+    ]);
+    await tester.pump();
+    final opacity = find.ancestor(
+      of: find.byType(AndroidView),
+      matching: find.byType(Opacity),
+    );
+    expect(find.byType(AndroidView), findsNWidgets(3));
+    // Wrapped overlays stay invisible at one pixel until measured.
+    expect(tester.widget<Opacity>(opacity.at(0)).opacity, 0);
+    expect(tester.widget<Opacity>(opacity.at(1)).opacity, 1);
+    expect(
+      tester.getRect(find.byType(AndroidView).at(1)),
+      const Rect.fromLTWH(0, 0, 400, 100),
+    );
+    // The creation params carry the placement and the theme.
+    final create = views.firstWhere((c) => c.method == 'create');
+    final params =
+        const StandardMessageCodec().decodeMessage(
+              ByteData.sublistView(
+                (create.arguments as Map)['params'] as Uint8List,
+              ),
+            )
+            as Map;
+    expect(params['key'], 'bar');
+    expect(params['inset'], 12);
+    expect((params['theme'] as Map)['dark'], isTrue);
+    expect(
+      calls.where((c) => c.method == 'overlayTheme').single.arguments,
+      params['theme'],
+    );
+    await native('overlaySize', {
+      'id': 'hello-world',
+      'session': 'first',
+      'key': 'bar',
+      'generation': 1,
+      'width': 300,
+      'height': 64,
+    });
+    await native('overlaySize', {
+      'id': 'hello-world',
+      'session': 'first',
+      'key': 'saver',
+      'generation': 3,
+      'width': 200,
+      'height': 100,
+    });
+    await tester.pump();
+    expect(tester.widget<Opacity>(opacity.at(0)).opacity, 1);
+    // 300 x 64 physical pixels at a ratio of 2, centered under a 12 inset.
+    expect(
+      tester.getRect(find.byType(AndroidView).at(0)),
+      const Rect.fromLTWH(125, 12, 150, 32),
+    );
+    expect(
+      tester.getRect(find.byType(AndroidView).at(2)),
+      const Rect.fromLTWH(300, 250, 100, 50),
+    );
+    // A visual-only overlay lets every touch through.
+    bool ignoring(int index) => tester
+        .widget<IgnorePointer>(
+          find
+              .ancestor(
+                of: find.byType(AndroidView).at(index),
+                matching: find.byType(IgnorePointer),
+              )
+              .first,
+        )
+        .ignoring;
+    expect(ignoring(0), isFalse);
+    expect(ignoring(2), isTrue);
+  });
   testWidgets('window stays reachable after a display resize', (tester) async {
     tester.view.physicalSize = const Size(320, 240);
     tester.view.devicePixelRatio = 1;
@@ -1756,4 +1977,40 @@ void main() {
       );
     },
   );
+
+  test('fired triggers reach the bus only from the live session', () async {
+    final fired = <PluginTriggerFired>[];
+    final sub = bus.on<PluginTriggerFired>().listen(fired.add);
+    expect((await commands.execute('getPluginTriggers', {})).data, [
+      {
+        'pluginId': 'hello-world',
+        'pluginName': 'Hello World',
+        'trigger': 'hardwareKey',
+        'title': 'Hardware key',
+        'available': true,
+      },
+    ]);
+    await native('hostSession', {
+      'id': 'hello-world',
+      'session': 'live',
+      'capabilities': [],
+    });
+    await native('trigger', {
+      'id': 'hello-world',
+      'session': 'stale',
+      'trigger': 'hardwareKey',
+    });
+    await native('trigger', {
+      'id': 'hello-world',
+      'session': 'live',
+      'trigger': 'hardwareKey',
+    });
+    await Future<void>.delayed(Duration.zero);
+    expect(fired, hasLength(1));
+    expect(fired.single.pluginId, 'hello-world');
+    expect(fired.single.trigger, 'hardwareKey');
+    await plugins.update('disable', {'id': 'hello-world'});
+    expect(plugins.triggers.single['available'], isFalse);
+    await sub.cancel();
+  });
 }

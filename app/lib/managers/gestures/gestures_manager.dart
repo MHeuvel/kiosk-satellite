@@ -43,6 +43,11 @@ import 'hand_gesture_hold.dart';
 /// changes or the hand goes. Like claps, a hand seen during a voice interaction fires
 /// nothing: the camera is idled for the turn's span on the motion side,
 /// and a report still crossing at its start is ignored here.
+///
+/// A plugin can be a trigger too (issue #888): a [PluginTriggerFired] runs
+/// every mapping bound to that plugin's trigger. Lockdown Mode and Disable
+/// Gestures silence it like the rest. A voice turn does not, because what
+/// the plugin noticed (a hardware key, say) is no accident of speech.
 class GesturesManager extends Manager {
   GesturesManager(
     super.bus,
@@ -65,6 +70,7 @@ class GesturesManager extends Manager {
 
   StreamSubscription<GestureDetected>? _sub;
   StreamSubscription<PalmDetected>? _palmSub;
+  StreamSubscription<PluginTriggerFired>? _pluginSub;
   StreamSubscription<Uint8List>? _micSub;
   StreamSubscription<SettingChanged>? _settingsSub;
   StreamSubscription<WakeWordStateChanged>? _wakeStateSub;
@@ -112,6 +118,7 @@ class GesturesManager extends Manager {
   Future<void> init() async {
     _sub = bus.on<GestureDetected>().listen(_onGesture);
     _palmSub = bus.on<PalmDetected>().listen(_onPalms);
+    _pluginSub = bus.on<PluginTriggerFired>().listen(_onPluginTrigger);
 
     _settingsSub = bus.on<SettingChanged>().listen((e) {
       if (e.key == defs.gestureMappings.key ||
@@ -161,6 +168,7 @@ class GesturesManager extends Manager {
     _resetHand();
     await _micSub?.cancel();
     await _palmSub?.cancel();
+    await _pluginSub?.cancel();
     await _sub?.cancel();
   }
 
@@ -293,6 +301,18 @@ class GesturesManager extends Manager {
     }
   }
 
+  void _onPluginTrigger(PluginTriggerFired e) {
+    if (!_armed) return;
+    final mappings = decodeGestureMappings(_settings.get(defs.gestureMappings));
+    for (final m in mappings) {
+      if (m.triggerType == 'plugin' &&
+          m.trigger['pluginId'] == e.pluginId &&
+          m.trigger['trigger'] == e.trigger) {
+        bus.publish(GestureDetected(id: m.id));
+      }
+    }
+  }
+
   Future<void> _onGesture(GestureDetected e) async {
     final mappings = decodeGestureMappings(_settings.get(defs.gestureMappings));
     GestureMapping? mapping;
@@ -378,6 +398,20 @@ class GesturesManager extends Manager {
         // Allowed Action is not consulted, which makes a secret gesture
         // possible.
         return _run('intercomOpen', const {});
+      case 'intercom_hangup':
+        // The hang up button's path: ends a call being placed, a live
+        // call or an announcement, so a call can end from across the room
+        // with claps or a hand. A ringing call is left to Answer and
+        // Decline, and with no call the gesture does nothing.
+        bus.publish(const IntercomHangupRequested());
+        return const CommandResult.ok();
+      case 'alarm_stop':
+        // The Stop button's path (issue #872): ends a ring, a snooze or a
+        // sunrise, so claps or a hand can silence an alarm from bed.
+        return _run('alarmStop', const {'source': 'gesture'});
+      case 'alarm_snooze':
+        // The Snooze button's path: only a ringing alarm snoozes.
+        return _run('alarmSnooze', const {'source': 'gesture'});
       case 'screensaver':
         return _run('startScreensaver', const {});
       case 'screensaver_stop':

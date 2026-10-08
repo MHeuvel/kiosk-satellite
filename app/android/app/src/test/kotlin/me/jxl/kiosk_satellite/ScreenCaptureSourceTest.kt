@@ -10,9 +10,8 @@ import android.widget.FrameLayout
 import io.flutter.embedding.android.FlutterSurfaceView
 import io.flutter.embedding.android.FlutterView
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -48,33 +47,39 @@ class ScreenCaptureSourceTest {
     }
 
     @Test fun findsTheFlutterSurface() {
-        assertSame(surface, flutterSurface(root))
+        assertEquals(listOf(surface), surfaceLayers(root))
     }
 
     @Test fun hybridCompositionStillOffersTheSurface() {
         // The window copy decides whether it shows: an opaque window from
         // hybrid composition covers it completely.
         flutter.convertToImageView()
-        assertSame(surface, flutterSurface(root))
+        assertEquals(listOf(surface), surfaceLayers(root))
     }
 
     @Test fun hiddenFlutterAndUnpaintedSurfacesAreNotCaptured() {
         flutter.visibility = View.INVISIBLE
-        assertNull(flutterSurface(root))
+        assertTrue(surfaceLayers(root).isEmpty())
         flutter.visibility = View.VISIBLE
         surface.alpha = 0f
-        assertNull(flutterSurface(root))
+        assertTrue(surfaceLayers(root).isEmpty())
         surface.alpha = 1f
         surface.layout(0, 0, 0, 0)
-        assertNull(flutterSurface(root))
+        assertTrue(surfaceLayers(root).isEmpty())
     }
 
-    @Test fun unrelatedSurfaceViewsAreIgnored() {
-        root.removeAllViews()
+    // Issue #894: a video on a platform view is a SurfaceView of its own,
+    // which the window copy shows only as a hole.
+    @Test fun aPlatformViewVideoComesAboveFlutter() {
+        val holder = FrameLayout(root.context)
         val video = SurfaceView(root.context)
-        root.addView(video)
-        video.layout(0, 0, 1280, 800)
-        assertNull(flutterSurface(root))
+        holder.addView(video)
+        flutter.addView(holder)
+        holder.layout(0, 100, 1280, 700)
+        video.layout(0, 0, 1280, 600)
+        assertEquals(listOf(surface, video), surfaceLayers(root))
+        holder.visibility = View.GONE
+        assertEquals(listOf(surface), surfaceLayers(root))
     }
 
     @Test fun opaqueWindowNeedsNoUnderlay() {

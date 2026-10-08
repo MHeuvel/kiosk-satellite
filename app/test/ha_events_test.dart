@@ -74,6 +74,8 @@ void main() {
     await voice.init();
     final events = <HaEventRequested>[];
     bus.on<HaEventRequested>().listen(events.add);
+    final lists = <List<Map<String, Object?>>>[];
+    bus.on<VoiceTimersChanged>().listen((e) => lists.add(e.timers));
 
     void timer(int type, {int left = 300, bool active = true}) =>
         esphome.onVoice!('timer', {
@@ -92,12 +94,10 @@ void main() {
     await pumpEventQueue();
 
     expect(events.map((e) => e.name).toSet(), {'kiosk_satellite_timer'});
-    expect([for (final e in events) e.data['event_type']], [
-      'started',
-      'updated',
-      'finished',
-      'dismissed',
-    ]);
+    expect(
+      [for (final e in events) e.data['event_type']],
+      ['started', 'updated', 'finished', 'dismissed'],
+    );
     expect(events[1].data, {
       'event_type': 'updated',
       'timer_id': 't1',
@@ -110,6 +110,25 @@ void main() {
     });
     expect(events[3].data['name'], 'pizza');
     expect(events[3].data['total_seconds'], 300);
+
+    // The vs_list_timers list after each change: running, paused,
+    // ringing, then gone once the alert is dismissed.
+    expect(lists, hasLength(4));
+    expect(lists[0].single['is_active'], isTrue);
+    expect(lists[0].single['ends_at'], isA<String>());
+    expect(lists[1].single, {
+      'timer_id': 't1',
+      'name': 'pizza',
+      'total_seconds': 300,
+      'seconds_left': 200,
+      'is_active': false,
+      'ends_at': null,
+      'finished': false,
+    });
+    expect(lists[2].single['finished'], isTrue);
+    expect(lists[2].single['total_seconds'], 300);
+    expect(lists[3], isEmpty);
+    expect(voice.timerList(), isEmpty);
     await voice.dispose();
   });
 }

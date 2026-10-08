@@ -12,6 +12,7 @@ import com.google.mediapipe.tasks.vision.core.RunningMode
 import com.google.mediapipe.tasks.vision.handlandmarker.HandLandmarker
 import com.google.mediapipe.tasks.vision.handlandmarker.HandLandmarkerResult
 import android.os.SystemClock
+import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.atan2
 import kotlin.math.max
 import kotlin.math.sqrt
@@ -46,13 +47,13 @@ class HandTracker(
 
     private var landmarker: HandLandmarker? = null
     private var failed = false
-    private var bitmap: Bitmap? = null
     private var aspect = 0.75f
     private var fed = 0
     private var empties = 0
     private var results = 0
     private var lastFeedNs = 0L
     private var avgMs = 0f
+    private val inFlight = AtomicBoolean(false)
 
     /** Running average of the graph's own latency (feed to result),
      *  milliseconds; the caller paces by it. */
@@ -78,6 +79,10 @@ class HandTracker(
         cropSide: Float = 0f,
     ): Boolean {
         val task = landmarker ?: load() ?: return false
+        // MediaPipe's live stream graph drops frames while it is busy, but
+        // converting the frame to a bitmap happens before that drop. Avoid
+        // paying for a conversion the graph cannot use.
+        if (!inFlight.compareAndSet(false, true)) return true
         return try {
             var bmp = image.toBitmap()
             // The bitmap is in sensor orientation; the crop is given in
@@ -106,6 +111,7 @@ class HandTracker(
             task.detectAsync(BitmapImageBuilder(bmp).build(), options, SystemClock.uptimeMillis())
             true
         } catch (e: Exception) {
+            inFlight.set(false)
             Log.w(TAG, "feed failed: $e")
             false
         }
@@ -148,8 +154,14 @@ class HandTracker(
                 .setMinHandDetectionConfidence(0.3f)
                 .setMinHandPresenceConfidence(0.5f)
                 .setMinTrackingConfidence(0.5f)
-                .setResultListener { result, _ -> onLandmarks(result, lastFeedNs) }
-                .setErrorListener { e -> Log.w(TAG, "hand landmarker error: $e") }
+                .setResultListener { result, _ ->
+                    inFlight.set(false)
+                    onLandmarks(result, lastFeedNs)
+                }
+                .setErrorListener { e ->
+                    inFlight.set(false)
+                    Log.w(TAG, "hand landmarker error: $e")
+                }
                 .build()
             HandLandmarker.createFromOptions(context, options).also {
                 landmarker = it
@@ -165,6 +177,7 @@ class HandTracker(
     fun close() {
         try { landmarker?.close() } catch (_: Exception) {}
         landmarker = null
+        inFlight.set(false)
     }
 }
 

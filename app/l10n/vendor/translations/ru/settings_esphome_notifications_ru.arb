@@ -1,0 +1,19 @@
+{
+  "@@locale": "ru",
+  "settingNotificationsTransparencyTitle": "Прозрачность",
+  "settingNotificationsTransparencyDescription": "Позволяет экрану за карточками уведомлений просвечивать. Текст и значки остаются плотными.",
+  "settingNotificationsBlurTitle": "Размытие фона",
+  "settingNotificationsBlurDescription": "Размывает то, что просвечивает через прозрачную карточку уведомления. Примечание: размытие нельзя применить поверх поверхности панели Home Assistant.",
+  "settingNotificationsChimeFileTitle": "Звук уведомления",
+  "settingNotificationsChimeFileDescription": "Звуковые файлы читаются из Android/data/me.jxl.kiosk_satellite/files/sounds на устройстве; папка также доступна в менеджере файлов.",
+  "settingNotificationsVolumeTitle": "Громкость уведомлений",
+  "settingNotificationsVolumeDescription": "Насколько громко играет звук уведомления, отдельно от громкости медиа и ассистента.",
+  "esphomeNotifications": "Уведомления",
+  "esphomeNotificationsHelp": "Прозрачность, размытие, звук уведомления, тестовое уведомление",
+  "esphomeAppearance": "Внешний вид",
+  "esphomeSound": "Звук",
+  "esphomeNotificationTest": "Тестовое уведомление",
+  "esphomeNotificationHelp": "Уведомления отправляются из Home Assistant действием {action}. Тест показывает одно поверх панели.",
+  "esphomeNotificationBody": "Так выглядит и звучит уведомление из Home Assistant.",
+  "esphomeNotificationSearch": "Действие Home Assistant, отправляющее уведомления, и кнопка для показа тестового уведомления."
+}

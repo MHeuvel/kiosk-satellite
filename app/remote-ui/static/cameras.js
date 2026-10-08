@@ -94,6 +94,8 @@ export const CAMERA_ICONS = {
     + 'M13.5 11V5a1.5 1.5 0 0 1 3 0v7"/>'
     + '<path d="M16.5 12V8.5a1.5 1.5 0 0 1 3 0V14c0 4-3 7-7.5 7-3 0-4.6-1.2'
     + '-6-3.3L3.3 13.6a1.5 1.5 0 0 1 2.5-1.6L7.5 14"/>',
+  // A puzzle piece, as on the Plugin Manager entry: the plugin trigger.
+  extension: '<path d="M4 7h4V5.5a2 2 0 0 1 4 0V7h4v4h1.5a2 2 0 0 1 0 4H16v4H4z"/>',
   apps: '<path d="M5 5h.01M12 5h.01M19 5h.01M5 12h.01M12 12h.01M19 12h.01'
     + 'M5 19h.01M12 19h.01M19 19h.01"/>',
   link: '<path d="M10 13a4 4 0 0 0 5.7.3l2-2a4 4 0 0 0-5.7-5.6l-1.1 1.1"/>'
@@ -106,6 +108,14 @@ export const CAMERA_ICONS = {
   pauseCircle: '<circle cx="12" cy="12" r="9"/>'
     + '<path d="M10 9v6M14 9v6"/>',
   playPause: '<path d="m3 6 8 6-8 6z"/><path d="M15 6v12M20 6v12"/>',
+  // A handset laid on its side: the hang up action.
+  callEnd: '<path transform="rotate(135 12 12)" d="M22 16.9v3a2 2 0 0 1-2.2 2'
+    + 'A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7'
+    + ' 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4'
+    + 'c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>',
+  // The alarm clock struck through, and with a Z: the alarm actions.
+  alarmOff: '<circle cx="12" cy="13" r="8"/><path d="M5 3 2 6M19 3l3 3M4 5l16 16"/>',
+  snooze: '<circle cx="12" cy="13" r="8"/><path d="M5 3 2 6M19 3l3 3M9.5 10h5l-5 6h5"/>',
   fullscreen: '<path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/>',
   announce: '<path d="M4 9v6h4l5 4V5L8 9z"/>'
     + '<path d="M16.5 8.5a5 5 0 0 1 0 7"/>',

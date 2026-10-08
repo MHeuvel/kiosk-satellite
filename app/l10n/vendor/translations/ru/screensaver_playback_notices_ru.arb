@@ -1,0 +1,14 @@
+{
+  "@@locale": "ru",
+  "screensaverNoPhotos": "Фотографии не выбраны. Выберите их в настройках.",
+  "screensaverNoFolder": "Папка не выбрана. Выберите её в настройках.",
+  "screensaverFolderEmpty": "В {folder} нет фотографий или видео",
+  "screensaverFolderUnreadable": "Не удалось прочитать {folder}. Выдано ли разрешение на медиа?",
+  "screensaverReadPhotosFailed": "Не удалось прочитать фотографии.",
+  "screensaverImmichNotReady": "Immich не подключён. Проверьте его в настройках.",
+  "screensaverNoMediaMatch": "Нет медиа, подходящих под источник и фильтры.",
+  "screensaverNoMediaSource": "В выбранном источнике нет медиа.",
+  "screensaverImmichUnreachable": "Сервер Immich недоступен.",
+  "screensaverRetryNotice": "{error} Повтор выполняется автоматически.",
+  "screensaverVideosTooLarge": "Каждое видео в этом плейлисте слишком велико для воспроизведения на этом устройстве."
+}

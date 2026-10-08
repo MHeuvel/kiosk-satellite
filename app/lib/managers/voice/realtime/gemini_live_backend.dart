@@ -69,6 +69,26 @@ class GeminiLiveBackend implements RealtimeBackend {
   /// Calls Gemini took back: their outputs are not sent.
   final _cancelled = <String>{};
 
+  /// Problems already logged this conversation, for those that would
+  /// repeat with every message.
+  final _noted = <String>{};
+
+  void _note(String kind, String line) {
+    if (_noted.add(kind)) log?.call(line);
+  }
+
+  /// What the Live API sends. Anything else is logged once: a failure
+  /// would otherwise go unseen.
+  static const _known = {
+    'setupComplete',
+    'serverContent',
+    'toolCall',
+    'toolCallCancellation',
+    'goAway',
+    'sessionResumptionUpdate',
+    'usageMetadata',
+  };
+
   @override
   RealtimeCapabilities get capabilities =>
       const RealtimeCapabilities(inputRate: inputRate, outputRate: outputRate);
@@ -277,7 +297,9 @@ class GeminiLiveBackend implements RealtimeBackend {
     if (socket == null || _closing) return;
     try {
       socket.send(jsonEncode(message));
-    } catch (_) {}
+    } catch (e) {
+      _note('send', 'send failed: $e');
+    }
   }
 
   @override
@@ -303,6 +325,16 @@ class GeminiLiveBackend implements RealtimeBackend {
   @override
   void userTurn({required bool keep}) {}
 
+  /// A typed turn asking for the line. Gemini has no instructions per
+  /// answer.
+  @override
+  void speak(String line) {
+    if (!_ready) return;
+    _send({
+      'realtimeInput': {'text': realtimeSpeakPrompt(line)},
+    });
+  }
+
   void _onMessage(Object? raw) {
     final Map<String, Object?> msg;
     try {
@@ -310,8 +342,14 @@ class GeminiLiveBackend implements RealtimeBackend {
           (jsonDecode(raw is String ? raw : utf8.decode(raw as List<int>))
                   as Map)
               .cast<String, Object?>();
-    } catch (_) {
+    } catch (e) {
+      _note('message', 'unreadable message: ${realtimeLogText('$e')}');
       return;
+    }
+    for (final key in msg.keys) {
+      if (!_known.contains(key)) {
+        _note('key $key', '$key: ${realtimeLogText(msg[key])}');
+      }
     }
     if (msg.containsKey('setupComplete')) _markReady();
     if (msg['serverContent'] case final Map content) _onContent(content);
@@ -373,7 +411,9 @@ class GeminiLiveBackend implements RealtimeBackend {
         _beginAnswer();
         try {
           _emit(RealtimeAudio(_item, base64Decode(audio)));
-        } catch (_) {}
+        } catch (e) {
+          _note('audio', 'unreadable audio: $e');
+        }
       }
     }
     if (content['outputTranscription'] case final Map output) {
@@ -454,6 +494,9 @@ class GeminiLiveBackend implements RealtimeBackend {
     final display = toolbox.originalName(name);
     _emit(RealtimeToolActivity(display));
     final output = await toolbox.call(name, args);
+    if (output.error) {
+      log?.call('tool $display failed: ${realtimeLogText(output.text)}');
+    }
     if (_closing) return;
     _emit(RealtimeToolActivity(display, done: true, error: output.error));
     // Gemini waits for every call's output before it goes on, the one that

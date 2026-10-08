@@ -731,7 +731,7 @@ class KioskManager extends Manager with WidgetsBindingObserver {
           bus.publish(VolumeKeyPressed(direction: '${call.arguments}'));
         case 'hangupKey':
           log.info(name, 'hang up button pressed');
-          bus.publish(const IntercomHangupKeyPressed());
+          bus.publish(const IntercomHangupRequested());
         // A dpad press MainActivity handed to the dashboard: activity,
         // like the keys and touches Flutter sees itself.
         case 'pageKey':

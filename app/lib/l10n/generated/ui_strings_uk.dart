@@ -1504,6 +1504,15 @@ class UiStringsUk extends UiStrings {
   String get gestureIntercomCall => 'Викликати кіоск';
 
   @override
+  String get gestureIntercomHangup => 'Завершити виклик інтеркому';
+
+  @override
+  String get gestureAlarmStop => 'Зупинити будильник';
+
+  @override
+  String get gestureAlarmSnooze => 'Відкласти будильник';
+
+  @override
   String get gestureScreensaver => 'Запустити заставку';
 
   @override
@@ -2014,6 +2023,16 @@ class UiStringsUk extends UiStrings {
 
   @override
   String get gestureSequenceError => 'Додайте щонайменше два кути.';
+
+  @override
+  String get gesturePluginTrigger => 'Тригер плагіна';
+
+  @override
+  String get gesturePluginTriggerField => 'Тригер';
+
+  @override
+  String get gesturePluginTriggerHelp =>
+      'Спочатку ввімкніть плагін із тригерами у менеджері плагінів.';
 
   @override
   String get intercomCall => 'Виклик';
@@ -3209,6 +3228,13 @@ class UiStringsUk extends UiStrings {
   String pluginErrorInvalidField(String field) {
     return 'Недійсне поле $field';
   }
+
+  @override
+  String get pluginErrorTooManyTriggers => 'Занадто багато тригерів';
+
+  @override
+  String get pluginErrorTriggerId =>
+      'Недійсний або дубльований ідентифікатор тригера';
 
   @override
   String get remoteDisableTitle => 'Вимкнути віддалене керування?';
@@ -8160,6 +8186,27 @@ class UiStringsUk extends UiStrings {
       'Дозволити руху закривати «Зараз грає», як звичайну заставку. Якщо вимкнено, закриває лише дотик, тож проходження повз не перериває показ музики. Ігнорується, коли «Зараз грає» показано поруч із заставкою.';
 
   @override
+  String get settingSendspinFullscreenReturnTitle => 'Після закриття';
+
+  @override
+  String get settingSendspinFullscreenReturnDescription =>
+      'Вигляд панелі керування, який з\'являється після закриття «Зараз грає». За замовчуванням діє «Повернення на головний вигляд панелі керування».';
+
+  @override
+  String get mediaReturnLastView => 'Останній вигляд';
+
+  @override
+  String get mediaReturnChosenView => 'Вибраний вигляд';
+
+  @override
+  String get settingSendspinFullscreenReturnViewTitle =>
+      'Вигляд панелі керування';
+
+  @override
+  String get settingSendspinFullscreenReturnViewDescription =>
+      'Вигляд, який з\'являється після закриття «Зараз грає».';
+
+  @override
   String get settingSendspinFullscreenShortcutTitle =>
       'Показувати в меню кіоска';
 
@@ -8314,6 +8361,10 @@ class UiStringsUk extends UiStrings {
   @override
   String get settingSendspinSyncOffsetDescription =>
       'Від\'ємне значення відтворює на цьому пристрої раніше, для гучномовців, що відстають від групи (Bluetooth). Підлаштовуйте на слух; застосовується негайно.';
+
+  @override
+  String get settingSendspinGroupVolumeDescription =>
+      'Поки цей пристрій грає у групі, повзунок гучності встановлює гучність усієї групи. Якщо вимкнено - лише цього пристрою. Потрібне підключення до Music Assistant.';
 
   @override
   String get mediaSendspinPage => 'Плеєр Sendspin';
@@ -9349,6 +9400,14 @@ class UiStringsUk extends UiStrings {
   @override
   String get settingScreensaverMenuDescription =>
       'Додати пункт \"Запустити заставку\" до меню кіоска.';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleTitle =>
+      'Дотримуватися налаштувань анімації Android';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleDescription =>
+      'Призупиняти анімовані заставки, коли анімації Android вимкнено.';
 
   @override
   String get settingScreensaverDimLevelTitle => 'Рівень затемнення';

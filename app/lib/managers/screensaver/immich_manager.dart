@@ -449,6 +449,12 @@ class ImmichManager extends Manager {
       if (e.key == defs.screensaverImmichCacheMax.key) {
         unawaited(_evict());
       }
+      // Turning the cache off deletes what it kept, so the space comes
+      // back without a separate clear step (issue #895).
+      if (e.key == defs.screensaverImmichCache.key &&
+          !_settings.get(defs.screensaverImmichCache)) {
+        unawaited(_clearCache());
+      }
       // A one-album pick from an older install or backup arrives as a bare
       // id with its name in a setting of its own, in either order.
       if (e.key == defs.screensaverImmichAlbum.key ||
@@ -457,6 +463,11 @@ class ImmichManager extends Manager {
       }
     });
     await _migrateAlbums();
+    // Copies left from before the cache was turned off, on an install
+    // that predates deleting them with the toggle.
+    if (!_settings.get(defs.screensaverImmichCache)) {
+      unawaited(_clearCache());
+    }
 
     commands.register(
       Command(
@@ -538,8 +549,7 @@ class ImmichManager extends Manager {
         name: 'immichClearCache',
         description: 'Delete every locally cached Immich item',
         handler: (_) async {
-          final dir = await _cacheDir();
-          if (await dir.exists()) await dir.delete(recursive: true);
+          await _clearCache();
           return const CommandResult.ok();
         },
       ),
@@ -1325,7 +1335,9 @@ class ImmichManager extends Manager {
         .timeout(const Duration(seconds: 30));
     _throwUnlessOk(response, scope: 'asset.view');
     final bytes = response.bodyBytes;
-    if (caching && cached != null) {
+    // Checked again: the cache may have been turned off and cleared while
+    // this download ran.
+    if (cached != null && _settings.get(defs.screensaverImmichCache)) {
       try {
         // Write-then-rename so a torn download never poses as a cache hit.
         final part = File('${cached.path}.part');
@@ -1472,6 +1484,22 @@ class ImmichManager extends Manager {
     final dir = Directory('${support.path}/immich_cache');
     await dir.create(recursive: true);
     return _cacheDirMemo = dir;
+  }
+
+  /// Delete every cached item. The memo goes too, so the next write
+  /// creates the folder again instead of failing on the deleted one.
+  Future<void> _clearCache() async {
+    try {
+      final support = await getApplicationSupportDirectory();
+      final dir = Directory('${support.path}/immich_cache');
+      _cacheDirMemo = null;
+      if (await dir.exists()) {
+        await dir.delete(recursive: true);
+        log.info(name, 'local cache cleared');
+      }
+    } catch (e) {
+      log.warn(name, 'cache clear failed: $e');
+    }
   }
 
   Future<List<File>> _cacheFiles() async {

@@ -1,0 +1,20 @@
+{
+  "@@locale": "ru",
+  "voiceChimesPage": "Сигналы",
+  "voiceChimesHint": "Звуки пробуждения, готовности, ошибки, таймера и объявлений",
+  "voiceChimesPreview": "Предпросмотр на киоске",
+  "voiceChimesPreviewFailed": "Не удалось проиграть звук.",
+  "voiceChimesHelp": "Выберите звуки для этого киоска. Загрузите свои файлы здесь. Звуки из Home Assistant не используются для локальных сигналов.",
+  "voiceChimeWakeTitle": "Звук пробуждения",
+  "voiceChimeWakeDescription": "Играет, когда Voice Satellite начинает слушать.",
+  "voiceChimeDoneTitle": "Звук готовности",
+  "voiceChimeDoneDescription": "Играет, когда голосовое взаимодействие завершается.",
+  "voiceChimeErrorTitle": "Звук ошибки",
+  "voiceChimeErrorDescription": "Играет, когда голосовое взаимодействие не удаётся.",
+  "voiceChimeTimerTitle": "Звук таймера",
+  "voiceChimeTimerDescription": "Повторяется, когда таймер завершается, пока вы его не уберёте.",
+  "voiceChimeAnnounceTitle": "Звук объявления",
+  "voiceChimeAnnounceDescription": "Играет перед объявлением Voice Satellite, если у него нет своего звука.",
+  "settingVoiceWakeSoundTitle": "Проигрывать сигналы",
+  "settingVoiceWakeSoundDescription": "Звуки пробуждения, готовности и ошибки."
+}

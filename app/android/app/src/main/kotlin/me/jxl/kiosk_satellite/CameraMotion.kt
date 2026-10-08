@@ -36,6 +36,11 @@ import kotlin.math.ceil
 import kotlin.math.max
 import kotlin.math.roundToInt
 
+private const val VISION_ACTIVITY_CELLS = 4
+
+internal fun isVisionActivity(changedCells: Int, illumination: Boolean): Boolean =
+    changedCells >= VISION_ACTIVITY_CELLS && !illumination
+
 /**
  * Camera motion detection that stays cheap enough to leave running.
  *
@@ -207,7 +212,9 @@ class CameraMotion(
         // detector just took a frame or two to commit, and the hold
         // should not pay for that.
         // The analyzer's frame slot while hands are wanted (see onListen).
-        private const val PALM_FRAME_SLOT_NS = 125_000_000L
+        // The hand tracker accepts at most four frames a second, so sampling
+        // the motion grid between those frames only adds camera work.
+        private const val PALM_FRAME_SLOT_NS = 250_000_000L
 
         private const val PALM_ENTRY_GAP_NS = 1_500_000_000L
         private const val PALM_BACKDATE_NS = 3_000_000_000L
@@ -246,7 +253,7 @@ class CameraMotion(
 
         // How often frames are offered to the hand tracker (see analyze).
         private const val HAND_FEED_TRACKED_NS = 250_000_000L
-        private const val HAND_FEED_IDLE_NS = 250_000_000L
+        private const val HAND_FEED_IDLE_NS = 500_000_000L
 
 
         // A raised-hand count that differs from the one being timed is
@@ -853,7 +860,7 @@ class CameraMotion(
             previewIntervalNs = PREVIEW_MIN_INTERVAL_NS
             resetVisionGate()
 
-            // With hands wanted the analyzer samples at least 4 fps so a hand
+            // With hands wanted the analyzer samples at 4 fps so a hand
             // coming up is looked at within a quarter second; the motion
             // grid then compares each frame with the one gridStride back, so
             // its deltas stay those of the configured rate and motion
@@ -1003,16 +1010,11 @@ class CameraMotion(
             val captureLevel = if (boundRtsp) capturePolicy.level(cameraId) else 0
             val includeAnalysis = !boundRtsp || rtspConfig["analysis"] != false
 
-            // The grid reads a fixed handful of pixels per cell and the
-            // detectors a fixed 192x192, so the analysis size costs the
-            // CPU nothing; it is what the palm detector's crop is cut
-            // from, and a crop of a 320x240 frame is upscaled into the
-            // tensor (about 108 real pixels for a typical crop) where the
-            // same crop of a 640x480 frame fills it. The larger stream is
-            // asked for only when hands are wanted, since it is what the
-            // camera pipeline hands over per frame. The camera preview
-            // wants it too: its frames are shown, and 320x240 in a
-            // circle a few hundred pixels across is a blur.
+            // The grid reads a fixed handful of pixels per cell. The larger
+            // stream is used for hands because a crop around a distant hand
+            // retains twice as much detail before MediaPipe scales it to its
+            // 192x192 input. Preview and RTSP also need the larger stream
+            // because people see those frames directly.
             val analysisSize =
                 if (captureLevel >= 2) Size(320, 240)
                 else if (palmsWanted || previewWanted || boundRtsp) Size(640, 480) else Size(320, 240)
@@ -1413,7 +1415,7 @@ class CameraMotion(
             val illumination = rawChanged >= VETO_MIN_CELLS &&
                 sameSign * 100 >= rawChanged * SAME_SIGN_PERCENT
 
-            if (changed > 0 || rawChanged > 0) {
+            if ((changed > 0 || rawChanged > 0) && Log.isLoggable(TAG, Log.DEBUG)) {
                 Log.d(TAG, "frame: changed=$changed raw=$rawChanged " +
                     "brighter=$brighter mean=${"%.1f".format(meanDelta)} " +
                     "meanMag=${if (changed > 0) (changedMagnitude / changed).roundToInt() else 0} " +
@@ -1432,7 +1434,10 @@ class CameraMotion(
                     faceDetector ?: FaceDetector(context).also { faceDetector = it }
                 } else null
                 if (firstAnalyzedNs == 0L) firstAnalyzedNs = now
-                if (changed > 0 && !illumination) lastActivityNs = now
+                // One or two noisy cells are common in a still frame and
+                // must not keep MediaPipe running forever. Even a slowly
+                // raised hand changes at least four cells in measured frames.
+                if (isVisionActivity(changed, illumination)) lastActivityNs = now
                 val window = VISION_ACTIVITY_WINDOW_NS
                 // CPU time, not wall time: a look on several threads costs
                 // the cores that many times its duration, and the duty is a
@@ -1487,7 +1492,7 @@ class CameraMotion(
                     // (145% of one core when offered every frame), so
                     // frames are offered at a pace: four a second while a
                     // hand is tracked, two a second on mere activity.
-                    // Four frames a second whenever anything moved: the
+                    // Four frames a second while a hand enters or stays up: the
                     // first result after a hand comes up is what the
                     // gesture's latency is made of, and the user chose that
                     // over the cores it costs while someone is in view.
@@ -1870,16 +1875,21 @@ class CameraMotion(
                 .filter { it.upper >= want }.minByOrNull { it.upper }
                 ?: slowCandidates.maxByOrNull { it.upper }
                 ?: return
-            // With hands wanted the analyzer looks 8 times a second and
+            // With hands wanted the analyzer looks 4 times a second and
             // nothing needs frames faster: the lowest fixed rate that
             // covers it. On a legacy camera HAL (an Echo Show 8) every
             // delivered frame is copied through GL, and at the default
             // 30 fps delivery that copy plus the analyzer's receipt of it
             // cost half a core at idle; at 10 fps a sixth of that.
             val handRate = if (palmsWanted) {
-                val want8 = ceil(1_000_000_000.0 / PALM_FRAME_SLOT_NS).toInt()
-                ranges.filter { it.lower == it.upper && it.upper >= want8 }
+                val handFps = ceil(1_000_000_000.0 / PALM_FRAME_SLOT_NS).toInt()
+                val fixed = ranges.filter { it.lower == it.upper && it.upper >= handFps }
                     .minByOrNull { it.upper }
+                // A fixed rate only helps when it is below the variable
+                // range's ceiling. Some cameras advertise [15,30] and
+                // [30,30] only. Forcing the latter guarantees the most
+                // expensive pipeline even when exposure could use 15 fps.
+                fixed?.takeIf { it.upper < slowWide.upper }
             } else null
             val range = if (handRate != null) {
                 handRate

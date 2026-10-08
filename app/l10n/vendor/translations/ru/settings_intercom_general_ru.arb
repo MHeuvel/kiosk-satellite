@@ -1,0 +1,22 @@
+{
+  "@@locale": "ru",
+  "settingIntercomEnabledTitle": "Включить интерком",
+  "settingIntercomEnabledDescription": "Звоните другим киоскам в этой сети и принимайте их звонки.",
+  "settingIntercomKeyTitle": "Ключ интеркома",
+  "settingIntercomKeyDescription": "Киоски с одним ключом могут звонить друг другу. Управление группой киосков может его синхронизировать.",
+  "settingIntercomKeyPlaceholder": "Создаётся при включении интеркома",
+  "settingIntercomMenuTitle": "Показывать в меню киоска",
+  "settingIntercomMenuDescription": "Добавить пункт «Интерком» в меню киоска.",
+  "intercomNeedsAdmin": "Интеркому нужно удалённое администрирование",
+  "intercomAdminHelp": "Через него киоски находят друг друга и связываются. Включите «Удалённое управление» и «Поиск других киосков» в разделе «Устройство», затем вернитесь.",
+  "intercomChangeKey": "Изменить ключ",
+  "intercomChangeKeyHelp": "Вставьте ключ с другого киоска или создайте новый.",
+  "intercomChange": "Изменить",
+  "intercomKeyWarning": "Киоски с этим ключом могут звонить друг другу. Новый ключ отключает этот киоск от остальных, пока он не появится и у них.",
+  "intercomRegenerate": "Пересоздать",
+  "intercomKeyChanged": "Ключ изменён",
+  "intercomNotSet": "Не задан",
+  "intercomOpen": "Открыть",
+  "settingIntercomTlsTitle": "Шифровать связь",
+  "settingIntercomTlsDescription": "Использовать TLS для шифрования звонков интеркома между киосками. У всех киосков в звонке это должно быть включено."
+}

@@ -3810,6 +3810,19 @@ const screensaverMenu = SettingDef<bool>(
   category: 'Screensaver',
 );
 
+/// Off by default: an animated screensaver is meant to move, and kiosk
+/// setup guides often zero Android's animation scales for speed (#864).
+/// On, Weather Mood holds a still frame while Android's transition
+/// animation scale is off, which saves CPU on low-power devices (#870).
+const screensaverFollowAnimationScale = SettingDef<bool>(
+  key: 'screensaver.follow_animation_scale',
+  type: SettingType.boolean,
+  defaultValue: false,
+  title: 'Follow Android animation settings',
+  description: 'Pause animated screensavers when Android animations are off.',
+  category: 'Screensaver',
+);
+
 // ── Camera Streams (mode: camera) ──
 // The views the screensaver cycles through, as a JSON array of view ids in
 // rotation order. Picked from the views configured under Camera Streams in
@@ -7508,6 +7521,26 @@ const sendspinSyncOffset = SettingDef<num>(
   dependsOn: 'sendspin.enabled',
 );
 
+/// Whether the Now Playing volume slider sets the whole group's volume
+/// while this device plays in a Music Assistant group (issue #867), the
+/// way Music Assistant's own group slider does, or only this device's.
+/// The group's level comes from Music Assistant's API, so the switch
+/// needs that connection.
+const sendspinGroupVolume = SettingDef<bool>(
+  key: 'sendspin.group_volume',
+  type: SettingType.boolean,
+  defaultValue: true,
+  title: 'Adjust the group volume',
+  description:
+      'While this device plays in a group, the volume slider sets the '
+      "whole group's volume. Off, only this device's. Needs the Music "
+      'Assistant connection.',
+  category: 'Sendspin',
+  subpage: 'Sendspin Player',
+  section: 'Sendspin Player',
+  dependsOn: 'sendspin.enabled',
+);
+
 // ── Music Assistant (Sendspin section) ─────────────────────────────────
 // The Sendspin player speaks Music Assistant's player protocol, which
 // carries the track but nothing about it beyond title, artist and album.
@@ -7932,6 +7965,45 @@ const sendspinFullscreenMotion = SettingDef<bool>(
   subpage: 'Now Playing',
   section: 'User Interface',
   dependsOn: 'sendspin.fullscreen',
+);
+
+/// Where the dashboard lands once Now Playing goes away (issue #899).
+/// Default keeps Return to home dashboard view in charge, which goes home
+/// as the screensaver starts. Last view goes back to the view the kiosk
+/// showed when the screensaver started, Chosen view to a picked one.
+const sendspinFullscreenReturn = SettingDef<String>(
+  key: 'sendspin.fullscreen_return',
+  type: SettingType.select,
+  defaultValue: 'default',
+  title: 'After dismissing',
+  description:
+      'The dashboard view to show after Now Playing is dismissed. Default '
+      'follows Return to home dashboard view.',
+  category: 'Sendspin',
+  subpage: 'Now Playing',
+  section: 'User Interface',
+  options: ['default', 'last', 'custom'],
+  optionLabels: {
+    'default': 'Default',
+    'last': 'Last view',
+    'custom': 'Chosen view',
+  },
+  dependsOn: 'sendspin.fullscreen',
+);
+
+/// The view Chosen view goes to, picked from the instance's dashboards in
+/// both UIs like the Home Assistant Dashboard screensaver's.
+const sendspinFullscreenReturnView = SettingDef<String>(
+  key: 'sendspin.fullscreen_return_view',
+  type: SettingType.string,
+  defaultValue: '',
+  title: 'Dashboard view',
+  description: 'The view to show after Now Playing is dismissed.',
+  category: 'Sendspin',
+  subpage: 'Now Playing',
+  section: 'User Interface',
+  dependsOn: 'sendspin.fullscreen_return',
+  dependsOnValue: 'custom',
 );
 
 /// The kiosk menu's way to the Now Playing view on demand, the twin of
@@ -10178,6 +10250,7 @@ const List<SettingDef<Object>> allSettings = [
   // Pixel shift sits with the general controls: it applies to every mode.
   screensaverPixelShift,
   screensaverMenu,
+  screensaverFollowAnimationScale,
   // The legacy small clock rows, hidden since the Widgets group took over;
   // registered so old backups still import (then migrate on startup).
   screensaverMiniClock,
@@ -10515,6 +10588,7 @@ const List<SettingDef<Object>> allSettings = [
   sendspinServer,
   sendspinCodec,
   sendspinSyncOffset,
+  sendspinGroupVolume,
   sendspinMaUrl,
   sendspinMaToken,
   sendspinMaShortcut,
@@ -10536,6 +10610,8 @@ const List<SettingDef<Object>> allSettings = [
   sendspinFullscreenHorizontal,
   sendspinFullscreenDoubleTap,
   sendspinFullscreenMotion,
+  sendspinFullscreenReturn,
+  sendspinFullscreenReturnView,
   sendspinFullscreenShortcut,
   sendspinSpeakerPill,
   sendspinQueueArt,

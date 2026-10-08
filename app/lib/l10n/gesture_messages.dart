@@ -68,6 +68,8 @@ String localizedGestureTrigger(
           : count == 1
           ? s.gestureDescribeOneFinger('$count')
           : s.gestureDescribeFingers('$count');
+    case 'plugin':
+      return describePluginTrigger(trigger);
   }
   return gestureText(context, 'Gesture');
 }

@@ -71,6 +71,7 @@ class _Socket implements RealtimeSocket {
 class _Tools implements RealtimeToolbox {
   final calls = <(String, Map<String, Object?>)>[];
   Completer<void>? gate;
+  bool fail = false;
 
   @override
   Future<List<RealtimeToolSpec>> list() async => const [
@@ -96,6 +97,12 @@ class _Tools implements RealtimeToolbox {
     if (name == LocalToolbox.endConversation) {
       return const RealtimeToolOutput('{}', endConversation: true);
     }
+    if (fail) {
+      return const RealtimeToolOutput(
+        '{"error": "no such entity"}',
+        error: true,
+      );
+    }
     return const RealtimeToolOutput('{"success": true}');
   }
 
@@ -113,6 +120,7 @@ class _Backend implements RealtimeBackend {
   final audio = <Uint8List>[];
   final interruptions = <(String, int)>[];
   final turns = <bool>[];
+  final spoken = <String>[];
   RealtimeStart? started;
   bool closed = false;
   bool clientTurns = false;
@@ -123,6 +131,9 @@ class _Backend implements RealtimeBackend {
 
   @override
   void userTurn({required bool keep}) => turns.add(keep);
+
+  @override
+  void speak(String line) => spoken.add(line);
 
   @override
   Stream<RealtimeEvent> get events => _events.stream;
@@ -408,6 +419,52 @@ void main() {
         expect(sessions.skip(1), everyElement('sess1'));
       },
     );
+
+    test('the device rides tools/list and tools/call as _meta', () async {
+      final params = <String, Map<String, Object?>>{};
+      final client = MockClient((request) async {
+        final json = (jsonDecode(request.body) as Map).cast<String, Object?>();
+        final method = '${json['method']}';
+        params[method] = ((json['params'] ?? {}) as Map)
+            .cast<String, Object?>();
+        if (method.startsWith('notifications/')) return http.Response('', 202);
+        final result = switch (method) {
+          'tools/list' => {'tools': <Object?>[]},
+          'tools/call' => {'content': <Object?>[]},
+          _ => <String, Object?>{},
+        };
+        return http.Response(
+          jsonEncode({'jsonrpc': '2.0', 'id': json['id'], 'result': result}),
+          200,
+          headers: {'content-type': 'application/json'},
+        );
+      });
+      final mcp = McpClient(
+        url: Uri.parse('http://ha/api/mcp'),
+        client: client,
+        deviceId: () async => 'dev1',
+      );
+      await mcp.listTools();
+      await mcp.callTool('HassStartTimer', {'minutes': 5});
+      const meta = {McpClient.deviceMetaKey: 'dev1'};
+      expect(params['tools/list']!['_meta'], meta);
+      expect(params['tools/call']!['_meta'], meta);
+      expect(params['initialize']!.containsKey('_meta'), isFalse);
+
+      // No device, or a failed lookup, sends no _meta.
+      for (final lookup in <Future<String?> Function()>[
+        () async => null,
+        () async => throw StateError('offline'),
+      ]) {
+        params.clear();
+        await McpClient(
+          url: Uri.parse('http://ha/api/mcp'),
+          client: client,
+          deviceId: lookup,
+        ).listTools();
+        expect(params['tools/list']!.containsKey('_meta'), isFalse);
+      }
+    });
 
     test('an HTTP error says so', () async {
       final mcp = McpClient(
@@ -787,6 +844,88 @@ void main() {
       },
     );
 
+    test('a failed transcription warns once and shows no text', () async {
+      final lines = <String>[];
+      socket = _Socket();
+      events = [];
+      final backend = OpenAiRealtimeBackend(
+        config: const RealtimeConfig(provider: RealtimeProvider.openai),
+        toolbox: _Tools(),
+        log: lines.add,
+        connector: (_, _) async => socket,
+      );
+      backend.events.listen(events.add);
+      await backend.start(const RealtimeStart());
+      socket.server({'type': 'session.updated'});
+      for (final item in ['i1', 'i2']) {
+        socket.server({
+          'type': 'conversation.item.input_audio_transcription.failed',
+          'item_id': item,
+          'error': {'type': 'server_error', 'code': 'DeploymentNotFound'},
+        });
+      }
+      await pumpEventQueue();
+      expect(lines.where((l) => l.startsWith('transcription failed')), [
+        'transcription failed: DeploymentNotFound',
+        'transcription failed: DeploymentNotFound',
+      ]);
+      final warnings = events.whereType<RealtimeWarning>().toList();
+      expect(warnings, hasLength(1));
+      expect(
+        warnings.single.message,
+        'transcription with gpt-4o-mini-transcribe failed: DeploymentNotFound',
+      );
+      expect(events.whereType<RealtimeUserText>(), isEmpty);
+      await backend.close();
+    });
+
+    test('failures with no handling of their own are logged', () async {
+      final lines = <String>[];
+      socket = _Socket();
+      tools = _Tools()..fail = true;
+      final backend = OpenAiRealtimeBackend(
+        config: const RealtimeConfig(provider: RealtimeProvider.xai),
+        toolbox: tools,
+        log: lines.add,
+        connector: (_, _) async => socket,
+      );
+      backend.events.listen((_) {});
+      await backend.start(const RealtimeStart());
+      socket
+        ..server({'type': 'session.updated'})
+        ..server({
+          'type': 'response.done',
+          'response': {
+            'status': 'incomplete',
+            'status_details': {'reason': 'content_filter'},
+          },
+        })
+        ..server({
+          'type': 'response.mcp_call.failed',
+          'error': {'code': 'boom'},
+        })
+        ..server({'type': 'response.output_item.added'})
+        ..server({
+          'type': 'response.function_call_arguments.done',
+          'call_id': 'c1',
+          'name': 'intent__HassTurnOn',
+          'arguments': '{not json',
+        });
+      socket.incoming
+        ..add('not json')
+        ..add('still not json');
+      await pumpEventQueue();
+      expect(lines.where((l) => !l.startsWith('connecting')), [
+        'session ready',
+        'answer incomplete: content_filter',
+        'response.mcp_call.failed: {"code":"boom"}',
+        startsWith('tool intent__HassTurnOn: unreadable arguments'),
+        'tool intent__HassTurnOn failed: {"error": "no such entity"}',
+        startsWith('unreadable message:'),
+      ]);
+      await backend.close();
+    });
+
     test('an interruption cancels the answer and truncates it', () async {
       final backend = make(
         const RealtimeConfig(provider: RealtimeProvider.openai),
@@ -802,6 +941,25 @@ void main() {
         'conversation.item.truncate',
       ]);
       expect(socket.sent.last['audio_end_ms'], 1250);
+      await backend.close();
+    });
+
+    test('an opening line goes as one answer\'s instructions', () async {
+      final backend = make(
+        const RealtimeConfig(provider: RealtimeProvider.xai, apiKey: 'k'),
+      );
+      await backend.start(const RealtimeStart());
+      socket.server({'type': 'session.updated'});
+      await pumpEventQueue();
+      backend.speak('The garage door is open. Want me to close it?');
+      expect(socket.sent.last, {
+        'type': 'response.create',
+        'response': {
+          'instructions': realtimeSpeakPrompt(
+            'The garage door is open. Want me to close it?',
+          ),
+        },
+      });
       await backend.close();
     });
 
@@ -1091,6 +1249,54 @@ void main() {
       expect(url.toString(), 'ws://relay.local:8099/live');
       expect(headers, isEmpty);
       expect(setup()['model'], 'models/gemini-3.1-flash-live-preview');
+      await backend.close();
+    });
+
+    test('an opening line goes as a typed turn', () async {
+      final backend = await ready();
+      backend.speak('Good morning. Ready for the weather?');
+      expect(socket.sent.last, {
+        'realtimeInput': {
+          'text': realtimeSpeakPrompt('Good morning. Ready for the weather?'),
+        },
+      });
+      await backend.close();
+    });
+
+    test('unknown messages and failed tools are logged', () async {
+      final lines = <String>[];
+      socket = _Socket();
+      tools = _Tools()..fail = true;
+      final backend = GeminiLiveBackend(
+        config: const RealtimeConfig(provider: RealtimeProvider.gemini),
+        toolbox: tools,
+        log: lines.add,
+        connector: (_, _) async => socket,
+      );
+      backend.events.listen((_) {});
+      await backend.start(const RealtimeStart());
+      socket
+        ..server({'setupComplete': <String, Object?>{}})
+        ..server({'usageMetadata': <String, Object?>{}})
+        ..server({
+          'error': {'code': 13, 'message': 'internal'},
+        })
+        ..server({
+          'error': {'code': 13, 'message': 'internal'},
+        })
+        ..server({
+          'toolCall': {
+            'functionCalls': [
+              {'id': 'c1', 'name': 'intent__HassTurnOn', 'args': {}},
+            ],
+          },
+        });
+      await pumpEventQueue();
+      expect(lines.where((l) => !l.startsWith('connecting')), [
+        'session ready',
+        'error: {"code":13,"message":"internal"}',
+        'tool intent__HassTurnOn failed: {"error": "no such entity"}',
+      ]);
       await backend.close();
     });
 
@@ -1577,6 +1783,87 @@ void main() {
         expect(h.backend.audio.single.length ~/ 2, closeTo(1920, 1));
         h.mic.speak();
         expect(h.backend.audio, hasLength(2));
+        h.session.cancel();
+        time.flushMicrotasks();
+      });
+    });
+
+    test('an opening is said first, after the announcement chime', () {
+      fakeAsync((time) {
+        final h = _Harness(time);
+        var opened = 0;
+        unawaited(
+          h.session.wake(
+            '',
+            opening: ' The garage door is open. Close it? ',
+            announceChime: true,
+            onOpened: () => opened++,
+          ),
+        );
+        time.flushMicrotasks();
+        expect(h.chimes.chimes, ['announce']);
+        expect(h.view.phase, AssistPhase.thinking);
+        expect(h.view.docked, isTrue);
+        // Connected while the chime still plays: the line waits for it.
+        h.backend.emit(const RealtimeReady());
+        time.flushMicrotasks();
+        expect(h.backend.spoken, isEmpty);
+        time.elapse(const Duration(milliseconds: 600));
+        h.mic.speak();
+        expect(h.backend.spoken, ['The garage door is open. Close it?']);
+        h.answer('a1');
+        expect(h.view.phase, AssistPhase.speaking);
+        expect(opened, 0);
+        h.player.frames = 24000;
+        time.elapse(const Duration(milliseconds: 1500));
+        // Played: Home Assistant hears the announcement finished, and the
+        // conversation listens.
+        expect(opened, 1);
+        expect(h.view.phase, AssistPhase.listening);
+        expect(h.session.busy, isTrue);
+        h.session.cancel();
+        time.flushMicrotasks();
+        expect(opened, 1);
+      });
+    });
+
+    test('an opening drops what the microphone held, nobody spoke yet', () {
+      fakeAsync((time) {
+        final h = _Harness(time);
+        unawaited(h.session.wake('', opening: 'Hello'));
+        time.flushMicrotasks();
+        // No chime asked for: nothing plays and nothing is dropped.
+        expect(h.chimes.chimes, isEmpty);
+        h.mic.speak();
+        h.backend.emit(const RealtimeReady());
+        time.flushMicrotasks();
+        expect(h.backend.audio, isEmpty);
+        expect(h.backend.spoken, ['Hello']);
+        h.mic.speak();
+        expect(h.backend.audio, hasLength(1));
+        h.session.cancel();
+        time.flushMicrotasks();
+      });
+    });
+
+    test('an opening never said still reports the announcement over', () {
+      fakeAsync((time) {
+        final h = _Harness(time);
+        var opened = 0;
+        unawaited(
+          h.session.wake('', opening: 'Hello', onOpened: () => opened++),
+        );
+        time.flushMicrotasks();
+        h.backend.emit(const RealtimeClosed(error: 'connection refused'));
+        time.flushMicrotasks();
+        expect(opened, 1);
+        expect(h.session.busy, isFalse);
+        // A second one while a conversation is on is not started.
+        h.wakeAndConnect();
+        unawaited(h.session.wake('', opening: 'Hi', onOpened: () => opened++));
+        time.flushMicrotasks();
+        expect(opened, 2);
+        expect(h.backend.spoken, isEmpty);
         h.session.cancel();
         time.flushMicrotasks();
       });

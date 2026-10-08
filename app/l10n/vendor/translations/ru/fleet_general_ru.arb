@@ -1,0 +1,15 @@
+{
+  "@@locale": "ru",
+  "fleetFleetManagementNeedsTheRemoteAdmin": "Для управления группой киосков нужно удалённое администрирование",
+  "fleetKiosksFindEachOtherThroughItTurnOnRemote": "Через него киоски находят друг друга. Включите «Удалённое управление» и «Поиск других киосков» в разделе «Устройство», затем вернитесь.",
+  "fleetLeadThisFleet": "Вести эту группу",
+  "fleetSyncThisKioskSSettingsToItsFollowersRequires": "Синхронизировать настройки этого киоска с его ведомыми. Все киоски должны работать на одной версии.",
+  "fleetAKioskThatFollowsALeaderCannotLead": "Киоск, который следует за ведущим, не может вести группу сам.",
+  "fleetFollowers": "Ведомые",
+  "fleetProfiles": "Профили",
+  "fleetLeader": "Ведущий",
+  "fleetLearnWhichSettingsSyncAndWhichDoNotIn": "Узнайте, какие настройки синхронизируются, а какие нет, в ",
+  "fleetFleetManagementDocumentation": "документации по управлению группой киосков",
+  "fleetMore": "Ещё",
+  "fleetSearchFollowers": "Киоски, которыми управляет этот, их состояние и способ добавить новый."
+}

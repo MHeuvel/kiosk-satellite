@@ -112,13 +112,17 @@ A wake word answered by a realtime provider starts a conversation with a speech 
 
 **Getting a Gemini API key.** Sign in to [Google AI Studio](https://aistudio.google.com/apikey) with a Google account, click **Create API key**, pick or create a Google Cloud project and copy the key into the Gemini provider's **API key**. The free tier covers the Live models with lower rate limits, so you can try realtime conversations without a billing account. Google may use what is sent on the free tier to improve its products. Turn on billing for the project to lift the limits and keep your conversations out of that. **Model** defaults to `gemini-3.8-live`.
 
-**Controlling your home.** With **Tools** on **Home Assistant**, the model uses Home Assistant's **Model Context Protocol Server** integration. Add it under **Settings > Devices & services** in Home Assistant. The model can use the entities exposed to Assist, and the scripts exposed to Assist become tools too. **Custom MCP server** points at another server that speaks Streamable HTTP. **None** leaves the tools to a relay that adds its own.
+**Controlling your home.** With **Tools** on **Home Assistant**, the model uses Home Assistant's **Model Context Protocol Server** integration. Add it under **Settings > Devices & services** in Home Assistant. The model can use the entities exposed to Assist, and the scripts exposed to Assist become tools too. Timers work as they do with Assist on Home Assistant 2026.10 or later. Older versions leave the timer tools out of realtime conversations. **Custom MCP server** points at another server that speaks Streamable HTTP. **None** leaves the tools to a relay that adds its own.
 
 **Which room.** Each conversation starts with the kiosk's name and its area in Home Assistant, so "turn on the lights" means the lights in the kiosk's area unless you name another one. Set the area on the kiosk's device in Home Assistant. The Assist satellite entity stays idle during a conversation, so automations that need to know which kiosk is talking should check the kiosk's [Voice Satellite](#home-assistant-entities-and-actions) sensor.
 
 **Picking up where you left off.** **Session duration** keeps what was said for 30 minutes up to 12 hours and gives it to the next conversation, so you can refer back to something after a conversation ended. Older exchanges are dropped, and nothing is kept across an app restart.
 
+**Started from Home Assistant.** With a provider on **Assistant 1**, `assist_satellite.start_conversation` opens a realtime conversation instead of an Assist turn. The model says the `start_message` in its own voice, word for word, and then listens for the reply. Home Assistant's own speech of the message is not played. `extra_system_prompt` does not reach the model, because Home Assistant does not send it to the kiosk. An automation that plays `start_media_id` with no message still gets an Assist turn.
+
 **Kiosks without internet access.** Set a provider's **Endpoint** to a relay on your network that speaks its realtime protocol. The kiosk only talks to the relay, and the API key can live there instead of on the kiosk.
+
+**OpenAI on Azure.** The bubble shows what you said through a separate transcription model, `gpt-4o-mini-transcribe`. On Azure it needs its own deployment, named exactly that, in the same resource as the realtime model. Without it the model still hears you and answers, but your words never show and the kiosk logs `transcription failed: DeploymentNotFound`.
 
 **On screen.** A conversation docks at the bottom of the screen in a bubble with the current exchange and the skin's bar along its bottom edge. It stays up until the conversation ends, and the dashboard stays visible and usable underneath. The bar drains in the last seconds before **End after silence** ends the conversation. Saying goodbye ends it too, and so does the close button. "Stop" cuts off an answer and keeps the conversation going.
 
@@ -159,7 +163,7 @@ These come from Home Assistant through the kiosk's satellite entity, as they do 
 | --- | --- |
 | Timers | Ask for one by voice. Pills show while it runs and an alert when it ends. Tap a pill to pause it, double tap to cancel. |
 | Announcements | `assist_satellite.announce` on the kiosk's satellite. |
-| Start a conversation | `assist_satellite.start_conversation`: the kiosk speaks, then listens for the reply. |
+| Start a conversation | `assist_satellite.start_conversation`: the kiosk speaks, then listens for the reply. With a realtime provider on Assistant 1, the provider takes the conversation. See [Realtime conversations](#realtime-conversations). |
 | Ask a question | `assist_satellite.ask_question`: the kiosk speaks, listens and hands the reply to Home Assistant, as a Voice PE does. |
 
 Double tap the overlay to end a turn or close what lingers. With **Stop word interruption** on, "stop" does the same while an answer, alert, announcement or result panel is up.
@@ -191,7 +195,9 @@ With **Expose kiosk entities** on under **Settings > ESPHome**, the kiosk adds i
 
 The kiosk also adds a **Voice Satellite** text sensor. It reads `idle`, `listening`, `processing` or `responding`, the same states as the Assist satellite entity, and it follows realtime conversations too. A realtime conversation runs no Home Assistant pipeline, so the Assist satellite entity stays idle through it. Check the sensor instead when an automation or script needs to know which kiosk is talking.
 
-And four actions, named after the kiosk's [node name](esphome.md#node-name):
+Two more sensors follow the kiosk's timers. **VS Timers** counts the timers that are running or paused. **VS Next timer** is a timestamp of when the soonest running timer ends, so a tile or entity card counts down to it on its own. It reads unknown while no timer runs.
+
+And these actions, named after the kiosk's [node name](esphome.md#node-name):
 
 ```yaml
 # Listen as if the wake word fired. Slot 2 runs Assistant 2.
@@ -228,6 +234,69 @@ data:
   minutes: 10
   seconds: 0
 ```
+
+```yaml
+# List the kiosk's timers.
+action: esphome.kitchen_tablet_vs_list_timers
+response_variable: result
+```
+
+The response holds a `timers` list with one entry per timer: running and paused ones first, then any that are ringing.
+
+```yaml
+timers:
+  - timer_id: 01K6...
+    name: pasta
+    total_seconds: 600
+    seconds_left: 412
+    is_active: true
+    ends_at: "2026-10-08T22:42:10.000Z"
+    finished: false
+```
+
+`seconds_left` is the time left when the action ran. `ends_at` is when a running timer ends, in UTC, and is null while it is paused or ringing. `finished` is true while a timer rings and until its alert is dismissed.
+
+ESPHome entities cannot carry attributes, so the list comes from the action. To keep it on an entity for a dashboard card, refresh a template sensor from the [timer event](#timer-events):
+
+```yaml
+template:
+  - triggers:
+      - trigger: homeassistant
+        event: start
+      - trigger: event
+        event_type: esphome.kiosk_satellite_timer
+    actions:
+      - action: esphome.kitchen_tablet_vs_list_timers
+        response_variable: result
+    sensor:
+      - name: Kitchen timers
+        state: "{{ result.timers | length }}"
+        attributes:
+          timers: "{{ result.timers }}"
+```
+
+The event fires for every kiosk, so a sensor for one kiosk can add `event_data` with that kiosk's `device_id` to skip the others.
+
+```yaml
+# Pause, resume or cancel a timer by its ID.
+action: esphome.kitchen_tablet_vs_pause_timer
+data:
+  timer_id: 01K6...
+```
+
+```yaml
+# Add time to a timer. vs_remove_time takes the same fields.
+action: esphome.kitchen_tablet_vs_add_time
+data:
+  timer_id: 01K6...
+  hours: 0
+  minutes: 5
+  seconds: 0
+```
+
+`vs_pause_timer`, `vs_resume_timer`, `vs_cancel_timer`, `vs_add_time` and `vs_remove_time` take the `timer_id` from `vs_list_timers` or from the [timer event](#timer-events). An empty `timer_id` picks the kiosk's only timer and fails when it has several. Pausing a paused timer or resuming a running one does nothing.
+
+Home Assistant's timer intents do the change, and they cannot find a timer by its ID. The kiosk looks the timer up and asks for it by name, or by the duration it started with when it has no name. Two timers on the same kiosk with the same name, or two unnamed timers that started with the same duration, look the same to Home Assistant, and the action fails with an error that says so. Give timers names to keep them apart.
 
 The entities and actions appear only while Voice Satellite runs natively and is on.
 

@@ -1,0 +1,9 @@
+{
+  "@@locale": "ru",
+  "mediaCacheTitle": "Кэш обложек",
+  "mediaCacheReadFailed": "Не удалось прочитать размер кэша.",
+  "mediaCacheClearFailed": "Не удалось очистить кэш.",
+  "mediaCacheChecking": "Проверка размера кэша…",
+  "mediaCacheClearing": "Очистка…",
+  "mediaCacheUsage": "Использовано {used} из {limit}. Миниатюры очереди кэшируются автоматически."
+}

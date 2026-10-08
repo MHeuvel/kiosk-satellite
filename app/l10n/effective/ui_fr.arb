@@ -5379,6 +5379,45 @@
       ]
     }
   },
+  "gestureIntercomHangup": "Terminer l'appel d'interphone",
+  "@gestureIntercomHangup": {
+    "context": "Settings > Gestures > Add gesture > Choose an action",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action"
+      ]
+    }
+  },
+  "gestureAlarmStop": "Arrêter l'alarme",
+  "@gestureAlarmStop": {
+    "context": "Settings > Gestures > Add gesture > Choose an action",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action"
+      ]
+    }
+  },
+  "gestureAlarmSnooze": "Reporter l'alarme",
+  "@gestureAlarmSnooze": {
+    "context": "Settings > Gestures > Add gesture > Choose an action",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action"
+      ]
+    }
+  },
   "gestureScreensaver": "Démarrer l'économiseur d'écran",
   "@gestureScreensaver": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
@@ -7364,6 +7403,45 @@
   },
   "gestureSequenceError": "Ajoutez au moins deux coins.",
   "@gestureSequenceError": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gesturePluginTrigger": "Déclencheur de plugin",
+  "@gesturePluginTrigger": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gesturePluginTriggerField": "Déclencheur",
+  "@gesturePluginTriggerField": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gesturePluginTriggerHelp": "Activez d'abord un plugin proposant des déclencheurs dans le Gestionnaire de plugins.",
+  "@gesturePluginTriggerHelp": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
     "x-locations": {
@@ -11847,6 +11925,32 @@
         "type": "String",
         "example": "entryClass"
       }
+    }
+  },
+  "pluginErrorTooManyTriggers": "Trop de déclencheurs",
+  "@pluginErrorTooManyTriggers": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorTriggerId": "Identifiant de déclencheur invalide ou en double",
+  "@pluginErrorTriggerId": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
     }
   },
   "remoteDisableTitle": "Désactiver la gestion à distance ?",
@@ -30201,6 +30305,84 @@
       ]
     }
   },
+  "settingSendspinFullscreenReturnTitle": "Après la fermeture",
+  "@settingSendspinFullscreenReturnTitle": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenReturnDescription": "La vue du tableau de bord affichée après la fermeture de Lecture en cours. Par défaut suit Revenir à la vue d'accueil du tableau de bord.",
+  "@settingSendspinFullscreenReturnDescription": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "mediaReturnLastView": "Dernière vue",
+  "@mediaReturnLastView": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Option: go back to the dashboard view the kiosk showed before the screensaver started.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "mediaReturnChosenView": "Vue choisie",
+  "@mediaReturnChosenView": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Option: go to a dashboard view picked below.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenReturnViewTitle": "Vue du tableau de bord",
+  "@settingSendspinFullscreenReturnViewTitle": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenReturnViewDescription": "La vue affichée après la fermeture de Lecture en cours.",
+  "@settingSendspinFullscreenReturnViewDescription": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
   "settingSendspinFullscreenShortcutTitle": "Afficher dans le menu du kiosque",
   "@settingSendspinFullscreenShortcutTitle": {
     "context": "Settings > Media Player > Now Playing > User Interface",
@@ -30774,6 +30956,19 @@
   },
   "settingSendspinSyncOffsetDescription": "Une valeur négative fait jouer cet appareil plus tôt, pour les enceintes en retard sur le groupe (Bluetooth). Réglez à l'oreille ; s'applique en direct.",
   "@settingSendspinSyncOffsetDescription": {
+    "context": "Settings > Media Player > Sendspin Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sendspin Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sendspin Player"
+      ]
+    }
+  },
+  "settingSendspinGroupVolumeDescription": "Tant que cet appareil joue au sein d'un groupe, le curseur de volume règle le volume de tout le groupe. Si l'option est désactivée, seul le volume de cet appareil est modifié. Nécessite la connexion à Music Assistant.",
+  "@settingSendspinGroupVolumeDescription": {
     "context": "Settings > Media Player > Sendspin Player",
     "description": "Help below this setting.",
     "x-locations": {
@@ -34706,6 +34901,32 @@
   },
   "settingScreensaverMenuDescription": "Ajoute une entrée Démarrer l'économiseur d'écran au menu du kiosque.",
   "@settingScreensaverMenuDescription": {
+    "context": "Settings:Screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverFollowAnimationScaleTitle": "Suivre les paramètres d'animation d'Android",
+  "@settingScreensaverFollowAnimationScaleTitle": {
+    "context": "Settings:Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverFollowAnimationScaleDescription": "Met en pause les économiseurs d'écran animés quand les animations d'Android sont désactivées.",
+  "@settingScreensaverFollowAnimationScaleDescription": {
     "context": "Settings:Screensaver",
     "description": "Help below the setting.",
     "x-locations": {

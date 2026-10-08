@@ -6,7 +6,8 @@ import 'manifest.dart';
 /// Result of greedy CTC decoding: the collapsed phoneme ids and a per-phoneme
 /// confidence (mean raw logit of the frame-run that emitted it).
 class CtcDecode {
-  CtcDecode(this.ids, this.confidence, [this.endFrames = const []]);
+  CtcDecode(this.ids, this.confidence,
+      [this.endFrames = const [], this.frameIds, this.frameLogits]);
   final List<int> ids;
   final List<double> confidence;
 
@@ -16,6 +17,11 @@ class CtcDecode {
   /// *when* a matched wake word ended, which the collapsed [ids] alone cannot
   /// say. Empty when the caller does not need alignment.
   final List<int> endFrames;
+
+  /// Per-frame greedy winners. These reusable buffers let the streaming
+  /// matcher consume the decode without scanning the full logits again.
+  final Int32List? frameIds;
+  final Float32List? frameLogits;
 }
 
 /// Result of matching a decode against the manifest's wake-word targets.
@@ -62,6 +68,8 @@ class CtcDecoder {
   final VswwCtcConfig ctc;
   List<int> _editPrev = [];
   List<int> _editCurr = [];
+  Int32List _frameIds = Int32List(0);
+  Float32List _frameLogits = Float32List(0);
 
   /// Voice Satellite's Sensitivity setting, resolved by the card into a plain
   /// multiplier on our confidence gates (see [WakeWordModelRef.confidenceScale]).
@@ -72,8 +80,10 @@ class CtcDecoder {
 
   /// Greedy decode of raw logits, shape [tOut, vocab] row-major.
   CtcDecode decode(Float32List logits, int tOut, int vocab) {
-    final argId = List<int>.filled(tOut, 0);
-    final argLogit = Float64List(tOut);
+    if (_frameIds.length != tOut) {
+      _frameIds = Int32List(tOut);
+      _frameLogits = Float32List(tOut);
+    }
     for (var t = 0; t < tOut; t++) {
       final off = t * vocab;
       var best = 0;
@@ -85,8 +95,8 @@ class CtcDecoder {
           best = v;
         }
       }
-      argId[t] = best;
-      argLogit[t] = bestVal;
+      _frameIds[t] = best;
+      _frameLogits[t] = bestVal;
     }
 
     final ids = <int>[];
@@ -94,11 +104,11 @@ class CtcDecoder {
     final endFrames = <int>[];
     var i = 0;
     while (i < tOut) {
-      final tok = argId[i];
+      final tok = _frameIds[i];
       var j = i;
       var sum = 0.0;
-      while (j < tOut && argId[j] == tok) {
-        sum += argLogit[j];
+      while (j < tOut && _frameIds[j] == tok) {
+        sum += _frameLogits[j];
         j++;
       }
       if (tok != ctc.blankId && tok != ctc.padId) {
@@ -108,7 +118,7 @@ class CtcDecoder {
       }
       i = j;
     }
-    return CtcDecode(ids, conf, endFrames);
+    return CtcDecode(ids, conf, endFrames, _frameIds, _frameLogits);
   }
 
   /// Best accepted match of [decode] against all wake-word targets, or

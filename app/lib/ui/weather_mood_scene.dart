@@ -141,10 +141,11 @@ class WeatherMoodScene {
 
   void advance(double seconds) {
     final dt = seconds.clamp(0.0, .15);
+    final easing = math.min(1, dt * 1.1);
     time += dt;
-    twilight += (_targetTwilight - twilight) * math.min(1, dt * 1.1);
+    twilight += (_targetTwilight - twilight) * easing;
     for (var i = 0; i < values.length; i++) {
-      values[i] += (_target[i] - values[i]) * math.min(1, dt * 1.1);
+      values[i] += (_target[i] - values[i]) * easing;
     }
     windTime += dt * values[5];
     // Wind carries the cumulus away. Once it drops, they glide back to
@@ -185,6 +186,19 @@ class WeatherMoodScene {
   /// The same for the windy sky's second clouds in the left and near lanes,
   /// half a loop behind the first.
   List<double> get cumulusCopies => [_slide(0, .5), _slide(2, .5)];
+
+  /// Both padded vec4s consumed by the cloud shader. Building them together
+  /// avoids two short-lived intermediate lists on every animation frame.
+  List<double> get cumulusUniforms => [
+    _slide(0, 0),
+    _slide(1, 0),
+    _slide(2, 0),
+    0,
+    _slide(0, .5),
+    _slide(2, .5),
+    0,
+    0,
+  ];
 
   double _slide(int i, double behind) {
     final loop = _loop(i);

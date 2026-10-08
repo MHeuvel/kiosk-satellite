@@ -328,7 +328,9 @@ class VoiceManager extends Manager {
     _realtime = RealtimeSession(
       backend: _realtimeBackend,
       mic: _WakeMic(_wakeWord),
-      player: NativeRealtimePlayer(),
+      player: NativeRealtimePlayer(
+        log: (line) => log.info(name, 'realtime player: $line'),
+      ),
       chimes: _Player(commands),
       options: _realtimeOptions,
       onView: _onView,
@@ -890,6 +892,45 @@ class VoiceManager extends Manager {
               if (seconds > 0) 'seconds': seconds,
               if (name.isNotEmpty) 'name': name,
             });
+            return error == null
+                ? const CommandResult.ok()
+                : CommandResult.fail(error);
+          },
+        ),
+      )
+      ..register(
+        Command(
+          name: 'voiceTimers',
+          description:
+              'The timers on this kiosk, running, paused and ringing (the '
+              'vs_list_timers action)',
+          quiet: true,
+          handler: (_) async => CommandResult.ok({'timers': timerList()}),
+        ),
+      )
+      ..register(
+        Command(
+          name: 'voiceTimerControl',
+          description:
+              'Pause, resume, cancel or add or remove time from a timer on '
+              'this kiosk by its id (the vs_pause_timer family of actions)',
+          params: const {
+            'timer_id': 'the timer, empty for the only one',
+            'action': 'pause, resume, cancel, add or remove',
+            'hours': 'for add and remove',
+            'minutes': 'for add and remove',
+            'seconds': 'for add and remove',
+          },
+          handler: (p) async {
+            int amount(String key) =>
+                ((p[key] as num?)?.toInt() ?? 0).clamp(0, 604800);
+            final error = await controlTimer(
+              '${p['timer_id'] ?? ''}'.trim(),
+              '${p['action'] ?? ''}',
+              hours: amount('hours'),
+              minutes: amount('minutes'),
+              seconds: amount('seconds'),
+            );
             return error == null
                 ? const CommandResult.ok()
                 : CommandResult.fail(error);
@@ -2079,7 +2120,11 @@ class VoiceManager extends Manager {
         if (base.isNotEmpty && token.isNotEmpty) {
           boxes.add(
             McpToolbox(
-              McpClient(url: Uri.parse('$base/api/mcp'), token: token),
+              McpClient(
+                url: Uri.parse('$base/api/mcp'),
+                token: token,
+                deviceId: _deviceId,
+              ),
               notFound: mcpMissing,
             ),
           );
@@ -2684,16 +2729,16 @@ class VoiceManager extends Manager {
         _onTimerEvent(fields);
       case 'announce':
         if (!enabled) return;
+        final announcement = VoiceAnnouncement(
+          mediaId: '${fields['mediaId'] ?? ''}',
+          text: '${fields['text'] ?? ''}',
+          preannounceMediaId: '${fields['preannounceMediaId'] ?? ''}',
+          startConversation: fields['startConversation'] == true,
+        );
+        if (_openRealtime(announcement)) return;
         unawaited(
           _announceOverConversation().then(
-            (_) => _session.announce(
-              VoiceAnnouncement(
-                mediaId: '${fields['mediaId'] ?? ''}',
-                text: '${fields['text'] ?? ''}',
-                preannounceMediaId: '${fields['preannounceMediaId'] ?? ''}',
-                startConversation: fields['startConversation'] == true,
-              ),
-            ),
+            (_) => _session.announce(announcement),
           ),
         );
       case 'setConfiguration':
@@ -2709,6 +2754,40 @@ class VoiceManager extends Manager {
           ),
         );
     }
+  }
+
+  /// start_conversation with a provider on Assistant 1, the one Home
+  /// Assistant runs when no wake word started the turn: the realtime
+  /// conversation takes it, and the model says the start message in its
+  /// own voice instead of Home Assistant's speech. Home Assistant hears the
+  /// announcement finished once the line has played. Its extra system
+  /// prompt never reaches the kiosk and is not part of it. False leaves the
+  /// announcement to Assist: no provider, or no message to say (an
+  /// automation that plays its own media).
+  bool _openRealtime(VoiceAnnouncement announcement) {
+    if (!announcement.startConversation) return false;
+    final opening = announcement.text.trim();
+    final provider = _slotProvider(1);
+    if (opening.isEmpty || provider == null) return false;
+    unawaited(() async {
+      if (_realtime.busy) await _realtime.cancel();
+      if (_session.busy) await _session.cancel();
+      _activeProvider = provider;
+      unawaited(UsageCounters.bump(_settings, 'vs_turns_${provider.id}'));
+      // Home Assistant started it, not someone at the screen: the screen
+      // comes on as it does for an announcement.
+      unawaited(commands.execute('screenOn', const {}));
+      unawaited(
+        commands.execute('bringToFront', const {'voiceInteraction': true}),
+      );
+      await _realtime.wake(
+        '',
+        opening: opening,
+        announceChime: announcement.preannounceMediaId.isNotEmpty,
+        onOpened: () => unawaited(_esphome.voiceAnnounceFinished()),
+      );
+    }());
+    return true;
   }
 
   /// An announcement ends a realtime conversation first: the two would
@@ -2942,6 +3021,7 @@ class VoiceManager extends Manager {
       );
     }
     _pushTimers();
+    _publishTimers();
   }
 
   /// Puts a timer change on Home Assistant's bus as
@@ -3155,6 +3235,46 @@ class VoiceManager extends Manager {
     return '$base${url.startsWith('/') ? '' : '/'}$url';
   }
 
+  /// The timers as `vs_list_timers` answers and the ESPHome sensors read
+  /// them: running and paused ones with their time left as of now, then
+  /// the ringing ones. `ends_at` is null while a timer is paused.
+  List<Map<String, Object?>> timerList() {
+    final now = DateTime.now().millisecondsSinceEpoch;
+    return [
+      for (final t in _timers.values)
+        () {
+          final left = t.active
+              ? (t.secondsLeft - (now - t.at) ~/ 1000).clamp(0, t.secondsLeft)
+              : t.secondsLeft;
+          return {
+            'timer_id': t.id,
+            'name': t.name,
+            'total_seconds': t.createdSeconds,
+            'seconds_left': left,
+            'is_active': t.active,
+            'ends_at': t.active
+                ? DateTime.fromMillisecondsSinceEpoch(
+                    t.at + t.secondsLeft * 1000,
+                  ).toUtc().toIso8601String()
+                : null,
+            'finished': false,
+          };
+        }(),
+      for (final id in _ringing)
+        {
+          'timer_id': id,
+          'name': _ringingNames[id] ?? '',
+          'total_seconds': _ringingTotals[id] ?? 0,
+          'seconds_left': 0,
+          'is_active': false,
+          'ends_at': null,
+          'finished': true,
+        },
+    ];
+  }
+
+  void _publishTimers() => bus.publish(VoiceTimersChanged(timerList()));
+
   void _pushTimers() {
     if (!_settings.get(defs.voiceTimerPills)) {
       unawaited(
@@ -3239,6 +3359,7 @@ class VoiceManager extends Manager {
     _alertSpeech = null;
     _speechGen++;
     _pushAlert();
+    _publishTimers();
   }
 
   Future<void> _onTimerAction(VoiceTimerAction action) async {
@@ -3247,33 +3368,104 @@ class VoiceManager extends Manager {
       _dismissAlert();
       return;
     }
-    final timer = _timers[action.id];
-    if (timer == null) return;
-    final intent = switch (action.action) {
-      'pause' => 'HassPauseTimer',
-      'resume' => 'HassUnpauseTimer',
-      'cancel' => 'HassCancelTimer',
-      _ => null,
-    };
-    if (intent == null) return;
-    // The timer intents find a timer by its name, else by the duration it
-    // was started with.
-    final slots = <String, Object?>{};
-    if (timer.name.isNotEmpty) {
-      slots['name'] = timer.name;
-    } else {
-      final total = timer.createdSeconds;
-      if (total ~/ 3600 > 0) slots['start_hours'] = total ~/ 3600;
-      if (total % 3600 ~/ 60 > 0) slots['start_minutes'] = total % 3600 ~/ 60;
-      if (total % 60 > 0) slots['start_seconds'] = total % 60;
-    }
-    final error = await _intent(intent, slots);
+    if (_timers[action.id] == null) return;
+    final error = await controlTimer(action.id, action.action);
     if (error != null) {
       log.warn(name, 'timer ${action.action} failed: $error');
       await commands.execute('voiceTimerActionFailed', {
         'entityId': timerEntity,
       });
     }
+  }
+
+  /// Pauses, resumes, cancels or adds or removes time from the timer with
+  /// [id], or the kiosk's only timer when [id] is empty. Answers null when
+  /// it worked, else why not. Pausing a paused timer or resuming a running
+  /// one is a no-op.
+  Future<String?> controlTimer(
+    String id,
+    String action, {
+    int hours = 0,
+    int minutes = 0,
+    int seconds = 0,
+  }) async {
+    final _HaTimer? timer;
+    if (id.isNotEmpty) {
+      timer = _timers[id];
+    } else if (_timers.length > 1) {
+      return 'several timers are running, pass a timer_id';
+    } else {
+      timer = _timers.values.firstOrNull;
+    }
+    if (timer == null) return 'no running or paused timer with that id';
+    final amount = <String, Object?>{
+      if (hours > 0) 'hours': hours,
+      if (minutes > 0) 'minutes': minutes,
+      if (seconds > 0) 'seconds': seconds,
+    };
+    final intent = switch (action) {
+      'pause' => 'HassPauseTimer',
+      'resume' => 'HassUnpauseTimer',
+      'cancel' => 'HassCancelTimer',
+      'add' => 'HassIncreaseTimer',
+      'remove' => 'HassDecreaseTimer',
+      _ => null,
+    };
+    if (intent == null) return 'unknown timer action $action';
+    if ((action == 'pause' && !timer.active) ||
+        (action == 'resume' && timer.active)) {
+      return null;
+    }
+    if ((action == 'add' || action == 'remove') && amount.isEmpty) {
+      return 'the change needs a duration';
+    }
+    // The timer intents take no id: they find a timer by its name, else by
+    // the duration it was started with, split the way it was asked for,
+    // and this kiosk's device narrows that down. The split is not known,
+    // so a miss tries the others.
+    String? error;
+    for (final slots in timerSlots(timer.name, timer.createdSeconds)) {
+      error = await _intent(intent, {...slots, ...amount});
+      if (error != 'Timer not found') break;
+    }
+    if (error == null) return null;
+    final twin = _timers.values.any(
+      (t) =>
+          t.id != timer!.id &&
+          (timer.name.isNotEmpty
+              ? t.name.trim().toLowerCase() == timer.name.trim().toLowerCase()
+              : t.name.isEmpty && t.createdSeconds == timer.createdSeconds),
+    );
+    return twin
+        ? 'another timer on this kiosk has the same name or duration, so '
+              'Home Assistant cannot tell them apart'
+        : error;
+  }
+
+  /// The slots a timer intent can find a timer by: its name, else each way
+  /// its starting duration may have been split, the plain one first.
+  @visibleForTesting
+  static List<Map<String, Object?>> timerSlots(String name, int total) {
+    if (name.isNotEmpty) {
+      return [
+        {'name': name},
+      ];
+    }
+    Map<String, Object?> split(int h, int m, int s) => {
+      if (h > 0) 'start_hours': h,
+      if (m > 0) 'start_minutes': m,
+      if (s > 0) 'start_seconds': s,
+    };
+    final candidates = [
+      split(total ~/ 3600, total % 3600 ~/ 60, total % 60), // 1 h 30 min
+      split(0, total ~/ 60, total % 60), // 90 minutes
+      split(0, 0, total), // 90 seconds
+    ];
+    final seen = <String>{};
+    return [
+      for (final c in candidates)
+        if (seen.add('$c')) c,
+    ];
   }
 
   /// A step of a turn in the App Logs, with what was said or answered.

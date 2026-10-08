@@ -419,6 +419,9 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'gestureLauncher' => strings.gestureLauncher,
       'gestureIntercomOpen' => strings.gestureIntercomOpen,
       'gestureIntercomCall' => strings.gestureIntercomCall,
+      'gestureIntercomHangup' => strings.gestureIntercomHangup,
+      'gestureAlarmStop' => strings.gestureAlarmStop,
+      'gestureAlarmSnooze' => strings.gestureAlarmSnooze,
       'gestureScreensaver' => strings.gestureScreensaver,
       'gestureScreensaverStop' => strings.gestureScreensaverStop,
       'gestureHoldMode' => strings.gestureHoldMode,
@@ -528,6 +531,9 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'gestureChangeHelp' => strings.gestureChangeHelp,
       'gestureChooseError' => strings.gestureChooseError,
       'gestureSequenceError' => strings.gestureSequenceError,
+      'gesturePluginTrigger' => strings.gesturePluginTrigger,
+      'gesturePluginTriggerField' => strings.gesturePluginTriggerField,
+      'gesturePluginTriggerHelp' => strings.gesturePluginTriggerHelp,
       'intercomCall' => strings.intercomCall,
       'intercomNoReady' => strings.intercomNoReady,
       'intercomOneReady' => strings.intercomOneReady,
@@ -862,6 +868,8 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'pluginErrorSelectionOption' => strings.pluginErrorSelectionOption,
       'pluginErrorSettingType' => strings.pluginErrorSettingType,
       'pluginErrorInvalidManifest' => strings.pluginErrorInvalidManifest,
+      'pluginErrorTooManyTriggers' => strings.pluginErrorTooManyTriggers,
+      'pluginErrorTriggerId' => strings.pluginErrorTriggerId,
       'remoteDisableTitle' => strings.remoteDisableTitle,
       'remoteDisableHelp' => strings.remoteDisableHelp,
       'remoteDisableConfirm' => strings.remoteDisableConfirm,
@@ -2444,6 +2452,16 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingSendspinFullscreenMotionTitle,
       'settingSendspinFullscreenMotionDescription' =>
         strings.settingSendspinFullscreenMotionDescription,
+      'settingSendspinFullscreenReturnTitle' =>
+        strings.settingSendspinFullscreenReturnTitle,
+      'settingSendspinFullscreenReturnDescription' =>
+        strings.settingSendspinFullscreenReturnDescription,
+      'mediaReturnLastView' => strings.mediaReturnLastView,
+      'mediaReturnChosenView' => strings.mediaReturnChosenView,
+      'settingSendspinFullscreenReturnViewTitle' =>
+        strings.settingSendspinFullscreenReturnViewTitle,
+      'settingSendspinFullscreenReturnViewDescription' =>
+        strings.settingSendspinFullscreenReturnViewDescription,
       'settingSendspinFullscreenShortcutTitle' =>
         strings.settingSendspinFullscreenShortcutTitle,
       'settingSendspinFullscreenShortcutDescription' =>
@@ -2504,6 +2522,8 @@ String messageById(UiStrings strings, String? id, String fallback) =>
         strings.settingSendspinSyncOffsetTitle,
       'settingSendspinSyncOffsetDescription' =>
         strings.settingSendspinSyncOffsetDescription,
+      'settingSendspinGroupVolumeDescription' =>
+        strings.settingSendspinGroupVolumeDescription,
       'mediaSendspinPage' => strings.mediaSendspinPage,
       'mediaSendspinHint' => strings.mediaSendspinHint,
       'mediaFlac' => strings.mediaFlac,
@@ -2907,6 +2927,10 @@ String messageById(UiStrings strings, String? id, String fallback) =>
       'settingScreensaverMenuTitle' => strings.settingScreensaverMenuTitle,
       'settingScreensaverMenuDescription' =>
         strings.settingScreensaverMenuDescription,
+      'settingScreensaverFollowAnimationScaleTitle' =>
+        strings.settingScreensaverFollowAnimationScaleTitle,
+      'settingScreensaverFollowAnimationScaleDescription' =>
+        strings.settingScreensaverFollowAnimationScaleDescription,
       'settingScreensaverDimLevelTitle' =>
         strings.settingScreensaverDimLevelTitle,
       'settingScreensaverDimLevelDescription' =>

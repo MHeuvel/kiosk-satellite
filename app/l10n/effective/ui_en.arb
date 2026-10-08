@@ -5379,6 +5379,45 @@
       ]
     }
   },
+  "gestureIntercomHangup": "End the intercom call",
+  "@gestureIntercomHangup": {
+    "context": "Settings > Gestures > Add gesture > Choose an action",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action"
+      ]
+    }
+  },
+  "gestureAlarmStop": "Stop the alarm",
+  "@gestureAlarmStop": {
+    "context": "Settings > Gestures > Add gesture > Choose an action",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action"
+      ]
+    }
+  },
+  "gestureAlarmSnooze": "Snooze the alarm",
+  "@gestureAlarmSnooze": {
+    "context": "Settings > Gestures > Add gesture > Choose an action",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture > Choose an action"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture > Choose an action"
+      ]
+    }
+  },
   "gestureScreensaver": "Start the screensaver",
   "@gestureScreensaver": {
     "context": "Settings > Gestures > Add gesture > Choose an action",
@@ -7364,6 +7403,45 @@
   },
   "gestureSequenceError": "Add at least two corners.",
   "@gestureSequenceError": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gesturePluginTrigger": "Plugin trigger",
+  "@gesturePluginTrigger": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gesturePluginTriggerField": "Trigger",
+  "@gesturePluginTriggerField": {
+    "context": "Settings > Gestures > Add gesture",
+    "description": "Label or guidance in this section.",
+    "x-locations": {
+      "device": [
+        "Settings > Gestures > Add gesture"
+      ],
+      "remoteAdmin": [
+        "Gestures > Add gesture"
+      ]
+    }
+  },
+  "gesturePluginTriggerHelp": "Enable a plugin with triggers in Plugin Manager first.",
+  "@gesturePluginTriggerHelp": {
     "context": "Settings > Gestures > Add gesture",
     "description": "Label or guidance in this section.",
     "x-locations": {
@@ -11847,6 +11925,32 @@
         "type": "String",
         "example": "entryClass"
       }
+    }
+  },
+  "pluginErrorTooManyTriggers": "Too many triggers",
+  "@pluginErrorTooManyTriggers": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
+    }
+  },
+  "pluginErrorTriggerId": "Invalid or duplicate trigger ID",
+  "@pluginErrorTriggerId": {
+    "context": "Settings > Plugin Manager > Add plugin, preview or install",
+    "description": "Explain the failure. Keep technical identifiers, file names and product names unchanged.",
+    "x-locations": {
+      "device": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ],
+      "remoteAdmin": [
+        "Settings > Plugin Manager > Add plugin, preview or install"
+      ]
     }
   },
   "remoteDisableTitle": "Turn off remote management?",
@@ -30201,6 +30305,84 @@
       ]
     }
   },
+  "settingSendspinFullscreenReturnTitle": "After dismissing",
+  "@settingSendspinFullscreenReturnTitle": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenReturnDescription": "The dashboard view to show after Now Playing is dismissed. Default follows Return to home dashboard view.",
+  "@settingSendspinFullscreenReturnDescription": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "mediaReturnLastView": "Last view",
+  "@mediaReturnLastView": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Option: go back to the dashboard view the kiosk showed before the screensaver started.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "mediaReturnChosenView": "Chosen view",
+  "@mediaReturnChosenView": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Option: go to a dashboard view picked below.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenReturnViewTitle": "Dashboard view",
+  "@settingSendspinFullscreenReturnViewTitle": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
+  "settingSendspinFullscreenReturnViewDescription": "The view to show after Now Playing is dismissed.",
+  "@settingSendspinFullscreenReturnViewDescription": {
+    "context": "Settings > Media Player > Now Playing > User Interface",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Now Playing > User Interface"
+      ],
+      "remoteAdmin": [
+        "Media Player > Now Playing > User Interface"
+      ]
+    }
+  },
   "settingSendspinFullscreenShortcutTitle": "Show in the kiosk menu",
   "@settingSendspinFullscreenShortcutTitle": {
     "context": "Settings > Media Player > Now Playing > User Interface",
@@ -30774,6 +30956,19 @@
   },
   "settingSendspinSyncOffsetDescription": "Negative plays this device earlier, for speakers that lag behind the group (Bluetooth). Tune by ear; applies live.",
   "@settingSendspinSyncOffsetDescription": {
+    "context": "Settings > Media Player > Sendspin Player",
+    "description": "Help below this setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Media Player > Sendspin Player"
+      ],
+      "remoteAdmin": [
+        "Media Player > Sendspin Player"
+      ]
+    }
+  },
+  "settingSendspinGroupVolumeDescription": "While this device plays in a group, the volume slider sets the whole group's volume. Off, only this device's. Needs the Music Assistant connection.",
+  "@settingSendspinGroupVolumeDescription": {
     "context": "Settings > Media Player > Sendspin Player",
     "description": "Help below this setting.",
     "x-locations": {
@@ -34706,6 +34901,32 @@
   },
   "settingScreensaverMenuDescription": "Add a Start Screensaver entry to the kiosk menu.",
   "@settingScreensaverMenuDescription": {
+    "context": "Settings:Screensaver",
+    "description": "Help below the setting.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverFollowAnimationScaleTitle": "Follow Android animation settings",
+  "@settingScreensaverFollowAnimationScaleTitle": {
+    "context": "Settings:Screensaver",
+    "description": "Setting label.",
+    "x-locations": {
+      "device": [
+        "Settings > Screensaver"
+      ],
+      "remoteAdmin": [
+        "Screensaver"
+      ]
+    }
+  },
+  "settingScreensaverFollowAnimationScaleDescription": "Pause animated screensavers when Android animations are off.",
+  "@settingScreensaverFollowAnimationScaleDescription": {
     "context": "Settings:Screensaver",
     "description": "Help below the setting.",
     "x-locations": {

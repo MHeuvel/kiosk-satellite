@@ -191,6 +191,11 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
 
   static const rate = 24000;
 
+  /// What OpenAI transcribes the user with, for the overlay. On Azure it
+  /// is a deployment of its own in the same resource, and without one
+  /// every transcription fails with DeploymentNotFound.
+  static const transcribeModel = 'gpt-4o-mini-transcribe';
+
   static const defaultInstructions =
       'You are a voice assistant in the user\'s home. Keep '
       'answers short and conversational, since they are spoken aloud. Use '
@@ -240,6 +245,18 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
   /// user, whose transcripts are not shown.
   String _lastSpeechItem = '';
   final _dropped = <String>{};
+
+  /// A failed transcription was reported this conversation: it fails the
+  /// same way for every utterance.
+  bool _transcriptionWarned = false;
+
+  /// Problems already logged this conversation, for those that would
+  /// repeat with every message.
+  final _noted = <String>{};
+
+  void _note(String kind, String line) {
+    if (_noted.add(kind)) log?.call(line);
+  }
 
   @override
   Stream<RealtimeEvent> get events => _events.stream;
@@ -354,7 +371,7 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
           'input': {
             'format': format,
             'transcription': {
-              'model': 'gpt-4o-mini-transcribe',
+              'model': transcribeModel,
               if (language.length == 2) 'language': language,
             },
             'turn_detection': {
@@ -404,7 +421,9 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
     if (socket == null || _closing) return;
     try {
       socket.send(jsonEncode(message));
-    } catch (_) {}
+    } catch (e) {
+      _note('send', 'send failed: $e');
+    }
   }
 
   @override
@@ -430,6 +449,14 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
     _send({'type': 'conversation.item.delete', 'item_id': item});
   }
 
+  /// Instructions on the response replace the session's for that answer
+  /// only. A system item with the same words was ignored by xAI.
+  @override
+  void speak(String line) => _send({
+    'type': 'response.create',
+    'response': {'instructions': realtimeSpeakPrompt(line)},
+  });
+
   @override
   void interrupted(String itemId, int playedMs) {
     if (_responding && !_serverInterrupted) _send({'type': 'response.cancel'});
@@ -449,7 +476,8 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
           (jsonDecode(raw is String ? raw : utf8.decode(raw as List<int>))
                   as Map)
               .cast<String, Object?>();
-    } catch (_) {
+    } catch (e) {
+      _note('message', 'unreadable message: ${realtimeLogText('$e')}');
       return;
     }
     final type = '${msg['type'] ?? ''}';
@@ -483,6 +511,20 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
         _userText.remove(id);
         final text = '${msg['transcript'] ?? ''}'.trim();
         if (text.isNotEmpty) _emit(RealtimeUserText(text));
+      case 'conversation.item.input_audio_transcription.failed':
+        // The model still heard the user. Only the overlay goes without
+        // their words.
+        final error = msg['error'] is Map ? msg['error'] as Map : const {};
+        final reason = '${error['code'] ?? error['message'] ?? 'unknown'}';
+        log?.call('transcription failed: $reason');
+        if (!_transcriptionWarned) {
+          _transcriptionWarned = true;
+          _emit(
+            RealtimeWarning(
+              'transcription with $transcribeModel failed: $reason',
+            ),
+          );
+        }
       case 'response.created':
         _responding = true;
         _serverInterrupted = false;
@@ -496,7 +538,9 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
             _emit(
               RealtimeAudio('${msg['item_id'] ?? ''}', base64Decode(delta)),
             );
-          } catch (_) {}
+          } catch (e) {
+            _note('audio', 'unreadable audio: $e');
+          }
         }
       case 'response.output_audio_transcript.delta' ||
           'response.audio_transcript.delta' ||
@@ -528,6 +572,15 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
         _responding = false;
         _responseDone = true;
         final response = msg['response'];
+        if (response is Map && response['status'] == 'incomplete') {
+          // Cut short by the provider: its output limit or a content
+          // filter. What was said of it still plays.
+          final details = response['status_details'];
+          log?.call(
+            'answer incomplete: '
+            '${details is Map ? details['reason'] ?? details : 'no reason given'}',
+          );
+        }
         if (response is Map && response['status'] == 'failed') {
           final details = response['status_details'];
           final error = details is Map ? details['error'] : null;
@@ -541,8 +594,16 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
         }
         _emit(const RealtimeResponseDone());
         _answerTools();
+      case _ when _failure(type):
+        // A failure the kiosk has no handling for, named by the provider.
+        log?.call('$type: ${realtimeLogText(msg['error'] ?? msg)}');
     }
   }
+
+  static bool _failure(String type) =>
+      type.contains('fail') ||
+      type.contains('error') ||
+      type.contains('incomplete');
 
   void _markReady() {
     if (_ready || _closing) return;
@@ -593,11 +654,15 @@ class OpenAiRealtimeBackend implements RealtimeBackend {
     try {
       final decoded = arguments.isEmpty ? const {} : jsonDecode(arguments);
       args = decoded is Map ? decoded.cast<String, Object?>() : const {};
-    } catch (_) {
+    } catch (e) {
+      log?.call('tool $display: unreadable arguments ($e)');
       args = const {};
     }
     final output = await toolbox.call(name, args);
     _calls--;
+    if (output.error) {
+      log?.call('tool $display failed: ${realtimeLogText(output.text)}');
+    }
     if (_closing) return;
     _emit(RealtimeToolActivity(display, done: true, error: output.error));
     _send({

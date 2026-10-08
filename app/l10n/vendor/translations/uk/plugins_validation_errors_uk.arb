@@ -28,5 +28,7 @@
   "pluginErrorSettingType": "Непідтримуваний тип налаштування",
   "pluginErrorInvalidManifest": "Недійсний маніфест плагіна",
   "pluginErrorAndroidApi": "Плагін потребує Android API {version}",
-  "pluginErrorInvalidField": "Недійсне поле {field}"
+  "pluginErrorInvalidField": "Недійсне поле {field}",
+  "pluginErrorTooManyTriggers": "Занадто багато тригерів",
+  "pluginErrorTriggerId": "Недійсний або дубльований ідентифікатор тригера"
 }

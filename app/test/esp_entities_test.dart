@@ -832,6 +832,153 @@ void main() {
     });
   });
 
+  group('the VS timer sensors', () {
+    Map<String, Object?> timer(
+      String id, {
+      String? endsAt,
+      bool finished = false,
+    }) => {
+      'timer_id': id,
+      'is_active': endsAt != null,
+      'ends_at': endsAt,
+      'finished': finished,
+    };
+
+    test('are listed only while Voice Satellite runs natively', () async {
+      Future<List<String>> ids() async => [
+        for (final d in await surface.build()) '${d['objectId']}',
+      ];
+      await settings.set(defs.voiceRuntime, 'dashboard');
+      await settings.set(defs.voiceEnabled, true);
+      expect(await ids(), isNot(contains('vs_timers')));
+      expect(await ids(), isNot(contains('vs_next_timer')));
+      await settings.set(defs.voiceRuntime, 'native');
+      final catalog = await surface.build();
+      final count = catalog.singleWhere((d) => d['objectId'] == 'vs_timers');
+      expect(count['type'], 'sensor');
+      // A count, not 1.0 timers.
+      expect(count['accuracyDecimals'], 0);
+      expect(
+        catalog.singleWhere(
+          (d) => d['objectId'] == 'vs_next_timer',
+        )['deviceClass'],
+        'timestamp',
+      );
+    });
+
+    test('count pending timers and show the soonest running end', () async {
+      await settings.set(defs.voiceRuntime, 'native');
+      await settings.set(defs.voiceEnabled, true);
+      commands.register(
+        Command(
+          name: 'voiceTimers',
+          description: 'stub',
+          handler: (_) async => CommandResult.ok({
+            'timers': [timer('a', endsAt: '2026-10-08T18:00:00.000Z')],
+          }),
+        ),
+      );
+      await attach();
+      expect(pushed, contains(('vs_timers', 1)));
+      expect(pushed, contains(('vs_next_timer', '2026-10-08T18:00:00.000Z')));
+
+      bus.publish(
+        VoiceTimersChanged([
+          timer('a', endsAt: '2026-10-08T18:00:00.000Z'),
+          timer('b', endsAt: '2026-10-08T17:30:00.000Z'),
+          timer('c'),
+          timer('d', finished: true),
+        ]),
+      );
+      await pumpEventQueue();
+      expect(pushed.reversed.take(2), [
+        ('vs_next_timer', '2026-10-08T17:30:00.000Z'),
+        ('vs_timers', 3),
+      ]);
+
+      bus.publish(VoiceTimersChanged([timer('c')]));
+      await pumpEventQueue();
+      expect(pushed.reversed.take(2), [
+        ('vs_next_timer', null),
+        ('vs_timers', 1),
+      ]);
+    });
+
+    test('vs_list_timers answers with the list', () async {
+      await settings.set(defs.voiceRuntime, 'native');
+      await settings.set(defs.voiceEnabled, true);
+      final action = surface.buildServices().singleWhere(
+        (service) => service['name'] == 'vs_list_timers',
+      );
+      expect(action['supportsResponse'], isTrue);
+      expect(action['args'], isEmpty);
+      commands.register(
+        Command(
+          name: 'voiceTimers',
+          description: 'stub',
+          handler: (_) async => CommandResult.ok({
+            'timers': [timer('a')],
+          }),
+        ),
+      );
+      expect(await surface.handleService('vs_list_timers', const {}), {
+        'timers': [timer('a')],
+      });
+    });
+
+    test('the timer actions run voiceTimerControl', () async {
+      await settings.set(defs.voiceRuntime, 'native');
+      await settings.set(defs.voiceEnabled, true);
+      final names = [for (final s in surface.buildServices()) '${s['name']}'];
+      expect(
+        names,
+        containsAll([
+          'vs_pause_timer',
+          'vs_resume_timer',
+          'vs_cancel_timer',
+          'vs_add_time',
+          'vs_remove_time',
+        ]),
+      );
+      var refuse = false;
+      commands.register(
+        Command(
+          name: 'voiceTimerControl',
+          description: 'stub',
+          handler: (p) async {
+            executed.add(('voiceTimerControl', Map<String, Object?>.from(p)));
+            return refuse
+                ? const CommandResult.fail('no timer')
+                : const CommandResult.ok();
+          },
+        ),
+      );
+      expect(
+        await surface.handleService('vs_add_time', {
+          'timer_id': 'a',
+          'hours': 0,
+          'minutes': 5,
+          'seconds': 0,
+        }),
+        isEmpty,
+      );
+      expect(executed.last.$2, {
+        'timer_id': 'a',
+        'action': 'add',
+        'hours': 0,
+        'minutes': 5,
+        'seconds': 0,
+      });
+      await surface.handleService('vs_resume_timer', {'timer_id': 'a'});
+      expect(executed.last.$2['action'], 'resume');
+      refuse = true;
+      expect(
+        () => surface.handleService('vs_cancel_timer', {'timer_id': 'b'}),
+        throwsA(isA<StateError>()),
+      );
+    });
+  });
+
   test('the catalog carries the full entity set', () async {
     final catalog = await surface.build();
     final ids = [for (final d in catalog) '${d['objectId']}'];
@@ -1492,6 +1639,33 @@ void main() {
       expect(settings.get(defs.screensaverTimeoutSeconds), 86400);
       await surface.handleCommand('screensaver_timeout', -5.0);
       expect(settings.get(defs.screensaverTimeoutSeconds), 0);
+    },
+  );
+
+  test(
+    'intercom volume is a percent slider listed while the intercom is on',
+    () async {
+      var catalog = await surface.build();
+      expect(catalog.where((e) => e['objectId'] == 'intercom_volume'), isEmpty);
+      await settings.set(defs.intercomEnabled, true);
+      catalog = await surface.build();
+      final volume = catalog.singleWhere(
+        (e) => e['objectId'] == 'intercom_volume',
+      );
+      expect(volume['type'], 'number');
+      expect(volume['name'], 'Intercom volume');
+      expect(volume['min'], 0);
+      expect(volume['max'], 100);
+      expect(volume['unit'], '%');
+      expect(volume['category'], 1);
+      await attach();
+      expect(pushed, contains(('intercom_volume', 60)));
+      await surface.handleCommand('intercom_volume', 35.0);
+      expect(settings.get(defs.intercomVolume), 35);
+      pushed.clear();
+      await settings.set(defs.intercomVolume, 80);
+      await Future<void>.delayed(Duration.zero);
+      expect(pushed, contains(('intercom_volume', 80)));
     },
   );
 

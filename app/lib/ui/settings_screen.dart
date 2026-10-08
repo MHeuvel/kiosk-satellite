@@ -10973,19 +10973,28 @@ class SettingTile extends StatelessWidget {
         if (def.key == screensaverWeatherEntity.key) {
           return WeatherMoodEntityRow(container: c);
         }
-        // The Home Assistant Dashboard screensaver's view is picked from
-        // the instance's dashboards, the same modal the Go to a dashboard
-        // view gesture uses, never typed.
-        if (def.key == screensaverDashboardView.key) {
-          return ListTile(
+        // The Home Assistant Dashboard screensaver's view and Now Playing's
+        // chosen view are picked from the instance's dashboards, the same
+        // modal the Go to a dashboard view gesture uses, never typed.
+        if (def.key == screensaverDashboardView.key ||
+            def.key == sendspinFullscreenReturnView.key) {
+          // On a tight pane the button shares the name's line and the
+          // view path gets the full width beneath, where it can wrap.
+          final tight = tightPane(context);
+          return SettingsRow(
             title: Text(def.localizedTitle(context)),
             subtitle: Text(
               display,
-              maxLines: 1,
+              maxLines: tight ? 2 : 1,
               overflow: TextOverflow.ellipsis,
             ),
             trailing: TextButton(
-              onPressed: () => _pickDashboardView(context),
+              onPressed: () => _pickDashboardView(
+                context,
+                def.key == screensaverDashboardView.key
+                    ? screensaverDashboardView
+                    : sendspinFullscreenReturnView,
+              ),
               child: Text(screensaverText(context, 'Select dashboard')),
             ),
           );
@@ -11198,7 +11207,10 @@ class SettingTile extends StatelessWidget {
     onChanged();
   }
 
-  Future<void> _pickDashboardView(BuildContext context) async {
+  Future<void> _pickDashboardView(
+    BuildContext context,
+    SettingDef<String> def,
+  ) async {
     final entries = await listDashboardViewEntries(c);
     if (!context.mounted) return;
     if (entries.isEmpty) {
@@ -11214,10 +11226,10 @@ class SettingTile extends StatelessWidget {
       context,
       title: screensaverText(context, 'Select dashboard'),
       entries: entries,
-      current: c.settings.get(screensaverDashboardView),
+      current: c.settings.get(def),
     );
     if (picked == null) return;
-    await c.settings.setFromJson(screensaverDashboardView.key, picked);
+    await c.settings.setFromJson(def.key, picked);
     onChanged();
   }
 

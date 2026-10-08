@@ -1,0 +1,20 @@
+{
+  "@@locale": "ru",
+  "settingScreensaverCameraViewsTitle": "Виды камер",
+  "settingScreensaverCameraViewsDescription": "Виды камер, которые показывает заставка, в этом порядке.",
+  "settingScreensaverCameraViewSecondsTitle": "Секунд на вид камер",
+  "settingScreensaverCameraViewSecondsDescription": "Как долго каждый вид остаётся на экране до следующего. С одним видом ничего не меняется.",
+  "settingScreensaverCameraMuteTitle": "Заглушить все виды",
+  "settingScreensaverCameraMuteDescription": "Держит каждый вид беззвучным, даже одиночную камеру.",
+  "screensaverMediaCameraPage": "Заставка «Потоки камер»",
+  "screensaverMediaCameraHint": "Виды для показа, секунд на вид, звук",
+  "screensaverMediaNoCameras": "Ни в одном виде камер пока нет камер. Добавьте в разделе «Потоки камер».",
+  "screensaverMediaNoCamerasRemote": "Ни в одном виде камер пока нет камер",
+  "screensaverMediaAddCameras": "Добавьте в разделе «Потоки камер».",
+  "screensaverMediaNoViews": "Пока пусто. Выберите виды камер, по которым ходит заставка.",
+  "screensaverMediaRotation": "В ротации (перетащите для порядка)",
+  "screensaverMediaAvailable": "Доступные",
+  "screensaverMediaOneCamera": "{count} камера",
+  "screensaverMediaCameras": "Камер: {count}",
+  "screensaverMediaPosition": "Позиция {index} · {cameras}"
+}

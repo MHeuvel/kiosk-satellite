@@ -1,0 +1,12 @@
+{
+  "@@locale": "ru",
+  "logsWebConsole": "Веб-консоль",
+  "logsDock": "Закрепить над текущей страницей",
+  "logsNoOutput": "Вывода в консоль пока нет",
+  "logsShareSubject": "Журнал консоли Kiosk Satellite",
+  "logsInput": "Выполнить JavaScript на странице",
+  "logsInputHistory": "Выполнить JavaScript на странице (Enter: выполнить, стрелки вверх/вниз: история)",
+  "logsRun": "Выполнить",
+  "logsEvaluationFailed": "ошибка вычисления",
+  "logsDeviceUnreachable": "устройство недоступно"
+}

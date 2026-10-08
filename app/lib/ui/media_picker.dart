@@ -158,7 +158,11 @@ class _MediaPickerDialogState extends State<_MediaPickerDialog> {
         if (!atRoot && canExpand)
           FilledButton(
             onPressed: () {
-              final id = _node?['media_content_id'] as String?;
+              // The id we browsed, not the one the folder reports about
+              // itself: some media sources (the iCloud one) report an album
+              // under their root id, which would cycle nothing.
+              final id =
+                  _trail.last.id ?? _node?['media_content_id'] as String?;
               if (id != null) {
                 Navigator.pop(context, (id: id, isFolder: true));
               }

@@ -1,0 +1,9 @@
+{
+  "@@locale": "ru",
+  "setupQrFlipCamera": "Сменить камеру",
+  "setupQrCameraFailed": "Не удалось запустить камеру.",
+  "setupQrTitle": "Сканируйте QR-код токена",
+  "setupQrHelp": "Он появляется рядом с только что созданным токеном в вашем профиле Home Assistant.",
+  "setupQrFlashOff": "Выключить фонарик",
+  "setupQrFlashOn": "Включить фонарик"
+}

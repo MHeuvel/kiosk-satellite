@@ -39,6 +39,17 @@ String alarmLabel(BuildContext context, AlarmStatus status) {
   return labels.isEmpty ? l10n(context).alarmsDefaultLabel : labels.join(' · ');
 }
 
+/// How much to scale Snooze and Stop on a [size] screen, 1 at 1024x600.
+/// A small screen keeps them at full size, so they stay easy to hit half
+/// awake, shrinking only when a row [rowWidth] wide at full size would
+/// not fit across it. Zero leaves the width out, for buttons that are
+/// stacked.
+double alarmButtonScale(Size size, {double rowWidth = 0}) {
+  final s = max(min(size.width / 1024, size.height / 600), 1.0);
+  final fit = rowWidth > 0 ? (size.width - 64) / rowWidth : s;
+  return min(s, fit).clamp(0.55, 1.8);
+}
+
 // The glow rises through these, bottom center outward. Four stops each,
 // light to dark.
 const _glowStops = [0.0, 0.35, 0.68, 1.0];
@@ -213,6 +224,7 @@ class _OwnViewState extends State<_OwnView> {
     );
     final Widget content;
     if (sunrise) {
+      final b = alarmButtonScale(size, rowWidth: 200);
       content = Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -238,9 +250,9 @@ class _OwnViewState extends State<_OwnView> {
               child: _Pill(
                 label: l10n(context).alarmsStop,
                 icon: Icons.alarm_off,
-                width: 200 * s,
-                height: 60 * s,
-                fontSize: 20 * s,
+                width: 200 * b,
+                height: 60 * b,
+                fontSize: 20 * b,
                 background: lit
                     ? const Color(0x33FFFFFF)
                     : const Color(0x22FFFFFF),
@@ -279,6 +291,7 @@ class _OwnViewState extends State<_OwnView> {
           ),
         ],
       );
+      final b = alarmButtonScale(size, rowWidth: portrait ? 0 : 508);
       Widget pill(
         String text,
         IconData icon,
@@ -288,9 +301,9 @@ class _OwnViewState extends State<_OwnView> {
       ) => _Pill(
         label: text,
         icon: icon,
-        width: portrait ? double.infinity : 240 * s,
-        height: (portrait ? 68 : 76) * s,
-        fontSize: (portrait ? 21 : 24) * s,
+        width: portrait ? double.infinity : 240 * b,
+        height: (portrait ? 68 : 76) * b,
+        fontSize: (portrait ? 21 : 24) * b,
         background: bg,
         foreground: fgc,
         onTap: tap,
@@ -336,7 +349,7 @@ class _OwnViewState extends State<_OwnView> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     snoozeBtn,
-                    SizedBox(width: 28 * s),
+                    SizedBox(width: 28 * b),
                     stopBtn,
                   ],
                 ),
@@ -458,6 +471,7 @@ class AlarmTakeoverControls extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     final s = (min(size.width / 1024, size.height / 600)).clamp(0.55, 1.8);
+    final b = alarmButtonScale(size, rowWidth: 484);
     final label = labelColor ?? color.withValues(alpha: .7);
     return ValueListenableBuilder<AlarmStatus>(
       valueListenable: container.alarms.status,
@@ -497,22 +511,22 @@ class AlarmTakeoverControls extends StatelessWidget {
               _Pill(
                 label: l10n(context).alarmsSnooze,
                 icon: Icons.snooze,
-                width: 230 * s,
-                height: 68 * s,
-                fontSize: 23 * s,
+                width: 230 * b,
+                height: 68 * b,
+                fontSize: 23 * b,
                 background: glass,
                 foreground: color,
                 edge: edge,
                 shadows: shadows,
                 onTap: () => container.alarms.snooze(source: 'screensaver'),
               ),
-              SizedBox(width: 24 * s),
+              SizedBox(width: 24 * b),
               _Pill(
                 label: l10n(context).alarmsStop,
                 icon: Icons.alarm_off,
-                width: 230 * s,
-                height: 68 * s,
-                fontSize: 23 * s,
+                width: 230 * b,
+                height: 68 * b,
+                fontSize: 23 * b,
                 background: color,
                 foreground: ink,
                 onTap: () => container.alarms.stop(source: 'screensaver'),

@@ -1,0 +1,9 @@
+{
+  "@@locale": "ru",
+  "overviewGoView": "Перейти к виду",
+  "overviewLoadingViews": "Загрузка видов…",
+  "overviewPickView": "Выберите вид панели…",
+  "overviewDefaultView": "Вид по умолчанию",
+  "overviewNoDashboards": "Панели не найдены",
+  "overviewViewsUnavailable": "Виды недоступны"
+}

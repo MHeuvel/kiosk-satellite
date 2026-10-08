@@ -1,0 +1,17 @@
+{
+  "@@locale": "ru",
+  "gestureHaServiceKind": "Служба Home Assistant",
+  "gestureHaScriptKind": "Сценарий Home Assistant",
+  "gestureHaAutomationKind": "Автоматизация Home Assistant",
+  "gestureHaEventKind": "Событие Home Assistant",
+  "gestureRan": "Запущено: {value}",
+  "gestureRunFailed": "Не удалось запустить {value}",
+  "gestureCalled": "Вызвано: {value}",
+  "gestureCallFailed": "Не удалось вызвать {value}",
+  "gestureTriggered": "Запущено: {value}",
+  "gestureTriggerFailed": "Не удалось запустить {value}",
+  "gestureFired": "Вызвано событие {value}",
+  "gestureFireFailed": "Не удалось вызвать событие {value}",
+  "gestureDone": "Готово",
+  "gestureFailed": "Не удалось"
+}

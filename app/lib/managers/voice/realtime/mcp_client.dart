@@ -48,6 +48,7 @@ class McpClient {
     http.Client? client,
     this.timeout = const Duration(seconds: 15),
     this.clientVersion = '',
+    this.deviceId,
   }) : _client = client ?? http.Client();
 
   final Uri url;
@@ -56,7 +57,15 @@ class McpClient {
   final String clientVersion;
   final http.Client _client;
 
+  /// The Home Assistant device the calls act for. Home Assistant offers
+  /// the timer tools only to a device that can run timers, and starts the
+  /// timers on it. Null for any other server.
+  final Future<String?> Function()? deviceId;
+
   static const protocolVersion = '2025-06-18';
+
+  /// The request metadata key Home Assistant reads the device from.
+  static const deviceMetaKey = 'io.home-assistant/device_id';
 
   String? _session;
   bool _initialized = false;
@@ -85,13 +94,27 @@ class McpClient {
     await _notify('notifications/initialized');
   }
 
+  Future<Map<String, Object?>?> _meta() async {
+    String? device;
+    try {
+      device = await deviceId?.call();
+    } catch (_) {
+      // Without a device the tools still work, only the timers are left out.
+    }
+    return device == null || device.isEmpty ? null : {deviceMetaKey: device};
+  }
+
   /// Every tool the server offers, following its pages.
   Future<List<McpTool>> listTools() async {
     await _initialize();
+    final meta = await _meta();
     final tools = <McpTool>[];
     String? cursor;
     for (var page = 0; page < 20; page++) {
-      final result = await _request('tools/list', {'cursor': ?cursor});
+      final result = await _request('tools/list', {
+        'cursor': ?cursor,
+        '_meta': ?meta,
+      });
       final list = result['tools'];
       if (list is List) {
         for (final raw in list) {
@@ -122,9 +145,11 @@ class McpClient {
     Map<String, Object?> arguments,
   ) async {
     await _initialize();
+    final meta = await _meta();
     final result = await _request('tools/call', {
       'name': name,
       'arguments': arguments,
+      '_meta': ?meta,
     });
     final parts = <String>[];
     final content = result['content'];

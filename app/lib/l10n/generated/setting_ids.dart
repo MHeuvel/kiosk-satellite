@@ -412,6 +412,10 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingScreensaverMenuTitle",
     "description": "settingScreensaverMenuDescription",
   },
+  "screensaver.follow_animation_scale": {
+    "title": "settingScreensaverFollowAnimationScaleTitle",
+    "description": "settingScreensaverFollowAnimationScaleDescription",
+  },
   "screensaver.dim_level": {
     "title": "settingScreensaverDimLevelTitle",
     "description": "settingScreensaverDimLevelDescription",
@@ -988,6 +992,10 @@ const settingMessageIds = <String, Map<String, String>>{
     "title": "settingSendspinSyncOffsetTitle",
     "description": "settingSendspinSyncOffsetDescription",
   },
+  "sendspin.group_volume": {
+    "title": "settingSendspinSonosGroupVolumeTitle",
+    "description": "settingSendspinGroupVolumeDescription",
+  },
   "sendspin.ma_url": {
     "title": "settingSendspinMaUrlTitle",
     "description": "settingSendspinMaUrlDescription",
@@ -1055,6 +1063,14 @@ const settingMessageIds = <String, Map<String, String>>{
   "sendspin.fullscreen_override_brightness": {
     "title": "settingSendspinFullscreenOverrideBrightnessTitle",
     "description": "settingSendspinFullscreenOverrideBrightnessDescription",
+  },
+  "sendspin.fullscreen_return": {
+    "title": "settingSendspinFullscreenReturnTitle",
+    "description": "settingSendspinFullscreenReturnDescription",
+  },
+  "sendspin.fullscreen_return_view": {
+    "title": "settingSendspinFullscreenReturnViewTitle",
+    "description": "settingSendspinFullscreenReturnViewDescription",
   },
   "sendspin.fullscreen_controls": {
     "title": "settingSendspinFullscreenControlsTitle",

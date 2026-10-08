@@ -15,6 +15,8 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 
 /**
  * The BLE scanner feeding the Bluetooth proxy, built around the ways Android
@@ -170,6 +172,11 @@ internal class BleScanEngine(
 
     private var demanded = false
     private var scanning = false
+    // A package update kills this process without calling shutdown. Meta's
+    // Bluetooth stack does not remove that dead process's scanner client, so
+    // the next app version starts beside an orphaned scan. Keep demand while
+    // the installer owns the process, but stop the callback before it commits.
+    private var packageReplacementPaused = false
     private var mode = ScannerMode.PASSIVE
     // While > 0 the scan stays down: GATT connection establishment and a
     // LOW_LATENCY scan fight over the radio, and on shared-antenna chips
@@ -240,6 +247,40 @@ internal class BleScanEngine(
         }
     }
 
+    /**
+     * Stop the scanner before Android replaces this package. The installer
+     * runs on a worker thread, so wait until the main-looper stopScan call has
+     * completed before allowing its commit to continue.
+     */
+    fun pauseForPackageReplacement(timeoutMs: Long = 2_000L): Boolean {
+        if (Looper.myLooper() == handler.looper) {
+            packageReplacementPaused = true
+            stopScanInternal(ScannerState.STOPPING)
+            return true
+        }
+        val stopped = CountDownLatch(1)
+        if (!handler.post {
+                packageReplacementPaused = true
+                stopScanInternal(ScannerState.STOPPING)
+                stopped.countDown()
+            }) return false
+        return try {
+            stopped.await(timeoutMs, TimeUnit.MILLISECONDS)
+        } catch (_: InterruptedException) {
+            Thread.currentThread().interrupt()
+            false
+        }
+    }
+
+    /** Resume the retained scan demand when an update did not replace us. */
+    fun resumeAfterPackageReplacementFailure() {
+        handler.post {
+            if (!packageReplacementPaused) return@post
+            packageReplacementPaused = false
+            startScanIfNeeded("update did not replace process")
+        }
+    }
+
     fun requestStop() {
         handler.post {
             demanded = false
@@ -278,6 +319,7 @@ internal class BleScanEngine(
     fun shutdown() {
         handler.post {
             demanded = false
+            packageReplacementPaused = false
             stopScanInternal(ScannerState.STOPPED)
             if (receiverRegistered) {
                 receiverRegistered = false
@@ -364,7 +406,7 @@ internal class BleScanEngine(
 
     @SuppressLint("MissingPermission")
     private fun startScanIfNeeded(reason: String) {
-        if (scanning || !demanded || gattHolds > 0) return
+        if (scanning || !demanded || gattHolds > 0 || packageReplacementPaused) return
         if (!receiverRegistered) {
             receiverRegistered = true
             context.registerReceiver(

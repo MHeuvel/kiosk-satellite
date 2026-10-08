@@ -11,17 +11,16 @@ import android.os.HandlerThread
 import android.os.Looper
 import android.view.PixelCopy
 import android.view.Surface
+import android.view.SurfaceView
 import android.view.View
 import android.view.ViewGroup
-import io.flutter.embedding.android.FlutterSurfaceView
-import io.flutter.embedding.android.FlutterView
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
 import java.io.ByteArrayOutputStream
 
 /**
  * Captures the composed Android window via [PixelCopy], including the
- * WebView, its video, menus and screensaver, with the Flutter surface
+ * WebView, its video, menus and screensaver, with the SurfaceViews
  * underneath wherever the window is transparent. The GPU copy never draws
  * on the main thread. The WebView plugin's takeScreenshot renders
  * the view hierarchy into a bitmap *on* the UI thread, which the remote
@@ -79,12 +78,15 @@ class ScreenCapture(
         // The window copy holds the WebView, its video and Flutter while
         // hybrid composition draws Flutter into the window. Once Weather Mood
         // hides the dashboard, Flutter draws into its own SurfaceView and the
-        // window copy is transparent there, so that surface fills it in.
-        val under = flutterSurface(view)?.let { surface ->
+        // window copy is transparent there, so that surface fills it in. A
+        // video on a platform view (issue #894) is another SurfaceView that
+        // punches a hole in the window, filled in the same way, above
+        // Flutter's own surface.
+        val scale = w.toFloat() / view.width
+        val under = surfaceLayers(view).mapNotNull { surface ->
             val holder = surface.holder.surface
-            if (!holder.isValid) return@let null
+            if (!holder.isValid) return@mapNotNull null
             val at = IntArray(2).also(surface::getLocationInWindow)
-            val scale = w.toFloat() / view.width
             val left = (at[0] * scale).toInt()
             val top = (at[1] * scale).toInt()
             SurfaceLayer(
@@ -116,7 +118,7 @@ class ScreenCapture(
                 if (status != PixelCopy.SUCCESS) {
                     bitmap.recycle()
                     finish(null)
-                } else if (under == null || !hasTransparency(bitmap)) {
+                } else if (under.isEmpty() || !hasTransparency(bitmap)) {
                     finish(bitmap)
                 } else {
                     underlay(bitmap, under, ::finish)
@@ -128,60 +130,67 @@ class ScreenCapture(
         }
     }
 
-    /** Copy the Flutter surface and draw the window copy over it. */
-    private fun underlay(window: Bitmap, layer: SurfaceLayer, finish: (Bitmap?) -> Unit) {
-        val surface = Bitmap.createBitmap(
-            layer.bounds.width(),
-            layer.bounds.height(),
-            Bitmap.Config.ARGB_8888,
-        )
-        try {
-            PixelCopy.request(layer.surface, surface, { status ->
-                if (status != PixelCopy.SUCCESS) {
-                    surface.recycle()
-                    finish(window)
-                    return@request
-                }
-                val frame = Bitmap.createBitmap(window.width, window.height, Bitmap.Config.ARGB_8888)
-                Canvas(frame).apply {
-                    drawColor(Color.BLACK)
-                    drawBitmap(surface, null, layer.bounds, null)
-                    drawBitmap(window, 0f, 0f, null)
-                }
-                surface.recycle()
+    /**
+     * Copy each surface in turn, bottom first, and draw the window copy over
+     * them all. A surface that will not copy is left out rather than costing
+     * the whole picture.
+     */
+    private fun underlay(window: Bitmap, layers: List<SurfaceLayer>, finish: (Bitmap?) -> Unit) {
+        val frame = Bitmap.createBitmap(window.width, window.height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(frame).apply { drawColor(Color.BLACK) }
+        fun next(index: Int) {
+            if (index == layers.size) {
+                canvas.drawBitmap(window, 0f, 0f, null)
                 window.recycle()
                 finish(frame)
-            }, handler)
-        } catch (_: Exception) {
-            surface.recycle()
-            finish(window)
+                return
+            }
+            val layer = layers[index]
+            val surface = Bitmap.createBitmap(
+                layer.bounds.width(),
+                layer.bounds.height(),
+                Bitmap.Config.ARGB_8888,
+            )
+            try {
+                PixelCopy.request(layer.surface, surface, { status ->
+                    if (status == PixelCopy.SUCCESS) {
+                        canvas.drawBitmap(surface, null, layer.bounds, null)
+                    }
+                    surface.recycle()
+                    next(index + 1)
+                }, handler)
+            } catch (_: Exception) {
+                surface.recycle()
+                next(index + 1)
+            }
         }
+        next(0)
     }
 
     private class SurfaceLayer(val surface: Surface, val bounds: Rect)
 }
 
-/** The Flutter SurfaceView, when one is on screen. Whether it supplies any
- * of the picture shows in the window copy: hybrid composition covers it
- * with an opaque window, a hidden dashboard leaves the window transparent.
+/**
+ * The SurfaceViews on screen, in drawing order: Flutter's own first, then
+ * any platform view's (a video on a SurfaceView) above it. Whether one
+ * supplies any of the picture shows in the window copy: hybrid composition
+ * covers Flutter's with an opaque window, a hidden dashboard leaves the
+ * window transparent, and a platform view's surface punches its own hole.
  */
-internal fun flutterSurface(root: View): FlutterSurfaceView? {
-    if (!root.isShown || root.alpha <= 0f) return null
-    if (root is FlutterView) {
-        for (index in 0 until root.childCount) {
-            val child = root.getChildAt(index)
-            if (child is FlutterSurfaceView && child.isShown && child.alpha > 0f &&
-                child.width > 0 && child.height > 0
-            ) return child
+internal fun surfaceLayers(root: View): List<SurfaceView> {
+    val found = mutableListOf<SurfaceView>()
+    fun walk(view: View) {
+        if (view.visibility != View.VISIBLE || view.alpha <= 0f) return
+        if (view is SurfaceView) {
+            if (view.width > 0 && view.height > 0) found.add(view)
+            return
         }
-        return null
-    }
-    if (root is ViewGroup) {
-        for (index in 0 until root.childCount) {
-            flutterSurface(root.getChildAt(index))?.let { return it }
+        if (view is ViewGroup) {
+            for (index in 0 until view.childCount) walk(view.getChildAt(index))
         }
     }
-    return null
+    if (root.isShown) walk(root)
+    return found
 }
 
 /** True when any pixel of [bitmap] lets a layer below it show through. */

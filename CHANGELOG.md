@@ -2,6 +2,85 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## v2026.10.14 - 2026-10-08
+
+### Added
+- **Control Voice Satellite timers from Home Assistant and dashboards.** Timers on the kiosk can now be listed and changed without voice or a tap on their pill (#897). New **VS Timers** and **VS Next timer** sensors count the timers that are running or paused and show when the next one ends, so a card counts down to it on its own. The `vs_list_timers` action returns every timer with its ID, name, time left and end time. `vs_pause_timer`, `vs_resume_timer`, `vs_cancel_timer`, `vs_add_time` and `vs_remove_time` change one timer by its ID, or the only one when the ID is empty. Dashboards running on the kiosk get the same through the JavaScript API: `getVoiceTimers`, `controlVoiceTimer` and a `kiosksatellite:voice-timers` event after every change. Home Assistant finds a timer by its name or starting duration, so two timers on one kiosk with the same name, or two unnamed timers with the same duration, cannot be told apart and the change fails with an error that says so.
+- **Choose where Now Playing lands when dismissed.** **Settings > Media Player > Now Playing** gains **After dismissing** (#899). With **Return to home dashboard view** on, the kiosk went home as soon as the screensaver started, so dismissing Now Playing always showed the home view, even right after someone started a playlist on a music view. **Last view** goes back to the view the kiosk showed when the screensaver started. **Chosen view** always opens one view, picked with **Dashboard view**, for playback started from another kiosk, the Music Assistant app or a voice command. Both apply whenever the session ends on Now Playing, alongside a screensaver too, and when Now Playing closes because the music stopped. **Default** keeps the current behavior.
+
+### Fixed
+- **Tapping a timer pill works for every unnamed timer.** Pausing or cancelling an unnamed timer from its pill failed when its duration was asked for in a different unit than the pill assumed, such as a timer for 90 seconds. The kiosk now tries each way the duration could have been said.
+- **Turning off the Immich cache deletes the cached media.** Turning off **Cache media locally** stopped new copies but left the old ones on the device, with no way to delete them (#895). The cache is now deleted when the setting is turned off. Copies left from before the update are deleted the next time the app starts.
+- **Dashboard view pickers fit narrow screens.** The Home Assistant Dashboard screensaver's **Dashboard view** row cut the view path down to a few letters on a phone, on the device and in the remote admin. The button now shares the title's line and the full path shows beneath it.
+- **Weather conditions stay in Home Assistant's language.** The screensaver weather widget sometimes showed conditions in English, such as "Rainy" instead of "Pluvieux" on a French Home Assistant (#900). If Home Assistant was unreachable when the widget first asked for its wording, the kiosk treated it as an English server until the app restarted. The wording now arrives with the weather itself and is asked for again on every reconnect until it lands. Weather Mood's weather bar uses the same fix.
+- **The DLNA language tests pass again.** Three DLNA localization tests timed out when run with the rest of the suite since 2026.10.13 (#898). The video surface check now keeps its answer instead of a Future, and the tests answer that check themselves. Devices were never affected.
+
+## v2026.10.13 - 2026-10-08
+
+### Added
+- **Plugins can draw native overlays.** Plugins with the `overlay` capability can now show their own Android views over the kiosk with `host.showOverlay`, from a small bar anchored to an edge to a full screen panel (#890). Overlays sit in Kiosk Satellite's own screen, so the menu, the screensaver and Lockdown Mode cover them like the dashboard. An overlay can instead draw on top where the Voice Satellite overlay does, over the screensaver and camera views, and a visual-only overlay lets every touch through to the dashboard. Plugins receive the app's colors, corner radii, spacing and Rubik typeface, with helpers that style cards, buttons and sliders like the app's own, and their overlays restyle when the theme switches between light and dark. Back closes the topmost overlay unless the plugin opts out. A plugin whose own code crashes the app is now switched off before the restart, so a broken plugin cannot crash the kiosk on every start.
+- **Russian localization.** Русский is available during onboarding and in Settings on the device and in Remote Admin. All 3,789 current messages are translated. Localization Credits lists Iaroslav Iadryshnikov with a GitHub profile link.
+
+### Changed
+- **Remote Admin draws Cyrillic in its own font.** Russian and Ukrainian text in Remote Admin now uses Google Sans like the rest of the page instead of the browser's fallback font, which looked heavier next to the Latin text. The Cyrillic subset adds 16 KB.
+- **Plugins can declare up to 50 settings.** The limit was 20.
+
+### Fixed
+- **iCloud albums work as a screensaver folder.** Picking an iCloud shared album with **Use this folder** saved the iCloud root instead of the album, so the screensaver stayed black (#896). The media picker now saves the folder you opened, on the device and in the remote admin. Pick the album again after updating.
+- **Videos no longer fill the memory on Samsung Exynos devices.** On a Galaxy Tab S9 FE, every video the Immich screensaver played left graphics memory behind until the tablet slowed down, showed green or corrupted frames and went black (#894). Samsung's Exynos video decoders hand out compressed frames that leak when Flutter draws them itself. Videos on Samsung Exynos devices running Android 12 or later now play on their own Android surface, which the display shows directly. This covers the Immich and local media screensavers and DLNA video.
+- **Screenshots show videos played on their own surface.** The remote admin preview and the Screenshot camera now capture a video that plays on an Android surface instead of showing black in its place. This applies to Samsung Exynos devices and to devices whose decoder cannot play into Flutter's texture.
+
+## v2026.10.12 - 2026-10-07
+
+### Added
+- **Timers in realtime conversations.** OpenAI, xAI Grok and Gemini can now start, change, pause and cancel timers on the kiosk, just like Assist. Timers started in a realtime conversation show the same countdown and ring the same alert. This needs Home Assistant 2026.10 or later, which only offers the timer tools when it knows which device is asking. Kiosk Satellite now sends its ESPHome device with every tool request.
+- **Plugins can trigger gestures.** **Settings > Gestures** gains a **Plugin trigger** gesture, so a plugin can start any gesture action, from a dashboard view to a Home Assistant script (#888). A plugin declares its triggers in its manifest and fires one with `host.fireTrigger` when it notices something, such as a hardware button press. Lockdown Mode and Disable Gestures silence plugin triggers like the other gestures. Mappings that use a plugin trigger stay on their kiosk and are not synced to the fleet.
+- **Plugins can follow Voice Satellite.** Plugins with `host.read` can now read the Voice Satellite state with `getVoiceState` and subscribe to `voice.state` for each change between idle, listening, processing and responding (#887). It matches the Voice Satellite sensor on the ESPHome device, so it covers realtime conversations too, which Home Assistant's `assist_satellite` entity shows as idle. A plugin such as an LED ring can follow the kiosk's own turns with no entity to pick and no trip through Home Assistant. It applies to the native Voice Satellite runtime.
+- **Plugins can follow the intercom.** Plugins with `host.read` can now read the intercom with `getIntercomState` and subscribe to `intercom.state`. Both carry the same state, other kiosk and Do not disturb values as the Intercom entities on the ESPHome device, so a plugin can light up while a call rings or a kiosk misses one. The event fires only when one of those values changes.
+
+### Changed
+- **Voice Satellite errors close on their own.** An error toast, such as a failed speech-to-text step, now closes after 10 seconds instead of staying on screen until someone taps Close (#885). Close still dismisses it right away.
+
+## v2026.10.11 - 2026-10-06
+
+### Added
+- **Group volume for the Sendspin player.** While this device plays in a Music Assistant group, the Now Playing volume slider and mute button now control the whole group instead of only this device (#867). Each room keeps its balance with the others, the way Music Assistant's own group slider works. **Settings > Media Player > Sendspin Player** gains **Adjust the group volume** to turn this off. The speaker group menu also gains a volume slider for every player in the group, so one room can be set louder than the rest. Both need the Music Assistant connection.
+- **Stop and snooze alarms with a gesture.** **Gestures** gains **Stop the alarm** and **Snooze the alarm** actions, so claps or a hand showing fingers can silence an alarm without touching the screen (#872). Stop the alarm does what the Stop button does and also ends a snooze or a sunrise. Snooze the alarm works while an alarm rings.
+- **Follow Android animation settings.** **Settings > Screensaver** gains an opt-in switch that pauses Weather Mood on a still frame while Android's transition animation scale is off, as it did before 2026.10.10. It brings CPU usage back down on low-power devices with animations turned off in Developer options (#870).
+- **Intercom volume in Home Assistant.** The ESPHome device gains an **Intercom volume** number, so a dashboard or automation can set the share of the master volume the other kiosk's voice and announcements play at (#869). It is listed while the intercom is on.
+- **Realtime conversations from Home Assistant.** With a realtime provider on **Assistant 1**, `assist_satellite.start_conversation` now opens a realtime conversation instead of an Assist turn. OpenAI, xAI Grok or Gemini says the start message in its own voice, word for word, and then keeps listening for the reply. Home Assistant hears the announcement finished once the line has played. `extra_system_prompt` is not passed along, because Home Assistant does not send it to the kiosk.
+
+### Changed
+- **Finger and palm gestures use less idle CPU.** The camera now ignores small sensor-noise changes instead of letting them keep MediaPipe running, analyzes at the same four frames per second the hand tracker accepts and skips bitmap conversion while the previous hand look is still running. On a Portal Go this reduced Kiosk Satellite CPU use with both gestures enabled from 50.9% to 39.5% of one core, a 22% reduction, while keeping the same 640x480 input for hand detection.
+- **Realtime problems reach the log.** Failures that realtime conversations used to drop without a trace are now logged: a failed transcription of what the user said, an answer the provider cut short, a tool that returned an error, tool arguments that could not be read, messages, audio or sends that failed and provider errors the kiosk has no handling for. A failed transcription also shows a warning once per conversation. This is how OpenAI on Azure without a `gpt-4o-mini-transcribe` deployment shows up: the model answers, but the bubble never shows the user's words.
+- **Tap sounds and haptics work on Bubble Card.** Kiosk Satellite now also responds to Home Assistant's haptic event, the one the companion apps vibrate on, so Bubble Card's horizontal buttons stack, pop-up buttons and sub-buttons click and buzz like other controls (#880). Any custom card that follows the same convention gets this too. Controls that already clicked still play once per tap. Haptics that only report whether an action succeeded or failed stay silent.
+
+### Fixed
+- **Alarm buttons stay big on small screens.** On small displays such as the Lenovo Smart Clock 2, Snooze and Stop shrank to a fraction of the screen (#873). Weather Mood fitted them together with its clock, so they shrank along with the clock, and every alarm screen scaled its buttons down with the display. Snooze and Stop now keep their full size on small screens and shrink only when they would not fit across the width. Weather Mood shrinks only its clock to make room, the way the Clock screensaver already did. Tablets and larger screens look the same as before.
+- **Chimes play again with a chosen speaker.** With **Speaker** set to a specific output instead of Automatic, Voice Satellite chimes played silence since 2026.10.1 while text to speech still worked (#868). The output was applied after the chime was loaded, and Android rebuilt the audio track empty. The output is now applied first.
+
+## v2026.10.10 - 2026-10-06
+
+### Added
+- **End the intercom call gesture.** **Gestures** gains an **End the intercom call** action, so claps or a hand showing fingers can end a call from across the room. It ends what the hang up button ends: a call being placed, a live call and either end of an announcement. A ringing call still needs Answer or Decline on the screen. Gestures stay armed during a call. Translated into Spanish, German, French, Ukrainian, Dutch and Simplified Chinese.
+
+### Changed
+- **Weather Mood uses less per-frame CPU.** The screensaver now reuses stable star geometry, rain-on-glass drop shapes, sunlight mote paths, shader paints and uniform storage instead of rebuilding them on every frame. Its weather animation, density and visual detail stay the same.
+- **Wake word listening does less idle work.** vsWakeWord reuses each model's decoded output for its cross-window matcher, and all three engines now track near misses only when diagnostics are enabled. Detection scores remain unchanged.
+
+### Fixed
+- **Weather Mood keeps moving when Android animations are off.** Weather Mood no longer treats Android's transition animation scale as a request to freeze its clouds, rain, snow and stars. It still pauses when the display turns off or the app goes into the background (#864).
+- **Bluetooth proxy scans no longer accumulate after app updates.** Kiosk Satellite now closes its BLE scanner before Shizuku, the ADB update helper or Android's package installer commits an update. Android confirmation installs close it before showing the confirmation screen. A failed or declined install resumes the existing scan demand, while a successful update starts with one clean scanner registration instead of leaving the previous app process registered in the Bluetooth stack. This was confirmed on Meta Portal firmware, which retained every scanner from a replaced app process.
+
+## v2026.10.9 - 2026-10-05
+
+### Added
+- **Volume control for plugins.** Plugins with `host.control` can call `setVolume` to change the master volume or the media, assistant or intercom share of it, and `getVolume` takes the same `channel` to read each one. A plugin can now turn hardware key presses into volume changes on devices whose volume buttons do nothing (#855). The `device.volume` event also fires when the media, assistant or intercom slider moves, so a plugin can keep its levels current. The remote API's `getVolume` and `setVolume` take the same `channel`.
+- **Hardware keys for plugins.** Plugins with `host.read` can subscribe to the new `device.key` event and receive the hardware keys that reach the kiosk, such as volume, media and remote buttons (#855). Each down, up and repeat arrives on its own with the key name, key code, scan code and repeat count. A plugin sees the press even when the kiosk swallows it, so pairing a plugin with **Disable volume buttons** lets it take over the volume keys. Printing and modifier keys are never sent, so typed text does not reach plugins.
+
+### Fixed
+- **Lockdown Mode blocks Control Center on Meta Portal.** On a Portal, Control Center opened above the lockdown shield and took touches, both from a swipe up from the bottom edge and from its volume panel (#857). It draws as a system window, which sits above the draw-over-apps window the shield used. On a Portal with the System UI guard enabled, the guard now hosts the shield as an accessibility overlay, which sits above every system window, Control Center included. The exit gesture, the PIN prompt and Blackout work the same. Other devices, and Portals without the guard, keep the draw-over-apps shield.
+
 ## v2026.10.8 - 2026-10-04
 
 ### Added

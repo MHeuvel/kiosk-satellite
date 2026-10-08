@@ -95,7 +95,7 @@ Future<void> main() async {
 
     final owwModels = [
       for (final id in ['alexa', 'ok_nabu'])
-        {'id': id, 'wakeWord': id, 'onnx': onnx(id), 'cutoff': .5},
+        {'id': id, 'wakeWord': id, 'model': onnx(id), 'cutoff': .5},
     ];
     for (var trial = 0; trial < 3; trial++) {
       for (final engine in ['vsww', 'mww', 'oww']) {

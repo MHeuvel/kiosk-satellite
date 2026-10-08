@@ -1,0 +1,19 @@
+{
+  "@@locale": "ru",
+  "settingCameraAllowH265Title": "Разрешить потоки H.265",
+  "settingCameraAllowH265Description": "Проигрывать потоки камер H.265 как есть. Устройство без декодирования H.265 покажет пустое изображение.",
+  "settingCameraPreferMseTitle": "Предпочитать MSE, а не WebRTC",
+  "settingCameraPreferMseDescription": "Стримить камеры Go2RTC сначала через MSE. Для устройств, не играющих WebRTC; добавляет секунду-две задержки.",
+  "settingCameraPreferHlsTitle": "Предпочитать HLS, а не WebRTC",
+  "settingCameraPreferHlsDescription": "Стримить камеры Home Assistant сначала через HLS. Для устройств, не играющих WebRTC; добавляет несколько секунд задержки.",
+  "settingCameraSingleAudioTitle": "Звук для одиночной камеры",
+  "settingCameraSingleAudioDescription": "Проигрывать звук камеры, когда на экране одна камера. Сетки из нескольких камер беззвучны.",
+  "settingCameraPinchZoomTitle": "Масштабирование щипком (одна камера)",
+  "settingCameraPinchZoomDescription": "Приближать картинку двумя пальцами, когда на экране одна камера. Перетаскивайте для перемещения, двойное касание для сброса.",
+  "settingCameraAutoDismissSecondsTitle": "Автозакрытие через",
+  "settingCameraAutoDismissSecondsDescription": "Автоматически закрывать открытый вид камер; 0 оставляет его открытым. Заставка с камерами не затрагивается.",
+  "cameraStreamsPlayback": "Воспроизведение",
+  "cameraStreamsOff": "Выкл",
+  "cameraStreamsSeconds": "{seconds} с",
+  "cameraStreamsGridHelp": "Сетки из нескольких камер содержат только видео. Для слабых устройств используйте потоки Go2RTC меньшего разрешения и при желании отдельный полноэкранный поток."
+}

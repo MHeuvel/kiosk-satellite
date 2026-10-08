@@ -1,0 +1,20 @@
+{
+  "@@locale": "ru",
+  "settingScreensaverWidgetsTitle": "Виджеты",
+  "settingScreensaverWidgetsDescription": "Маленькие наложения в углах заставки.",
+  "settingScreensaverWidgetScaleTitle": "Общий масштаб виджетов",
+  "settingScreensaverWidgetScaleDescription": "Масштабировать все виджеты вместе под размер экрана. Каждый виджет сохраняет свой масштаб относительно остальных.",
+  "settingScreensaverWidgetFontTitle": "Общая гарнитура",
+  "settingScreensaverWidgetFontDescription": "Шрифт, которым рисуется каждый виджет. Виджет может выбрать свой.",
+  "settingScreensaverWidgetFontWeightTitle": "Общая насыщенность шрифта",
+  "settingScreensaverWidgetFontWeightDescription": "Насколько жирно рисуется текст каждого виджета. По умолчанию собственная насыщенность строк. Виджет может выбрать свою.",
+  "settingScreensaverWidgetTextShadowTitle": "Тень текста",
+  "settingScreensaverWidgetTextShadowDescription": "Добавить тень тексту виджетов для читаемости на фото.",
+  "settingScreensaverVignetteStrengthTitle": "Сила виньетки",
+  "settingScreensaverVignetteStrengthDescription": "Затемнение позади виджетов для читаемости на светлых фото. 0 выключает.",
+  "screensaverOverlayWidgetsEmpty": "Виджетов пока нет",
+  "screensaverOverlayRemove": "Убрать виджет",
+  "screensaverOverlayAdd": "Добавить виджет",
+  "screensaverOverlayAddHelp": "Маленькие часы, погода, батарея или сущность в углу.",
+  "screensaverOverlayWidgetsHint": "Наложения в углах и их масштаб"
+}

@@ -1980,6 +1980,11 @@ class _GroupMenuState extends State<_GroupMenu> {
   final _asked = <String, bool>{};
   Timer? _recheck;
 
+  /// Each player's level as its slider last left it (issue #867): the
+  /// player list is only read again on a group change, so a level set
+  /// here stands until then.
+  final _levels = <String, double>{};
+
   @override
   void initState() {
     super.initState();
@@ -2059,9 +2064,60 @@ class _GroupMenuState extends State<_GroupMenu> {
               name: m.name,
               inGroup: _asked[m.id]!,
               available: m.available,
+              volume: m.volume,
             )
           : m,
   ]);
+
+  /// A player's own volume: a slider and its level, lined up under the
+  /// player's name [indent] in. Sent when the finger lifts, as the view's
+  /// slider does.
+  Widget _volume(String id, int level, double indent) {
+    final value = _levels[id] ?? level.toDouble();
+    return Padding(
+      padding: EdgeInsets.fromLTRB(indent - 14, 0, 16, 4),
+      child: SizedBox(
+        height: 32,
+        child: Row(
+          children: [
+            Expanded(
+              child: SliderTheme(
+                data: const SliderThemeData(
+                  trackHeight: 3,
+                  activeTrackColor: Colors.white,
+                  inactiveTrackColor: Colors.white24,
+                  thumbColor: Colors.white,
+                  overlayColor: Colors.white24,
+                  thumbShape: RoundSliderThumbShape(enabledThumbRadius: 6),
+                  overlayShape: RoundSliderOverlayShape(overlayRadius: 14),
+                  trackShape: RectangularSliderTrackShape(),
+                ),
+                child: Slider(
+                  key: ValueKey('group-volume-$id'),
+                  semanticFormatterCallback: (v) =>
+                      '${l10n(context).mediaVolume}: ${v.round()}%',
+                  value: value.clamp(0, 100),
+                  max: 100,
+                  onChanged: (v) => setState(() => _levels[id] = v),
+                  onChangeEnd: (v) => unawaited(
+                    widget.container.sendspin.setMemberVolume(id, v.round()),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 40,
+              child: Text(
+                '${value.round()}%',
+                textAlign: TextAlign.right,
+                style: const TextStyle(color: Colors.white54, fontSize: 13),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -2151,6 +2207,11 @@ class _GroupMenuState extends State<_GroupMenu> {
                     ],
                   ),
                 ),
+                // The leader's own volume, once there is a group for it
+                // to lead.
+                if (group?.leaderVolume case final level?
+                    when members.any((m) => m.inGroup))
+                  _volume(group!.leaderId, level, 46),
                 const Divider(height: 1, color: Colors.white12),
                 if (_loading)
                   const Padding(
@@ -2176,7 +2237,7 @@ class _GroupMenuState extends State<_GroupMenu> {
                       shrinkWrap: true,
                       padding: const EdgeInsets.symmetric(vertical: 6),
                       children: [
-                        for (final (i, m) in members.indexed)
+                        for (final (i, m) in members.indexed) ...[
                           InkWell(
                             autofocus: i == 0,
                             focusColor: Colors.white12,
@@ -2243,6 +2304,11 @@ class _GroupMenuState extends State<_GroupMenu> {
                               ),
                             ),
                           ),
+                          // A member's own volume while it plays in the group.
+                          if (m.volume case final level?
+                              when m.inGroup && !_pending.contains(m.id))
+                            _volume(m.id, level, 50),
+                        ],
                       ],
                     ),
                   ),

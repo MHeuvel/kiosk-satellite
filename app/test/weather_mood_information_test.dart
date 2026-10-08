@@ -550,4 +550,45 @@ void main() {
       await tester.pumpWidget(const SizedBox.shrink());
     },
   );
+  testWidgets('a ringing alarm keeps Snooze and Stop big on a small screen', (
+    tester,
+  ) async {
+    final c = await container();
+    final readings = WeatherMoodReadings();
+    c.screensaver.alarmTakeover.value = 'ringing';
+    Future<(Rect, Rect)> ring(Size size) async {
+      tester.view.devicePixelRatio = 1;
+      tester.view.physicalSize = size;
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Material(
+            child: WeatherMoodInformation(container: c, readings: readings),
+          ),
+        ),
+      );
+      await tester.pump();
+      Rect pill(String label) => tester.getRect(
+        find
+            .ancestor(of: find.text(label), matching: find.byType(Material))
+            .first,
+      );
+      return (pill('Snooze'), pill('Stop'));
+    }
+
+    // A Lenovo Smart Clock 2: the buttons keep their full size instead of
+    // shrinking with the clock, and the pair still fits across.
+    final (snooze, stop) = await ring(const Size(533, 320));
+    expect(tester.takeException(), isNull);
+    expect(snooze.height, greaterThan(60));
+    expect(snooze.width, greaterThan(200));
+    expect(snooze.left, greaterThanOrEqualTo(0));
+    expect(stop.right, lessThanOrEqualTo(533));
+    expect(stop.bottom, lessThanOrEqualTo(320));
+    // A tablet is sized as before.
+    final (big, _) = await ring(const Size(1280, 800));
+    expect(big.width, closeTo(230 * 1.25, .5));
+    expect(big.height, closeTo(68 * 1.25, .5));
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(const SizedBox.shrink());
+  });
 }

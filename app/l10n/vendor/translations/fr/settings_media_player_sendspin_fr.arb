@@ -8,6 +8,7 @@
   "settingSendspinCodecDescription": "FLAC est sans perte et idéal sur Wi-Fi ou Ethernet. Le serveur fait le choix final parmi ce que cet appareil propose.",
   "settingSendspinSyncOffsetTitle": "Décalage de synchronisation audio (ms)",
   "settingSendspinSyncOffsetDescription": "Une valeur négative fait jouer cet appareil plus tôt, pour les enceintes en retard sur le groupe (Bluetooth). Réglez à l'oreille ; s'applique en direct.",
+  "settingSendspinGroupVolumeDescription": "Tant que cet appareil joue au sein d'un groupe, le curseur de volume règle le volume de tout le groupe. Si l'option est désactivée, seul le volume de cet appareil est modifié. Nécessite la connexion à Music Assistant.",
   "mediaSendspinPage": "Lecteur Sendspin",
   "mediaSendspinHint": "Faire de cet appareil un lecteur Music Assistant synchronisé",
   "mediaFlac": "FLAC (sans perte)",

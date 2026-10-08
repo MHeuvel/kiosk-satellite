@@ -1,0 +1,5 @@
+{
+  "@@locale": "ru",
+  "launcherErrorAndroidOnly": "список приложений доступен только на Android",
+  "launcherErrorListDetail": "не удалось получить список приложений: {error}"
+}

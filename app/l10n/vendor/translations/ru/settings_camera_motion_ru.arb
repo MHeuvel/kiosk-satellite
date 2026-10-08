@@ -1,0 +1,15 @@
+{
+  "@@locale": "ru",
+  "settingMotionSensorTitle": "Датчик движения",
+  "settingMotionSensorDescription": "Предоставлять движение как датчик Home Assistant. ВНИМАНИЕ: камера работает постоянно, даже при выключенном экране.",
+  "settingMotionSensorOffDelayTitle": "Сбрасывать через",
+  "settingMotionSensorOffDelayDescription": "Секунды без движения до показания «чисто».",
+  "settingMotionFpsTitle": "Частота кадров движения",
+  "settingMotionFpsDescription": "Сколько кадров в секунду камера проверяет движение. Ниже: легче для ЦП; 2 достаточно, чтобы заметить приближение.",
+  "settingMotionStartDelayTitle": "Задержка запуска",
+  "settingMotionStartDelayDescription": "Игнорировать движение это время после старта камеры, для устройств, чья камера физически двигается при открытии.",
+  "settingMotionSensitivityTitle": "Чувствительность к движению",
+  "settingMotionSensitivityDescription": "Выше: срабатывает от меньших движений. 1 требует большого изменения по кадру; 100 реагирует на малейшее движение.",
+  "cameraMotionPage": "Датчик движения",
+  "cameraMotionHint": "Датчик движения Home Assistant и общие настройки обнаружения"
+}

@@ -19,6 +19,7 @@ class PluginManifest(val json: JSONObject) {
     val minAndroidSdk = json.getInt("minAndroidSdk")
     val settings = json.optJSONArray("settings") ?: JSONArray()
     val commands = json.optJSONArray("commands") ?: JSONArray()
+    val triggers = json.optJSONArray("triggers") ?: JSONArray()
     val capabilities = json.getJSONArray("capabilities").let { array ->
         (0 until array.length()).map { array.getString(it) }.toSet()
     }
@@ -31,7 +32,9 @@ class PluginManifest(val json: JSONObject) {
         text(json, "description", 1000)
         text(json, "author", 120)
         text(json, "license", 120)
-        require(settings.length() <= 20 && commands.length() <= 20) { "Too many settings or commands" }
+        require(settings.length() <= MAX_SETTINGS) { "Too many settings" }
+        require(commands.length() <= 20) { "Too many commands" }
+        require(triggers.length() <= 20) { "Too many triggers" }
         val keys = mutableSetOf<String>()
         for (i in 0 until settings.length()) {
             val setting = settings.getJSONObject(i)
@@ -74,6 +77,13 @@ class PluginManifest(val json: JSONObject) {
             require(commandId.matches(Regex("[a-z][a-zA-Z0-9]*")) && ids.add(commandId)) { "Invalid or duplicate command ID" }
             text(command, "title", 80)
         }
+        val triggerIds = mutableSetOf<String>()
+        for (i in 0 until triggers.length()) {
+            val trigger = triggers.getJSONObject(i)
+            val triggerId = text(trigger, "id", 64)
+            require(triggerId.matches(Regex("[a-z][a-zA-Z0-9]*")) && triggerIds.add(triggerId)) { "Invalid or duplicate trigger ID" }
+            text(trigger, "title", 80)
+        }
     }
 
     fun config(overrides: JSONObject): Map<String, Any> {
@@ -89,6 +99,7 @@ class PluginManifest(val json: JSONObject) {
     }
 
     fun hasCommand(id: String) = (0 until commands.length()).any { commands.getJSONObject(it).getString("id") == id }
+    fun hasTrigger(id: String) = (0 until triggers.length()).any { triggers.getJSONObject(it).getString("id") == id }
 
     private fun validateValue(setting: JSONObject, value: Any) {
         when (setting.getString("type")) {
@@ -119,6 +130,9 @@ class PluginManifest(val json: JSONObject) {
     private data class GroupReferences(val kind: String, val used: MutableSet<String>, val pattern: String, val maximum: Int)
 
     companion object {
+        /** Settings per plugin. Display groups keep a long list navigable. */
+        const val MAX_SETTINGS = 50
+
         fun text(json: JSONObject, key: String, limit: Int): String {
             val value = json.get(key)
             require(value is String && value.isNotBlank() && value.length <= limit) { "Invalid $key" }

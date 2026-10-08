@@ -1513,6 +1513,16 @@ class UiStringsEs extends UiStrings {
   String get gestureIntercomCall => 'Llamar a un kiosko';
 
   @override
+  String get gestureIntercomHangup =>
+      'Finalizar la llamada del intercomunicador';
+
+  @override
+  String get gestureAlarmStop => 'Detener la alarma';
+
+  @override
+  String get gestureAlarmSnooze => 'Posponer la alarma';
+
+  @override
   String get gestureScreensaver => 'Iniciar el protector de pantalla';
 
   @override
@@ -2030,6 +2040,16 @@ class UiStringsEs extends UiStrings {
 
   @override
   String get gestureSequenceError => 'Añade al menos dos esquinas.';
+
+  @override
+  String get gesturePluginTrigger => 'Disparador de plugin';
+
+  @override
+  String get gesturePluginTriggerField => 'Disparador';
+
+  @override
+  String get gesturePluginTriggerHelp =>
+      'Primero activa un plugin con disparadores en el administrador de plugins.';
 
   @override
   String get intercomCall => 'Llamar';
@@ -3237,6 +3257,13 @@ class UiStringsEs extends UiStrings {
   String pluginErrorInvalidField(String field) {
     return 'El campo $field no es válido';
   }
+
+  @override
+  String get pluginErrorTooManyTriggers => 'Demasiados disparadores';
+
+  @override
+  String get pluginErrorTriggerId =>
+      'El ID del disparador no es válido o está duplicado';
 
   @override
   String get remoteDisableTitle => '¿Desactivar la administración remota?';
@@ -8236,6 +8263,27 @@ class UiStringsEs extends UiStrings {
       'Permite cerrar Reproduciendo Ahora con movimiento, como un protector de pantalla normal. Si está desactivado, solo se cierra al tocar la pantalla, para que pasar cerca no interrumpa la vista de música. No se aplica cuando Reproduciendo Ahora se muestra junto al protector de pantalla.';
 
   @override
+  String get settingSendspinFullscreenReturnTitle => 'Al cerrar';
+
+  @override
+  String get settingSendspinFullscreenReturnDescription =>
+      'La vista del panel de control que se muestra al cerrar Reproduciendo Ahora. Predeterminado sigue Volver a la vista de inicio del panel de control.';
+
+  @override
+  String get mediaReturnLastView => 'Última vista';
+
+  @override
+  String get mediaReturnChosenView => 'Vista elegida';
+
+  @override
+  String get settingSendspinFullscreenReturnViewTitle =>
+      'Vista del panel de control';
+
+  @override
+  String get settingSendspinFullscreenReturnViewDescription =>
+      'La vista que se muestra al cerrar Reproduciendo Ahora.';
+
+  @override
   String get settingSendspinFullscreenShortcutTitle =>
       'Mostrar en el menú del kiosko';
 
@@ -8391,6 +8439,10 @@ class UiStringsEs extends UiStrings {
   @override
   String get settingSendspinSyncOffsetDescription =>
       'Un valor negativo hace que este dispositivo reproduzca antes, para compensar altavoces que se retrasan respecto al grupo, como los Bluetooth. Ajusta de oído. Se aplica de inmediato.';
+
+  @override
+  String get settingSendspinGroupVolumeDescription =>
+      'Cuando este dispositivo reproduce en un grupo, el control de volumen ajusta todo el grupo. Si está desactivado, solo ajusta este dispositivo. Necesita la conexión con Music Assistant.';
 
   @override
   String get mediaSendspinPage => 'Reproductor Sendspin';
@@ -9425,6 +9477,14 @@ class UiStringsEs extends UiStrings {
   @override
   String get settingScreensaverMenuDescription =>
       'Añade la opción Iniciar protector de pantalla al menú del kiosko.';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleTitle =>
+      'Seguir los ajustes de animación de Android';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleDescription =>
+      'Pausa los protectores de pantalla animados cuando las animaciones de Android están desactivadas.';
 
   @override
   String get settingScreensaverDimLevelTitle => 'Nivel de atenuación';

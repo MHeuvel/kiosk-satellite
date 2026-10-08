@@ -1,0 +1,13 @@
+{
+  "@@locale": "ru",
+  "androidServiceChannelHelp": "Показывается, пока служба Kiosk Satellite удерживает приложение запущенным при выключенном экране или позади другого приложения.",
+  "androidServiceListening": "слушает слово пробуждения",
+  "androidServiceRtspAudio": "включён звук микрофона RTSP",
+  "androidServiceEsphome": "обслуживает ESPHome",
+  "androidServiceBluetooth": "ретранслирует Bluetooth-устройства",
+  "androidServiceCamera": "следит за камерой",
+  "androidServiceLocation": "сообщает местоположение",
+  "androidServiceRemote": "обслуживает удалённое администрирование",
+  "androidServiceKiosk": "защищает режим киоска",
+  "androidServiceSessions": "поддерживает соединение с Home Assistant"
+}

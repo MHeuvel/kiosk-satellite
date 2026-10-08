@@ -22,6 +22,7 @@ class WeatherMoodRenderer extends StatefulWidget {
     this.immediate = false,
     this.revealed = true,
     this.revealToken = 0,
+    this.followAnimationScale = false,
     this.onReady,
     this.onError,
   });
@@ -32,6 +33,10 @@ class WeatherMoodRenderer extends StatefulWidget {
   /// Whether the scene is on screen yet. Hidden, a finished cloud image
   /// replaces the previous one instead of fading in over it.
   final bool revealed;
+
+  /// Holds a still frame while Android's animation scale is off. Off by
+  /// default, since the scene exists to move (#864, #870).
+  final bool followAnimationScale;
 
   /// Passed back through [onReady], so a caller can tell which change the
   /// finished scene reflects.
@@ -200,6 +205,8 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
   final _scene = WeatherMoodScene();
   final _repaint = ValueNotifier<int>(0);
   final _particles = WeatherMoodParticles();
+  final _imagePaint = Paint()..filterQuality = FilterQuality.low;
+  final _shaderPaint = Paint();
   final _clock = Stopwatch()..start();
   late final _quality = WeatherMoodQuality(lowPower: widget.lowPower);
   ui.FragmentShader? _skyShader, _cloudShader, _heightShader, _blendShader;
@@ -326,7 +333,12 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
         _request();
       }
     }
-    final reduced = MediaQuery.disableAnimationsOf(context);
+    _followReducedMotion();
+  }
+
+  void _followReducedMotion() {
+    final reduced =
+        widget.followAnimationScale && MediaQuery.disableAnimationsOf(context);
     if (reduced != _reducedMotion) {
       _reducedMotion = reduced;
       _lastTime = null;
@@ -350,6 +362,9 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
     if (oldWidget.active != widget.active) {
       _lastTime = null;
       _snap = true;
+    }
+    if (oldWidget.followAnimationScale != widget.followAnimationScale) {
+      _followReducedMotion();
     }
     _request();
   }
@@ -415,7 +430,7 @@ class _WeatherMoodRendererState extends State<WeatherMoodRenderer> {
       _scene.windTime,
       _scene.lightning,
       _scene.twilight,
-      [..._scene.cumulus, 0, ..._scene.cumulusCopies, 0, 0],
+      _scene.cumulusUniforms,
     );
     try {
       if (_snap) {
@@ -965,25 +980,32 @@ class _Frame {
     Offset offset = Offset.zero,
     bool clouds = true,
   }) {
-    final uniforms = [
-      size.width,
-      size.height,
-      time,
-      ...values.take(4),
-      values[4],
-      ...values.skip(5),
-      windTime,
+    shader
+      ..setFloat(0, size.width)
+      ..setFloat(1, size.height)
+      ..setFloat(2, time)
+      ..setFloat(3, values[0])
+      ..setFloat(4, values[1])
+      ..setFloat(5, values[2])
+      ..setFloat(6, values[3])
+      ..setFloat(7, values[4])
+      ..setFloat(8, values[5])
+      ..setFloat(9, values[6])
+      ..setFloat(10, values[7])
+      ..setFloat(11, values[8])
+      ..setFloat(12, values[9])
+      ..setFloat(13, windTime)
       // The painter draws lightning over the cached clouds on every frame.
-      0.0,
-      lightning.x,
-      1 - (lightning.y + .20),
-      twilight,
-      offset.dx,
-      offset.dy,
-      if (clouds) ...cumulus,
-    ];
-    for (var i = 0; i < uniforms.length; i++) {
-      shader.setFloat(i, uniforms[i]);
+      ..setFloat(14, 0)
+      ..setFloat(15, lightning.x)
+      ..setFloat(16, 1 - (lightning.y + .20))
+      ..setFloat(17, twilight)
+      ..setFloat(18, offset.dx)
+      ..setFloat(19, offset.dy);
+    if (clouds) {
+      for (var i = 0; i < cumulus.length; i++) {
+        shader.setFloat(20 + i, cumulus[i]);
+      }
     }
   }
 }
@@ -1014,11 +1036,12 @@ class _WeatherPainter extends CustomPainter {
           skyImage.height.toDouble(),
         ),
         Offset.zero & size,
-        Paint()..filterQuality = FilterQuality.low,
+        owner._imagePaint,
       );
     } else {
       frame.configure(sky, size, clouds: false);
-      canvas.drawRect(Offset.zero & size, Paint()..shader = sky);
+      owner._shaderPaint.shader = sky;
+      canvas.drawRect(Offset.zero & size, owner._shaderPaint);
     }
     owner._particles.paintStars(
       canvas,
@@ -1052,13 +1075,14 @@ class _WeatherPainter extends CustomPainter {
           cloud.height ?? cloud.image,
           filterQuality: FilterQuality.low,
         );
-      canvas.drawRect(Offset.zero & size, Paint()..shader = blend);
+      owner._shaderPaint.shader = blend;
+      canvas.drawRect(Offset.zero & size, owner._shaderPaint);
     } else if (cloud != null) {
       canvas.drawImageRect(
         cloud.image,
         cloud.view,
         Offset.zero & size,
-        Paint()..filterQuality = FilterQuality.low,
+        owner._imagePaint,
       );
     }
     if (frame.lightning.strength > .001) {

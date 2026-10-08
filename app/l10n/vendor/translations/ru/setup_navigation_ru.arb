@@ -1,0 +1,11 @@
+{
+  "@@locale": "ru",
+  "setupWelcome": "Добро пожаловать",
+  "setupConnect": "Подключение",
+  "setupConnectSummary": "URL и токен Home Assistant",
+  "setupDashboard": "Панель",
+  "setupDashboardSummary": "Что показывает киоск",
+  "setupRecommendedSummary": "Рекомендуемые настройки",
+  "setupPermissions": "Разрешения",
+  "setupPermissionsSummary": "Что нужно настройке"
+}

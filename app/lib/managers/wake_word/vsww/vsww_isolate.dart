@@ -41,6 +41,8 @@ void vswwIsolateEntry(SendPort mainPort) {
             msg['enabled'] == true,
             tester: msg['tester'] == true,
           );
+        case WakeMsg.setNearMisses:
+          worker.setNearMisses(msg['enabled'] == true);
         case WakeMsg.stop:
           worker.stop();
           port.close();
@@ -153,6 +155,7 @@ class _IsolateWorker {
         _wakeRms = (gate['wakeRms'] as num).toDouble();
         _sleepAfterChunks = (gate['sleepAfterChunks'] as num).toInt();
       }
+      _nearMisses = msg['nearMisses'] == true;
       for (final md in (msg['models'] as List)) {
         final manifest = VswwManifest.fromJson(
             jsonDecode(md['manifestJson'] as String) as Map<String, dynamic>);
@@ -315,10 +318,19 @@ class _IsolateWorker {
   /// meter keeps this OFF — it only reads rms, and suppressing detections
   /// for it made the device deaf while the settings page was open.
   bool _tester = false;
+  bool _nearMisses = false;
 
   void setTelemetry(bool enabled, {bool tester = false}) {
     _telemetry = enabled;
     _tester = enabled && tester;
+  }
+
+  void setNearMisses(bool enabled) {
+    if (_nearMisses == enabled) return;
+    _nearMisses = enabled;
+    for (final k in _kws) {
+      k.nearMiss.reset();
+    }
   }
 
   void _infer() {
@@ -356,7 +368,7 @@ class _IsolateWorker {
       final decode = k.decoder.decode(logits, tOut, vocab);
       final perWindow = k.decoder.match(decode);
       if (k.manifest.runtime.streamMatch) {
-        k.stream.update(logits, newSamples, tOut, vocab);
+        k.stream.update(decode, newSamples);
       }
       final streamRes = k.manifest.runtime.streamMatch
           ? k.stream.analyze()
@@ -380,7 +392,7 @@ class _IsolateWorker {
         targetIndex: combined.targetIndex,
         nowMs: nowMs,
       );
-      if (!k.isStop) {
+      if (!k.isStop && _nearMisses) {
         final miss = k.nearMiss.update(
           score: combined.matchedConfidence,
           threshold: combined.gateThreshold.isFinite

@@ -11,6 +11,7 @@
 /// that they ran.
 library;
 
+import 'dart:convert';
 import 'dart:typed_data';
 
 /// What a backend can do, read before the session starts streaming.
@@ -176,9 +177,31 @@ abstract class RealtimeBackend {
   /// the conversation, unanswered).
   void userTurn({required bool keep});
 
+  /// The model says [line] word for word, in its own voice, as its answer,
+  /// and listens after it: Home Assistant's start_conversation, where the
+  /// assistant speaks first.
+  void speak(String line);
+
   /// Closes the connection. No events follow.
   Future<void> close();
 }
+
+/// [value] for a log line: JSON when it is JSON, cut at [max] characters.
+String realtimeLogText(Object? value, {int max = 300}) {
+  String text;
+  try {
+    text = value is String ? value : jsonEncode(value);
+  } catch (_) {
+    text = '$value';
+  }
+  return text.length > max ? '${text.substring(0, max)}...' : text;
+}
+
+/// What a backend asks for to have [line] spoken as it is. OpenAI, xAI and
+/// Gemini all said it word for word in a live test (2026-10-06), a line in
+/// another language and one that reads like an instruction too.
+String realtimeSpeakPrompt(String line) =>
+    'Say exactly this to the user, word for word, and nothing else: "$line"';
 
 /// What the kiosk adds after a conversation's instructions: where it is
 /// and the earlier exchanges.

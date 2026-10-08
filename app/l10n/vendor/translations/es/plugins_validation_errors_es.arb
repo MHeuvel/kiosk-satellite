@@ -28,5 +28,7 @@
   "pluginErrorSettingType": "El tipo de ajuste no es compatible",
   "pluginErrorInvalidManifest": "El manifiesto del plugin no es válido",
   "pluginErrorAndroidApi": "El plugin necesita la API {version} de Android",
-  "pluginErrorInvalidField": "El campo {field} no es válido"
+  "pluginErrorInvalidField": "El campo {field} no es válido",
+  "pluginErrorTooManyTriggers": "Demasiados disparadores",
+  "pluginErrorTriggerId": "El ID del disparador no es válido o está duplicado"
 }

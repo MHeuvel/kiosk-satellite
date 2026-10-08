@@ -1,0 +1,19 @@
+{
+  "@@locale": "ru",
+  "settingCameraEnabledTitle": "Включить камеру",
+  "settingCameraEnabledDescription": "Использование камеры добавляет нагрузку на ЦП и нагрев, что может сократить срок службы батареи и устройства.",
+  "settingCameraDeviceTitle": "Камера",
+  "settingCameraDeviceDescription": "Какую камеру использовать.",
+  "settingCameraSnapshotResolutionTitle": "Разрешение снимков",
+  "settingCameraSnapshotResolutionDescription": "Выше: резче, но больше нагрузки на ЦП и трафика.",
+  "settingCameraDisableDetectionSnapshotsTitle": "Отключить снимки при обнаружении",
+  "settingCameraDisableDetectionSnapshotsDescription": "Не делать автоматические снимки по срабатыванию обнаружения. Определение движения, лиц, присутствия и жестов продолжает работать. Ручные запросы и «Непрерывные снимки» продолжают снимать.",
+  "settingCameraSnapshotsTitle": "Непрерывные снимки",
+  "settingCameraSnapshotsDescription": "Публиковать свежий снимок камеры в Home Assistant с фиксированным интервалом.",
+  "settingCameraSnapshotIntervalTitle": "Интервал снимков",
+  "settingCameraSnapshotIntervalDescription": "Секунды между снимками.",
+  "cameraFront": "Фронтальная",
+  "cameraBack": "Задняя",
+  "cameraExternal": "Внешняя",
+  "cameraOnlyCamera": "Единственная камера этого устройства."
+}

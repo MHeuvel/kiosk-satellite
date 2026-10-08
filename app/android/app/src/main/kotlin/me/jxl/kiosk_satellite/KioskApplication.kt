@@ -154,5 +154,11 @@ class KioskApplication : Application(), CameraXConfig.Provider {
         mediaSessions = MediaSessionBridge(applicationContext, messenger)
         voiceIntents = VoiceIntentBridge(applicationContext, messenger)
         plugins = me.jxl.kiosk_satellite.plugins.PluginBridge(applicationContext, messenger)
+        // Plugin overlays are platform views on the cached engine, built
+        // with the Activity's context whenever one is attached.
+        engine.platformViewsController.registry.registerViewFactory(
+            me.jxl.kiosk_satellite.plugins.PluginOverlayViews.VIEW_TYPE,
+            plugins.overlayViews,
+        )
     }
 }

@@ -2315,7 +2315,6 @@ class _WeatherWidgetOverlayState extends State<WeatherWidgetOverlay> {
   void initState() {
     super.initState();
     unawaited(_open());
-    unawaited(_loadTranslations());
     // The same slow OLED-protecting nudge the small clock does.
     _shift = Timer.periodic(const Duration(minutes: 1), (_) {
       if (!widget.container.settings.get(defs.screensaverPixelShift)) return;
@@ -2330,23 +2329,19 @@ class _WeatherWidgetOverlayState extends State<WeatherWidgetOverlay> {
     });
   }
 
-  /// Cached in the manager after the first widget asks, so this costs one
-  /// lookup per app run rather than one per screensaver.
-  Future<void> _loadTranslations() async {
-    final translated = await widget.container.homeAssistant.stateTranslations(
-      'weather',
-    );
-    if (!mounted || translated.isEmpty) return;
-    setState(() => _translated = translated);
-  }
-
   Future<void> _open() async {
     final entity = '${widget.spec.config['entity'] ?? ''}';
     if (entity.isEmpty) return;
-    final live = await widget.container.homeAssistant.subscribeEntities([
-      entity,
-      ?_companion(entity),
-    ], _onState);
+    // Cached in the manager once a socket brings them, so later
+    // screensavers get them without another lookup.
+    final live = await widget.container.homeAssistant.subscribeEntities(
+      [entity, ?_companion(entity)],
+      _onState,
+      translationDomain: 'weather',
+      onTranslations: (translated) {
+        if (mounted) setState(() => _translated = translated);
+      },
+    );
     if (!mounted) {
       unawaited(live?.close());
       return;

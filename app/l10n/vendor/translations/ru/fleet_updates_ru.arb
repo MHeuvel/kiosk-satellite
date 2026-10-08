@@ -1,0 +1,11 @@
+{
+  "@@locale": "ru",
+  "fleetUpdateTheFleet": "Обновить группу",
+  "fleetUpdateTheWholeFleetToTheKioskSatelliteVersion": "Обновить всю группу до версии Kiosk Satellite, работающей на ведущем.",
+  "fleetKeepFollowersOnThisVersion": "Держать ведомых на этой версии",
+  "fleetAutomaticallyUpdateAllFollowersToTheKioskSatelliteVersion": "Автоматически обновлять всех ведомых до версии Kiosk Satellite, работающей на ведущем.",
+  "fleetNothingToUpdate": "Обновлять нечего",
+  "fleetUpdating": "Обновление",
+  "fleetNamesInstalling": "{names}: установка.",
+  "fleetSearchUpdates": "Установите выпуск, предложенный каждому ведомому, затем здесь."
+}

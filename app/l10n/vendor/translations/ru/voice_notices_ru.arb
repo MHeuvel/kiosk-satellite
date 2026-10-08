@@ -1,0 +1,21 @@
+{
+  "@@locale": "ru",
+  "voiceNoticeError": "Ошибка Voice Satellite",
+  "voiceNoticeWarning": "Предупреждение Voice Satellite",
+  "voiceNoticeNotice": "Уведомление Voice Satellite",
+  "voiceNoticeTts": "Синтез речи",
+  "voiceNoticeAssistPipeline": "Конвейер Assist",
+  "voiceNoticePipeline": "Конвейер «{name}»",
+  "voiceNoticeMicUnavailable": "Микрофон недоступен.",
+  "voiceNoticeNotConnected": "Home Assistant не подключён к этому киоску.",
+  "voiceNoticeConnectionLost": "Соединение с Home Assistant потеряно. Переподключение выполняется автоматически.",
+  "voiceNoticePlayback": "Не удалось воспроизвести звук на устройстве.",
+  "voiceNoticeWatchdog": "Home Assistant не ответил после того, как вы закончили говорить. Конвейер мог зависнуть.",
+  "voiceNoticeRefused": "Home Assistant не смог запустить ассистента.",
+  "voiceNoticeUnexpected": "Произошла неожиданная ошибка конвейера.",
+  "voiceNoticeMicBlocked": "Доступ к микрофону заблокирован. Разрешите его для Kiosk Satellite в настройках Android.",
+  "voiceNoticeMicDeclined": "Доступ к микрофону отклонён, поэтому слово пробуждения не слышно.",
+  "voiceNoticeMicLost": "Микрофон перестал работать.",
+  "voiceNoticeModels": "Не удалось загрузить модели слова пробуждения.",
+  "voiceNoticeCrashed": "Детектор слова пробуждения постоянно падал на этом устройстве и был остановлен."
+}

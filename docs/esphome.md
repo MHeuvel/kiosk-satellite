@@ -110,6 +110,7 @@ Every item in this list corresponds directly to a kiosk setting. They are fully 
 | **Camera facing** | select | Requires both a front and back physical camera. |
 | **Intercom do not disturb** | switch | The [intercom's](intercom.md) answer mode as Do not disturb, on or off. Listed while the intercom is on. |
 | **Intercom answer mode** | select | Ring, Answer automatically or Do not disturb. Listed while the intercom is on. |
+| **Intercom volume** | number | The share of the master volume the other kiosk's voice and announcements play at, in percentage. Listed while the intercom is on. |
 
 ### Diagnostics
 

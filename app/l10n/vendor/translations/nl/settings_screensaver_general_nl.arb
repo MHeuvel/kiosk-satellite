@@ -10,6 +10,8 @@
   "settingScreensaverPixelShiftDescription": "Verschuif de afbeelding elke minuut een klein stukje om OLED-schermen te beschermen. Dit geldt niet voor de zwarte schermbeveiliging, waarbij de pixels al uit staan.",
   "settingScreensaverMenuTitle": "Toon in het kioskmenu",
   "settingScreensaverMenuDescription": "Voeg de optie 'Schermbeveiliging starten' toe aan het kioskmenu.",
+  "settingScreensaverFollowAnimationScaleTitle": "Android-animatie-instellingen volgen",
+  "settingScreensaverFollowAnimationScaleDescription": "Pauzeer geanimeerde schermbeveiligingen wanneer Android-animaties uit staan.",
   "settingScreensaverDimLevelTitle": "Dimniveau",
   "settingScreensaverDimLevelDescription": "De helderheid van het scherm wanneer de schermbeveiliging dimt.",
   "settingScreensaverBrightnessEnabledTitle": "Helderheid van schermbeveiliging",

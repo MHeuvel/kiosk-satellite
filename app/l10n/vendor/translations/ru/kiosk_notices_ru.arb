@@ -1,0 +1,21 @@
+{
+  "@@locale": "ru",
+  "kioskBackClose": "Нажмите «Назад» ещё раз, чтобы закрыть приложение",
+  "kioskBackAgain": "Нажмите «Назад» ещё раз, чтобы вернуться",
+  "kioskHoldOn": "Режим удержания включён",
+  "kioskHoldOff": "Режим удержания выключен",
+  "kioskHoldNotice": "Текущий экран останется, пока вы не выключите режим удержания.",
+  "kioskDownloadComplete": "Загрузка завершена",
+  "kioskDownloadFailed": "Не удалось загрузить",
+  "kioskDownload": "Скачать",
+  "kioskDownloading": "Загрузка",
+  "kioskOpen": "Открыть",
+  "kioskTip": "Подсказка",
+  "kioskMenuHint": "Проведите от левого края, чтобы открыть меню.",
+  "kioskUnknownLink": "Неизвестная ссылка киоска",
+  "kioskOpenAppFailed": "Не удалось открыть приложение",
+  "kioskWebViewMissing": "Android System WebView не установлен",
+  "kioskWebViewMissingHelp": "На устройстве нет провайдера WebView, поэтому Home Assistant не может быть показан. Установите Android System WebView или Chrome, затем перезапустите Kiosk Satellite.",
+  "kioskDuraSpeedBlocking": "DuraSpeed блокирует панель",
+  "kioskDuraSpeedBlockingHelp": "DuraSpeed этого планшета не даёт запуститься рендереру панели, а на некоторых планшетах у него нет страницы настроек. Выключите его один раз через adb, затем перезапустите Kiosk Satellite:"
+}

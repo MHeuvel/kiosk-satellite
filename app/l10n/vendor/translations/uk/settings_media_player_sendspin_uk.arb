@@ -8,6 +8,7 @@
   "settingSendspinCodecDescription": "FLAC - без втрат, ідеально для Wi-Fi або Ethernet. Сервер робить остаточний вибір з того, що пропонує цей пристрій.",
   "settingSendspinSyncOffsetTitle": "Зсув синхронізації аудіо (мс)",
   "settingSendspinSyncOffsetDescription": "Від'ємне значення відтворює на цьому пристрої раніше, для гучномовців, що відстають від групи (Bluetooth). Підлаштовуйте на слух; застосовується негайно.",
+  "settingSendspinGroupVolumeDescription": "Поки цей пристрій грає у групі, повзунок гучності встановлює гучність усієї групи. Якщо вимкнено - лише цього пристрою. Потрібне підключення до Music Assistant.",
   "mediaSendspinPage": "Плеєр Sendspin",
   "mediaSendspinHint": "Зробити цей пристрій синхронізованим плеєром Music Assistant",
   "mediaFlac": "FLAC (без втрат)",

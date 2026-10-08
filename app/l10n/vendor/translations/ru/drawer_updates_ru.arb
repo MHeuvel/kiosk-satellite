@@ -1,0 +1,20 @@
+{
+  "@@locale": "ru",
+  "drawerVersion": "Версия {version}",
+  "drawerUpdateAvailable": "Доступно обновление",
+  "drawerUpdateInstall": "Версия {version} · нажмите, чтобы установить",
+  "drawerUpdateChecking": "Проверка обновлений…",
+  "drawerUpdateCurrent": "Актуальная версия",
+  "drawerUpdateCurrentHelp": "У вас установлена последняя версия.",
+  "drawerUpdateCheckFailed": "Не удалось проверить обновления",
+  "drawerUpdateOffline": "Устройство подключено к сети?",
+  "drawerUpdateTo": "Обновить до {version}",
+  "drawerUpdateInstructions": "Загрузка начнётся после нажатия «Обновить». Android попросит подтвердить установку.",
+  "drawerUpdateRelaunch": "Без разрешения «Поверх других приложений» приложение не сможет снова открыться после обновления.",
+  "drawerUpdate": "Обновить",
+  "drawerUpdateDownloading": "Загрузка обновления",
+  "drawerUpdateStarting": "Запуск…",
+  "drawerUpdateFailed": "Не удалось обновить",
+  "drawerUpdates": "Обновления",
+  "drawerNoReleaseNotes": "Примечаний к выпуску нет."
+}

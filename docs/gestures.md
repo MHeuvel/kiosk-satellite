@@ -25,6 +25,7 @@ Each entry on this page binds one specific gesture to one specific action. When 
 | Corner sequence | An ordered sequence of corner taps, functioning like a knock code. |
 | Claps | 2 to 4 distinct claps, detected through the device microphone. |
 | Show fingers | An open hand, or a hand showing 1 to 4 fingers, presented to the device camera. |
+| Plugin trigger | Fired by a plugin when it notices something, such as a hardware button press. See [Plugin triggers](#plugin-triggers). |
 
 The corner hitboxes are approximately 1.5 centimeters square. You can map two different gestures to the exact same corner using different tap counts; the system will automatically wait a beat after the shorter sequence to ensure you aren't simply entering the longer one.
 
@@ -46,6 +47,9 @@ The action chooser groups options into three categories: Kiosk Satellite, Androi
 | Open the app launcher | Opens the app launcher overlay displaying the specific apps you selected under App Launcher configuration. You can close it via its close button or by tapping outside the overlay. This requires the App Launcher to be enabled with at least one app selected. It works even if the Apps entry is hidden from the main kiosk menu (meaning you can hide the menu entry via Kiosk Mode, Allowed Actions, but keep the launcher accessible via a secret gesture). |
 | Call a kiosk | Rings the kiosk picked when the gesture was set up, over the [intercom](intercom.md). A kiosk that is off, on Do not disturb or on another key ends the call with the reason on the card. |
 | Open Call a kiosk | Opens the [intercom's](intercom.md) Call a kiosk sheet, Announce to all first. Requires the intercom to be enabled with the remote admin on. Works even if the Intercom entry is hidden from the restricted kiosk menu under Kiosk Mode, Allowed Actions. |
+| End the intercom call | Ends the [intercom](intercom.md) call the way the hang up button does: a call being placed, a live call or either end of an announcement. A ringing call still needs Answer or Decline on the screen. Pairs well with claps or Show fingers to hang up from across the room. Does nothing outside a call. |
+| Stop the alarm | Stops the ringing [alarm](alarms.md) the way the Stop button does. It also ends a snooze or a sunrise, and a stopped sunrise skips its ring. Pairs well with claps or Show fingers to silence an alarm from bed. Does nothing when no alarm is going. |
+| Snooze the alarm | Snoozes the ringing [alarm](alarms.md) for the snooze length, the same as the Snooze button. Does nothing unless an alarm is ringing. |
 | Start the screensaver | Immediately launches whatever screensaver mode is currently configured. |
 | Stop the screensaver | While redundant for touch gestures (since any screen tap dismisses a screensaver), this is highly useful for clap gestures, allowing you to wake the screen from across the room. |
 | Toggle hold mode | Pins the current view, pausing the screensaver, dashboard rotation, and the return to home timer. Performing the same gesture again releases the hold. This pairs exceptionally well with a clap gesture when cooking from a recipe. |
@@ -95,6 +99,17 @@ Camera behavior for Show Fingers:
 * Once an action fires, the finger count must physically change (or the hand must drop out of frame) before that specific mapping can fire again. Simply holding the hand up will not repeat the action. However, smoothly switching from two fingers to an open hand will fire both associated actions in sequence. A second hand resting in view will not block detection.
 * Lockdown Mode and Kiosk Mode's Disable Gestures toggle will silence the hand gesture exactly as they do touch gestures. When silenced, the camera is not even bound for hand detection.
 * As long as a hand mapping exists, the camera's exposure is dynamically steered by the video frames themselves. Because a front camera typically meters for the whole room (which often leaves a person standing in front of it in silhouette), the app will ask the camera to step up the exposure for dark frames and step it down for bright ones, adjusting every couple of seconds. The motion analyzer and any snapshots taken simultaneously will use these same adjusted frames. Hands still require some ambient light to be read, though less than faces. A palm held up near a dim night light will be detected, though it may take a beat longer than in daylight. The gesture will not function in complete darkness.
+
+## Plugin Triggers
+
+A [plugin](plugins.md) can declare triggers and fire them when it notices something the app does not watch by itself, such as a hardware button press on a smart display or a proprietary sensor. Pick **Plugin trigger** as the gesture, then pick the trigger from the list. The list shows the triggers of running plugins.
+
+* The plugin decides when its trigger fires. Kiosk Satellite runs the mapped action each time it does, for up to four fires per second per plugin.
+* Lockdown Mode and Kiosk Mode's Disable Gestures silence plugin triggers just like the other gestures. A voice interaction does not.
+* A mapping keeps its trigger when the plugin is disabled, but nothing fires until the plugin runs again.
+* Plugins are installed per device, so Fleet Management never syncs a gesture that uses a plugin trigger or a plugin action.
+
+Plugin authors can find the manifest format and `host.fireTrigger` in the [plugin SDK documentation](https://github.com/jxlarrea/kiosk-satellite-plugin-hello-world/blob/main/docs/creating-plugins.md#gesture-triggers).
 
 ## Timing
 

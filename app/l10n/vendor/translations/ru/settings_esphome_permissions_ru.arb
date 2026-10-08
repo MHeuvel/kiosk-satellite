@@ -1,0 +1,16 @@
+{
+  "@@locale": "ru",
+  "esphomeLocation": "Местоположение",
+  "esphomeLocationSearch": "Разрешение «Местоположение», нужное датчикам местоположения.",
+  "esphomeBluetoothSearch": "Разрешение «Устройства поблизости», нужное Bluetooth-прокси для сканирования.",
+  "esphomeLocationMissing": "Без этого GPS-приёмник не читается, и датчики местоположения остаются неизвестными.",
+  "esphomeLocationServicesOff": "Местоположение выключено в настройках устройства, поэтому приёмник ничего не выдаёт.",
+  "esphomeLocationGranted": "Датчики местоположения могут читать GPS-приёмник.",
+  "esphomeBluetoothGranted": "Прокси может искать устройства Bluetooth поблизости.",
+  "esphomeBluetoothMissing": "Без этого прокси не может искать устройства.",
+  "esphomeBluetoothLocationMissing": "Android выдаёт результаты сканирования Bluetooth, включая маячки, только с разрешением «Местоположение». Прокси никогда не читает позицию устройства.",
+  "esphomeBluetoothLocationOff": "Местоположение выключено в настройках устройства, поэтому сканирование Bluetooth ничего не находит.",
+  "esphomeBluetoothBeacons": "Сканирование Bluetooth может слышать маячки.",
+  "esphomeSent": "Отправлено",
+  "esphomeNotsaved": "Не сохранено"
+}

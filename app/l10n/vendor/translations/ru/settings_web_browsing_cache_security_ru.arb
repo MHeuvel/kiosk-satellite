@@ -1,0 +1,9 @@
+{
+  "@@locale": "ru",
+  "settingDisableCacheTitle": "Отключить кэш",
+  "settingDisableCacheDescription": "Всегда брать из сети и отбрасывать кэш страницы при загрузке, чтобы обновлённая панель всегда возвращалась свежей. Медленно; считайте помощью для разработки.",
+  "settingAllowMixedContentTitle": "Разрешить смешанный контент",
+  "settingAllowMixedContentDescription": "Позволить HTTPS-страницам грузить небезопасные HTTP-ресурсы. Помогает, когда Home Assistant подмешивает http:// контент в https:// панель.",
+  "settingIgnoreSslErrorsTitle": "Игнорировать ошибки SSL",
+  "settingIgnoreSslErrorsDescription": "Принимать недоверенные или самоподписанные сертификаты. Используйте только в собственной сети: это отключает проверку сертификатов."
+}

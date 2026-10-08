@@ -52,11 +52,19 @@ class KioskAccessibilityService : AccessibilityService() {
         @Volatile
         var running = false
             private set
+
+        /// The connected service, the host of the lockdown shield's
+        /// accessibility overlay on a Meta Portal (see [LockShieldOverlay]).
+        @Volatile
+        var instance: KioskAccessibilityService? = null
+            private set
     }
 
     override fun onServiceConnected() {
         super.onServiceConnected()
         running = true
+        instance = this
+        LockShieldOverlay.rehost()
         if (!guardShade && !guardRecents) {
             val prefs =
                 getSharedPreferences("FlutterSharedPreferences", MODE_PRIVATE)
@@ -72,13 +80,21 @@ class KioskAccessibilityService : AccessibilityService() {
     }
 
     override fun onUnbind(intent: android.content.Intent?): Boolean {
-        running = false
+        disconnected()
         return super.onUnbind(intent)
     }
 
     override fun onDestroy() {
-        running = false
+        disconnected()
         super.onDestroy()
+    }
+
+    private fun disconnected() {
+        running = false
+        if (instance === this) {
+            instance = null
+            LockShieldOverlay.rehost()
+        }
     }
 
     private val main = Handler(Looper.getMainLooper())

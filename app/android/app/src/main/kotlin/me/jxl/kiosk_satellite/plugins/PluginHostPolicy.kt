@@ -8,11 +8,25 @@ internal object PluginHostPolicy {
     val events = setOf(
         "screensaver.state", "screensaver.countdown", "screensaver.view",
         "screen.state", "screen.brightness", "screen.ambient",
-        "device.power", "device.network", "device.volume", "device.light",
+        "device.power", "device.network", "device.volume", "device.light", "device.key",
         "detection.motion", "detection.face", "detection.proximity",
-        "detection.person", "detection.presence", "voice.interaction",
+        "detection.person", "detection.presence", "voice.interaction", "voice.state", "intercom.state",
         "wakeword.state", "wakeword.detected", "stopword.detected", "camera.view", "browser.state",
     )
+
+    /**
+     * The `device.key` payload. Null for printing and modifier keys, so typed
+     * text never reaches a plugin. [name] is Android's KEYCODE_ constant.
+     */
+    fun keyPayload(name: String, code: Int, scanCode: Int, down: Boolean, repeat: Int, printing: Boolean, modifier: Boolean, time: String): Map<String, Any>? =
+        if (printing || modifier) null else mapOf(
+            "key" to name.removePrefix("KEYCODE_"),
+            "code" to code,
+            "scanCode" to scanCode,
+            "action" to if (down) "down" else "up",
+            "repeat" to repeat,
+            "time" to time,
+        )
 }
 
 internal class PluginCommandBudget {

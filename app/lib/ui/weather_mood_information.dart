@@ -326,41 +326,46 @@ class _WeatherMoodInformationState extends State<WeatherMoodInformation> {
       child: Center(
         child: Transform.translate(
           offset: _offset,
-          child: FittedBox(
-            fit: BoxFit.scaleDown,
-            // Blurred shadows redraw every frame on Impeller unless the
-            // face is kept as an image until the time changes.
-            child: ringing
-                ? Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      face,
-                      SizedBox(height: clockSize * .08),
-                      _alarmControls(dateSize, color, clockFontFamily(font)),
-                    ],
-                  )
-                : shadow
-                ? TextSnapshot(
-                    // The soft shadows reach this far past the text.
-                    bleed: math.max(
-                      clockSize * (bright ? .55 : .16),
-                      dateSize * .8,
+          child: ringing
+              // The face gives way to the label and the buttons, which keep
+              // their full size. Fitted together, a small screen shrank the
+              // buttons along with the clock.
+              ? Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Flexible(
+                      child: FittedBox(fit: BoxFit.scaleDown, child: face),
                     ),
-                    content: (
-                      bright,
-                      time,
-                      date,
-                      color,
-                      clockSize,
-                      dateSize,
-                      font,
-                      weight,
-                      vertical,
-                    ),
-                    child: face,
-                  )
-                : face,
-          ),
+                    SizedBox(height: clockSize * .08),
+                    _alarmControls(dateSize, color, clockFontFamily(font)),
+                  ],
+                )
+              : FittedBox(
+                  fit: BoxFit.scaleDown,
+                  // Blurred shadows redraw every frame on Impeller unless
+                  // the face is kept as an image until the time changes.
+                  child: shadow
+                      ? TextSnapshot(
+                          // The soft shadows reach this far past the text.
+                          bleed: math.max(
+                            clockSize * (bright ? .55 : .16),
+                            dateSize * .8,
+                          ),
+                          content: (
+                            bright,
+                            time,
+                            date,
+                            color,
+                            clockSize,
+                            dateSize,
+                            font,
+                            weight,
+                            vertical,
+                          ),
+                          child: face,
+                        )
+                      : face,
+                ),
         ),
       ),
     );

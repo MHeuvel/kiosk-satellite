@@ -1508,6 +1508,15 @@ class UiStringsNl extends UiStrings {
   String get gestureIntercomCall => 'Bel een kiosk';
 
   @override
+  String get gestureIntercomHangup => 'Intercomgesprek beëindigen';
+
+  @override
+  String get gestureAlarmStop => 'Stop het alarm';
+
+  @override
+  String get gestureAlarmSnooze => 'Laat het alarm sluimeren';
+
+  @override
   String get gestureScreensaver => 'Start de schermbeveiliging';
 
   @override
@@ -2021,6 +2030,16 @@ class UiStringsNl extends UiStrings {
 
   @override
   String get gestureSequenceError => 'Voeg minstens twee hoeken toe.';
+
+  @override
+  String get gesturePluginTrigger => 'Plug-intrigger';
+
+  @override
+  String get gesturePluginTriggerField => 'Trigger';
+
+  @override
+  String get gesturePluginTriggerHelp =>
+      'Schakel eerst een plug-in met triggers in via Plug-inbeheer.';
 
   @override
   String get intercomCall => 'Oproep';
@@ -3222,6 +3241,12 @@ class UiStringsNl extends UiStrings {
   String pluginErrorInvalidField(String field) {
     return 'Ongeldige $field';
   }
+
+  @override
+  String get pluginErrorTooManyTriggers => 'Te veel triggers';
+
+  @override
+  String get pluginErrorTriggerId => 'Ongeldige of dubbele trigger-ID';
 
   @override
   String get remoteDisableTitle => 'Beheer op afstand uitschakelen?';
@@ -8177,6 +8202,26 @@ class UiStringsNl extends UiStrings {
       'Laat beweging Speelt nu sluiten zoals bij een gewone schermbeveiliging. Als dit uitstaat, sluit alleen een aanraking de weergave en onderbreekt voorbijlopen de muziekweergave niet. Wordt genegeerd als Speelt nu naast een schermbeveiliging staat.';
 
   @override
+  String get settingSendspinFullscreenReturnTitle => 'Na het sluiten';
+
+  @override
+  String get settingSendspinFullscreenReturnDescription =>
+      'De dashboardweergave die verschijnt nadat Speelt nu is gesloten. Standaard volgt Terugkeren naar de startweergave van het dashboard.';
+
+  @override
+  String get mediaReturnLastView => 'Laatste weergave';
+
+  @override
+  String get mediaReturnChosenView => 'Gekozen weergave';
+
+  @override
+  String get settingSendspinFullscreenReturnViewTitle => 'Dashboardweergave';
+
+  @override
+  String get settingSendspinFullscreenReturnViewDescription =>
+      'De weergave die verschijnt nadat Speelt nu is gesloten.';
+
+  @override
   String get settingSendspinFullscreenShortcutTitle => 'Toon in het kioskmenu';
 
   @override
@@ -8330,6 +8375,10 @@ class UiStringsNl extends UiStrings {
   @override
   String get settingSendspinSyncOffsetDescription =>
       'Een negatieve waarde laat dit apparaat eerder afspelen, voor luidsprekers die achterlopen op de groep, bijvoorbeeld via Bluetooth. Stel dit op gehoor af; wijzigingen worden direct toegepast.';
+
+  @override
+  String get settingSendspinGroupVolumeDescription =>
+      'Wanneer dit apparaat in een groep afspeelt, regelt de volumeschuif het volume van de hele groep. Als dit uitstaat, wordt alleen het volume van dit apparaat aangepast. Vereist de verbinding met Music Assistant.';
 
   @override
   String get mediaSendspinPage => 'Sendspin-speler';
@@ -9359,6 +9408,14 @@ class UiStringsNl extends UiStrings {
   @override
   String get settingScreensaverMenuDescription =>
       'Voeg de optie \'Schermbeveiliging starten\' toe aan het kioskmenu.';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleTitle =>
+      'Android-animatie-instellingen volgen';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleDescription =>
+      'Pauzeer geanimeerde schermbeveiligingen wanneer Android-animaties uit staan.';
 
   @override
   String get settingScreensaverDimLevelTitle => 'Dimniveau';

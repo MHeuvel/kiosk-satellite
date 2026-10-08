@@ -1,0 +1,22 @@
+{
+  "@@locale": "ru",
+  "settingScreensaverDismissOnPersonTitle": "Прятать при присутствии",
+  "settingScreensaverDismissOnPersonDescription": "Читать датчик присутствия устройства, пока заставка активна, и пробуждать экран, когда кто-то перед ним. Нужно разрешение на доступ к журналам ниже.",
+  "settingScreensaverDismissOnPersonScreenOffOnlyTitle": "Только при выключенном экране",
+  "settingScreensaverDismissOnPersonScreenOffOnlyDescription": "Держать заставку видимой, когда кто-то появился при включённом экране. После выключения экрана определение будит панель. Касание всё равно прячет заставку.",
+  "settingScreensaverPostponeOnPersonTitle": "Откладывать заставку при присутствии",
+  "settingScreensaverPostponeOnPersonDescription": "Откладывать включение заставки, пока кто-то перед устройством.",
+  "screensaverDetectionPersonPage": "Определение присутствия",
+  "screensaverDetectionPersonHint": "Прятать или откладывать заставку по датчику присутствия устройства",
+  "screensaverDetectionOccupancy": "Присутствие",
+  "screensaverDetectionStatusUnavailable": "Статус недоступен.",
+  "screensaverDetectionOff": "Выключено.",
+  "screensaverDetectionStarting": "Запуск…",
+  "screensaverDetectionWaiting": "Ожидание первого сигнала. Датчик сообщает каждые 30 с, пока кто-то в поле зрения.",
+  "screensaverDetectionLastHeartbeat": "Последний сигнал {ago}.",
+  "screensaverDetectionSecondsAgo": "{count} с назад",
+  "screensaverDetectionMinutesAgo": "{count} мин назад",
+  "screensaverDetectionHoursAgo": "{count} ч назад",
+  "screensaverDetectionDetected": "Обнаружено",
+  "screensaverDetectionClear": "Не обнаружено"
+}

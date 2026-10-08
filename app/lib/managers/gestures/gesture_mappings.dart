@@ -27,6 +27,10 @@
 /// proposes hands; HandLandmarker.kt judges them and counts fingers):
 ///  - fingers:         fingers (1..5): a hand showing that many
 ///
+/// One comes from a plugin (PluginBridge.kt relays host.fireTrigger, issue
+/// #888). The names are display copies of the manifest's:
+///  - plugin:          pluginId, trigger, pluginName, title
+///
 /// Action types (run in GesturesManager):
 ///  - plugin_action:    pluginId, command (a declared plugin command)
 ///  - navigate:         path (a dashboard view, via haNavigate)
@@ -41,6 +45,9 @@
 ///  - app_launcher:     open the app launcher overlay (issue #318)
 ///  - intercom_open:    open the intercom's Call a kiosk sheet
 ///  - intercom_call:    kioskId, kioskName: call that kiosk straight away
+///  - intercom_hangup:  end the intercom call, like the hang up button
+///  - alarm_stop:       stop the ringing, snoozed or sunrise alarm (#872)
+///  - alarm_snooze:     snooze the ringing alarm
 ///  - screensaver:      start the screensaver
 ///  - screensaver_stop: stop it (redundant for touch, made for claps)
 ///  - hold_mode:        toggle hold mode (pin the current view, issue #266)
@@ -69,6 +76,10 @@ class GestureMapping {
 
   String get triggerType => '${trigger['type'] ?? ''}';
   String get actionType => '${action['type'] ?? ''}';
+
+  /// Plugins are installed per kiosk, so these mappings never sync.
+  bool get usesPlugin =>
+      triggerType == 'plugin' || actionType == 'plugin_action';
 
   Map<String, Object?> toJson() => {
     'id': id,
@@ -106,12 +117,13 @@ List<GestureMapping> decodeGestureMappings(String json) {
 }
 
 /// The flat trigger list KioskLock pushes to GestureEngine.configure.
-/// Claps and hands are not touch: they never reach the native engine.
+/// Claps, hands and plugin triggers are not touch: they never reach the
+/// native engine.
 List<Map<String, Object?>> nativeGestureTriggers(
   List<GestureMapping> mappings,
 ) => [
   for (final m in mappings)
-    if (m.triggerType != 'claps' && m.triggerType != 'fingers')
+    if (!const {'claps', 'fingers', 'plugin'}.contains(m.triggerType))
       {
         'id': m.id,
         'type': m.triggerType,
@@ -168,9 +180,17 @@ String describeGestureTrigger(Map<String, Object?> trigger) {
       return n == 5
           ? 'Show an open hand'
           : 'Show $n finger${n == 1 ? '' : 's'}';
+    case 'plugin':
+      return describePluginTrigger(trigger);
   }
   return 'Gesture';
 }
+
+/// "Hello World: Hardware key": both names come from the plugin's manifest
+/// and read the same in every language, like a plugin action's.
+String describePluginTrigger(Map<String, Object?> trigger) =>
+    '${trigger['pluginName'] ?? trigger['pluginId']}: '
+    '${trigger['title'] ?? trigger['trigger']}';
 
 /// The clap counts the configured mappings listen for: what ClapDetector is
 /// armed with, and empty when no clap mapping exists (no microphone use).
@@ -214,6 +234,12 @@ String describeGestureAction(Map<String, Object?> action) {
       return 'Open Call a kiosk';
     case 'intercom_call':
       return 'Call ${action['kioskName'] ?? action['kioskId']}';
+    case 'intercom_hangup':
+      return 'End the intercom call';
+    case 'alarm_stop':
+      return 'Stop the alarm';
+    case 'alarm_snooze':
+      return 'Snooze the alarm';
     case 'screensaver':
       return 'Start the screensaver';
     case 'screensaver_stop':

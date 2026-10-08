@@ -44,7 +44,7 @@ class UpdateHelperClient(private val context: Context) {
      * An error after COMMIT has an uncertain outcome and must never retry
      * automatically. A successful self-update usually kills this caller.
      */
-    fun install(apk: File): Boolean {
+    fun install(apk: File, beforeCommit: () -> Unit = {}): Boolean {
         var committed = false
         try {
             connect("INSTALL").use { socket ->
@@ -61,6 +61,7 @@ class UpdateHelperClient(private val context: Context) {
                 check(prepared == "prepared") { prepared }
                 // Mark before writing: a failed write can still have reached
                 // the helper, so the outcome is uncertain from this point.
+                beforeCommit()
                 committed = true
                 output.writeUTF("COMMIT")
                 output.flush()

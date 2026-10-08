@@ -1500,6 +1500,15 @@ class UiStringsEn extends UiStrings {
   String get gestureIntercomCall => 'Call a kiosk';
 
   @override
+  String get gestureIntercomHangup => 'End the intercom call';
+
+  @override
+  String get gestureAlarmStop => 'Stop the alarm';
+
+  @override
+  String get gestureAlarmSnooze => 'Snooze the alarm';
+
+  @override
   String get gestureScreensaver => 'Start the screensaver';
 
   @override
@@ -2009,6 +2018,16 @@ class UiStringsEn extends UiStrings {
 
   @override
   String get gestureSequenceError => 'Add at least two corners.';
+
+  @override
+  String get gesturePluginTrigger => 'Plugin trigger';
+
+  @override
+  String get gesturePluginTriggerField => 'Trigger';
+
+  @override
+  String get gesturePluginTriggerHelp =>
+      'Enable a plugin with triggers in Plugin Manager first.';
 
   @override
   String get intercomCall => 'Call';
@@ -3185,6 +3204,12 @@ class UiStringsEn extends UiStrings {
   String pluginErrorInvalidField(String field) {
     return 'Invalid $field';
   }
+
+  @override
+  String get pluginErrorTooManyTriggers => 'Too many triggers';
+
+  @override
+  String get pluginErrorTriggerId => 'Invalid or duplicate trigger ID';
 
   @override
   String get remoteDisableTitle => 'Turn off remote management?';
@@ -8079,6 +8104,26 @@ class UiStringsEn extends UiStrings {
       'Let motion dismiss Now Playing like a regular screensaver. Off, only touch dismisses it, so a walk-past does not interrupt the music display. Ignored while Now Playing is shown alongside a screensaver.';
 
   @override
+  String get settingSendspinFullscreenReturnTitle => 'After dismissing';
+
+  @override
+  String get settingSendspinFullscreenReturnDescription =>
+      'The dashboard view to show after Now Playing is dismissed. Default follows Return to home dashboard view.';
+
+  @override
+  String get mediaReturnLastView => 'Last view';
+
+  @override
+  String get mediaReturnChosenView => 'Chosen view';
+
+  @override
+  String get settingSendspinFullscreenReturnViewTitle => 'Dashboard view';
+
+  @override
+  String get settingSendspinFullscreenReturnViewDescription =>
+      'The view to show after Now Playing is dismissed.';
+
+  @override
   String get settingSendspinFullscreenShortcutTitle => 'Show in the kiosk menu';
 
   @override
@@ -8230,6 +8275,10 @@ class UiStringsEn extends UiStrings {
   @override
   String get settingSendspinSyncOffsetDescription =>
       'Negative plays this device earlier, for speakers that lag behind the group (Bluetooth). Tune by ear; applies live.';
+
+  @override
+  String get settingSendspinGroupVolumeDescription =>
+      'While this device plays in a group, the volume slider sets the whole group\'s volume. Off, only this device\'s. Needs the Music Assistant connection.';
 
   @override
   String get mediaSendspinPage => 'Sendspin Player';
@@ -9242,6 +9291,14 @@ class UiStringsEn extends UiStrings {
   @override
   String get settingScreensaverMenuDescription =>
       'Add a Start Screensaver entry to the kiosk menu.';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleTitle =>
+      'Follow Android animation settings';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleDescription =>
+      'Pause animated screensavers when Android animations are off.';
 
   @override
   String get settingScreensaverDimLevelTitle => 'Dim level';

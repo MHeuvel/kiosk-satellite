@@ -1,0 +1,17 @@
+{
+  "@@locale": "ru",
+  "settingHaThemeTitle": "Тема",
+  "settingHaThemeDescription": "Светлая или тёмная для панели Home Assistant; также задаётся сущностью Theme в Home Assistant. «Авто» следует настройкам ниже.",
+  "settingThemeMatchAppTitle": "Синхронизировать темы Home Assistant с Kiosk Satellite",
+  "settingThemeMatchAppDescription": "Автоматически подгонять тему Home Assistant под интерфейс Kiosk Satellite.",
+  "settingThemeAutoTitle": "Менять тему по времени суток",
+  "settingThemeAutoDescription": "Переключать Home Assistant между светлой и тёмной темой по расписанию. Выбранная тема сохраняется, меняется только её светлая/тёмная вариация.",
+  "settingThemeDarkAtTitle": "Тёмная тема в",
+  "settingThemeDarkAtDescription": "Местное время перехода на тёмную тему.",
+  "settingThemeLightAtTitle": "Светлая тема в",
+  "settingThemeLightAtDescription": "Местное время возврата к светлой теме.",
+  "settingThemeAutoAppTitle": "Также менять тему приложения",
+  "settingThemeAutoAppDescription": "Переключать и собственную тему Kiosk Satellite (меню, настройки) вместе с запланированным изменением Home Assistant.",
+  "haThemeHint": "Синхронизация с приложением или переключение по расписанию",
+  "haThemeAuto": "Авто"
+}

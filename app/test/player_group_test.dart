@@ -101,6 +101,19 @@ void main() {
       expect(MusicAssistantApi.groupFrom(players, 'tablet')!.leads, isTrue);
     });
 
+    test('each player carries its own volume for the menu (issue #867)', () {
+      final levels = [
+        {...players[0], 'volume_level': 44},
+        {...players[1], 'volume_level': 22.4},
+        // A player Music Assistant cannot set the volume of.
+        {...players[2], 'volume_level': 10, 'volume_control': 'none'},
+        ...players.skip(3),
+      ];
+      final group = MusicAssistantApi.groupFrom(levels, 'echo')!;
+      expect(group.leaderVolume, 44);
+      expect(group.members.map((m) => m.volume), [22, null, null]);
+    });
+
     test('an unknown player is no group', () {
       expect(MusicAssistantApi.groupFrom(players, 'ghost'), isNull);
     });

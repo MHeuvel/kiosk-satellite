@@ -1,0 +1,16 @@
+{
+  "@@locale": "ru",
+  "settingLocationEnabledTitle": "Сообщать местоположение",
+  "settingLocationEnabledDescription": "Читать позицию GPS и отдавать её в Home Assistant как датчики широты, долготы, точности, высоты и скорости. Включение или выключение перерегистрирует устройство ESPHome.",
+  "settingLocationIntervalTitle": "Интервал обновления",
+  "settingLocationIntervalDescription": "Секунды между чтениями позиции.",
+  "esphomeGps": "Датчик GPS",
+  "esphomeGpsHelp": "Предоставлять данные датчика GPS в Home Assistant",
+  "esphomeLocationOff": "Выключено.",
+  "esphomeLocationWaiting": "Ожидание первого фикса. Холодный старт под открытым небом может занять несколько минут.",
+  "esphomeCoordinates": "Последние координаты",
+  "esphomeLocationDenied": "Разрешение на местоположение не предоставлено.",
+  "esphomeLocationAbsent": "Нет GPS-приёмника.",
+  "esphomeLocationError": "GPS недоступен: {error}",
+  "esphomeLocationUnsupported": "Недоступно на этом устройстве: нет GPS-приёмника."
+}

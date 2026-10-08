@@ -177,6 +177,25 @@ void main() {
           reason: 'a meter re-armed across a restart must stay a meter');
     });
 
+    test('near-miss tracking follows the diagnostics listener', () async {
+      engine.onNearMiss = (_, _) {};
+      await start();
+      var msg = engine.control.lastWhere((m) => m['type'] == WakeMsg.init);
+      expect(msg['nearMisses'], isTrue);
+
+      engine.onNearMiss = null;
+      await settle();
+      msg = engine.control
+          .lastWhere((m) => m['type'] == WakeMsg.setNearMisses);
+      expect(msg['enabled'], isFalse);
+
+      engine.onNearMiss = (_, _) {};
+      await settle();
+      msg = engine.control
+          .lastWhere((m) => m['type'] == WakeMsg.setNearMisses);
+      expect(msg['enabled'], isTrue);
+    });
+
     test('a dying isolate is reported, not swallowed', () async {
       // Issue #52: an uncaught error kills the worker, and the engine used to
       // keep reporting itself as running. The device then looked like it was

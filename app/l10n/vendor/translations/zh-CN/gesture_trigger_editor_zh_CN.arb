@@ -40,5 +40,8 @@
   "gestureActionHelp": "此手势触发的操作。",
   "gestureChangeHelp": "点击更改。",
   "gestureChooseError": "请选择操作。",
-  "gestureSequenceError": "请添加至少两个角落。"
+  "gestureSequenceError": "请添加至少两个角落。",
+  "gesturePluginTrigger": "插件触发器",
+  "gesturePluginTriggerField": "触发器",
+  "gesturePluginTriggerHelp": "请先在“插件管理器”中启用提供触发器的插件。"
 }

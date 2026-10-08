@@ -5,5 +5,6 @@
 - Xavier Larrea (es)
 - Limoniak (fr)
 - rononline (nl)
+- Iaroslav Iadryshnikov (ru)
 - kdinya (uk)
 - panda-star357 (zh-CN)

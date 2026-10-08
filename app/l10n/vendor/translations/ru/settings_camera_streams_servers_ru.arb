@@ -1,0 +1,17 @@
+{
+  "@@locale": "ru",
+  "cameraStreamsServers": "Серверы Go2RTC",
+  "cameraStreamsImportStreams": "Импортировать потоки",
+  "cameraStreamsDeleteServer": "Удалить сервер",
+  "cameraStreamsAddServer": "Добавить сервер Go2RTC",
+  "cameraStreamsAddServerHelp": "Подключитесь к серверу и импортируйте его потоки.",
+  "cameraStreamsEditServer": "Изменение сервера",
+  "cameraStreamsName": "Название",
+  "cameraStreamsBaseUrl": "Базовый URL",
+  "cameraStreamsUsername": "Имя пользователя (необязательно)",
+  "cameraStreamsNewPassword": "Новый пароль (оставьте пустым, чтобы сохранить текущий)",
+  "cameraStreamsPassword": "Пароль (необязательно)",
+  "cameraStreamsInvalidCertificate": "Разрешить недействительный сертификат TLS",
+  "cameraStreamsSaveServerFailed": "Не удалось сохранить сервер",
+  "cameraStreamsDeleteServerHelp": "Его камеры будут убраны из каждого вида."
+}

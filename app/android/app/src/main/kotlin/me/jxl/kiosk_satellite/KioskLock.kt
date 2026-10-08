@@ -231,7 +231,6 @@ class KioskLock(private val activity: Activity, messenger: BinaryMessenger) {
                 }
                 "lockShieldPassThrough" -> {
                     LockShieldOverlay.setPassThrough(
-                        activity.applicationContext,
                         call.argument<Boolean>("value") ?: false,
                     )
                     result.success(null)

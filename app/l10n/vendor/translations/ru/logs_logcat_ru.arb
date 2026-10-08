@@ -1,0 +1,11 @@
+{
+  "@@locale": "ru",
+  "logsSystemLog": "Системный журнал Android для этого приложения (сбои появляются здесь)",
+  "logsErrors": "Ошибки и сбои",
+  "logsWarnings": "Предупреждения",
+  "logsInfo": "Информация и отладка",
+  "logsNoMatches": "Подходящих строк нет. Включите больше типов выше, чтобы увидеть полный журнал.",
+  "logsUnavailable": "logcat недоступен",
+  "logsReadFailed": "Не удалось прочитать logcat: {error}",
+  "logsUnknown": "неизвестно"
+}

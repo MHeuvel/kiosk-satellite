@@ -1,0 +1,14 @@
+{
+  "@@locale": "ru",
+  "settingHaHoldModeTitle": "Режим удержания",
+  "settingHaHoldModeDescription": "Держать текущий вид на экране: заставка, ротация видов панели и таймер возврата домой приостановлены до выключения.",
+  "settingHaHoldReleaseMinutesTitle": "Закончить удержание автоматически через",
+  "settingHaHoldReleaseMinutesDescription": "Автоматически выключает режим удержания по прошествии заданного времени. 0: удерживать до выключения вручную.",
+  "settingHaHoldMenuTitle": "Показывать в меню киоска",
+  "settingHaHoldMenuDescription": "Добавляет пункт меню, включающий и выключающий режим удержания.",
+  "haHoldHint": "Закрепить текущий вид, автовыключение, пункт меню",
+  "haNever": "Никогда",
+  "haMinutes": "{minutes} мин",
+  "haHours": "{hours} ч",
+  "haHoursMinutes": "{hours} ч {minutes} мин"
+}

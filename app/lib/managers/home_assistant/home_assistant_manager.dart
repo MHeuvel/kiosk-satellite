@@ -390,13 +390,17 @@ class HomeAssistantManager extends Manager {
       )
       ..register(
         Command(
-          name: 'leaveScreensaverDashboard',
+          name: 'leaveScreensaver',
           description:
-              'Take the dashboard back to where it was before the Home '
-              'Assistant Dashboard screensaver moved it. Called by the '
-              'screensaver as it ends.',
-          handler: (_) async {
-            await leaveScreensaverDashboard();
+              'Move the dashboard to where the screensaver dismissal lands: '
+              'the Now Playing target, back from the Home Assistant '
+              'Dashboard screensaver, or home. Called by the screensaver as '
+              'it ends.',
+          params: const {
+            'nowPlaying': 'true when the session showed Now Playing',
+          },
+          handler: (p) async {
+            await leaveScreensaver(nowPlaying: p['nowPlaying'] == true);
             return const CommandResult.ok();
           },
         ),
@@ -788,21 +792,9 @@ class HomeAssistantManager extends Manager {
     bus.on<ScreensaverStateChanged>().listen((e) {
       _screensaverActive = e.active;
       if (e.active) {
-        // The screensaver reached idle first: do the return now, quietly
-        // behind the cover, so the wake reveals the home dashboard with no
-        // visible navigation. Only rendering is frozen under the pause
-        // optimization — JS pushed from Dart still executes — so this
-        // works with the dashboard WebView hidden.
         _returnHomeTimer?.cancel();
         _returnHomeTimer = null;
-        // The Home Assistant Dashboard screensaver has just moved the page
-        // to its own view, which is what must show now. The return lands
-        // on its way out instead (leaveScreensaverDashboard).
-        if (_returnHomeConfigured &&
-            !_holdActive &&
-            _saverDashboardPath == null) {
-          unawaited(_returnHome());
-        }
+        unawaited(_onScreensaverStart(nowPlaying: e.nowPlaying));
       } else {
         _configureReturnHome();
       }
@@ -1110,10 +1102,111 @@ class HomeAssistantManager extends Manager {
   /// touches the screensaver (unlike haNavigate, which dismisses it — the
   /// behind-the-cover return must not wake the kiosk) and drops a
   /// forgotten link overlay on the way.
-  Future<void> _returnHome() async {
+  Future<void> _returnHome({bool awaitSelfHeal = true}) async {
     final path = homeViewPath();
     if (path == null) return;
-    await navigateToViewPath(path);
+    await navigateToViewPath(path, awaitSelfHeal: awaitSelfHeal);
+  }
+
+  // ── Where a screensaver dismissal lands ─────────────────────────────
+  // The screensaver reaching idle first does the return to the dashboard
+  // at its start, quietly behind the cover, so the wake reveals the home
+  // view with no visible navigation. Only rendering is frozen under the
+  // pause optimization (JS pushed from Dart still executes), so this works
+  // with the dashboard WebView hidden. Now Playing can ask for another
+  // landing (issue #899): the view the kiosk showed as the screensaver
+  // started, or a chosen one. A session that starts on Now Playing holds
+  // the return home back, and the dismissal settles the page while the
+  // overlay still covers it: the Now Playing target when the session ends
+  // on it, home otherwise.
+
+  /// Counts screensaver starts and dismissals, so a start still reading the
+  /// page when its dismissal lands stands down.
+  int _saverSeq = 0;
+
+  /// The view the page showed as the session started. Read for Last view
+  /// only.
+  String? _saverStartPath;
+
+  /// The session's start moved the page home.
+  bool _saverWentHome = false;
+
+  /// The session's start held the return home back for Now Playing.
+  bool _saverHomeHeld = false;
+
+  Future<void> _onScreensaverStart({required bool nowPlaying}) async {
+    final seq = ++_saverSeq;
+    _saverStartPath = null;
+    _saverWentHome = false;
+    _saverHomeHeld = false;
+    if (_settings.get(defs.sendspinFullscreenReturn) == 'last') {
+      // The Home Assistant Dashboard screensaver has already moved the
+      // page, and kept where it was.
+      _saverStartPath = _saverDashboardReturn ?? await _currentViewPath();
+      if (seq != _saverSeq) return;
+    }
+    // The Home Assistant Dashboard screensaver has just moved the page to
+    // its own view, which is what must show now. The return lands on its
+    // way out instead (leaveScreensaver).
+    if (!_returnHomeConfigured || _holdActive || _saverDashboardPath != null) {
+      return;
+    }
+    if (nowPlaying && _nowPlayingTarget() != null) {
+      _saverHomeHeld = true;
+      return;
+    }
+    _saverWentHome = true;
+    await _returnHome();
+  }
+
+  /// Where a dismissal that ends on Now Playing takes the page, or null to
+  /// leave it to Return to the dashboard.
+  String? _nowPlayingTarget() {
+    switch (_settings.get(defs.sendspinFullscreenReturn)) {
+      case 'last':
+        return _saverStartPath;
+      case 'custom':
+        final view = _settings
+            .get(defs.sendspinFullscreenReturnView)
+            .trim()
+            .replaceAll(RegExp(r'^/+|/+$'), '');
+        return view.isEmpty ? null : view;
+      default:
+        return null;
+    }
+  }
+
+  /// Settle the page as the screensaver ends, awaited by its dismissal
+  /// while the overlay still covers the dashboard.
+  Future<void> leaveScreensaver({required bool nowPlaying}) async {
+    _saverSeq++;
+    final target = nowPlaying ? _nowPlayingTarget() : null;
+    final wentHome = _saverWentHome;
+    final homeHeld = _saverHomeHeld;
+    _saverStartPath = null;
+    _saverWentHome = false;
+    _saverHomeHeld = false;
+    if (_saverDashboardPath != null) {
+      await leaveScreensaverDashboard(to: target);
+      return;
+    }
+    _saverDashboardUp = false;
+    _saverDashboardReturn = null;
+    if (!configured) return;
+    if (target != null) {
+      // Last view moves only a page the start moved: otherwise it is
+      // still where it was, and a link overlay up there stays.
+      if (_settings.get(defs.sendspinFullscreenReturn) == 'last' && !wentHome) {
+        return;
+      }
+      log.info(name, 'Now Playing dismissed; to "$target"');
+      await navigateToViewPath(target, awaitSelfHeal: false);
+      return;
+    }
+    if (homeHeld && _returnHomeConfigured && !_holdActive) {
+      log.info(name, 'screensaver ended; returning to the dashboard');
+      await _returnHome(awaitSelfHeal: false);
+    }
   }
 
   // ── The Home Assistant Dashboard screensaver ──────────────────────
@@ -1140,13 +1233,10 @@ class HomeAssistantManager extends Manager {
     return mapped.ok && mapped.data is String ? mapped.data as String : baseUrl;
   }
 
-  /// Move the page to [viewPath] for the screensaver. An empty path, or a
-  /// page that is not this Home Assistant, leaves the screen as it is.
-  /// A mode that comes back within one session (a schedule swapping it
-  /// out and in again) keeps the first return point.
-  Future<void> showScreensaverDashboard(String viewPath) async {
-    _saverDashboardUp = true;
-    if (!configured || baseUrl.isEmpty || viewPath.isEmpty) return;
+  /// The view the page shows ("url_path/view-route"), or null when it is
+  /// not this Home Assistant.
+  Future<String?> _currentViewPath() async {
+    if (!configured || baseUrl.isEmpty) return null;
     final base = await _pageBase();
     final where = await commands.execute('evalJs', {
       'code':
@@ -1157,13 +1247,23 @@ class HomeAssistantManager extends Manager {
 })();
 ''',
     });
-    if (!_saverDashboardUp) return;
     final page = '${where.data}';
-    final current = where.ok && page.startsWith('/')
-        ? page.replaceAll(RegExp(r'^/+|/+$'), '')
-        : '';
+    if (!where.ok || !page.startsWith('/')) return null;
+    final path = page.replaceAll(RegExp(r'^/+|/+$'), '');
+    return path.isEmpty ? null : path;
+  }
+
+  /// Move the page to [viewPath] for the screensaver. An empty path, or a
+  /// page that is not this Home Assistant, leaves the screen as it is.
+  /// A mode that comes back within one session (a schedule swapping it
+  /// out and in again) keeps the first return point.
+  Future<void> showScreensaverDashboard(String viewPath) async {
+    _saverDashboardUp = true;
+    if (!configured || baseUrl.isEmpty || viewPath.isEmpty) return;
+    final current = await _currentViewPath();
+    if (!_saverDashboardUp) return;
     if (_saverDashboardReturn == null) {
-      if (current.isEmpty) return;
+      if (current == null) return;
       _saverDashboardReturn = current;
     }
     _saverDashboardPath = viewPath;
@@ -1173,12 +1273,13 @@ class HomeAssistantManager extends Manager {
     await navigateToViewPath(viewPath, awaitSelfHeal: false);
   }
 
-  /// Take the page back as the screensaver ends: to the dashboard's home
-  /// view when Return to the dashboard is on (its return was handed to
-  /// this moment), otherwise to where it was. Only while the page still
-  /// shows the screensaver's view: a navigation from Home Assistant in the
-  /// meantime (browser_mod, a card) is where the person should land.
-  Future<void> leaveScreensaverDashboard() async {
+  /// Take the page back as the screensaver ends: to [to] when Now Playing
+  /// asks for a landing, else to the dashboard's home view when Return to
+  /// the dashboard is on (its return was handed to this moment), otherwise
+  /// to where it was. Only while the page still shows the screensaver's
+  /// view: a navigation from Home Assistant in the meantime (browser_mod,
+  /// a card) is where the person should land.
+  Future<void> leaveScreensaverDashboard({String? to}) async {
     _saverDashboardUp = false;
     final shown = _saverDashboardPath;
     final previous = _saverDashboardReturn;
@@ -1186,6 +1287,7 @@ class HomeAssistantManager extends Manager {
     _saverDashboardReturn = null;
     if (shown == null || previous == null) return;
     final back =
+        to ??
         (_returnHomeConfigured && !_holdActive ? homeViewPath() : null) ??
         previous;
     final base = await _pageBase();
@@ -1538,10 +1640,20 @@ class HomeAssistantManager extends Manager {
   /// extra frame rather than a second connection (issue #74). States arrive
   /// raw; without this the row shows 69.44 where the entity's own card,
   /// honoring the Display precision setting, shows 69.
+  ///
+  /// [onTranslations] receives Home Assistant's own wording for the states
+  /// of [translationDomain], in the server's language, fetched over the same
+  /// socket (issue #268). A lookup on a separate socket could fail while the
+  /// states still arrived, and the widget then spoke English for the rest of
+  /// the run (issue #900). Riding the subscription means every reconnect
+  /// retries until it lands. Empty means an English server: the built-in
+  /// labels already speak it.
   Future<GlanceSubscription?> subscribeEntities(
     List<String> entityIds,
     void Function(String entityId, Map<String, Object?> state) onState, {
     void Function(Map<String, int> precisions)? onPrecision,
+    String? translationDomain,
+    void Function(Map<String, String> translations)? onTranslations,
   }) async {
     if (!configured || entityIds.isEmpty) return null;
     final wsBase = baseUrl
@@ -1555,6 +1667,24 @@ class HomeAssistantManager extends Manager {
       // so the future must not surface it again as an uncaught error.
       unawaited(channel.ready.catchError((_) {}));
       final subscription = GlanceSubscription._(channel).._expectSubscribed();
+      final domain = onTranslations != null ? translationDomain : null;
+      void askTranslations(String language) {
+        if (domain == null) return;
+        if (language.toLowerCase().startsWith('en')) {
+          onTranslations!(_stateTranslations[domain] = const {});
+          return;
+        }
+        channel.sink.add(
+          jsonEncode({
+            'id': 4,
+            'type': 'frontend/get_translations',
+            'language': language,
+            'category': 'entity_component',
+            'integration': [domain],
+          }),
+        );
+      }
+
       channel.stream.listen(
         (raw) {
           try {
@@ -1584,6 +1714,19 @@ class HomeAssistantManager extends Manager {
                     }),
                   );
                 }
+                if (domain != null) {
+                  final cached = _stateTranslations[domain];
+                  final language = _language;
+                  if (cached != null) {
+                    onTranslations!(cached);
+                  } else if (language != null) {
+                    askTranslations(language);
+                  } else {
+                    channel.sink.add(
+                      jsonEncode({'id': 3, 'type': 'get_config'}),
+                    );
+                  }
+                }
               case 'auth_invalid':
                 log.warn(name, 'glance subscription rejected: bad token');
                 subscription.close();
@@ -1591,12 +1734,30 @@ class HomeAssistantManager extends Manager {
                 // The subscribe command confirms itself here too; only the
                 // registry lookup's reply carries anything to read. A failure
                 // (an old Home Assistant without get_entries) just leaves
-                // states unrounded, which is what the row always did.
-                if (msg['id'] == 1 && msg['success'] == true) {
-                  subscription._startHeartbeat();
-                }
-                if (msg['id'] == 2 && msg['success'] == true) {
-                  onPrecision?.call(_displayPrecisions(msg['result']));
+                // states unrounded, which is what the row always did. A
+                // failed translation lookup caches nothing, so the next
+                // connection asks again.
+                if (msg['success'] != true) break;
+                switch (msg['id']) {
+                  case 1:
+                    subscription._startHeartbeat();
+                  case 2:
+                    onPrecision?.call(_displayPrecisions(msg['result']));
+                  case 3:
+                    final config = msg['result'];
+                    final language = config is Map
+                        ? '${config['language'] ?? ''}'.trim()
+                        : '';
+                    askTranslations(
+                      _language = language.isEmpty ? 'en' : language,
+                    );
+                  case 4:
+                    onTranslations!(
+                      _stateTranslations[domain!] = parseStateTranslations(
+                        msg['result'],
+                        domain,
+                      ),
+                    );
                 }
               case 'pong':
                 subscription._pong();
@@ -2415,66 +2576,14 @@ class HomeAssistantManager extends Manager {
   }
 
   /// The language Home Assistant itself is configured in ("it", "en-GB"),
-  /// from its core config. Cached for the run — it changes about as often
-  /// as the server moves house, and a failed read is not cached so the next
-  /// caller retries.
+  /// from its core config. Cached for the run once the server answers.
   String? _language;
 
   /// Per-domain state translations, keyed by domain. An empty map is a
   /// cached "nothing to translate" (an English server, or a domain Home
-  /// Assistant has no translations for), not a miss.
+  /// Assistant has no translations for), not a miss. Only an answer from
+  /// the server lands here, never a failed lookup.
   final _stateTranslations = <String, Map<String, String>>{};
-
-  Future<String> serverLanguage() async {
-    final cached = _language;
-    if (cached != null) return cached;
-    if (!configured) return 'en';
-    try {
-      final config = await _wsCommand({'type': 'get_config'});
-      final language = config is Map
-          ? '${config['language'] ?? ''}'.trim()
-          : '';
-      if (language.isEmpty) return 'en';
-      return _language = language;
-    } catch (e) {
-      log.debug(name, 'language lookup failed: $e');
-      return 'en';
-    }
-  }
-
-  /// Home Assistant's own translations for a domain's entity states, keyed
-  /// by state ("fog" -> "Nebbia"), in the server's language (issue #268).
-  /// This is exactly what the frontend renders states with, so a kiosk in a
-  /// Dutch or Italian house reads like the rest of the house.
-  ///
-  /// Empty when the server speaks English (the app's own wording already
-  /// is, and it is often the better wording), when the domain carries no
-  /// state translations, or when the lookup fails: every caller falls back
-  /// to its built-in labels.
-  Future<Map<String, String>> stateTranslations(String domain) async {
-    final cached = _stateTranslations[domain];
-    if (cached != null) return cached;
-    if (!configured) return const {};
-    final language = await serverLanguage();
-    if (language.toLowerCase().startsWith('en')) {
-      return _stateTranslations[domain] = const {};
-    }
-    try {
-      final result = await _wsCommand({
-        'type': 'frontend/get_translations',
-        'language': language,
-        'category': 'entity_component',
-        'integration': [domain],
-      });
-      return _stateTranslations[domain] = parseStateTranslations(
-        result,
-        domain,
-      );
-    } catch (e) {
-      log.debug(name, 'state translations for $domain failed: $e');
-      return const {};
-    }
-  }
 
   Future<Object?> _wsCommand(Map<String, Object?> command) async {
     final wsBase = baseUrl
@@ -2612,8 +2721,9 @@ class GlanceSubscription {
   final WebSocketChannel _channel;
   bool _closed = false;
   Timer? _heartbeat, _deadline, _connecting;
-  // Ids 1 and 2 are the subscribe and registry commands.
-  int _pingId = 3;
+  // Ids 1 to 4 are the subscribe, registry, config and translation
+  // commands.
+  int _pingId = 5;
 
   bool get isClosed => _closed;
 

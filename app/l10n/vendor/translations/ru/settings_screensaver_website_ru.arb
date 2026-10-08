@@ -1,0 +1,10 @@
+{
+  "@@locale": "ru",
+  "settingScreensaverWebsiteUrlTitle": "URL веб-сайта",
+  "settingScreensaverWebsiteUrlDescription": "Страница для показа на весь экран. Она должна разрешать встраивание.",
+  "settingScreensaverWebsiteZoomTitle": "Масштаб",
+  "settingScreensaverWebsiteZoomDescription": "Масштабирует всю веб-страницу внешней заставки.",
+  "settingScreensaverWebsiteDoubleTapTitle": "Двойное касание для закрытия",
+  "settingScreensaverWebsiteDoubleTapDescription": "Одиночные касания взаимодействуют с сайтом вместо закрытия.",
+  "screensaverWebsiteSection": "Заставка «Веб-сайт»"
+}

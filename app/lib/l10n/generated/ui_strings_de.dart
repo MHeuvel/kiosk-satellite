@@ -1522,6 +1522,15 @@ class UiStringsDe extends UiStrings {
   String get gestureIntercomCall => 'Einen Kiosk anrufen';
 
   @override
+  String get gestureIntercomHangup => 'Gegensprechanruf beenden';
+
+  @override
+  String get gestureAlarmStop => 'Wecker stoppen';
+
+  @override
+  String get gestureAlarmSnooze => 'Wecker schlummern lassen';
+
+  @override
   String get gestureScreensaver => 'Bildschirmschoner starten';
 
   @override
@@ -2038,6 +2047,16 @@ class UiStringsDe extends UiStrings {
 
   @override
   String get gestureSequenceError => 'Füge mindestens zwei Ecken hinzu.';
+
+  @override
+  String get gesturePluginTrigger => 'Plugin-Auslöser';
+
+  @override
+  String get gesturePluginTriggerField => 'Auslöser';
+
+  @override
+  String get gesturePluginTriggerHelp =>
+      'Aktiviere zuerst ein Plugin mit Auslösern im Plugin-Manager.';
 
   @override
   String get intercomCall => 'Anrufen';
@@ -3262,6 +3281,13 @@ class UiStringsDe extends UiStrings {
   String pluginErrorInvalidField(String field) {
     return 'Das Feld $field ist ungültig';
   }
+
+  @override
+  String get pluginErrorTooManyTriggers => 'Zu viele Auslöser';
+
+  @override
+  String get pluginErrorTriggerId =>
+      'Die Auslöser-ID ist ungültig oder bereits vorhanden';
 
   @override
   String get remoteDisableTitle => 'Fernverwaltung deaktivieren?';
@@ -8280,6 +8306,26 @@ class UiStringsDe extends UiStrings {
       'Erlaubt das Schließen von „Jetzt läuft“ durch Bewegungserkennung, ähnlich wie bei einem normalen Bildschirmschoner. Wenn diese Option deaktiviert ist, wird die Ansicht nur durch Berührung geschlossen, sodass Vorbeigehen die Musikansicht nicht unterbricht. Gilt nicht, wenn „Jetzt läuft“ neben dem Bildschirmschoner angezeigt wird.';
 
   @override
+  String get settingSendspinFullscreenReturnTitle => 'Nach dem Schließen';
+
+  @override
+  String get settingSendspinFullscreenReturnDescription =>
+      'Die Dashboard-Ansicht, die nach dem Schließen von „Jetzt läuft“ angezeigt wird. Standard folgt „Zur Startansicht des Dashboards zurückkehren“.';
+
+  @override
+  String get mediaReturnLastView => 'Letzte Ansicht';
+
+  @override
+  String get mediaReturnChosenView => 'Gewählte Ansicht';
+
+  @override
+  String get settingSendspinFullscreenReturnViewTitle => 'Dashboard-Ansicht';
+
+  @override
+  String get settingSendspinFullscreenReturnViewDescription =>
+      'Die Ansicht, die nach dem Schließen von „Jetzt läuft“ angezeigt wird.';
+
+  @override
   String get settingSendspinFullscreenShortcutTitle => 'Im Kiosk-Menü anzeigen';
 
   @override
@@ -8435,6 +8481,10 @@ class UiStringsDe extends UiStrings {
   @override
   String get settingSendspinSyncOffsetDescription =>
       'Ein negativer Wert lässt dieses Gerät früher wiedergeben, um Lautsprecher auszugleichen, die gegenüber der Gruppe verzögert sind, beispielsweise Bluetooth-Lautsprecher. Nach Gehör anpassen. Wird sofort angewendet.';
+
+  @override
+  String get settingSendspinGroupVolumeDescription =>
+      'Wenn dieses Gerät in einer Gruppe wiedergibt, steuert die Lautstärkeregelung die gesamte Gruppe. Ist diese Option deaktiviert, wird nur die Lautstärke dieses Geräts angepasst. Erfordert die Verbindung zu Music Assistant.';
 
   @override
   String get mediaSendspinPage => 'Sendspin-Player';
@@ -9468,6 +9518,14 @@ class UiStringsDe extends UiStrings {
   @override
   String get settingScreensaverMenuDescription =>
       'Fügt dem Kiosk-Menü die Option „Bildschirmschoner starten“ hinzu.';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleTitle =>
+      'Android-Animationseinstellungen folgen';
+
+  @override
+  String get settingScreensaverFollowAnimationScaleDescription =>
+      'Pausiert animierte Bildschirmschoner, wenn Android-Animationen ausgeschaltet sind.';
 
   @override
   String get settingScreensaverDimLevelTitle => 'Dimmstufe';

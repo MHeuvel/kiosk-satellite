@@ -73,8 +73,15 @@ class BrightnessChanged extends AppEvent {
 // ── Screensaver ────────────────────────────────────────────────────────
 
 class ScreensaverStateChanged extends AppEvent {
-  const ScreensaverStateChanged({required this.active});
+  const ScreensaverStateChanged({
+    required this.active,
+    this.nowPlaying = false,
+  });
   final bool active;
+
+  /// The session starts with Now Playing up, so the return to the dashboard
+  /// can make way for the Now Playing dismissal target (issue #899).
+  final bool nowPlaying;
 
   @override
   String get wireName => active ? 'screensaverstart' : 'screensaverstop';
@@ -421,6 +428,21 @@ class VoiceSatelliteStateChanged extends AppEvent {
   final String state;
 }
 
+/// Native Voice Satellite's timers changed: one started, changed, was
+/// cancelled, finished or had its alert dismissed. Carries the whole
+/// `voiceTimers` list so the ESPHome sensors and the page's
+/// `kiosksatellite:voice-timers` listeners redraw from the event alone.
+class VoiceTimersChanged extends AppEvent {
+  const VoiceTimersChanged(this.timers);
+  final List<Map<String, Object?>> timers;
+
+  @override
+  String get wireName => 'voice-timers';
+
+  @override
+  Map<String, Object?> toJson() => {'timers': timers};
+}
+
 // ── Alarms ─────────────────────────────────────────────────────────────
 
 /// The alarms or their ringing state changed: an alarm added, edited or
@@ -463,9 +485,11 @@ class IntercomHangupKeyArmed extends AppEvent {
   final int keyCode;
 }
 
-/// The armed hang up button was pressed.
-class IntercomHangupKeyPressed extends AppEvent {
-  const IntercomHangupKeyPressed();
+/// The armed hang up button was pressed or a hang up gesture fired. Only
+/// a call being placed, a live call or an announcement ends: a ringing
+/// call is answered or declined on the screen.
+class IntercomHangupRequested extends AppEvent {
+  const IntercomHangupRequested();
 }
 
 /// The intercom wants the microphone the page holds, or is done with it.
@@ -893,6 +917,14 @@ class VolumeKeyPressed extends AppEvent {
 class GestureDetected extends AppEvent {
   const GestureDetected({required this.id});
   final String id;
+}
+
+/// A running plugin fired one of its declared triggers (issue #888). The
+/// gestures manager runs every mapping bound to it.
+class PluginTriggerFired extends AppEvent {
+  const PluginTriggerFired({required this.pluginId, required this.trigger});
+  final String pluginId;
+  final String trigger;
 }
 
 /// A gesture's Home Assistant action (a service call, script, automation

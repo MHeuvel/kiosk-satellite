@@ -1,0 +1,18 @@
+{
+  "@@locale": "ru",
+  "intercomBuiltinRing": "Встроенный звонок",
+  "intercomBuiltinChime": "Встроенный сигнал",
+  "intercomMissingFile": "{file} (отсутствует)",
+  "intercomAddSound": "Добавить звук",
+  "intercomCopySoundHelp": "Скопировать звуковой файл с этого устройства в папку звуков.",
+  "intercomUploadSoundHelp": "Загрузить звуковой файл с этого компьютера в папку звуков.",
+  "intercomUpload": "Загрузить",
+  "intercomUploading": "Загрузка…",
+  "intercomUnsupportedSound": "Неподдерживаемый звук",
+  "intercomChooseSound": "Неподдерживаемый звук: выберите файл MP3, OGG, WAV, FLAC, M4A или AAC.",
+  "intercomCopyFailed": "Не удалось скопировать файл",
+  "intercomUploadFailed": "Не удалось загрузить: {error}",
+  "intercomSaveFailed": "Не сохранено: {error}",
+  "intercomSoundFilename": "Введите имя файла, а не путь.",
+  "intercomSoundFormats": "Выберите файл MP3, OGG, WAV, FLAC, M4A или AAC."
+}

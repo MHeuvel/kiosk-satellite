@@ -36,6 +36,18 @@ class PluginPackageTest {
         assertFalse(PluginHostPolicy.validEvent("ha.entity."))
     }
 
+    @Test fun keyEventsSkipTypedText() {
+        val time = "2026-10-05T17:00:00.000Z"
+        assertEquals(
+            mapOf("key" to "VOLUME_UP", "code" to 24, "scanCode" to 115, "action" to "down", "repeat" to 2, "time" to time),
+            PluginHostPolicy.keyPayload("KEYCODE_VOLUME_UP", 24, 115, true, 2, false, false, time)
+        )
+        assertEquals("up", PluginHostPolicy.keyPayload("KEYCODE_UNKNOWN", 0, 240, false, 0, false, false, time)!!["action"])
+        assertNull(PluginHostPolicy.keyPayload("KEYCODE_A", 29, 30, true, 0, true, false, time))
+        assertNull(PluginHostPolicy.keyPayload("KEYCODE_SHIFT_LEFT", 59, 42, true, 0, false, true, time))
+        assertTrue(PluginHostPolicy.validEvent("device.key"))
+    }
+
     @Test fun firstPublicSdkSupportsAllExplicitCapabilities() {
         for (capability in listOf("overlay", "native", "entities", "host.read", "host.control", "shizuku")) {
             assertTrue(capability in PluginManifest(manifest().put("capabilities", org.json.JSONArray(listOf(capability)))).capabilities)
@@ -204,6 +216,25 @@ class PluginPackageTest {
         val commands = manifest()
         commands.getJSONArray("commands").put(commands.getJSONArray("commands").getJSONObject(0))
         rejects { PluginManifest(commands) }
+    }
+    @Test fun allowsUpToFiftySettings() {
+        fun withSettings(count: Int) = manifest().put("settings", org.json.JSONArray().apply {
+            repeat(count) { put(JSONObject().put("key", "s$it").put("title", "S$it").put("type", "boolean").put("default", false)) }
+        })
+        assertEquals(PluginManifest.MAX_SETTINGS, PluginManifest(withSettings(PluginManifest.MAX_SETTINGS)).settings.length())
+        rejects { PluginManifest(withSettings(PluginManifest.MAX_SETTINGS + 1)) }
+    }
+    @Test fun triggersAreOptionalAndValidated() {
+        assertFalse(PluginManifest(manifest()).hasTrigger("hardTap"))
+        val declared = PluginManifest(manifest().put("triggers", org.json.JSONArray("""[{"id":"hardTap","title":"Hard tap"}]""")))
+        assertTrue(declared.hasTrigger("hardTap"))
+        assertFalse(declared.hasTrigger("show"))
+        rejects { PluginManifest(manifest().put("triggers", org.json.JSONArray("""[{"id":"hardTap","title":"A"},{"id":"hardTap","title":"B"}]"""))) }
+        rejects { PluginManifest(manifest().put("triggers", org.json.JSONArray("""[{"id":"hard-tap","title":"Hard tap"}]"""))) }
+        rejects { PluginManifest(manifest().put("triggers", org.json.JSONArray("""[{"id":"hardTap","title":""}]"""))) }
+        val many = org.json.JSONArray()
+        repeat(21) { many.put(org.json.JSONObject().put("id", "t$it").put("title", "T$it")) }
+        rejects { PluginManifest(manifest().put("triggers", many)) }
     }
     @Test fun sdkOneValidatesRichSettingsAndNativePackages() = inTemp { dir ->
         val metadata = manifest().put("apiVersion", 1).put("capabilities", org.json.JSONArray("[\"native\",\"entities\"]"))

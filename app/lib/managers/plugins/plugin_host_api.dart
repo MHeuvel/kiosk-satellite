@@ -6,6 +6,7 @@ import '../../core/event_bus.dart';
 import '../../core/events.dart';
 import '../browser/dashboard_state.dart';
 import '../home_assistant/plugin_entities.dart';
+import '../intercom/intercom_sensors.dart';
 import '../settings/definitions.dart' as defs;
 
 /// Explicit SDK 1 host surface. Registry additions do not expand plugin access.
@@ -19,6 +20,7 @@ class PluginHostApi {
   late final StreamSubscription<AppEvent> _events;
   final _sessions = <String, _HostSession>{};
   bool _disposed = false;
+  String? _intercomSent;
 
   static const commandNames = [
     'getHostApi',
@@ -38,6 +40,8 @@ class PluginHostApi {
     'getProximityEnabled',
     'getCameraViewState',
     'getWakeWordState',
+    'getVoiceState',
+    'getIntercomState',
     'haStatus',
     'getHaEntityState',
     'getDashboardState',
@@ -56,6 +60,7 @@ class PluginHostApi {
     'showNowPlaying',
     'hideNowPlaying',
     'sendspinControl',
+    'setVolume',
     'showAppLauncher',
     'hideAppLauncher',
     'showOverlayPage',
@@ -68,6 +73,15 @@ class PluginHostApi {
     'haNavigate',
     'reload',
   ];
+
+  static bool _volumeChannel(Map params) =>
+      !params.containsKey('channel') ||
+      const [
+        'master',
+        'media',
+        'assistant',
+        'intercom',
+      ].contains(params['channel']);
 
   static bool validArguments(String name, Map params) {
     if (params.length > 2 ||
@@ -104,6 +118,16 @@ class PluginHostApi {
       case 'focusCamera':
         return keys({'cameraId'}) &&
             (params.isEmpty || text('cameraId', empty: true));
+      case 'getVolume':
+        return keys({'channel'}) && _volumeChannel(params);
+      case 'setVolume':
+        final percent = params['percent'];
+        final value = percent is String ? num.tryParse(percent.trim()) : null;
+        return keys({'percent', 'channel'}) &&
+            _volumeChannel(params) &&
+            value != null &&
+            value >= 0 &&
+            value <= 100;
       case 'sendspinControl':
         return keys({'command'}) &&
             const [
@@ -141,12 +165,15 @@ class PluginHostApi {
     'device.network',
     'device.volume',
     'device.light',
+    'device.key',
     'detection.motion',
     'detection.face',
     'detection.proximity',
     'detection.person',
     'detection.presence',
     'voice.interaction',
+    'voice.state',
+    'intercom.state',
     'wakeword.state',
     'wakeword.detected',
     'stopword.detected',
@@ -196,6 +223,8 @@ class PluginHostApi {
       'status',
       'statusLabel',
     ],
+    'getVoiceState': ['enabled', 'state'],
+    'getIntercomState': ['enabled', 'state', 'kiosk', 'dnd'],
     'haStatus': ['configured', 'connected'],
     'getDashboardState': [
       'homeAssistantUrl',
@@ -337,7 +366,12 @@ class PluginHostApi {
       final result = await commands
           .as('plugin:${session.id}')
           .execute(
-            name == 'getHaEntityState' ? 'haPluginReadEntity' : name,
+            switch (name) {
+              'getHaEntityState' => 'haPluginReadEntity',
+              'getVoiceState' => 'voiceStatus',
+              'getIntercomState' => 'intercomSensors',
+              _ => name,
+            },
             name == 'screenOff'
                 ? {'prompt': false}
                 : Map<String, Object?>.from(params),
@@ -464,6 +498,11 @@ class PluginHostApi {
     PowerChanged e => ('device.power', {'charging': e.charging}),
     NetworkStateChanged e => ('device.network', {'up': e.up}),
     VolumeChanged _ => ('device.volume', {}),
+    SettingChanged e
+        when e.key == defs.mediaVolume.key ||
+            e.key == defs.assistantVolume.key ||
+            e.key == defs.intercomVolume.key =>
+      ('device.volume', {}),
     LightLevelChanged e => ('device.light', {'lux': e.lux}),
     MotionDetected _ => ('detection.motion', {}),
     FaceDetected _ => ('detection.face', {}),
@@ -474,6 +513,8 @@ class PluginHostApi {
       'voice.interaction',
       {'active': e.active, 'source': e.source.name},
     ),
+    VoiceSatelliteStateChanged e => ('voice.state', {'state': e.state}),
+    IntercomStateChanged e => ('intercom.state', intercomSensors(e.status)),
     WakeWordStateChanged e => (
       'wakeword.state',
       {'active': e.active, 'listening': e.listening, 'muted': e.muted},
@@ -517,6 +558,13 @@ class PluginHostApi {
     if (projected.$2.values.any((value) => !_scalar(value)) ||
         utf8.encode(jsonEncode(projected.$2)).length > 32000) {
       return;
+    }
+    // The intercom's status also changes with the roster and each talking
+    // flag. Plugins hear only what the sensors would show.
+    if (projected.$1 == 'intercom.state') {
+      final value = jsonEncode(projected.$2);
+      if (value == _intercomSent) return;
+      _intercomSent = value;
     }
     for (final session in _sessions.values) {
       if (!session.subscriptions.contains(projected.$1)) continue;
