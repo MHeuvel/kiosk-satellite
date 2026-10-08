@@ -79,6 +79,12 @@ void main() {
     originalVideo = VideoPlayerPlatform.instance;
     video = _Video();
     VideoPlayerPlatform.instance = video;
+    // openVideo asks whether the device wants a platform view first.
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
+          const MethodChannel('kiosk_satellite/device_details'),
+          (call) async => call.method == 'platformVideoFirst' ? false : null,
+        );
   });
   tearDown(() async {
     VideoPlayerPlatform.instance = originalVideo;

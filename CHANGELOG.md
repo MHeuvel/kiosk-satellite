@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
+## Unreleased
+
+### Fixed
+- **The DLNA language tests pass again.** Three DLNA localization tests timed out when run with the rest of the suite since 2026.10.13 (#898). The video surface check now keeps its answer instead of a Future, and the tests answer that check themselves. Devices were never affected.
+
 ## v2026.10.13 - 2026-10-08
 
 ### Added

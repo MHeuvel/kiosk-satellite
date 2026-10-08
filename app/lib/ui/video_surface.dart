@@ -28,8 +28,10 @@ import 'package:video_player/video_player.dart';
 
 import '../managers/device/device_details.dart';
 
-/// Asked once per process: the answer is a property of the device.
-Future<bool>? _platformVideoFirst;
+/// Asked once per process: the answer is a property of the device. The
+/// answer is kept, not the Future: a Future delivers to the zone it was
+/// made in, so one made in a widget test never answers the tests after it.
+bool? _platformVideoFirst;
 
 /// Whether a player error is the video decoder refusing to start, rather
 /// than a URL, a network or a container the device cannot read.
@@ -58,7 +60,7 @@ Future<VideoPlayerController> openVideo(
   bool? platformViewFirst,
 }) async {
   if (platformViewFirst ??
-      await (_platformVideoFirst ??= DeviceDetails.platformVideoFirst())) {
+      (_platformVideoFirst ??= await DeviceDetails.platformVideoFirst())) {
     final only = build(VideoViewType.platformView);
     try {
       await only.initialize();
