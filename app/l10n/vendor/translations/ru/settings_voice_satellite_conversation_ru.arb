@@ -1,0 +1,17 @@
+{
+  "@@locale": "ru",
+  "settingVoiceShowCommandTitle": "Показывать сказанное",
+  "settingVoiceShowCommandDescription": "Ваша команда над ответом.",
+  "settingVoiceShowAnswerTitle": "Показывать ответ",
+  "settingVoiceShowAnswerDescription": "Ответ по мере произнесения.",
+  "settingVoiceShowToolsTitle": "Показывать вызовы инструментов",
+  "settingVoiceShowToolsDescription": "Строка на каждое действие ассистента.",
+  "settingVoiceHideSentimentTagsTitle": "Скрывать метки настроения",
+  "settingVoiceHideSentimentTagsDescription": "Убирать метки вроде [happy], добавляемые некоторыми ассистентами.",
+  "settingVoiceAnswerLingerTitle": "Держать ответ на экране",
+  "settingVoiceAnswerLingerDescription": "После произнесения ответа.",
+  "settingVoiceResultsLingerTitle": "Держать результаты на экране",
+  "settingVoiceResultsLingerDescription": "Изображения, погода и другие результаты. 0 держит их до закрытия.",
+  "settingVoiceAnnouncementLingerTitle": "Время объявления",
+  "settingVoiceAnnouncementLingerDescription": "После произнесения объявления."
+}

@@ -1,0 +1,12 @@
+{
+  "@@locale": "ru",
+  "settingMediaVolumeTitle": "Громкость медиа",
+  "settingMediaVolumeDescription": "Музыка и видео играют на этой доле общей громкости. Громкость плеера Sendspin в Music Assistant двигает этот ползунок.",
+  "settingAssistantVolumeTitle": "Громкость ассистента",
+  "settingAssistantVolumeDescription": "Голосовые ответы и сигналы играют на этой доле общей громкости, независимо от медиа.",
+  "settingIntercomVolumeTitle": "Громкость интеркома",
+  "settingIntercomVolumeDescription": "Голос другого киоска и объявления играют на этой доле общей громкости.",
+  "screenAudioVolume": "Громкость",
+  "screenAudioMasterVolume": "Общая громкость",
+  "screenAudioMasterHelp": "Громкость устройства. Громкости медиа, интеркома и ассистента задаются как доля от неё."
+}

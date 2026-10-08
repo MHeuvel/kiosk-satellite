@@ -1,0 +1,11 @@
+{
+  "@@locale": "ru",
+  "remoteReconnecting": "Переподключение…",
+  "remoteConnectionLost": "Соединение с {name} потеряно. Страница возобновится сама, когда оно вернётся.",
+  "remoteConnectionLostUnnamed": "Соединение с киоском потеряно. Страница возобновится сама, когда оно вернётся.",
+  "remoteReloadPage": "Перезагрузить страницу",
+  "remoteUpdated": "Kiosk Satellite обновлён",
+  "remoteUpdatedHelp": "Устройство теперь работает на версии {version}{build}. Страница принадлежит предыдущей версии и перезагрузится через {seconds} с.",
+  "remoteBuild": " (сборка {build})",
+  "remoteReloadNow": "Перезагрузить сейчас"
+}

@@ -1,0 +1,6 @@
+{
+  "@@locale": "ru",
+  "settingScreensaverBlackHideExtrasTitle": "Скрыть всё дополнительное",
+  "settingScreensaverBlackHideExtrasDescription": "Держит экран полностью чёрным: без маленьких часов, сущностей «Сводки» и других наложений.",
+  "screensaverBlackSection": "Чёрная заставка"
+}

@@ -1,0 +1,19 @@
+{
+  "@@locale": "ru",
+  "settingIntercomAnswerModeTitle": "Режим ответа",
+  "settingIntercomAnswerModeDescription": "«Звонок» спрашивает на экране. «Отвечать автоматически» открывает звонок после сигнала.",
+  "settingIntercomRingSecondsTitle": "Звонить в течение",
+  "settingIntercomRingSecondsDescription": "Как долго звонит вызов, прежде чем считается пропущенным.",
+  "settingIntercomRingSoundTitle": "Звук звонка",
+  "settingIntercomRingSoundDescription": "Проигрывается на громкости уведомлений.",
+  "settingIntercomAcceptAnnouncementsTitle": "Принимать объявления",
+  "settingIntercomAcceptAnnouncementsDescription": "Проигрывать «Объявить всем» с других киосков.",
+  "intercomOptionAnswerRing": "Звонок",
+  "intercomOptionAnswerAuto": "Отвечать автоматически",
+  "intercomOptionAnswerDnd": "Не беспокоить",
+  "intercomOptionAnswer15": "15 секунд",
+  "intercomOptionAnswer30": "30 секунд",
+  "intercomOptionAnswer45": "45 секунд",
+  "intercomOptionAnswer60": "60 секунд",
+  "intercomAnswerSection": "Ответ"
+}

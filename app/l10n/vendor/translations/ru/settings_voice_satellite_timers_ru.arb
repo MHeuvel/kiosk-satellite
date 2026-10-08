@@ -1,0 +1,21 @@
+{
+  "@@locale": "ru",
+  "settingVoiceTimerPillsTitle": "Показывать плашки таймеров",
+  "settingVoiceTimerPillsDescription": "Работающие таймеры плавают по экрану. Перетащите их куда угодно.",
+  "settingVoiceTimerNameInPillTitle": "Показывать название таймера",
+  "settingVoiceTimerNameInPillDescription": "Название рядом со временем на плашке.",
+  "settingVoiceTimerPillScaleTitle": "Масштаб плашек таймеров",
+  "settingVoiceTimerPillScaleDescription": "Размер плашек таймеров.",
+  "settingVoiceTimerAlertPillTitle": "Показывать плашки завершённых таймеров",
+  "settingVoiceTimerAlertPillDescription": "Коснитесь плашки, чтобы остановить оповещение.",
+  "settingVoiceMuteTimersTitle": "Заглушить оповещения таймеров",
+  "settingVoiceMuteTimersDescription": "Показывать оповещение без звука.",
+  "settingVoiceTimerNameOnAlertTitle": "Показывать название в оповещении",
+  "settingVoiceTimerNameOnAlertDescription": "Название таймера под оповещением.",
+  "settingVoiceTimerSpeakTitle": "Произносить при завершении таймера",
+  "settingVoiceTimerSpeakDescription": "Произносить фразу между звуками оповещения.",
+  "settingVoiceTimerPhraseTitle": "Фраза",
+  "settingVoiceTimerPhraseDescription": "Произносится для таймера без названия.",
+  "settingVoiceTimerNamedPhraseTitle": "Фраза для именованных таймеров",
+  "settingVoiceTimerNamedPhraseDescription": "{name} заменяется названием таймера."
+}

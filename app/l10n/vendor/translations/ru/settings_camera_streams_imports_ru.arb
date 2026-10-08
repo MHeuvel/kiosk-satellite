@@ -1,0 +1,8 @@
+{
+  "@@locale": "ru",
+  "cameraStreamsImportHa": "Импортировать камеры из Home Assistant",
+  "cameraStreamsImportHaHelp": "Добавить каждую камеру подключённого Home Assistant, играющую через WebRTC, HLS или MJPEG. Повторный импорт добавляет новые камеры.",
+  "cameraStreamsImportFailed": "Импорт не удался",
+  "cameraStreamsImportComplete": "Импорт завершён",
+  "cameraStreamsImportCounts": "Добавлено: {added}, отсутствует: {missing}."
+}

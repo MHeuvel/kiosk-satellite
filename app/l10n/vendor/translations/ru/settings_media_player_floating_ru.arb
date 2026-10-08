@@ -1,0 +1,17 @@
+{
+  "@@locale": "ru",
+  "settingSendspinShowPlayerTitle": "Показывать плавающий плеер",
+  "settingSendspinShowPlayerDescription": "Пока играет музыка, показывать маленькое окно «сейчас играет» поверх панели с обложкой, треком и прогрессом. Перетащите его куда угодно; позиция запоминается.",
+  "settingSendspinPlayerSizeTitle": "Размер плеера",
+  "settingSendspinPlayerSizeDescription": "«Компактный»: маленькое ненавязчивое окно. «Большой с кнопками» добавляет кнопки «предыдущий», «воспроизведение/пауза» и «следующий» крупного, удобного для касания размера, управляя всей группой воспроизведения.",
+  "settingSendspinPausedHideMinutesTitle": "Скрывать приостановленный плеер через",
+  "settingSendspinPausedHideMinutesDescription": "Как долго приостановленный плеер остаётся на экране. Относится и к плавающему плееру, и к виду «Сейчас играет».",
+  "settingSendspinDismissKeepsPlayingTitle": "Продолжать воспроизведение при скрытии",
+  "settingSendspinDismissKeepsPlayingDescription": "Если смахнуть плавающий плеер, он скроется, а музыка продолжит играть.",
+  "settingSendspinPlayerShortcutTitle": "Показывать в меню киоска",
+  "settingSendspinPlayerShortcutDescription": "Добавить в меню киоска пункт, показывающий или скрывающий плавающий плеер. ВНИМАНИЕ: если ничего не воспроизводится или у плеера нет очереди, он не появится.",
+  "mediaFloatingPage": "Плавающий плеер",
+  "mediaFloatingHint": "Маленькая карточка поверх панели",
+  "mediaCompact": "Компактный",
+  "mediaLargeControls": "Большой с кнопками"
+}

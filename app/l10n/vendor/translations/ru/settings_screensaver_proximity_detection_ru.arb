@@ -1,0 +1,14 @@
+{
+  "@@locale": "ru",
+  "settingScreensaverDismissOnProximityTitle": "Прятать при близости",
+  "settingScreensaverDismissOnProximityDescription": "Следить за датчиком близости, пока заставка активна, и пробуждать экран, когда что-то приближается к устройству. Устройство только с сенсорами для звонков («palm», «touch») не подойдёт.",
+  "settingScreensaverDismissOnProximityScreenOffOnlyTitle": "Только при выключенном экране",
+  "settingScreensaverDismissOnProximityScreenOffOnlyDescription": "Держать заставку видимой, когда что-то приближается при включённом экране. После выключения экрана определение будит панель. Касание всё равно прячет заставку.",
+  "settingScreensaverPostponeOnProximityTitle": "Откладывать заставку при близости",
+  "settingScreensaverPostponeOnProximityDescription": "Откладывать включение заставки, пока что-то близко к датчику.",
+  "screensaverDetectionProximityPage": "Определение близости",
+  "screensaverDetectionProximityHint": "Прятать или откладывать заставку по датчику близости",
+  "screensaverDetectionNoProximity": "Недоступно на этом устройстве: нет датчика близости.",
+  "screensaverDetectionSensor": "Датчик",
+  "screensaverDetectionSensorHelp": "Что устройство сообщает как датчик близости. Сенсор для звонков с именем «palm» или «touch» не подойдёт."
+}

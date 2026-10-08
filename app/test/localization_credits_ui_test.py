@@ -51,11 +51,14 @@ try:
         if german:
             languages.insert(0, ("Deutsch", "Dee-san"))
         languages.append(("Nederlands", "rononline"))
+        languages.append(("Русский", "MrYadro"))
         languages.append(("Українська", "kdinya"))
         languages.append(("简体中文", "panda-star357"))
+        # Contributors credited under a name other than their login.
+        credit_names = {"jxlarrea": "Xavier Larrea", "MrYadro": "Iaroslav Iadryshnikov"}
         expect(credits.locator("h2")).to_have_text([name for name, _ in languages])
         for index, (_, login) in enumerate(languages):
-            names = ["Xavier Larrea"] if login == "jxlarrea" else [login]
+            names = [credit_names.get(login, login)]
             expect(credits.locator(".card").nth(index).locator(".name")).to_have_text(names)
             profile = credits.locator(".card").nth(index).get_by_role("link", name=login, exact=True)
             expect(profile).to_have_attribute("href", f"https://github.com/{login}")
@@ -68,6 +71,7 @@ try:
         if german:
             locales.append(("de", "Mitwirkende an der Übersetzung"))
         locales.append(("nl", "Vertalers"))
+        locales.append(("ru", "Авторы локализации"))
         locales.append(("uk", "Автори перекладу"))
         locales.append(("zh-CN", "翻译贡献者"))
         locales.append(("fr", "Crédits de traduction"))

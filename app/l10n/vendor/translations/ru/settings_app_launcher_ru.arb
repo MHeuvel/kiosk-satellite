@@ -1,0 +1,10 @@
+{
+  "@@locale": "ru",
+  "settingLauncherEnabledTitle": "Включить лаунчер приложений",
+  "settingLauncherEnabledDescription": "Открывайте выбранный набор установленных приложений из киоска.",
+  "settingLauncherAppsDescription": "Приложения, которые предлагает лаунчер.",
+  "settingLauncherAutoReturnTitle": "Возвращаться автоматически",
+  "settingLauncherAutoReturnDescription": "Вернуться в киоск, когда другое приложение какое-то время остаётся без касаний.",
+  "settingLauncherAutoReturnSecondsTitle": "Возврат через (с)",
+  "settingLauncherAutoReturnSecondsDescription": "Время без касаний в другом приложении до возврата в киоск."
+}

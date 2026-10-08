@@ -1,0 +1,7 @@
+{
+  "@@locale": "ru",
+  "settingPersonSensorTitle": "Включить датчик присутствия",
+  "settingPersonSensorDescription": "Предоставить датчик присутствия устройства Home Assistant как датчик занятости. Нужно разрешение на доступ к журналам ниже.",
+  "cameraPersonPage": "Датчик присутствия",
+  "cameraPersonHint": "Датчик занятости Home Assistant из датчика присутствия устройства"
+}

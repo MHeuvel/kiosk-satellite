@@ -1,0 +1,6 @@
+{
+  "@@locale": "ru",
+  "fleetSwitchKiosk": "Сменить киоск",
+  "fleetKiosksOnThisNetworkWithTheRemoteAdminOn": "Найденные киоски и сохранённые участники группы. При выборе киоска его удалённое администрирование откроется здесь, на этой же странице.",
+  "fleetNoOtherKioskFoundOnThisNetworkAKioskDetail": "Другие киоски не найдены. Киоски появляются через обнаружение в сети или сохранённое участие в группе."
+}

@@ -1,0 +1,12 @@
+{
+  "@@locale": "ru",
+  "screensaverMediaTransitionNone": "Без перехода",
+  "screensaverMediaTransitionFade": "Кроссфейд",
+  "screensaverMediaTransitionSlide": "Сдвиг",
+  "screensaverMediaTransitionZoom": "Наезд",
+  "screensaverMediaTransitionKenBurns": "Ken Burns",
+  "screensaverMediaTransitionRandom": "Случайный",
+  "screensaverMediaFillOff": "Выкл",
+  "screensaverMediaFillSmart": "Умно",
+  "screensaverMediaFillAlways": "Всегда"
+}

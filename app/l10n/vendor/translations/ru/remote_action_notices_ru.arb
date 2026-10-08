@@ -1,0 +1,8 @@
+{
+  "@@locale": "ru",
+  "remoteDisableTitle": "Выключить удалённое управление?",
+  "remoteDisableHelp": "ВНИМАНИЕ: доступ к этой странице будет потерян. Чтобы включить снова, используйте устройство или переключатель Remote management в Home Assistant.",
+  "remoteDisableConfirm": "Выключить",
+  "remoteCopyHelp": "Выделите ключ и скопируйте его вручную.",
+  "remoteSaveSettingFailed": "Не удалось сохранить эту настройку. Попробуйте снова."
+}

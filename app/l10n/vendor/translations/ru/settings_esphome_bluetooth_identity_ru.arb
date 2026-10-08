@@ -1,0 +1,23 @@
+{
+  "@@locale": "ru",
+  "esphomeIdentityBthome": "Датчик BTHome",
+  "esphomeIdentityXiaomi": "Датчик Xiaomi",
+  "esphomeIdentityQingping": "Датчик Qingping",
+  "esphomeIdentityGoogleNest": "Устройство Google/Nest",
+  "esphomeIdentityEddystone": "Маячок Eddystone",
+  "esphomeIdentityGoogleFastPair": "Устройство Google Fast Pair",
+  "esphomeIdentityAppleFindMy": "Устройство Apple Find My",
+  "esphomeIdentityExposure": "Уведомление о контактах (телефон)",
+  "esphomeIdentityAugustYale": "Замок August/Yale",
+  "esphomeIdentityAmazon": "Устройство Amazon",
+  "esphomeIdentityTile": "Трекер Tile",
+  "esphomeIdentityInput": "Устройство ввода (пульт/клавиатура)",
+  "esphomeIdentityHeartRate": "Датчик пульса",
+  "esphomeIdentityEnvironmental": "Датчик среды",
+  "esphomeIdentityApple": "Устройство Apple",
+  "esphomeIdentityWindows": "ПК с Windows",
+  "esphomeIdentitySamsung": "Устройство Samsung",
+  "esphomeIdentityGoogle": "Устройство Google",
+  "esphomeIdentityUnknown": "Неизвестное устройство",
+  "esphomeIdentityVendor": "Устройство {vendor}"
+}

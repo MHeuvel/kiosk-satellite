@@ -1,0 +1,20 @@
+{
+  "@@locale": "ru",
+  "gestureTester": "Тестер жестов рукой",
+  "gestureOpenTester": "Открыть тестер",
+  "gestureCameraFirst": "Сначала включите камеру в настройках камеры.",
+  "gestureTesterHelp": "Смотрите, какие пальцы считывает камера, чтобы понять, как держать руку.",
+  "gestureHandHelp": "Держите руку на высоте плеча ладонью к камере, пальцы расставлены. Полностью согните палец, чтобы он не считался. Прижмите большой палец к ладони, чтобы показать четыре: большой палец считается только на открытой ладони.",
+  "gestureTesterPaused": "Жесты не срабатывают, пока открыт тестер.",
+  "gestureShowHand": "Покажите руку камере.",
+  "gestureTesterTrigger": "Срабатывает: {action}",
+  "gestureNoCount": "Ни один жест не использует это количество.",
+  "gestureNoHand": "Руки в кадре нет",
+  "gestureReadingHand": "Распознавание руки",
+  "gestureNoFingers": "Пальцы не подняты",
+  "gestureHandsCount": "Рук в кадре: {count}, читается большая.",
+  "gestureTesterSearch": "Пальцы, которые распознаёт камера, в реальном времени.",
+  "gestureHoldConfirmed": "Удержание подтверждено",
+  "gestureHoldProgress": "Прогресс удержания: {progress}",
+  "gestureTesterHoldDuration": "Длительность удержания: {duration}"
+}

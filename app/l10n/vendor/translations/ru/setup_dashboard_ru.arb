@@ -1,0 +1,7 @@
+{
+  "@@locale": "ru",
+  "setupChooseDashboard": "Выберите панель",
+  "setupDashboardHelp": "Это киоск будет показывать при запуске.",
+  "setupSelectDashboard": "Выбор панели",
+  "setupSelectDashboardHelp": "Выберите панель, которую покажет киоск. Позже её можно сменить в настройках."
+}

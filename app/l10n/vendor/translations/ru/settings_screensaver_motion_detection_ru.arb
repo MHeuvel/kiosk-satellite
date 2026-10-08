@@ -1,0 +1,12 @@
+{
+  "@@locale": "ru",
+  "settingScreensaverDismissOnMotionTitle": "Прятать при движении",
+  "settingScreensaverDismissOnMotionDescription": "Следить за камерой, пока заставка активна, и пробуждать экран, когда кто-то приближается. Камера работает только во время заставки.",
+  "settingScreensaverDismissOnMotionScreenOffOnlyTitle": "Только при выключенном экране",
+  "settingScreensaverDismissOnMotionScreenOffOnlyDescription": "Держать заставку видимой, когда движение обнаружено при включённом экране. После выключения экрана определение будит панель. Касание всё равно прячет заставку.",
+  "settingScreensaverPostponeOnMotionTitle": "Откладывать заставку при движении",
+  "settingScreensaverPostponeOnMotionDescription": "Откладывать включение заставки при обнаружении движения. ВНИМАНИЕ: камера работает постоянно.",
+  "screensaverDetectionMotionPage": "Определение движения",
+  "screensaverDetectionMotionHint": "Прятать или откладывать заставку при движении",
+  "screensaverDetectionMotionTuning": "Определение движения настраивается в настройках камеры."
+}

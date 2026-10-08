@@ -1,0 +1,16 @@
+{
+  "@@locale": "ru",
+  "screensaverDetectionPermissions": "Необходимые системные разрешения",
+  "screensaverDetectionLogAccess": "Доступ к журналам",
+  "screensaverDetectionChecking": "Проверка…",
+  "screensaverDetectionReadable": "Датчик присутствия устройства доступен для чтения.",
+  "screensaverDetectionRestartRequired": "Предоставлено. Перезапустите Kiosk Satellite, чтобы применить.",
+  "screensaverDetectionGrantHelp": "Это разрешение выдаётся только через ADB. Полная команда в документе Meta Portal. Затем перезапустите Kiosk Satellite.",
+  "screensaverDetectionGrantRemoteHelp": "Это разрешение выдаётся только через ADB. Ниже полная команда, готовая к копированию. Затем перезапустите Kiosk Satellite.",
+  "screensaverDetectionGranted": "Предоставлено",
+  "screensaverDetectionMissing": "Отсутствует",
+  "screensaverDetectionRestart": "Перезапустить",
+  "screensaverDetectionRestartRemote": "Перезапустить на устройстве",
+  "screensaverDetectionLogRestart": "Доступ к журналам предоставлен, но вступает в силу после перезапуска Kiosk Satellite.",
+  "screensaverDetectionLogMissing": "Доступ к журналам не предоставлен."
+}

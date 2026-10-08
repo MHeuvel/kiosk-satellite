@@ -1,0 +1,16 @@
+{
+  "@@locale": "ru",
+  "setupPermissionLead": "Android запросит эти разрешения. Всё запрашивается сразу, чтобы киоск потом вас не прерывал.",
+  "setupRemotePermissionLead": "Android запросит их на самом планшете. Подойдите и примите запросы, затем завершите здесь.",
+  "setupMicrophoneHelp": "Voice Satellite и интеркому нужен доступ к микрофону",
+  "setupNotificationListening": "Разрешает постоянное уведомление службы Kiosk Satellite, показывающее, что она удерживает и когда киоск слушает.",
+  "setupBatteryService": "Позволяет службе Kiosk Satellite работать в фоне без приостановки или завершения.",
+  "setupOverlayBoot": "Позволяет Kiosk Satellite возвращаться после сбоя и стартовать при загрузке устройства.",
+  "setupOverlayCrash": "Позволяет Kiosk Satellite возвращаться на экран после сбоя.",
+  "setupBrightnessHelp": "Позволяет Kiosk Satellite задавать реальную яркость экрана (изменение системных настроек).",
+  "setupScreenControl": "Управление экраном",
+  "setupScreenControlHelp": "Позволяет Kiosk Satellite выключать экран по запросу (администратор устройства).",
+  "setupGrantPermissions": "Выдать разрешения на устройстве",
+  "setupRequestingPermissions": "Запрос на устройстве…",
+  "setupPermissionsRequested": "Разрешения запрошены на устройстве"
+}

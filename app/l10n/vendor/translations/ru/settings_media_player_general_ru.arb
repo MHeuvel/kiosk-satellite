@@ -1,0 +1,22 @@
+{
+  "@@locale": "ru",
+  "settingSendspinPlayerSourceTitle": "Источник плеера",
+  "settingSendspinPlayerSourceDescription": "Что показывают и чем управляют плавающий плеер и «Сейчас играет»: это устройство или плеер в другом месте.",
+  "settingSendspinPlayerTitle": "Плеер",
+  "settingSendspinPlayerDescription": "Плеер этого источника для показа и управления.",
+  "settingSendspinDuckPercentTitle": "Приглушать при голосовом взаимодействии",
+  "settingSendspinDuckPercentDescription": "Музыка опускается до этой доли громкости при голосовом взаимодействии и звонках интеркома, затем возвращается.",
+  "settingSendspinEsphomeEntitiesTitle": "Предоставить сущности ESPHome",
+  "settingSendspinEsphomeEntitiesDescription": "Кнопки «воспроизвести», «пауза», «следующий» и «предыдущий» для отслеживаемого плеера в Home Assistant, с его состоянием, названием, исполнителем и источником как датчиками.",
+  "settingSendspinVolumeKeysTitle": "Кнопки громкости управляют плеером",
+  "settingSendspinVolumeKeysDescription": "Кнопки громкости этого устройства меняют громкость отслеживаемого плеера вместо собственной. Только пока вид «Сейчас играет» на экране или пока плеер воспроизводит.",
+  "settingSendspinVolumeKeyStepTitle": "Шаг кнопки громкости",
+  "settingSendspinVolumeKeyStepDescription": "Насколько одно нажатие кнопки громкости меняет громкость плеера.",
+  "mediaIntro": "Плавающий плеер и «Сейчас играет» показываются, только пока у выбранного плеера идёт трек или загружена очередь. Без воспроизведения и очереди их нет.",
+  "mediaThisDevice": "Это устройство",
+  "mediaOff": "Выключено",
+  "mediaKeysNowPlaying": "Пока показан «Сейчас играет»",
+  "mediaKeysPlaying": "Пока плеер воспроизводит",
+  "mediaAnotherPlayer": "другой плеер",
+  "mediaLocalOffline": "Собственный плеер Sendspin этого устройства остаётся не в сети, пока управляется {player}."
+}

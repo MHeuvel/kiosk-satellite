@@ -1,0 +1,13 @@
+{
+  "@@locale": "ru",
+  "esphomeNearby": "Устройства поблизости",
+  "esphomeNearbySearch": "Устройства Bluetooth, которые слышит этот киоск, с именами, где известны.",
+  "esphomeNearbyEmpty": "Пока ничего не слышно.",
+  "esphomeNearbyWaiting": "Пока ничего не слышно. Устройства появятся здесь, когда прокси начнёт сканировать.",
+  "esphomeRotating": "(меняющийся адрес)",
+  "esphomeNearbyCount": "Показаны первые {count} из {total}.",
+  "esphomeSlots": "Через этот прокси можно подключить одновременно до {count} устройств. Home Assistant направит остальные через другие прокси.",
+  "esphomeSecondsAgo": "{count} с назад",
+  "esphomeMinutesAgo": "{count} мин назад",
+  "esphomeHoursAgo": "{count} ч назад"
+}

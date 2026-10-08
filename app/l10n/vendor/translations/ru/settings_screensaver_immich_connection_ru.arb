@@ -1,0 +1,22 @@
+{
+  "@@locale": "ru",
+  "settingScreensaverImmichUrlTitle": "Адрес сервера",
+  "settingScreensaverImmichUrlDescription": "Адрес вашего сервера Immich с его портом.",
+  "settingScreensaverImmichApiKeyTitle": "API-ключ",
+  "settingScreensaverImmichApiKeyDescription": "Создаётся в Immich: Настройки аккаунта, затем API Keys.",
+  "screensaverMediaImmichPage": "Заставка «Медиа Immich»",
+  "screensaverMediaImmichHint": "Сервер, медиа, слайд-шоу, метаданные, фильтры",
+  "screensaverMediaServerConnection": "Соединение с сервером",
+  "screensaverMediaValidateFailedLog": "Проверка не удалась. Подробности о сбойном вызове смотрите в журнале приложения.",
+  "screensaverMediaValidateFailed": "Проверка не удалась.",
+  "screensaverMediaNoAnswer": "Устройство не ответило.",
+  "screensaverMediaAddressFirst": "Сначала введите адрес сервера.",
+  "screensaverMediaKeyFirst": "Сначала введите API-ключ.",
+  "screensaverMediaBadAddress": "Адрес сервера не является корректным URL.",
+  "screensaverMediaKeyRejected": "API-ключ отклонён.",
+  "screensaverMediaScopeMissing": "У API-ключа нет разрешения {scope}.",
+  "screensaverMediaPermissionMissing": "У API-ключа нет разрешения: {error}",
+  "screensaverMediaServerError": "Сервер ответил {status}: {error}",
+  "screensaverMediaUnreachable": "Не удалось достучаться до {url}.",
+  "screensaverMediaTalkError": "Не удалось связаться с сервером: {error}"
+}

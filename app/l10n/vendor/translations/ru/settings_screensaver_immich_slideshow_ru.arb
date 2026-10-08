@@ -1,0 +1,18 @@
+{
+  "@@locale": "ru",
+  "settingScreensaverImmichIntervalTitle": "Секунд на изображение",
+  "settingScreensaverImmichIntervalDescription": "Как долго показывается каждое изображение до следующего. Видео проигрываются целиком.",
+  "settingScreensaverImmichShuffleTitle": "Перемешивание",
+  "settingScreensaverImmichShuffleDescription": "Циклически показывать медиа в случайном порядке.",
+  "settingScreensaverImmichTransitionTitle": "Переход",
+  "settingScreensaverImmichTransitionDescription": "Как один элемент сменяется следующим.",
+  "settingScreensaverImmichFillTitle": "Заполнить экран",
+  "settingScreensaverImmichFillDescription": "«Выкл» держит всё фото между чёрными полосами. «Умно» увеличивает фото, близкие по форме к экрану, оформляя остальные поверх размытого фона. «Всегда» увеличивает каждое фото, обрезая не влезающее.",
+  "settingScreensaverImmichPairPortraitTitle": "Парные портретные фото",
+  "settingScreensaverImmichPairPortraitDescription": "Показывать два портретных фото бок о бок, чтобы заполнить экран.",
+  "settingScreensaverImmichPairLandscapeTitle": "Парные альбомные фото",
+  "settingScreensaverImmichPairLandscapeDescription": "Показывать два альбомных фото одно над другим, чтобы заполнить портретный экран.",
+  "settingScreensaverImmichEdgeTapsTitle": "Касание краёв для смены слайдов",
+  "settingScreensaverImmichEdgeTapsDescription": "Касание левой или правой пятой части экрана показывает предыдущий или следующий слайд вместо закрытия.",
+  "screensaverMediaSlideshow": "Слайд-шоу"
+}

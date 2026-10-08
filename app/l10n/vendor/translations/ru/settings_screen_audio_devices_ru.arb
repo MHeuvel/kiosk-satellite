@@ -1,0 +1,10 @@
+{
+  "@@locale": "ru",
+  "settingAudioMicDeviceTitle": "Микрофон",
+  "settingAudioMicDeviceDescription": "Микрофон, с которого определение слова пробуждения и голосовые реплики пишут звук.",
+  "settingAudioSpeakerDeviceTitle": "Динамик",
+  "settingAudioSpeakerDeviceDescription": "Выход для звуков Voice Satellite; воспроизведение медиа следует системному маршруту.",
+  "screenAudioDevices": "Звуковые устройства",
+  "screenAudioSelectedDevice": "Выбранное устройство",
+  "screenAudioDisconnected": "{name} (не подключено)"
+}

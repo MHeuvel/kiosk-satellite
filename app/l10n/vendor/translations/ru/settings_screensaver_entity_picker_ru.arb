@@ -1,0 +1,18 @@
+{
+  "@@locale": "ru",
+  "screensaverOverlayEntity": "Сущность",
+  "screensaverOverlayNotSet": "Не задано",
+  "screensaverOverlayName": "Название",
+  "screensaverOverlayNameHelp": "Оставьте пустым, чтобы использовать имя из Home Assistant.",
+  "screensaverOverlayValue": "Показываемое значение",
+  "screensaverOverlayState": "Состояние",
+  "screensaverOverlayEntityRequired": "Выберите сущность.",
+  "screensaverOverlaySearchHint": "Название или ID сущности",
+  "screensaverOverlaySearchHintRemote": "Поиск по названию или ID сущности",
+  "screensaverOverlaySearchEmpty": "Введите текст для поиска сущностей.",
+  "screensaverOverlayNoMatches": "Ничего не найдено.",
+  "screensaverOverlaySearching": "Поиск…",
+  "screensaverOverlayUnreachable": "Home Assistant недоступен",
+  "screensaverOverlayNoAnswer": "Устройство не ответило.",
+  "screensaverOverlaySearchError": "Не удалось выполнить поиск сущностей: {error}"
+}

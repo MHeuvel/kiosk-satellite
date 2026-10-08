@@ -1,0 +1,9 @@
+{
+  "@@locale": "ru",
+  "launcherNoneHelp": "Пока пусто. Выберите приложения, которые предложит лаунчер.",
+  "launcherNone": "Пока пусто",
+  "launcherListFailed": "Не удалось получить список приложений",
+  "launcherListError": "Не удалось получить список приложений: {error}",
+  "launcherListingFailed": "не удалось получить список",
+  "launcherEmpty": "Запускаемые приложения не найдены."
+}

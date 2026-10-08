@@ -1,0 +1,22 @@
+{
+  "@@locale": "ru",
+  "settingRemoteEnabledTitle": "Удалённое управление",
+  "settingRemoteEnabledDescription": "Запустить встроенный веб-сервер администрирования.",
+  "settingRemotePortTitle": "Порт сервера",
+  "settingRemotePortDescription": "Порт интерфейса удалённого администрирования.",
+  "settingRemotePasswordTitle": "Пароль администратора",
+  "settingRemotePasswordDescription": "Нужен для входа в удалённый интерфейс.",
+  "settingRemoteFleetDiscoveryTitle": "Поиск других киосков",
+  "settingRemoteFleetDiscoveryDescription": "Объявлять это устройство в сети и показывать другие киоски в удалённом администрировании для переключения между ними.",
+  "deviceRemotePage": "Удалённое администрирование",
+  "deviceAdminAddress": "Адрес администрирования",
+  "deviceAdminAddressHelp": "Откройте этот адрес в браузере на компьютере.",
+  "deviceByName": "По имени",
+  "deviceByNameHelp": "Тот же адрес по имени хоста, в сетях, разрешающих имена .local.",
+  "deviceByCertificateNameHelp": "Тот же адрес по имени из сертификата устройства.",
+  "devicePasswordNeeded": "Задайте пароль администратора ниже, чтобы запустить сервер.",
+  "deviceServerStopped": "Сервер не работает.",
+  "devicePortError": "Не удалось слушать порт {port}: {error}",
+  "settingRemoteTlsTitle": "Использовать HTTPS",
+  "settingRemoteTlsDescription": "Шифрует удалённое администрирование, API и WebSocket. Браузер может попросить принять сертификат устройства."
+}

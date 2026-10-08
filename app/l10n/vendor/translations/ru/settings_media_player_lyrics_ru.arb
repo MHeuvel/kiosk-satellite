@@ -1,0 +1,13 @@
+{
+  "@@locale": "ru",
+  "settingSendspinLyricsEnabledTitle": "Включить текст песни",
+  "settingSendspinLyricsEnabledDescription": "Синхронизированный текст на виде «Сейчас играет» для любого источника плеера.",
+  "settingSendspinLyricsSourceTitle": "Источник текста",
+  "settingSendspinLyricsSourceDescription": "Откуда берётся текст. Для Music Assistant нужны адрес сервера и токен на его странице.",
+  "settingSendspinLyricsFallbackTitle": "Запасной вариант: Music Assistant",
+  "settingSendspinLyricsFallbackDescription": "Если LRCLIB недоступен, спрашивается Music Assistant. Нужно соединение с Music Assistant.",
+  "settingSendspinLyricsOffsetTitle": "Тайминг текста",
+  "settingSendspinLyricsOffsetDescription": "Сдвигает текст относительно музыки. Положительный сдвиг показывает каждую строку раньше, отрицательный позже. Стоит подправить на треках, где текст стабильно сбит.",
+  "mediaLyricsPage": "Текст песни",
+  "mediaLyricsHint": "Синхронизированный текст, его источник и тайминг"
+}

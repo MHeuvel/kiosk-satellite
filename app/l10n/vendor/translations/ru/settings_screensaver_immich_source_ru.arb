@@ -1,0 +1,19 @@
+{
+  "@@locale": "ru",
+  "settingScreensaverImmichAlbumTitle": "Источник медиа",
+  "settingScreensaverImmichAlbumDescription": "Вся библиотека или выбранные вами альбомы.",
+  "settingScreensaverImmichPhotosOnlyTitle": "Только фото",
+  "settingScreensaverImmichPhotosOnlyDescription": "Пропускать видео в слайд-шоу.",
+  "settingScreensaverImmichCacheTitle": "Кэшировать медиа локально",
+  "settingScreensaverImmichCacheDescription": "Держать копии на устройстве, чтобы изображения грузились мгновенно.",
+  "settingScreensaverImmichCacheMaxTitle": "Размер кэша (элементов)",
+  "settingScreensaverImmichCacheMaxDescription": "Самые старые элементы удаляются при заполнении кэша.",
+  "screensaverMediaAll": "Все медиа",
+  "screensaverMediaAllDevice": "Все медиа.",
+  "screensaverMediaNoAlbums": "Альбомов пока нет. Сначала создайте в Immich.",
+  "screensaverMediaAlbumsFailed": "Не удалось получить список альбомов",
+  "screensaverMediaListError": "Не удалось получить список: {error}",
+  "screensaverMediaListingFailed": "не удалось получить список",
+  "screensaverMediaItems": "Элементов: {count}",
+  "screensaverMediaCached": "В кэше: {count}, {size}"
+}

@@ -1,0 +1,7 @@
+{
+  "@@locale": "ru",
+  "settingsSearchHint": "Поиск настроек",
+  "settingsSearchClear": "Очистить поиск",
+  "settingsSearchResults": "Результаты поиска",
+  "settingsSearchEmpty": "Нет настроек, соответствующих «{query}»."
+}

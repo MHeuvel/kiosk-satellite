@@ -1,0 +1,16 @@
+{
+  "@@locale": "ru",
+  "settingScreensaverGlanceScaleTitle": "Масштаб ряда",
+  "settingScreensaverGlanceScaleDescription": "Масштабируйте ряд под размер экрана.",
+  "settingScreensaverGlanceFontTitle": "Гарнитура",
+  "settingScreensaverGlanceFontDescription": "Шрифт, которым рисуется ряд.",
+  "settingScreensaverGlanceFontWeightTitle": "Насыщенность шрифта",
+  "settingScreensaverGlanceFontWeightDescription": "Насколько жирно рисуется текст ряда. По умолчанию собственная насыщенность строк: обычные названия, полужирные значения.",
+  "settingScreensaverGlanceHideNamesTitle": "Скрыть названия",
+  "settingScreensaverGlanceHideNamesDescription": "Показывать только значок и значение, значение крупнее.",
+  "settingScreensaverGlanceBwIconsTitle": "Монохромные значки",
+  "settingScreensaverGlanceBwIconsDescription": "Держать каждый значок в нейтральном сером вместо цвета состояния.",
+  "settingScreensaverGlanceTextOnlyTitle": "Плавающий текст",
+  "settingScreensaverGlanceTextOnlyDescription": "Показывать сущности плавающим текстом вместо чипов.",
+  "screensaverOverlayAppearance": "Внешний вид"
+}

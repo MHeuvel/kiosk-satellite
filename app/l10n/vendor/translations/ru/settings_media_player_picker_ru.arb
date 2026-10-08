@@ -1,0 +1,18 @@
+{
+  "@@locale": "ru",
+  "mediaPickPlayer": "Выберите плеер",
+  "mediaMaPlayer": "Плеер Music Assistant",
+  "mediaHaPlayer": "Медиаплеер Home Assistant",
+  "mediaSonosRoom": "Комната Sonos",
+  "mediaSearchPlayers": "Поиск плееров",
+  "mediaOffline": "Не в сети",
+  "mediaOfflineName": "{name} (не в сети)",
+  "mediaSetUpMa": "Настройте Music Assistant, чтобы увидеть его плееры.",
+  "mediaSetUpHa": "Подключите Home Assistant, чтобы увидеть его медиаплееры.",
+  "mediaSetUpSonos": "Колонки Sonos пока не известны. Найдите или добавьте одну на странице Sonos.",
+  "mediaHaFailed": "Home Assistant не ответил: {error}",
+  "mediaSaveFailed": "Не удалось сохранить плеер.",
+  "mediaSelectFailed": "Не удалось выбрать плеер",
+  "mediaNotificationAccessRemote": "Без этого Android не показывает медиасеансы, поэтому «Сейчас играет» не может отслеживать приложения на этом устройстве. Экран выдачи разрешения появится на планшете.",
+  "mediaLocalMediaSession": "Локальный медиасеанс"
+}

@@ -1,0 +1,16 @@
+{
+  "@@locale": "ru",
+  "settingSendspinFullscreenTitle": "«Сейчас играет» вместо заставки",
+  "settingSendspinFullscreenDescription": "Пока играет музыка, заставка становится полноэкранным видом «Сейчас играет» с обложкой. Без воспроизведения работает обычная заставка.",
+  "settingSendspinFullscreenSplitTitle": "Показывать рядом с заставкой",
+  "settingSendspinFullscreenSplitDescription": "Держать заставку видимой рядом с «Сейчас играет». Портретные экраны ставят заставку над плеером. Маленькие экраны оставляют полноэкранный плеер.",
+  "settingSendspinFullscreenPhotoFillTitle": "Заполнить экран",
+  "settingSendspinFullscreenPhotoFillDescription": "Переопределяет заполнение фото, пока заставка делит экран с «Сейчас играет». «По умолчанию» использует настройку каждой заставки. «Выкл» держит всё фото между чёрными полосами. «Умно» увеличивает фото, близкие по форме к экрану, оформляя остальные поверх размытого фона. «Всегда» увеличивает каждое фото, обрезая не влезающее.",
+  "settingSendspinFullscreenOverrideBrightnessTitle": "Игнорировать яркость заставки",
+  "settingSendspinFullscreenOverrideBrightnessDescription": "Использовать обычную яркость экрана вместо яркости заставки, пока «Сейчас играет» показан рядом с заставкой. Также перекрывает запланированную яркость заставки.",
+  "mediaScreensaverHeading": "Заставка",
+  "mediaDefaultFill": "По умолчанию",
+  "mediaFillOff": "Выкл",
+  "mediaFillSmart": "Умно",
+  "mediaFillAlways": "Всегда"
+}

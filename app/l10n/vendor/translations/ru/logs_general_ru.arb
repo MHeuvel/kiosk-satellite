@@ -1,0 +1,10 @@
+{
+  "@@locale": "ru",
+  "logsEntries": "Записей: {count}",
+  "logsCopyLog": "Копировать журнал",
+  "logsShareLog": "Поделиться журналом",
+  "logsCopied": "Скопировано",
+  "logsCopyFailed": "Не удалось скопировать",
+  "logsOnClipboard": "Журнал в буфере обмена.",
+  "logsConsoleOnClipboard": "Журнал консоли в буфере обмена."
+}

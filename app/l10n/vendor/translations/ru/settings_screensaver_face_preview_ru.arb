@@ -1,0 +1,12 @@
+{
+  "@@locale": "ru",
+  "settingFacePreviewTitle": "Показывать превью камеры",
+  "settingFacePreviewDescription": "Показывать маленькое круглое живое превью камеры в углу экрана на несколько секунд, когда лицо будит киоск.",
+  "settingFacePreviewSecondsTitle": "Длительность превью",
+  "settingFacePreviewSecondsDescription": "Как долго превью остаётся на экране.",
+  "settingFacePreviewScaleTitle": "Масштаб превью",
+  "settingFacePreviewScaleDescription": "Масштабируйте превью под размер экрана.",
+  "settingFacePreviewPositionTitle": "Позиция превью",
+  "settingFacePreviewPositionDescription": "В каком углу находится превью.",
+  "screensaverDetectionPreviewSection": "Превью камеры"
+}
