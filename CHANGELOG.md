@@ -10,6 +10,9 @@ All notable changes to Kiosk Satellite are documented here. Full release notes f
 ### Changed
 - **Plugins can declare up to 50 settings.** The limit was 20.
 
+### Fixed
+- **iCloud albums work as a screensaver folder.** Picking an iCloud shared album with **Use this folder** saved the iCloud root instead of the album, so the screensaver stayed black (#896). The media picker now saves the folder you opened, on the device and in the remote admin. Pick the album again after updating.
+
 ## v2026.10.12 - 2026-10-07
 
 ### Added

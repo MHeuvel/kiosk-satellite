@@ -135,7 +135,10 @@ export function openMediaBrowser() {
       if (trail.length > 1 && node.can_expand) {
         const useFolder = document.createElement('button');
         useFolder.className = 'btn-ghost'; useFolder.textContent = screensaverText('Use this folder');
-        useFolder.addEventListener('click', () => close({ id: node.media_content_id, isFolder: true }));
+        // The id we browsed, not the one the folder reports about itself:
+        // some media sources (the iCloud one) report an album under
+        // their root id, which would cycle nothing.
+        useFolder.addEventListener('click', () => close({ id: id || node.media_content_id, isFolder: true }));
         foot.appendChild(useFolder);
       }
     }
