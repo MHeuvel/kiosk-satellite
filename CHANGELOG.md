@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.10.14 - 2026-10-08
 
 ### Added
 - **Control Voice Satellite timers from Home Assistant and dashboards.** Timers on the kiosk can now be listed and changed without voice or a tap on their pill (#897). New **VS Timers** and **VS Next timer** sensors count the timers that are running or paused and show when the next one ends, so a card counts down to it on its own. The `vs_list_timers` action returns every timer with its ID, name, time left and end time. `vs_pause_timer`, `vs_resume_timer`, `vs_cancel_timer`, `vs_add_time` and `vs_remove_time` change one timer by its ID, or the only one when the ID is empty. Dashboards running on the kiosk get the same through the JavaScript API: `getVoiceTimers`, `controlVoiceTimer` and a `kiosksatellite:voice-timers` event after every change. Home Assistant finds a timer by its name or starting duration, so two timers on one kiosk with the same name, or two unnamed timers with the same duration, cannot be told apart and the change fails with an error that says so.
