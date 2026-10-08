@@ -589,13 +589,31 @@ class EspEntitySurface {
       // runs no pipeline, so the satellite entity Home Assistant keeps
       // stays idle through it. Never beside the switch above, which only
       // the dashboard runtime lists.
-      if (_voiceNative)
+      if (_voiceNative) ...[
         {
           'type': 'text_sensor',
           'objectId': 'voice_satellite_state',
           'name': 'Voice Satellite',
           'icon': 'mdi:account-voice',
         },
+        // The timers on the kiosk, running or paused, and when the next
+        // running one ends. ESPHome has no attributes, so the list itself
+        // is the vs_list_timers action's answer.
+        {
+          'type': 'sensor',
+          'objectId': 'vs_timers',
+          'name': 'VS Timers',
+          'icon': 'mdi:timer-outline',
+          'accuracyDecimals': 0,
+        },
+        {
+          'type': 'text_sensor',
+          'objectId': 'vs_next_timer',
+          'name': 'VS Next timer',
+          'icon': 'mdi:timer-sand',
+          'deviceClass': 'timestamp',
+        },
+      ],
       button(
         'postpone_screensaver',
         'Postpone screensaver',
@@ -1258,6 +1276,52 @@ class EspEntitySurface {
         {'name': 'seconds', 'type': 'int'},
       ],
     },
+    // The timers on this kiosk, as an automation reads them through
+    // response_variable: the list the VS Timers sensor counts.
+    {'name': 'vs_list_timers', 'supportsResponse': true, 'args': []},
+    // Change one of those timers by its timer_id, or the kiosk's only one
+    // when the id is empty. They go through Home Assistant's timer intents.
+    {
+      'name': 'vs_pause_timer',
+      'supportsResponse': true,
+      'args': [
+        {'name': 'timer_id', 'type': 'string'},
+      ],
+    },
+    {
+      'name': 'vs_resume_timer',
+      'supportsResponse': true,
+      'args': [
+        {'name': 'timer_id', 'type': 'string'},
+      ],
+    },
+    {
+      'name': 'vs_cancel_timer',
+      'supportsResponse': true,
+      'args': [
+        {'name': 'timer_id', 'type': 'string'},
+      ],
+    },
+    {
+      'name': 'vs_add_time',
+      'supportsResponse': true,
+      'args': [
+        {'name': 'timer_id', 'type': 'string'},
+        {'name': 'hours', 'type': 'int'},
+        {'name': 'minutes', 'type': 'int'},
+        {'name': 'seconds', 'type': 'int'},
+      ],
+    },
+    {
+      'name': 'vs_remove_time',
+      'supportsResponse': true,
+      'args': [
+        {'name': 'timer_id', 'type': 'string'},
+        {'name': 'hours', 'type': 'int'},
+        {'name': 'minutes', 'type': 'int'},
+        {'name': 'seconds', 'type': 'int'},
+      ],
+    },
   ];
 
   static const _services = <Map<String, Object?>>[
@@ -1422,6 +1486,30 @@ class EspEntitySurface {
         });
         if (!result.ok) throw StateError(result.error ?? 'timer not started');
         return const {};
+      case 'vs_pause_timer':
+      case 'vs_resume_timer':
+      case 'vs_cancel_timer':
+      case 'vs_add_time':
+      case 'vs_remove_time':
+        final result = await commands.execute('voiceTimerControl', {
+          'timer_id': args['timer_id'] ?? '',
+          'action': switch (name) {
+            'vs_pause_timer' => 'pause',
+            'vs_resume_timer' => 'resume',
+            'vs_cancel_timer' => 'cancel',
+            'vs_add_time' => 'add',
+            _ => 'remove',
+          },
+          'hours': args['hours'] ?? 0,
+          'minutes': args['minutes'] ?? 0,
+          'seconds': args['seconds'] ?? 0,
+        });
+        if (!result.ok) throw StateError(result.error ?? 'timer not changed');
+        return const {};
+      case 'vs_list_timers':
+        final result = await commands.execute('voiceTimers', const {});
+        if (!result.ok) throw StateError(result.error ?? 'refused');
+        return {'timers': (result.data as Map?)?['timers'] ?? const []};
       case 'set_brightness':
       case 'set_screensaver_brightness':
         final brightness = args['brightness'];
@@ -1755,6 +1843,11 @@ class EspEntitySurface {
         if (_voiceNative) _send('voice_satellite_state', e.state);
       }),
     );
+    _subs.add(
+      bus.on<VoiceTimersChanged>().listen((e) {
+        if (_voiceNative) unawaited(_sendTimers(e.timers));
+      }),
+    );
     // A person waking the panel by hand counts too (issue #348); see the
     // ScreenStateChanged listener below for why only the OS-reported wake
     // qualifies.
@@ -1769,6 +1862,19 @@ class EspEntitySurface {
     _subs.add(bus.on<SettingChanged>().listen(_onSettingChanged));
     _poll = Timer.periodic(_pollInterval, (_) => _refresh());
     _sendInitial();
+  }
+
+  /// VS Timers counts the timers still counting or paused, and VS Next
+  /// timer is the soonest end among the running ones, unknown when none
+  /// runs.
+  Future<void> _sendTimers(List<Map<String, Object?>> timers) async {
+    final pending = timers.where((t) => t['finished'] != true);
+    final ends = [
+      for (final t in pending)
+        if (t['ends_at'] is String) t['ends_at'] as String,
+    ]..sort();
+    await _send('vs_timers', pending.length);
+    await _send('vs_next_timer', ends.isEmpty ? null : ends.first);
   }
 
   /// The intercom's three sensors from one status shape. See
@@ -2214,6 +2320,12 @@ class EspEntitySurface {
           ? (voice.data as Map)['state']
           : null;
       await _send('voice_satellite_state', '${state ?? 'idle'}');
+      final timers = await commands.execute('voiceTimers', const {});
+      await _sendTimers([
+        if (timers.ok && timers.data is Map)
+          for (final t in ((timers.data as Map)['timers'] as List? ?? const []))
+            if (t is Map) t.cast<String, Object?>(),
+      ]);
     }
     if (_settings.get(defs.intercomEnabled)) {
       final intercom = await commands.execute('intercomStatus', const {});

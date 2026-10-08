@@ -142,6 +142,7 @@ The API dispatches `CustomEvent`s directly on the `window` object:
 | `kiosksatellite:sound-level` | `{id, level}` | Provides the playback level of a playing sound (the mean absolute amplitude from 0 to 1, updating at most ~20 times per second, with near duplicate samples skipped). This allows a page visualizer to animate to audio it never actually touches. Note: This is best-effort and will be absent on devices lacking a functional hardware `Visualizer`. |
 | `kiosksatellite:voice-chimes-changed` | `{filename: seconds}` | Selected local chime durations changed. Use these values for local microphone timing. Remote speakers continue to use Home Assistant sounds. |
 | `kiosksatellite:sound-ended` | `{id, error?}` | A `playSound` request naturally finished, failed (with the `error` string detailing why), or was manually stopped. This fires exactly once per sound. |
+| `kiosksatellite:voice-timers` | `{timers}` | Native Voice Satellite's timers changed. See [Native timers on a dashboard](#native-timers-on-a-dashboard). |
 | `kiosksatellite:intercom` | the `intercomStatus` shape | The intercom changed: a call placed, ringing, answered or ended, a broadcast coming in, the kiosks on the network. |
 | `kiosksatellite:intercom-mic` | `{hold}` | With `hold` true the intercom wants the microphone the page holds through `getUserMedia`, for a call or a broadcast, and waits two seconds for the page to stop its tracks before the call goes on listen only. With `hold` false the call is over and the page may open its capture again. Voice Satellite lets go of its own capture on this event and brings it back after. |
 | `kiosksatellite:pipeline` | `{runId, message}` | Delivers one raw event verbatim from a delegated run's subscription. This includes the synthetic `init`, `run-start`, STT partials, `intent-progress` deltas, `tts-end`, and any errors. |
@@ -205,6 +206,29 @@ It requires an additional VS-side hook (sitting outside the current surface of t
 `setVoiceTimerAlert({entityId, timers, muted})` shows finished timers and plays the bundled Voice Satellite alert locally every three seconds unless muted. It uses the same timer shape. An empty array dismisses the alert and stops its sound. Alerts and countdowns are separate snapshots so finishing one timer does not remove the others. The integration keeps its interaction hold and stop word handling until dismissal.
 
 `kiosksatellite:timer-action` carries `{entityId, id, action}`. Actions are `pause`, `resume`, `cancel` and `dismiss`. The integration applies running timer actions to Home Assistant and sends the resulting snapshot. `dismiss` clears the finished alert. `voiceTimerActionFailed(entityId)` shows a local error if an action fails.
+
+### Native timers on a dashboard
+
+A dashboard running on the kiosk can show and control native Voice Satellite's timers without a round trip through Home Assistant. These are the same timers the [`vs_list_timers` action](voice-satellite.md#home-assistant-entities-and-actions) lists.
+
+| Method | Returns | Description |
+|---|---|---|
+| `getVoiceTimers()` | `{timers}` | The timers on the kiosk: running and paused ones, then ringing ones. Each has `timer_id`, `name`, `total_seconds`, `seconds_left`, `is_active`, `ends_at` and `finished`, the same fields `vs_list_timers` returns. |
+| `controlVoiceTimer(id, action, {hours, minutes, seconds})` | `boolean` | Changes the timer with that `timer_id`. `action` is `pause`, `resume`, `cancel`, `add` or `remove`, and `add` and `remove` take the duration. An empty `id` picks the kiosk's only timer. Resolves `false` when the change fails, with the same limits as the [timer actions](voice-satellite.md#home-assistant-entities-and-actions). |
+
+`kiosksatellite:voice-timers` carries `{timers}` in the same shape after every change: a timer starting, changing, being cancelled, finishing or its alert being dismissed. Call `getVoiceTimers()` when the page loads, then follow the event. `ends_at` lets the page count down on its own, since the event does not repeat while a timer runs.
+
+```javascript
+const ks = window.kioskSatellite;
+let timers = [];
+const draw = (detail) => { timers = detail.timers; /* render the list */ };
+window.addEventListener('kiosksatellite:voice-timers', (e) => draw(e.detail));
+ks.getVoiceTimers().then((r) => r && draw(r));
+
+// A "+1 min" button on the first timer.
+const addMinute = () =>
+  ks.controlVoiceTimer(timers[0].timer_id, 'add', { minutes: 1 });
+```
 
 Document replacement clears native timer presentation and stops alert audio. The new document restores countdowns from the satellite state. Timer positions remain stored per device.
 

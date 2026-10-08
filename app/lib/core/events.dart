@@ -428,6 +428,21 @@ class VoiceSatelliteStateChanged extends AppEvent {
   final String state;
 }
 
+/// Native Voice Satellite's timers changed: one started, changed, was
+/// cancelled, finished or had its alert dismissed. Carries the whole
+/// `voiceTimers` list so the ESPHome sensors and the page's
+/// `kiosksatellite:voice-timers` listeners redraw from the event alone.
+class VoiceTimersChanged extends AppEvent {
+  const VoiceTimersChanged(this.timers);
+  final List<Map<String, Object?>> timers;
+
+  @override
+  String get wireName => 'voice-timers';
+
+  @override
+  Map<String, Object?> toJson() => {'timers': timers};
+}
+
 // ── Alarms ─────────────────────────────────────────────────────────────
 
 /// The alarms or their ringing state changed: an alarm added, edited or

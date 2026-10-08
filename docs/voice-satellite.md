@@ -195,7 +195,9 @@ With **Expose kiosk entities** on under **Settings > ESPHome**, the kiosk adds i
 
 The kiosk also adds a **Voice Satellite** text sensor. It reads `idle`, `listening`, `processing` or `responding`, the same states as the Assist satellite entity, and it follows realtime conversations too. A realtime conversation runs no Home Assistant pipeline, so the Assist satellite entity stays idle through it. Check the sensor instead when an automation or script needs to know which kiosk is talking.
 
-And four actions, named after the kiosk's [node name](esphome.md#node-name):
+Two more sensors follow the kiosk's timers. **VS Timers** counts the timers that are running or paused. **VS Next timer** is a timestamp of when the soonest running timer ends, so a tile or entity card counts down to it on its own. It reads unknown while no timer runs.
+
+And these actions, named after the kiosk's [node name](esphome.md#node-name):
 
 ```yaml
 # Listen as if the wake word fired. Slot 2 runs Assistant 2.
@@ -232,6 +234,69 @@ data:
   minutes: 10
   seconds: 0
 ```
+
+```yaml
+# List the kiosk's timers.
+action: esphome.kitchen_tablet_vs_list_timers
+response_variable: result
+```
+
+The response holds a `timers` list with one entry per timer: running and paused ones first, then any that are ringing.
+
+```yaml
+timers:
+  - timer_id: 01K6...
+    name: pasta
+    total_seconds: 600
+    seconds_left: 412
+    is_active: true
+    ends_at: "2026-10-08T22:42:10.000Z"
+    finished: false
+```
+
+`seconds_left` is the time left when the action ran. `ends_at` is when a running timer ends, in UTC, and is null while it is paused or ringing. `finished` is true while a timer rings and until its alert is dismissed.
+
+ESPHome entities cannot carry attributes, so the list comes from the action. To keep it on an entity for a dashboard card, refresh a template sensor from the [timer event](#timer-events):
+
+```yaml
+template:
+  - triggers:
+      - trigger: homeassistant
+        event: start
+      - trigger: event
+        event_type: esphome.kiosk_satellite_timer
+    actions:
+      - action: esphome.kitchen_tablet_vs_list_timers
+        response_variable: result
+    sensor:
+      - name: Kitchen timers
+        state: "{{ result.timers | length }}"
+        attributes:
+          timers: "{{ result.timers }}"
+```
+
+The event fires for every kiosk, so a sensor for one kiosk can add `event_data` with that kiosk's `device_id` to skip the others.
+
+```yaml
+# Pause, resume or cancel a timer by its ID.
+action: esphome.kitchen_tablet_vs_pause_timer
+data:
+  timer_id: 01K6...
+```
+
+```yaml
+# Add time to a timer. vs_remove_time takes the same fields.
+action: esphome.kitchen_tablet_vs_add_time
+data:
+  timer_id: 01K6...
+  hours: 0
+  minutes: 5
+  seconds: 0
+```
+
+`vs_pause_timer`, `vs_resume_timer`, `vs_cancel_timer`, `vs_add_time` and `vs_remove_time` take the `timer_id` from `vs_list_timers` or from the [timer event](#timer-events). An empty `timer_id` picks the kiosk's only timer and fails when it has several. Pausing a paused timer or resuming a running one does nothing.
+
+Home Assistant's timer intents do the change, and they cannot find a timer by its ID. The kiosk looks the timer up and asks for it by name, or by the duration it started with when it has no name. Two timers on the same kiosk with the same name, or two unnamed timers that started with the same duration, look the same to Home Assistant, and the action fails with an error that says so. Give timers names to keep them apart.
 
 The entities and actions appear only while Voice Satellite runs natively and is on.
 

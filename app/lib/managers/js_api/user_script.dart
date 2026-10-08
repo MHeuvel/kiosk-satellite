@@ -39,6 +39,24 @@ String buildKioskSatelliteScript({
       return call('voiceTimerActionFailed', { entityId: entityId });
     },
 
+    // Native Voice Satellite's timers, for a dashboard that shows its own.
+    // getVoiceTimers resolves {timers: [...]}, the vs_list_timers shape;
+    // 'kiosksatellite:voice-timers' carries the same after every change.
+    // controlVoiceTimer changes one by its timer_id ('' for the only one):
+    // action 'pause', 'resume', 'cancel', 'add' or 'remove', with
+    // {hours, minutes, seconds} for add and remove.
+    getVoiceTimers: function () { return call('getVoiceTimers'); },
+    controlVoiceTimer: function (id, action, opts) {
+      opts = opts || {};
+      return call('controlVoiceTimer', {
+        timer_id: id == null ? '' : String(id),
+        action: String(action),
+        hours: Number(opts.hours) || 0,
+        minutes: Number(opts.minutes) || 0,
+        seconds: Number(opts.seconds) || 0
+      });
+    },
+
     getDeviceInfo: function () { return call('getDeviceInfo'); },
     getBrightness: function () { return call('getBrightness'); },
     setBrightness: function (level) { return call('setBrightness', { level: level }); },
