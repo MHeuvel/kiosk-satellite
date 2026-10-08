@@ -2,7 +2,7 @@
 
 All notable changes to Kiosk Satellite are documented here. Full release notes for each version are available on the [releases page](https://github.com/jxlarrea/kiosk-satellite/releases).
 
-## Unreleased
+## v2026.10.13 - 2026-10-08
 
 ### Added
 - **Plugins can draw native overlays.** Plugins with the `overlay` capability can now show their own Android views over the kiosk with `host.showOverlay`, from a small bar anchored to an edge to a full screen panel (#890). Overlays sit in Kiosk Satellite's own screen, so the menu, the screensaver and Lockdown Mode cover them like the dashboard. An overlay can instead draw on top where the Voice Satellite overlay does, over the screensaver and camera views, and a visual-only overlay lets every touch through to the dashboard. Plugins receive the app's colors, corner radii, spacing and Rubik typeface, with helpers that style cards, buttons and sliders like the app's own, and their overlays restyle when the theme switches between light and dark. Back closes the topmost overlay unless the plugin opts out. A plugin whose own code crashes the app is now switched off before the restart, so a broken plugin cannot crash the kiosk on every start.
